@@ -153,6 +153,16 @@ function ensureSyntheticAllowed() {
   if (process.env.NODE_ENV === "production") throw new Pr3Precondition("SYNTHETIC_RUNTIME_FORBIDDEN_IN_PRODUCTION");
 }
 
+export function probePr3RuntimeBoundary() {
+  try {
+    ensureSyntheticAllowed();
+    return { fail_closed: false, code: "UNEXPECTED_RUNTIME_AVAILABLE" };
+  } catch (error) {
+    if (!(error instanceof Pr3Precondition)) throw error;
+    return { fail_closed: runtimeAdapterMode() === "blocked" && error.code === "PROMOTED_RUNTIME_ADAPTER_NOT_DEPLOYED", code: error.code };
+  }
+}
+
 export class Pr3ExecutionService {
   constructor(private repo: Pr3Repository) {}
 

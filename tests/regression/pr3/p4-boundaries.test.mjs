@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { randomBytes } from "node:crypto";
+import { createHmac, randomBytes } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -24,6 +24,7 @@ function loadService(name, overrides = {}) {
     function localRequire(id) {
       if (id === "server-only") return {};
       if (Object.hasOwn(overrides, id)) return overrides[id];
+      if (id.startsWith("@/")) return load(path.join(root, "src", `${id.slice(2)}.ts`));
       if (id.startsWith(".")) {
         const resolved = path.resolve(path.dirname(file), id);
         return id.endsWith(".json") ? JSON.parse(fs.readFileSync(resolved, "utf8")) : load(`${resolved}.ts`);
@@ -33,7 +34,7 @@ function loadService(name, overrides = {}) {
     vm.runInThisContext(`(function(require,module,exports){${output}\n})`, { filename: file })(localRequire, loadedModule, loadedModule.exports);
     return loadedModule.exports;
   }
-  return load(path.join(serviceRoot, `${name}.ts`));
+  return load(path.isAbsolute(name) ? name : path.join(serviceRoot, `${name}.ts`));
 }
 
 function configure(t, extra = {}) {
@@ -155,4 +156,25 @@ test("A06 v1.4 contains the live 32-record 360-field successor", () => {
   const mapping = JSON.parse(fs.readFileSync(path.join(root, "pr3/authority/A06_PR3_AUTHORITATIVE_PERSISTENCE_MAPPING_v1_4.json"), "utf8"));
   assert.equal(mapping.logical_records.length, 32);
   assert.equal(mapping.logical_records.reduce((sum, record) => sum + record.fields.length, 0), 360);
+});
+
+test("health endpoint requires its own proof and cannot bypass business authentication", async t => {
+  configure(t, { NODE_ENV: "production", EVE_PR3_PERSISTENCE_MODE: "postgres", EVE_PR3_DATABASE_URL: "" });
+  const { GET } = loadService(path.join(root, "src/app/api/eve/pr3/pilot/health/route.ts"));
+  const response = await GET({ headers: new Headers() });
+  assert.equal(response.status, 401);
+});
+
+test("protected health reports missing DSN and proves guard/runtime rejection without opening Pools", async t => {
+  configure(t, { NODE_ENV: "production", EVE_PR3_PERSISTENCE_MODE: "postgres", EVE_PR3_DATABASE_URL: "" });
+  let pools = 0;
+  const { GET } = loadService(path.join(root, "src/app/api/eve/pr3/pilot/health/route.ts"), { pg: { Pool: class { constructor() { pools++; throw new Error("must not allocate"); } } } });
+  const proof = createHmac("sha256", process.env.EVE_PR3_ACTION_TOKEN_SECRET).update("EVE_PR3_P4_HEALTH_V1").digest("hex");
+  const response = await GET({ headers: new Headers({ "x-eve-pr3-health-proof": proof }) });
+  const body = await response.json();
+  assert.equal(response.status, 503);
+  assert.equal(body.database.code, "CLEAN_PR3_DATABASE_SECRET_UNAVAILABLE_TO_EXECUTION_CONTEXT");
+  assert.equal(body.wrong_target_guard, true);
+  assert.deepEqual(body.runtime, { fail_closed: true, code: "PROMOTED_RUNTIME_ADAPTER_NOT_DEPLOYED" });
+  assert.equal(pools, 0);
 });
