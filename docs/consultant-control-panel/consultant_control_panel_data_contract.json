@@ -1,0 +1,143 @@
+{
+  "contract_id": "eve_consultant_control_panel_data_contract_v1",
+  "contract_version": "1.0",
+  "surface": "consultant_internal",
+  "client_access": "blocked",
+  "mode": "read_only",
+  "capabilities": {
+    "read": true,
+    "manual_actions": {
+      "enabled": false,
+      "reason_code": "AUDITED_ENDPOINT_NOT_AVAILABLE"
+    },
+    "downloads": {
+      "enabled": false,
+      "reason_code": "AUTHORIZED_GENERATOR_NOT_AVAILABLE"
+    }
+  },
+  "envelope_fields": ["request_id", "generated_at", "contract_version", "data", "meta", "errors"],
+  "bff_base": "/api/eve/consultant/control-panel",
+  "endpoints": {
+    "state": { "method": "GET", "path": "/state" },
+    "client_company_progress": { "method": "GET", "path": "/client-company-progress" },
+    "user_functional_help": { "method": "GET", "path": "/user-functional-help" },
+    "operational_trace": { "method": "GET", "path": "/operational-trace" },
+    "downloads": { "method": "GET", "path": "/downloads" },
+    "manual_action": { "method": "POST", "path": "/manual-action", "status": "stub_disabled" },
+    "download_request": { "method": "POST", "path": "/download-request", "status": "stub_disabled" }
+  },
+  "filters": [
+    "client_company_id",
+    "case_id",
+    "user_id",
+    "role_id",
+    "role_runtime_session_id",
+    "activity_id",
+    "run_id",
+    "event_type",
+    "gate_code",
+    "status",
+    "view"
+  ],
+  "views": [
+    "cases",
+    "functional-help",
+    "monitoring",
+    "runtime",
+    "trace",
+    "gates",
+    "downloads",
+    "audit"
+  ],
+  "critical_alerts": ["ROLE_ASSIGNMENT_GAP", "B3_ROUTE_MISSING", "PST_TIMER", "SEM_UNRESOLVED", "ACA_EXPORT_BLOCKED"],
+  "download_taxonomy": [
+    "platform_manual_input",
+    "manual_downstream_template",
+    "external_manual_result",
+    "parallel_production_operational"
+  ],
+  "areas": {
+    "area_1_functional_help": {
+      "fields": [
+        "client_company_name",
+        "case_id",
+        "user_id",
+        "role_id",
+        "current_activity_id",
+        "current_question_block",
+        "block_status",
+        "pending_questions",
+        "incomplete_answers",
+        "errors_or_blocks",
+        "last_interaction_at",
+        "intervention_history",
+        "manual_controls"
+      ]
+    },
+    "area_2_client_progress": {
+      "fields": [
+        "client_company_id",
+        "case_id",
+        "overall_progress_pct",
+        "users",
+        "users.role_runtime_sessions",
+        "users.functional_separation_state",
+        "associated_roles",
+        "case_status"
+      ]
+    },
+    "area_3_operational_trace": {
+      "fields": [
+        "timeline",
+        "runtime_events_count",
+        "interactions_count",
+        "answers_processed_count",
+        "subfields_count",
+        "evidence_items_count",
+        "canonical_variables_count",
+        "readiness_gaps_count",
+        "gate_summaries",
+        "transduction_status",
+        "actor_scene_company_relation",
+        "event_to_sup_links",
+        "base_resolution_gate",
+        "causal_closure_gate",
+        "base_resolution_by_run",
+        "causal_closure_by_run",
+        "runtime_40_20_operational_rules_version"
+      ]
+    },
+    "sup_final_objects_backbone": {
+      "fields": [
+        "title",
+        "causal_purpose",
+        "causal_chain",
+        "objects",
+        "supFinalObjects",
+        "event_to_sup_links",
+        "download_to_sup_mappings",
+        "productive_export_blocked",
+        "final_diagnosis_automatic_blocked"
+      ]
+    },
+    "area_4_downloads": {
+      "fields": [
+        "downloads",
+        "downloads.taxonomy",
+        "downloads.eligibility",
+        "downloads.non_automatic_execution_flag",
+        "downloads.scope_badge",
+        "causal_purpose"
+      ]
+    }
+  },
+  "boundary": {
+    "production_touched": false,
+    "service_role_in_frontend": false,
+    "diagnosis_final_automatic": false,
+    "productive_export_executed": false,
+    "activation_reopened": false,
+    "ring_5_recreated": false,
+    "capa_2_2_5_3_automatic_execution": false
+  }
+}

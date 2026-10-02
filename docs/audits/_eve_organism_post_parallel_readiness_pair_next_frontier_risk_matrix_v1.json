@@ -1,0 +1,30 @@
+{
+  "risk_matrix_id": "POST_PARALLEL_READINESS_PAIR_NEXT_FRONTIER_RISK_MATRIX_V1",
+  "risks_total": 3,
+  "risks": [
+    {
+      "option_id": "OPTION_A",
+      "risk_level": "low",
+      "risk_description": "Observer creation plan design could be mistaken for creation authority if boundaries are not explicit.",
+      "mitigation": "Declare observer creation, runtime, source connection, table read, migration execution and SQL modification all false.",
+      "allowed_now": true,
+      "blocks_next_step": false
+    },
+    {
+      "option_id": "OPTION_B",
+      "risk_level": "medium",
+      "risk_description": "Blocking all design until physical migration validation may stall safe planning work unnecessarily.",
+      "mitigation": "Keep physical validation required before observer creation, not before observer plan design.",
+      "allowed_now": false,
+      "blocks_next_step": true
+    },
+    {
+      "option_id": "OPTION_C",
+      "risk_level": "medium",
+      "risk_description": "A static stub plan may under-specify the real observer creation boundary.",
+      "mitigation": "Prefer full observer creation plan design while preserving all runtime and real-source prohibitions.",
+      "allowed_now": false,
+      "blocks_next_step": false
+    }
+  ]
+}

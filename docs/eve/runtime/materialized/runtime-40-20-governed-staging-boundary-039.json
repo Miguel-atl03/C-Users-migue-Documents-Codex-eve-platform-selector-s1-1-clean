@@ -1,0 +1,220 @@
+{
+  "instruction": "Codex 039 - Materializar la frontera gobernada de carga draft, sin desplegarla",
+  "classification_final": "public_runtime_catalog_draft_governed_boundary_materialized_not_deployed",
+  "phase": "Fase 2 - Loader Catalogo Runtime",
+  "chip": "EVE-04 Runtime Catalog",
+  "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "source_hashes": {
+    "bundle_038B_content_integrity_json": "925a6edc28579f034ce7e68038a9c05dc6df92d88de09d9451d72eaa5000a890",
+    "canonical_configuration_031": "86b611e2b7808d4aef8ac17f6caa5275af11af3113babbf0d9014068d6718f51",
+    "identity_rule_EVE_RUNTIME_CATID_R1": "4a2a1a2367e53202094b483e707c805194699bb9fd1de38046db30f1b4200468",
+    "semantic_rule_EVE_RUNTIME_SEMPERSIST_R1": "a4c75a7f0a1784ae3c1abdd630b64032773b399eeadfefd83f074099e033255f",
+    "semantic_schema_contract_037": "09c2c171ac8543c7c07fa7d84a7ebc398bfa4fcd67b59cdb8ef393119c27706a",
+    "semantic_schema_sql_037": "769a928514d9c79982cae93c5996345357187363ea1d92833b859639dd58c4a1",
+    "catalogloader_contract_038": "5daf3a4d0bc83c57340ae8d2293d1d641104bc4e3ad17346b5aeab6d90e99413",
+    "existing_loader_materiality_033": "9150e73c13f41ad255d925b8babb336739dfbdbe66d2d77b065d92e00bf31a25"
+  },
+  "existing_pattern_reused": [
+    {
+      "capability": "server_side_service_role_boundary",
+      "file": "src/services/eve/official-control-panel/official-control-panel-service-role-client.ts",
+      "state": "implemented_and_connected_pattern"
+    },
+    {
+      "capability": "platform_global_capability",
+      "file": "src/services/eve/platform-authorization/platform-capability-catalog.ts",
+      "state": "implemented_and_connected"
+    },
+    {
+      "capability": "capability_authorization_service",
+      "file": "src/services/eve/platform-authorization/runtime-catalog-draft-load-authorization.ts",
+      "state": "implemented_and_connected"
+    },
+    {
+      "capability": "capability_supabase_adapter",
+      "file": "src/services/eve/platform-authorization/platform-capability-supabase-adapter.ts",
+      "state": "implemented_and_connected"
+    },
+    {
+      "capability": "authorization_audit",
+      "file": "supabase/migrations/20260804113000_eve_platform_runtime_catalog_global_authorization.sql",
+      "state": "implemented_and_connected"
+    },
+    {
+      "capability": "catalogloader_038B_exact_retry",
+      "file": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-canonical-catalog-draft-loader-postgres-local-adapter.ts",
+      "state": "implemented_not_connected"
+    }
+  ],
+  "staging_readonly_contract": {
+    "project_ref": "shrpiwkxcdgvbqymjecx",
+    "writes_performed": false,
+    "core_tables": "present",
+    "semantic_tables": {
+      "runtime_branching_rule": "absent",
+      "runtime_epistemic_rule": "absent",
+      "runtime_variable_map": "absent"
+    },
+    "catalog_related_load_rpc": "absent",
+    "enums": "present; values read from pg_enum by SELECT only",
+    "contract_drift": "not_detected_for_039_boundary_precondition"
+  },
+  "candidate_migration": {
+    "file": "supabase/migrations/20260805173000_eve_runtime_40_20_semantic_organs_candidate_039.sql",
+    "rollback": "docs/eve/runtime/materialized/runtime-40-20-semantic-organs-candidate-039.rollback.sql",
+    "creates": [
+      "public.runtime_branching_rule",
+      "public.runtime_epistemic_rule",
+      "public.runtime_variable_map"
+    ],
+    "modifies_core_tables": false,
+    "deployed_remote": false
+  },
+  "governed_operation": {
+    "types": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-types.ts",
+    "service": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-service.ts",
+    "server_side_adapter": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-postgres-server-adapter.ts",
+    "entry_function": "loadRuntime4020CatalogDraftThroughGovernedBoundary",
+    "authorization": "load_runtime_catalog_draft capability through authorizeRuntimeCatalogDraftLoad",
+    "allowed_status": "draft",
+    "blocked_environment": "production",
+    "tables_written_local_only": [
+      "runtime_catalog_version",
+      "runtime_catalog_artifact_section",
+      "source_node_ref",
+      "runtime_interaction_def",
+      "runtime_interaction_mapping",
+      "runtime_subfield_schema",
+      "runtime_branching_rule",
+      "runtime_epistemic_rule",
+      "runtime_variable_map"
+    ],
+    "client_free_content_accepted": false,
+    "catalog_activation_allowed": false
+  },
+  "local_validation": {
+    "test": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load.test.mjs",
+    "status": "passed",
+    "counts": {
+      "catalog_versions": 1,
+      "artifact_sections": 33,
+      "source_nodes": 164,
+      "interaction_definitions": 60,
+      "interaction_mappings": 170,
+      "subfields": 57,
+      "branching_rules": 120,
+      "epistemic_rules": 300,
+      "variable_maps": 300,
+      "semantic_total": 720
+    },
+    "migration_candidate_apply": "passed",
+    "migration_candidate_rollback": "passed",
+    "exact_retry": {
+      "status": "idempotent_replay",
+      "transaction_result": "no_write_idempotent"
+    },
+    "content_conflict": {
+      "classification": "blocked_catalog_identity_content_conflict",
+      "transaction_result": "not_started"
+    },
+    "authorization_denials": [
+      "anonymous",
+      "participant",
+      "sponsor",
+      "consultant_without_capability"
+    ],
+    "status_active_blocked": true,
+    "production_blocked": true,
+    "b0_delta": 0
+  },
+  "verification": {
+    "postgres_local_boundary_test": "passed",
+    "lint_focal": "passed",
+    "typecheck": "passed",
+    "build": "passed"
+  },
+  "files_created_or_modified": [
+    "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-types.ts",
+    "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-service.ts",
+    "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-postgres-server-adapter.ts",
+    "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load.test.mjs",
+    "supabase/migrations/20260805173000_eve_runtime_40_20_semantic_organs_candidate_039.sql",
+    "docs/eve/runtime/materialized/runtime-40-20-semantic-organs-candidate-039.rollback.sql",
+    "docs/eve/runtime/materialized/runtime-40-20-governed-staging-boundary-039.json",
+    "docs/eve/runtime/materialized/runtime-40-20-governed-staging-boundary-039.md",
+    "docs/eve/runtime/materialized/runtime-40-20-staging-deployment-plan-039.md"
+  ],
+  "security": {
+    "staging_consulted": "SELECT only",
+    "staging_writes": "none",
+    "production_consulted": "no",
+    "remote_database_writes": "none",
+    "remote_migrations": "none",
+    "catalog_activated": "no",
+    "B0_modified": "no",
+    "B1_modified": "no",
+    "Gaby_modified": "no",
+    "commit_created": "no"
+  },
+  "next_gap": "staging_schema_and_boundary_deployment_required",
+  "instruction_039A_correction": "materialized",
+  "governed_execution_targets": [
+    "local_disposable",
+    "governed_staging"
+  ],
+  "production": "blocked",
+  "rpc_candidate_039A": {
+    "function": "public.eve_runtime_40_20_load_catalog_draft(jsonb)",
+    "file": "supabase/migrations/20260805174500_eve_runtime_40_20_governed_draft_load_rpc_candidate_039A.sql",
+    "rollback": "docs/eve/runtime/materialized/runtime-40-20-governed-draft-load-rpc-candidate-039A.rollback.sql",
+    "not_deployed": true
+  },
+  "remote_persistence_adapter_039A": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-postgres-server-adapter.ts",
+  "local_rpc_validation_039A": {
+    "status": "passed",
+    "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+    "counts": {
+      "artifact_sections": 33,
+      "source_nodes": 164,
+      "interaction_definitions": 60,
+      "interaction_mappings": 170,
+      "subfields": 57,
+      "branching_rules": 120,
+      "epistemic_rules": 300,
+      "variable_maps": 300,
+      "semantic_total": 720
+    },
+    "exact_retry": "idempotent_replay",
+    "same_count_conflict": "blocked_catalog_identity_content_conflict",
+    "missing_row_conflict": "blocked_catalog_identity_content_conflict",
+    "additional_row_conflict": "blocked_catalog_identity_content_conflict",
+    "concurrency_statuses": [
+      "draft_loaded",
+      "idempotent_replay"
+    ],
+    "anon_execute": "blocked",
+    "authenticated_execute": "blocked",
+    "active_status": "blocked_non_draft_status",
+    "rollback_total": true,
+    "b0_delta": 0
+  },
+  "file_sha256_039A": {
+    "governed_types": "26a63f4cf5b6d5ecb17996e64812276bcdcc3c46e201b388985226d97abf05e7",
+    "governed_service": "6da488f9841b9b743f612ada9aaafdbab8852dba9d1bd9258f3d46638c9dda44",
+    "canonical_types": "fd1e65d833d7d486b4c95f4ca919930d5fb4183f58546082e2eacfaaf1f09141",
+    "server_adapter": "871f7e3e165499759d5cd50eac8e26432c9c652362caff833a0ade87f085954b",
+    "rpc_candidate": "33a79050484f07bc7fc6b820c8df57f25355462095fcf16f25c56403a206f9a7",
+    "rpc_rollback": "86455b24ff430cab482b979e5d3f49243052d68961a3af719c63d3b2971be56b",
+    "test": "03acc4deb7adf0f21a5d446b4b821a9e3aaf5855756936d5b8f004cae124977b"
+  },
+  "traceability_gate_039B": {
+    "matrix_sha256": "1936369a01dcf46d8453d48788685055234b3ce2daf0ffa179a204f4076950e5",
+    "traceability_file": "docs/eve/runtime/materialized/runtime-40-20-staging-boundary-traceability-039B.json",
+    "deployment_gate_file": "docs/eve/runtime/materialized/runtime-40-20-staging-deployment-gate-039B.json",
+    "traced_components": 9,
+    "unresolved_trace_ids": [],
+    "staging_deployment_authorized": true,
+    "production_authorized": false,
+    "catalog_activation_authorized": false
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "audit_id": "EVE_ORGANISM_REAL_SIGNAL_BOUNDARY_EVIDENCE_REQUEST_V1",
+  "generated_at": "2026-06-25T02:23:38.498Z",
+  "dictamen": "BOUNDARY_EVIDENCE_PARTIAL_REPLAY_ONLY_CONTINUES",
+  "matrix": [
+    {
+      "field": "provenance",
+      "file_path": "src/domain/questionnaire.ts",
+      "line_number": 204,
+      "line_excerpt": "provenanceType?: QuestionnaireAnswerNature;",
+      "context_kind": "type",
+      "real_non_fixture_evidence": "partial",
+      "can_support_real_observer": "partial",
+      "reason": "Domain field exists, but not tied to a safe read-only observer boundary."
+    },
+    {
+      "field": "provenance",
+      "file_path": "src/services/scene-repository.ts",
+      "line_number": 205,
+      "line_excerpt": "provenance_chain: provenanceChainFor(answer),",
+      "context_kind": "service",
+      "real_non_fixture_evidence": "partial",
+      "can_support_real_observer": false,
+      "reason": "Real persistence path writes answers/provenance; not observer-safe."
+    },
+    {
+      "field": "sourceTrace",
+      "file_path": "src/domain/eve-03-canonical-catalog-shadow.ts",
+      "line_number": 57,
+      "line_excerpt": "sourceTrace?: Partial<CanonicalCatalogSourceTrace>;",
+      "context_kind": "service",
+      "real_non_fixture_evidence": "unknown",
+      "can_support_real_observer": false,
+      "reason": "Found mostly in shadow/catalog/test contexts; not a proven real observed signal."
+    },
+    {
+      "field": "idempotencyKey",
+      "file_path": "src/types/eve-organism-composition-root.ts",
+      "line_number": 105,
+      "line_excerpt": "idempotencyKey: string;",
+      "context_kind": "type",
+      "real_non_fixture_evidence": false,
+      "can_support_real_observer": false,
+      "reason": "Accepted by human decision only as shadow contract field, not real evidence."
+    },
+    {
+      "field": "correlationId",
+      "file_path": "src/services/mba/adapters/capa1-observer.mjs",
+      "line_number": 100,
+      "line_excerpt": "correlation_id: caseId,",
+      "context_kind": "service",
+      "real_non_fixture_evidence": "partial",
+      "can_support_real_observer": false,
+      "reason": "Observer-like service records events through ledger; side-effect behavior of ledger not proven read-only."
+    },
+    {
+      "field": "officialFlowRef",
+      "file_path": "src/types/eve-organism-shadow-e2e.ts",
+      "line_number": 75,
+      "line_excerpt": "officialFlowRef?: EveOrganismShadowE2EOfficialFlowRef;",
+      "context_kind": "type",
+      "real_non_fixture_evidence": false,
+      "can_support_real_observer": false,
+      "reason": "Human decision classifies name as canonical future name; current real official-flow evidence remains missing."
+    },
+    {
+      "field": "auditRecord",
+      "file_path": "src/types/eve-organism-composition-root.ts",
+      "line_number": 208,
+      "line_excerpt": "auditRecord: EveOrganismAuditShadowRecord;",
+      "context_kind": "type",
+      "real_non_fixture_evidence": false,
+      "can_support_real_observer": false,
+      "reason": "Shadow audit record type, not real non-fixture signal proof."
+    },
+    {
+      "field": "comparisonId",
+      "file_path": "src/types/eve-organism-shadow-e2e.ts",
+      "line_number": 105,
+      "line_excerpt": "comparisonId: string;",
+      "context_kind": "type",
+      "real_non_fixture_evidence": false,
+      "can_support_real_observer": false,
+      "reason": "Replay comparison type only."
+    }
+  ]
+}

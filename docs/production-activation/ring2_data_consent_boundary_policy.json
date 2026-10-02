@@ -1,0 +1,98 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING2_DATA_CONSENT_BOUNDARY_POLICY",
+  "generated_at": "2026-07-09T01:09:00.000Z",
+  "authorization_ref": "ring2-authorization-authorized-pilot-client-20260709",
+  "ring": 2,
+  "ring_name": "authorized_pilot_client_scoped_supervised",
+  "production_supabase_touched": false,
+  "supabase_production_touch_allowed": false,
+  "remote_modified": false,
+  "sql_executed_against_production": false,
+  "runtime_environment": "staging_or_explicit_safe_target_only",
+  "pilot_data_consent_required": true,
+  "scoped_pilot_data_only": true,
+  "open_uncontrolled_data_prohibited": true,
+  "allowed_data_domains_after_execution": [
+    {
+      "id": "R2-DC-01",
+      "domain": "authorized_pilot_tenant_records",
+      "environment": "staging_or_explicit_safe_target",
+      "real_client_data": "only_with_documented_consent",
+      "consent_required": true
+    },
+    {
+      "id": "R2-DC-02",
+      "domain": "pilot_case_records_explicit_scope",
+      "environment": "staging_or_explicit_safe_target",
+      "real_client_data": "only_with_documented_consent",
+      "consent_required": true
+    },
+    {
+      "id": "R2-DC-03",
+      "domain": "runtime_records_pilot_scope",
+      "environment": "staging_or_explicit_safe_target",
+      "real_client_data": "only_with_documented_consent",
+      "consent_required": true
+    },
+    {
+      "id": "R2-DC-04",
+      "domain": "client_safe_result_artifacts",
+      "environment": "staging_or_explicit_safe_target",
+      "real_client_data": "only_with_documented_consent",
+      "consent_required": true
+    },
+    {
+      "id": "R2-DC-05",
+      "domain": "consultant_review_packet_supervised",
+      "environment": "staging_or_explicit_safe_target",
+      "real_client_data": "only_with_documented_consent",
+      "consent_required": true
+    },
+    {
+      "id": "R2-DC-06",
+      "domain": "parallel_payload_rehearsal_controlled",
+      "environment": "staging_or_explicit_safe_target",
+      "real_client_data": false,
+      "consent_required": false
+    }
+  ],
+  "prohibited_data_domains": [
+    "production_supabase",
+    "uncontrolled_open_client_data",
+    "data_without_documented_consent",
+    "unscoped_pilot_data",
+    "diagnosis_final_artifacts",
+    "external_export_productivo",
+    "produccion_paralela_productiva_outputs",
+    "general_production_tenant_data"
+  ],
+  "consent_requirements": {
+    "explicit_pilot_authorization_required": true,
+    "data_boundary_documented": true,
+    "scope_tenant_case_run_documented": true,
+    "consent_retention_traceable": true,
+    "consent_withdrawal_path_defined": true,
+    "no_data_use_beyond_pilot_scope": true
+  },
+  "scope_enforcement": {
+    "tenant_scope_required": true,
+    "case_scope_required": true,
+    "run_scope_required": true,
+    "pilot_marking_required": true,
+    "consent_marking_required": true
+  },
+  "provenance_requirements": {
+    "distinguish_user_captured": true,
+    "distinguish_system_inferred": true,
+    "distinguish_clarification_derived": true,
+    "distinguish_closure_metadata": true,
+    "distinguish_consent_record": true,
+    "reproducible_by_session_id": true
+  },
+  "ring1_boundary_inherited": {
+    "ring1_boundary_ledger": "docs/production-activation/ring1_boundary_ledger.json",
+    "ring1_real_external_client_data_used": false,
+    "production_untouched_at_ring1": true,
+    "activation_allowed_general_production": false
+  }
+}

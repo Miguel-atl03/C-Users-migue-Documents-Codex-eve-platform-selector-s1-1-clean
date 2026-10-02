@@ -1,0 +1,98 @@
+{
+  "auditId": "EVE-03-CANONICAL-CATALOG-RECORD-SHEET-SOURCE-QA-V1",
+  "matrixLevel": "record_count_and_field_trace_with_samples",
+  "sourceToTargetMappingCreated": true,
+  "recordsMapped": 1052,
+  "recordsPending": 33,
+  "fieldLevelProofCoverage": "high_with_named_gaps",
+  "artifacts": [
+    {
+      "artifact": "source_node_registry.json",
+      "records": 164,
+      "recordsWithSourceDocument": 164,
+      "recordsWithSourceCode": 164,
+      "primarySources": ["D8.Catalogo_Madre_Nodos", "D8.Source_Question_Registry", "D8.Runtime_Classification", "D8.UX_Copy_View", "D8.MMABP_Mapping", "D8.VSM_AHE_Prep"],
+      "sampleNodeIds": ["B0_0_0", "B0_0_1", "B0_0_1a", "B0_0_2", "B0_0_3"],
+      "mappingStatus": "structured"
+    },
+    {
+      "artifact": "source_code_registry.json",
+      "records": 164,
+      "recordsWithSourceDocument": 164,
+      "recordsWithNodeRef": 164,
+      "primarySources": ["D8.Source_Question_Registry", "D8.Catalogo_Madre_Nodos"],
+      "sampleCodes": ["SRC-CODE::0::0.0", "SRC-CODE::0::0.1", "SRC-CODE::0::0.1a", "SRC-CODE::0::0.2", "SRC-CODE::0::0.3"],
+      "mappingStatus": "structured"
+    },
+    {
+      "artifact": "canonical_variables.json",
+      "records": 257,
+      "recordsWithSourceDocuments": 257,
+      "recordsWithSourceNodeIds": 199,
+      "recordsWithSourceCodes": 199,
+      "referencedNotDefinedInVariablesSource": 33,
+      "primarySources": ["D8.Canonical_Variables", "D8.Variables_Canonicas_Source", "D6.Canonical_Variables"],
+      "mappingStatus": "structured_with_pending_definitions"
+    },
+    {
+      "artifact": "node_variable_map.json",
+      "records": 213,
+      "nodeRefsFoundInSourceNodeRegistry": 213,
+      "variableRefsFoundInCanonicalVariables": 213,
+      "recordsWithSourceAuthority": 213,
+      "primarySources": ["D8.Canonical_Variables", "D8.Catalogo_Madre_Nodos"],
+      "mappingStatus": "exact_structural"
+    },
+    {
+      "artifact": "critical_routes.json",
+      "records": 4,
+      "recordsWithSourceCodes": 4,
+      "recordsWithSourceNodeIds": 4,
+      "blockIfFailed": 4,
+      "primarySources": ["D8.Critical_Routes", "D6.Critical_Routes", "D5 gates/boundary", "D7 runtime architecture"],
+      "mappingStatus": "structured_boundary_validated"
+    },
+    {
+      "artifact": "epistemic_policy.json",
+      "records": 174,
+      "primarySources": ["D8.Epistemic_Governance", "D8.Trigger_Branching_Rules", "D6.Epistemic_Policy", "D5 gates", "D7 runtime architecture"],
+      "mappingStatus": "structured"
+    },
+    {
+      "artifact": "source_documents.json",
+      "records": 5,
+      "sourceIds": ["D8", "D7", "D5", "D6", "VSM1"],
+      "primarySources": ["D8.Corpus_Documental", "manifest", "preflight"],
+      "mappingStatus": "exact"
+    },
+    {
+      "artifact": "source_target_map.json",
+      "records": 16,
+      "sourceIds": ["D8", "D7", "D5", "D6", "VSM1"],
+      "primarySources": ["D8 sheet inventory", "D6 sheet inventory", "D5/D7 sections", "VSM1 methodological guard"],
+      "mappingStatus": "structured"
+    },
+    {
+      "artifact": "qa_audit.json",
+      "records": 18,
+      "statuses": ["FLAG", "INFO", "PASS", "PASS_WITH_FLAGS", "SOURCE_ISSUE"],
+      "primarySources": ["D8.Audit_Issues", "D6.QA_Checklist", "package derived checks"],
+      "mappingStatus": "structured_with_derived_qa_flags"
+    },
+    {
+      "artifact": "vsm_prep_guard.json",
+      "records": 15,
+      "rules": 8,
+      "hasDictionary": true,
+      "primarySources": ["D8.VSM_AHE_Prep", "VSM1 methodological concepts", "D7 boundary"],
+      "mappingStatus": "structured_guard_only"
+    }
+  ],
+  "unmappedOrPending": [
+    {
+      "gap": "canonical_variables_referenced_not_defined_in_variables_source",
+      "count": 33,
+      "impact": "non-runtime blocking for source trace, but requires package correction or explicit acceptance before certification"
+    }
+  ]
+}

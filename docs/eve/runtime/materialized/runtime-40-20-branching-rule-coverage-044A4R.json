@@ -1,0 +1,1764 @@
+{
+  "instruction": "044-A.4R",
+  "supersedes_partial_label": "blocked_branching_authority_partial",
+  "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "runtime_xlsx_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+  "source_capture_crosswalk_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa",
+  "classification": "branching_predicates_rector_complete_local_only",
+  "counts": {
+    "causals": 20,
+    "exact_executable_now": 20,
+    "exact_predicate_signal_pending_A5": 0,
+    "rector_semantics_truly_unresolved": 0,
+    "rules": 34,
+    "authority_conflict": 0
+  },
+  "operator_policy": {
+    "allowed": [
+      "equals",
+      "not_equals",
+      "in_set",
+      "not_in_set",
+      "contains_exact_option",
+      "does_not_contain_exclusive_option",
+      "multi_select_count_gte",
+      "greater_than_or_equal",
+      "less_than_or_equal",
+      "all_of",
+      "any_of"
+    ],
+    "forbidden": [
+      "semantic_contains",
+      "fuzzy_contains",
+      "keyword_match",
+      "regex_answer",
+      "NLP_classify",
+      "truthy",
+      "is_present_generic",
+      "generic_si_true_set"
+    ]
+  },
+  "gate1_legacy_paths_preserved": {
+    "evaluateCatalogOpenNodesBranching": "non_executed_dead_code_removed",
+    "answerBlob_regex": "non_executed_dead_code_removed",
+    "default_is_present": "non_executed_dead_code_removed",
+    "br_index": "non_executed_dead_code_removed"
+  },
+  "causals": [
+    {
+      "causal_id": "C01",
+      "source_runtime_interactions": [
+        "B0-Q03"
+      ],
+      "source_question_codes": [
+        "0.3"
+      ],
+      "source_node_ids": [
+        "B0_0_3"
+      ],
+      "branching_condition_literal": "Abrir si B0-Q03 muestra frecuencia variable o B0-Q02/B0-Q04 muestra actividad no estable.",
+      "classification": "exact_executable_now",
+      "reason": "B0-Q03/0.3 activity_frequency_base has explicit Irregular/Estacional options; Runtime branching activates densification on variable frequency.",
+      "critical_route": "CR-B0",
+      "predicates": [
+        {
+          "source_interaction": "B0-Q03",
+          "source_code": "0.3",
+          "canonical_variable": "activity_frequency_base",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Varias veces al día",
+            "Diaria",
+            "Varias veces por semana",
+            "Semanal",
+            "Varias veces al mes",
+            "Mensual",
+            "Solo en cierre",
+            "Solo ante contingencias",
+            "Irregular",
+            "Estacional"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Irregular",
+            "Estacional"
+          ],
+          "exclusive_negative": null,
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B0_0_3",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [
+        {
+          "signal": "activity_variation_mode_post_open",
+          "score_signal_status": "score_signal_exact_but_pending_A5",
+          "note": "0.8 densification lives on C01 after open"
+        }
+      ],
+      "runtime_source_row": 2
+    },
+    {
+      "causal_id": "C02",
+      "source_runtime_interactions": [
+        "B05-Q05"
+      ],
+      "source_question_codes": [
+        "0.5.1_rel",
+        "0.5.1c",
+        "0.5.1d"
+      ],
+      "source_node_ids": [
+        "B0_5_0_5_1_rel",
+        "B0_5_0_5_1c",
+        "B0_5_0_5_1d"
+      ],
+      "branching_condition_literal": "Abrir si beneficiario/afectado no coinciden, hay baja claridad o el hito parece describir solo la tarea.",
+      "classification": "exact_executable_now",
+      "reason": "B05-Q05 enums close beneficiario≠afectado and low clarity without free-text inference of 'solo la tarea'.",
+      "critical_route": "CR-B0",
+      "predicates": [
+        {
+          "source_interaction": "B05-Q05",
+          "source_code": "0.5.1_rel",
+          "canonical_variable": "relacion_beneficiario_afectado_0_5_1_rel",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Es el mismo actor",
+            "Son actores distintos",
+            "No estoy seguro"
+          ],
+          "operator": "equals",
+          "expected_value": "Son actores distintos",
+          "exclusive_negative": "Es el mismo actor",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B0_5_0_5_1_rel",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B05-Q05",
+          "source_code": "0.5.1c",
+          "canonical_variable": "claridad_beneficiario_0_5_1c",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Muy claro",
+            "Más o menos claro",
+            "Poco claro",
+            "No lo tengo claro"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Poco claro",
+            "No lo tengo claro"
+          ],
+          "exclusive_negative": null,
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B0_5_0_5_1c",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B05-Q05",
+          "source_code": "0.5.1d",
+          "canonical_variable": "claridad_afectado_0_5_1d",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Muy claro",
+            "Más o menos claro",
+            "Poco claro",
+            "No lo tengo claro"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Poco claro",
+            "No lo tengo claro"
+          ],
+          "exclusive_negative": null,
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B0_5_0_5_1d",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 3
+    },
+    {
+      "causal_id": "C03",
+      "source_runtime_interactions": [
+        "B1-Q09",
+        "B1-Q11"
+      ],
+      "source_question_codes": [
+        "1.3",
+        "1.7"
+      ],
+      "source_node_ids": [
+        "B1_1_3",
+        "B1_1_7"
+      ],
+      "branching_condition_literal": "Abrir si B1-Q09 muestra ambigüedad o B1-Q11 marca excepción de inicio.",
+      "classification": "exact_executable_now",
+      "reason": "trigger_clarity Ambiguo/Muy ambiguo and trigger_exception_exists affirmative options are rector enums.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B1-Q09",
+          "source_code": "1.3",
+          "canonical_variable": "trigger_clarity",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Muy claro",
+            "Claro",
+            "Ambiguo",
+            "Muy ambiguo"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Ambiguo",
+            "Muy ambiguo"
+          ],
+          "exclusive_negative": null,
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B1_1_3",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B1-Q11",
+          "source_code": "1.7",
+          "canonical_variable": "trigger_exception_exists",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No, siempre funciona como debería",
+            "Sí, a veces ocurre pero es raro",
+            "Sí, ocurre regularmente",
+            "Sí, ocurre frecuentemente"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Sí, a veces ocurre pero es raro",
+            "Sí, ocurre regularmente",
+            "Sí, ocurre frecuentemente"
+          ],
+          "exclusive_negative": "No, siempre funciona como debería",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B1_1_7",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 4
+    },
+    {
+      "causal_id": "C04",
+      "source_runtime_interactions": [
+        "B2-Q12"
+      ],
+      "source_question_codes": [
+        "2.1"
+      ],
+      "source_node_ids": [
+        "B2_2_1"
+      ],
+      "branching_condition_literal": "Abrir si B2-Q12 selecciona más de una dimensión o B5 no puede medir capacidad comparable.",
+      "classification": "exact_executable_now",
+      "reason": "B2-Q12/2.1 multi_choice: open when more than one dimension selected (Runtime branching).",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B2-Q12",
+          "source_code": "2.1",
+          "canonical_variable": "transformation_primary_dimensions",
+          "field_type": "multi_choice",
+          "variable_shape": "enum_string_array",
+          "exact_allowed_values": [
+            "Un OBJETO (cosa)",
+            "Un SUJETO (persona/entidad)",
+            "Una ACCIÓN/PROCESO"
+          ],
+          "operator": "multi_select_count_gte",
+          "expected_value": 2,
+          "exclusive_negative": null,
+          "logical_group": "all_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B2_2_1",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 5
+    },
+    {
+      "causal_id": "C05",
+      "source_runtime_interactions": [
+        "B2-Q17"
+      ],
+      "source_question_codes": [
+        "2.9"
+      ],
+      "source_node_ids": [
+        "B2_2_9"
+      ],
+      "branching_condition_literal": "Abrir si B2-Q17 activa transformation_exception_exists.",
+      "classification": "exact_executable_now",
+      "reason": "Uses transformation_exception_type affirmative option literals from 2.9 — not generic truthiness.",
+      "critical_route": "CR-B2",
+      "predicates": [
+        {
+          "source_interaction": "B2-Q17",
+          "source_code": "2.9",
+          "canonical_variable": "transformation_exception_type",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No, siempre se transforma correctamente",
+            "Sí, a veces falla pero es raro",
+            "Sí, falla regularmente",
+            "Sí, falla frecuentemente"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Sí, a veces falla pero es raro",
+            "Sí, falla regularmente",
+            "Sí, falla frecuentemente"
+          ],
+          "exclusive_negative": "No, siempre se transforma correctamente",
+          "logical_group": "all_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B2_2_9",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 6
+    },
+    {
+      "causal_id": "C06",
+      "source_runtime_interactions": [
+        "B2-Q17"
+      ],
+      "source_question_codes": [
+        "2.11"
+      ],
+      "source_node_ids": [
+        "B2_2_11"
+      ],
+      "branching_condition_literal": "Abrir si B2-Q17 detecta transformation_hidden_changes.",
+      "classification": "exact_executable_now",
+      "reason": "transformation_hidden_changes affirmative options from 2.11.",
+      "critical_route": "CR-B2",
+      "predicates": [
+        {
+          "source_interaction": "B2-Q17",
+          "source_code": "2.11",
+          "canonical_variable": "transformation_hidden_changes",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No, todo lo que ocurre es oficial",
+            "Sí, a veces ocurren cambios no autorizados",
+            "Sí, ocurren frecuentemente"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Sí, a veces ocurren cambios no autorizados",
+            "Sí, ocurren frecuentemente"
+          ],
+          "exclusive_negative": "No, todo lo que ocurre es oficial",
+          "logical_group": "all_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B2_2_11",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 7
+    },
+    {
+      "causal_id": "C07",
+      "source_runtime_interactions": [
+        "B2-Q16"
+      ],
+      "source_question_codes": [
+        "2.7"
+      ],
+      "source_node_ids": [
+        "B2_2_7"
+      ],
+      "branching_condition_literal": "Abrir si B2-Q16 marca múltiples ciclos.",
+      "classification": "exact_executable_now",
+      "reason": "transformation_iterations enum closes multiple cycles: Pocas veces / Muchas veces / Continuo.",
+      "critical_route": "CR-B2",
+      "predicates": [
+        {
+          "source_interaction": "B2-Q16",
+          "source_code": "2.7",
+          "canonical_variable": "transformation_iterations",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Una sola vez",
+            "Pocas veces",
+            "Muchas veces",
+            "Continuo"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Pocas veces",
+            "Muchas veces",
+            "Continuo"
+          ],
+          "exclusive_negative": "Una sola vez",
+          "logical_group": "all_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B2_2_7",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 8
+    },
+    {
+      "causal_id": "C08",
+      "source_runtime_interactions": [
+        "B3-Q21",
+        "B3-Q22"
+      ],
+      "source_question_codes": [
+        "3.10",
+        "3.13"
+      ],
+      "source_node_ids": [
+        "B3_3_10",
+        "B3_3_13"
+      ],
+      "branching_condition_literal": "Abrir si B3-Q21 = sí o B3-Q22 muestra correcciones/rechazos recurrentes.",
+      "classification": "exact_executable_now",
+      "reason": "delivery_exception_exists uses 3.10 affirmative option literals.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B3-Q21",
+          "source_code": "3.10",
+          "canonical_variable": "delivery_exception_exists",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No, siempre llega como se espera",
+            "Sí, a veces hay problemas pero es raro",
+            "Sí, hay problemas regularmente",
+            "Sí, hay problemas frecuentemente"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Sí, a veces hay problemas pero es raro",
+            "Sí, hay problemas regularmente",
+            "Sí, hay problemas frecuentemente"
+          ],
+          "exclusive_negative": "No, siempre llega como se espera",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B3_3_10",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B3-Q22",
+          "source_code": "3.13",
+          "canonical_variable": "receiver_satisfaction",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Lo acepta sin cambios",
+            "A veces pide aclaraciones menores",
+            "Pide correcciones con cierta frecuencia",
+            "Frecuentemente lo rechaza o lo devuelve"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Pide correcciones con cierta frecuencia",
+            "Frecuentemente lo rechaza o lo devuelve"
+          ],
+          "exclusive_negative": "Lo acepta sin cambios",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B3_3_13",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 9
+    },
+    {
+      "causal_id": "C09",
+      "source_runtime_interactions": [
+        "B3-Q21",
+        "B3-Q22"
+      ],
+      "source_question_codes": [
+        "3.10",
+        "3.13"
+      ],
+      "source_node_ids": [
+        "B3_3_10",
+        "B3_3_13"
+      ],
+      "branching_condition_literal": "Abrir si B3-Q21 o B3-Q22 muestran falla/ajuste. Ruta crítica: receiver_satisfaction ≠ receiver_feedback.",
+      "classification": "exact_executable_now",
+      "reason": "Open on delivery failure / satisfaction adjustment enums. receiver_feedback_exists NLP derivation remains score/route pending_A5 — satisfaction ≠ feedback not inferred from free text.",
+      "critical_route": "CR-B3/C09",
+      "predicates": [
+        {
+          "source_interaction": "B3-Q21",
+          "source_code": "3.10",
+          "canonical_variable": "delivery_exception_exists",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No, siempre llega como se espera",
+            "Sí, a veces hay problemas pero es raro",
+            "Sí, hay problemas regularmente",
+            "Sí, hay problemas frecuentemente"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Sí, a veces hay problemas pero es raro",
+            "Sí, hay problemas regularmente",
+            "Sí, hay problemas frecuentemente"
+          ],
+          "exclusive_negative": "No, siempre llega como se espera",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B3_3_10",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B3-Q22",
+          "source_code": "3.13",
+          "canonical_variable": "receiver_satisfaction",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Lo acepta sin cambios",
+            "A veces pide aclaraciones menores",
+            "Pide correcciones con cierta frecuencia",
+            "Frecuentemente lo rechaza o lo devuelve"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Pide correcciones con cierta frecuencia",
+            "Frecuentemente lo rechaza o lo devuelve"
+          ],
+          "exclusive_negative": "Lo acepta sin cambios",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B3_3_13",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [
+        {
+          "signal": "receiver_feedback_exists_derivation",
+          "score_signal_status": "score_signal_exact_but_pending_A5",
+          "note": "Free-text → receiver_feedback_exists derivation is gated for A5; not used as open predicate."
+        }
+      ],
+      "runtime_source_row": 10
+    },
+    {
+      "causal_id": "C10",
+      "source_runtime_interactions": [
+        "B3-Q18",
+        "B3-Q19"
+      ],
+      "source_question_codes": [
+        "3.2",
+        "3.3"
+      ],
+      "source_node_ids": [
+        "B3_3_2",
+        "B3_3_3"
+      ],
+      "branching_condition_literal": "Abrir si B3-Q18/B3-Q19 menciona varios usuarios, acceso compartido o impactos laterales.",
+      "classification": "exact_executable_now",
+      "reason": "primary_receiver / receiver_type enums for multiple/lateral impact — not string non-empty.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B3-Q18",
+          "source_code": "3.2",
+          "canonical_variable": "primary_receiver",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Un compañero de mi equipo",
+            "Mi jefe o superior",
+            "Otro equipo o departamento",
+            "Un cliente externo",
+            "Un sistema o aplicación",
+            "Múltiples receptores",
+            "Otro"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Múltiples receptores",
+            "Otro equipo o departamento"
+          ],
+          "exclusive_negative": null,
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B3_3_2",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B3-Q19",
+          "source_code": "3.3",
+          "canonical_variable": "receiver_type",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Una persona específica",
+            "Un equipo o grupo",
+            "Un departamento o área",
+            "Un sistema o aplicación",
+            "Un cliente o proveedor externo",
+            "Múltiples tipos"
+          ],
+          "operator": "equals",
+          "expected_value": "Múltiples tipos",
+          "exclusive_negative": null,
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B3_3_3",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [
+        {
+          "signal": "secondary_receivers_on_C10",
+          "score_signal_status": "score_signal_exact_and_available",
+          "note": "3.6 densifies after open with exclusive negative option"
+        }
+      ],
+      "runtime_source_row": 11
+    },
+    {
+      "causal_id": "C11",
+      "source_runtime_interactions": [
+        "B4-Q24"
+      ],
+      "source_question_codes": [
+        "4.5"
+      ],
+      "source_node_ids": [
+        "B4_4_5"
+      ],
+      "branching_condition_literal": "Abrir si B4-Q24 marca bloqueo, espera sin evento o riesgo de deadlock.",
+      "classification": "exact_executable_now",
+      "reason": "deadlock_risk affirmative options exclude explicit negative timeout option.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B4-Q24",
+          "source_code": "4.5",
+          "canonical_variable": "deadlock_risk",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No, hay un timeout o alguien se da cuenta si se retrasa",
+            "Sí, a veces queda bloqueada y tengo que ir a preguntar",
+            "Sí, frecuentemente queda bloqueada y nadie se da cuenta",
+            "Sí, hay momentos donde el sistema se queda en un ciclo infinito"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Sí, a veces queda bloqueada y tengo que ir a preguntar",
+            "Sí, frecuentemente queda bloqueada y nadie se da cuenta",
+            "Sí, hay momentos donde el sistema se queda en un ciclo infinito"
+          ],
+          "exclusive_negative": "No, hay un timeout o alguien se da cuenta si se retrasa",
+          "logical_group": "all_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B4_4_5",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [
+        {
+          "signal": "process_state_timer_gate",
+          "score_signal_status": "score_signal_exact_but_pending_A5"
+        }
+      ],
+      "runtime_source_row": 12
+    },
+    {
+      "causal_id": "C12",
+      "source_runtime_interactions": [
+        "B4-Q25"
+      ],
+      "source_question_codes": [
+        "4.6"
+      ],
+      "source_node_ids": [
+        "B4_4_6"
+      ],
+      "branching_condition_literal": "Abrir si B4-Q25 = sí.",
+      "classification": "exact_executable_now",
+      "reason": "iteration_pattern repetition options; excludes 'No, se hace una sola vez'.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B4-Q25",
+          "source_code": "4.6",
+          "canonical_variable": "iteration_pattern",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No, se hace una sola vez",
+            "Sí, pero el número de repeticiones varía mucho",
+            "Sí, típicamente se repite 2-5 veces",
+            "Sí, típicamente se repite 6-20 veces",
+            "Sí, típicamente se repite más de 20 veces"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Sí, pero el número de repeticiones varía mucho",
+            "Sí, típicamente se repite 2-5 veces",
+            "Sí, típicamente se repite 6-20 veces",
+            "Sí, típicamente se repite más de 20 veces"
+          ],
+          "exclusive_negative": "No, se hace una sola vez",
+          "logical_group": "all_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B4_4_6",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 13
+    },
+    {
+      "causal_id": "C13",
+      "source_runtime_interactions": [
+        "B4-Q26"
+      ],
+      "source_question_codes": [
+        "4.7"
+      ],
+      "source_node_ids": [
+        "B4_4_7"
+      ],
+      "branching_condition_literal": "Abrir si B4-Q26 = sí.",
+      "classification": "exact_executable_now",
+      "reason": "route_alternatives multi_choice: any affirmative option; exclusive negative 'No, siempre es el mismo camino'.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B4-Q26",
+          "source_code": "4.7",
+          "canonical_variable": "route_alternatives",
+          "field_type": "multi_choice",
+          "variable_shape": "enum_string_array",
+          "exact_allowed_values": [
+            "Sí, según el tipo de cliente o proyecto",
+            "Sí, según el monto o importancia",
+            "Sí, según si hay errores o excepciones",
+            "Sí, según una decisión de mi jefe",
+            "Sí, según una regla o política",
+            "No, siempre es el mismo camino"
+          ],
+          "operator": "contains_exact_option",
+          "expected_value": [
+            "Sí, según el tipo de cliente o proyecto",
+            "Sí, según el monto o importancia",
+            "Sí, según si hay errores o excepciones",
+            "Sí, según una decisión de mi jefe",
+            "Sí, según una regla o política"
+          ],
+          "exclusive_negative": "No, siempre es el mismo camino",
+          "logical_group": "all_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B4_4_7",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 14
+    },
+    {
+      "causal_id": "C14",
+      "source_runtime_interactions": [
+        "B4-Q27",
+        "B4-Q28"
+      ],
+      "source_question_codes": [
+        "4.9",
+        "4.10",
+        "4.8"
+      ],
+      "source_node_ids": [
+        "B4_4_9",
+        "B4_4_10",
+        "B4_4_8"
+      ],
+      "branching_condition_literal": "Abrir si B4-Q27 o B4-Q28 detectan hidden_subprocess, sequence change, paralelismo confuso o no-linealidad.",
+      "classification": "exact_executable_now",
+      "reason": "hidden_subprocess / real_vs_official_sequence / parallelism_type use rector enums — no free-text 'paralelismo confuso'.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B4-Q27",
+          "source_code": "4.9",
+          "canonical_variable": "hidden_subprocess",
+          "field_type": "single_choice_boolean_text",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No, sigo exactamente lo que dice el proceso",
+            "Sí, hay pasos que hago para que funcione"
+          ],
+          "operator": "equals",
+          "expected_value": "Sí, hay pasos que hago para que funcione",
+          "exclusive_negative": "No, sigo exactamente lo que dice el proceso",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B4_4_9",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B4-Q28",
+          "source_code": "4.10",
+          "canonical_variable": "real_vs_official_sequence",
+          "field_type": "single_choice_boolean_text",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No, hago todo en el orden que dice el proceso",
+            "Sí, hay pasos que hago en diferente orden"
+          ],
+          "operator": "equals",
+          "expected_value": "Sí, hay pasos que hago en diferente orden",
+          "exclusive_negative": "No, hago todo en el orden que dice el proceso",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B4_4_10",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B4-Q27",
+          "source_code": "4.8",
+          "canonical_variable": "parallelism_type",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Nada corre en paralelo; todo espera este paso",
+            "Otras actividades avanzan, pero independientes de esta",
+            "Otras actividades avanzan en paralelo y luego se integran con esta",
+            "Yo sigo con otros temas mientras esta queda en espera",
+            "Hay dependencias cruzadas entre equipos y a veces terminamos esperándonos mutuamente"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Otras actividades avanzan en paralelo y luego se integran con esta",
+            "Hay dependencias cruzadas entre equipos y a veces terminamos esperándonos mutuamente"
+          ],
+          "exclusive_negative": "Nada corre en paralelo; todo espera este paso",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B4_4_8",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 15
+    },
+    {
+      "causal_id": "C15",
+      "source_runtime_interactions": [
+        "B5-Q33"
+      ],
+      "source_question_codes": [
+        "5.12",
+        "5.14"
+      ],
+      "source_node_ids": [
+        "B5_5_12",
+        "B5_5_14"
+      ],
+      "branching_condition_literal": "Abrir si B5-Q29 muestra brecha, B5-Q33 muestra no absorción o resource_bargain bajo.",
+      "classification": "exact_executable_now",
+      "reason": "variedad_residual_5_12 and resource_bargain_5_14 enums close residual/bargain. brecha_capacidad_5_3 calculation is pending_A5 signal (not required to open).",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B5-Q33",
+          "source_code": "5.12",
+          "canonical_variable": "variedad_residual_5_12",
+          "field_type": "multi_choice",
+          "variable_shape": "enum_string_array",
+          "exact_allowed_values": [
+            "Casos excepcionales",
+            "Urgencias sin aviso",
+            "Cambios de requisitos",
+            "Volumen inesperado",
+            "Problemas de calidad",
+            "Nada se escapa",
+            "Otro"
+          ],
+          "operator": "contains_exact_option",
+          "expected_value": [
+            "Casos excepcionales",
+            "Urgencias sin aviso",
+            "Cambios de requisitos",
+            "Volumen inesperado",
+            "Problemas de calidad",
+            "Otro"
+          ],
+          "exclusive_negative": "Nada se escapa",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B5_5_12",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B5-Q33",
+          "source_code": "5.14",
+          "canonical_variable": "resource_bargain_5_14",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Sostenible",
+            "Tenso pero manejable",
+            "Se cumple, pero a costa de sacrificios frecuentes",
+            "Es insostenible en el tiempo",
+            "No está claro porque cambia demasiado"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Se cumple, pero a costa de sacrificios frecuentes",
+            "Es insostenible en el tiempo"
+          ],
+          "exclusive_negative": "Sostenible",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B5_5_14",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [
+        {
+          "signal": "brecha_capacidad_5_3",
+          "score_signal_status": "score_signal_exact_but_pending_A5",
+          "note": "internal_calculated gap — A5 must materialize comparable capacity delta"
+        }
+      ],
+      "runtime_source_row": 16
+    },
+    {
+      "causal_id": "C16",
+      "source_runtime_interactions": [
+        "B6-Q35"
+      ],
+      "source_question_codes": [
+        "6.2"
+      ],
+      "source_node_ids": [
+        "B6_6_2"
+      ],
+      "branching_condition_literal": "Abrir si B6-Q35 = sí.",
+      "classification": "exact_executable_now",
+      "reason": "rework_present exact option 'Sí' — not boolean truthiness.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B6-Q35",
+          "source_code": "6.2",
+          "canonical_variable": "rework_present",
+          "field_type": "single_choice",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No",
+            "Sí"
+          ],
+          "operator": "equals",
+          "expected_value": "Sí",
+          "exclusive_negative": "No",
+          "logical_group": "all_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B6_6_2",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 17
+    },
+    {
+      "causal_id": "C17",
+      "source_runtime_interactions": [
+        "B6-Q36"
+      ],
+      "source_question_codes": [
+        "6.3",
+        "6.4"
+      ],
+      "source_node_ids": [
+        "B6_6_3",
+        "B6_6_4"
+      ],
+      "branching_condition_literal": "Abrir si B6-Q36 marca missing_information o informal_rule_present.",
+      "classification": "exact_executable_now",
+      "reason": "missing_information excludes 'No me falta información'; informal_rule excludes manual-only option.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B6-Q36",
+          "source_code": "6.3",
+          "canonical_variable": "missing_information",
+          "field_type": "hybrid_choice_text",
+          "variable_shape": "enum_string_or_array",
+          "exact_allowed_values": [
+            "No me llega aprobación",
+            "No me llega info del cliente",
+            "No me llega info de otro equipo",
+            "No me llega claridad",
+            "No me llega feedback",
+            "No me llega actualización",
+            "No me falta información",
+            "Otro"
+          ],
+          "operator": "contains_exact_option",
+          "expected_value": [
+            "No me llega aprobación",
+            "No me llega info del cliente",
+            "No me llega info de otro equipo",
+            "No me llega claridad",
+            "No me llega feedback",
+            "No me llega actualización",
+            "Otro"
+          ],
+          "exclusive_negative": "No me falta información",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B6_6_3",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B6-Q36",
+          "source_code": "6.4",
+          "canonical_variable": "informal_rule_present",
+          "field_type": "hybrid_choice_text",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "Sí, lo hago y mi jefe lo sabe y está de acuerdo",
+            "Sí, lo hago pero mi jefe no lo sabe o no está de acuerdo",
+            "No, todo lo que hago está en el manual"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "Sí, lo hago y mi jefe lo sabe y está de acuerdo",
+            "Sí, lo hago pero mi jefe no lo sabe o no está de acuerdo"
+          ],
+          "exclusive_negative": "No, todo lo que hago está en el manual",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B6_6_4",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 18
+    },
+    {
+      "causal_id": "C18",
+      "source_runtime_interactions": [
+        "B6-Q37"
+      ],
+      "source_question_codes": [
+        "6.5",
+        "6.6",
+        "6.7"
+      ],
+      "source_node_ids": [
+        "B6_6_5",
+        "B6_6_6",
+        "B6_6_7"
+      ],
+      "branching_condition_literal": "Abrir si B6-Q37 muestra sacrificio, desgaste o costo alto.",
+      "classification": "exact_executable_now",
+      "reason": "human_sacrifice / wear_accumulated exclusive negatives; effort_cost scale >= 7 rector threshold.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B6-Q37",
+          "source_code": "6.5",
+          "canonical_variable": "human_sacrifice",
+          "field_type": "multi_choice",
+          "variable_shape": "enum_string_array",
+          "exact_allowed_values": [
+            "Tiempo personal",
+            "Calidad del sueño o descanso",
+            "Salud mental o estrés",
+            "Relaciones personales",
+            "Calidad en otras responsabilidades",
+            "Desarrollo profesional",
+            "Autonomía o libertad",
+            "No sacrifico nada",
+            "Otro"
+          ],
+          "operator": "contains_exact_option",
+          "expected_value": [
+            "Tiempo personal",
+            "Calidad del sueño o descanso",
+            "Salud mental o estrés",
+            "Relaciones personales",
+            "Calidad en otras responsabilidades",
+            "Desarrollo profesional",
+            "Autonomía o libertad",
+            "Otro"
+          ],
+          "exclusive_negative": "No sacrifico nada",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B6_6_5",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B6-Q37",
+          "source_code": "6.6",
+          "canonical_variable": "wear_accumulated",
+          "field_type": "hybrid_choice_text",
+          "variable_shape": "enum_string_or_array",
+          "exact_allowed_values": [
+            "Agotamiento",
+            "Pérdida de motivación",
+            "Sensación de insuficiencia",
+            "Deterioro de calidad",
+            "Ganas de irme",
+            "Cinismo o desconexión",
+            "Estoy bien",
+            "Otro"
+          ],
+          "operator": "contains_exact_option",
+          "expected_value": [
+            "Agotamiento",
+            "Pérdida de motivación",
+            "Sensación de insuficiencia",
+            "Deterioro de calidad",
+            "Ganas de irme",
+            "Cinismo o desconexión",
+            "Otro"
+          ],
+          "exclusive_negative": "Estoy bien",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B6_6_6",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B6-Q37",
+          "source_code": "6.7",
+          "canonical_variable": "effort_cost",
+          "field_type": "scale",
+          "variable_shape": "number_1_to_10",
+          "exact_allowed_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "operator": "greater_than_or_equal",
+          "expected_value": 7,
+          "exclusive_negative": null,
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B6_6_7",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 19
+    },
+    {
+      "causal_id": "C19",
+      "source_runtime_interactions": [
+        "B6-Q38"
+      ],
+      "source_question_codes": [
+        "6.9",
+        "6.10",
+        "6.11"
+      ],
+      "source_node_ids": [
+        "B6_6_9",
+        "B6_6_10",
+        "B6_6_11"
+      ],
+      "branching_condition_literal": "Abrir si B6-Q38 detecta patrón repetitivo, variedad residual o compensación interpersonal.",
+      "classification": "exact_executable_now",
+      "reason": "repetitive_failure_pattern equals 'Sí'; residual_variety_absorption / compensation_primary_mechanism option membership.",
+      "critical_route": null,
+      "predicates": [
+        {
+          "source_interaction": "B6-Q38",
+          "source_code": "6.9",
+          "canonical_variable": "repetitive_failure_pattern",
+          "field_type": "hybrid_choice_text",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "No",
+            "Sí"
+          ],
+          "operator": "equals",
+          "expected_value": "Sí",
+          "exclusive_negative": "No",
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B6_6_9",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B6-Q38",
+          "source_code": "6.10",
+          "canonical_variable": "residual_variety_absorption",
+          "field_type": "hybrid_choice_text",
+          "variable_shape": "enum_string_or_array",
+          "exact_allowed_values": [
+            "Me quedo después de horario",
+            "Las hago en paralelo",
+            "Las improviso",
+            "Las dejo para después",
+            "Las delego informalmente",
+            "Las ignoro",
+            "Otro"
+          ],
+          "operator": "contains_exact_option",
+          "expected_value": [
+            "Me quedo después de horario",
+            "Las hago en paralelo",
+            "Las improviso",
+            "Las dejo para después",
+            "Las delego informalmente",
+            "Las ignoro",
+            "Otro"
+          ],
+          "exclusive_negative": null,
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B6_6_10",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        },
+        {
+          "source_interaction": "B6-Q38",
+          "source_code": "6.11",
+          "canonical_variable": "compensation_primary_mechanism",
+          "field_type": "hybrid_choice_text",
+          "variable_shape": "enum_string_or_array",
+          "exact_allowed_values": [
+            "Trabajo extra",
+            "Improvisación y creatividad",
+            "Sacrificio de calidad",
+            "Apoyo informal de colegas",
+            "Automatización personal",
+            "Aceptación silenciosa",
+            "Otro"
+          ],
+          "operator": "contains_exact_option",
+          "expected_value": [
+            "Trabajo extra",
+            "Improvisación y creatividad",
+            "Sacrificio de calidad",
+            "Apoyo informal de colegas",
+            "Automatización personal",
+            "Aceptación silenciosa",
+            "Otro"
+          ],
+          "exclusive_negative": null,
+          "logical_group": "any_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B6_6_11",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + source-capture-crosswalk-044A3M options",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [],
+      "runtime_source_row": 20
+    },
+    {
+      "causal_id": "C20",
+      "source_runtime_interactions": [
+        "B7-Q39"
+      ],
+      "source_question_codes": [
+        "7.0"
+      ],
+      "source_node_ids": [
+        "B7_7_0"
+      ],
+      "branching_condition_literal": "Abrir solo con baja confianza, señales cruzadas o necesidad de corrección. No produce inventario, IR, export ni diagnóstico por sí solo.",
+      "classification": "exact_executable_now",
+      "reason": "044-A.5B-R connected B7ConfidenceService; confidence_level is material for C20. Promoted in 044-A.6.",
+      "critical_route": "CR-B7/C20",
+      "predicates": [
+        {
+          "source_interaction": "B7-Q39",
+          "source_code": "7.0",
+          "canonical_variable": "confidence_level",
+          "field_type": "generated_review",
+          "variable_shape": "enum_string",
+          "exact_allowed_values": [
+            "high",
+            "medium",
+            "low"
+          ],
+          "operator": "in_set",
+          "expected_value": [
+            "medium",
+            "low"
+          ],
+          "exclusive_negative": "high",
+          "logical_group": "all_of",
+          "signal_materiality": "available",
+          "predicate_status": "exact_executable_now",
+          "source_node_id": "B7_7_0",
+          "authority_source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx + B7ConfidenceService_044A5BR",
+          "source_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+          "a3m_sha256": "ae2ae6453d347dfcd01126a59ec5ca40dbc4bee605af6b09fad826ebc82d72aa"
+        }
+      ],
+      "score_signals": [
+        {
+          "signal": "cross_signal_detection",
+          "score_signal_status": "score_signal_semantics_unresolved",
+          "note": "No inventar 'señales cruzadas' without closed detector"
+        }
+      ],
+      "runtime_source_row": 21
+    }
+  ],
+  "table": [
+    {
+      "causal": "C01",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "activity_frequency_base in_set [\"Irregular\",\"Estacional\"]"
+      ],
+      "signal": [
+        "activity_frequency_base:available"
+      ],
+      "source": [
+        "B0-Q03"
+      ],
+      "reason": "B0-Q03/0.3 activity_frequency_base has explicit Irregular/Estacional options; Runtime branching activates densification on variable frequency."
+    },
+    {
+      "causal": "C02",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "relacion_beneficiario_afectado_0_5_1_rel equals \"Son actores distintos\"",
+        "claridad_beneficiario_0_5_1c in_set [\"Poco claro\",\"No lo tengo claro\"]",
+        "claridad_afectado_0_5_1d in_set [\"Poco claro\",\"No lo tengo claro\"]"
+      ],
+      "signal": [
+        "relacion_beneficiario_afectado_0_5_1_rel:available",
+        "claridad_beneficiario_0_5_1c:available",
+        "claridad_afectado_0_5_1d:available"
+      ],
+      "source": [
+        "B05-Q05"
+      ],
+      "reason": "B05-Q05 enums close beneficiario≠afectado and low clarity without free-text inference of 'solo la tarea'."
+    },
+    {
+      "causal": "C03",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "trigger_clarity in_set [\"Ambiguo\",\"Muy ambiguo\"]",
+        "trigger_exception_exists in_set [\"Sí, a veces ocurre pero es raro\",\"Sí, ocurre regularmente\",\"Sí, ocurre frecuentemente\"]"
+      ],
+      "signal": [
+        "trigger_clarity:available",
+        "trigger_exception_exists:available"
+      ],
+      "source": [
+        "B1-Q09",
+        "B1-Q11"
+      ],
+      "reason": "trigger_clarity Ambiguo/Muy ambiguo and trigger_exception_exists affirmative options are rector enums."
+    },
+    {
+      "causal": "C04",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "transformation_primary_dimensions multi_select_count_gte 2"
+      ],
+      "signal": [
+        "transformation_primary_dimensions:available"
+      ],
+      "source": [
+        "B2-Q12"
+      ],
+      "reason": "B2-Q12/2.1 multi_choice: open when more than one dimension selected (Runtime branching)."
+    },
+    {
+      "causal": "C05",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "transformation_exception_type in_set [\"Sí, a veces falla pero es raro\",\"Sí, falla regularmente\",\"Sí, falla frecuentemente\"]"
+      ],
+      "signal": [
+        "transformation_exception_type:available"
+      ],
+      "source": [
+        "B2-Q17"
+      ],
+      "reason": "Uses transformation_exception_type affirmative option literals from 2.9 — not generic truthiness."
+    },
+    {
+      "causal": "C06",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "transformation_hidden_changes in_set [\"Sí, a veces ocurren cambios no autorizados\",\"Sí, ocurren frecuentemente\"]"
+      ],
+      "signal": [
+        "transformation_hidden_changes:available"
+      ],
+      "source": [
+        "B2-Q17"
+      ],
+      "reason": "transformation_hidden_changes affirmative options from 2.11."
+    },
+    {
+      "causal": "C07",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "transformation_iterations in_set [\"Pocas veces\",\"Muchas veces\",\"Continuo\"]"
+      ],
+      "signal": [
+        "transformation_iterations:available"
+      ],
+      "source": [
+        "B2-Q16"
+      ],
+      "reason": "transformation_iterations enum closes multiple cycles: Pocas veces / Muchas veces / Continuo."
+    },
+    {
+      "causal": "C08",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "delivery_exception_exists in_set [\"Sí, a veces hay problemas pero es raro\",\"Sí, hay problemas regularmente\",\"Sí, hay problemas frecuentemente\"]",
+        "receiver_satisfaction in_set [\"Pide correcciones con cierta frecuencia\",\"Frecuentemente lo rechaza o lo devuelve\"]"
+      ],
+      "signal": [
+        "delivery_exception_exists:available",
+        "receiver_satisfaction:available"
+      ],
+      "source": [
+        "B3-Q21",
+        "B3-Q22"
+      ],
+      "reason": "delivery_exception_exists uses 3.10 affirmative option literals."
+    },
+    {
+      "causal": "C09",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "delivery_exception_exists in_set [\"Sí, a veces hay problemas pero es raro\",\"Sí, hay problemas regularmente\",\"Sí, hay problemas frecuentemente\"]",
+        "receiver_satisfaction in_set [\"Pide correcciones con cierta frecuencia\",\"Frecuentemente lo rechaza o lo devuelve\"]"
+      ],
+      "signal": [
+        "delivery_exception_exists:available",
+        "receiver_satisfaction:available"
+      ],
+      "source": [
+        "B3-Q21",
+        "B3-Q22"
+      ],
+      "reason": "Open on delivery failure / satisfaction adjustment enums. receiver_feedback_exists NLP derivation remains score/route pending_A5 — satisfaction ≠ feedback not inferred from free text."
+    },
+    {
+      "causal": "C10",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "primary_receiver in_set [\"Múltiples receptores\",\"Otro equipo o departamento\"]",
+        "receiver_type equals \"Múltiples tipos\""
+      ],
+      "signal": [
+        "primary_receiver:available",
+        "receiver_type:available"
+      ],
+      "source": [
+        "B3-Q18",
+        "B3-Q19"
+      ],
+      "reason": "primary_receiver / receiver_type enums for multiple/lateral impact — not string non-empty."
+    },
+    {
+      "causal": "C11",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "deadlock_risk in_set [\"Sí, a veces queda bloqueada y tengo que ir a preguntar\",\"Sí, frecuentemente queda bloqueada y nadie se da cuenta\",\"Sí, hay momentos donde el sistema se queda en un ciclo infinito\"]"
+      ],
+      "signal": [
+        "deadlock_risk:available"
+      ],
+      "source": [
+        "B4-Q24"
+      ],
+      "reason": "deadlock_risk affirmative options exclude explicit negative timeout option."
+    },
+    {
+      "causal": "C12",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "iteration_pattern in_set [\"Sí, pero el número de repeticiones varía mucho\",\"Sí, típicamente se repite 2-5 veces\",\"Sí, típicamente se repite 6-20 veces\",\"Sí, típicamente se repite más de 20 veces\"]"
+      ],
+      "signal": [
+        "iteration_pattern:available"
+      ],
+      "source": [
+        "B4-Q25"
+      ],
+      "reason": "iteration_pattern repetition options; excludes 'No, se hace una sola vez'."
+    },
+    {
+      "causal": "C13",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "route_alternatives contains_exact_option [\"Sí, según el tipo de cliente o proyecto\",\"Sí, según el monto o importancia\",\"Sí, según si hay errores o excepciones\",\"Sí, según una decisión de mi jefe\",\"Sí, según una regla o política\"]"
+      ],
+      "signal": [
+        "route_alternatives:available"
+      ],
+      "source": [
+        "B4-Q26"
+      ],
+      "reason": "route_alternatives multi_choice: any affirmative option; exclusive negative 'No, siempre es el mismo camino'."
+    },
+    {
+      "causal": "C14",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "hidden_subprocess equals \"Sí, hay pasos que hago para que funcione\"",
+        "real_vs_official_sequence equals \"Sí, hay pasos que hago en diferente orden\"",
+        "parallelism_type in_set [\"Otras actividades avanzan en paralelo y luego se integran con esta\",\"Hay dependencias cruzadas entre equipos y a veces terminamos esperándonos mutuamente\"]"
+      ],
+      "signal": [
+        "hidden_subprocess:available",
+        "real_vs_official_sequence:available",
+        "parallelism_type:available"
+      ],
+      "source": [
+        "B4-Q27",
+        "B4-Q28"
+      ],
+      "reason": "hidden_subprocess / real_vs_official_sequence / parallelism_type use rector enums — no free-text 'paralelismo confuso'."
+    },
+    {
+      "causal": "C15",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "variedad_residual_5_12 contains_exact_option [\"Casos excepcionales\",\"Urgencias sin aviso\",\"Cambios de requisitos\",\"Volumen inesperado\",\"Problemas de calidad\",\"Otro\"]",
+        "resource_bargain_5_14 in_set [\"Se cumple, pero a costa de sacrificios frecuentes\",\"Es insostenible en el tiempo\"]"
+      ],
+      "signal": [
+        "variedad_residual_5_12:available",
+        "resource_bargain_5_14:available"
+      ],
+      "source": [
+        "B5-Q33"
+      ],
+      "reason": "variedad_residual_5_12 and resource_bargain_5_14 enums close residual/bargain. brecha_capacidad_5_3 calculation is pending_A5 signal (not required to open)."
+    },
+    {
+      "causal": "C16",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "rework_present equals \"Sí\""
+      ],
+      "signal": [
+        "rework_present:available"
+      ],
+      "source": [
+        "B6-Q35"
+      ],
+      "reason": "rework_present exact option 'Sí' — not boolean truthiness."
+    },
+    {
+      "causal": "C17",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "missing_information contains_exact_option [\"No me llega aprobación\",\"No me llega info del cliente\",\"No me llega info de otro equipo\",\"No me llega claridad\",\"No me llega feedback\",\"No me llega actualización\",\"Otro\"]",
+        "informal_rule_present in_set [\"Sí, lo hago y mi jefe lo sabe y está de acuerdo\",\"Sí, lo hago pero mi jefe no lo sabe o no está de acuerdo\"]"
+      ],
+      "signal": [
+        "missing_information:available",
+        "informal_rule_present:available"
+      ],
+      "source": [
+        "B6-Q36"
+      ],
+      "reason": "missing_information excludes 'No me falta información'; informal_rule excludes manual-only option."
+    },
+    {
+      "causal": "C18",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "human_sacrifice contains_exact_option [\"Tiempo personal\",\"Calidad del sueño o descanso\",\"Salud mental o estrés\",\"Relaciones personales\",\"Calidad en otras responsabilidades\",\"Desarrollo profesional\",\"Autonomía o libertad\",\"Otro\"]",
+        "wear_accumulated contains_exact_option [\"Agotamiento\",\"Pérdida de motivación\",\"Sensación de insuficiencia\",\"Deterioro de calidad\",\"Ganas de irme\",\"Cinismo o desconexión\",\"Otro\"]",
+        "effort_cost greater_than_or_equal 7"
+      ],
+      "signal": [
+        "human_sacrifice:available",
+        "wear_accumulated:available",
+        "effort_cost:available"
+      ],
+      "source": [
+        "B6-Q37"
+      ],
+      "reason": "human_sacrifice / wear_accumulated exclusive negatives; effort_cost scale >= 7 rector threshold."
+    },
+    {
+      "causal": "C19",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "repetitive_failure_pattern equals \"Sí\"",
+        "residual_variety_absorption contains_exact_option [\"Me quedo después de horario\",\"Las hago en paralelo\",\"Las improviso\",\"Las dejo para después\",\"Las delego informalmente\",\"Las ignoro\",\"Otro\"]",
+        "compensation_primary_mechanism contains_exact_option [\"Trabajo extra\",\"Improvisación y creatividad\",\"Sacrificio de calidad\",\"Apoyo informal de colegas\",\"Automatización personal\",\"Aceptación silenciosa\",\"Otro\"]"
+      ],
+      "signal": [
+        "repetitive_failure_pattern:available",
+        "residual_variety_absorption:available",
+        "compensation_primary_mechanism:available"
+      ],
+      "source": [
+        "B6-Q38"
+      ],
+      "reason": "repetitive_failure_pattern equals 'Sí'; residual_variety_absorption / compensation_primary_mechanism option membership."
+    },
+    {
+      "causal": "C20",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "confidence_level in_set [\"medium\",\"low\"]"
+      ],
+      "signal": [
+        "confidence_level:available"
+      ],
+      "source": [
+        "B7-Q39"
+      ],
+      "reason": "044-A.5B-R/044-A.6: confidence_level material via B7ConfidenceService"
+    }
+  ]
+}

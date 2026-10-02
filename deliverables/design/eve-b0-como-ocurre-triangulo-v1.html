@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+      FREEZE PROPUESTA · BUILD 1.3
+      B0 · Sección 2 · Cómo ocurre — triángulo recursivo
+      - Intro lead (memorias) + 2s void → typewriter "Observa la escena…"
+      - Un ejemplo mist por pregunta; vuelven al vaciar + blur
+      - how + output: herencia interna silenciosa
+    -->
+    <title>EVE — B0 · Cómo ocurre · Triángulo v1.3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-mono: "IBM Plex Mono", "Consolas", monospace;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-mono);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .build {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 20;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .void {
+        position: relative;
+        min-height: 100svh;
+        width: min(960px, 100%);
+        margin: 0 auto;
+        padding: 88px 40px 140px;
+      }
+
+      .intro {
+        margin: 0 0 64px;
+        max-width: 46ch;
+      }
+
+      .intro-lead {
+        margin: 0 0 18px;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.55;
+        color: var(--eve-ink);
+        opacity: 0;
+        transform: translateY(6px);
+        transition:
+          opacity 900ms var(--ease),
+          transform 900ms var(--ease),
+          color 900ms ease;
+      }
+
+      .intro-lead.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .intro-lead.is-mist {
+        color: var(--eve-mist);
+      }
+
+      .intro-ask {
+        margin: 0;
+        min-height: 1.6em;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        line-height: 1.55;
+        color: var(--eve-ink);
+        opacity: 0;
+        transition:
+          opacity 700ms ease,
+          color 900ms ease;
+      }
+
+      .intro-ask.is-visible {
+        opacity: 1;
+      }
+
+      .intro-ask.is-mist {
+        color: var(--eve-mist);
+      }
+
+      .intro-cursor {
+        display: inline-block;
+        width: 1px;
+        height: 0.95em;
+        margin-left: 1px;
+        background: currentColor;
+        vertical-align: text-bottom;
+        animation: blink 900ms step-end infinite;
+      }
+
+      .intro-cursor.is-hidden {
+        display: none;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .triangle-stage {
+        position: relative;
+        width: min(780px, 100%);
+        height: 500px;
+        margin: 0 auto;
+        opacity: 0;
+        transform: translateY(12px);
+        transition:
+          opacity 1200ms var(--ease),
+          transform 1200ms var(--ease);
+      }
+
+      .triangle-stage.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .triangle-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: visible;
+      }
+
+      .triangle-edge {
+        fill: none;
+        stroke: var(--eve-line);
+        stroke-width: 1;
+        stroke-dasharray: 2 9;
+        opacity: 0;
+        transition: opacity 1100ms ease 200ms;
+      }
+
+      .triangle-stage.is-visible .triangle-edge {
+        opacity: 0.75;
+      }
+
+      .triangle-edge.is-cycle {
+        stroke: var(--eve-mist);
+        stroke-dasharray: 1 11;
+      }
+
+      .triangle-stage.is-visible .triangle-edge.is-cycle {
+        opacity: 0.45;
+      }
+
+      .node {
+        position: absolute;
+        width: 240px;
+      }
+
+      .node.is-mist .node-question,
+      .node.is-mist .node-field {
+        color: var(--eve-mist);
+      }
+
+      .node-trigger {
+        top: 0;
+        left: 50%;
+        margin-left: -120px;
+      }
+
+      .node-criterion {
+        left: 0;
+        bottom: 0;
+        width: 280px;
+      }
+
+      .node-handoff {
+        right: 0;
+        bottom: 0;
+        width: 260px;
+        text-align: right;
+      }
+
+      .node-handoff .node-question {
+        margin-left: auto;
+      }
+
+      .node-question {
+        margin: 0 0 18px;
+        max-width: 30ch;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        line-height: 1.45;
+        color: var(--eve-ink);
+        transition: color 700ms ease;
+      }
+
+      .node-handoff .node-question {
+        max-width: 28ch;
+      }
+
+      .node-criterion .node-question {
+        max-width: 32ch;
+      }
+
+      /* Campo: valor ink o ejemplos mist */
+      .node-field {
+        position: relative;
+        width: 100%;
+        min-height: 3.4em;
+        border-bottom: 1px solid var(--eve-line);
+        transition: border-bottom-color 220ms ease;
+      }
+
+      .node-field:focus-within {
+        border-bottom-color: var(--eve-ink);
+      }
+
+      .node-examples {
+        position: absolute;
+        inset: 0;
+        margin: 0;
+        padding: 6px 0 10px;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.55;
+        color: var(--eve-mist);
+        pointer-events: none;
+        opacity: 1;
+        transition: opacity 280ms ease;
+      }
+
+      .node-examples.is-hidden {
+        opacity: 0;
+      }
+
+      .node-examples span {
+        display: block;
+      }
+
+      .node-handoff .node-examples {
+        text-align: right;
+      }
+
+      .node-input {
+        position: relative;
+        z-index: 1;
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 6px 0 10px;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.45;
+        color: var(--eve-ink);
+        outline: none;
+        resize: none;
+        min-height: 3.2em;
+        transition: color 700ms ease;
+      }
+
+      .node-handoff .node-input {
+        text-align: right;
+      }
+
+      .node-input::placeholder {
+        color: transparent;
+      }
+
+      .narrative-band {
+        width: min(560px, 100%);
+        margin: 72px auto 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition:
+          opacity 1000ms var(--ease),
+          visibility 1000ms var(--ease),
+          transform 1000ms var(--ease);
+      }
+
+      .narrative-band.is-visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .narrative-example {
+        margin: 0;
+        max-width: 58ch;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.65;
+        color: var(--eve-mist);
+      }
+
+      .confirm-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0;
+        margin-top: 36px;
+        min-height: 1.6em;
+      }
+
+      .confirm-choice {
+        border: 0;
+        background: transparent;
+        padding: 4px 0;
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: var(--eve-ink);
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          color 500ms ease,
+          opacity 500ms ease;
+      }
+
+      .confirm-choice.is-ready {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .confirm-choice.is-selected {
+        font-weight: 700;
+      }
+
+      .confirm-choice.is-mist {
+        color: var(--eve-mist);
+      }
+
+      .confirm-choice:hover {
+        color: var(--eve-ink);
+      }
+
+      .confirm-sep {
+        display: inline-block;
+        width: 28px;
+        height: 1px;
+        margin: 0 18px;
+        background: var(--eve-line);
+        opacity: 0;
+        visibility: hidden;
+        flex-shrink: 0;
+      }
+
+      .confirm-sep.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .ops-notify {
+        position: fixed;
+        left: 24px;
+        bottom: 24px;
+        max-width: 48ch;
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        opacity: 0;
+        transition: opacity 400ms ease;
+      }
+
+      .ops-notify.is-visible {
+        opacity: 1;
+      }
+
+      .replay {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        cursor: pointer;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 720px) {
+        .void {
+          padding: 72px 24px 100px;
+        }
+
+        .triangle-stage {
+          height: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 48px;
+        }
+
+        .triangle-svg {
+          display: none;
+        }
+
+        .node,
+        .node-trigger,
+        .node-criterion,
+        .node-handoff {
+          position: static;
+          width: 100%;
+          max-width: 48ch;
+          margin-left: 0;
+          text-align: left;
+        }
+
+        .node-handoff .node-question,
+        .node-handoff .node-examples {
+          margin-left: 0;
+          text-align: left;
+        }
+
+        .node-handoff .node-input {
+          text-align: left;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .intro-lead,
+        .intro-ask,
+        .triangle-stage,
+        .triangle-edge,
+        .narrative-band,
+        .confirm-choice,
+        .intro-cursor {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="build" id="build">BUILD 1.3 · TRIÁNGULO</p>
+    <button class="replay" id="replay" type="button">Replay</button>
+    <p class="ops-notify" id="ops-notify" aria-live="polite"></p>
+
+    <main class="void" id="void">
+      <header class="intro" id="intro">
+        <p class="intro-lead" id="intro-lead">
+          Las memorias operativas están creadas en base a reacciones
+          emocionales causadas por la propia actividad.
+        </p>
+        <p class="intro-ask" id="intro-ask" aria-live="polite"></p>
+      </header>
+
+      <section
+        class="triangle-stage"
+        id="triangle-stage"
+        aria-label="Cómo ocurre — tres preguntas en circuito"
+      >
+        <svg
+          class="triangle-svg"
+          viewBox="0 0 780 500"
+          preserveAspectRatio="xMidYMid meet"
+          aria-hidden="true"
+        >
+          <polyline class="triangle-edge" points="390,78 110,410" />
+          <polyline class="triangle-edge" points="110,410 670,410" />
+          <polyline class="triangle-edge is-cycle" points="670,410 390,78" />
+        </svg>
+
+        <article class="node node-trigger" data-dim="trigger">
+          <p class="node-question">
+            ¿Qué evento, condición, solicitud, información o estado dispara esta
+            actividad?
+          </p>
+          <div class="node-field">
+            <p class="node-examples" id="examples-trigger" aria-hidden="true">
+              <span
+                >Ej. Pedido disponible, pago final confirmado y opciones reales
+                de cuadrilla y fecha.</span
+              >
+            </p>
+            <textarea
+              class="node-input"
+              id="input-trigger"
+              rows="3"
+              aria-label="¿Qué evento, condición, solicitud, información o estado dispara esta actividad?"
+            ></textarea>
+          </div>
+        </article>
+
+        <article class="node node-criterion" data-dim="criterion">
+          <p class="node-question">
+            ¿Qué criterio utilizas y qué información dejas fuera?
+          </p>
+          <div class="node-field">
+            <p class="node-examples" id="examples-criterion" aria-hidden="true">
+              <span
+                >Ej. No se confirma fecha tentativa; fecha y condiciones deben
+                estar confirmadas por las partes.</span
+              >
+            </p>
+            <textarea
+              class="node-input"
+              id="input-criterion"
+              rows="4"
+              aria-label="¿Qué criterio utilizas y qué información dejas fuera?"
+            ></textarea>
+          </div>
+        </article>
+
+        <article class="node node-handoff" data-dim="handoff">
+          <p class="node-question">
+            ¿A quién, a qué área o a qué sistema pasa el resultado?
+          </p>
+          <div class="node-field">
+            <p class="node-examples" id="examples-handoff" aria-hidden="true">
+              <span
+                >Ej. Compras o ruta de entrega, según anticipo o finiquito.</span
+              >
+            </p>
+            <textarea
+              class="node-input"
+              id="input-handoff"
+              rows="3"
+              aria-label="¿A quién, a qué área o a qué sistema pasa el resultado?"
+            ></textarea>
+          </div>
+        </article>
+      </section>
+
+      <section class="narrative-band" id="narrative-band">
+        <p class="narrative-example">
+          Ej. Cuando llega el cierre, cruzo gasto real contra Oracle. Me quedo
+          con variaciones mayores al 5%. Queda el reporte de desviaciones. Pasa
+          a los directores de cada unidad.
+        </p>
+        <div class="confirm-actions">
+          <button class="confirm-choice" id="choice-asi" type="button">
+            [Así es]
+          </button>
+          <span class="confirm-sep" id="confirm-sep" aria-hidden="true"></span>
+          <button class="confirm-choice" id="choice-ajustar" type="button">
+            [Ajustar]
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        const BUILD = "1.3";
+        const STORAGE_KEY = "eve-b0-como-ocurre-triangulo-v1";
+        const INTRO_ASK_TEXT = "Observa la escena, dinos como se desarrolla…";
+        /** Cadencia typewriter lenta (ms/char) */
+        const TYPE_SPEED_MS = 72;
+        /** Void entre lead y typewriter del ask */
+        const VOID_BEFORE_ASK_MS = 2000;
+
+        const INHERITED = {
+          how: "comparando el gasto real contra Oracle",
+          output: "reportes de desviaciones con análisis de causa raíz",
+        };
+
+        /**
+         * Prefills opcionales de plataforma (simulación).
+         * Query: ?auto_trigger=...&auto_criterion=...&auto_handoff=...
+         * Si hay valor, se coloca automáticamente y se ocultan ejemplos.
+         */
+        const AUTO = {
+          trigger: "",
+          criterion: "",
+          handoff: "",
+        };
+
+        const NODES = [
+          {
+            id: "trigger",
+            el: document.querySelector('[data-dim="trigger"]'),
+            input: document.getElementById("input-trigger"),
+            examples: document.getElementById("examples-trigger"),
+          },
+          {
+            id: "criterion",
+            el: document.querySelector('[data-dim="criterion"]'),
+            input: document.getElementById("input-criterion"),
+            examples: document.getElementById("examples-criterion"),
+          },
+          {
+            id: "handoff",
+            el: document.querySelector('[data-dim="handoff"]'),
+            input: document.getElementById("input-handoff"),
+            examples: document.getElementById("examples-handoff"),
+          },
+        ];
+
+        const introLeadEl = document.getElementById("intro-lead");
+        const introAskEl = document.getElementById("intro-ask");
+        const stageEl = document.getElementById("triangle-stage");
+        const narrativeBand = document.getElementById("narrative-band");
+        const choiceAsi = document.getElementById("choice-asi");
+        const choiceAjustar = document.getElementById("choice-ajustar");
+        const confirmSep = document.getElementById("confirm-sep");
+        const opsNotify = document.getElementById("ops-notify");
+        const replayEl = document.getElementById("replay");
+        const buildEl = document.getElementById("build");
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("how")) INHERITED.how = params.get("how").trim();
+        if (params.get("output")) INHERITED.output = params.get("output").trim();
+        if (params.get("auto_trigger"))
+          AUTO.trigger = params.get("auto_trigger").trim();
+        if (params.get("auto_criterion"))
+          AUTO.criterion = params.get("auto_criterion").trim();
+        if (params.get("auto_handoff"))
+          AUTO.handoff = params.get("auto_handoff").trim();
+
+        let runId = 0;
+        let confirmed = false;
+
+        function prefersReducedMotion() {
+          return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        }
+
+        function sleep(ms, token) {
+          return new Promise((resolve) => {
+            window.setTimeout(() => resolve(token === runId), ms);
+          });
+        }
+
+        function notify(message) {
+          opsNotify.textContent = message;
+          opsNotify.classList.add("is-visible");
+        }
+
+        function syncExamples(node) {
+          const hasValue = node.input.value.trim().length > 0;
+          node.examples.classList.toggle("is-hidden", hasValue);
+          node.examples.setAttribute("aria-hidden", hasValue ? "true" : "false");
+        }
+
+        function applyPlatformValue(node, value) {
+          const text = (value || "").trim();
+          if (!text) return false;
+          node.input.value = text;
+          syncExamples(node);
+          return true;
+        }
+
+        function readFields() {
+          return {
+            trigger: NODES[0].input.value.trim(),
+            criterion: NODES[1].input.value.trim(),
+            handoff: NODES[2].input.value.trim(),
+          };
+        }
+
+        function composeNarrativeInternal(fields) {
+          const trigger = fields.trigger || "";
+          const how = (INHERITED.how || "").trim();
+          const criterion = fields.criterion || "";
+          const output = (INHERITED.output || "").trim();
+          const handoff = fields.handoff || "";
+          const parts = [];
+          if (trigger) {
+            const t = /^(cuando|si|al|tras)\b/i.test(trigger)
+              ? trigger
+              : "Cuando " + trigger.replace(/^[a-z]/, (c) => c);
+            parts.push(t.replace(/\.$/, "") + ",");
+          }
+          if (how) parts.push(how.replace(/\.$/, "") + ".");
+          if (criterion && !/^no aplica$/i.test(criterion)) {
+            parts.push(criterion.replace(/\.$/, "") + ".");
+          }
+          if (output) {
+            parts.push("Queda listo: " + output.replace(/\.$/, "") + ".");
+          }
+          if (handoff && !/^no aplica$/i.test(handoff)) {
+            const h = /^(a |al |el )/i.test(handoff)
+              ? "El resultado pasa " + handoff
+              : "El resultado pasa a " + handoff;
+            parts.push(h.replace(/\.$/, "") + ".");
+          }
+          return parts.join(" ").replace(/,\s*\./g, ".").trim();
+        }
+
+        async function typeAsk(token) {
+          introAskEl.textContent = "";
+          introAskEl.classList.add("is-visible");
+          introAskEl.classList.remove("is-mist");
+
+          if (prefersReducedMotion()) {
+            introAskEl.textContent = INTRO_ASK_TEXT;
+            return token === runId;
+          }
+
+          const cursor = document.createElement("span");
+          cursor.className = "intro-cursor";
+          cursor.setAttribute("aria-hidden", "true");
+          introAskEl.appendChild(cursor);
+
+          for (let i = 0; i < INTRO_ASK_TEXT.length; i += 1) {
+            if (token !== runId) return false;
+            cursor.insertAdjacentText("beforebegin", INTRO_ASK_TEXT.charAt(i));
+            const alive = await sleep(TYPE_SPEED_MS, token);
+            if (!alive) return false;
+          }
+
+          cursor.classList.add("is-hidden");
+          return token === runId;
+        }
+
+        function resetUi() {
+          confirmed = false;
+          introLeadEl.classList.remove("is-visible", "is-mist");
+          introAskEl.classList.remove("is-visible", "is-mist");
+          introAskEl.textContent = "";
+          stageEl.classList.remove("is-visible");
+          narrativeBand.classList.remove("is-visible");
+          choiceAsi.classList.remove("is-ready", "is-selected", "is-mist");
+          choiceAjustar.classList.remove("is-ready", "is-selected", "is-mist");
+          confirmSep.classList.remove("is-visible");
+          opsNotify.classList.remove("is-visible");
+          opsNotify.textContent = "";
+          NODES.forEach((node) => {
+            node.el.classList.remove("is-mist");
+            node.input.value = "";
+            node.input.readOnly = true;
+            syncExamples(node);
+          });
+        }
+
+        async function runSequence() {
+          runId += 1;
+          const token = runId;
+          resetUi();
+
+          /* Lead de memorias (restaurado) */
+          let alive = await sleep(160, token);
+          if (!alive) return;
+          introLeadEl.classList.add("is-visible");
+
+          /* 2s de void, luego typewriter del ask */
+          alive = await sleep(VOID_BEFORE_ASK_MS, token);
+          if (!alive) return;
+
+          alive = await typeAsk(token);
+          if (!alive) return;
+
+          alive = await sleep(1600, token);
+          if (!alive) return;
+          introLeadEl.classList.add("is-mist");
+          introAskEl.classList.add("is-mist");
+
+          alive = await sleep(600, token);
+          if (!alive) return;
+
+          NODES.forEach((node) => {
+            node.input.readOnly = false;
+          });
+          stageEl.classList.add("is-visible");
+
+          /* Prefill automático de plataforma (si existe) */
+          let autoCount = 0;
+          if (applyPlatformValue(NODES[0], AUTO.trigger)) autoCount += 1;
+          if (applyPlatformValue(NODES[1], AUTO.criterion)) autoCount += 1;
+          if (applyPlatformValue(NODES[2], AUTO.handoff)) autoCount += 1;
+
+          notify(
+            autoCount
+              ? "Ops · " +
+                  autoCount +
+                  " campo(s) auto · ejemplos ocultos donde aplica · how/output silenciosos"
+              : "Ops · ejemplos mist activos · how/output silenciosos",
+          );
+
+          alive = await sleep(1400, token);
+          if (!alive) return;
+          narrativeBand.classList.add("is-visible");
+
+          alive = await sleep(700, token);
+          if (!alive) return;
+          choiceAsi.classList.add("is-ready");
+
+          alive = await sleep(280, token);
+          if (!alive) return;
+          confirmSep.classList.add("is-visible");
+
+          alive = await sleep(280, token);
+          if (!alive) return;
+          choiceAjustar.classList.add("is-ready");
+        }
+
+        function persist() {
+          const fields = readFields();
+          const payload = {
+            confirmedAt: new Date().toISOString(),
+            build: BUILD,
+            visible: fields,
+            inherited: { ...INHERITED },
+            narrative_internal: composeNarrativeInternal(fields),
+          };
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+          } catch (_) {
+            /* best-effort */
+          }
+          return payload;
+        }
+
+        NODES.forEach((node) => {
+          node.input.addEventListener("input", () => {
+            if (confirmed) return;
+            syncExamples(node);
+          });
+
+          node.input.addEventListener("blur", () => {
+            if (confirmed) return;
+            if (!node.input.value.trim()) {
+              node.input.value = "";
+              syncExamples(node);
+            }
+          });
+        });
+
+        choiceAsi.addEventListener("click", () => {
+          if (!choiceAsi.classList.contains("is-ready")) return;
+          confirmed = true;
+          choiceAsi.classList.add("is-selected");
+          choiceAsi.classList.remove("is-mist");
+          choiceAjustar.classList.add("is-mist");
+          introLeadEl.classList.add("is-mist");
+          introAskEl.classList.add("is-mist");
+          NODES.forEach((node) => {
+            node.el.classList.add("is-mist");
+            node.input.readOnly = true;
+          });
+          persist();
+          notify(
+            "Ops · confirmado · narrativa interna · how/output silenciosos · siguiente lista",
+          );
+        });
+
+        choiceAjustar.addEventListener("click", () => {
+          if (!choiceAjustar.classList.contains("is-ready")) return;
+          confirmed = false;
+          choiceAsi.classList.remove("is-selected", "is-mist");
+          choiceAjustar.classList.remove("is-mist");
+          NODES.forEach((node) => {
+            node.el.classList.remove("is-mist");
+            node.input.readOnly = false;
+            syncExamples(node);
+          });
+          NODES[0].input.focus();
+          notify("Ops · reeditando · mist → ink");
+        });
+
+        replayEl.addEventListener("click", () => {
+          void runSequence();
+        });
+
+        buildEl.textContent = "BUILD " + BUILD + " · TRIÁNGULO";
+        void runSequence();
+      })();
+    </script>
+  </body>
+</html>

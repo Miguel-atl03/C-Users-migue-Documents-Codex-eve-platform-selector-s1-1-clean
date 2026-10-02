@@ -1,0 +1,53 @@
+{
+  "dictamen": "GATE_4_SINGLE_CONTROLLED_WRITE_PLAN_READY",
+  "gate": "Gate 4",
+  "plan_type": "single_controlled_write",
+  "selected_write": {
+    "write_name": "gate3_closeout_audit_marker",
+    "write_type": "audit_control_marker",
+    "route": "SINGLE_CONTROLLED_WRITE_GATE3_CLOSEOUT_AUDIT_MARKER",
+    "target": "local_controlled_evidence_file_unless_authorized_non_productive_db_target_exists",
+    "db_write_authorized": false,
+    "multiple_writes_allowed": false
+  },
+  "payload_contract": {
+    "event_type": "gate3_closeout_audit_marker",
+    "source_gate": "Gate 3",
+    "source_dictamen": "GATE_3_RESTRICTED_INTERNAL_SUPERVISED_ACTIVATION_CLOSED_PASSED",
+    "candidate_output_status": "draft",
+    "s3_review_accepted": true,
+    "g2_risk_001_status": "open",
+    "promotion_allowed": false,
+    "gate4_write_scope": "single_controlled_audit_marker",
+    "created_by": "controlled_gate4_run",
+    "irreversible_effect": "audit_marker_only"
+  },
+  "forbidden_payload": {
+    "diagnosis_final": false,
+    "registry_final": false,
+    "export_final": false,
+    "client_sensitive_data": false,
+    "secrets": false,
+    "db_credentials": false,
+    "client_visible_internal_organs": false
+  },
+  "authorization": {
+    "gate4_run_authorization_required": true,
+    "gate5_authorized": false,
+    "fase9_authorized": false,
+    "production_authorized": false
+  },
+  "rollback_or_degrade": {
+    "delete_history_allowed": false,
+    "correction_marker_allowed": true,
+    "void_marker_allowed": true
+  },
+  "pass_criteria": {
+    "exactly_one_controlled_write": true,
+    "payload_matches_contract": true,
+    "no_side_effects_beyond_target": true,
+    "no_promotion": true,
+    "g2_risk_001_visible": true
+  },
+  "next_step": "RUN_GATE_4_SINGLE_CONTROLLED_WRITE_V1"
+}

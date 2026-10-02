@@ -1,0 +1,432 @@
+{
+  "instruction": "044",
+  "gate": "Gate_1_materiality_baseline",
+  "captured_at_utc": "2026-08-07T01:41:59.605Z",
+  "project_ref": "shrpiwkxcdgvbqymjecx",
+  "production_consulted": false,
+  "mutations_performed": false,
+  "catalog": {
+    "full": {
+      "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+      "status": "active",
+      "activated_at": "2026-08-07T00:43:20.430Z",
+      "superseded_by_catalog_version_id": null
+    },
+    "b0": {
+      "catalog_version_id": "EVE_RUNTIME_40_20_B0_V1",
+      "status": "superseded",
+      "activated_at": null,
+      "superseded_by_catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F"
+    },
+    "one_active_index_present": true
+  },
+  "gaby_baseline": {
+    "activity_runtime_run": 32,
+    "runtime_interaction_instance": 4,
+    "response_record": 4
+  },
+  "tables": {
+    "role_runtime_session": {
+      "present": true,
+      "count": 6,
+      "columns": [
+        "role_runtime_session_id",
+        "sesion_id",
+        "case_id",
+        "role_id",
+        "role_label",
+        "catalog_version_id",
+        "state",
+        "primary_activity_limit",
+        "primary_activity_count",
+        "secondary_activity_count",
+        "backlog_activity_count",
+        "total_estimated_minutes",
+        "total_elapsed_seconds",
+        "tenant_id",
+        "organization_id",
+        "owner_auth_user_id",
+        "execution_mode",
+        "metadata_json",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "activity_runtime_run": {
+      "present": true,
+      "count": 32,
+      "columns": [
+        "activity_runtime_run_id",
+        "role_runtime_session_id",
+        "sesion_id",
+        "activity_id",
+        "legacy_actividad_id",
+        "scene_id",
+        "catalog_version_id",
+        "activity_name",
+        "activity_rank",
+        "is_primary_activity",
+        "state",
+        "base_visible_count",
+        "causal_visible_count",
+        "microconfirmation_visible_count",
+        "internal_interaction_count",
+        "readiness_state",
+        "current_runtime_interaction_id",
+        "tenant_id",
+        "organization_id",
+        "owner_auth_user_id",
+        "execution_mode",
+        "metadata_json",
+        "started_at",
+        "completed_at",
+        "abandoned_at",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "runtime_interaction_instance": {
+      "present": true,
+      "count": 4,
+      "columns": [
+        "runtime_interaction_instance_id",
+        "activity_runtime_run_id",
+        "role_runtime_session_id",
+        "sesion_id",
+        "scene_id",
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "interaction_group_source",
+        "interaction_group_normalized",
+        "state",
+        "visibility_state",
+        "runtime_order",
+        "opened_by_branching_decision_id",
+        "skipped_reason",
+        "counts_against_base_budget",
+        "counts_against_causal_budget",
+        "counts_against_microconfirmation_budget",
+        "is_internal_only",
+        "shown_at",
+        "answered_at",
+        "closed_at",
+        "metadata_json",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "response_record": {
+      "present": true,
+      "count": 4,
+      "columns": [
+        "response_id",
+        "runtime_interaction_instance_id",
+        "activity_runtime_run_id",
+        "role_runtime_session_id",
+        "sesion_id",
+        "scene_id",
+        "selected_value",
+        "selected_values",
+        "free_text",
+        "raw_answer_json",
+        "epistemic_status",
+        "provenance_type",
+        "confidence",
+        "idempotency_key",
+        "response_revision_number",
+        "supersedes_response_id",
+        "invalidated_at",
+        "invalidation_reason",
+        "created_by_auth_user_id",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "runtime_subfield_response": {
+      "present": true,
+      "count": 11,
+      "columns": [
+        "subfield_response_id",
+        "response_id",
+        "runtime_interaction_instance_id",
+        "activity_runtime_run_id",
+        "role_runtime_session_id",
+        "sesion_id",
+        "scene_id",
+        "subfield_name",
+        "subfield_value",
+        "subfield_value_json",
+        "canonical_variable_name",
+        "epistemic_status",
+        "provenance_type",
+        "confidence",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "evidence_item": {
+      "present": true,
+      "count": 11,
+      "columns": [
+        "evidence_item_id",
+        "activity_runtime_run_id",
+        "role_runtime_session_id",
+        "runtime_interaction_instance_id",
+        "response_id",
+        "subfield_response_id",
+        "sesion_id",
+        "scene_id",
+        "literal_value",
+        "normalized_value",
+        "evidence_kind",
+        "epistemic_status",
+        "provenance_type",
+        "source_node_ref_id",
+        "source_question_code",
+        "response_revision_number",
+        "supersedes_evidence_item_id",
+        "confidence",
+        "flags_json",
+        "created_at"
+      ]
+    },
+    "canonical_variable_record": {
+      "present": true,
+      "count": 11,
+      "columns": [
+        "canonical_variable_id",
+        "activity_runtime_run_id",
+        "role_runtime_session_id",
+        "sesion_id",
+        "scene_id",
+        "variable_name",
+        "variable_value",
+        "variable_type",
+        "route_id",
+        "route_status",
+        "source_evidence_item_ids",
+        "derived_from_response_ids",
+        "gap_flag",
+        "gap_type",
+        "required_if_condition",
+        "confidence",
+        "object_binding_status",
+        "diagnostic_status",
+        "invalidated_at",
+        "invalidation_reason",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "branching_decision": {
+      "present": true,
+      "count": 0,
+      "columns": [
+        "branching_decision_id",
+        "activity_runtime_run_id",
+        "role_runtime_session_id",
+        "sesion_id",
+        "source_interaction_instance_id",
+        "target_runtime_interaction_id",
+        "opened_interaction_instance_id",
+        "closed_interaction_instance_id",
+        "decision_type",
+        "trigger_signal",
+        "causal_score",
+        "reason",
+        "budget_effect",
+        "route_id",
+        "created_at"
+      ]
+    },
+    "budget_ledger": {
+      "present": true,
+      "count": 0,
+      "columns": [
+        "budget_ledger_id",
+        "role_runtime_session_id",
+        "activity_runtime_run_id",
+        "runtime_interaction_instance_id",
+        "sesion_id",
+        "event_type",
+        "bucket",
+        "base_count_delta",
+        "causal_count_delta",
+        "microconfirmation_count_delta",
+        "internal_count_delta",
+        "base_visible_count",
+        "causal_visible_count",
+        "estimated_seconds_added",
+        "event_ref",
+        "metadata_json",
+        "created_at"
+      ]
+    },
+    "semantic_resolution_event": {
+      "present": true,
+      "count": 0,
+      "columns": [
+        "semantic_resolution_event_id",
+        "activity_runtime_run_id",
+        "role_runtime_session_id",
+        "runtime_interaction_instance_id",
+        "response_id",
+        "sesion_id",
+        "scene_id",
+        "gate_code",
+        "observed_term",
+        "proposed_resolution",
+        "resolution_status",
+        "blocks_projection",
+        "reason",
+        "event_json",
+        "created_at"
+      ]
+    },
+    "process_state_timer_event": {
+      "present": true,
+      "count": 0,
+      "columns": [
+        "process_state_timer_event_id",
+        "activity_runtime_run_id",
+        "role_runtime_session_id",
+        "runtime_interaction_instance_id",
+        "response_id",
+        "sesion_id",
+        "scene_id",
+        "gate_code",
+        "awaited_event",
+        "release_condition",
+        "timer_or_timeout_rule",
+        "timeout_state",
+        "resolver_owner",
+        "exit_path",
+        "deadlock_risk",
+        "event_status",
+        "event_json",
+        "created_at"
+      ]
+    },
+    "readiness_gap_record": {
+      "present": true,
+      "count": 0,
+      "columns": [
+        "readiness_gap_id",
+        "activity_runtime_run_id",
+        "role_runtime_session_id",
+        "sesion_id",
+        "scene_id",
+        "gap_type",
+        "gap_code",
+        "severity",
+        "description",
+        "route_id",
+        "related_variable_name",
+        "related_interaction_instance_id",
+        "requires_reentry",
+        "reentry_target",
+        "manual_review_required",
+        "status",
+        "created_at",
+        "updated_at",
+        "metadata_json"
+      ]
+    },
+    "readiness_decision_record": {
+      "present": true,
+      "count": 0,
+      "columns": [
+        "readiness_decision_id",
+        "role_runtime_session_id",
+        "activity_runtime_run_id",
+        "sesion_id",
+        "scene_id",
+        "decision_scope",
+        "readiness_state",
+        "gap_ids",
+        "manual_review_required",
+        "reentry_required",
+        "reentry_target",
+        "decision_reason",
+        "decision_json",
+        "decided_by",
+        "created_at"
+      ]
+    },
+    "runtime_audit_trail": {
+      "present": true,
+      "count": 17,
+      "columns": [
+        "runtime_audit_id",
+        "role_runtime_session_id",
+        "activity_runtime_run_id",
+        "runtime_interaction_instance_id",
+        "sesion_id",
+        "scene_id",
+        "actor_type",
+        "actor_auth_user_id",
+        "event_type",
+        "entity_table",
+        "entity_id",
+        "event_summary",
+        "before_json",
+        "after_json",
+        "metadata_json",
+        "created_at"
+      ]
+    }
+  },
+  "components_code_audit": {
+    "ActivityRuntimeOrchestrator": {
+      "status": "implemented_not_connected",
+      "path": "src/services/eve/runtime-40-20/orchestrator/runtime-40-20-activity-runtime-orchestrator-service.ts",
+      "local_only": true
+    },
+    "InteractionRenderer": {
+      "status": "implemented_not_connected",
+      "path": "src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-service.ts",
+      "local_only": true
+    },
+    "ResponseIngestService": {
+      "status": "implemented_not_connected",
+      "path": "src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-service.ts",
+      "local_only": true
+    },
+    "CanonicalVariableService": {
+      "status": "implemented_not_connected",
+      "path": "src/services/eve/runtime-40-20/canonical-variable/runtime-40-20-canonical-variable-service.ts",
+      "local_only": true
+    },
+    "BranchingEngine": {
+      "status": "implemented_not_connected",
+      "path": "src/services/eve/runtime-40-20/branching/runtime-40-20-branching-service.ts",
+      "local_only": true
+    },
+    "CriticalRouteGate": {
+      "status": "partial",
+      "path": "src/services/eve/runtime-40-20/critical-gates/runtime-40-20-critical-gates-service.ts",
+      "notes": "local candidates + gates-readiness local writers"
+    },
+    "MMABPGateEngine": {
+      "status": "absent",
+      "path": null,
+      "notes": "no service module; only negation flags"
+    },
+    "BudgetLedger": {
+      "status": "implemented_not_connected",
+      "path": "src/services/eve/runtime-40-20/branching-budget/runtime-40-20-branching-budget-service.ts",
+      "notes": "candidates only; no DB writer"
+    },
+    "ReadinessEngine": {
+      "status": "partial",
+      "path": "src/services/eve/runtime-40-20/readiness-reentry/runtime-40-20-readiness-reentry-service.ts",
+      "notes": "candidates + local gates-readiness writers"
+    },
+    "AuditTrailService": {
+      "status": "partial",
+      "path": "src/services/eve/runtime-40-20/runtime-real/runtime-40-20-runtime-real-service.ts",
+      "notes": "writers exist; no dedicated AuditTrailService class for 40/20 engines"
+    }
+  },
+  "classification_gate_1": "baseline_captured_no_mutations"
+}

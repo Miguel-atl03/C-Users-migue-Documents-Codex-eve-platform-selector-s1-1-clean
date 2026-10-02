@@ -1,0 +1,58 @@
+{
+  "dictamen": "GATE_4_SINGLE_CONTROLLED_WRITE_CLOSED_PASSED",
+  "gate": "Gate 4",
+  "closure_type": "single_controlled_write",
+  "gate4_closed": true,
+  "validated_chain": {
+    "gate4_plan_accepted": true,
+    "gate4_run_passed": true,
+    "s3_review_accepted": true
+  },
+  "validated_materiality": {
+    "controlled_write_count": 1,
+    "write_name": "gate3_closeout_audit_marker",
+    "write_type": "audit_control_marker",
+    "db_write": false,
+    "local_file_write": true,
+    "payload_matches_contract": true,
+    "g2_risk_001_visible": true,
+    "promotion_allowed": false,
+    "contains_diagnosis_final": false,
+    "contains_registry_final": false,
+    "contains_export_final": false,
+    "contains_client_pilot": false,
+    "multiple_markers_detected": false
+  },
+  "residual_risks": [
+    {
+      "risk_id": "G2-RISK-001",
+      "status": "open",
+      "description": "No real non-productive shadow events were observed because the safe shadow target was not provisioned."
+    }
+  ],
+  "not_authorized": {
+    "generalized_writes_authorized": false,
+    "db_writes_authorized": false,
+    "gate5_authorized": false,
+    "fase9_authorized": false,
+    "production_authorized": false,
+    "registry_final_authorized": false,
+    "export_final_authorized": false,
+    "diagnosis_final_authorized": false,
+    "parallel_production_real_authorized": false
+  },
+  "side_effects": {
+    "code_modified": false,
+    "tests_executed_in_closeout": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "writes_attempted_in_closeout": false,
+    "new_marker_created_in_closeout": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "gate5_started": false,
+    "fase9_started": false
+  },
+  "next_step": "PLAN_GATE_5_FASE_9_MINIMAL_CLIENT_PILOT_V1"
+}

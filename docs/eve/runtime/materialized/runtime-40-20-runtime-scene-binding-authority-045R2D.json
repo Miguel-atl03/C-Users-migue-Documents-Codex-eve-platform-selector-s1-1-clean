@@ -1,0 +1,93 @@
+﻿{
+    "instruction":  "045-R2D",
+    "generated_at":  "2026-08-09T00:00:00-06:00",
+    "answer":  "scene_id has no authoritative material source in the checkout. It must come from governed Runtime-to-scene binding or handoff authority, not from activity_id, run_id, or session_id.",
+    "candidates":  [
+                       {
+                           "source":  "runtime_object_binding",
+                           "identity":  "not persisted",
+                           "scope":  "local readiness only",
+                           "authority":  "partial",
+                           "cardinality":  "not proven",
+                           "persistence":  "in-memory",
+                           "current_caller":  "F5C local test",
+                           "classification":  "ambiguous"
+                       },
+                       {
+                           "source":  "scene_registry",
+                           "identity":  "scene_id",
+                           "scope":  "scene/session Capa 1",
+                           "authority":  "legacy_reference",
+                           "cardinality":  "scene scoped, not Runtime run scoped",
+                           "persistence":  "scene-side table",
+                           "current_caller":  "scene services",
+                           "classification":  "legacy_reference"
+                       },
+                       {
+                           "source":  "activity/session binding",
+                           "identity":  "session/run/activity ids",
+                           "scope":  "Runtime execution",
+                           "authority":  "technical_reference_only",
+                           "cardinality":  "not scene mapping",
+                           "persistence":  "Runtime tables",
+                           "current_caller":  "execution services",
+                           "classification":  "technical_reference_only"
+                       },
+                       {
+                           "source":  "role_runtime_session",
+                           "identity":  "role_runtime_session_id",
+                           "scope":  "role session",
+                           "authority":  "technical_reference_only",
+                           "cardinality":  "one to many runs",
+                           "persistence":  "Runtime table",
+                           "current_caller":  "execution services",
+                           "classification":  "technical_reference_only"
+                       },
+                       {
+                           "source":  "activity_runtime_run",
+                           "identity":  "activity_runtime_run_id/run_id",
+                           "scope":  "activity run",
+                           "authority":  "technical_reference_only",
+                           "cardinality":  "one run",
+                           "persistence":  "Runtime table",
+                           "current_caller":  "execution services",
+                           "classification":  "technical_reference_only"
+                       },
+                       {
+                           "source":  "existing bridge/handoff record",
+                           "identity":  "not_found",
+                           "scope":  "not_found",
+                           "authority":  "absent",
+                           "cardinality":  "not_applicable",
+                           "persistence":  "absent",
+                           "current_caller":  "absent",
+                           "classification":  "absent"
+                       },
+                       {
+                           "source":  "other real contract",
+                           "identity":  "not_found",
+                           "scope":  "not_found",
+                           "authority":  "absent",
+                           "cardinality":  "not_applicable",
+                           "persistence":  "absent",
+                           "current_caller":  "absent",
+                           "classification":  "absent"
+                       }
+                   ],
+    "forbidden":  [
+                      "scene_id = activity_id",
+                      "scene_id = run_id",
+                      "scene_id = session_id"
+                  ],
+    "evidence_files":  [
+                           "src/services/eve/object-binding/f5c-local-runtime-object-binding-service.ts",
+                           "src/services/eve/object-binding/f5c-local-binding-types.ts",
+                           "src/services/eve/object-binding/f5c-local-runtime-object-binding-service.test.mjs",
+                           "docs/implementation/f5c_local_runtime_object_binding_closeout.md",
+                           "docs/implementation/runtime_40_20_phase9_gap_audit_readiness_object_membrane_persistence_boundary_local_contract_closeout.md",
+                           "src/types/eve-organism-gate2-real-shadow-bridge-reader.ts",
+                           "src/types/eve-organism-bridge-reader-real-source-adapter.ts",
+                           "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts",
+                           "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-staging-persistence-types.ts"
+                       ]
+}

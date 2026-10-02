@@ -1,0 +1,36 @@
+{
+    "instruction":  "045-R2C",
+    "outbox_status":  "absent",
+    "usable_existing_table":  "none_proven",
+    "runtime_audit_trail_assessment":  {
+                                           "status":  "partial_audit_not_outbox",
+                                           "missing":  [
+                                                           "projection_status",
+                                                           "target_table",
+                                                           "target_scene_id",
+                                                           "target_question_id",
+                                                           "idempotency_identity",
+                                                           "retry_count",
+                                                           "replay_cursor",
+                                                           "superseded_status"
+                                                       ]
+                                       },
+    "shadow_only_outbox_events_assessment":  {
+                                                 "status":  "specification_only",
+                                                 "reason":  "read-only shadow source, not a productive Runtime handoff boundary"
+                                             },
+    "required_minimum_event":  [
+                                   "runtime_run_id",
+                                   "runtime_interaction_instance_id",
+                                   "response_id",
+                                   "source_slots",
+                                   "evidence",
+                                   "canonical_variables",
+                                   "response_revision_number",
+                                   "idempotency_key",
+                                   "committed_at",
+                                   "projection_status"
+                               ],
+    "decision":  "do_not_create_projection_until_outbox_authority_is_materialized",
+    "final_blocker":  "blocked_runtime_outbox_materiality"
+}

@@ -1,0 +1,1292 @@
+Especificación UI / Front-endPanel de Control del Consultor EVE
+Contrato implementable de pantalla para /admin/consultant-control-panel
+Campo
+Valor
+Versión
+v1.0
+Fecha
+2026-07-12
+Estado
+Especificación funcional y técnica para implementación controlada
+Sistema operativo actual
+Capa 1.0 + Runtime 40+20 + Producción Paralela
+Usuario de la pantalla
+Consultor experto EVE autorizado
+Ruta
+/admin/consultant-control-panel
+Modo inicial
+Solo lectura; intervención y generación de descargas visibles pero deshabilitadas hasta endpoint auditado/autorizado
+Documento fuente inmediato
+Diseno_Panel_Control_EVE_Runtime_40_20_MBA_Ajustado_v2_RolFuncional
+Frontera
+No diagnostica, no monetiza, no reescribe evidencia, no automatiza Capa 2.0/2.5/3.0
+Regla de integración
+Reemplazo controlado de la pantalla existente en la misma ruta; no crear una segunda cabina paralela
+DictamenEste documento no reabre el diseño arquitectónico del panel. Traduce la arquitectura aprobada a un contrato de pantalla, componentes, estados, datos y BFF. La fuente implementable del Runtime sigue siendo el workbook v1.1.1; la pantalla es una vista gobernada y nunca una nueva fuente de verdad.
+Contenido
+1. Propósito, autoridad y frontera
+2. Barrido rector y decisiones derivadas
+3. Contrato de ruta e integración con la pantalla existente
+4. Arquitectura funcional de pantalla
+5. Arquitectura visual y comportamiento responsive
+6. Componentes front-end y responsabilidades
+7. Estados, capacidades y reglas de habilitación
+8. Unidad de seguimiento y modelo de lectura
+9. Contrato BFF/API
+10. View models y normalización semántica
+11. Seguridad, autoridad y auditoría
+12. Estados de carga, error y degradación
+13. Accesibilidad y usabilidad operativa
+14. Fixtures y escenarios de prueba
+15. Estrategia de sustitución de la pantalla existente
+16. Criterios de aceptación y paquete de implementación
+Anexos: endpoint payloads, fixture mínimo y matriz de trazabilidad
+1. Propósito, autoridad y frontera
+El propósito de esta especificación es convertir el diseño operativo del Panel de Control EVE en una pantalla implementable para el consultor experto, sin duplicar la arquitectura de negocio ni desplazar la autoridad del Runtime, Capa 1.0 o Producción Paralela.
+1.1 Cadena documental de implementación
+Diseno_Panel_Control_EVE_Runtime_40_20_MBA_Ajustado_v2_RolFuncional  -> Especificacion_UI_FrontEnd_Panel_Control_Consultor_EVE_v1  -> Contrato BFF/API  -> Fixture de datos  -> Implementacion en /admin/consultant-control-panel
+1.2 Decisiones no negociables
+Decisión
+Aplicación en la pantalla
+Prohibición asociada
+Cabina de observación y gobierno
+La UI presenta estado, causalidad, readiness, gaps, timers, trazabilidad y elegibilidad de descargas.
+No convertirse en motor diagnóstico ni en editor de evidencia.
+Capa 1.0 y Producción Paralela operativas
+Son las únicas líneas mostradas como ejecución de plataforma.
+No presentar Capa 2.0, 2.5 o 3.0 como módulos automáticos.
+Runtime 40+20 por actividad primaria
+La UI muestra 40 bases resueltas y 20 causales evaluadas por activity_runtime_run.
+No representar el Runtime como encuesta lineal ni cerrar solo por conteo.
+Conformance antes de consistency
+Producción Paralela muestra la secuencia de QA y bloquea export cuando ACA no está Satisfied.
+No alinear modelos ni habilitar export de forma cosmética.
+user_id distinto de role_runtime_session
+Un usuario físico se expande en uno o más perfiles funcionales internos.
+No crear logins paralelos ni colgar runs solo de user_id.
+Gate > acción manual
+La UI solo expone acciones que el BFF declare permitidas.
+No forzar ready ni saltar B0/B2/B3/B7, SEM o PST.
+Evidencia inmutable
+La pantalla muestra evidencia y revisiones como solo lectura.
+No editar respuestas, borrar versiones ni crear hechos desde texto libre.
+1.3 Fuera de alcance
+Rediseñar el Runtime 40+20, el Catálogo Madre o el Catálogo Runtime.
+Crear nuevas bases B0-Q01..B7-Q40 o causales C21+.
+Automatizar transducción Capa 2.0, agregación Capa 2.5 o síntesis Capa 3.0.
+Implementar acceso directo del navegador a Supabase o exponer service_role.
+Definir nombres reales de archivos, imports o componentes del repositorio existente sin inspección del repo.
+Generar el fixture productivo o el paquete Codex/Cursor en este mismo artefacto.
+2. Barrido rector y decisiones derivadas
+El diseño de pantalla se deriva del Marco Estructural maestro y se contrasta contra los artefactos rectores. La siguiente matriz explicita qué autoridad se conserva y qué decisión UI resulta.
+Fuente rectora
+Autoridad conservada
+Decisión UI derivada
+Marco Estructural maestro
+Stack documental, frontera Capa 1.0/Producción Paralela, Gate > Chip, seguridad y auditoría.
+La pantalla se organiza como control shadow: observa, no sustituye los motores ni promueve estados sin gate.
+Fundamentals of Business Architecture Modeling
+PM, MoC, PF, OLC; conformance antes de consistencia; Process State y causalidad.
+Cada estado visible debe corresponder a Object[State], evento, timer, proceso responsable o bloqueo.
+MBA EVE v1.1 B3/B7
+Procesos P-CORE/P-SUP, objetos, OLC, target states, B3/B7 y exportación.
+La UI presenta milestones y objetos; export solo desde ACA [Satisfied].
+Diseño Capa 1.0
+SCR, EvidenceBundle, evidencia, derivación, gaps y readiness.
+Contexto, evidencia, variable, gap y readiness se distinguen visualmente.
+Diseño Producción Paralela
+MDSB, candidatos, facts, registries, IR, QA y export.
+Descargas y estados siguen la secuencia fuente -> candidato -> inventario -> IR -> QA -> export.
+Catálogo Madre Capa 1 v1.0
+164 nodos canónicos, rutas críticas, genealogía y frontera B7.
+La UI nunca expone los 164 nodos como entrevista; usa source refs en detalle/auditoría.
+Catálogo Runtime v1.1.1 XLSX
+40 bases, 20 causales, subcampos, variables, branching, gates, readiness y QA.
+Las matrices 40/20 consumen registros operacionales; no se construyen desde narrativa.
+Runtime técnico ejecutable v1.0.1
+Entidades, estados, API lógica, idempotencia, recomputación, seguridad y audit trail.
+El BFF compone view models; el navegador no consulta entidades crudas ni base de datos.
+Diseño del Panel v2 RolFuncional
+Cabecera, navegación, vistas, acciones, descargas, alcance manual downstream y multirrol.
+Define la estructura de componentes y la jerarquía empresa -> caso -> usuario -> rol -> actividad -> run.
+VSM / Viplan
+Autorregulación, variedad residual, coordinación y autoridad distribuida.
+El panel informa desviaciones y habilita corrección gobernada; no centraliza control extrínseco sin auditabilidad.
+AHE
+Causalidad humana recursiva sin psicologizar individuos.
+La pantalla no muestra juicios de actitud/cultura; solo materialidad, interacción y trazabilidad cuando corresponda.
+Instrucciones MMABP + EVE / Tabla de inconsistencias
+Disciplina de conformance, consistencia y patologías.
+El panel muestra hallazgos técnicos; no emite diagnóstico EVE automático.
+Regla epistemológica de la UILa pantalla puede resumir y navegar información gobernada, pero no puede elevar contexto a evidencia, inferencia a hecho, candidato a inventario, inventario a IR ni IR a exportación sin el estado y gate correspondientes.
+3. Contrato de ruta e integración con la pantalla existente
+Elemento
+Contrato
+Ruta estable
+/admin/consultant-control-panel
+Audiencia
+Consultor experto autenticado y autorizado para el tenant/case scope.
+Modo inicial
+Read-only. Los controles de intervención aparecen visibles, con explicación, pero disabled.
+Descargas iniciales
+Visibles, con eligibility calculada; disabled hasta existir generador y endpoint autorizado.
+Fuente de autorización
+Sesión de servidor + BFF. Los query params solo seleccionan contexto; nunca otorgan acceso.
+Integración
+Sustitución en la misma ruta. No crear /admin/consultant-control-panel-v2 como solución permanente.
+Compatibilidad
+Preservar guardas de autenticación, layout administrativo, tema MUI y enlaces existentes.
+Estado del repo
+No inspeccionado en este artefacto. Nombres reales de archivos, router, hooks y adaptadores quedan REPO-TBD.
+3.1 Estrategia de reemplazo en la misma ruta
+Fase
+Resultado
+Condición de avance
+F0 - Baseline
+Capturar screenshot, comportamiento, ruta, auth guard, queries y dependencias de la pantalla existente.
+Repo disponible y prueba smoke actual ejecutada.
+F1 - Shell nuevo
+Renderizar layout, navegación y estados skeleton con fixture local.
+Sin romper ruta ni layout administrativo.
+F2 - Read model BFF
+Conectar GET de estado, progreso, ayuda, traza y descargas.
+No hay acceso directo a Supabase; scopes validados.
+F3 - Paridad observacional
+Verificar que la nueva pantalla cubre datos útiles de la anterior y añade el contrato rector.
+Criterios UI/DATA/SEC pasan.
+F4 - Cutover
+Activar nueva pantalla mediante feature flag o swap controlado.
+Rollback probado y telemetría activa.
+F5 - Acciones futuras
+Habilitar manual actions y generadores solo tras endpoints auditados.
+Pruebas de autoridad, idempotencia y audit trail aprobadas.
+3.2 Parámetros de navegación propuestos
+/admin/consultant-control-panel  ?caseId=CASE-...  &userId=USR-...                 # opcional  &roleSessionId=RRS-...           # opcional  &activityId=ACT-...              # opcional  &runId=RUN-...                   # opcional  &view=runtime|gates|trace|downloads|audit
+El BFF debe ignorar o rechazar cualquier selector que no pertenezca al scope autorizado. El servidor devuelve el contexto efectivo; la UI no lo deduce por confianza en la URL.
+4. Arquitectura funcional de pantalla
+4.1 Zonas
+Zona
+Contenido
+Función
+Header persistente
+Cliente, caso, estado, sesión, catálogo/runtime version, actividad seleccionada, freshness y timers críticos.
+Fijar contexto y evitar lectura fuera de scope.
+Sidebar
+Centro de casos; ayuda funcional; monitoreo empresa/usuario/rol; Runtime; trazabilidad; gates; descargas; auditoría.
+Navegar sin perder la jerarquía causal.
+Área central
+Vista activa y detalle.
+Mostrar el estado del sistema seleccionado.
+Panel lateral/drawer
+Detalle de evidencia, variables, gaps o acción manual futura.
+Profundizar sin editar evidencia.
+Banda de estado
+Errores, warnings, data freshness, request_id y modo read-only.
+Hacer visibles degradaciones y límites de autoridad.
+4.2 Navegación principal
+Clave
+Etiqueta UI
+Vista inicial
+cases
+Centro de casos
+Resumen de caso y readiness
+functional-help
+Ayuda funcional al usuario
+Cobertura usuario -> role_runtime_session
+monitoring
+Empresa / usuarios / roles
+CompanyUserRoleMatrix
+runtime
+Runtime 40+20
+RuntimeRunTable + Base/Causal tabs
+trace
+Trazabilidad operativa
+OperationalTraceTimeline
+gates
+Gates & Readiness
+GateReadinessPanel
+downloads
+Descargas consultor
+DownloadsPanel
+audit
+Audit trail
+AuditTrailPanel
+4.3 Wireframe funcional
+CASE HEADER · CasoDiagnosticoEVE[estado] · empresa · usuario · role · actividad · run · timer
+SIDEBARCentro de casosAyuda funcionalEmpresa/usuario/rolRuntime 40+20TrazabilidadGatesDescargasAudit trail
+ÁREA CENTRALResumen/readinessMatriz usuario-rol-actividad-runBase 40 / Causal 20Gates B0/B2/B3/B7 + SEM/PSTTraza, descargas o auditoría
+DRAWERDetalle solo lecturaEvidence/variable/gapAcción futura disabled
+STATUS BAR · READ-ONLY · freshness · warnings · request_id · permisos efectivos
+5. Arquitectura visual y comportamiento responsive
+5.1 Mapeo a Material UI
+Necesidad
+Componente MUI recomendado
+Regla
+Shell
+Box + AppBar + Drawer
+Usar el theme existente; no hardcodear colores de marca.
+Navegación
+List + ListItemButton + Collapse
+Evitar dependencia nueva si TreeView no está instalado.
+Contexto
+Breadcrumbs + Stack + Chip
+Los chips son estado, no botones encubiertos.
+Resumen
+Card + Stack + LinearProgress
+Progreso no equivale a readiness; mostrar ambos.
+Tablas 40/20
+Table + TableContainer + stickyHeader
+40/20 no requiere MUI X; DataGrid solo si ya existe en repo.
+Filtros
+Select + TextField + ToggleButtonGroup
+Filtros no alteran datos ni scope.
+Detalles
+Drawer o Dialog
+Solo lectura inicialmente.
+Alertas
+Alert + AlertTitle
+Mostrar causa, objeto afectado y reentry target.
+Carga
+Skeleton + LinearProgress
+Evitar spinner sin contexto.
+Vacío
+Paper + Typography + acción de navegación
+No confundir vacío con ready.
+Descargas
+Card + Button + Tooltip
+Button disabled hasta eligibility + capability.
+Acciones futuras
+Drawer + Button + Dialog de confirmación
+Visible disabled hasta endpoint auditado.
+5.2 Reglas visuales de estado
+Categoría semántica
+Ejemplos
+Token de tema
+Uso
+Éxito
+ready, closed, satisfied, generated
+success
+Estado causal cerrado y autorizado.
+Advertencia
+ready_with_flags, with_findings
+warning
+Avance permitido con insuficiencia visible.
+Bloqueo
+blocked, route_missing, boundary_violation
+error
+Impide avance/export según regla.
+Revisión
+manual_review_required, reentry_required
+secondary
+Requiere intervención gobernada.
+Pendiente
+initialized, pending, evaluating
+info/neutral
+Todavía no se produjo transición final.
+Contexto
+context_only, inferred_unconfirmed
+default
+No presentar como evidencia dura.
+Los colores no son la única señal. Todo estado debe incluir texto, icono y tooltip. Los nombres técnicos pueden aparecer en detalle, pero la etiqueta principal debe ser comprensible para el consultor.
+5.3 Responsive
+Breakpoint
+Comportamiento
+>= 1440 px
+Drawer permanente 260-288 px; contenido 12 columnas; panel de detalle lateral.
+1024-1439 px
+Drawer colapsable; tablas con scroll horizontal; drawer de detalle temporal.
+768-1023 px
+Sidebar temporal; resumen apilado; tablas mantienen columnas esenciales y detalle por fila.
+< 768 px
+Acceso de contingencia, no operación primaria. Cards apiladas, filtros en drawer y advertencia de viewport reducido.
+6. Componentes front-end y responsabilidades
+Componente
+Responsabilidad
+Restricción
+ConsultantControlPanelPage
+Contenedor de ruta, scope efectivo, selección y orchestration de queries.
+No contiene reglas de readiness ni acceso a DB.
+CaseHeader
+Contexto del caso, versión, estado, timers y freshness.
+No permite mutar estado.
+CaseReadinessSummary
+Readiness actual, dominant gate, conteos y gaps.
+No calcula readiness en cliente.
+SidebarNavigation
+Navegación y badges de conteo.
+No usa conteos para autorizar.
+CompanyUserRoleMatrix
+Jerarquía empresa -> caso -> user -> role session -> activity -> run.
+user_id nunca sustituye role_runtime_session.
+FunctionalHelpPanel
+Cobertura funcional, mixed_unresolved, reentry y manual review.
+No diagnostica rol ni autoridad real.
+RuntimeRunTable
+Lista activity_runtime_run con progreso, bloque, estado y timers.
+No fusiona runs de roles distintos.
+Runtime40BaseGrid
+40 registros BaseResolutionStatus con filtros y detalle.
+No permite skipped_silently ni cierre manual.
+Runtime20CausalGrid
+20 CausalClosureStatus, prioridad y trigger evidence.
+No asume not_triggered sin evidencia.
+GateReadinessPanel
+B0/B2/B3/B7, SEM, PST, QA/export gates.
+Gate status proviene del BFF.
+OperationalTraceTimeline
+Eventos ordenados, transiciones, recomputación y reentry.
+No reconstruye causalidad desde timestamps incompletos.
+EvidenceDetailDrawer
+Evidencia, provenance, variable, source refs y revisiones.
+No edita evidencia ni oculta superseded.
+DownloadsPanel
+Artefactos, eligibility, restricciones y estado del generador.
+No habilita export por UI local.
+AuditTrailPanel
+Bitácora append-only, actor, razón, before/after y scope.
+No ofrece delete ni rewrite.
+ManualActionDrawer
+Capacidades futuras: pause, reentry, clarification, force causal, review.
+Inicialmente disabled; requiere capability y endpoint auditado.
+StatusLegend
+Leyenda de estados y fronteras epistemológicas.
+No simplifica blocked y ready_with_flags como equivalentes.
+6.1 Jerarquía de componentes
+ConsultantControlPanelPage├─ CaseHeader├─ SidebarNavigation└─ ControlPanelWorkspace   ├─ CaseReadinessSummary   ├─ CompanyUserRoleMatrix   ├─ FunctionalHelpPanel   ├─ RuntimeRunTable   │  ├─ Runtime40BaseGrid   │  └─ Runtime20CausalGrid   ├─ GateReadinessPanel   ├─ OperationalTraceTimeline   ├─ DownloadsPanel   └─ AuditTrailPanel      + EvidenceDetailDrawer      + ManualActionDrawer [disabled inicialmente]
+6.2 Contrato por componente crítico
+Componente
+Props/view model mínimos
+Eventos UI
+Endpoint
+CaseHeader
+caseHeader, effectiveScope, freshness
+changeSelection, refresh
+state
+CaseReadinessSummary
+readinessSummary, permissions
+openGap, openGate
+state
+CompanyUserRoleMatrix
+companyProgress, selectedIds
+selectUser, selectRole, selectActivity, selectRun
+client-company-progress
+FunctionalHelpPanel
+functionalHelp
+openRoleIssue, selectRole
+user-functional-help
+RuntimeRunTable
+runs[], selectedRunId
+selectRun, filter
+state
+Runtime40BaseGrid
+baseItems[40], filters
+openDetail
+state
+Runtime20CausalGrid
+causalItems[20], filters
+openDetail
+state
+GateReadinessPanel
+gates[], readiness
+openGateEvidence
+state
+OperationalTraceTimeline
+events[], cursor
+loadMore, openEvent
+operational-trace
+DownloadsPanel
+artifacts[], capabilities
+requestGenerate*, download*
+downloads
+AuditTrailPanel
+auditEvents[], cursor
+loadMore
+operational-trace o audit dedicado
+ManualActionDrawer
+capabilities, target, formSchema
+submit*
+manual-actions*
+* Los eventos de mutación permanecen fuera de servicio en v1.0 read-only. Su presencia define el contrato futuro, no una autorización actual.
+7. Estados, capacidades y reglas de habilitación
+7.1 Estado global de pantalla
+Estado UI
+Condición
+Render
+loading
+Primera carga sin datos
+Skeleton de header, cards y tablas.
+refreshing
+Datos existentes + refetch
+Mantener contenido; indicador no bloqueante.
+ready
+Payload consistente y scope válido
+Pantalla operable en solo lectura.
+partial
+Algún endpoint secundario falló
+Conservar datos válidos; Alert por panel afectado.
+forbidden
+BFF devuelve 403
+Pantalla de acceso denegado sin filtrar existencia de otros casos.
+not_found
+Case no existe en scope
+Estado vacío controlado.
+stale
+ETag/version cambió durante la sesión
+Solicitar refresh antes de futura acción.
+fatal
+State endpoint no disponible
+Error con request_id y retry.
+7.2 Capabilities
+capabilities: {  read: true,  manual_actions: {    enabled: false,    reason_code: "AUDITED_ENDPOINT_NOT_AVAILABLE",    allowed_actions: []  },  downloads: {    enabled: false,    reason_code: "AUTHORIZED_GENERATOR_NOT_AVAILABLE"  }}
+7.3 Regla de habilitación de acciones manuales
+Acción futura
+Visible
+Enabled cuando
+Bloqueo duro
+Pausar/reanudar
+Sí
+capability + endpoint + actor autorizado
+No modifica evidencia.
+Request reentry
+Sí
+gap/reentry target válido + capability
+Solo bloque/gate específico.
+Agregar aclaración
+Sí
+target source rule/variable/gap válido
+No crea base o causal nueva.
+Forzar apertura causal
+Sí
+activation evidence + capability
+No cierra variable.
+Manual review
+Sí
+ambigüedad no resoluble + capability
+No produce diagnóstico.
+Forzar ready
+No
+Nunca
+Prohibido por diseño.
+Editar evidencia
+No
+Nunca
+Prohibido por diseño.
+7.4 Regla de habilitación de descargas
+Artefacto
+Eligibility mínima
+UI inicial
+Runtime audit XLSX/CSV
+Datos de runtime disponibles
+Visible disabled hasta generador.
+EvidenceBundle Capa 2.0 manual
+ReadyForTransduction o ready_with_flags visible
+Visible disabled; mostrar gaps.
+Workbook Capa 2.0 manual
+EvidenceBundle exportable y trazable
+Visible disabled.
+Workbook Capa 2.5 manual
+Escenas manuales importadas/validadas
+Pendiente manual.
+Workbook Capa 3.0 manual
+Película causal manual disponible
+Pendiente manual.
+MDSB / candidatos / facts / registries / IR
+Estado de Producción Paralela correspondiente
+Visible por estado; no confundir artefactos.
+Camunda BPMN
+ACA [Satisfied] + validation OK
+Visible disabled hasta generador autorizado.
+Paquete de gaps
+Gate o QA bloqueante
+Visible disabled hasta generador.
+8. Unidad de seguimiento y modelo de lectura
+empresa_cliente  -> caso     -> user_id físico        -> role_runtime_session (1..*)           -> responsabilidad / actividad              -> activity_runtime_run                 -> runtime_interaction_instance                    -> subfield_response / evidence_item                    -> canonical_variable_record                    -> gap / gate / readiness                 -> parallel_export_payload
+8.1 Reglas de cardinalidad visibles
+Relación
+Regla UI
+empresa_cliente -> caso
+El panel puede listar varios casos, pero solo uno es contexto efectivo de trabajo.
+caso -> user_id
+Mostrar participantes físicos sin deducir rol por login.
+user_id -> role_runtime_session
+Expandible 1..*; mostrar assignment status y cobertura.
+role_runtime_session -> actividad
+Conservar primarias y secundarias; solo primarias abren run completo.
+actividad -> activity_runtime_run
+Mostrar versión de catálogo, estado, 40/20, timers y readiness.
+run -> interacción
+Separar base, causal, skipped_by_rule, closed_by_other y reopened.
+interacción -> evidencia/variable
+Mostrar provenance y revisión; no fusionar texto con variable canónica.
+run -> readiness/parallel payload
+Readiness habilita consumo, no equivale a export final.
+8.2 Datos consumidos y su uso
+Entidad
+Uso semántico
+Componente
+role_runtime_session
+Jerarquía funcional, límite/cobertura y estado.
+CompanyUserRoleMatrix, FunctionalHelpPanel
+activity_runtime_run
+Estado del run, 40/20, readiness y versión.
+RuntimeRunTable, CaseReadinessSummary
+runtime_interaction_instance
+Estado de cada interacción.
+Base/Causal grids
+runtime_subfield_response
+Detalle de respuestas compuestas.
+EvidenceDetailDrawer
+evidence_item
+Evidencia, provenance, confidence y revisiones.
+EvidenceDetailDrawer, trace
+canonical_variable_record
+Variable, route status y gap flag.
+Gates, details
+readiness_gap_record
+Gap, severidad, route/quadrant, reentry.
+Summary, Gates, trace
+readiness_decision_record
+Readiness, dominant gate y decisión.
+Summary
+semantic_resolution_event
+SEM-001..SEM-007.
+GateReadinessPanel
+process_state_timer_event
+PST-001..PST-006, awaited event, timer y deadlock.
+GateReadinessPanel, trace
+parallel_export_payload
+SCR/EvidenceBundle/MDSB y versiones.
+DownloadsPanel, trace
+runtime_audit_trail
+Eventos, overrides, recomputación y export.
+AuditTrailPanel
+9. Contrato BFF/API
+Frontera técnicaEl front-end consume exclusivamente endpoints BFF bajo /api/eve/consultant/control-panel. El BFF resuelve autenticación, tenancy, scope, composición, normalización de estados y redacción de campos. No se permite acceso directo del navegador a tablas o vistas Supabase.
+9.1 Convenciones
+Convención
+Regla
+Método
+GET para lectura; POST solo en endpoints futuros auditados.
+Scope
+case_id obligatorio; otros IDs opcionales y validados como descendientes del case.
+Envelope
+request_id, generated_at, data, meta, errors.
+Versionado
+Header X-EVE-Contract-Version: 1.0; cambios incompatibles requieren nueva versión.
+Cache
+private, no-store para datos sensibles por defecto; ETag opcional para read model.
+Paginación
+cursor opaco, limit máximo definido por BFF.
+Fechas
+ISO-8601 UTC; UI localiza para presentación.
+Enums
+Valores canónicos del backend; UI usa mapping centralizado.
+Nulos
+null significa desconocido/no producido; nunca convertir automáticamente en false.
+Redacción
+No enviar campos innecesarios, secretos, service_role ni datos fuera de scope.
+9.2 Endpoints read-only v1
+Método
+Endpoint
+Propósito
+GET
+/api/eve/consultant/control-panel/state
+Shell del caso, selección actual, readiness, runs, 40/20 y gates.
+GET
+/api/eve/consultant/control-panel/client-company-progress
+Árbol empresa/caso/usuario/rol/actividad/run y cobertura.
+GET
+/api/eve/consultant/control-panel/user-functional-help
+Estado de separación funcional y acciones recomendadas.
+GET
+/api/eve/consultant/control-panel/operational-trace
+Traza paginada de eventos, timers, gaps, recomputaciones y auditoría.
+GET
+/api/eve/consultant/control-panel/downloads
+Catálogo de artefactos, eligibility, restrictions y generator status.
+9.3 Endpoints futuros reservados
+Método
+Endpoint
+Estado v1
+Condición futura
+POST
+/api/eve/consultant/control-panel/manual-actions
+No implementado / UI disabled
+Actor autorizado, idempotency_key, before/after, reason y audit trail.
+POST
+/api/eve/consultant/control-panel/downloads/{artifactKey}/generate
+No implementado / UI disabled
+Eligibility vigente, generator autorizado, audit y checksum.
+GET
+/api/eve/consultant/control-panel/downloads/{artifactId}/file
+No implementado
+Stream/autorización temporal; no URL pública persistente.
+9.4 Query de scope
+?case_id=CASE-001&user_id=USR-001&role_runtime_session_id=RRS-OPS&activity_id=ACT-DELIVERY&run_id=RUN-001&cursor=opaque_cursor&limit=50
+9.5 Envelope común
+{  "request_id": "REQ-...",  "generated_at": "2026-07-12T12:00:00Z",  "contract_version": "1.0",  "data": { },  "meta": {    "effective_scope": { "case_id": "CASE-001" },    "freshness": { "as_of": "...", "stale": false },    "capabilities": { "read": true, "manual_actions": {"enabled": false}, "downloads": {"enabled": false} }  },  "errors": []}
+9.6 GET /state
+Entrada
+Salida
+case_id obligatorio; selectors opcionales
+case_header, readiness_summary, selected_context, runs, base_items, causal_items, gates, open_gaps, capabilities.
+include=summary|run-detail
+summary no devuelve 60 items de todos los runs; run-detail devuelve solo el run seleccionado.
+ETag/If-None-Match opcional
+304 sin cuerpo cuando no cambió el read model.
+9.7 GET /client-company-progress
+Entrada
+Salida
+case_id
+company, cases[], users[], role_sessions[], activities[], runs[] con counts y assignment_status.
+filters opcionales
+Estado, readiness, role coverage, actividad, gap severity.
+9.8 GET /user-functional-help
+Entrada
+Salida
+case_id + user_id
+physical_user, separation_state, role_sessions, unassigned_responsibilities, unassigned_activities, coverage_warnings, recommended_next_step.
+role_runtime_session_id opcional
+Detalle de un perfil sin reinterpretar evidencia.
+9.9 GET /operational-trace
+Entrada
+Salida
+case_id + filtros + cursor
+events[], next_cursor, has_more.
+event_type
+state_transition, interaction, evidence, variable, gap, gate, timer, readiness, recompute, export, operator_action.
+orden
+occurred_at DESC, sequence_id DESC para estabilidad.
+9.10 GET /downloads
+Entrada
+Salida
+case_id + selectors opcionales
+artifacts[] con artifact_key, label, format, state, eligibility, restrictions, source_object, source_state, generator_status.
+eligibility
+eligible | eligible_with_flags | blocked | pending_manual | generator_unavailable.
+10. View models y normalización semántica
+10.1 Tipos principales
+type ControlPanelScope = {  companyId: string;  caseId: string;  userId?: string;  roleRuntimeSessionId?: string;  activityId?: string;  runId?: string;};type ReadinessState =  | "ready"  | "ready_with_flags"  | "blocked"  | "reentry_required"  | "manual_review_required"  | "pending";type GateState = "pass" | "flag" | "fail" | "pending" | "not_applicable";type EvidenceKind =  | "captured_user_evidence"  | "user_confirmed_suggestion"  | "user_corrected_evidence"  | "ai_inferred_unconfirmed"  | "canonical_derivation"  | "internal_calculated";
+10.2 CaseHeaderVM
+{  "case_id": "CASE-001",  "company": {"company_id":"COMP-01","name":"Empresa ejemplo"},  "case_state": "InDiagnosticProduction",  "catalog_version": "1.1.1",  "runtime_version": "1.0.1",  "selected": {"user_id":"USR-1","role_runtime_session_id":"RRS-OPS","activity_id":"ACT-1","run_id":"RUN-1"},  "critical_timers": [{"gate_id":"PST-003","expires_at":"...","state":"warning"}]}
+10.3 RuntimeRunRowVM
+{  "run_id": "RUN-1",  "activity_id": "ACT-1",  "activity_title": "Consolidar orden de entrega",  "role_runtime_session_id": "RRS-OPS",  "role_label": "Operación",  "state": "readiness_evaluation",  "current_block": "B4",  "base": {"resolved": 37, "total": 40, "blocked": 2, "review": 1},  "causal": {"evaluated": 20, "triggered": 5, "open": 1},  "readiness": "blocked",  "dominant_gate": "CR-B3-R9-receiver_feedback"}
+10.4 BaseResolutionItemVM y CausalClosureItemVM
+{  "base_id": "B3-Q22",  "block": "3",  "label": "Aceptación del receptor y cambios recientes",  "status": "captured_user_evidence",  "epistemic_status": "captured_user_evidence",  "canonical_variables": ["receiver_satisfaction"],  "source_codes": ["3.13","3.14"],  "blocking_gap": null,  "reentry_target": null}{  "causal_id": "C09",  "priority": "P0",  "activation_status": "triggered_required",  "trigger_evidence_refs": ["EVI-101"],  "closure_status": "route_missing",  "blocks_ready": true,  "reentry_target": "B3-3.13a"}
+10.5 GateStatusVM
+{  "gate_id": "CR-B3-R9-receiver_feedback",  "family": "critical_route",  "state": "fail",  "reason_code": "B3_ROUTE_MISSING",  "affected_object": "ReceiverFeedbackObject",  "affected_route": "3.10 -> 3.13 -> 3.13a",  "reentry_target": "B3-3.13a",  "evidence_refs": ["EVI-101"],  "user_message": "Existe una señal operativa del receptor, pero falta cerrar su ruta canónica."}
+10.6 Mapeo de estados técnicos a UI
+Estado técnico
+Etiqueta primaria
+Categoría UI
+Acción
+captured_user_evidence
+Respondida por usuario
+success
+Ver detalle
+user_confirmed_prefill
+Prefill confirmado
+success
+Ver confirmación
+canonical_derivation_closed
+Derivación canónica cerrada
+success
+Ver ruta
+internal_calculated_closed
+Cálculo interno cerrado
+success
+Ver inputs
+ready_with_flag
+Resuelta con flag
+warning
+Ver restricción
+blocked_by_missing_evidence
+Falta evidencia
+error
+Ver gap
+blocked_by_missing_canonical_route
+Falta ruta canónica
+error
+Ver reentry
+inferred_unconfirmed
+Inferencia no confirmada
+neutral
+No cuenta como cierre pleno
+manual_review_required
+Revisión experta
+review
+Abrir detalle
+reentry_required
+Reentrada requerida
+review
+Ver target
+not_triggered_with_evidence
+No activada, evaluada
+success
+Ver evidencia negativa
+activation_unknown
+Activación desconocida
+error
+Ver gap
+triggered_unanswered
+Activada sin respuesta
+error
+Ver causal
+11. Seguridad, autoridad y auditoría
+11.1 Reglas de frontera
+Regla
+Implementación obligatoria
+No cliente
+La ruta vive bajo layout/admin guard y no se incluye en navegación de cliente.
+No service_role en front-end
+Ningún bundle, env público, payload o source map contiene service_role.
+No Supabase directo
+El browser no instancia cliente privilegiado ni consulta tablas/vistas del Runtime.
+BFF como front door
+Toda lectura y futura mutación pasa por el BFF autorizado.
+Tenancy
+El BFF restringe empresa/caso; no acepta scope por confianza en query params.
+Scope recursivo
+user, role, activity y run deben pertenecer causalmente al case autorizado.
+Mínimo privilegio
+El response omite campos no requeridos y secretos.
+Auditabilidad
+Acciones futuras registran actor, razón, scope, prior/new value, timestamp e idempotency key.
+Evidencia inmutable
+Correcciones se representan como revisiones/superseded; la UI no borra historia.
+Rutas críticas
+Cambios B0/B2/B3/B7 exigen audit trail y recomputación.
+11.2 Permisos efectivos
+permissions: {  "can_view_case": true,  "can_view_evidence": true,  "can_view_audit": true,  "can_request_reentry": false,  "can_add_clarification": false,  "can_force_open_causal": false,  "can_resolve_manual_review": false,  "can_generate_download": false,  "can_download_existing_artifact": false}
+11.3 Errores BFF normalizados
+HTTP
+Código
+Tratamiento UI
+400
+INVALID_SCOPE
+Corregir selección; no reintentar automáticamente.
+401
+UNAUTHENTICATED
+Redirigir al flujo de autenticación.
+403
+SCOPE_FORBIDDEN
+Acceso denegado sin revelar metadatos del caso.
+404
+CASE_NOT_FOUND
+Estado no encontrado dentro del scope.
+409
+STALE_STATE
+Refrescar antes de futura acción.
+409
+ACTION_NOT_ALLOWED
+Mostrar gate/reason; no cambiar UI optimista.
+422
+GATE_PRECONDITION_FAILED
+Mostrar bloqueo causal y reentry target.
+429
+RATE_LIMITED
+Backoff y mensaje no destructivo.
+503
+GENERATOR_UNAVAILABLE
+Mantener lectura; descargas disabled.
+503
+READ_MODEL_UNAVAILABLE
+Mostrar panel afectado como degraded.
+11.4 AuditTrailPanel
+Campo
+Visible
+Nota
+timestamp
+Sí
+Localizado, con UTC en tooltip.
+actor_id / actor_type
+Sí
+Consultor/sistema/usuario; respetar redacción.
+event_type
+Sí
+Normalizado.
+scope
+Sí
+case, role, activity, run.
+prior_value / new_value
+Sí, en diff
+No exponer secretos o datos fuera de scope.
+reason
+Sí
+Obligatorio para acciones manuales.
+source_rule
+Sí
+Gate, ruta o regla invocada.
+request_id / idempotency_key
+Detalle técnico
+Soporte y correlación.
+12. Estados de carga, error y degradación
+Panel
+Vacío válido
+Error/degradación
+No debe ocurrir
+Centro de casos
+Sin casos asignados
+403/404 controlado
+Mostrar casos de otros tenants.
+CompanyUserRoleMatrix
+Caso sin participantes
+Progreso unavailable
+Inferir roles inexistentes.
+Runtime
+Sin runs aún
+Read model parcial
+Mostrar 0/40 como ready.
+Base 40
+Run no seleccionado
+Falta exactitud de 40
+Ocultar bases faltantes.
+Causal 20
+Run no seleccionado
+Falta exactitud de 20
+Asumir causales no activadas.
+Gates
+Sin evaluación aún
+Gate service unavailable
+Interpretar pending como pass.
+Trace
+Sin eventos para filtros
+Paginación fallida
+Reordenar causalidad por cliente.
+Downloads
+Sin artefactos
+Generator unavailable
+Habilitar button por presencia visual.
+Audit
+Sin eventos auditables
+Audit service unavailable
+Ocultar que el log está incompleto.
+12.1 Política de reintentos
+GET idempotentes: máximo 2 reintentos con backoff para errores de red/5xx; no reintentar 4xx.
+No hacer polling global agresivo. Refrescar state al cambiar selección y usar refresh manual.
+Traza y auditoría usan paginación; no descargar todo el historial al abrir pantalla.
+Una futura mutación nunca se reintenta sin idempotency_key.
+13. Accesibilidad y usabilidad operativa
+Criterio
+Contrato
+Teclado
+Todo control navegable; orden lógico header -> nav -> contenido -> drawer.
+Focus
+Al cambiar vista, foco en Heading 1 del panel; al cerrar drawer vuelve al trigger.
+Tablas
+Headers semánticos, caption accesible, stickyHeader y detalle alternativo.
+Estados
+Texto + icono + color; no depender solo del color.
+Tooltips
+Botones disabled deben envolver un elemento que permita tooltip explicativo.
+Contraste
+Usar tokens del theme que cumplan WCAG AA.
+Live regions
+Alertas de refresh/errores importantes con aria-live adecuado, sin ruido.
+Densidad
+Modo compact por defecto; opción confortable si ya existe patrón en repo.
+Lenguaje
+Etiquetas operativas; jerga MMABP/VSM/AHE solo en detalle experto.
+Confirmación
+Acciones futuras destructivas o bloqueantes requieren resumen before/after.
+14. Fixtures y escenarios de prueba
+El fixture de implementación será un artefacto separado. Esta especificación define los escenarios mínimos que debe cubrir para evitar una pantalla visualmente correcta pero causalmente incompleta.
+ID
+Escenario
+Cobertura
+FX-01
+Caso saludable
+1 user, 1 role, 2 runs; 40/20 evaluadas; ready; sin gaps.
+FX-02
+Ready with flags
+Gap no bloqueante visible; downstream no lo oculta.
+FX-03
+B3 route missing
+C09 P0 route_missing; bloquea ready; reentry B3-3.13a.
+FX-04
+PST sin timer
+C11 activo; awaited_event/timer faltante; deadlock_risk.
+FX-05
+Usuario multirrol
+1 login, 2 role_runtime_session, actividades separadas.
+FX-06
+Mixed unresolved
+Responsabilidad/actividad sin asignación estable; manual review.
+FX-07
+Recomputación
+Corrección invalida variables/candidates/payload y crea audit events.
+FX-08
+Producción Paralela QA
+Inventario resuelto, ACA WithFindings; export bloqueado.
+FX-09
+Camunda elegible
+ACA Satisfied + validation OK; UI aún disabled si generator capability false.
+FX-10
+Generador caído
+Lectura funciona; downloads generator_unavailable.
+FX-11
+Scope forbidden
+ID de run no pertenece al case; BFF 403.
+FX-12
+Estado parcial
+Trace endpoint falla; state y gates siguen visibles con warning.
+14.1 Fixture mínimo ilustrativo
+{  "request_id": "REQ-FX-03",  "contract_version": "1.0",  "data": {    "case_header": {      "case_id": "CASE-001",      "case_state": "InDiagnosticProduction",      "company": {        "company_id": "COMP-001",        "name": "Empresa ejemplo"      }    },    "readiness_summary": {      "state": "blocked",      "dominant_gate": "CR-B3-R9-receiver_feedback",      "open_gap_count": 1    },    "selected_context": {      "user_id": "USR-001",      "role_runtime_session_id": "RRS-OPS",      "activity_id": "ACT-DELIVERY",      "run_id": "RUN-001"    },    "gates": [      {        "gate_id": "CR-B3-R9-receiver_feedback",        "state": "fail",        "reason_code": "B3_ROUTE_MISSING",        "reentry_target": "B3-3.13a"      }    ]  },  "meta": {    "capabilities": {      "read": true,      "manual_actions": {        "enabled": false,        "reason_code": "AUDITED_ENDPOINT_NOT_AVAILABLE"      },      "downloads": {        "enabled": false,        "reason_code": "AUTHORIZED_GENERATOR_NOT_AVAILABLE"      }    }  },  "errors": []}
+15. Estrategia de sustitución de la pantalla existente
+15.1 Inspección de repo obligatoria antes de codificar
+Dato a levantar
+Resultado esperado
+Framework/router
+Next.js App Router, Pages Router, React Router u otro.
+Archivo real de la ruta
+Path exacto del page/route component existente.
+Layout y auth guard
+Componente administrativo y mecanismo de autorización actual.
+Theme MUI
+Provider, tokens, typography y modo oscuro si existe.
+Queries actuales
+Endpoints, hooks, Supabase client o mocks utilizados por la pantalla anterior.
+Estado compartido
+React Query/SWR/Redux/Zustand/context.
+Tests
+Smoke, component, e2e y snapshots existentes.
+Telemetría
+Logging, error boundary, request correlation y analytics.
+Límite factualNo encuentro soporte en los archivos cargados para afirmar cuáles son los nombres reales de los archivos, hooks o componentes de la pantalla ya conectada al repositorio. La implementación debe inspeccionar el repo y completar esos campos antes de modificar código.
+15.2 Patrón de cutover recomendado
+Paso
+Acción
+Rollback
+1
+Agregar el nuevo árbol de componentes sin alterar la ruta pública.
+Mantener import del componente anterior.
+2
+Crear BFF read-only y adapter de view models.
+Feature flag vuelve al read model anterior.
+3
+Conectar fixture y luego BFF por panel.
+Fallback a fixture solo en entorno no productivo.
+4
+Ejecutar pruebas de scope y paridad.
+No activar flag si falla SEC/DATA.
+5
+Cambiar el componente servido en la ruta.
+Revertir flag/import, no migrar datos.
+6
+Eliminar pantalla anterior después de ventana de estabilidad.
+Conservar commit/tag de baseline.
+15.3 Prohibiciones de migración
+No duplicar rutas productivas permanentes.
+No copiar lógica de gates al front-end para “avanzar rápido”.
+No conservar acceso directo a Supabase detrás de componentes nuevos.
+No habilitar botones manuales con handlers vacíos o mocks en producción.
+No eliminar la pantalla anterior antes de tener rollback y pruebas de paridad.
+No cambiar esquemas o estados del Runtime como efecto colateral de la UI.
+16. Criterios de aceptación y paquete de implementación
+ID
+Criterio
+UI-001
+La ruta /admin/consultant-control-panel carga bajo el layout/admin guard existente.
+UI-002
+La pantalla muestra header, sidebar, área central, drawer y status bar.
+UI-003
+El modo read-only es explícito y persistente.
+UI-004
+Intervenciones y descargas son visibles disabled con reason_code.
+UI-005
+La navegación conserva selección de case/user/role/activity/run.
+DATA-001
+El BFF devuelve effective_scope y el front-end lo usa como contexto autoritativo.
+DATA-002
+Cada run seleccionado muestra exactamente 40 BaseResolutionStatus o un error de integridad.
+DATA-003
+Cada run seleccionado muestra exactamente 20 CausalClosureStatus o un error de integridad.
+DATA-004
+Ninguna causal activation_unknown se representa como no activada.
+DATA-005
+user_id y role_runtime_session_id se muestran como niveles distintos.
+GATE-001
+B0, B2, B3, B7, SEM y PST se muestran con reason, evidence refs y reentry target.
+GATE-002
+B3 no deriva receiver_feedback desde receiver_satisfaction.
+GATE-003
+B7 no aparece como structural fact, IR, export o diagnóstico.
+GATE-004
+Process State sin timer se muestra bloqueado.
+PP-001
+Producción Paralela conserva fuente, candidato, fact, registry, IR, ACA y export como estados distintos.
+PP-002
+Camunda/BPMN solo es eligible con ACA Satisfied y validación OK.
+DL-001
+Las descargas downstream se etiquetan como manuales y no como ejecución de Capa 2/2.5/3.
+SEC-001
+No existe acceso directo a Supabase desde el navegador para esta pantalla.
+SEC-002
+No existe service_role en bundle, payload o configuración pública.
+SEC-003
+Un selector fuera del case autorizado produce 403 y no filtra datos.
+SEC-004
+Acciones futuras requieren actor, reason, idempotency y audit trail.
+AUD-001
+Audit trail muestra eventos append-only y revisiones superseded.
+A11Y-001
+La pantalla es operable por teclado y los estados no dependen solo del color.
+A11Y-002
+Tablas 40/20 tienen headers y detalle accesible.
+PERF-001
+El state summary no carga 60 interacciones de todos los runs.
+PERF-002
+Trace y audit usan cursor pagination.
+MIG-001
+La pantalla nueva reemplaza la existente en la misma ruta con rollback probado.
+MIG-002
+Se completa la matriz REPO-TBD antes de cambiar código productivo.
+16.1 Definition of Done del documento
+El diseño funcional de pantalla, descomposición de componentes y contrato BFF están cerrados.
+Las reglas de frontera, seguridad y habilitación son verificables.
+Los campos REPO-TBD están identificados y no se presentan como hechos.
+El siguiente entregable puede ser el paquete Codex/Cursor con instrucciones de implementación, fixture JSON y checklist de cambios por archivo.
+Anexo A. Payload de /state propuesto
+{  "request_id": "REQ-001",  "generated_at": "2026-07-12T12:00:00Z",  "contract_version": "1.0",  "data": {    "case_header": {      "company": {        "company_id": "COMP-001",        "name": "Empresa ejemplo"      },      "case_id": "CASE-001",      "case_state": "InDiagnosticProduction",      "catalog_version": "1.1.1",      "runtime_version": "1.0.1",      "critical_timers": []    },    "readiness_summary": {      "state": "ready_with_flags",      "dominant_gate": "handoff_feedback",      "base_resolved": 40,      "base_total": 40,      "causal_evaluated": 20,      "causal_open": 0,      "open_gap_count": 1    },    "selected_context": {      "user_id": "USR-001",      "role_runtime_session_id": "RRS-OPS",      "activity_id": "ACT-001",      "run_id": "RUN-001"    },    "runs": [],    "base_items": [],    "causal_items": [],    "gates": [],    "open_gaps": []  },  "meta": {    "effective_scope": {      "company_id": "COMP-001",      "case_id": "CASE-001",      "user_id": "USR-001",      "role_runtime_session_id": "RRS-OPS",      "activity_id": "ACT-001",      "run_id": "RUN-001"    },    "freshness": {      "as_of": "2026-07-12T12:00:00Z",      "stale": false    },    "capabilities": {      "read": true,      "manual_actions": {        "enabled": false,        "reason_code": "AUDITED_ENDPOINT_NOT_AVAILABLE"      },      "downloads": {        "enabled": false,        "reason_code": "AUTHORIZED_GENERATOR_NOT_AVAILABLE"      }    }  },  "errors": []}
+Las listas vacías del ejemplo no significan ausencia de datos productivos; muestran la forma del envelope. El fixture separado debe poblarlas con 40 bases y 20 causales.
+Anexo B. Payload de /client-company-progress propuesto
+{  "data": {    "company": {      "company_id": "COMP-001",      "name": "Empresa ejemplo"    },    "cases": [      {        "case_id": "CASE-001",        "state": "InDiagnosticProduction",        "users": [          {            "user_id": "USR-001",            "display_name": "Participante 1",            "functional_separation_state": "multi_confirmed",            "role_sessions": [              {                "role_runtime_session_id": "RRS-OPS",                "role_label": "Operación",                "state": "in_progress",                "activity_count": 3,                "run_count": 2              },              {                "role_runtime_session_id": "RRS-FIN",                "role_label": "Finanzas",                "state": "ready_with_flags",                "activity_count": 2,                "run_count": 1              }            ]          }        ]      }    ]  }}
+Anexo C. Payload de /downloads propuesto
+{  "data": {    "artifacts": [      {        "artifact_key": "runtime_audit_xlsx",        "label": "Runtime 40+20 audit trail",        "format": "xlsx",        "eligibility": "eligible",        "generator_status": "unavailable",        "source_object": "activity_runtime_run",        "source_state": "ready_with_flags",        "restrictions": []      },      {        "artifact_key": "camunda_bpmn",        "label": "Producción Paralela / Camunda",        "format": "zip",        "eligibility": "blocked",        "generator_status": "unavailable",        "source_object": "ArchitectureConsistencyAssessment",        "source_state": "WithFindings",        "restrictions": [          "ACA_NOT_SATISFIED"        ]      }    ]  }}
+Anexo D. Matriz componente -> datos -> regla
+Componente
+Datos fuente
+Regla rectora
+CaseHeader
+case, catalog/runtime version, timers
+Contexto antes de operación; no authority desde URL.
+CaseReadinessSummary
+readiness_decision_record, gaps
+No calcular en front-end.
+CompanyUserRoleMatrix
+role_runtime_session, activity_runtime_run
+user_id != role_runtime_session.
+Runtime40BaseGrid
+interaction instances + variables + evidence
+40 resoluciones; no skipped silently.
+Runtime20CausalGrid
+branching decisions + causal instances
+20 evaluadas; no false sin evidencia.
+GateReadinessPanel
+critical routes, SEM, PST, QA
+Gate > Chip/acción.
+OperationalTraceTimeline
+audit, timers, recompute, transitions
+Causalidad y recursividad visibles.
+DownloadsPanel
+parallel_export_payload, ACA, export state
+Export solo desde estado autorizado.
+ManualActionDrawer
+capabilities + target + audit requirements
+Disabled v1; nunca reescribe evidencia.
+Anexo E. Fuentes documentales rectoras
+Documento
+Uso en esta especificación
+Marco Estructural maestro (Pegado text)
+Guía de stacking, gates, seguridad, UI cliente y baseline.
+Fundamentals of Business Architecture Modeling
+Fuente metodológica primaria MMABP.
+MMABP_Minimal_Business_Architecture_EVE_v1_1_B3_B7_alineado
+MBA EVE, objetos, estados, procesos y consistencia.
+EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1
+Runtime implementable, datos, API, QA, seguridad y recomputación.
+Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx
+Fuente implementable de 40+20, variables, gates, readiness y QA.
+EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx
+164 nodos, genealogía, epistemología y rutas críticas.
+EVE_Catalogo_Madre_Capa1_v1_0_Readme
+Regla de uso y hojas del catálogo madre.
+Diseño estructural Plataforma EVE - Capa 1.0
+SCR, EvidenceBundle, readiness y frontera no diagnóstica.
+Diseño estructural Plataforma EVE - Capa 1.0 para Producción Paralela
+MDSB, inventario, registries, IR, QA y export.
+Diseno_Panel_Control_EVE_Runtime_40_20_MBA_Ajustado_v2_RolFuncional
+Diseño operativo de panel y adendas de alcance/multirrol.
+Organizational Systems Managing Complexity with the Viable System model
+Regulación, autorregulación, coordinación y variedad.
+Marco AHE
+Frontera de causalidad humana recursiva sin psicologización.
+Tabla de Diagnóstico de Inconsistencias Estructurales EVE
+Compartimentos y traducción clínica; no diagnóstico automático en UI.
+Instrucciones maestras MMABP + EVE
+Disciplina de fuente, conformance, consistencia y no invención.
+CierreLa pantalla se considera lista para implementación cuando puede observar la operación completa de Capa 1.0 y Producción Paralela sin convertirse en fuente de verdad, sin saltar gates y sin confundir estado técnico con diagnóstico. La primera entrega de código debe ser read-only y reemplazar de forma controlada la pantalla existente en la ruta acordada.
+Adenda v1.1 de ajuste controlado
+Objeto de esta adenda. Esta sección ajusta la especificación UI/front-end v1.0 sin eliminar, resumir ni reemplazar el contenido previo. Las reglas siguientes precisan descargas manuales downstream, estado no ejecutable de acciones futuras, alerta multirrol ROLE_ASSIGNMENT_GAP, vista inicial exacta y criterios de aceptación adicionales. Cuando exista tensión entre la redacción previa y esta adenda, esta adenda debe leerse como precisión operacional v1.1, no como borrado del texto anterior.
+Sección impactada
+Ajuste v1.1
+Regla de preservación
+7.4 Regla de habilitación de descargas
+Distingue insumo manual exportado por plataforma, plantilla manual y resultado manual externo.
+No elimina la tabla previa; la gobierna con una tabla de lectura actualizada.
+6 / 7 ManualActionDrawer y capacidades
+Precisa que v1.0 es preview contractual no ejecutable; no debe renderizar submit real ni handlers mock en producción.
+No elimina el componente ni sus capacidades futuras; bloquea su ejecución inicial.
+8 Unidad de seguimiento y modelo de lectura
+Agrega alerta ROLE_ASSIGNMENT_GAP para el desacople usuario físico vs role_runtime_session cuando WorkMap no asigna responsabilidades/actividades.
+No redefine el modelo; añade condición visible y auditable.
+4 Arquitectura funcional de pantalla
+Fija la vista inicial exacta: Centro de casos + readiness + matriz usuario/rol + alertas críticas.
+No elimina navegación ni vistas; ordena el primer estado de pantalla.
+16 Criterios de aceptación
+Agrega DL-002, DL-003, DL-004, ROLE-001 y ROLE-002.
+No modifica criterios existentes; añade controles verificables.
+17. Descargas manuales downstream: insumos, plantillas y resultados externos
+Regla de frontera. La plataforma opera Capa 1.0, Runtime 40+20 y Producción Paralela. Capa 2.0, Capa 2.5 y Capa 3.0 no se ejecutan automáticamente en la plataforma en esta versión. Por tanto, las descargas downstream deben presentarse como insumos o plantillas para trabajo manual experto, no como resultados producidos por motor automático.
+Tipo de descarga
+Definición UI
+Qué puede contener
+Qué no debe afirmar
+Insumo manual generado por plataforma
+Archivo exportado desde evidencia, variables, gaps, readiness o payloads gobernados ya existentes.
+EvidenceBundle exportable, preguntas/respuestas, variables canónicas, gaps, rutas, gate summaries, audit trail, MDSB, candidatos o registries cuando existan.
+No afirma que Capa 2.0, 2.5 o 3.0 ya fueron ejecutadas.
+Plantilla manual downstream
+Workbook o estructura vacía/prellenada parcialmente para que el consultor trabaje fuera del motor automático.
+Columnas esperadas, referencias de evidencia, campos de análisis manual, secciones de validación y trazabilidad.
+No es diagnóstico, no es película causal final y no es síntesis experta cerrada.
+Resultado manual externo
+Resultado producido por el consultor fuera de esta plataforma o en un módulo futuro de carga/versionado.
+Solo puede aparecer si existe función futura de upload, versionado, validación y auditoría.
+No debe mostrarse como disponible en v1.0/v1.1 si no existe módulo de carga y control.
+17.1 Lectura corregida de la regla 7.4
+La tabla 7.4 se conserva. La siguiente tabla precisa cómo debe interpretarse en v1.1 para evitar confundir exportación de insumos con ejecución automática de Capa 2.0, 2.5 o 3.0.
+Artefacto
+Lectura v1.1
+Eligibility mínima corregida
+Etiqueta UI obligatoria
+Runtime audit XLSX/CSV
+Insumo manual generado por plataforma.
+Datos de runtime disponibles dentro del scope autorizado.
+Descarga operativa Capa 1.0 / Runtime.
+EvidenceBundle Capa 2.0 manual
+Insumo manual para transducción experta.
+EvidenceBundle ReadyForTransduction o ready_with_flags visible, con gaps trazados si existen.
+Insumo manual Capa 2.0; no ejecuta transducción.
+Workbook Capa 2.0 manual
+Plantilla o workbook de trabajo manual para el consultor.
+EvidenceBundle exportable y trazable; variables, elementos MMABP, gaps y rutas disponibles.
+Plantilla manual Capa 2.0.
+Workbook Capa 2.5 manual
+Plantilla o insumo de agregación manual; no requiere que existan escenas manuales importadas si no hay módulo futuro de carga.
+EvidenceBundle / workbook Capa 2.0 manual disponible o paquete de escenas manuales previamente versionado en módulo futuro.
+Plantilla manual Capa 2.5; no agrega automáticamente.
+Workbook Capa 3.0 manual
+Plantilla de síntesis experta; no presupone película causal manual disponible dentro del sistema.
+Plantilla de agregación manual o insumos externos adjuntables bajo procedimiento futuro.
+Plantilla manual Capa 3.0; no genera diagnóstico final.
+MDSB / candidatos / facts / registries / IR
+Producción Paralela operativa según estado correspondiente.
+Estado de Producción Paralela suficiente, QA y restricciones de exportación visibles.
+Producción Paralela; no diagnóstico.
+Camunda BPMN
+Artefacto de Producción Paralela exportable cuando ACA lo habilite.
+ACA [Satisfied] + validación OK + generator autorizado.
+Producción Paralela / Camunda; export controlado.
+Paquete de gaps
+Insumo de control y reentry.
+Gate o QA bloqueante dentro del scope.
+Gaps y reentry; no diagnóstico.
+17.2 Regla de no confusión entre insumo y resultado manual
+La plataforma descarga insumos manuales y plantillas downstream.No descarga resultados manuales de Capa 2.0, Capa 2.5 o Capa 3.0 salvo que exista un módulo futuro de carga, versionado, validación y auditoría.Todo workbook downstream debe declarar: source_object, source_state, generated_from, manual_use_scope, restrictions y non_automatic_execution_flag = true.
+18. ManualActionDrawer v1.1: preview contractual no ejecutable
+Regla de ejecución. ManualActionDrawer permanece como componente visible para mostrar capacidades futuras, contexto, restricciones y razón de deshabilitación. En v1.1 no debe ejecutar mutaciones reales ni simuladas.
+Elemento
+Regla v1.1
+Bloqueo obligatorio
+Formulario de acción manual
+Puede mostrar campos requeridos como preview contractual si el BFF lo declara.
+No submit real sin endpoint auditado.
+Botones de acción
+Deben estar disabled si capability.enabled = false.
+No handler mock en producción.
+Handlers de prueba
+Solo permitidos en fixture local no productivo.
+Bloqueados en production.
+Justificación
+Debe mostrarse como requisito futuro.
+No aceptar texto de razón si la acción no puede ejecutarse.
+Audit trail
+Debe mostrarse como condición de habilitación futura.
+Ninguna acción B0/B2/B3/B7 sin audit trail.
+UI optimista
+Prohibida para mutaciones futuras.
+No cambiar estados visuales antes de confirmación BFF.
+19. ROLE_ASSIGNMENT_GAP: alerta para usuario multirrol sin asignación estable
+Definición. ROLE_ASSIGNMENT_GAP aparece cuando un user_id físico declara o evidencia múltiples áreas/roles, pero una responsabilidad o actividad de WorkMap no está asignada de forma estable a un role_runtime_session. La alerta no diagnostica autoridad ni estructura organizacional; solo protege trazabilidad funcional del runtime.
+Campo
+Valor esperado
+alert_id
+ROLE_ASSIGNMENT_GAP
+severity
+warning o review según impacto en selección primaria/runtime
+affected_scope
+case_id + user_id + responsibility_id/activity_id opcional + role_runtime_session_id si existe candidato
+trigger_condition
+Responsabilidad o actividad sin role_runtime_session; o assignment_status = mixed_unresolved; o multirol detectado sin confirmación.
+visible_in
+FunctionalHelpPanel, CompanyUserRoleMatrix, GateReadinessPanel como warning no diagnóstico, AuditTrailPanel si hubo reasignación futura.
+blocks_ready
+No por defecto. Bloquea solo si impide situar activity_runtime_run o cerrar evidencia necesaria para readiness.
+reentry_target
+WorkMap functional assignment review o Estado A si el rol declarado es insuficiente.
+manual_action_future
+Separar perfil funcional, fusionar perfiles, reasignar responsabilidad/actividad, solicitar manual_review.
+19.1 Estados de asignación funcional visibles
+Estado
+Significado UI
+Regla
+single_confirmed
+El usuario opera con un perfil funcional confirmado.
+No mostrar alerta multirrol.
+multi_confirmed
+El usuario mantiene un solo login y varios role_runtime_session confirmados.
+Mostrar jerarquía user -> role sessions.
+mixed_unresolved
+Hay mezcla de responsabilidades/actividades sin asignación estable.
+Mostrar ROLE_ASSIGNMENT_GAP y sugerir revisión funcional.
+reentry_required
+La asignación impide avanzar limpiamente.
+Solicitar reentry a WorkMap/Estado A según causa.
+manual_review_required
+La plataforma no puede resolver la separación funcional con seguridad.
+Requiere consultor autorizado en acción futura.
+20. Vista inicial exacta de la pantalla
+Regla de primer render. Al entrar a /admin/consultant-control-panel, la pantalla debe abrir en Centro de casos con contexto de caso, readiness, matriz usuario/rol y alertas críticas. La UI no debe abrir directamente en Runtime 40/20 salvo que el selector URL incluya un run válido y el BFF lo confirme como effective_scope.
+Zona inicial
+Contenido obligatorio
+Header persistente
+Empresa, case_id, case_state, catalog_version, runtime_version, selected_context, freshness y timers críticos.
+CaseReadinessSummary
+Readiness global, dominant_gate, open_gap_count, base/causal summary si existe selected run.
+CompanyUserRoleMatrix
+Usuarios físicos, role_runtime_session, actividades, runs, assignment_status y cobertura.
+Alertas críticas
+ROLE_ASSIGNMENT_GAP, B3_ROUTE_MISSING, PST sin timer, SEM unresolved, Causal P0 abierta, export bloqueado por ACA.
+Banda de estado
+READ-ONLY, request_id, effective_scope, generator status y permissions/capabilities.
+21. Criterios de aceptación adicionales v1.1
+Estos criterios se añaden a la sección 16 sin eliminar los criterios previos. Su objetivo es cerrar la frontera de descargas manuales downstream, multirrol y preview de acciones.
+ID
+Criterio adicional v1.1
+DL-002
+Ningún workbook manual downstream debe aparecer como evidencia producida por la plataforma ni como diagnóstico automático.
+DL-003
+Los workbooks Capa 2.0/2.5/3.0 deben distinguir insumo exportado, plantilla de trabajo manual, trabajo manual pendiente y resultado manual externo.
+DL-004
+Los artefactos Capa 2.5 y Capa 3.0 no deben requerir objetos manuales internos inexistentes para mostrarse como plantillas descargables.
+ROLE-001
+Cuando user_id tenga más de un role_runtime_session, la UI debe mostrar ambos niveles y no fusionar runs entre roles.
+ROLE-002
+Cuando exista mixed_unresolved o responsabilidad/actividad sin asignación funcional estable, la UI debe mostrar ROLE_ASSIGNMENT_GAP.
+ACTION-001
+ManualActionDrawer v1.1 no debe ejecutar submit real ni handlers mock en producción.
+INIT-001
+La vista inicial debe ser Centro de casos + CaseReadinessSummary + CompanyUserRoleMatrix + Alertas críticas.
+22. Cierre v1.1
+Dictamen. Con esta adenda, la especificación UI/front-end queda lista para pasar a paquete Codex/Cursor como pantalla read-only controlada. La implementación debe tratar esta versión como v1.1, conservar la ruta estable, preservar el modo solo lectura inicial, no habilitar acciones sin endpoint auditado y no presentar Capa 2.0/2.5/3.0 como ejecución automática.

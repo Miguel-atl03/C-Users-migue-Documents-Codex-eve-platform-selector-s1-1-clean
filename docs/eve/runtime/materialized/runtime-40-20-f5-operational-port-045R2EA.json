@@ -1,0 +1,45 @@
+{
+    "instruction":  "045-R2E-A",
+    "git_root":  "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform-operational-baseline-c312",
+    "branch":  "release/eve-c312-production",
+    "head":  "8becedf4940b9bd19ec9d9968b9308d34070b555",
+    "historical_integrity":  {
+                                 "f5a_base_sql":  "matched",
+                                 "f5b_loader":  "matched",
+                                 "f5c_service":  "matched",
+                                 "f5b_mapping":  "matched"
+                             },
+    "source_to_destination_provenance":  [
+                                             {
+                                                 "source":  "historical sql/migrations/2026-06-04-phase5a-object-inventory-base.sql",
+                                                 "sha":  "34dd0cc62795d9193bb9c1e623d967cb34b4683cd2633171e5d2e10faa760cc8",
+                                                 "destination":  "docs/eve/runtime/materialized/runtime-40-20-f5-object-inventory-candidate-045R2EA.sql",
+                                                 "adaptation":  "server-side-only candidate; client write policies removed; scene_id nullable with scene_binding_status"
+                                             },
+                                             {
+                                                 "source":  "historical scripts/object-inventory/load-object-inventory-v0-6.mjs",
+                                                 "sha":  "56f6393440b9a8977cf999261c13184a921d3fc6b256c24267354478fb65ac1a",
+                                                 "destination":  "scripts/eve/runtime/object-inventory/historical-port-045R2EA/load-object-inventory-v0-6.ported.mjs",
+                                                 "adaptation":  "file-by-file historical port reference"
+                                             },
+                                             {
+                                                 "source":  "historical src/services/object-inventory/object-binding-service.mjs",
+                                                 "sha":  "c932d5f391b407b62c915c09a37f216f98af01a8ff2d01c6284e627c65922c36",
+                                                 "destination":  "scripts/eve/runtime/object-inventory/historical-port-045R2EA/object-binding-service.ported.mjs",
+                                                 "adaptation":  "file-by-file historical port reference"
+                                             },
+                                             {
+                                                 "source":  "historical fixtures/object-inventory/EVE_F5B_Object_Inventory_Loader_Mapping_v0_1.xlsx",
+                                                 "sha":  "abc2b4350bf0f23e58e4cc86f42a39800ffc82174ac1974dd6b81593367a54de",
+                                                 "destination":  "scripts/eve/runtime/object-inventory/historical-port-045R2EA/EVE_F5B_Object_Inventory_Loader_Mapping_v0_1.xlsx",
+                                                 "adaptation":  "copied evidence workbook"
+                                             },
+                                             {
+                                                 "source":  "current runtime adapter implementation",
+                                                 "sha":  "new",
+                                                 "destination":  "src/services/eve/runtime-40-20/object-inventory/runtime-40-20-f5-current-runtime-adapter.ts",
+                                                 "adaptation":  "explicit adapter from governed Runtime 40/20 entities to F5 binding plan"
+                                             }
+                                         ],
+    "classification":  "runtime_40_20_f5_persistent_object_inventory_conformant_local_only"
+}

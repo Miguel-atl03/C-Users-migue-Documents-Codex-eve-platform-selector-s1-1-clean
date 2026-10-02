@@ -1,0 +1,49 @@
+{
+  "audit_id": "EVE-07-PARALLEL-PRODUCTION-INTERFACE-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "PARALLEL_PRODUCTION_INTERFACE_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "coverageStatus": "intake_ready_with_gaps",
+  "gaps": [
+    {
+      "id": "D1_TEXT_EXTRACTION_GAP",
+      "severity": "non_blocking_for_intake",
+      "description": "D1 PDF is structurally valid, but exact text extraction/citation was not performed.",
+      "impact": "D1 must remain methodological_guard and excluded from direct material proof until exact text proof exists."
+    },
+    {
+      "id": "D8_PATH_LONG_NOTE",
+      "severity": "non_blocking_for_intake",
+      "description": "D8 required extended Windows path handling; normal PowerShell literal path failed at long path length.",
+      "impact": "D8 exists, is readable and hashable; future automation should handle extended paths."
+    },
+    {
+      "id": "MAPPINGS_NEEDING_EXACT_PROOF",
+      "severity": "expected_next_phase",
+      "description": "Initial source-to-target mapping is preliminary and contains source locator candidates, not final proof.",
+      "impact": "Material comparison / QA must verify exact source units and target fields."
+    },
+    {
+      "id": "SOURCE_LOCATOR_PRECISION_PENDING",
+      "severity": "expected_next_phase",
+      "description": "Several DOCX and XLSX locators are section/sheet-level rather than row/paragraph/cell exact.",
+      "impact": "Later QA must create exact locators and source excerpt proof."
+    },
+    {
+      "id": "RULE_FIELD_QA_PENDING",
+      "severity": "expected_next_phase",
+      "description": "No rule/field/source QA was performed in this intake.",
+      "impact": "Cannot declare QA satisfactory or complete source fidelity."
+    },
+    {
+      "id": "CERTIFICATION_REPORT_NOT_ACCEPTED_AS_FINAL_PROOF",
+      "severity": "phase_boundary",
+      "description": "Package certification_report and source_proof_matrix were read as inputs only.",
+      "impact": "They do not certify this procedure and require independent QA."
+    },
+    {
+      "id": "PACKAGE_VECTORS_VS_HARNESS_SCENARIOS_DIFFER",
+      "severity": "non_blocking_for_intake",
+      "description": "Package contains 6 export blocker test vectors; anticipated shadow harness evidence reports 13 scenarios pass.",
+      "impact": "Treat harness evidence as non-certifying and use both as future QA cues."
+    }
+  ]
+}

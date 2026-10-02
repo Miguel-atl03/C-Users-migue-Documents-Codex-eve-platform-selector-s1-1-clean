@@ -1,0 +1,135 @@
+{
+  "no_go_id": "EVE_ORGANISM_LOCAL_PLATFORM_EXERCISE_SYNTHETIC_FRONTIER_NO_GO_V1",
+  "dictamen": "LOCAL_PLATFORM_EXERCISE_SYNTHETIC_FRONTIER_EXECUTED_PASSED",
+  "no_go_triggered": 0,
+  "rules": [
+    {
+      "rule": "env_file_read",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "execution_command.md",
+      "blocks_exercise": true,
+      "remediation_required": "do not read env files"
+    },
+    {
+      "rule": "secret_like_material_detected",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "sanitized_execution_log.md",
+      "blocks_exercise": true,
+      "remediation_required": "sanitize and stop"
+    },
+    {
+      "rule": "production_environment_detected",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "local_runtime_observation.md",
+      "blocks_exercise": true,
+      "remediation_required": "use local synthetic only"
+    },
+    {
+      "rule": "production_db_detected",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "no_production_access_attestation.md",
+      "blocks_exercise": true,
+      "remediation_required": "disconnect production DB"
+    },
+    {
+      "rule": "production_supabase_detected",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "no_production_access_attestation.md",
+      "blocks_exercise": true,
+      "remediation_required": "disconnect production Supabase"
+    },
+    {
+      "rule": "production_credentials_detected",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "no_production_access_attestation.md",
+      "blocks_exercise": true,
+      "remediation_required": "remove credentials from exercise"
+    },
+    {
+      "rule": "production_data_detected",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "synthetic_fixture_observation.md",
+      "blocks_exercise": true,
+      "remediation_required": "use synthetic fixtures only"
+    },
+    {
+      "rule": "db_connection_attempted",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "adapter_observation.md",
+      "blocks_exercise": true,
+      "remediation_required": "do not connect DB"
+    },
+    {
+      "rule": "supabase_connection_attempted",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "adapter_observation.md",
+      "blocks_exercise": true,
+      "remediation_required": "do not connect Supabase"
+    },
+    {
+      "rule": "migration_execution_attempted",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "local_runtime_observation.md",
+      "blocks_exercise": true,
+      "remediation_required": "do not execute migration"
+    },
+    {
+      "rule": "sql_modification_attempted",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "local_runtime_observation.md",
+      "blocks_exercise": true,
+      "remediation_required": "do not modify SQL"
+    },
+    {
+      "rule": "observer_creation_attempted",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "bridge_reader_observation.md",
+      "blocks_exercise": true,
+      "remediation_required": "do not create observer"
+    },
+    {
+      "rule": "real_table_read_attempted",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "bridge_reader_observation.md",
+      "blocks_exercise": true,
+      "remediation_required": "do not read real table"
+    },
+    {
+      "rule": "shadow_only_outbox_events_real_connected",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "bridge_reader_observation.md",
+      "blocks_exercise": true,
+      "remediation_required": "do not connect real outbox"
+    },
+    {
+      "rule": "gate2_or_gate3_state_change_attempted",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "AUDIT_EVE_ORGANISM_LOCAL_PLATFORM_EXERCISE_SYNTHETIC_FRONTIER_V1.md",
+      "blocks_exercise": true,
+      "remediation_required": "do not change gate state"
+    },
+    {
+      "rule": "registry_or_export_or_diagnosis_written",
+      "triggered": false,
+      "severity": "critical",
+      "evidence_reference": "adapter_observation.md",
+      "blocks_exercise": true,
+      "remediation_required": "do not write registry/export/diagnosis"
+    }
+  ]
+}

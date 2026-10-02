@@ -1,0 +1,39 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-RECORD-RULE-SOURCE-QA-V1",
+  "module": "failure_guards",
+  "dictamen": "GATE_ENGINE_RECORD_RULE_QA_BLOCKED",
+  "satisfactionStatus": "blocked",
+  "guardIds": ["FG-001", "FG-002", "FG-003", "FG-004", "FG-005", "FG-006", "FG-007", "FG-008", "FG-009", "FG-010", "FG-011", "FG-012", "FG-013", "FG-014"],
+  "fieldsRequired": [
+    "guard_id",
+    "failure",
+    "module",
+    "detection",
+    "action",
+    "severity",
+    "source",
+    "target gate",
+    "blocking behavior",
+    "no overreach"
+  ],
+  "observations": {
+    "declaredFailureGuardsCountMatches": true,
+    "allGuardsHaveSourceRefs": true,
+    "noOverreachGuardIntentPresent": true
+  },
+  "qaClassification": {
+    "exact_match": 0,
+    "normalized_equivalent": 0,
+    "controlled_transformation_with_source": 0,
+    "mismatch": 0,
+    "missing_in_chip": 0,
+    "missing_in_source": 0,
+    "pending_source_proof": 14,
+    "not_applicable_with_justification": 0
+  },
+  "blockers": [
+    "Action/severity/blocking behavior was not materially compared for all 14 guards against exact source units.",
+    "Failure guard field-level equivalence remains pending."
+  ],
+  "satisfactionStatusReason": "Source refs are present, but material guard/action/severity proof remains pending."
+}

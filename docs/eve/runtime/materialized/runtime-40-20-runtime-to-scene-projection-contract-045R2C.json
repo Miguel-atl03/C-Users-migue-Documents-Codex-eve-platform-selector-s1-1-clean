@@ -1,0 +1,46 @@
+{
+    "instruction":  "045-R2C",
+    "contract_status":  "blocked_before_implementation",
+    "source_authority":  "Runtime 40/20 authoritative_capture_source",
+    "target":  "scene_* compatibility_projection_target",
+    "prohibited":  [
+                       "dual_write_from_ui",
+                       "scene_as_second_truth",
+                       "runtime_to_scene_to_runtime_loop",
+                       "text_matching",
+                       "label_matching",
+                       "position_matching",
+                       "legacy_canonicalVariable_authority"
+                   ],
+    "required_flow":  [
+                          "Gaby answer",
+                          "governed Runtime ingest",
+                          "committed Runtime event",
+                          "Integration Membrane",
+                          "scene compatibility projection"
+                      ],
+    "required_mapping":  [
+                             "source_code",
+                             "source_node_id",
+                             "crosswalk 044-A.3M",
+                             "session/activity bindings"
+                         ],
+    "observed_gaps":  [
+                          "runtime rows use scene_id null",
+                          "no committed outbox payload",
+                          "no projection idempotency identity",
+                          "no replay status table/event"
+                      ],
+    "outcome":  "blocked_runtime_scene_projection_mapping_secondary_to_outbox_blocker",
+    "security":  {
+                     "staging_consulted":  "no",
+                     "staging_writes":  "none",
+                     "production_consulted":  "no",
+                     "remote_writes":  "none",
+                     "catalog_activated":  "no",
+                     "B0_modified":  "no",
+                     "B1_modified":  "no",
+                     "Gaby_modified":  "no",
+                     "commit_created":  "no"
+                 }
+}

@@ -1,0 +1,155 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-SHADOW-MODE-DESIGN-V1",
+  "dictamen": "GATE_ENGINE_SHADOW_MODE_DESIGN_READY_WITH_NOTES",
+  "mode": "gate_engine_shadow",
+  "chipId": "EVE-05-GATE-ENGINE",
+  "version": "0.1.0-shadow-design",
+  "disabledByDefault": true,
+  "invocationScope": [
+    "future_static_test",
+    "future_dev_harness"
+  ],
+  "sideEffects": {
+    "canBlockUserFlow": false,
+    "canModifyPayload": false,
+    "canWriteRegistry": false,
+    "canModifyCatalog": false,
+    "canTriggerRuntime": false,
+    "canTriggerDiagnosis": false,
+    "canTriggerExport": false,
+    "canConnectEveBrain": false,
+    "runtimeAuthority": false
+  },
+  "inputContract": {
+    "name": "GateEngineEvaluationInput",
+    "required": {
+      "mode": "gate_engine_shadow",
+      "queryType": [
+        "resolve_gate",
+        "resolve_rule",
+        "validate_critical_route_gate",
+        "validate_semantic_resolution_gate",
+        "validate_process_state_timer_gate",
+        "validate_mmabp_conformance_gate",
+        "validate_mmabp_consistency_gate",
+        "validate_failure_guard",
+        "validate_atomic_rule",
+        "validate_documentary_satisfaction",
+        "validate_no_overreach",
+        "validate_no_runtime_authority",
+        "detect_gate_engine_gap"
+      ]
+    },
+    "optional": [
+      "gateId",
+      "ruleId",
+      "module",
+      "sourceDocumentId",
+      "condition",
+      "action",
+      "severity",
+      "evidenceRefs",
+      "sourceTrace",
+      "requestedOutputType",
+      "context"
+    ]
+  },
+  "outputContract": {
+    "name": "GateEngineEvaluationResult",
+    "fields": [
+      "version",
+      "mode",
+      "chipId",
+      "queryType",
+      "readinessState",
+      "resolved",
+      "resolvedEntity",
+      "missingReferences",
+      "gapFlags",
+      "sourceTrace",
+      "evidenceRefs",
+      "allowedActions",
+      "blockedActions",
+      "requiredInputs",
+      "findings",
+      "auditEvents",
+      "safetyFlags",
+      "documentarySatisfaction"
+    ]
+  },
+  "readinessStates": [
+    "gate_engine_lookup_ready",
+    "gate_engine_lookup_not_found",
+    "gate_engine_reference_valid",
+    "gate_engine_reference_missing",
+    "gate_engine_gap_detected",
+    "gate_condition_valid",
+    "gate_condition_missing_source",
+    "gate_action_valid",
+    "gate_action_missing_source",
+    "gate_severity_valid",
+    "gate_severity_missing_source",
+    "documentary_satisfaction_confirmed",
+    "documentary_satisfaction_broken",
+    "no_overreach_confirmed",
+    "no_overreach_broken",
+    "manual_review_required",
+    "reentry_required"
+  ],
+  "nonProductiveClarification": "Readiness states are internal shadow signals only; they are not productive gates and not final Runtime readiness.",
+  "allowedActions": [
+    "read_package_metadata",
+    "read_source_trace",
+    "read_documentary_satisfaction",
+    "report_shadow_findings",
+    "report_missing_reference",
+    "report_no_overreach",
+    "report_no_cableado"
+  ],
+  "blockedActions": [
+    "block_user_flow",
+    "modify_payload",
+    "write_registry",
+    "modify_catalog",
+    "trigger_runtime",
+    "trigger_diagnosis",
+    "trigger_export",
+    "connect_eve_brain",
+    "mutate_workmap",
+    "mutate_significado",
+    "create_gate",
+    "create_rule"
+  ],
+  "documentarySatisfaction": {
+    "dictamen": "GATE_ENGINE_RECORD_RULE_QA_SATISFACTORY",
+    "companionProofs": "157/157",
+    "atomicRules": "130/130",
+    "previousRejectedUniqueRulesRepaired": "16/16",
+    "previousRejectedRecordsRepaired": "31/31",
+    "mismatches": 0,
+    "missingInChip": 0,
+    "missingInSource": 0,
+    "pendingSourceProof": 0,
+    "overreachDetected": false,
+    "satisfactionStatus": "satisfactory"
+  },
+  "sourceRoles": {
+    "D1": "MMABP methodological source; PM/MoC/PF/OLC separated; conformance before consistency.",
+    "D2": "Inconsistency compartments and consistency rules.",
+    "D3": "Downstream / Parallel Production boundary; does not define gates.",
+    "D4": "Later technical contract; loader/backend/schema; not primary methodology.",
+    "D5": "Runtime governance, gates, QA, boundaries, no diagnosis/export/registry.",
+    "D6": "Operative runtime/gates source.",
+    "D7": "Runtime architecture, reduction, boundaries and output contract.",
+    "D8": "Genealogy, nodes, codes, routes, readiness and epistemic governance.",
+    "VSM1": "VSM methodological guard; no closed VSM diagnosis and no automatic S1-S5.",
+    "AHE1": "Human interpretive guard; no closed AHE diagnosis and no MMABP/VSM substitution."
+  },
+  "relatedChips": {
+    "EVE-00": "Not replaced.",
+    "EVE-01": "Not replaced.",
+    "EVE-02": "May provide diagnostic translation later; EVE-05 does not produce final diagnosis.",
+    "EVE-03": "Canonical genealogy dependency.",
+    "EVE-04": "Runtime catalog candidate dependency."
+  }
+}

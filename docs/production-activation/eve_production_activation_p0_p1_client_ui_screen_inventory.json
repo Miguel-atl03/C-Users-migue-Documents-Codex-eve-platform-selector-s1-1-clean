@@ -1,0 +1,116 @@
+{
+  "execution_id": "EVE_PRODUCTION_ACTIVATION_P0_P1_BASELINE_AND_CLIENT_UI_FINAL_QA_V1",
+  "inventory_date": "2026-07-07",
+  "primary_client_route": "/",
+  "primary_client_entry": "src/app/page.tsx",
+  "screens": [
+    {
+      "screen_id": "login_access",
+      "label": "Login / acceso",
+      "found": true,
+      "component": "ClientAuthScreen",
+      "path": "src/components/client/ClientAuthScreen.tsx",
+      "mount_condition": "viewState === 'access_screen'",
+      "route": "/",
+      "notes": "Sign-in, sign-up, demo controlada. Supabase auth gated."
+    },
+    {
+      "screen_id": "estado_a",
+      "label": "Estado A",
+      "found": true,
+      "component": "EmptyAssessmentState",
+      "path": "src/components/client/EmptyAssessmentState.tsx",
+      "mount_condition": "viewState === 'create_session' && !canRestoreCommercialSession",
+      "route": "/",
+      "notes": "Authenticated user without active session and without restorable saved session. Start-position context worksheet before 'Empezar levantamiento'."
+    },
+    {
+      "screen_id": "estado_b",
+      "label": "Estado B",
+      "found": true,
+      "component": "ActiveAssessmentState",
+      "path": "src/components/client/ActiveAssessmentState.tsx",
+      "mount_condition": "viewState === 'create_session' && canRestoreCommercialSession",
+      "route": "/",
+      "preview_route": "/?preview=estado-b",
+      "notes": "Resume/continue saved levantamiento. Preview harness available via search param preview=estado-b."
+    },
+    {
+      "screen_id": "work_map",
+      "label": "WorkMap / Mapa del trabajo",
+      "found": true,
+      "component": "WorkMapIntake",
+      "path": "src/components/WorkMapIntake.tsx",
+      "mount_condition": "viewState === 'capture_workspace' && flowState === 'intake_work_map'",
+      "route": "/",
+      "notes": "Default intake path when NEXT_PUBLIC_INTAKE_UI !== 'triple'. Wrapped in ClientShell landing variant."
+    },
+    {
+      "screen_id": "significado",
+      "label": "Significado de tu trabajo",
+      "found": true,
+      "component": "SignificadoDeTuTrabajo",
+      "path": "src/components/significado/SignificadoDeTuTrabajo.tsx",
+      "mount_condition": "viewState === 'capture_workspace' && flowState === 'intake_significado'",
+      "route": "/",
+      "notes": "Block0 canonical review/confirmation before questionnaire_main."
+    },
+    {
+      "screen_id": "preguntas_por_actividad",
+      "label": "Preguntas por actividad",
+      "found": true,
+      "component": "SceneQuestionnaireRunner",
+      "path": "src/components/SceneQuestionnaireRunner.tsx",
+      "mount_condition": "flowState in ['questionnaire_main', 'support_activity_questionnaire']",
+      "route": "/",
+      "notes": "Capa 1 v2.1 scene questionnaire. Alternate legacy QuestionnaireRunner exists but is not mounted in page.tsx."
+    },
+    {
+      "screen_id": "resultado_seguro",
+      "label": "Resultado visible seguro",
+      "found": true,
+      "component": "ClientAssessmentComplete",
+      "path": "src/components/client/ClientAssessmentComplete.tsx",
+      "mount_condition": "flowState === 'intake_completed'",
+      "route": "/",
+      "membrane_state": "blocked_safe",
+      "membrane_evidence": "runtime-40-20-client-membrane.test.mjs asserts blocked_safe visible state and safe client copy policy.",
+      "notes": "User-facing completion card only; no diagnosis/export surface mounted."
+    }
+  ],
+  "supporting_client_shell_components": [
+    "src/components/client/ClientShell.tsx",
+    "src/components/client/ClientTopbar.tsx",
+    "src/components/client/EveBrandSidebar.tsx",
+    "src/components/client/ClientFlowHeader.tsx",
+    "src/components/client/ClientUserMenu.tsx",
+    "src/components/client/StartPositionEditModal.tsx"
+  ],
+  "not_mounted_in_primary_client_flow": [
+    {
+      "component": "DiagnosticDashboard",
+      "path": "src/components/DiagnosticDashboard.tsx",
+      "reason": "Contains MMABP/VSM/AHE titles but not imported by src/app/page.tsx"
+    },
+    {
+      "component": "ActivityRedaction",
+      "path": "src/components/ActivityRedaction.tsx",
+      "reason": "Legacy Capa 1 redaction screen; not mounted in page.tsx"
+    },
+    {
+      "component": "QuestionnaireRunner",
+      "path": "src/components/QuestionnaireRunner.tsx",
+      "reason": "Superseded in primary flow by SceneQuestionnaireRunner"
+    }
+  ],
+  "alternate_intake_path": {
+    "enabled_when": "NEXT_PUBLIC_INTAKE_UI === 'triple'",
+    "component": "TripleIntake",
+    "path": "src/components/TripleIntake.tsx",
+    "flow_state": "intake_main_activities"
+  },
+  "admin_and_dev_routes_excluded_from_client_inventory": [
+    "src/app/admin/**",
+    "src/app/dev/**"
+  ]
+}

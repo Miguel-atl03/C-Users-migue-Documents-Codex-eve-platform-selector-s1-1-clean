@@ -1,0 +1,70 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING3_CONTROLLED_PRODUCTION_ACCESS_POLICY",
+  "generated_at": "2026-07-09T06:30:00.000Z",
+  "authorization_ref": "ring3-authorization-controlled-production-supervised-rollback-ready-20260709",
+  "ring": 3,
+  "ring_name": "controlled_production_supervised_rollback_ready",
+  "controlled_production_access_required": true,
+  "access_must_be_limited": true,
+  "operator_supervision_required": true,
+  "client_scope_must_be_explicit": true,
+  "tenant_case_run_scope_required": true,
+  "public_signup_allowed": false,
+  "public_access_allowed": false,
+  "unsupervised_diagnosis_allowed": false,
+  "external_export_without_readiness_allowed": false,
+  "access_model": {
+    "controlled_production_user_only": true,
+    "explicit_tenant_binding_required": true,
+    "explicit_case_binding_required": true,
+    "explicit_run_binding_required": true,
+    "supervisor_must_be_assigned": true,
+    "consultant_review_before_client_delivery": true,
+    "no_anonymous_access": true,
+    "no_open_registration": true
+  },
+  "access_requirements": [
+    {
+      "id": "R3-AP-01",
+      "requirement": "controlled_production_access_explicitly_authorized",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-AP-02",
+      "requirement": "tenant_case_run_scope_documented_before_session",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-AP-03",
+      "requirement": "operator_supervision_active_during_session",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-AP-04",
+      "requirement": "access_limited_to_authorized_controlled_production_users",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-AP-05",
+      "requirement": "no_public_signup_or_public_access",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-AP-06",
+      "requirement": "no_unsupervised_diagnosis_or_export",
+      "mandatory_for_ring3": true
+    }
+  ],
+  "ring2_baseline": {
+    "ring2_pilot_scope_manifest_ref": "docs/production-activation/ring2_pilot_scope_manifest.json",
+    "ring2_supervisor_assignment_ref": "docs/production-activation/ring2_supervisor_assignment.json",
+    "ring2_supervision_policy_ref": "docs/production-activation/ring2_supervision_policy.json"
+  },
+  "prohibited_access_patterns": [
+    "public_production_access",
+    "broad_production_access",
+    "unsupervised_client_sessions",
+    "scope_expansion_without_authorization",
+    "service_role_in_client_context"
+  ]
+}

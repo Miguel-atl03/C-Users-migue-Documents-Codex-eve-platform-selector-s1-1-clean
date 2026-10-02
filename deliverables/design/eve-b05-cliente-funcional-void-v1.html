@@ -1,0 +1,3581 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+      HTML DE PRUEBA · BUILD 2.2
+      B0.5 · Bloque completo (void)
+
+      Madre fuente: Bloque_0_5_Documento_Madre_Capa1_v2_2_EVE_rev6_correccion_controlada_051_051a.docx
+      Orden base: 0.5.1 → 0.5.1a → [0.5.A] → 0.5.1c → 0.5.1d → 0.5.2 → [0.5.B] → 0.5.3 → [0.5.C] → 0.5.4 → 0.5.4a
+      UX: §1 islas + micro-afirmación intactas; §2–§4 sin recentrar.
+    -->
+    <title>EVE — B0.5 · Bloque · void v2.2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #9aa1ab;
+        --eve-mist-deep: #7a8190;
+        --font-mono: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-mono);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .build {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 30;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      /* Shell estándar (freeze B0 / tamaño aprobado): 1440 + void monumental */
+      .screen {
+        position: relative;
+        width: 100%;
+        max-width: 1440px;
+        min-height: max(
+          100svh,
+          calc(
+            clamp(280px, 32vh, 360px) + clamp(480px, 52vh, 580px) +
+              clamp(320px, 40vh, 480px) + clamp(64px, 6vh, 88px)
+          )
+        );
+        margin: 0 auto;
+        padding-bottom: clamp(64px, 6vh, 88px);
+        overflow: visible;
+        background: var(--eve-sheet);
+      }
+
+      .phase-arrow {
+        position: absolute;
+        top: 16px;
+        left: 20px;
+        z-index: 20;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        line-height: 1;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 320ms ease,
+          color 200ms ease;
+      }
+
+      .phase-arrow.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .phase-arrow:hover {
+        color: var(--eve-ink);
+      }
+
+      .kicker-band {
+        position: absolute;
+        top: clamp(48px, 8vh, 88px);
+        left: 50%;
+        z-index: 3;
+        width: min(520px, 52vw);
+        max-width: 56ch;
+        text-align: center;
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      .kicker {
+        margin: 0;
+        color: var(--eve-ink);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        line-height: 1.55;
+        opacity: 0;
+        transition: opacity 700ms ease;
+      }
+
+      .kicker.is-visible {
+        opacity: 1;
+      }
+
+      .madre-help {
+        margin: 16px 0 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.45;
+        text-align: center;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition:
+          opacity 380ms ease,
+          max-height 380ms ease,
+          margin 280ms ease;
+      }
+
+      .madre-help.is-open {
+        max-height: 480px;
+        opacity: 1;
+        margin-top: 16px;
+        pointer-events: auto;
+      }
+
+      .madre-help-p {
+        margin: 0;
+        color: inherit;
+        font: inherit;
+        letter-spacing: inherit;
+        line-height: inherit;
+        text-align: inherit;
+      }
+
+      .madre-help-p + .madre-help-p {
+        margin-top: 10px;
+      }
+
+      .madre-help-examples {
+        margin: 8px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .madre-help-examples li {
+        margin: 0 0 5px;
+        color: inherit;
+        font: inherit;
+        opacity: 0.92;
+        line-height: 1.45;
+      }
+
+      .receiver-echo {
+        margin: 8px 0 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        opacity: 0;
+        transition: opacity 420ms ease;
+      }
+
+      .receiver-echo.is-visible {
+        opacity: 1;
+      }
+
+      .opt-list.is-committed {
+        gap: 0;
+      }
+
+      .opt-list.is-committed .opt:not(.is-active) {
+        display: none;
+      }
+
+      .choice-followup {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        margin-top: 18px;
+        max-width: 34ch;
+      }
+
+      .column-right .choice-followup {
+        align-items: flex-end;
+        margin-left: auto;
+      }
+
+      .choice-followup.is-open {
+        display: flex;
+      }
+
+      .choice-followup .free-slot {
+        margin-top: 0;
+        width: 100%;
+      }
+
+      /* "Otra…" = solo texto al elegir; kb aparece después de especificar ¿Quién? */
+      .choice-followup.is-other-mode .kb-row,
+      .choice-followup.is-other-mode .choice-back {
+        display: none;
+      }
+
+      .choice-followup.is-other-mode.is-who-ready .kb-row {
+        display: flex;
+      }
+
+      .choice-followup.is-island-mode .free-slot {
+        display: none;
+      }
+
+      .kb-row {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 8px;
+        margin-top: 0;
+        width: 100%;
+      }
+
+      .kb-chip {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 7.5px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.4;
+        text-align: left;
+        cursor: pointer;
+        transition: color 200ms ease;
+      }
+
+      .column-right .kb-chip {
+        text-align: right;
+      }
+
+      .kb-chip.is-active {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .kb-chip:disabled {
+        cursor: default;
+        opacity: 0.55;
+      }
+
+      .choice-back {
+        margin: 2px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 0;
+        cursor: pointer;
+        opacity: 0.72;
+        transition: color 200ms ease, opacity 200ms ease;
+      }
+
+      .choice-back:hover {
+        color: var(--eve-ink);
+        opacity: 1;
+      }
+
+      .choice-back:disabled {
+        cursor: default;
+        opacity: 0.4;
+      }
+
+      .rel-status {
+        margin: 0 0 18px;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-align: center;
+        opacity: 0.85;
+      }
+
+      .signal {
+        position: absolute;
+        top: clamp(320px, 36vh, 420px);
+        left: 50%;
+        z-index: 2;
+        width: min(420px, 38vw);
+        max-width: 52ch;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+
+      .memory-meta {
+        display: block;
+        margin: 0 0 10px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 600ms ease;
+      }
+
+      .memory-meta.is-visible {
+        opacity: 1;
+      }
+
+      .memory {
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.55;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 800ms ease 120ms;
+      }
+
+      .memory.is-visible {
+        opacity: 1;
+      }
+
+      .field {
+        position: absolute;
+        top: clamp(200px, 24vh, 280px);
+        left: clamp(24px, 5vw, 72px);
+        right: clamp(24px, 5vw, 72px);
+        z-index: 4;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(180px, 24vw, 360px);
+        align-items: start;
+        min-height: clamp(480px, 52vh, 580px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 600ms ease,
+          visibility 600ms ease;
+      }
+
+      .field.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .column {
+        min-width: 0;
+        max-width: 28ch;
+        position: relative;
+      }
+
+      .column-left {
+        display: flex;
+        flex-direction: column;
+        gap: 56px;
+        justify-self: start;
+      }
+
+      .column-right {
+        justify-self: end;
+        text-align: right;
+      }
+
+      .column-right .q-block {
+        margin-left: auto;
+      }
+
+      .q-block {
+        width: 100%;
+        max-width: 28ch;
+      }
+
+      .q-code {
+        margin: 0 0 8px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .q-label {
+        margin: 0;
+        flex: 1;
+        min-width: 0;
+        color: var(--eve-ink);
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+
+      .column-right .q-code {
+        text-align: right;
+      }
+
+      .q-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .column-right .q-head {
+        flex-direction: row-reverse;
+      }
+
+      .column-right .q-label {
+        text-align: right;
+      }
+
+      .rel-layer .q-head {
+        justify-content: center;
+      }
+
+      .rel-layer .q-label {
+        text-align: center;
+        flex: 0 1 auto;
+      }
+
+      .help-plus {
+        flex: 0 0 auto;
+        margin: 1px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: 0;
+        cursor: pointer;
+        transition: color 240ms ease, opacity 240ms ease;
+      }
+
+      .help-plus.is-mist {
+        color: var(--eve-mist);
+        opacity: 0.7;
+      }
+
+      .help-plus:hover {
+        color: var(--eve-ink);
+        opacity: 1;
+      }
+
+      .help-plus.is-gate {
+        color: var(--eve-ink);
+        opacity: 1;
+      }
+
+      .opt-list.is-locked,
+      .free-slot.is-locked {
+        opacity: 0.38;
+        pointer-events: none;
+      }
+
+      .gate-hint {
+        margin: 8px 0 0;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        line-height: 1.4;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          opacity 240ms ease,
+          max-height 240ms ease;
+      }
+
+      .gate-hint.is-visible {
+        opacity: 1;
+        max-height: 3em;
+      }
+
+      .column-right .gate-hint {
+        text-align: right;
+      }
+
+      .rel-layer .gate-hint {
+        text-align: center;
+      }
+
+      .opt-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .opt-group {
+        margin: 8px 0 0;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .opt-group:first-child {
+        margin-top: 0;
+      }
+
+      .column-right .opt-group {
+        text-align: right;
+        width: 100%;
+      }
+
+      .column-right .opt-list {
+        align-items: flex-end;
+      }
+
+      .opt {
+        margin: 0;
+        padding: 2px 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        line-height: 1.4;
+        text-align: inherit;
+        cursor: pointer;
+        transition:
+          color 280ms ease,
+          font-weight 180ms ease;
+      }
+
+      .opt:hover {
+        color: var(--eve-ink);
+      }
+
+      .opt.is-active {
+        color: var(--eve-ink);
+        font-weight: 700;
+      }
+
+      .opt:disabled {
+        cursor: default;
+        opacity: 0.5;
+      }
+
+      .free-slot {
+        display: none;
+        margin-top: 14px;
+      }
+
+      .free-slot.is-open {
+        display: block;
+      }
+
+      .q-value {
+        display: block;
+        width: 100%;
+        min-height: 2.4em;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        outline: none;
+        white-space: pre-wrap;
+        word-break: break-word;
+        text-align: inherit;
+      }
+
+      .q-value.is-empty::before {
+        content: attr(data-placeholder);
+        color: var(--eve-mist);
+        pointer-events: none;
+      }
+
+      /* Confirmación valor/daño: abajo del plano para maximizar void */
+      .rel-layer {
+        position: absolute;
+        top: clamp(560px, 68vh, 780px);
+        left: 50%;
+        z-index: 5;
+        width: min(360px, 42vw);
+        max-width: 36ch;
+        text-align: center;
+        transform: translateX(-50%);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 500ms ease,
+          visibility 500ms ease;
+      }
+
+      .rel-layer.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .echo {
+        margin: 0 0 22px;
+        color: var(--eve-mist-deep);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        text-align: center;
+      }
+
+      .echo strong {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .madre-help-examples {
+        margin: 6px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .madre-help-examples li {
+        margin: 0 0 4px;
+        color: var(--eve-mist);
+        font-size: 7.5px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.45;
+      }
+
+      .receiver-echo {
+        margin: 8px 0 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        opacity: 0;
+        transition: opacity 420ms ease;
+      }
+
+      .receiver-echo.is-visible {
+        opacity: 1;
+      }
+
+      .bridge-panel {
+        display: none;
+        margin: 0 auto;
+        max-width: 520px;
+      }
+
+      .bridge-panel.is-active {
+        display: block;
+      }
+
+      .rel-layer .opt-list {
+        align-items: center;
+      }
+
+      .rel-layer .opt {
+        text-align: center;
+      }
+
+      .rel-layer .q-code {
+        text-align: center;
+      }
+
+      .rel-layer .q-block {
+        margin: 0 auto;
+      }
+
+      .rel-layer .q-head {
+        justify-content: center;
+      }
+
+      .rel-layer .gate-hint {
+        text-align: center;
+      }
+
+      .madre-help-local {
+        margin: 0 0 22px;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.45;
+        text-align: center;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition:
+          opacity 380ms ease,
+          max-height 380ms ease,
+          margin 280ms ease;
+      }
+
+      .madre-help-local.is-open {
+        max-height: 240px;
+        opacity: 1;
+        margin: 0 0 22px;
+      }
+
+      .layer-panel {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 420ms ease,
+          visibility 420ms ease;
+      }
+
+      .layer-panel.is-active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .column-left .layer-panel + .layer-panel,
+      .column-right .layer-panel + .layer-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+
+      .closure {
+        position: absolute;
+        right: clamp(24px, 5vw, 72px);
+        bottom: clamp(48px, 7vh, 88px);
+        z-index: 6;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 400ms ease,
+          visibility 400ms ease;
+      }
+
+      .closure.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .scene-toggle {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 220ms ease;
+      }
+
+      .scene-toggle.is-ready {
+        color: var(--eve-ink);
+      }
+
+      .scene-toggle:hover:not(:disabled) {
+        color: var(--eve-ink);
+      }
+
+      .scene-toggle:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      .closure-hint {
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 7px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-align: right;
+        opacity: 0;
+      }
+
+      .closure-hint.is-visible {
+        opacity: 1;
+      }
+
+      .saved-mark {
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-align: right;
+        opacity: 0;
+      }
+
+      .saved-mark.is-visible {
+        opacity: 1;
+      }
+
+      .ops-notify {
+        position: fixed;
+        left: 24px;
+        bottom: 24px;
+        z-index: 20;
+        max-width: 52ch;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 400ms ease;
+      }
+
+      .ops-notify.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .replay {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 20;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 400ms ease,
+          color 200ms ease;
+      }
+
+      .replay.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 900px) {
+        .screen {
+          overflow: visible;
+          min-height: auto;
+          padding: 72px 24px 120px;
+        }
+
+        .kicker-band,
+        .signal,
+        .field,
+        .rel-layer,
+        .closure {
+          position: static;
+          transform: none;
+          width: auto;
+          max-width: none;
+          margin: 0 0 36px;
+        }
+
+        .field {
+          display: block;
+          min-height: 0;
+        }
+
+        .column,
+        .q-block {
+          max-width: none;
+        }
+
+        .column-right {
+          margin-top: 40px;
+          text-align: left;
+        }
+
+        .column-right .q-block {
+          margin-left: 0;
+        }
+
+        .column-right .q-label,
+        .column-right .q-code,
+        .column-right .opt-list,
+        .column-right .q-head,
+        .closure,
+        .closure-hint,
+        .saved-mark {
+          text-align: left;
+          align-items: flex-start;
+          flex-direction: row;
+          justify-content: flex-start;
+        }
+
+        .column-right .opt-list {
+          align-items: flex-start;
+        }
+
+        .column-left .layer-panel + .layer-panel,
+        .column-right .layer-panel + .layer-panel {
+          position: static;
+          margin-top: 40px;
+        }
+
+        .layer-panel:not(.is-active) {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .kicker,
+        .memory,
+        .memory-meta,
+        .field,
+        .rel-layer,
+        .layer-panel,
+        .opt,
+        .ops-notify,
+        .replay,
+        .closure,
+        .phase-arrow,
+        .madre-help {
+          transition: none !important;
+        }
+      }
+    
+      /* Bandas posteriores: misma gramática absoluta que .field — sin recentrar §1 */
+      #band-proceso,
+      #band-avance,
+      #band-prioridad {
+        display: none;
+        position: absolute;
+        top: clamp(200px, 24vh, 280px);
+        left: clamp(24px, 5vw, 72px);
+        right: clamp(24px, 5vw, 72px);
+        z-index: 4;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 600ms ease,
+          visibility 600ms ease;
+      }
+
+      #band-proceso.is-active.is-visible,
+      #band-avance.is-active.is-visible,
+      #band-prioridad.is-active.is-visible {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      #band-proceso .q-block,
+      #band-avance .q-block {
+        max-width: 28ch;
+      }
+
+      #band-proceso .free-slot.is-open,
+      #band-avance .free-slot.is-open {
+        margin-top: 14px;
+      }
+
+      #band-proceso .kb-row,
+      #band-avance .kb-row {
+        display: none;
+        margin-top: 16px;
+      }
+
+      #band-proceso .kb-row.is-open,
+      #band-avance .kb-row.is-open {
+        display: flex;
+      }
+
+      #band-proceso .secondary-action {
+        display: inline-block;
+        margin: 14px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 7.5px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 200ms ease;
+      }
+
+      #band-proceso .secondary-action:hover {
+        color: var(--eve-mist-deep);
+      }
+
+      #band-proceso .secondary-action.is-active {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      #band-proceso .secondary-action.is-hidden {
+        display: none;
+      }
+
+      .clarify-slot {
+        display: none;
+        margin-top: 22px;
+        max-width: 28ch;
+      }
+
+      .clarify-slot.is-open {
+        display: block;
+      }
+
+      #band-prioridad .field-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(180px, 24vw, 360px);
+        align-items: start;
+      }
+
+      #band-prioridad .q-block {
+        max-width: 28ch;
+      }
+
+      #band-prioridad .field-inner > .q-block:last-child {
+        margin-left: auto;
+        text-align: right;
+      }
+
+      #band-prioridad .field-inner > .q-block:last-child .q-head {
+        justify-content: flex-end;
+      }
+
+      #band-prioridad .field-inner > .q-block:last-child .gate-hint {
+        text-align: right;
+      }
+
+      #band-prioridad .field-inner > .q-block:last-child .opt-list,
+      #band-prioridad .field-inner > .q-block:last-child .choice-followup {
+        align-items: flex-end;
+        margin-left: auto;
+      }
+
+      @media (max-width: 900px) {
+        #band-proceso,
+        #band-avance,
+        #band-prioridad {
+          position: static;
+          margin: 0 0 36px;
+        }
+
+        #band-prioridad .field-inner {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        #band-prioridad .field-inner > .q-block:last-child {
+          margin-left: 0;
+          text-align: left;
+        }
+
+        #band-prioridad .field-inner > .q-block:last-child .q-head {
+          justify-content: flex-start;
+        }
+
+        #band-prioridad .field-inner > .q-block:last-child .gate-hint {
+          text-align: left;
+        }
+
+        #band-prioridad .field-inner > .q-block:last-child .opt-list,
+        #band-prioridad .field-inner > .q-block:last-child .choice-followup {
+          align-items: flex-start;
+          margin-left: 0;
+        }
+      }
+
+    </style>
+  </head>
+  <body>
+    <p class="build" id="build">BUILD 1.9 · B0.5 · §1 CLIENTE FUNCIONAL</p>
+
+    <main class="screen" id="screen" aria-label="B0.5 bloque · encuadre">
+      <button class="phase-arrow" id="phase-back" type="button" aria-label="Capa anterior">
+        ←
+      </button>
+
+      <div class="kicker-band">
+        <p class="kicker" id="kicker">
+          Quién termina beneficiándose y quién termina afectado
+        </p>
+        <p
+          class="madre-help"
+          id="madre-help"
+          aria-live="polite"
+          hidden
+        ></p>
+      </div>
+
+      <div class="signal" id="signal" aria-live="polite">
+        <span class="memory-meta" id="memory-meta">Memoria operativa</span>
+        <p class="memory" id="memory"></p>
+        <p class="receiver-echo" id="receiver-echo"></p>
+      </div>
+
+      <section class="field is-active" id="field" data-band="cliente" aria-label="Captura cliente funcional">
+        <div class="column column-left">
+          <div class="layer-panel is-active" data-layer="dyad" id="panel-dyad-left">
+            <article class="q-block" data-field="0.5.1">
+              <p class="q-code">0.5.1</p>
+              <div class="q-head">
+                <p class="q-label" id="label-benefit">
+                  Por lo que conoces de tu trabajo, ¿quién termina viéndose más
+                  beneficiado cuando esta actividad sale bien?
+                </p>
+                <button
+                  class="help-plus"
+                  type="button"
+                  data-field="0.5.1"
+                  aria-label="Abrir ayuda 0.5.1"
+                >
+                  +
+                </button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.5.1">Abre + antes de responder</p>
+              <div
+                class="opt-list"
+                id="opts-benefit"
+                role="radiogroup"
+                aria-label="Quién termina beneficiándose"
+              ></div>
+              <div class="choice-followup" id="followup-benefit">
+                <div class="free-slot" id="free-benefit">
+                  <div
+                    class="q-value is-empty"
+                    contenteditable="false"
+                    data-placeholder="¿Quién?"
+                    id="value-benefit-other"
+                    role="textbox"
+                    aria-label="Especificar beneficiario"
+                  ></div>
+                </div>
+                <div
+                  class="kb-row"
+                  id="kb-benefit"
+                  aria-label="Base de conocimiento 0.5.1"
+                ></div>
+                <button
+                  class="choice-back"
+                  id="back-benefit"
+                  type="button"
+                  aria-label="Cambiar opción de beneficiario"
+                >
+                  ←
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="layer-panel" data-layer="clarity" id="panel-clarity-left">
+            <article class="q-block" data-field="0.5.1c">
+              <p class="q-code">0.5.1c</p>
+              <div class="q-head">
+                <p class="q-label">
+                  Pensando en quien termina recibiendo el beneficio, ¿qué obtiene
+                  o qué logra cuando esta actividad sale bien?
+                </p>
+                <button
+                  class="help-plus"
+                  type="button"
+                  data-field="0.5.1c"
+                  aria-label="Abrir ayuda 0.5.1c"
+                >
+                  +
+                </button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.5.1c">Abre + antes de responder</p>
+              <div class="free-slot is-open" id="free-need">
+                <div
+                  class="q-value is-empty"
+                  contenteditable="true"
+                  data-placeholder="Qué obtiene o qué logra…"
+                  id="value-need"
+                  role="textbox"
+                  aria-label="Qué obtiene o logra el beneficiario"
+                ></div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="column column-right">
+          <div class="layer-panel is-active" data-layer="dyad" id="panel-dyad-right">
+            <article class="q-block" data-field="0.5.1a">
+              <p class="q-code">0.5.1a</p>
+              <div class="q-head">
+                <p class="q-label">
+                  Por lo que conoces de tu trabajo, ¿quién termina viéndose más
+                  afectado cuando esta actividad sale mal, se retrasa o no se
+                  realiza?
+                </p>
+                <button
+                  class="help-plus"
+                  type="button"
+                  data-field="0.5.1a"
+                  aria-label="Abrir ayuda 0.5.1a"
+                >
+                  +
+                </button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.5.1a">Abre + antes de responder</p>
+              <div
+                class="opt-list"
+                id="opts-harm"
+                role="radiogroup"
+                aria-label="Quién termina afectado"
+              ></div>
+              <div class="choice-followup" id="followup-harm">
+                <div class="free-slot" id="free-harm">
+                  <div
+                    class="q-value is-empty"
+                    contenteditable="false"
+                    data-placeholder="¿Quién?"
+                    id="value-harm-other"
+                    role="textbox"
+                    aria-label="Especificar afectado"
+                  ></div>
+                </div>
+                <div
+                  class="kb-row"
+                  id="kb-harm"
+                  aria-label="Base de conocimiento 0.5.1a"
+                ></div>
+                <button
+                  class="choice-back"
+                  id="back-harm"
+                  type="button"
+                  aria-label="Cambiar opción de afectado"
+                >
+                  ←
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="layer-panel" data-layer="clarity" id="panel-clarity-right">
+            <article class="q-block" data-field="0.5.1d">
+              <p class="q-code">0.5.1d</p>
+              <div class="q-head">
+                <p class="q-label">
+                  Para que ese beneficio ocurra, ¿tu actividad lo deja resuelto o
+                  todavía necesita que alguien más haga algo después?
+                </p>
+                <button
+                  class="help-plus"
+                  type="button"
+                  data-field="0.5.1d"
+                  aria-label="Abrir ayuda 0.5.1d"
+                >
+                  +
+                </button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.5.1d">Abre + antes de responder</p>
+              <div
+                class="opt-list"
+                id="opts-contribution"
+                role="radiogroup"
+                aria-label="Cómo contribuye la actividad"
+              ></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="rel-layer" id="rel-layer" aria-label="Aclaración beneficiario y afectado">
+        <p class="echo" id="echo" aria-live="polite">
+          Beneficio: <strong id="echo-benefit">—</strong>
+          · Afectado: <strong id="echo-harm">—</strong>
+        </p>
+        <p class="rel-status" id="rel-status" aria-live="polite"></p>
+        <p
+          class="madre-help-local"
+          id="madre-help-rel"
+          aria-live="polite"
+          hidden
+        ></p>
+
+        <article
+          class="q-block bridge-panel"
+          data-field="0.5.A"
+          id="panel-clarify"
+        >
+          <p class="q-code">0.5.A</p>
+          <div class="q-head">
+            <p class="q-label">Aclarar si es la misma parte</p>
+            <button
+              class="help-plus"
+              type="button"
+              data-field="0.5.A"
+              aria-label="Abrir ayuda 0.5.A"
+            >
+              +
+            </button>
+          </div>
+          <p class="gate-hint" data-gate-for="0.5.A">Abre + antes de responder</p>
+          <div
+            class="opt-list"
+            id="opts-clarify"
+            role="radiogroup"
+            aria-label="Aclarar relación beneficiario y afectado"
+          ></div>
+        </article>
+      </section>
+
+      
+      <section id="band-proceso" aria-label="Trabajo o proceso mayor">
+        <article class="q-block" data-field="0.5.2">
+          <p class="q-code">0.5.2</p>
+          <div class="q-head">
+            <p class="q-label">
+              ¿Cómo le llaman ustedes al trabajo o proceso más grande del que
+              forma parte esta actividad?
+            </p>
+            <button class="help-plus" type="button" data-field="0.5.2" aria-label="Abrir ayuda 0.5.2">+</button>
+          </div>
+          <p class="gate-hint" data-gate-for="0.5.2">Abre + antes de responder</p>
+          <div class="free-slot is-open" id="free-process">
+            <div
+              class="q-value is-empty"
+              contenteditable="true"
+              data-placeholder="Trabajo o proceso mayor…"
+              id="value-process"
+              role="textbox"
+              aria-label="Trabajo o proceso mayor"
+            ></div>
+          </div>
+          <button class="secondary-action" id="process-unsure" type="button">No estoy seguro</button>
+          <div class="kb-row" id="kb-process" aria-label="Base de conocimiento 0.5.2"></div>
+        </article>
+        <div class="clarify-slot" id="slot-process-b" data-field="0.5.B">
+          <article class="q-block" data-field="0.5.B">
+            <p class="q-code">0.5.B</p>
+            <div class="q-head">
+              <p class="q-label">
+                Lo que pusiste parece ser tu tarea. ¿Cómo le llaman al trabajo
+                más grande del que forma parte?
+              </p>
+              <button class="help-plus" type="button" data-field="0.5.B" aria-label="Abrir ayuda 0.5.B">+</button>
+            </div>
+            <p class="gate-hint" data-gate-for="0.5.B">Abre + antes de responder</p>
+            <div class="free-slot is-open" id="free-process-b">
+              <div
+                class="q-value is-empty"
+                contenteditable="true"
+                data-placeholder="Trabajo mayor…"
+                id="value-process-b"
+                role="textbox"
+                aria-label="Aclarar trabajo mayor"
+              ></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="band-avance" aria-label="Qué puede avanzar después">
+        <article class="q-block" data-field="0.5.3">
+          <p class="q-code">0.5.3</p>
+          <div class="q-head">
+            <p class="q-label">Cuando esto queda bien hecho, ¿qué puede avanzar después?</p>
+            <button class="help-plus" type="button" data-field="0.5.3" aria-label="Abrir ayuda 0.5.3">+</button>
+          </div>
+          <p class="gate-hint" data-gate-for="0.5.3">Abre + antes de responder</p>
+          <div class="free-slot is-open" id="free-next">
+            <div
+              class="q-value is-empty"
+              contenteditable="true"
+              data-placeholder="Qué puede avanzar después…"
+              id="value-next"
+              role="textbox"
+              aria-label="Qué puede avanzar después"
+            ></div>
+          </div>
+          <div class="kb-row" id="kb-next" aria-label="Base de conocimiento 0.5.3"></div>
+        </article>
+        <div class="clarify-slot" id="slot-next-c" data-field="0.5.C">
+          <article class="q-block" data-field="0.5.C">
+            <p class="q-code">0.5.C</p>
+            <div class="q-head">
+              <p class="q-label">
+                Lo que escribiste es lo que tú haces. ¿Qué puede avanzar después
+                gracias a que eso quedó listo?
+              </p>
+              <button class="help-plus" type="button" data-field="0.5.C" aria-label="Abrir ayuda 0.5.C">+</button>
+            </div>
+            <p class="gate-hint" data-gate-for="0.5.C">Abre + antes de responder</p>
+            <div class="free-slot is-open" id="free-next-c">
+              <div
+                class="q-value is-empty"
+                contenteditable="true"
+                data-placeholder="Qué puede avanzar…"
+                id="value-next-c"
+                role="textbox"
+                aria-label="Aclarar qué avanza después"
+              ></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="band-prioridad" aria-label="Prioridad">
+        <div class="field-inner">
+          <article class="q-block" data-field="0.5.4">
+            <p class="q-code">0.5.4</p>
+            <div class="q-head">
+              <p class="q-label">Cuando todo urge, ¿quién o qué decide que esta actividad va primero?</p>
+              <button class="help-plus" type="button" data-field="0.5.4" aria-label="Abrir ayuda 0.5.4">+</button>
+            </div>
+            <p class="gate-hint" data-gate-for="0.5.4">Abre + antes de responder</p>
+            <div class="opt-list" id="opts-priority" role="radiogroup" aria-label="Fuente de prioridad"></div>
+            <div class="choice-followup" id="followup-priority">
+              <div class="free-slot" id="free-priority">
+                <div
+                  class="q-value is-empty"
+                  contenteditable="false"
+                  data-placeholder="Especificar…"
+                  id="value-priority-other"
+                  role="textbox"
+                  aria-label="Especificar fuente de prioridad"
+                ></div>
+              </div>
+              <button class="choice-back" id="back-priority" type="button" aria-label="Cambiar opción de prioridad">←</button>
+            </div>
+          </article>
+          <article class="q-block" data-field="0.5.4a">
+            <p class="q-code">0.5.4a</p>
+            <div class="q-head">
+              <p class="q-label">
+                Si ya empezaste esta actividad y aparece algo que te hace
+                soltarla, ¿de dónde suele venir?
+              </p>
+              <button class="help-plus" type="button" data-field="0.5.4a" aria-label="Abrir ayuda 0.5.4a">+</button>
+            </div>
+            <p class="gate-hint" data-gate-for="0.5.4a">Abre + antes de responder</p>
+            <div class="opt-list" id="opts-displace" role="radiogroup" aria-label="Fuente que desplaza"></div>
+            <div class="choice-followup" id="followup-displace">
+              <div class="free-slot" id="free-displace">
+                <div
+                  class="q-value is-empty"
+                  contenteditable="false"
+                  data-placeholder="Especificar…"
+                  id="value-displace-other"
+                  role="textbox"
+                  aria-label="Especificar fuente que desplaza"
+                ></div>
+              </div>
+              <button class="choice-back" id="back-displace" type="button" aria-label="Cambiar opción de desplazamiento">←</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer class="closure" id="closure">
+        <p class="saved-mark" id="saved-mark" aria-hidden="true">
+          Bloque 0.5 guardado · local
+        </p>
+        <button class="scene-toggle" id="scene-toggle" type="button" disabled>
+          Continuar →
+        </button>
+        <p class="closure-hint" id="closure-hint"></p>
+      </footer>
+    </main>
+
+    <p class="ops-notify" id="ops-notify" role="status" aria-live="polite"></p>
+    <button class="replay" id="replay" type="button">Reiniciar bloque</button>
+
+    <script>
+      const BUILD = "2.2";
+      const STORAGE_KEY = "eve-b05-bloque-void-v2";
+      const SEEN_KEY = "eve-b05-bloque-help-seen-v2";
+
+      const params = new URLSearchParams(window.location.search);
+      const ACTIVITY_INDEX = Math.max(
+        1,
+        Number.parseInt(params.get("activity") || "1", 10) || 1,
+      );
+      const HELP_GATE_ENABLED = ACTIVITY_INDEX === 1;
+
+      /**
+       * Madre: Bloque_0_5_Documento_Madre_Capa1_v2_2_EVE_rev6_correccion_controlada_051_051a.docx
+       */
+      const MADRE_HELP = {
+        "0.5.1": {
+          explanation:
+            "Piensa más allá de quien recibe tu trabajo directamente. ¿Quién obtiene realmente el beneficio?",
+          examples: [
+            "Ej. Yo libero la requisición para Compras, pero quien realmente se beneficia es Producción, porque sin ese material no puede seguir trabajando.",
+            "Ej. Le entrego el reporte a mi jefe, pero quien termina beneficiándose es el cliente, porque con esa información se corrige el pedido antes de que salga.",
+          ],
+        },
+        "0.5.1a": {
+          explanation:
+            "Piensa más allá de quien nota primero el problema. ¿Quién termina cargando con la consecuencia?",
+          examples: [
+            "Ej. Si no libero la orden a tiempo, Compras me pregunta qué pasó, pero quien termina atorado es Producción porque se queda esperando material.",
+            "Ej. Si el dato sale mal, mi jefe lo detecta primero, pero el problema termina en Facturación porque tiene que corregir documentos y volver a procesarlos.",
+          ],
+        },
+        "0.5.1c": {
+          explanation:
+            "Piensa en el resultado que esa persona, equipo o cliente finalmente obtiene gracias a que el trabajo salió bien.",
+          examples: [
+            "Ej. Producción puede arrancar el lote porque ya tiene liberado el material que estaba detenido.",
+            "Ej. El comprador puede decidir si aprueba o rechaza la cotización porque ya tiene costos, plazo y condiciones comparables.",
+            "Ej. El cliente puede recibir su pedido completo porque el error de inventario se corrigió antes de surtir y embarcar.",
+          ],
+        },
+        "0.5.1d": {
+          explanation:
+            "Piensa en el papel real de la actividad, no en el nombre del puesto.",
+          examples: [
+            "Ej. Con mi actividad el proveedor queda pagado; aquí el resultado se resuelve directamente.",
+            "Ej. Preparo el expediente completo y lo dejo listo para Jurídico; yo no cierro el contrato, pero sin mi trabajo ellos no pueden seguir.",
+            "Ej. Yo no fabrico ni entrego nada al cliente; reviso y autorizo que la orden cumpla condiciones para que Producción pueda liberarla.",
+          ],
+        },
+        
+        "0.5.2": {
+          explanation:
+            "No pongas la tarea que acabas de describir. Piensa en el trabajo mayor dentro del que esa tarea tiene sentido.",
+          examples: [
+            "Ej. Validar una factura no es el proceso completo; en nuestro día a día eso cae dentro de Cuentas por Pagar.",
+            "Ej. Revisar expedientes de candidatos es una actividad; el trabajo más grande al que pertenece es contratación de personal.",
+            "Ej. Contar faltantes en piso es una parte del trabajo; acá lo ubicamos dentro de control de inventario y abastecimiento.",
+          ],
+        },
+        "0.5.3": {
+          explanation:
+            "No repitas lo que entregas. Piensa en el siguiente avance que ya puede ocurrir porque esto quedó listo.",
+          examples: [
+            "Ej. Cuando termino la validación, Tesorería ya puede liberar el pago al proveedor.",
+            "Ej. Cuando queda aprobada la orden, Almacén ya puede preparar el surtido y embarcar.",
+            "Ej. Cuando cierro las incidencias de nómina, Finanzas ya puede correr el cálculo final sin esperar correcciones.",
+          ],
+        },
+        "0.5.4": {
+          explanation:
+            "Piensa en lo que pasa de verdad en el día a día, no en lo que dice el procedimiento.",
+          examples: [
+            "Ej. Aunque tenga una lista de pendientes, si mi gerente dice que el embarque de hoy se libera primero, dejo lo demás y saco eso.",
+            "Ej. En soporte manda el ticket con el SLA más corto; aunque otro problema sea molesto, el sistema nos pone primero lo que está por vencer.",
+            "Ej. En cierre de mes no hay que preguntarlo: las actividades del cierre desplazan casi todo lo demás porque la fecha no se mueve.",
+          ],
+        },
+        "0.5.4a": {
+          explanation:
+            "Piensa en la urgencia que realmente te cambia el orden del día.",
+          examples: [
+            "Ej. Voy a mitad de la conciliación y me habla dirección porque falta un dato para una reunión; dejo lo que estoy haciendo y saco ese dato.",
+            "Ej. Estoy revisando facturas y entra una incidencia de proveedor bloqueado; el sistema la marca crítica y tengo que resolverla antes de seguir.",
+            "Ej. Ya tenía programado el análisis semanal, pero Producción reporta que se va a quedar sin material; paro el análisis y me meto a destrabar el abastecimiento.",
+          ],
+        },
+        "0.5.B": {
+          explanation:
+            "Sube un nivel: de la tarea puntual al trabajo mayor donde esa tarea encaja.",
+          examples: [
+            "Ej. 'Revisar pagos' es la tarea; 'Cuentas por Pagar' es el trabajo más grande donde ocurre.",
+            "Ej. 'Actualizar candidatos' es la tarea; 'Contratación' es el trabajo mayor al que pertenece.",
+            "Ej. 'Revisar faltantes' es la tarea; 'Planeación de materiales y abastecimiento' es el trabajo mayor.",
+          ],
+        },
+        "0.5.C": {
+          explanation:
+            "Busca el siguiente movimiento real del trabajo, no tu propio entregable.",
+          examples: [
+            "Ej. No 'mando el archivo'; el avance es que Tesorería ya puede liberar el pago.",
+            "Ej. No 'termino la revisión'; el avance es que Producción ya puede arrancar el lote.",
+            "Ej. No 'cierro el ticket'; el avance es que el usuario puede volver a operar sin el bloqueo.",
+          ],
+        },
+
+        "0.5.A": {
+          explanation:
+            "Respóndelo con lo que realmente conoces; no hace falta reconstruir todo el proceso.",
+          examples: [
+            "Ej. Sé que Producción recibe el beneficio y también es quien se queda parado si falla: es la misma parte.",
+            "Ej. El proveedor recibe el beneficio del pago, pero Producción absorbe el problema si el material no llega: son distintos.",
+            "Ej. Yo solo veo que mi jefe recibe el reporte; no sé si el impacto termina en otra área: no lo puedo confirmar.",
+          ],
+        },
+      };
+
+      const ACTOR_OPTIONS = [
+        {
+          id: "receiver_same",
+          label: "La misma persona o equipo que recibe mi trabajo",
+        },
+        { id: "self", label: "Yo mismo o mi equipo" },
+        {
+          id: "otra_interna",
+          label: "Otra persona o equipo dentro de la empresa",
+          needsWho: true,
+        },
+        { id: "cliente", label: "Un cliente de la empresa" },
+        { id: "proveedor", label: "Un proveedor o socio externo" },
+        {
+          id: "otra_externa",
+          label: "Otra persona o grupo fuera de la empresa",
+          needsWho: true,
+        },
+        { id: "unidentified", label: "No lo puedo identificar" },
+      ];
+
+      const CLARIFY_OPTIONS = [
+        { id: "same_entity", label: "Son la misma persona o equipo" },
+        { id: "different_entities", label: "Son distintos" },
+        { id: "unconfirmed", label: "No lo puedo confirmar" },
+      ];
+
+      const CONTRIBUTION_OPTIONS = [
+        { id: "direct_value", label: "Lo resuelve directamente" },
+        {
+          id: "enabling_support",
+          label: "Deja algo listo para que otro pueda resolverlo",
+        },
+        {
+          id: "regulatory_support",
+          label: "Coordina, valida o autoriza para que ocurra",
+        },
+        { id: "mixed", label: "Hace más de una de esas cosas" },
+        { id: "uncertain", label: "No estoy seguro" },
+      ];
+
+      
+      const PRIORITY_OPTIONS = [
+        { id: "boss", label: "Mi jefe o alguien de dirección" },
+        { id: "cliente", label: "El cliente" },
+        { id: "fecha_sistema", label: "Una fecha, sistema, ticket o SLA" },
+        { id: "regla", label: "Una regla o procedimiento" },
+        { id: "self_moment", label: "Yo mismo con lo que veo en el momento" },
+        { id: "acuerdo", label: "Lo acordamos entre varias personas" },
+        {
+          id: "unstable",
+          label: "Cambia según la urgencia, no hay una fuente estable",
+        },
+        { id: "otro", label: "Otro (especificar)", needsWho: true },
+      ];
+
+      const DISPLACE_OPTIONS = [
+        { id: "boss", label: "Mi jefe o dirección" },
+        { id: "cliente", label: "El cliente" },
+        { id: "otra_area", label: "Otra área" },
+        { id: "sistema", label: "Un sistema, ticket o alarma" },
+        { id: "emergencia", label: "Una emergencia o incidente" },
+        { id: "self_risk", label: "Yo mismo porque veo un riesgo mayor" },
+        { id: "otro", label: "Otro (especificar)", needsWho: true },
+        { id: "almost_never", label: "Casi nunca pasa" },
+      ];
+
+      const BAND_KICKERS = {
+        cliente: "Quién termina beneficiándose y quién termina afectado",
+        proceso: "Cómo le llaman al trabajo mayor",
+        avance: "Qué puede avanzar después",
+        prioridad: "Quién o qué pone esto primero",
+      };
+
+      const KNOWLEDGE_BASIS = [
+        { id: "direct_observation", label: "Lo veo directamente en mi trabajo" },
+        {
+          id: "role_based_knowledge",
+          label: "Lo conozco por mi rol y por cómo trabajamos con otros",
+        },
+        { id: "best_estimate", label: "Es mi mejor estimación" },
+        { id: "unconfirmed", label: "No lo puedo confirmar" },
+      ];
+
+      const DEFAULT_MEMORY =
+        "Analizo desviaciones de headcount contra presupuesto por unidad de negocio para generar alertas tempranas.";
+      const DEFAULT_RECEIVER = "Compras";
+
+      const DEMO = {
+        benefit: "otra_interna",
+        benefitWho: "Producción",
+        harm: "otra_interna",
+        harmWho: "Producción",
+        benefitKb: "role_based_knowledge",
+        harmKb: "role_based_knowledge",
+        outcome:
+          "Producción puede arrancar el lote porque ya tiene liberado el material que estaba detenido.",
+        contribution: "enabling_support",
+        process: "Control de headcount y presupuesto por unidad de negocio",
+        processKb: "role_based_knowledge",
+        nextStep:
+          "Dirección puede corregir desviaciones antes del cierre del mes",
+        nextKb: "role_based_knowledge",
+        priority: "boss",
+        displace: "almost_never",
+      };
+
+      function helpHasContent(field) {
+        const entry = MADRE_HELP[field];
+        if (!entry) return false;
+        const hasExamples =
+          Array.isArray(entry.examples) && entry.examples.length > 0;
+        return Boolean((entry.explanation || "").trim() || hasExamples);
+      }
+
+      function renderMadreHelp(targetEl, field) {
+        const entry = MADRE_HELP[field];
+        targetEl.replaceChildren();
+        if (!entry) return false;
+
+        const explanation = (entry.explanation || "").trim();
+        const examples = Array.isArray(entry.examples) ? entry.examples : [];
+        if (!explanation && !examples.length) return false;
+
+        if (explanation) {
+          const p1 = document.createElement("p");
+          p1.className = "madre-help-p";
+          p1.textContent = explanation;
+          targetEl.appendChild(p1);
+        }
+        if (examples.length) {
+          const list = document.createElement("ul");
+          list.className = "madre-help-examples";
+          examples.forEach((ex) => {
+            const li = document.createElement("li");
+            const text = String(ex || "").trim();
+            li.textContent = /^ej\./i.test(text) ? text : `Ej. ${text}`;
+            list.appendChild(li);
+          });
+          targetEl.appendChild(list);
+        }
+        return true;
+      }
+
+      function canAnswerField(field) {
+        if (state.saved) return false;
+        if (!HELP_GATE_ENABLED) return true;
+        if (!helpHasContent(field)) return true;
+        return Boolean(helpViewed[field]);
+      }
+
+      function markHelpViewed(field) {
+        if (!field) return;
+        helpViewed[field] = true;
+      }
+
+      function actorOptionById(id) {
+        return ACTOR_OPTIONS.find((o) => o.id === id) || null;
+      }
+
+      function optionById(id) {
+        return (
+          actorOptionById(id) ||
+          PRIORITY_OPTIONS.find((o) => o.id === id) ||
+          DISPLACE_OPTIONS.find((o) => o.id === id) ||
+          null
+        );
+      }
+
+      function needsWho(id) {
+        return Boolean(actorOptionById(id)?.needsWho);
+      }
+
+      function needsOtherText(id, catalog) {
+        return Boolean(catalog.find((o) => o.id === id)?.needsWho);
+      }
+
+      /** @type {"dyad" | "clarify" | "clarity"} */
+      let layer = "dyad";
+      /** @type {"cliente" | "proceso" | "avance" | "prioridad"} */
+      let band = "cliente";
+      let openHelpField = null;
+      const helpViewed = Object.create(null);
+
+      const fillDemo = params.get("demo") !== "0";
+      const startPhase = params.get("phase");
+      const memoryOverride = params.get("memory");
+      const receiverImmediate =
+        (params.get("receiver") || DEFAULT_RECEIVER).trim() || DEFAULT_RECEIVER;
+
+      const kickerEl = document.getElementById("kicker");
+      const madreHelpEl = document.getElementById("madre-help");
+      const madreHelpRelEl = document.getElementById("madre-help-rel");
+      const memoryMetaEl = document.getElementById("memory-meta");
+      const memoryEl = document.getElementById("memory");
+      const receiverEcho = document.getElementById("receiver-echo");
+      const fieldEl = document.getElementById("field");
+      const relLayer = document.getElementById("rel-layer");
+      const echoBenefit = document.getElementById("echo-benefit");
+      const echoHarm = document.getElementById("echo-harm");
+      const relStatus = document.getElementById("rel-status");
+      const panelClarify = document.getElementById("panel-clarify");
+      const closureEl = document.getElementById("closure");
+      const sceneToggle = document.getElementById("scene-toggle");
+      const closureHint = document.getElementById("closure-hint");
+      const savedMark = document.getElementById("saved-mark");
+      const opsNotify = document.getElementById("ops-notify");
+      const replayEl = document.getElementById("replay");
+      const phaseBack = document.getElementById("phase-back");
+
+      const optsBenefit = document.getElementById("opts-benefit");
+      const optsHarm = document.getElementById("opts-harm");
+      const optsContribution = document.getElementById("opts-contribution");
+      const optsClarify = document.getElementById("opts-clarify");
+      const freeBenefit = document.getElementById("free-benefit");
+      const freeHarm = document.getElementById("free-harm");
+      const followupBenefit = document.getElementById("followup-benefit");
+      const followupHarm = document.getElementById("followup-harm");
+      const backBenefit = document.getElementById("back-benefit");
+      const backHarm = document.getElementById("back-harm");
+      const valueBenefitOther = document.getElementById("value-benefit-other");
+      const valueHarmOther = document.getElementById("value-harm-other");
+      const valueNeed = document.getElementById("value-need");
+      const kbBenefit = document.getElementById("kb-benefit");
+      const kbHarm = document.getElementById("kb-harm");
+      const bandProceso = document.getElementById("band-proceso");
+      const bandAvance = document.getElementById("band-avance");
+      const bandPrioridad = document.getElementById("band-prioridad");
+      const valueProcess = document.getElementById("value-process");
+      const valueProcessB = document.getElementById("value-process-b");
+      const valueNext = document.getElementById("value-next");
+      const valueNextC = document.getElementById("value-next-c");
+      const kbProcess = document.getElementById("kb-process");
+      const kbNext = document.getElementById("kb-next");
+      const slotProcessB = document.getElementById("slot-process-b");
+      const slotNextC = document.getElementById("slot-next-c");
+      const processUnsureBtn = document.getElementById("process-unsure");
+      const optsPriority = document.getElementById("opts-priority");
+      const optsDisplace = document.getElementById("opts-displace");
+      const followupPriority = document.getElementById("followup-priority");
+      const followupDisplace = document.getElementById("followup-displace");
+      const freePriority = document.getElementById("free-priority");
+      const freeDisplace = document.getElementById("free-displace");
+      const valuePriorityOther = document.getElementById("value-priority-other");
+      const valueDisplaceOther = document.getElementById("value-displace-other");
+      const backPriority = document.getElementById("back-priority");
+      const backDisplace = document.getElementById("back-displace");
+
+      const dyadPanels = [
+        document.getElementById("panel-dyad-left"),
+        document.getElementById("panel-dyad-right"),
+      ];
+      const clarityPanels = [
+        document.getElementById("panel-clarity-left"),
+        document.getElementById("panel-clarity-right"),
+      ];
+
+      const state = {
+        benefitId: null,
+        benefitWho: "",
+        benefitKb: null,
+        harmId: null,
+        harmWho: "",
+        harmKb: null,
+        relDerived: null,
+        clarifyId: null,
+        beneficiaryOutcome: "",
+        contributionId: null,
+        processText: "",
+        processKb: null,
+        processUnsure: false,
+        processBText: "",
+        processBOpen: false,
+        nextText: "",
+        nextKb: null,
+        nextCText: "",
+        nextCOpen: false,
+        priorityId: null,
+        priorityOther: "",
+        displaceId: null,
+        displaceOther: "",
+        saved: false,
+      };
+
+      function loadSeenMap() {
+        try {
+          return JSON.parse(localStorage.getItem(SEEN_KEY) || "{}") || {};
+        } catch (_) {
+          return {};
+        }
+      }
+
+      let seenMap = loadSeenMap();
+
+      function persistSeen() {
+        try {
+          localStorage.setItem(SEEN_KEY, JSON.stringify(seenMap));
+        } catch (_) {
+          /* ignore */
+        }
+      }
+
+      function prefersReducedMotion() {
+        return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      }
+
+      function sleep(ms) {
+        if (prefersReducedMotion()) return Promise.resolve();
+        return new Promise((resolve) => window.setTimeout(resolve, ms));
+      }
+
+      function setNotify(text) {
+        opsNotify.textContent = text;
+        opsNotify.classList.toggle("is-visible", Boolean(text));
+      }
+
+      function syncEmpty(el) {
+        const text = (el.textContent || "").replace(/\u200b/g, "").trim();
+        el.classList.toggle("is-empty", text.length === 0);
+      }
+
+      function read(el) {
+        return (el.textContent || "").replace(/\u200b/g, "").trim();
+      }
+
+      function mountOptions(container, options) {
+        if (!container) return;
+        container.innerHTML = "";
+        options.forEach((option) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "opt";
+          btn.textContent = option.label;
+          btn.dataset.id = option.id;
+          btn.setAttribute("role", "radio");
+          btn.setAttribute("aria-checked", "false");
+          container.appendChild(btn);
+        });
+      }
+
+      function mountKnowledge(container, fieldKey) {
+        if (!container) return;
+        container.innerHTML = "";
+        KNOWLEDGE_BASIS.forEach((item) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "kb-chip";
+          btn.textContent = item.label;
+          btn.dataset.id = item.id;
+          btn.addEventListener("click", () => {
+            if (state.saved) return;
+            if (fieldKey === "benefit") {
+              if (!state.benefitId) return;
+              if (needsWho(state.benefitId) && !state.benefitWho.trim()) return;
+              state.benefitKb = item.id;
+              maybeAdvanceFromDyad();
+            } else if (fieldKey === "harm") {
+              if (!state.harmId) return;
+              if (needsWho(state.harmId) && !state.harmWho.trim()) return;
+              state.harmKb = item.id;
+              maybeAdvanceFromDyad();
+            } else if (fieldKey === "process") {
+              if (!canAnswerField("0.5.2")) return;
+              if (!state.processText.trim() && !state.processUnsure) return;
+              state.processKb = item.id;
+              if (item.id === "unconfirmed") state.processUnsure = true;
+            } else if (fieldKey === "next") {
+              if (!canAnswerField("0.5.3")) return;
+              if (!state.nextText.trim()) return;
+              state.nextKb = item.id;
+            }
+            Array.from(container.querySelectorAll(".kb-chip")).forEach((chip) => {
+              chip.classList.toggle("is-active", chip.dataset.id === item.id);
+            });
+            refreshClosure();
+            refreshHelpPlus();
+            refreshAnswerLocks();
+          });
+          container.appendChild(btn);
+        });
+      }
+
+      function setActiveInGroup(container, id) {
+        Array.from(container.querySelectorAll(".opt")).forEach((btn) => {
+          const active = btn.dataset.id === id;
+          btn.classList.toggle("is-active", active);
+          btn.setAttribute("aria-checked", active ? "true" : "false");
+        });
+      }
+
+      function clearChoiceFollowup(side) {
+        const opts = side === "benefit" ? optsBenefit : optsHarm;
+        const followup = side === "benefit" ? followupBenefit : followupHarm;
+        const free = side === "benefit" ? freeBenefit : freeHarm;
+        const valueEl =
+          side === "benefit" ? valueBenefitOther : valueHarmOther;
+
+        opts.classList.remove("is-committed");
+        followup.classList.remove(
+          "is-open",
+          "is-other-mode",
+          "is-island-mode",
+          "is-who-ready",
+        );
+        free.classList.remove("is-open");
+        valueEl.contentEditable = "false";
+      }
+
+      /** Opción fija: oculta el resto y abre micro-confirmación (kb + ←). */
+      function commitChoiceIsland(side) {
+        const opts = side === "benefit" ? optsBenefit : optsHarm;
+        const followup = side === "benefit" ? followupBenefit : followupHarm;
+        const free = side === "benefit" ? freeBenefit : freeHarm;
+        const valueEl =
+          side === "benefit" ? valueBenefitOther : valueHarmOther;
+
+        opts.classList.add("is-committed");
+        followup.classList.add("is-open", "is-island-mode");
+        followup.classList.remove("is-other-mode");
+        free.classList.remove("is-open");
+        valueEl.contentEditable = "false";
+      }
+
+      /** "Otra…": lista abierta + solo subcampo texto. Sin isla ni ←. */
+      function openOtherSpecify(side) {
+        const opts = side === "benefit" ? optsBenefit : optsHarm;
+        const followup = side === "benefit" ? followupBenefit : followupHarm;
+        const free = side === "benefit" ? freeBenefit : freeHarm;
+        const valueEl =
+          side === "benefit" ? valueBenefitOther : valueHarmOther;
+        const whoText =
+          side === "benefit" ? state.benefitWho : state.harmWho;
+        const ready = Boolean(whoText.trim());
+
+        opts.classList.remove("is-committed");
+        followup.classList.add("is-open", "is-other-mode");
+        followup.classList.remove("is-island-mode");
+        followup.classList.toggle("is-who-ready", ready);
+        free.classList.add("is-open");
+        valueEl.contentEditable = state.saved ? "false" : "true";
+        if (!ready && !state.saved) {
+          window.setTimeout(() => valueEl.focus(), 0);
+        }
+      }
+
+      function applyChoiceFollowup(side) {
+        const id = side === "benefit" ? state.benefitId : state.harmId;
+        if (!id) {
+          clearChoiceFollowup(side);
+          return;
+        }
+        if (needsWho(id)) openOtherSpecify(side);
+        else commitChoiceIsland(side);
+      }
+
+      function restoreChoiceIsland(side) {
+        if (state.saved) return;
+        const opts = side === "benefit" ? optsBenefit : optsHarm;
+        const followup = side === "benefit" ? followupBenefit : followupHarm;
+        const free = side === "benefit" ? freeBenefit : freeHarm;
+        const valueEl =
+          side === "benefit" ? valueBenefitOther : valueHarmOther;
+        const kb = side === "benefit" ? kbBenefit : kbHarm;
+
+        if (side === "benefit") {
+          state.benefitId = null;
+          state.benefitWho = "";
+          state.benefitKb = null;
+        } else {
+          state.harmId = null;
+          state.harmWho = "";
+          state.harmKb = null;
+        }
+
+        setActiveInGroup(opts, null);
+        clearChoiceFollowup(side);
+        valueEl.textContent = "";
+        syncEmpty(valueEl);
+        Array.from(kb.querySelectorAll(".kb-chip")).forEach((chip) => {
+          chip.classList.remove("is-active");
+          chip.disabled = false;
+        });
+        updateEcho();
+        refreshHelpPlus();
+        refreshAnswerLocks();
+        refreshClosure();
+      }
+
+      function refreshChoiceIslands() {
+        applyChoiceFollowup("benefit");
+        applyChoiceFollowup("harm");
+      }
+
+      function labelFor(id, whoText) {
+        if (!id) return "—";
+        const opt = optionById(id);
+        if (!opt) return id;
+        if (needsWho(id)) {
+          const t = (whoText || "").trim();
+          return t || `${opt.label} (sin especificar)`;
+        }
+        return opt.label;
+      }
+
+      function identityKey(id, whoText) {
+        if (!id || id === "unidentified") return null;
+        if (needsWho(id)) {
+          const t = (whoText || "").trim().toLowerCase();
+          return t ? `${id}:${t}` : null;
+        }
+        return id;
+      }
+
+      function deriveRel() {
+        const bKey = identityKey(state.benefitId, state.benefitWho);
+        const aKey = identityKey(state.harmId, state.harmWho);
+
+        if (
+          state.benefitId === "unidentified" ||
+          state.harmId === "unidentified" ||
+          !bKey ||
+          !aKey
+        ) {
+          state.relDerived = "unresolved_relation";
+          return state.relDerived;
+        }
+        state.relDerived =
+          bKey === aKey ? "same_entity" : "different_entities";
+        return state.relDerived;
+      }
+
+      function effectiveRelation() {
+        if (state.clarifyId === "same_entity") return "same_entity";
+        if (state.clarifyId === "different_entities") return "different_entities";
+        if (state.clarifyId === "unconfirmed") return "unresolved_relation";
+        return state.relDerived;
+      }
+
+      function relStatusLabel(rel) {
+        if (rel === "same_entity") return "Relación derivada · misma parte";
+        if (rel === "different_entities") return "Relación derivada · distintas";
+        if (rel === "unresolved_relation")
+          return "Relación derivada · sin resolver";
+        return "";
+      }
+
+      function isFieldAnswered(field) {
+        if (field === "0.5.1") {
+          if (!state.benefitId) return false;
+          if (needsWho(state.benefitId) && !state.benefitWho.trim()) return false;
+          return true;
+        }
+        if (field === "0.5.1a") {
+          if (!state.harmId) return false;
+          if (needsWho(state.harmId) && !state.harmWho.trim()) return false;
+          return true;
+        }
+        if (field === "0.5.A") return Boolean(state.clarifyId);
+        if (field === "0.5.1c") return Boolean(state.beneficiaryOutcome.trim());
+        if (field === "0.5.1d") return Boolean(state.contributionId);
+        if (field === "0.5.2") {
+          if (state.processUnsure && state.processKb === "unconfirmed") return true;
+          return Boolean(state.processText.trim());
+        }
+        if (field === "0.5.B") {
+          if (!state.processBOpen) return true;
+          return Boolean(state.processBText.trim());
+        }
+        if (field === "0.5.3") return Boolean(state.nextText.trim());
+        if (field === "0.5.C") {
+          if (!state.nextCOpen) return true;
+          return Boolean(state.nextCText.trim());
+        }
+        if (field === "0.5.4") {
+          if (!state.priorityId) return false;
+          if (needsOtherText(state.priorityId, PRIORITY_OPTIONS)) {
+            return Boolean(state.priorityOther.trim());
+          }
+          return true;
+        }
+        if (field === "0.5.4a") {
+          if (!state.displaceId) return false;
+          if (needsOtherText(state.displaceId, DISPLACE_OPTIONS)) {
+            return Boolean(state.displaceOther.trim());
+          }
+          return true;
+        }
+        return false;
+      }
+
+      function dyadComplete() {
+        return (
+          isFieldAnswered("0.5.1") &&
+          isFieldAnswered("0.5.1a") &&
+          Boolean(state.benefitKb) &&
+          Boolean(state.harmKb)
+        );
+      }
+
+      function bridgeComplete() {
+        const rel = effectiveRelation();
+        if (!rel) return false;
+        if (rel === "unresolved_relation" && !state.clarifyId) return false;
+        if (state.clarifyId === "unconfirmed") return true;
+        return rel === "same_entity" || rel === "different_entities";
+      }
+
+      function clarityComplete() {
+        return isFieldAnswered("0.5.1c") && isFieldAnswered("0.5.1d");
+      }
+
+      function clienteComplete() {
+        return dyadComplete() && bridgeComplete() && clarityComplete();
+      }
+
+      function looksLocalProcess(text) {
+        const t = (text || "").trim().toLowerCase();
+        if (!t) return false;
+        if (t.length < 5) return true;
+        if (
+          /^(operaci[oó]n|el trabajo|mi trabajo|la tarea|proceso|administraci[oó]n)$/i.test(
+            t,
+          )
+        )
+          return true;
+        const mem = (memoryEl.textContent || "").toLowerCase();
+        if (mem && (mem.includes(t) || t.includes(mem.slice(0, 24)))) return true;
+        if (
+          /^(revis|valid|analiz|entreg|actualiz|contar|liber)/i.test(t) &&
+          t.split(/\s+/).length <= 4
+        )
+          return true;
+        return false;
+      }
+
+      function looksLocalNextStep(text) {
+        const t = (text || "").trim().toLowerCase();
+        if (!t) return false;
+        if (
+          /^(entrego|mando|env[ií]o|termino|cierro|reviso|completo)\b/i.test(t)
+        )
+          return true;
+        const mem = (memoryEl.textContent || "").toLowerCase();
+        if (
+          mem &&
+          t.length > 8 &&
+          (mem.includes(t) || t.includes(mem.slice(0, 20)))
+        )
+          return true;
+        return false;
+      }
+
+      function effectiveProcessText() {
+        if (state.processBOpen && state.processBText.trim())
+          return state.processBText.trim();
+        return state.processText.trim();
+      }
+
+      function effectiveNextText() {
+        if (state.nextCOpen && state.nextCText.trim())
+          return state.nextCText.trim();
+        return state.nextText.trim();
+      }
+
+      function procesoComplete() {
+        if (!isFieldAnswered("0.5.2")) return false;
+        if (!(state.processKb || state.processUnsure)) return false;
+        if (state.processBOpen && !isFieldAnswered("0.5.B")) return false;
+        return true;
+      }
+
+      function avanceComplete() {
+        if (!isFieldAnswered("0.5.3")) return false;
+        if (!state.nextKb) return false;
+        if (state.nextCOpen && !isFieldAnswered("0.5.C")) return false;
+        return true;
+      }
+
+      function prioridadComplete() {
+        return isFieldAnswered("0.5.4") && isFieldAnswered("0.5.4a");
+      }
+
+      function bandComplete() {
+        if (band === "cliente") return clienteComplete();
+        if (band === "proceso") return procesoComplete();
+        if (band === "avance") return avanceComplete();
+        if (band === "prioridad") return prioridadComplete();
+        return false;
+      }
+
+      function sectionComplete() {
+        return bandComplete();
+      }
+
+      function blockComplete() {
+        return (
+          clienteComplete() &&
+          procesoComplete() &&
+          avanceComplete() &&
+          prioridadComplete()
+        );
+      }
+
+      function setBand(next) {
+        band = next;
+        closeMadreHelp();
+        const map = {
+          cliente: fieldEl,
+          proceso: bandProceso,
+          avance: bandAvance,
+          prioridad: bandPrioridad,
+        };
+        Object.entries(map).forEach(([key, el]) => {
+          if (!el) return;
+          const on = key === next;
+          el.classList.toggle("is-active", on);
+          if (key === "cliente") {
+            el.classList.toggle(
+              "is-visible",
+              on && (layer === "dyad" || layer === "clarity"),
+            );
+          } else if (on) {
+            el.classList.add("is-visible");
+          } else {
+            el.classList.remove("is-visible");
+          }
+        });
+        if (kickerEl && BAND_KICKERS[next]) {
+          kickerEl.textContent = BAND_KICKERS[next];
+        }
+        receiverEcho.classList.toggle(
+          "is-visible",
+          next === "cliente" && memoryEl.classList.contains("is-visible"),
+        );
+        refreshFreeBandChrome();
+        if (next === "cliente") {
+          /* setLayerSafe refreshes cliente layers */
+        } else {
+          relLayer.classList.remove("is-visible");
+          fieldEl.classList.remove("is-visible");
+          closureEl.classList.add("is-visible");
+          phaseBack.classList.toggle("is-visible", !state.saved);
+        }
+        refreshHelpPlus();
+        refreshAnswerLocks();
+        refreshClosure();
+      }
+
+      function refreshFreeBandChrome() {
+        const processReady =
+          Boolean(state.processText.trim()) || state.processUnsure;
+        kbProcess?.classList.toggle("is-open", processReady && band === "proceso");
+        processUnsureBtn?.classList.toggle(
+          "is-hidden",
+          Boolean(state.processText.trim()) && !state.processUnsure,
+        );
+
+        const nextReady = Boolean(state.nextText.trim());
+        kbNext?.classList.toggle("is-open", nextReady && band === "avance");
+      }
+
+      function markFieldSeen(field) {
+        if (seenMap[field]) return;
+        seenMap[field] = true;
+        persistSeen();
+      }
+
+      function closeMadreHelp() {
+        openHelpField = null;
+        madreHelpEl.classList.remove("is-open");
+        madreHelpEl.hidden = true;
+        madreHelpEl.replaceChildren();
+        if (madreHelpRelEl) {
+          madreHelpRelEl.classList.remove("is-open");
+          madreHelpRelEl.hidden = true;
+          madreHelpRelEl.replaceChildren();
+        }
+      }
+
+      function openMadreHelp(field) {
+        if (!helpHasContent(field)) return;
+        openHelpField = field;
+        markHelpViewed(field);
+
+        const localHelp = field === "0.5.A" ? madreHelpRelEl : null;
+        if (localHelp) {
+          madreHelpEl.classList.remove("is-open");
+          madreHelpEl.hidden = true;
+          madreHelpEl.replaceChildren();
+          localHelp.hidden = false;
+          renderMadreHelp(localHelp, field);
+          void localHelp.offsetWidth;
+          localHelp.classList.add("is-open");
+          localHelp.scrollIntoView({
+            block: "nearest",
+            behavior: prefersReducedMotion() ? "auto" : "smooth",
+          });
+        } else {
+          if (madreHelpRelEl) {
+            madreHelpRelEl.classList.remove("is-open");
+            madreHelpRelEl.hidden = true;
+            madreHelpRelEl.replaceChildren();
+          }
+          madreHelpEl.hidden = false;
+          renderMadreHelp(madreHelpEl, field);
+          void madreHelpEl.offsetWidth;
+          madreHelpEl.classList.add("is-open");
+          madreHelpEl.scrollIntoView({
+            block: "nearest",
+            behavior: prefersReducedMotion() ? "auto" : "smooth",
+          });
+        }
+
+        refreshHelpPlus();
+        refreshAnswerLocks();
+      }
+
+      function refreshHelpPlus() {
+        document.querySelectorAll(".help-plus").forEach((btn) => {
+          const field = btn.dataset.field;
+          const answered = isFieldAnswered(field);
+          const hasHelp = helpHasContent(field);
+          btn.hidden = !hasHelp;
+          btn.classList.toggle("is-mist", answered);
+          btn.setAttribute(
+            "aria-expanded",
+            openHelpField === field ? "true" : "false",
+          );
+        });
+      }
+
+      function onFieldAnswered(field) {
+        if (openHelpField === field) closeMadreHelp();
+        refreshHelpPlus();
+      }
+
+      function refreshAnswerLocks() {
+        const map = {
+          "0.5.1": optsBenefit,
+          "0.5.1a": optsHarm,
+          "0.5.1d": optsContribution,
+          "0.5.A": optsClarify,
+        };
+
+        Object.entries(map).forEach(([field, container]) => {
+          if (!container) return;
+          const locked = !canAnswerField(field);
+          container.classList.toggle("is-locked", locked && !state.saved);
+          Array.from(container.querySelectorAll(".opt")).forEach((btn) => {
+            btn.disabled = state.saved || locked;
+          });
+        });
+
+        const outcomeLocked = !canAnswerField("0.5.1c");
+        if (valueNeed) {
+          valueNeed.contentEditable =
+            state.saved || outcomeLocked ? "false" : "true";
+          document
+            .getElementById("free-need")
+            ?.classList.toggle("is-locked", outcomeLocked && !state.saved);
+        }
+
+        if (needsWho(state.benefitId)) {
+          const locked = !canAnswerField("0.5.1") || state.saved;
+          valueBenefitOther.contentEditable = locked ? "false" : "true";
+          freeBenefit.classList.toggle("is-locked", locked && !state.saved);
+        }
+        if (needsWho(state.harmId)) {
+          const locked = !canAnswerField("0.5.1a") || state.saved;
+          valueHarmOther.contentEditable = locked ? "false" : "true";
+          freeHarm.classList.toggle("is-locked", locked && !state.saved);
+        }
+
+        document.querySelectorAll("[data-gate-for]").forEach((hint) => {
+          const field = hint.getAttribute("data-gate-for");
+          const show =
+            HELP_GATE_ENABLED &&
+            helpHasContent(field) &&
+            !helpViewed[field] &&
+            !state.saved;
+          hint.classList.toggle("is-visible", show);
+        });
+
+        document.querySelectorAll(".help-plus").forEach((btn) => {
+          const field = btn.dataset.field;
+          const needsGate =
+            HELP_GATE_ENABLED &&
+            helpHasContent(field) &&
+            !helpViewed[field] &&
+            !state.saved;
+          btn.classList.toggle("is-gate", needsGate);
+        });
+
+        Array.from(kbBenefit.querySelectorAll(".kb-chip")).forEach((chip) => {
+          const whoOk =
+            !needsWho(state.benefitId) || Boolean(state.benefitWho.trim());
+          chip.disabled = state.saved || !state.benefitId || !whoOk;
+        });
+        Array.from(kbHarm.querySelectorAll(".kb-chip")).forEach((chip) => {
+          const whoOk =
+            !needsWho(state.harmId) || Boolean(state.harmWho.trim());
+          chip.disabled = state.saved || !state.harmId || !whoOk;
+        });
+        if (backBenefit)
+          backBenefit.disabled =
+            state.saved || !state.benefitId || needsWho(state.benefitId);
+        if (backHarm)
+          backHarm.disabled =
+            state.saved || !state.harmId || needsWho(state.harmId);
+      }
+
+      function updateEcho() {
+        echoBenefit.textContent = labelFor(state.benefitId, state.benefitWho);
+        echoHarm.textContent = labelFor(state.harmId, state.harmWho);
+        if (relStatus) {
+          relStatus.textContent = relStatusLabel(effectiveRelation());
+        }
+      }
+
+      function refreshKbVisibility() {
+        refreshChoiceIslands();
+      }
+
+      function commitSeenForVisibleFields() {
+        if (layer === "dyad") {
+          markFieldSeen("0.5.1");
+          markFieldSeen("0.5.1a");
+        } else if (layer === "clarify") {
+          markFieldSeen("0.5.A");
+        } else if (layer === "clarity") {
+          markFieldSeen("0.5.1c");
+          markFieldSeen("0.5.1d");
+        }
+        refreshHelpPlus();
+      }
+
+      function setLayerSafe(next) {
+        if (layer !== next) commitSeenForVisibleFields();
+        layer = next;
+        const showDyad = next === "dyad";
+        const showClarify = next === "clarify";
+        const showClarity = next === "clarity";
+
+        dyadPanels.forEach((el) => el.classList.toggle("is-active", showDyad));
+        clarityPanels.forEach((el) =>
+          el.classList.toggle("is-active", showClarity),
+        );
+        relLayer.classList.toggle("is-visible", showClarify && band === "cliente");
+        panelClarify?.classList.toggle("is-active", showClarify);
+        if (band === "cliente") {
+          fieldEl.classList.toggle("is-visible", showDyad || showClarity);
+          closureEl.classList.toggle("is-visible", showClarity);
+          phaseBack.classList.toggle(
+            "is-visible",
+            next !== "dyad" && !state.saved,
+          );
+        }
+
+        updateEcho();
+        refreshKbVisibility();
+        refreshHelpPlus();
+        refreshAnswerLocks();
+        refreshClosure();
+      }
+
+      function refreshClosure() {
+        const showClosure =
+          (band === "cliente" && layer === "clarity") ||
+          band === "proceso" ||
+          band === "avance" ||
+          band === "prioridad";
+
+        if (!showClosure) {
+          sceneToggle.disabled = true;
+          sceneToggle.classList.remove("is-ready");
+          closureHint.classList.remove("is-visible");
+          if (band === "cliente") closureEl.classList.remove("is-visible");
+          return;
+        }
+
+        closureEl.classList.add("is-visible");
+
+        if (state.saved) {
+          sceneToggle.disabled = true;
+          sceneToggle.classList.remove("is-ready");
+          savedMark.classList.add("is-visible");
+          savedMark.setAttribute("aria-hidden", "false");
+          closureHint.classList.remove("is-visible");
+          phaseBack.classList.remove("is-visible");
+          sceneToggle.textContent = "Bloque guardado";
+          return;
+        }
+
+        savedMark.classList.remove("is-visible");
+        savedMark.setAttribute("aria-hidden", "true");
+        const ready = bandComplete();
+        sceneToggle.disabled = !ready;
+        sceneToggle.classList.toggle("is-ready", ready);
+        sceneToggle.textContent =
+          band === "prioridad" ? "Guardar bloque →" : "Continuar →";
+
+        if (!ready) {
+          closureHint.classList.add("is-visible");
+          if (band === "cliente") {
+            if (!state.beneficiaryOutcome.trim()) {
+              closureHint.textContent =
+                "Describe qué obtiene o qué logra el beneficiario";
+            } else if (!state.contributionId) {
+              closureHint.textContent = "Marca cómo contribuye la actividad";
+            } else {
+              closureHint.textContent = "Completa la sección";
+            }
+          } else if (band === "proceso") {
+            closureHint.textContent = state.processBOpen
+              ? "Aclara el trabajo mayor"
+              : "Nombra el trabajo mayor y su base de conocimiento";
+          } else if (band === "avance") {
+            closureHint.textContent = state.nextCOpen
+              ? "Aclara qué puede avanzar después"
+              : "Describe qué puede avanzar y su base de conocimiento";
+          } else {
+            closureHint.textContent = "Completa prioridad y desplazamiento";
+          }
+        } else {
+          closureHint.classList.remove("is-visible");
+        }
+      }
+
+      function advanceAfterDyad() {
+        const rel = deriveRel();
+        state.clarifyId = null;
+        setActiveInGroup(optsClarify, null);
+        updateEcho();
+        if (rel === "unresolved_relation") {
+          setLayerSafe("clarify");
+          return;
+        }
+        setLayerSafe("clarity");
+      }
+
+      function maybeAdvanceFromDyad() {
+        if (layer === "dyad" && dyadComplete()) {
+          advanceAfterDyad();
+        }
+      }
+
+      function selectBenefit(id) {
+        if (state.saved || layer !== "dyad") return;
+        if (!canAnswerField("0.5.1")) return;
+        if (optsBenefit.classList.contains("is-committed")) return;
+        const prevNeedsWho = needsWho(state.benefitId);
+        state.benefitId = id;
+        state.benefitKb = null;
+        setActiveInGroup(optsBenefit, id);
+        Array.from(kbBenefit.querySelectorAll(".kb-chip")).forEach((chip) => {
+          chip.classList.remove("is-active");
+        });
+        if (!needsWho(id)) {
+          valueBenefitOther.textContent = "";
+          state.benefitWho = "";
+          syncEmpty(valueBenefitOther);
+        } else if (!prevNeedsWho) {
+          valueBenefitOther.textContent = "";
+          state.benefitWho = "";
+          syncEmpty(valueBenefitOther);
+        }
+        if (id === "unidentified") {
+          state.benefitKb = "unconfirmed";
+          Array.from(kbBenefit.querySelectorAll(".kb-chip")).forEach((chip) => {
+            chip.classList.toggle("is-active", chip.dataset.id === "unconfirmed");
+          });
+        }
+        applyChoiceFollowup("benefit");
+        if (isFieldAnswered("0.5.1")) {
+          markFieldSeen("0.5.1");
+          onFieldAnswered("0.5.1");
+        } else {
+          refreshHelpPlus();
+        }
+        refreshAnswerLocks();
+        maybeAdvanceFromDyad();
+      }
+
+      function selectHarm(id) {
+        if (state.saved || layer !== "dyad") return;
+        if (!canAnswerField("0.5.1a")) return;
+        if (optsHarm.classList.contains("is-committed")) return;
+        const prevNeedsWho = needsWho(state.harmId);
+        state.harmId = id;
+        state.harmKb = null;
+        setActiveInGroup(optsHarm, id);
+        Array.from(kbHarm.querySelectorAll(".kb-chip")).forEach((chip) => {
+          chip.classList.remove("is-active");
+        });
+        if (!needsWho(id)) {
+          valueHarmOther.textContent = "";
+          state.harmWho = "";
+          syncEmpty(valueHarmOther);
+        } else if (!prevNeedsWho) {
+          valueHarmOther.textContent = "";
+          state.harmWho = "";
+          syncEmpty(valueHarmOther);
+        }
+        if (id === "unidentified") {
+          state.harmKb = "unconfirmed";
+          Array.from(kbHarm.querySelectorAll(".kb-chip")).forEach((chip) => {
+            chip.classList.toggle("is-active", chip.dataset.id === "unconfirmed");
+          });
+        }
+        applyChoiceFollowup("harm");
+        if (isFieldAnswered("0.5.1a")) {
+          markFieldSeen("0.5.1a");
+          onFieldAnswered("0.5.1a");
+        } else {
+          refreshHelpPlus();
+        }
+        refreshAnswerLocks();
+        maybeAdvanceFromDyad();
+      }
+
+      function selectClarify(id) {
+        if (state.saved || layer !== "clarify") return;
+        if (!canAnswerField("0.5.A")) return;
+        state.clarifyId = id;
+        setActiveInGroup(optsClarify, id);
+        markFieldSeen("0.5.A");
+        onFieldAnswered("0.5.A");
+        updateEcho();
+        setLayerSafe("clarity");
+      }
+
+      function selectContribution(id) {
+        if (state.saved || layer !== "clarity") return;
+        if (!canAnswerField("0.5.1d")) return;
+        state.contributionId = id;
+        setActiveInGroup(optsContribution, id);
+        markFieldSeen("0.5.1d");
+        onFieldAnswered("0.5.1d");
+        refreshClosure();
+      }
+
+      function onOutcomeInput() {
+        if (state.saved || layer !== "clarity") return;
+        if (!canAnswerField("0.5.1c")) return;
+        state.beneficiaryOutcome = read(valueNeed);
+        syncEmpty(valueNeed);
+        if (isFieldAnswered("0.5.1c")) {
+          markFieldSeen("0.5.1c");
+          onFieldAnswered("0.5.1c");
+        } else {
+          refreshHelpPlus();
+        }
+        refreshClosure();
+      }
+
+
+      function onProcessInput() {
+        if (state.saved || band !== "proceso") return;
+        if (!canAnswerField("0.5.2")) return;
+        state.processText = read(valueProcess);
+        state.processUnsure = false;
+        processUnsureBtn?.classList.remove("is-active");
+        syncEmpty(valueProcess);
+        if (!state.processText.trim()) {
+          state.processKb = null;
+          Array.from(kbProcess?.querySelectorAll(".kb-chip") || []).forEach(
+            (chip) => chip.classList.remove("is-active"),
+          );
+        }
+        refreshFreeBandChrome();
+        if (isFieldAnswered("0.5.2")) {
+          markFieldSeen("0.5.2");
+          onFieldAnswered("0.5.2");
+        } else {
+          refreshHelpPlus();
+        }
+        refreshAnswerLocks();
+        refreshClosure();
+      }
+
+      function onProcessBInput() {
+        if (state.saved || band !== "proceso" || !state.processBOpen) return;
+        if (!canAnswerField("0.5.B")) return;
+        state.processBText = read(valueProcessB);
+        syncEmpty(valueProcessB);
+        if (isFieldAnswered("0.5.B")) {
+          markFieldSeen("0.5.B");
+          onFieldAnswered("0.5.B");
+        } else {
+          refreshHelpPlus();
+        }
+        refreshClosure();
+      }
+
+      function onNextInput() {
+        if (state.saved || band !== "avance") return;
+        if (!canAnswerField("0.5.3")) return;
+        state.nextText = read(valueNext);
+        syncEmpty(valueNext);
+        if (!state.nextText.trim()) {
+          state.nextKb = null;
+          Array.from(kbNext?.querySelectorAll(".kb-chip") || []).forEach((chip) =>
+            chip.classList.remove("is-active"),
+          );
+        }
+        refreshFreeBandChrome();
+        if (isFieldAnswered("0.5.3")) {
+          markFieldSeen("0.5.3");
+          onFieldAnswered("0.5.3");
+        } else {
+          refreshHelpPlus();
+        }
+        refreshAnswerLocks();
+        refreshClosure();
+      }
+
+      function onNextCInput() {
+        if (state.saved || band !== "avance" || !state.nextCOpen) return;
+        if (!canAnswerField("0.5.C")) return;
+        state.nextCText = read(valueNextC);
+        syncEmpty(valueNextC);
+        if (isFieldAnswered("0.5.C")) {
+          markFieldSeen("0.5.C");
+          onFieldAnswered("0.5.C");
+        } else {
+          refreshHelpPlus();
+        }
+        refreshClosure();
+      }
+
+      function applyPriorityFollowup(side) {
+        const isP = side === "priority";
+        const id = isP ? state.priorityId : state.displaceId;
+        const opts = isP ? optsPriority : optsDisplace;
+        const followup = isP ? followupPriority : followupDisplace;
+        const free = isP ? freePriority : freeDisplace;
+        const valueEl = isP ? valuePriorityOther : valueDisplaceOther;
+        const catalog = isP ? PRIORITY_OPTIONS : DISPLACE_OPTIONS;
+        if (!id) {
+          opts?.classList.remove("is-committed");
+          followup?.classList.remove(
+            "is-open",
+            "is-other-mode",
+            "is-island-mode",
+            "is-who-ready",
+          );
+          free?.classList.remove("is-open");
+          return;
+        }
+        const other = needsOtherText(id, catalog);
+        if (other) {
+          opts.classList.remove("is-committed");
+          followup.classList.add("is-open", "is-other-mode");
+          followup.classList.remove("is-island-mode");
+          followup.classList.toggle(
+            "is-who-ready",
+            Boolean((isP ? state.priorityOther : state.displaceOther).trim()),
+          );
+          free.classList.add("is-open");
+          valueEl.contentEditable = state.saved ? "false" : "true";
+          if (!(isP ? state.priorityOther : state.displaceOther).trim() && !state.saved) {
+            window.setTimeout(() => valueEl.focus(), 0);
+          }
+        } else {
+          opts.classList.add("is-committed");
+          followup.classList.add("is-open", "is-island-mode");
+          followup.classList.remove("is-other-mode", "is-who-ready");
+          free.classList.remove("is-open");
+          valueEl.contentEditable = "false";
+        }
+      }
+
+      function selectPriority(id) {
+        if (state.saved || band !== "prioridad") return;
+        if (!canAnswerField("0.5.4")) return;
+        if (optsPriority.classList.contains("is-committed")) return;
+        state.priorityId = id;
+        if (!needsOtherText(id, PRIORITY_OPTIONS)) {
+          state.priorityOther = "";
+          valuePriorityOther.textContent = "";
+          syncEmpty(valuePriorityOther);
+        }
+        setActiveInGroup(optsPriority, id);
+        applyPriorityFollowup("priority");
+        if (isFieldAnswered("0.5.4")) {
+          markFieldSeen("0.5.4");
+          onFieldAnswered("0.5.4");
+        } else {
+          refreshHelpPlus();
+        }
+        refreshAnswerLocks();
+        refreshClosure();
+      }
+
+      function selectDisplace(id) {
+        if (state.saved || band !== "prioridad") return;
+        if (!canAnswerField("0.5.4a")) return;
+        if (optsDisplace.classList.contains("is-committed")) return;
+        state.displaceId = id;
+        if (!needsOtherText(id, DISPLACE_OPTIONS)) {
+          state.displaceOther = "";
+          valueDisplaceOther.textContent = "";
+          syncEmpty(valueDisplaceOther);
+        }
+        setActiveInGroup(optsDisplace, id);
+        applyPriorityFollowup("displace");
+        if (isFieldAnswered("0.5.4a")) {
+          markFieldSeen("0.5.4a");
+          onFieldAnswered("0.5.4a");
+        } else {
+          refreshHelpPlus();
+        }
+        refreshAnswerLocks();
+        refreshClosure();
+      }
+
+      function restorePriority(side) {
+        if (state.saved) return;
+        if (side === "priority") {
+          state.priorityId = null;
+          state.priorityOther = "";
+          setActiveInGroup(optsPriority, null);
+          valuePriorityOther.textContent = "";
+          syncEmpty(valuePriorityOther);
+          applyPriorityFollowup("priority");
+        } else {
+          state.displaceId = null;
+          state.displaceOther = "";
+          setActiveInGroup(optsDisplace, null);
+          valueDisplaceOther.textContent = "";
+          syncEmpty(valueDisplaceOther);
+          applyPriorityFollowup("displace");
+        }
+        refreshHelpPlus();
+        refreshAnswerLocks();
+        refreshClosure();
+      }
+
+      function bindPriorityOther(el, side) {
+        const apply = () => {
+          const field = side === "priority" ? "0.5.4" : "0.5.4a";
+          if (!canAnswerField(field)) return;
+          syncEmpty(el);
+          const text = read(el);
+          if (side === "priority") state.priorityOther = text;
+          else state.displaceOther = text;
+          applyPriorityFollowup(side);
+          if (isFieldAnswered(field)) {
+            markFieldSeen(field);
+            onFieldAnswered(field);
+          } else {
+            refreshHelpPlus();
+          }
+          refreshAnswerLocks();
+          refreshClosure();
+        };
+        el.addEventListener("input", apply);
+        el.addEventListener("blur", apply);
+      }
+
+
+      function payload() {
+        return {
+          build: BUILD,
+          block: "0.5",
+          madre: "rev6_correccion_controlada_051_051a",
+          receiverImmediate,
+          answers: {
+            "0.5.1": {
+              choiceId: state.benefitId,
+              whoText: needsWho(state.benefitId) ? state.benefitWho : null,
+              knowledgeBasis: state.benefitKb,
+            },
+            "0.5.1a": {
+              choiceId: state.harmId,
+              whoText: needsWho(state.harmId) ? state.harmWho : null,
+              knowledgeBasis: state.harmKb,
+            },
+            "0.5.1_rel": {
+              derived: state.relDerived,
+              effective: effectiveRelation(),
+              provenance: "canonical_derivation",
+            },
+            "0.5.A":
+              state.relDerived === "unresolved_relation"
+                ? { choiceId: state.clarifyId }
+                : null,
+            "0.5.1c": { text: state.beneficiaryOutcome },
+            "0.5.1d": { choiceId: state.contributionId },
+            "0.5.2": {
+              text: state.processText,
+              knowledgeBasis: state.processKb,
+              unsure: state.processUnsure,
+              finalText: effectiveProcessText(),
+            },
+            "0.5.B": state.processBOpen ? { text: state.processBText } : null,
+            "0.5.3": {
+              text: state.nextText,
+              knowledgeBasis: state.nextKb,
+              finalText: effectiveNextText(),
+            },
+            "0.5.C": state.nextCOpen ? { text: state.nextCText } : null,
+            "0.5.4": {
+              choiceId: state.priorityId,
+              otherText: needsOtherText(state.priorityId, PRIORITY_OPTIONS)
+                ? state.priorityOther
+                : null,
+            },
+            "0.5.4a": {
+              choiceId: state.displaceId,
+              otherText: needsOtherText(state.displaceId, DISPLACE_OPTIONS)
+                ? state.displaceOther
+                : null,
+            },
+          },
+          memory: memoryEl.textContent,
+          savedAt: new Date().toISOString(),
+        };
+      }
+
+      function disableAll(disabled) {
+        [optsBenefit, optsHarm, optsContribution, optsClarify, optsPriority, optsDisplace].forEach(
+          (container) => {
+            if (!container) return;
+            Array.from(container.querySelectorAll(".opt")).forEach((btn) => {
+              btn.disabled = disabled;
+            });
+          },
+        );
+        valueBenefitOther.contentEditable =
+          !disabled && needsWho(state.benefitId) ? "true" : "false";
+        valueHarmOther.contentEditable =
+          !disabled && needsWho(state.harmId) ? "true" : "false";
+        valueNeed.contentEditable = disabled ? "false" : "true";
+        document.querySelectorAll(".help-plus").forEach((btn) => {
+          btn.disabled = disabled;
+        });
+        Array.from(
+          document.querySelectorAll(".kb-chip"),
+        ).forEach((chip) => {
+          chip.disabled = disabled;
+        });
+        if (backBenefit) backBenefit.disabled = disabled;
+        if (backHarm) backHarm.disabled = disabled;
+      }
+
+      function saveBlock() {
+        if (!blockComplete() || state.saved) return;
+        state.saved = true;
+        const data = payload();
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (_) {
+          /* ignore */
+        }
+        closeMadreHelp();
+        disableAll(true);
+        refreshClosure();
+        refreshHelpPlus();
+        setNotify("Bloque 0.5 guardado · listo para Bloque 1");
+        console.info("[B0.5 bloque]", data);
+      }
+
+      function advanceOrSave() {
+        if (state.saved) return;
+        if (!bandComplete()) return;
+
+        if (band === "cliente") {
+          commitSeenForVisibleFields();
+          setBand("proceso");
+          setNotify("Siguiente: trabajo o proceso mayor");
+          window.setTimeout(() => setNotify(""), 1400);
+          return;
+        }
+        if (band === "proceso") {
+          if (
+            !state.processUnsure &&
+            looksLocalProcess(state.processText) &&
+            !state.processBOpen
+          ) {
+            state.processBOpen = true;
+            slotProcessB?.classList.add("is-open");
+            refreshClosure();
+            refreshHelpPlus();
+            refreshAnswerLocks();
+            setNotify("Necesitamos subir un nivel al trabajo mayor");
+            return;
+          }
+          setBand("avance");
+          setNotify("Siguiente: qué puede avanzar después");
+          window.setTimeout(() => setNotify(""), 1400);
+          return;
+        }
+        if (band === "avance") {
+          if (looksLocalNextStep(state.nextText) && !state.nextCOpen) {
+            state.nextCOpen = true;
+            slotNextC?.classList.add("is-open");
+            refreshClosure();
+            refreshHelpPlus();
+            refreshAnswerLocks();
+            setNotify("Necesitamos el avance que habilita, no la tarea");
+            return;
+          }
+          setBand("prioridad");
+          setNotify("Siguiente: prioridad y desplazamiento");
+          window.setTimeout(() => setNotify(""), 1400);
+          return;
+        }
+        if (band === "prioridad") {
+          saveBlock();
+        }
+      }
+
+      function goBack() {
+        if (state.saved) return;
+        if (band === "prioridad") {
+          setBand("avance");
+          return;
+        }
+        if (band === "avance") {
+          setBand("proceso");
+          return;
+        }
+        if (band === "proceso") {
+          setBand("cliente");
+          setLayerSafe("clarity");
+          return;
+        }
+        if (layer === "clarity") {
+          if (state.relDerived === "unresolved_relation") {
+            setLayerSafe("clarify");
+          } else {
+            setLayerSafe("dyad");
+          }
+          return;
+        }
+        if (layer === "clarify") {
+          setLayerSafe("dyad");
+        }
+      }
+
+      function resetAll() {
+        state.benefitId = null;
+        state.benefitWho = "";
+        state.benefitKb = null;
+        state.harmId = null;
+        state.harmWho = "";
+        state.harmKb = null;
+        state.relDerived = null;
+        state.clarifyId = null;
+        state.beneficiaryOutcome = "";
+        state.contributionId = null;
+        state.processText = "";
+        state.processKb = null;
+        state.processUnsure = false;
+        state.processBText = "";
+        state.processBOpen = false;
+        state.nextText = "";
+        state.nextKb = null;
+        state.nextCText = "";
+        state.nextCOpen = false;
+        state.priorityId = null;
+        state.priorityOther = "";
+        state.displaceId = null;
+        state.displaceOther = "";
+        state.saved = false;
+        band = "cliente";
+        Object.keys(helpViewed).forEach((key) => {
+          delete helpViewed[key];
+        });
+        closeMadreHelp();
+
+        [
+          optsBenefit,
+          optsHarm,
+          optsContribution,
+          optsClarify,
+          optsPriority,
+          optsDisplace,
+        ].forEach((container) => {
+          if (!container) return;
+          Array.from(container.querySelectorAll(".opt")).forEach((btn) => {
+            btn.classList.remove("is-active");
+            btn.setAttribute("aria-checked", "false");
+            btn.disabled = false;
+          });
+        });
+        Array.from(document.querySelectorAll(".kb-chip")).forEach((chip) => {
+          chip.classList.remove("is-active");
+          chip.disabled = false;
+        });
+
+        freeBenefit.classList.remove("is-open");
+        freeHarm.classList.remove("is-open");
+        followupBenefit.classList.remove(
+          "is-open",
+          "is-other-mode",
+          "is-island-mode",
+          "is-who-ready",
+        );
+        followupHarm.classList.remove(
+          "is-open",
+          "is-other-mode",
+          "is-island-mode",
+          "is-who-ready",
+        );
+        followupPriority?.classList.remove(
+          "is-open",
+          "is-other-mode",
+          "is-island-mode",
+          "is-who-ready",
+        );
+        followupDisplace?.classList.remove(
+          "is-open",
+          "is-other-mode",
+          "is-island-mode",
+          "is-who-ready",
+        );
+        optsBenefit.classList.remove("is-committed");
+        optsHarm.classList.remove("is-committed");
+        optsPriority?.classList.remove("is-committed");
+        optsDisplace?.classList.remove("is-committed");
+        slotProcessB?.classList.remove("is-open");
+        slotNextC?.classList.remove("is-open");
+        processUnsureBtn?.classList.remove("is-active");
+        valueBenefitOther.textContent = "";
+        valueHarmOther.textContent = "";
+        valueNeed.textContent = "";
+        if (valueProcess) valueProcess.textContent = "";
+        if (valueProcessB) valueProcessB.textContent = "";
+        if (valueNext) valueNext.textContent = "";
+        if (valueNextC) valueNextC.textContent = "";
+        if (valuePriorityOther) valuePriorityOther.textContent = "";
+        if (valueDisplaceOther) valueDisplaceOther.textContent = "";
+        syncEmpty(valueBenefitOther);
+        syncEmpty(valueHarmOther);
+        syncEmpty(valueNeed);
+        if (valueProcess) syncEmpty(valueProcess);
+        if (valueProcessB) syncEmpty(valueProcessB);
+        if (valueNext) syncEmpty(valueNext);
+        if (valueNextC) syncEmpty(valueNextC);
+        valueBenefitOther.contentEditable = "false";
+        valueHarmOther.contentEditable = "false";
+        valueNeed.contentEditable = "true";
+        if (valueProcess) valueProcess.contentEditable = "true";
+        if (valueProcessB) valueProcessB.contentEditable = "true";
+        if (valueNext) valueNext.contentEditable = "true";
+        if (valueNextC) valueNextC.contentEditable = "true";
+        savedMark.classList.remove("is-visible");
+        document.querySelectorAll(".help-plus").forEach((btn) => {
+          btn.disabled = false;
+        });
+        if (backBenefit) backBenefit.disabled = false;
+        if (backHarm) backHarm.disabled = false;
+        if (backPriority) backPriority.disabled = false;
+        if (backDisplace) backDisplace.disabled = false;
+        setNotify("");
+        setBand("cliente");
+        setLayerSafe("dyad");
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (_) {
+          /* ignore */
+        }
+      }
+
+      function bindGroup(container, handler) {
+        if (!container) return;
+        container.addEventListener("click", (event) => {
+          const btn = event.target.closest(".opt");
+          if (!btn || btn.disabled) return;
+          handler(btn.dataset.id);
+        });
+      }
+
+      function bindWho(el, side) {
+        const apply = () => {
+          const field = side === "benefit" ? "0.5.1" : "0.5.1a";
+          if (!canAnswerField(field)) return;
+          syncEmpty(el);
+          const text = read(el);
+          if (side === "benefit") {
+            state.benefitWho = text;
+            if (!text.trim()) {
+              state.benefitKb = null;
+              Array.from(kbBenefit.querySelectorAll(".kb-chip")).forEach(
+                (chip) => chip.classList.remove("is-active"),
+              );
+            }
+          } else {
+            state.harmWho = text;
+            if (!text.trim()) {
+              state.harmKb = null;
+              Array.from(kbHarm.querySelectorAll(".kb-chip")).forEach((chip) =>
+                chip.classList.remove("is-active"),
+              );
+            }
+          }
+          applyChoiceFollowup(side);
+          if (isFieldAnswered(field)) {
+            markFieldSeen(field);
+            onFieldAnswered(field);
+            maybeAdvanceFromDyad();
+          } else {
+            refreshHelpPlus();
+          }
+          refreshAnswerLocks();
+        };
+        el.addEventListener("input", apply);
+        el.addEventListener("blur", apply);
+      }
+
+      function bindHelpPlus() {
+        document.querySelectorAll(".help-plus").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const field = btn.dataset.field;
+            if (btn.disabled) return;
+            if (openHelpField === field) closeMadreHelp();
+            else openMadreHelp(field);
+            refreshHelpPlus();
+          });
+        });
+      }
+
+      async function boot() {
+        if (params.get("freshHelp") === "1") {
+          seenMap = {};
+          persistSeen();
+        }
+
+        memoryEl.textContent = memoryOverride?.trim() || DEFAULT_MEMORY;
+        receiverEcho.textContent = `Receptor inmediato (B0): ${receiverImmediate}`;
+        // 0.5.1 ya trae wording canónico en HTML; el receptor B0 queda solo como eco.
+
+        mountOptions(optsBenefit, ACTOR_OPTIONS);
+        mountOptions(optsHarm, ACTOR_OPTIONS);
+        mountOptions(optsContribution, CONTRIBUTION_OPTIONS);
+        mountOptions(optsClarify, CLARIFY_OPTIONS);
+        mountOptions(optsPriority, PRIORITY_OPTIONS);
+        mountOptions(optsDisplace, DISPLACE_OPTIONS);
+        mountKnowledge(kbBenefit, "benefit");
+        mountKnowledge(kbHarm, "harm");
+        mountKnowledge(kbProcess, "process");
+        mountKnowledge(kbNext, "next");
+
+        bindGroup(optsBenefit, selectBenefit);
+        bindGroup(optsHarm, selectHarm);
+        bindGroup(optsContribution, selectContribution);
+        bindGroup(optsClarify, selectClarify);
+        bindGroup(optsPriority, selectPriority);
+        bindGroup(optsDisplace, selectDisplace);
+        bindWho(valueBenefitOther, "benefit");
+        bindWho(valueHarmOther, "harm");
+        bindPriorityOther(valuePriorityOther, "priority");
+        bindPriorityOther(valueDisplaceOther, "displace");
+        valueNeed.addEventListener("input", onOutcomeInput);
+        valueNeed.addEventListener("blur", onOutcomeInput);
+        valueProcess?.addEventListener("input", onProcessInput);
+        valueProcess?.addEventListener("blur", onProcessInput);
+        valueProcessB?.addEventListener("input", onProcessBInput);
+        valueProcessB?.addEventListener("blur", onProcessBInput);
+        valueNext?.addEventListener("input", onNextInput);
+        valueNext?.addEventListener("blur", onNextInput);
+        valueNextC?.addEventListener("input", onNextCInput);
+        valueNextC?.addEventListener("blur", onNextCInput);
+        processUnsureBtn?.addEventListener("click", () => {
+          if (state.saved || band !== "proceso") return;
+          if (!canAnswerField("0.5.2")) return;
+          state.processUnsure = true;
+          state.processText = "";
+          valueProcess.textContent = "";
+          syncEmpty(valueProcess);
+          state.processKb = "unconfirmed";
+          processUnsureBtn.classList.add("is-active");
+          Array.from(kbProcess.querySelectorAll(".kb-chip")).forEach((chip) => {
+            chip.classList.toggle(
+              "is-active",
+              chip.dataset.id === "unconfirmed",
+            );
+          });
+          refreshFreeBandChrome();
+          markFieldSeen("0.5.2");
+          onFieldAnswered("0.5.2");
+          refreshClosure();
+          refreshAnswerLocks();
+        });
+        bindHelpPlus();
+        backBenefit?.addEventListener("click", () =>
+          restoreChoiceIsland("benefit"),
+        );
+        backHarm?.addEventListener("click", () => restoreChoiceIsland("harm"));
+        backPriority?.addEventListener("click", () =>
+          restorePriority("priority"),
+        );
+        backDisplace?.addEventListener("click", () =>
+          restorePriority("displace"),
+        );
+
+        sceneToggle.addEventListener("click", advanceOrSave);
+        phaseBack.addEventListener("click", goBack);
+        replayEl.addEventListener("click", () => {
+          resetAll();
+          setNotify("Bloque reiniciado");
+          window.setTimeout(() => setNotify(""), 1600);
+        });
+
+        await sleep(80);
+        kickerEl.classList.add("is-visible");
+        await sleep(220);
+        memoryMetaEl.classList.add("is-visible");
+        memoryEl.classList.add("is-visible");
+        receiverEcho.classList.add("is-visible");
+        await sleep(360);
+        fieldEl.classList.add("is-visible");
+        setBand("cliente");
+        setLayerSafe("dyad");
+
+        if (fillDemo) {
+          [
+            "0.5.1",
+            "0.5.1a",
+            "0.5.1c",
+            "0.5.1d",
+            "0.5.A",
+            "0.5.2",
+            "0.5.3",
+            "0.5.4",
+            "0.5.4a",
+            "0.5.B",
+            "0.5.C",
+          ].forEach(markHelpViewed);
+          refreshAnswerLocks();
+          await sleep(240);
+          selectBenefit(DEMO.benefit);
+          valueBenefitOther.textContent = DEMO.benefitWho;
+          syncEmpty(valueBenefitOther);
+          state.benefitWho = DEMO.benefitWho;
+          state.benefitKb = DEMO.benefitKb;
+          Array.from(kbBenefit.querySelectorAll(".kb-chip")).forEach((chip) => {
+            chip.classList.toggle(
+              "is-active",
+              chip.dataset.id === DEMO.benefitKb,
+            );
+          });
+          refreshKbVisibility();
+          await sleep(160);
+          selectHarm(DEMO.harm);
+          valueHarmOther.textContent = DEMO.harmWho;
+          syncEmpty(valueHarmOther);
+          state.harmWho = DEMO.harmWho;
+          state.harmKb = DEMO.harmKb;
+          Array.from(kbHarm.querySelectorAll(".kb-chip")).forEach((chip) => {
+            chip.classList.toggle("is-active", chip.dataset.id === DEMO.harmKb);
+          });
+          refreshKbVisibility();
+          maybeAdvanceFromDyad();
+          if (layer === "clarity") {
+            await sleep(160);
+            valueNeed.textContent = DEMO.outcome;
+            syncEmpty(valueNeed);
+            onOutcomeInput();
+            await sleep(120);
+            selectContribution(DEMO.contribution);
+          }
+          if (clienteComplete()) {
+            await sleep(120);
+            advanceOrSave();
+            if (band === "proceso") {
+              valueProcess.textContent = DEMO.process;
+              syncEmpty(valueProcess);
+              state.processText = DEMO.process;
+              state.processKb = DEMO.processKb;
+              Array.from(kbProcess.querySelectorAll(".kb-chip")).forEach(
+                (chip) => {
+                  chip.classList.toggle(
+                    "is-active",
+                    chip.dataset.id === DEMO.processKb,
+                  );
+                },
+              );
+              onProcessInput();
+              await sleep(100);
+              advanceOrSave();
+            }
+            if (band === "avance") {
+              valueNext.textContent = DEMO.nextStep;
+              syncEmpty(valueNext);
+              state.nextText = DEMO.nextStep;
+              state.nextKb = DEMO.nextKb;
+              Array.from(kbNext.querySelectorAll(".kb-chip")).forEach((chip) => {
+                chip.classList.toggle(
+                  "is-active",
+                  chip.dataset.id === DEMO.nextKb,
+                );
+              });
+              onNextInput();
+              await sleep(100);
+              advanceOrSave();
+            }
+            if (band === "prioridad") {
+              selectPriority(DEMO.priority);
+              await sleep(80);
+              selectDisplace(DEMO.displace);
+              refreshClosure();
+            }
+          }
+          if (startPhase === "done" && prioridadComplete()) {
+            await sleep(160);
+            advanceOrSave();
+          }
+        }
+
+        replayEl.classList.add("is-visible");
+      }
+
+      document.getElementById("build").textContent =
+        `BUILD ${BUILD} · B0.5 · BLOQUE`;
+      boot();
+    </script>
+
+
+  </body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/mba-control-plane/event-ledger.schema.json",
+  "title": "EVE MBA Control Plane Event Ledger Entry",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "emitted_by",
+    "received_by",
+    "object_type",
+    "object_id",
+    "previous_state",
+    "target_state",
+    "timestamp",
+    "technical_actor",
+    "case_id",
+    "payload",
+    "validation_result"
+  ],
+  "properties": {
+    "event_id": { "type": "string", "minLength": 1 },
+    "event_type": { "type": "string", "minLength": 1 },
+    "emitted_by": { "type": "string", "minLength": 1 },
+    "received_by": { "type": "string", "minLength": 1 },
+    "object_type": { "type": "string", "minLength": 1 },
+    "object_id": { "type": "string", "minLength": 1 },
+    "previous_state": { "type": "string", "minLength": 1 },
+    "target_state": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "technical_actor": { "type": "string", "minLength": 1 },
+    "correlation_id": { "type": ["string", "null"] },
+    "case_id": { "type": ["string", "null"] },
+    "payload": { "type": "object" },
+    "validation_result": { "type": "object" }
+  },
+  "additionalProperties": true
+}

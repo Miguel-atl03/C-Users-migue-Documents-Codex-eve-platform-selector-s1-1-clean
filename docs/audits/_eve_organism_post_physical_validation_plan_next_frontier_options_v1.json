@@ -1,0 +1,58 @@
+{
+  "decision_id": "DECIDE_POST_PHYSICAL_VALIDATION_PLAN_NEXT_FRONTIER_V1",
+  "base_physical_validation_plan_commit": "9fb0aad2b118432418907a843a1bc157f4eef871",
+  "options": [
+    {
+      "id": "OPTION_A",
+      "name": "EXECUTE_PHYSICAL_NON_PRODUCTIVE_MIGRATION_VALIDATION_V1",
+      "allowed_now": false,
+      "requires_environment_confirmed_now": true,
+      "requires_environment_creation_now": false,
+      "requires_db_connection_now": true,
+      "requires_supabase_connection_now": false,
+      "requires_migration_execution_now": true,
+      "requires_sql_modification_now": false,
+      "requires_observer_creation_now": false,
+      "preserves_authority_false": false,
+      "addresses_gap_physical_validation_not_executed": "full",
+      "addresses_gap_non_productive_db_environment_not_confirmed": "none",
+      "risk_level": "critical",
+      "reason": "Execution is not allowed because the non-productive DB environment is not confirmed and execution approval conditions are not satisfied."
+    },
+    {
+      "id": "OPTION_B",
+      "name": "NON_PRODUCTIVE_DB_ENVIRONMENT_READINESS_DESIGN_V1",
+      "allowed_now": true,
+      "requires_environment_confirmed_now": false,
+      "requires_environment_creation_now": false,
+      "requires_db_connection_now": false,
+      "requires_supabase_connection_now": false,
+      "requires_migration_execution_now": false,
+      "requires_sql_modification_now": false,
+      "requires_observer_creation_now": false,
+      "preserves_authority_false": true,
+      "addresses_gap_physical_validation_not_executed": "partial",
+      "addresses_gap_non_productive_db_environment_not_confirmed": "partial",
+      "risk_level": "low",
+      "reason": "Readiness design can verify environment requirements before execution without creating environment, connecting DB/Supabase, or running migration."
+    },
+    {
+      "id": "OPTION_C",
+      "name": "HOLD_UNTIL_NON_PRODUCTIVE_DB_ENVIRONMENT_CONFIRMED_V1",
+      "allowed_now": true,
+      "requires_environment_confirmed_now": false,
+      "requires_environment_creation_now": false,
+      "requires_db_connection_now": false,
+      "requires_supabase_connection_now": false,
+      "requires_migration_execution_now": false,
+      "requires_sql_modification_now": false,
+      "requires_observer_creation_now": false,
+      "preserves_authority_false": true,
+      "addresses_gap_physical_validation_not_executed": "none",
+      "addresses_gap_non_productive_db_environment_not_confirmed": "none",
+      "risk_level": "medium",
+      "reason": "Holding is safe but does not define the environment readiness evidence needed for a later physical validation."
+    }
+  ],
+  "selected_option_id": "OPTION_B"
+}

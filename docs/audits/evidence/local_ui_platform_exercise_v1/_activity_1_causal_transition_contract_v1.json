@@ -1,0 +1,190 @@
+{
+  "dictamen": "LOCAL_UI_ACTIVITY_1_CAUSAL_TRANSITION_CONTRACT_READY",
+  "base_commit": "a65a0e39d2770588c42e799c17e6a13b78144c94",
+  "exercise_part": "part_1_transition_contract",
+  "route_used": "/dev/e2e-block0",
+  "ui_started": true,
+  "base_state_reached": true,
+  "base_state_observed": {
+    "title": "Significado de tu trabajo",
+    "activity_label": "Actividad 1 de 8",
+    "visible_instruction": "Completa y confirma las secciones pendientes antes de continuar.",
+    "progress_indicator": "0/4 secciones listas para revisar",
+    "visible_errors": [],
+    "loading_state": false
+  },
+  "actions_available": [
+    {
+      "action_id": "reset_demo",
+      "label": "Reset demo",
+      "type": "button",
+      "enabled": true,
+      "required_input": false,
+      "visible_precondition": "Visible in demo header",
+      "probable_effect": "Resets local demo state",
+      "risk_level": "low",
+      "reason": "Local demo control only"
+    },
+    {
+      "action_id": "view_demo_trace",
+      "label": "Ver traza demo",
+      "type": "button",
+      "enabled": true,
+      "required_input": false,
+      "visible_precondition": "Visible in demo header",
+      "probable_effect": "Shows or hides local demo trace",
+      "risk_level": "low",
+      "reason": "Local read-only trace view"
+    },
+    {
+      "action_id": "edit_action_verb",
+      "label": "Que haces: Analizo",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "visible_precondition": "Confirmar actividad section visible",
+      "probable_effect": "Updates B0-Q01 action_verb in local visual draft",
+      "risk_level": "low",
+      "reason": "Local UI state update"
+    },
+    {
+      "action_id": "edit_input_or_object",
+      "label": "Sobre que trabajas",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "visible_precondition": "Confirmar actividad section visible",
+      "probable_effect": "Updates B0-Q01 input_or_object in local visual draft",
+      "risk_level": "low",
+      "reason": "Local UI state update"
+    },
+    {
+      "action_id": "edit_procedure_or_standard",
+      "label": "Como o bajo que regla",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "visible_precondition": "Confirmar actividad section visible",
+      "probable_effect": "Updates B0-Q01 procedure_or_standard in local visual draft",
+      "risk_level": "low",
+      "reason": "Local UI state update"
+    },
+    {
+      "action_id": "edit_output_or_result",
+      "label": "Que queda listo",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "visible_precondition": "Confirmar actividad section visible",
+      "probable_effect": "Updates B0-Q01 output_or_result in local visual draft",
+      "risk_level": "low",
+      "reason": "Local UI state update"
+    },
+    {
+      "action_id": "edit_operational_description",
+      "label": "Escribe aqui",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "visible_precondition": "Descripcion operativa de tu actividad section visible",
+      "probable_effect": "Updates B0-Q02; can trigger local/demo coach evaluation",
+      "risk_level": "low",
+      "reason": "Belongs to Activity 1 and remains inside local/demo UI"
+    },
+    {
+      "action_id": "edit_frequency",
+      "label": "Con que frecuencia ocurre",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "visible_precondition": "Frecuencia y contexto section visible",
+      "probable_effect": "Updates B0-Q03 frequency in local visual draft",
+      "risk_level": "low",
+      "reason": "Local UI state update"
+    },
+    {
+      "action_id": "edit_context",
+      "label": "En que situacion suele darse",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "visible_precondition": "Frecuencia y contexto section visible",
+      "probable_effect": "Updates B0-Q03 context in local visual draft",
+      "risk_level": "low",
+      "reason": "Local UI state update"
+    },
+    {
+      "action_id": "edit_direct_owner",
+      "label": "Sobre quien recae directamente",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "visible_precondition": "Frecuencia y contexto section visible",
+      "probable_effect": "Updates B0-Q03 direct owner in local visual draft",
+      "risk_level": "low",
+      "reason": "Local UI state update"
+    },
+    {
+      "action_id": "back_to_work_map",
+      "label": "Volver al mapa",
+      "type": "button",
+      "enabled": true,
+      "required_input": false,
+      "visible_precondition": "Footer visible",
+      "probable_effect": "Sets local phase back to work_map",
+      "risk_level": "low",
+      "reason": "Local route state only"
+    },
+    {
+      "action_id": "continue_next_activity",
+      "label": "Continuar a la siguiente actividad",
+      "type": "button",
+      "enabled": false,
+      "required_input": true,
+      "visible_precondition": "All required sections complete",
+      "probable_effect": "Would submit Block 0 payload and continue once enabled",
+      "risk_level": "low",
+      "reason": "Disabled in Estado A"
+    }
+  ],
+  "primary_action_selected": {
+    "action_id": "edit_operational_description",
+    "label": "Escribe aqui",
+    "type": "input",
+    "selection_reason": "Visible, enabled, belongs to Activity 1, local/demo only, and is the next causal step required before the disabled continue button can become available."
+  },
+  "causal_contract": {
+    "state_a": "Significado de tu trabajo; Actividad 1 de 8; 0/4 secciones listas; B0-Q02 empty; Continuar a la siguiente actividad disabled.",
+    "user_action": "Type a concrete operational description into the textarea labelled Escribe aqui.",
+    "expected_event": "input/local state update",
+    "expected_mechanism": "renderAnswerField textarea onChange -> RuntimeBlock0Question onAnswerChange -> SignificadoDeTuTrabajo setVisualDraft; optional debounced local coach fetch after threshold.",
+    "expected_state_b": "B0-Q02 field contains the entered description and the UI updates progress/guide state without Supabase blocking.",
+    "success_criterion_for_part_2": "After typing the description, the Activity 1 screen remains local/demo, shows no error, and reflects the B0-Q02 update through field value, progress, guide, or next section availability."
+  },
+  "technical_trace": {
+    "component_or_file": "src/components/significado/SignificadoDeTuTrabajo.tsx; src/app/dev/e2e-block0/page.tsx; src/hooks/use-operational-description-coach.ts; src/hooks/use-operational-description-intro-guide.ts",
+    "handler_or_event": "textarea onChange -> onAnswerChange -> setVisualDraft; onBlur/focus can invoke coach handling",
+    "endpoint_if_observed": "/api/coach/operational-description/intro-example observed for intro example; /api/coach/operational-description expected from coach hook after B0-Q02 threshold",
+    "synthetic_frontier_connected": true,
+    "bridge_reader_or_adapter_involved": false,
+    "transition_type": "ui_to_local_api"
+  },
+  "contract_ready_for_execution": true,
+  "safety": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "real_table_read": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false
+  },
+  "next_step": "RUN_LOCAL_UI_ACTIVITY_1_CAUSAL_TRANSITION_EXECUTION_V1"
+}

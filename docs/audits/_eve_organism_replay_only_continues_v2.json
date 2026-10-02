@@ -1,0 +1,123 @@
+{
+  "audit_id": "EVE_ORGANISM_REPLAY_ONLY_CONTINUES_V2",
+  "generated_at": "2026-06-25T02:40:16.020Z",
+  "dictamen": "REPLAY_ONLY_CONTINUES_V2_READY_FOR_REAL_OBSERVABLE_SIGNAL_CONTRACT_DESIGN",
+  "source_dictamen": "BOUNDARY_EVIDENCE_PARTIAL_REPLAY_ONLY_CONTINUES",
+  "preflight": {
+    "pwd": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform",
+    "git_toplevel": "C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone",
+    "head": "40b4c06f954d597ddc995c7b7e220857df8eff25",
+    "dirty_tree_count": 918,
+    "staged_count": 0
+  },
+  "input_validation": {
+    "boundary_dictamen_ok": true,
+    "observer_ready_for_design": 0,
+    "exit_closed": 0,
+    "exit_partial": 9,
+    "exit_open": 9,
+    "all_required_inputs_read": true
+  },
+  "gate2_authority": {
+    "replay_only_allowed": true,
+    "offline_adapter_allowed": true,
+    "fixture_replay_allowed": true,
+    "audits_preflight_allowed": true,
+    "real_observer_allowed": false,
+    "read_only_observer_design_allowed": false,
+    "WorkMap_hook_allowed": false,
+    "Significado_hook_allowed": false,
+    "DB_observer_allowed": false,
+    "Supabase_read_allowed": false,
+    "runtime_connector_allowed": false,
+    "registry_export_allowed": false,
+    "production_shadow_activation_allowed": false,
+    "reason": "Boundary evidence request produced 0 ready_for_design observer candidates and 0 closed exit conditions."
+  },
+  "blocker_summary": {
+    "total": 10,
+    "open": 6,
+    "reduced_not_cleared": 2,
+    "partial_not_sufficient": 2,
+    "cleared": 0
+  },
+  "exit_condition_summary": {
+    "total": 18,
+    "open": 9,
+    "partial_not_sufficient": 9,
+    "closed": 0
+  },
+  "boundaries_carried_forward": {
+    "read_only_proven": "partial_requires_confirmation",
+    "no_db_write_proven": "not_proven",
+    "no_supabase_requirement_proven": "not_proven",
+    "no_ui_touch_proven": "partial_requires_confirmation",
+    "no_workmap_mutation_proven": "not_proven",
+    "no_significado_mutation_proven": "not_proven",
+    "no_runtime_mutation_proven": "not_proven",
+    "tenant_auth_boundary_proven": "partial_requires_confirmation"
+  },
+  "traceability_carried_forward": {
+    "provenance_real": "partial_requires_confirmation",
+    "sourceTrace_real": "not_proven",
+    "idempotency_or_correlation_real": "not_proven",
+    "officialFlowRef_real": "not_proven"
+  },
+  "next_task": {
+    "selected": "REAL_OBSERVABLE_SIGNAL_CONTRACT_DESIGN_V1",
+    "reason": "A real observer cannot be designed yet. The safe next step is a documentary/technical contract that defines what a future real observable signal must prove before observation can be reconsidered."
+  },
+  "future_contract_must_define": {
+    "identity_context": [
+      "tenantId real",
+      "organizationId real",
+      "sessionId real",
+      "activityId real",
+      "actorId/userId real"
+    ],
+    "traceability": [
+      "provenance real",
+      "sourceTrace real if candidate",
+      "idempotencyKey real",
+      "correlationId real",
+      "officialFlowRef real or explicitly approved equivalent"
+    ],
+    "no_mutation": [
+      "no UI touch",
+      "no WorkMap mutation",
+      "no Significado mutation",
+      "no DB write",
+      "no Supabase requirement or proven read-only boundary",
+      "no runtime mutation",
+      "no registry/export/diagnosis",
+      "no production authority"
+    ],
+    "security": [
+      "auth boundary",
+      "tenant isolation",
+      "RLS/read boundary if DB appears",
+      "no service_role for observer",
+      "no secrets/tokens"
+    ],
+    "tests": [
+      "fixture with complete real-shape signal",
+      "no mutation test",
+      "tenant isolation test",
+      "idempotency/correlation test",
+      "officialFlowRef test",
+      "provenance/sourceTrace test",
+      "no UI/DB/Supabase test",
+      "no registry/export/diagnosis test"
+    ]
+  },
+  "no_modification_attestation": {
+    "src_modified": false,
+    "tests_modified": false,
+    "app_modified": false,
+    "db_modified": false,
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "registry_written": false,
+    "commit_created": false
+  }
+}

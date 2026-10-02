@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/parallel-production/candidate-export-package.schema.json",
+  "title": "EVE Capa 1 Parallel Production Candidate Export Package",
+  "type": "object",
+  "required": [
+    "candidate_export_package_id",
+    "schema_version",
+    "client_id",
+    "source_diagram_code_generation_package_id",
+    "source_mmabp_ir_package_id",
+    "generated_at",
+    "generation_mode",
+    "export_readiness",
+    "exports",
+    "warnings",
+    "gaps",
+    "traceability_summary",
+    "semantic_preservation_status",
+    "prohibited_uses",
+    "allowed_uses"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "generation_mode": {
+      "enum": ["candidate", "draft_with_warnings", "blocked"]
+    },
+    "export_readiness": {
+      "enum": ["ready_for_review", "ready_with_warnings", "draft_only", "blocked"]
+    },
+    "semantic_preservation_status": {
+      "enum": ["passed", "passed_with_warnings", "draft_only", "blocked"]
+    },
+    "prohibited_uses": {
+      "type": "array",
+      "contains": { "const": "evidence_replacement" },
+      "items": {
+        "enum": [
+          "diagnostic_input",
+          "monetization_input",
+          "capa2_readiness_input",
+          "root_cause_input",
+          "final_client_narrative",
+          "evidence_replacement",
+          "capa2_5_input",
+          "capa3_input",
+          "final_export"
+        ]
+      }
+    },
+    "allowed_uses": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "parallel_production_design_review",
+          "candidate_diagram_review",
+          "diagram_code_qa",
+          "export_preparation"
+        ]
+      }
+    },
+    "exports": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "export_id",
+          "quadrant",
+          "export_format",
+          "file_path",
+          "content_hash",
+          "source_ir_element_ids",
+          "source_registry_element_ids",
+          "source_fact_ids",
+          "source_evidence_ids",
+          "warnings",
+          "gaps",
+          "semantic_preservation_status",
+          "traceability_status"
+        ],
+        "properties": {
+          "quadrant": { "enum": ["PM", "PF", "MoC", "OLC"] },
+          "export_format": {
+            "enum": ["BPMN_XML", "PLANTUML_CLASS", "PLANTUML_STATE", "XMI_OPTIONAL"]
+          },
+          "semantic_preservation_status": {
+            "enum": ["passed", "passed_with_warnings", "draft_only", "blocked"]
+          },
+          "traceability_status": {
+            "enum": ["complete", "complete_with_warnings", "draft_traceable", "blocked"]
+          },
+          "source_ir_element_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "source_registry_element_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "source_fact_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "source_evidence_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "content_hash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

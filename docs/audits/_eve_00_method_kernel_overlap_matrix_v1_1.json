@@ -1,0 +1,86 @@
+{
+  "auditId": "CHIP-RECTOR-EVE-00-METHOD-KERNEL-OVERLAP-AUDIT-V1_1",
+  "dictamen": "METHOD_KERNEL_PACKAGE_INCONSISTENT",
+  "records": [
+    {
+      "chipArea": "Primary activity boundary",
+      "existingArtifact": "src/domain/primary-activity-selection-policy.v1.3.ts; src/services/primary-activity-selector.ts",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "medium",
+      "description": "The selector owns activity eligibility, ranking, slots, reentry for no eligible activities and non-primary context. Method Kernel validates PM/MoC/PF/OLC method conformance after evidence exists.",
+      "recommendation": "Do not let Method Kernel select, rank, reselection fallback or alter v1.3 selection governance."
+    },
+    {
+      "chipArea": "Runtime readiness",
+      "existingArtifact": "src/features/runtime/catalog/runtime-40-20.manifest.json; docs/runtime/runtime-40-20-machine-readable-map.md",
+      "overlapType": "authority_overlap",
+      "riskLevel": "high",
+      "description": "Method Kernel declares readiness states and a readiness_decision pipeline. Runtime 40/20 already owns runtime readiness/reentry authority.",
+      "recommendation": "Rename or map Method Kernel readiness as methodological readiness. Runtime remains final execution gate."
+    },
+    {
+      "chipArea": "FND-007/FND-008",
+      "existingArtifact": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx; docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "high",
+      "description": "FND-007/FND-008 cite D4/D5 for epistemology/readiness/output sequencing. This is acceptable as boundary language but risky as runtime execution authority.",
+      "recommendation": "Keep D4/D5 as compatibility boundary only; do not treat these rules as Runtime 40/20 gate implementations."
+    },
+    {
+      "chipArea": "Runtime B0",
+      "existingArtifact": "src/features/runtime/block0/block0.catalog.json; src/features/runtime/block0-catalog-snapshot.ts; src/services/runtime-block0-catalog-adapter.ts",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "medium",
+      "description": "B0 captures semantic preload, confirmation and operational description. Method Kernel may consume evidence later, but should not replace B0 questions or adapter.",
+      "recommendation": "Wire only downstream of B0 completion, if ever."
+    },
+    {
+      "chipArea": "WorkMap Writing Assistance",
+      "existingArtifact": "docs/workmap/workmap-writing-assistance-chip.md; docs/audits/_workmap_writing_assistance_doc_to_code_comparison_v1.json",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "medium",
+      "description": "WorkMap Writing Assistance is documented-not-wired and not runtimeAuthority. Method Kernel should not rewrite activity/responsibility copy assistance.",
+      "recommendation": "Keep WorkMap assistance as documentation/copy support; Method Kernel must not alter H12 coverage-only behavior."
+    },
+    {
+      "chipArea": "ASRO / operational description",
+      "existingArtifact": "docs/significado/canon/operational-description-brain.md; src/features/significado/operational-description-canon.ts",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "medium",
+      "description": "Operational description creates evidence that Method Kernel could use, but ASRO owns literal description rules.",
+      "recommendation": "Do not inject Method Kernel blockers into the operational description assistant."
+    },
+    {
+      "chipArea": "Document Transduction QA",
+      "existingArtifact": "docs/architecture/DOCUMENT_TRANSDUCTION_QA_STANDARD_V1.md; src/config/document-transduction-qa-policy.ts",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "low",
+      "description": "The chip is subject to transduction QA; it does not replace transduction QA policy.",
+      "recommendation": "Use QA policy before any runtimeAuthority registration."
+    },
+    {
+      "chipArea": "Rector docs registry",
+      "existingArtifact": "src/config/rector-docs-registry.ts",
+      "overlapType": "authority_overlap",
+      "riskLevel": "high",
+      "description": "Registry runtimeAuthority would be premature while D5 boundary is unresolved and package consistency mismatches persist.",
+      "recommendation": "Do not register runtimeAuthority."
+    },
+    {
+      "chipArea": "Diagnostic/pathology stage",
+      "existingArtifact": "EVE diagnostic/pathology mapper boundary",
+      "overlapType": "no_overlap",
+      "riskLevel": "low",
+      "description": "The package keeps eve_pathology_hint null and diagnostic output disabled in stage 00.",
+      "recommendation": "Preserve this boundary; do not emit pathology labels."
+    },
+    {
+      "chipArea": "Produccion Paralela",
+      "existingArtifact": "Runtime Capa 1 / Produccion Paralela boundary",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "medium",
+      "description": "FND-008 names Produccion Paralela as downstream consumer boundary but does not implement it.",
+      "recommendation": "Keep as no-execution precondition language only."
+    }
+  ]
+}

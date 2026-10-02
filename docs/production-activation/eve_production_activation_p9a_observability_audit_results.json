@@ -1,0 +1,155 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P9A_OBSERVABILITY_AUDIT_CHECK",
+  "generated_at": "2026-07-08T21:06:17.057Z",
+  "supabase_local_available": true,
+  "runtime_audit_trail_exists": true,
+  "phase_audit_coverage": [
+    {
+      "phase": "P4",
+      "artifact_present": true,
+      "audit_signal_present": true,
+      "correlation_id_present": false,
+      "scope_present": true,
+      "activation_allowed_false": true
+    },
+    {
+      "phase": "P5",
+      "artifact_present": true,
+      "audit_signal_present": true,
+      "correlation_id_present": true,
+      "scope_present": true,
+      "activation_allowed_false": true
+    },
+    {
+      "phase": "P6",
+      "artifact_present": true,
+      "audit_signal_present": true,
+      "correlation_id_present": false,
+      "scope_present": true,
+      "activation_allowed_false": true
+    },
+    {
+      "phase": "P7",
+      "artifact_present": true,
+      "audit_signal_present": true,
+      "correlation_id_present": true,
+      "scope_present": true,
+      "activation_allowed_false": true
+    },
+    {
+      "phase": "P8",
+      "artifact_present": true,
+      "audit_signal_present": true,
+      "correlation_id_present": true,
+      "scope_present": true,
+      "activation_allowed_false": true
+    }
+  ],
+  "correlation_id_present": true,
+  "idempotency_key_present": true,
+  "source_trace_present": true,
+  "scope_tenant_case_run_present": true,
+  "manual_review_reentry_observable": true,
+  "no_go_checklist_traceable": true,
+  "sample_audit_trail": {
+    "count": 5,
+    "error": null,
+    "records": [
+      {
+        "id": "bd29b65c-4e5e-4d32-9277-5eded2374ebe",
+        "tenant_id": "616b7d38-15e1-42e5-99de-5b3687a18a9b",
+        "case_id": "9b8b7e30-8e3d-438b-9f98-f037b48a09d7",
+        "run_id": "5ffaac29-4a69-4c22-b321-66a413461e1d",
+        "correlation_id": "p9a-abort-1783544776843-corr",
+        "idempotency_key": "p9a-abort-1783544776843-idem",
+        "source_trace": [
+          {
+            "stage": "p9a_abort_path_drill"
+          }
+        ],
+        "metadata": {
+          "local_only": true
+        },
+        "action": "p9a_abort_path_drill_completed"
+      },
+      {
+        "id": "3028ec4e-fbe0-4788-9569-58a333d41631",
+        "tenant_id": "9ea35b00-1daf-4938-85aa-010429c1d0bf",
+        "case_id": "55424864-9649-41e0-a771-ab2ea679935c",
+        "run_id": "a50087a2-53b1-4680-a261-92acafd3581a",
+        "correlation_id": "p9a-rollback-1783544776321-corr",
+        "idempotency_key": "p9a-rollback-1783544776321-idem",
+        "source_trace": [
+          {
+            "stage": "p9a_rollback_drill",
+            "drill_id": "p9a-rollback-1783544776321"
+          }
+        ],
+        "metadata": {
+          "reverted": true,
+          "local_only": true,
+          "p9a_rollback_drill": true
+        },
+        "action": "p9a_rollback_drill_reverted"
+      },
+      {
+        "id": "1171cb61-3296-4c73-b62d-caf8179fb194",
+        "tenant_id": "9ea8415e-4490-4ce5-9ebd-0149229252ee",
+        "case_id": "be83203f-ed2c-4362-a2da-2d6c11bc3f0a",
+        "run_id": "06b74b4f-b9bb-4b52-8ec3-7089f8779933",
+        "correlation_id": "p5-local-1783544764869",
+        "idempotency_key": "p5-local-idem-1783544764869",
+        "source_trace": [
+          {
+            "stage": "p5_gates_readiness_local_smoke"
+          }
+        ],
+        "metadata": {
+          "local_only": true
+        },
+        "action": "p5_gates_readiness_local_completed"
+      },
+      {
+        "id": "5325100b-1ee9-4a03-9c35-bc8cb3a87e1e",
+        "tenant_id": "d9a4ae8b-1f77-4f98-bec8-2ff7014e6b68",
+        "case_id": "2314e9a2-3058-48b5-b70e-c9ba6655fc9a",
+        "run_id": "e5910cab-a6c0-4ad2-b47c-1360bf6cf784",
+        "correlation_id": "p9a-abort-1783544573480-corr",
+        "idempotency_key": "p9a-abort-1783544573480-idem",
+        "source_trace": [
+          {
+            "stage": "p9a_abort_path_drill"
+          }
+        ],
+        "metadata": {
+          "local_only": true
+        },
+        "action": "p9a_abort_path_drill_completed"
+      },
+      {
+        "id": "86dfb08c-b194-4d55-9887-9a787915054b",
+        "tenant_id": "609308a8-c78a-40af-a3ba-f018973c0990",
+        "case_id": "3190da0c-2fc7-4715-9fca-ae8d371212f3",
+        "run_id": "895352ce-e0f1-4996-8359-b56d66ade1ac",
+        "correlation_id": "p9a-rollback-1783544572697-corr",
+        "idempotency_key": "p9a-rollback-1783544572697-idem",
+        "source_trace": [
+          {
+            "stage": "p9a_rollback_drill",
+            "drill_id": "p9a-rollback-1783544572697"
+          }
+        ],
+        "metadata": {
+          "reverted": true,
+          "local_only": true,
+          "p9a_rollback_drill": true
+        },
+        "action": "p9a_rollback_drill_reverted"
+      }
+    ]
+  },
+  "observability_audit_passed": true,
+  "qa_green_real_created": false,
+  "activation_allowed": false,
+  "production_supabase_touched": false
+}

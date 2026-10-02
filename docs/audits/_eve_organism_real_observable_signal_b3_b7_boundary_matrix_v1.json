@@ -1,0 +1,299 @@
+{
+  "audit_id": "eve_organism_real_observable_signal_b3_b7_boundary_matrix_v1",
+  "created_at": "2026-06-25T04:42:31Z",
+  "dictamen": "REAL_OBSERVABLE_SIGNAL_CONTRACT_CONSOLIDATED_REPLAY_ONLY_CONTINUES",
+  "hard_rules": {
+    "b7_can_produce_structural_fact": false,
+    "b7_can_generate_candidate": false,
+    "b7_can_generate_hypothesis": false,
+    "b7_can_generate_oee": false,
+    "b7_can_generate_ir": false,
+    "b7_can_generate_diagram": false,
+    "b7_can_generate_diagnosis": false,
+    "b3_requires_canonical_route": true,
+    "receiver_satisfaction_can_be_feedback": false
+  },
+  "matrix": [
+    {
+      "element": "receiver_satisfaction",
+      "mbaType": "juicio de aceptación / percepción del receptor",
+      "canProduceStructuralFact": false,
+      "conditions": [
+        "none"
+      ],
+      "requiredFields": [
+        "source_question_code if present"
+      ],
+      "forbiddenConversions": [
+        "receiver_feedback",
+        "PF event",
+        "OLC transition",
+        "structural fact"
+      ],
+      "allowedSignalUse": "acceptance/valuation metadata only",
+      "blockedUse": [
+        "candidate generation",
+        "event generation",
+        "diagnosis"
+      ],
+      "noGoTriggered": [
+        "receiver_satisfaction_used_as_feedback"
+      ],
+      "relatedProcess": "P-SUP-01/P-SUP-07/08 when confused with feedback",
+      "relatedOLCObject": "none",
+      "requiredAssessment": "B3RouteConformanceCheck if downstream attempts conversion"
+    },
+    {
+      "element": "receiver_feedback",
+      "mbaType": "evento operacional del receptor",
+      "canProduceStructuralFact": "true_conditional",
+      "conditions": [
+        "must represent rejection, return, correction, recontact, blocking, escalation or rework",
+        "must have routeRef"
+      ],
+      "requiredFields": [
+        "routeRef",
+        "sourceQuestionCode when applicable",
+        "handoffRef or OEE/MDSB route",
+        "provenance",
+        "sourceTrace"
+      ],
+      "forbiddenConversions": [
+        "from receiver_satisfaction without operational effect"
+      ],
+      "allowedSignalUse": "future observable candidate only after route proof",
+      "blockedUse": [
+        "diagnosis without Capa 2/2.5",
+        "unrouted structural fact"
+      ],
+      "noGoTriggered": [
+        "receiver_feedback_without_routeRef"
+      ],
+      "relatedProcess": "P-SUP-01/P-SUP-02/P-SUP-06/P-SUP-07/08",
+      "relatedOLCObject": "ReceiverFeedbackObject/OperationalExceptionEvidence/ArchitectureConsistencyAssessment",
+      "requiredAssessment": "B3RouteConformanceCheck"
+    },
+    {
+      "element": "ReceiverFeedbackObject",
+      "mbaType": "objeto especializado de feedback operativo",
+      "canProduceStructuralFact": "true_conditional",
+      "conditions": [
+        "captured, classified, route validated, linked to handoff"
+      ],
+      "requiredFields": [
+        "feedback_id",
+        "handoff_ref",
+        "receiver_actor_ref",
+        "feedback_type",
+        "route_ref",
+        "source_question_code",
+        "state"
+      ],
+      "forbiddenConversions": [
+        "satisfaction as feedback"
+      ],
+      "allowedSignalUse": "operational evidence with route",
+      "blockedUse": [
+        "structural fact if route missing"
+      ],
+      "noGoTriggered": [
+        "receiver_feedback_without_routeRef"
+      ],
+      "relatedProcess": "P-SUP-01/P-SUP-02/P-SUP-07/08",
+      "relatedOLCObject": "ReceiverFeedbackObject [Accepted/NeedsReview/Blocked]",
+      "requiredAssessment": "B3RouteConformanceCheck"
+    },
+    {
+      "element": "OperationalExceptionEvidence",
+      "mbaType": "evidencia operacional crítica",
+      "canProduceStructuralFact": "true_conditional",
+      "conditions": [
+        "route linked",
+        "conformance checked",
+        "governed"
+      ],
+      "requiredFields": [
+        "id",
+        "type",
+        "source_ref",
+        "route_status",
+        "issue_refs",
+        "state"
+      ],
+      "forbiddenConversions": [
+        "OEE generated from B7"
+      ],
+      "allowedSignalUse": "operational exception evidence when route valid",
+      "blockedUse": [
+        "OEE from preclassification signal"
+      ],
+      "noGoTriggered": [
+        "b7_used_as_structural_fact"
+      ],
+      "relatedProcess": "P-SUP-01/P-SUP-02/P-SUP-06/P-SUP-07/08",
+      "relatedOLCObject": "OperationalExceptionEvidence [AcceptedAsOperationalEvidence/BlockedByRouteMissing]",
+      "requiredAssessment": "B3RouteConformanceCheck"
+    },
+    {
+      "element": "PreclassificationRecord",
+      "mbaType": "señal preclasificatoria no diagnóstica B7",
+      "canProduceStructuralFact": false,
+      "conditions": [
+        "interpretation_limit = non_diagnostic_signal_only"
+      ],
+      "requiredFields": [
+        "preclassification_id",
+        "scene_id",
+        "ahe_level_dominant",
+        "interpersonal_signal",
+        "confirmation",
+        "interpretation_limit"
+      ],
+      "forbiddenConversions": [
+        "candidate",
+        "hypothesis",
+        "OEE",
+        "IR",
+        "diagram",
+        "diagnosis",
+        "structural fact"
+      ],
+      "allowedSignalUse": "non_diagnostic_signal_metadata_only",
+      "blockedUse": [
+        "candidate generation",
+        "hypothesis",
+        "OEE",
+        "IR projection",
+        "diagram generation",
+        "diagnosis"
+      ],
+      "noGoTriggered": [
+        "b7_used_as_diagnostic_signal",
+        "b7_used_as_structural_fact"
+      ],
+      "relatedProcess": "P-SUP-01/P-SUP-02/P-SUP-07/08",
+      "relatedOLCObject": "PreclassificationRecord [TransportedAsNonDiagnosticSignal/ManualReviewRequired/Archived]",
+      "requiredAssessment": "B7BoundaryCheck"
+    },
+    {
+      "element": "B3B7AlignmentDelta",
+      "mbaType": "artefacto técnico de control",
+      "canProduceStructuralFact": false,
+      "conditions": [
+        "regulates handoff; not client fact"
+      ],
+      "requiredFields": [
+        "delta_id",
+        "case_id",
+        "bundle_id",
+        "b3_status",
+        "b7_status",
+        "findings",
+        "issue_refs",
+        "readiness_effect"
+      ],
+      "forbiddenConversions": [
+        "client structural fact",
+        "diagnosis"
+      ],
+      "allowedSignalUse": "control signal for inventory/QA/IR/export boundary",
+      "blockedUse": [
+        "diagnosis",
+        "direct fact"
+      ],
+      "noGoTriggered": [
+        "architecture_consistency_assessment_bypass"
+      ],
+      "relatedProcess": "P-SUP-06/P-SUP-07/08",
+      "relatedOLCObject": "B3B7AlignmentDelta [Resolved/ResolvedWithFlags/Blocked]",
+      "requiredAssessment": "ACA v0.3 B3/B7 checks"
+    },
+    {
+      "element": "B3RouteChecked",
+      "mbaType": "evento de control de ruta B3",
+      "canProduceStructuralFact": false,
+      "conditions": [
+        "reports whether B3 feedback can become structural fact elsewhere"
+      ],
+      "requiredFields": [
+        "routeRef",
+        "assessmentRef",
+        "provenance"
+      ],
+      "forbiddenConversions": [
+        "diagnosis trigger"
+      ],
+      "allowedSignalUse": "control_only",
+      "blockedUse": [
+        "advance without route proof"
+      ],
+      "noGoTriggered": [
+        "receiver_feedback_without_routeRef"
+      ],
+      "relatedProcess": "P-SUP-07/08",
+      "relatedOLCObject": "ArchitectureConsistencyAssessment [B3RouteChecked]",
+      "requiredAssessment": "B3RouteConformanceCheck"
+    },
+    {
+      "element": "B7BoundaryChecked",
+      "mbaType": "evento de control de frontera B7",
+      "canProduceStructuralFact": false,
+      "conditions": [
+        "confirms non-diagnostic boundary"
+      ],
+      "requiredFields": [
+        "interpretation_limit",
+        "assessmentRef",
+        "provenance"
+      ],
+      "forbiddenConversions": [
+        "structural fact",
+        "candidate",
+        "OEE",
+        "IR",
+        "diagram",
+        "diagnosis"
+      ],
+      "allowedSignalUse": "control_only",
+      "blockedUse": [
+        "diagnostic or candidate trigger"
+      ],
+      "noGoTriggered": [
+        "b7_used_as_structural_fact"
+      ],
+      "relatedProcess": "P-SUP-07/08",
+      "relatedOLCObject": "ArchitectureConsistencyAssessment [B7BoundaryChecked]",
+      "requiredAssessment": "B7BoundaryCheck"
+    },
+    {
+      "element": "B3B7AlignmentBlocked",
+      "mbaType": "evento de bloqueo/rework",
+      "canProduceStructuralFact": false,
+      "conditions": [
+        "route exception or boundary violation remains open"
+      ],
+      "requiredFields": [
+        "issueRefs",
+        "b3_status",
+        "b7_status",
+        "provenance"
+      ],
+      "forbiddenConversions": [
+        "advance",
+        "observer readiness"
+      ],
+      "allowedSignalUse": "control_only_blocking",
+      "blockedUse": [
+        "Gate 2 advancement",
+        "export"
+      ],
+      "noGoTriggered": [
+        "b7_used_as_structural_fact",
+        "receiver_feedback_without_routeRef"
+      ],
+      "relatedProcess": "P-SUP-07/08 -> P-SUP-06/P-SUP-01/P-SUP-02",
+      "relatedOLCObject": "ArchitectureConsistencyAssessment [Blocked]/[WithFindings]",
+      "requiredAssessment": "ACA v0.3"
+    }
+  ]
+}

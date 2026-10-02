@@ -1,0 +1,93 @@
+{
+  "instruction": "045-R2G",
+  "project_ref": "shrpiwkxcdgvbqymjecx",
+  "smoke_id": "045R2G-f6-integration-membrane-smoke",
+  "source_smoke_id": "045R2FR-f5-pre-membrane-smoke",
+  "status": "committed_and_idempotent",
+  "inserted": {
+    "runtime_event_outbox": 4,
+    "runtime_state_snapshot": 4,
+    "control_plane_projection_job": 4,
+    "no_go_evaluation_result": 4,
+    "export_boundary_check": 4,
+    "handoff_patch_record": 4,
+    "review_control_event": 4,
+    "rls_probe_result": 2,
+    "no_go_status_snapshot": 4
+  },
+  "f6_smoke_counts": {
+    "runtime_event_outbox": 4,
+    "runtime_state_snapshot": 4,
+    "control_plane_projection_job": 4,
+    "no_go_evaluation_result": 4,
+    "export_boundary_check": 4,
+    "handoff_patch_record": 4,
+    "review_control_event": 4,
+    "rls_probe_result": 2,
+    "no_go_status_snapshot": 4
+  },
+  "before_counts": {
+    "runtime_event_outbox": 0,
+    "runtime_state_snapshot": 0,
+    "control_plane_projection_job": 0,
+    "no_go_evaluation_result": 0,
+    "export_boundary_check": 0,
+    "handoff_patch_record": 0,
+    "review_control_event": 0,
+    "rls_probe_result": 0,
+    "no_go_status_snapshot": 0
+  },
+  "after_counts": {
+    "runtime_event_outbox": 4,
+    "runtime_state_snapshot": 4,
+    "control_plane_projection_job": 4,
+    "no_go_evaluation_result": 4,
+    "export_boundary_check": 4,
+    "handoff_patch_record": 4,
+    "review_control_event": 4,
+    "rls_probe_result": 2,
+    "no_go_status_snapshot": 4
+  },
+  "source_rows": 4,
+  "no_fabrication": {
+    "structural_candidate_record": "not_inserted_no_source_row"
+  },
+  "scene_binding_status": "runtime_scene_pair_not_yet_co_present",
+  "guards": {
+    "outbox_contained": 4,
+    "outbox_violations": 0,
+    "source_bindings_still_contained": 4,
+    "source_events_still_contained": 4
+  },
+  "rls_probe_results": [
+    {
+      "probe_type": "own_read",
+      "target_table": "runtime_event_outbox",
+      "expected_result": "allow",
+      "actual_result": "allow",
+      "actual_count": 2,
+      "pass_fail": "pass",
+      "activity_runtime_run_id": "a5382e2c-030f-4899-bead-8985833825ab",
+      "role_runtime_session_id": "13fdbec5-b649-4fd7-be05-3708f40fabe7"
+    },
+    {
+      "probe_type": "foreign_read",
+      "target_table": "runtime_event_outbox",
+      "expected_result": "deny",
+      "actual_result": "deny",
+      "actual_count": 0,
+      "pass_fail": "pass",
+      "activity_runtime_run_id": "a5382e2c-030f-4899-bead-8985833825ab",
+      "role_runtime_session_id": "13fdbec5-b649-4fd7-be05-3708f40fabe7"
+    }
+  ],
+  "security": {
+    "staging_consulted": "yes",
+    "staging_writes": "F6 membrane smoke only",
+    "production_consulted": "no",
+    "scene_writes": "none",
+    "mba_writes": "none",
+    "gaby_modified": "no",
+    "panel_modified": "no"
+  }
+}

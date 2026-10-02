@@ -1,0 +1,340 @@
+{
+  "audit_id": "eve_organism_real_observable_signal_mba_source_extraction_matrix_v1",
+  "created_at": "2026-06-25T04:42:31Z",
+  "dictamen": "REAL_OBSERVABLE_SIGNAL_CONTRACT_CONSOLIDATED_REPLAY_ONLY_CONTINUES",
+  "source_doc": {
+    "name": "MMABP_Minimal_Business_Architecture_EVE_v1_1_B3_B7_alineado.docx",
+    "reread_for_consolidation": true
+  },
+  "summary": {
+    "rows": 32,
+    "pm_rules": 5,
+    "moc_rules": 4,
+    "pf_rules": 5,
+    "olc_rules": 3,
+    "b3_b7_rules": 5,
+    "implementation_rules": 8
+  },
+  "rows": [
+    {
+      "sourceSection": "1. Propósito",
+      "sourceTopic": "modelo operativo verificable",
+      "exactExcerptShort": "cada proceso debe tener evento disparador y estado objetivo; cada tarea produce objeto en estado válido; estado debe existir en OLC",
+      "extractedRule": "Señal observable debe anclarse a evento, Object[State], PF y OLC",
+      "mbaQuadrantAffected": "Composite",
+      "contractImpact": "mba_anchor obligatorio",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "2. Marco metodológico",
+      "sourceTopic": "cuatro vistas MMABP",
+      "exactExcerptShort": "PM, MoC, PF y OLC; ninguna vista reemplaza a otra",
+      "extractedRule": "Contrato debe validar PM/MoC/PF/OLC por separado",
+      "mbaQuadrantAffected": "Composite",
+      "contractImpact": "mba_anchor_matrix",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "4. Process Map",
+      "sourceTopic": "proceso clave y soportes explícitos",
+      "exactExcerptShort": "PM define intención global, procesos de soporte y target states",
+      "extractedRule": "No mezclar core y soportes; señal identifica proceso",
+      "mbaQuadrantAffected": "PM",
+      "contractImpact": "pmProcessId/pmTargetState",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "4.4 No estados muertos",
+      "sourceTopic": "target state informa milestone o dispara evento",
+      "exactExcerptShort": "Target state debe producir salida causal",
+      "extractedRule": "Eventos observables deben ser milestones o disparadores explícitos",
+      "mbaQuadrantAffected": "PM",
+      "contractImpact": "allowed_events_matrix",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "5. MoC",
+      "sourceTopic": "ontología no DB",
+      "exactExcerptShort": "MoC no es base de datos; clases reales, operaciones, relaciones",
+      "extractedRule": "Contrato no se trata como clase de negocio cliente ni DB schema",
+      "mbaQuadrantAffected": "MoC",
+      "contractImpact": "mocClass/mocOperation",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "6. PF",
+      "sourceTopic": "algoritmia detallada",
+      "exactExcerptShort": "PF usa process steps, process states, eventos, timers, gates y data objects",
+      "extractedRule": "Señal debe mapear pfEvent/pfProcessState/timer si espera",
+      "mbaQuadrantAffected": "PF",
+      "contractImpact": "pfEvent/pfTimerIfWaiting",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "7. OLC",
+      "sourceTopic": "causalidad interna",
+      "exactExcerptShort": "Cada estado producido por PF debe estar permitido por OLC",
+      "extractedRule": "No se permite Object[State] inventado como estado inválido previo",
+      "mbaQuadrantAffected": "OLC",
+      "contractImpact": "olcStateAuthorized",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "7.1 CasoDiagnosticoEVE",
+      "sourceTopic": "estado inicial autorizado",
+      "exactExcerptShort": "Solicitud diagnóstica aceptada lleva a CasoDiagnosticoEVE [InDiagnosticProduction]",
+      "extractedRule": "Corregir estado inválido previo por [InDiagnosticProduction]",
+      "mbaQuadrantAffected": "OLC",
+      "contractImpact": "initial_event_anchor",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "10. Criterios aceptación",
+      "sourceTopic": "trazabilidad obligatoria",
+      "exactExcerptShort": "Todo elemento producido conserva origen, evidencia, derivación, confianza, gaps y estado de validación",
+      "extractedRule": "provenance/sourceTrace obligatorios",
+      "mbaQuadrantAffected": "Composite",
+      "contractImpact": "traceability",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "10. Criterios aceptación",
+      "sourceTopic": "no diagnóstico Capa 1.0",
+      "exactExcerptShort": "Capa 1.0 solo produce SCR y EvidenceBundle; no root cause, nodo cerrado ni monetización",
+      "extractedRule": "observer Gate2 no diagnostica",
+      "mbaQuadrantAffected": "B3/B7",
+      "contractImpact": "no_go",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "18. Criterios técnicos",
+      "sourceTopic": "C-001",
+      "exactExcerptShort": "Todo target state PM debe existir como Object[State] en PF y OLC",
+      "extractedRule": "Bloquear pmTargetState no Object[State]",
+      "mbaQuadrantAffected": "PM/OLC",
+      "contractImpact": "NOG-011",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "18. Criterios técnicos",
+      "sourceTopic": "C-002",
+      "exactExcerptShort": "Todo Process State debe tener evento externo y timer",
+      "extractedRule": "Bloquear PF wait without timer",
+      "mbaQuadrantAffected": "PF",
+      "contractImpact": "NOG-014",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "18. Criterios técnicos",
+      "sourceTopic": "C-003",
+      "exactExcerptShort": "Ningún PF produce estado no autorizado por OLC",
+      "extractedRule": "Bloquear object_state_not_in_olc",
+      "mbaQuadrantAffected": "OLC",
+      "contractImpact": "NOG-012",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "18. Criterios técnicos",
+      "sourceTopic": "C-005",
+      "exactExcerptShort": "P-SUP-09 no inicia si ACA != [Satisfied]",
+      "extractedRule": "ExportCodePackageGenerated no habilita Gate2",
+      "mbaQuadrantAffected": "PF",
+      "contractImpact": "allowed_events_matrix",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "24. Eventos mínimos",
+      "sourceTopic": "orquestación por eventos explícitos",
+      "exactExcerptShort": "Ningún servicio debe inferir avance por ausencia de error",
+      "extractedRule": "Señal debe llevar evento oficial y officialFlowRef",
+      "mbaQuadrantAffected": "PF",
+      "contractImpact": "traceability.officialFlowRef",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "25. No conformidad",
+      "sourceTopic": "export sin ACA",
+      "exactExcerptShort": "ExportCodePackage sin ACA [Satisfied] invalida implementación",
+      "extractedRule": "No-Go export_without_assessment_satisfied",
+      "mbaQuadrantAffected": "PF/OLC",
+      "contractImpact": "NOG-029",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "27. B3/R9",
+      "sourceTopic": "receiver_satisfaction vs receiver_feedback",
+      "exactExcerptShort": "receiver_satisfaction no es feedback; receiver_feedback puede ser evento operacional con ruta",
+      "extractedRule": "B3 requires routeRef; satisfaction blocked",
+      "mbaQuadrantAffected": "B3/B7",
+      "contractImpact": "b3_b7_boundary",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "27. B7",
+      "sourceTopic": "señal no diagnóstica",
+      "exactExcerptShort": "B7 solo preclasificación no diagnóstica; no candidatos, OEE, IR, diagramas ni diagnóstico",
+      "extractedRule": "B7 blocked if structural fact",
+      "mbaQuadrantAffected": "B3/B7",
+      "contractImpact": "b3_b7_boundary",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "23. Datos mínimos",
+      "sourceTopic": "campos técnicos",
+      "exactExcerptShort": "Contrato de datos no es MoC; IDs técnicos pertenecen a implementación",
+      "extractedRule": "Separar MoC de operational_context",
+      "mbaQuadrantAffected": "ImplementationContract",
+      "contractImpact": "operational_context",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "26. Calibración",
+      "sourceTopic": "trazar transición real",
+      "exactExcerptShort": "Registrar transición con timestamp, actor técnico, evento causal, objeto afectado y estado destino",
+      "extractedRule": "signalTimestamp/provenance required",
+      "mbaQuadrantAffected": "ImplementationContract",
+      "contractImpact": "identity/audit_metadata",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "PM",
+      "sourceTopic": "trigger",
+      "exactExcerptShort": "Cada proceso del PM tiene trigger",
+      "extractedRule": "Regla aplicada a pmTrigger obligatorio",
+      "mbaQuadrantAffected": "PM",
+      "contractImpact": "pmTrigger obligatorio",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "PM",
+      "sourceTopic": "target state",
+      "exactExcerptShort": "Target state expresado como Object[State]",
+      "extractedRule": "Regla aplicada a pmTargetState obligatorio",
+      "mbaQuadrantAffected": "PM",
+      "contractImpact": "pmTargetState obligatorio",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "PM",
+      "sourceTopic": "sincronización",
+      "exactExcerptShort": "Estado alcanzado dispara siguiente evento o milestone",
+      "extractedRule": "Regla aplicada a pmSynchronization",
+      "mbaQuadrantAffected": "PM",
+      "contractImpact": "pmSynchronization",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "MoC",
+      "sourceTopic": "clases núcleo",
+      "exactExcerptShort": "Caso, SCR, EvidenceBundle, EscenaEvidencial, PeliculaCausal, Diagnóstico, ACA, Export",
+      "extractedRule": "Regla aplicada a mocClass list",
+      "mbaQuadrantAffected": "MoC",
+      "contractImpact": "mocClass list",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "MoC",
+      "sourceTopic": "operaciones",
+      "exactExcerptShort": "operaciones conceptuales autorizadas por clase",
+      "extractedRule": "Regla aplicada a mocOperation",
+      "mbaQuadrantAffected": "MoC",
+      "contractImpact": "mocOperation",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "PF",
+      "sourceTopic": "rework",
+      "exactExcerptShort": "findings de QA vuelven a P-SUP-06, no al core",
+      "extractedRule": "Regla aplicada a forbiddenUse",
+      "mbaQuadrantAffected": "PF",
+      "contractImpact": "forbiddenUse",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "PF",
+      "sourceTopic": "no swimlanes",
+      "exactExcerptShort": "PF conceptual no modela organización",
+      "extractedRule": "Regla aplicada a observer path no UI/swimlane",
+      "mbaQuadrantAffected": "PF",
+      "contractImpact": "observer path no UI/swimlane",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "OLC",
+      "sourceTopic": "finales",
+      "exactExcerptShort": "finales normales/alternativos deben estar autorizados",
+      "extractedRule": "Regla aplicada a olcEndIfApplicable",
+      "mbaQuadrantAffected": "OLC",
+      "contractImpact": "olcEndIfApplicable",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "B3/B7",
+      "sourceTopic": "B3B7AlignmentDelta",
+      "exactExcerptShort": "delta regula handoff, no es fact cliente",
+      "extractedRule": "Regla aplicada a b3_b7_boundary",
+      "mbaQuadrantAffected": "B3/B7",
+      "contractImpact": "b3_b7_boundary",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "Implementation",
+      "sourceTopic": "CHK-B3",
+      "exactExcerptShort": "no mapear receiver_satisfaction a PF/OLC sin 3.13a",
+      "extractedRule": "Regla aplicada a No-Go",
+      "mbaQuadrantAffected": "ImplementationContract",
+      "contractImpact": "No-Go",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "Implementation",
+      "sourceTopic": "CHK-B7",
+      "exactExcerptShort": "B7 interpretation_limit y excluida candidate generation",
+      "extractedRule": "Regla aplicada a No-Go",
+      "mbaQuadrantAffected": "ImplementationContract",
+      "contractImpact": "No-Go",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    },
+    {
+      "sourceSection": "Implementation",
+      "sourceTopic": "CHK-ACA-B3B7",
+      "exactExcerptShort": "ACA emite delta antes de Satisfied si aplica",
+      "extractedRule": "Regla aplicada a control event",
+      "mbaQuadrantAffected": "ImplementationContract",
+      "contractImpact": "control event",
+      "mandatory": true,
+      "sourceLocator": "MMABP v1.1 B3/B7 aligned, section noted"
+    }
+  ]
+}

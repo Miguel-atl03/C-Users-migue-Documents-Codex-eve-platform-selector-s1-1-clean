@@ -1,0 +1,278 @@
+{
+  "audit_id": "EVE_ORGANISM_REAL_OBSERVATION_BLOCKERS_REGISTER_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "REAL_OBSERVATION_BLOCKERS_REGISTERED_REPLAY_ONLY_AUTHORIZED",
+  "source_dictamen": "REAL_OBSERVATION_RETRY_FIXTURE_REPLAY_CONFIRMED_NEXT_OBSERVER_INVENTORY",
+  "summary": {
+    "blockers_total": 10,
+    "critical": 3,
+    "high": 6,
+    "medium": 1,
+    "real_observer_allowed": false,
+    "replay_only_authorized": true
+  },
+  "anti_assumption_policy": {
+    "missing_real_fields_marked": "missing_in_real_signal",
+    "fixture_only_fields_marked": "available_in_fixture_only",
+    "unsafe_touch_marked": "not_safe_for_real_observation",
+    "synthetic_values_treated_as_real_observation": false
+  },
+  "blockers": [
+    {
+      "blocker_id": "ROB-001",
+      "title": "No safe real entrypoint",
+      "severity": "critical",
+      "source_gap_ids": [
+        "GAP-RO-RTRY-001"
+      ],
+      "evidence_paths": [
+        "docs/audits/_eve_organism_real_observation_preflight_retry_v1.json",
+        "docs/audits/_eve_organism_real_observation_retry_gap_index_v1.json"
+      ],
+      "evidence_locators": [
+        "entrypoint_summary.accepted_for_real_observer = 0",
+        "GAP-RO-RTRY-001"
+      ],
+      "observed_fact": "0 entrypoints were accepted for real observer; 8 were rejected and 2 remain replay-only.",
+      "why_it_blocks_real_observation": "A real observer would need a proven read-only boundary that can feed the adapter without UI, DB, Supabase, runtime mutation or product wiring. That boundary is not present.",
+      "required_evidence_to_clear": "Produce a documented real entrypoint with tenant/session/activity, provenance/sourceTrace, idempotency/correlation, officialFlowRef and no DB/UI/Supabase/runtime mutation proof.",
+      "allowed_interim_path": "replay fixtures, offline adapter, audits/preflight, documentary design, offline tests only",
+      "forbidden_action": "real observer adapter, UI hook, WorkMap hook, Significado hook, runtime connector, DB observer, Supabase read, registry/export candidate real",
+      "status": "open"
+    },
+    {
+      "blocker_id": "ROB-002",
+      "title": "Tenant/session/activity incomplete",
+      "severity": "high",
+      "source_gap_ids": [
+        "GAP-RO-RTRY-002",
+        "GAP-RO-RTRY-003"
+      ],
+      "evidence_paths": [
+        "docs/audits/_eve_organism_real_observation_preflight_retry_v1.json",
+        "docs/audits/_eve_organism_real_signal_vs_replay_fixture_matrix_v1.json"
+      ],
+      "evidence_locators": [
+        "comparison_summary.synthetic_fields_remaining_for_real includes tenantId, organizationId, sessionId",
+        "real_signal_vs_replay_fixture_matrix[].real_fields_missing"
+      ],
+      "observed_fact": "Real signals do not prove complete tenantId, organizationId, sessionId and activityId context across the candidate set; fixture values remain synthetic.",
+      "why_it_blocks_real_observation": "Without complete real context, observation cannot prove tenant isolation or bind replay results to the right activity/session.",
+      "required_evidence_to_clear": "Real signal evidence must include tenantId, organizationId, sessionId and activityId from a non-mutating read-only source.",
+      "allowed_interim_path": "fixture replay using declared synthetic context",
+      "forbidden_action": "using synthetic fixture tenant/session/activity as real observation evidence",
+      "status": "open"
+    },
+    {
+      "blocker_id": "ROB-003",
+      "title": "Provenance/sourceTrace incomplete",
+      "severity": "high",
+      "source_gap_ids": [
+        "GAP-RO-RTRY-004",
+        "GAP-RO-RTRY-005"
+      ],
+      "evidence_paths": [
+        "docs/audits/_eve_organism_real_observation_retry_gap_index_v1.json",
+        "docs/audits/_eve_organism_real_signal_vs_replay_fixture_matrix_v1.json"
+      ],
+      "evidence_locators": [
+        "GAP-RO-RTRY-004 and GAP-RO-RTRY-005",
+        "still_missing_for_real_observation includes provenance/sourceTrace"
+      ],
+      "observed_fact": "Some real signal shapes show provenance, but complete provenance/sourceTrace suitable for real observation is not proven; sourceTrace is fixture/test-oriented for several categories.",
+      "why_it_blocks_real_observation": "The observer must explain exactly where every observed signal came from, especially candidate generation inputs. Missing provenance/sourceTrace breaks auditability.",
+      "required_evidence_to_clear": "Provide real provenance and candidate sourceTrace evidence with source path, source id/line or equivalent stable origin, without touching WorkMap/Significado/UI/DB.",
+      "allowed_interim_path": "offline replay fixtures with fixtureMetadata and source selection evidence",
+      "forbidden_action": "treating fixture-only sourceTrace as real production trace",
+      "status": "open"
+    },
+    {
+      "blocker_id": "ROB-004",
+      "title": "Idempotency/correlation incomplete",
+      "severity": "high",
+      "source_gap_ids": [
+        "GAP-RO-RTRY-006"
+      ],
+      "evidence_paths": [
+        "docs/audits/_eve_organism_real_observation_preflight_retry_v1.json",
+        "docs/audits/_eve_organism_real_observation_retry_gap_index_v1.json"
+      ],
+      "evidence_locators": [
+        "comparison_summary.synthetic_fields_remaining_for_real includes idempotencyKey, correlationId",
+        "GAP-RO-RTRY-006"
+      ],
+      "observed_fact": "Real signals do not prove idempotencyKey/correlationId sufficient for non-mutating replay correlation.",
+      "why_it_blocks_real_observation": "A real observer without idempotency/correlation cannot safely deduplicate, replay, or trace observed signals.",
+      "required_evidence_to_clear": "Produce real idempotencyKey and correlationId evidence, or a documented read-only derivation rule that does not write DB or touch runtime.",
+      "allowed_interim_path": "fixture replay with synthetic idempotency/correlation explicitly declared",
+      "forbidden_action": "creating correlation/idempotency values in production state for observation",
+      "status": "open"
+    },
+    {
+      "blocker_id": "ROB-005",
+      "title": "officialFlowRef missing",
+      "severity": "high",
+      "source_gap_ids": [
+        "GAP-RO-RTRY-007"
+      ],
+      "evidence_paths": [
+        "docs/audits/_eve_organism_real_observation_preflight_retry_v1.json",
+        "docs/audits/_eve_organism_real_observation_retry_gap_index_v1.json"
+      ],
+      "evidence_locators": [
+        "comparison_summary.synthetic_fields_remaining_for_real includes officialFlowRef",
+        "GAP-RO-RTRY-007"
+      ],
+      "observed_fact": "No real signal proves a stable officialFlowRef comparator; it exists as fixture-only comparator data.",
+      "why_it_blocks_real_observation": "Without a non-mutating reference to the official flow, shadow-vs-official comparison remains fixture-only and cannot be promoted to real observation.",
+      "required_evidence_to_clear": "Provide officialFlowRef evidence from a read-only source that does not activate or mutate the official flow.",
+      "allowed_interim_path": "offline fixture comparison only",
+      "forbidden_action": "running official flow or generating export/registry output to manufacture officialFlowRef",
+      "status": "open"
+    },
+    {
+      "blocker_id": "ROB-006",
+      "title": "UI/WorkMap/Significado touch risk",
+      "severity": "critical",
+      "source_gap_ids": [
+        "GAP-RO-RTRY-008",
+        "GAP-RO-RTRY-010",
+        "GAP-RO-RTRY-011"
+      ],
+      "evidence_paths": [
+        "docs/audits/_eve_organism_real_observation_retry_gap_index_v1.json",
+        "docs/audits/_eve_organism_real_observation_preflight_retry_v1.json"
+      ],
+      "evidence_locators": [
+        "GAP-RO-RTRY-008, GAP-RO-RTRY-010, GAP-RO-RTRY-011",
+        "entrypoint_summary.rejected_for_now = 8"
+      ],
+      "observed_fact": "Candidate real entrypoints include or imply UI/admin, WorkMap or Significado touch risks.",
+      "why_it_blocks_real_observation": "Gate 2 real observation must be non-binding; touching visible flows or product domains could change user-facing behavior or approved data paths.",
+      "required_evidence_to_clear": "Show proof of a passive observer seam outside UI/app/components/pages and outside WorkMap/Significado mutation paths.",
+      "allowed_interim_path": "documentary design and replay-only fixtures",
+      "forbidden_action": "UI hook, WorkMap hook, Significado hook, app/API wiring, product observer wiring",
+      "status": "open"
+    },
+    {
+      "blocker_id": "ROB-007",
+      "title": "Supabase/DB boundary not proven",
+      "severity": "critical",
+      "source_gap_ids": [
+        "GAP-RO-RTRY-009"
+      ],
+      "evidence_paths": [
+        "docs/audits/_eve_organism_real_observation_retry_gap_index_v1.json",
+        "docs/audits/_eve_organism_real_observation_preflight_retry_v1.json"
+      ],
+      "evidence_locators": [
+        "GAP-RO-RTRY-009",
+        "no_cableado.db_write_allowed = false"
+      ],
+      "observed_fact": "No safe real observer boundary proves no Supabase requirement and no DB write/read risk. Any future DB read boundary would need separate RLS/auth/tenant proof.",
+      "why_it_blocks_real_observation": "DB/Supabase access can cross tenant and authority boundaries; without proof, real observation is unsafe.",
+      "required_evidence_to_clear": "Document no-DB proof, or if a read boundary appears, prove controlled read-only access, RLS/auth/tenant isolation, and zero write paths.",
+      "allowed_interim_path": "offline tests without DB/Supabase/UI",
+      "forbidden_action": "DB observer, Supabase read, SQL execution, migrations, RLS-affecting changes",
+      "status": "open"
+    },
+    {
+      "blocker_id": "ROB-008",
+      "title": "Synthetic fixture fields cannot become real evidence",
+      "severity": "high",
+      "source_gap_ids": [
+        "GAP-RO-RTRY-002",
+        "GAP-RO-RTRY-003",
+        "GAP-RO-RTRY-006",
+        "GAP-RO-RTRY-007"
+      ],
+      "evidence_paths": [
+        "docs/audits/_eve_organism_shadow_e2e_replay_fixtures_v1.json",
+        "docs/audits/_eve_organism_real_signal_vs_replay_fixture_matrix_v1.json"
+      ],
+      "evidence_locators": [
+        "synthetic_fields_required = true",
+        "synthetic_fields_used[]"
+      ],
+      "observed_fact": "Replay fixtures declare synthetic fields explicitly and are valid only for offline replay.",
+      "why_it_blocks_real_observation": "Synthetic fixture-only values do not prove real platform observation and cannot clear real signal gaps.",
+      "required_evidence_to_clear": "Replace each synthetic fixture-only value with real observed evidence, or keep the lane replay-only.",
+      "allowed_interim_path": "fixture strengthening and offline adapter tests",
+      "forbidden_action": "promoting fixture-only tenant/session/activity/provenance/correlation/officialFlowRef as real evidence",
+      "status": "open"
+    },
+    {
+      "blocker_id": "ROB-009",
+      "title": "Real observer design not allowed yet",
+      "severity": "high",
+      "source_gap_ids": [
+        "GAP-RO-RTRY-001",
+        "GAP-RO-RTRY-012"
+      ],
+      "evidence_paths": [
+        "docs/audits/_eve_organism_real_observation_retry_future_allowlist_v1.json",
+        "docs/audits/_eve_organism_real_observation_preflight_retry_v1.json"
+      ],
+      "evidence_locators": [
+        "future_allowed_files",
+        "next_step = REAL_OBSERVATION_BLOCKERS_REGISTER_V1"
+      ],
+      "observed_fact": "The retry future allowlist permits blocker docs only, not real observer adapter/type/test files.",
+      "why_it_blocks_real_observation": "Designing or implementing a real observer now would bypass unresolved critical/high blockers.",
+      "required_evidence_to_clear": "Clear ROB-001 through ROB-008 and rerun preflight before enabling a read-only observer design allowlist.",
+      "allowed_interim_path": "blocker register, audit/preflight, documentary design outside product wiring",
+      "forbidden_action": "src/types/eve-organism-real-observation.ts, real observation adapter, real observer tests until explicitly allowed by a future preflight",
+      "status": "open"
+    },
+    {
+      "blocker_id": "ROB-010",
+      "title": "Replay-only lane remains the authorized Gate 2 path",
+      "severity": "medium",
+      "source_gap_ids": [
+        "GAP-RO-RTRY-012"
+      ],
+      "evidence_paths": [
+        "docs/audits/_eve_organism_shadow_e2e_replay_fixtures_v1.json",
+        "docs/audits/_eve_organism_real_observation_preflight_retry_v1.json"
+      ],
+      "evidence_locators": [
+        "dictamen = REPLAY_FIXTURES_STRENGTHENING_PASSED_WITH_SYNTHETIC_FIELDS",
+        "dictamen = REAL_OBSERVATION_RETRY_FIXTURE_REPLAY_CONFIRMED_NEXT_OBSERVER_INVENTORY"
+      ],
+      "observed_fact": "Replay fixtures are strengthened and verified; real observation remains blocked.",
+      "why_it_blocks_real_observation": "The only safe current Gate 2 path is offline replay and audit/preflight work.",
+      "required_evidence_to_clear": "Keep continuation work inside replay-only lane until real evidence clears the blockers.",
+      "allowed_interim_path": "replay fixtures, fixture strengthening, offline adapter, audits/preflight, offline tests without DB/Supabase/UI",
+      "forbidden_action": "productive shadow activation, runtime connector, registry/export candidate real, diagnosis enablement",
+      "status": "open"
+    }
+  ],
+  "authorized_interim_path": {
+    "replay_fixtures": true,
+    "fixture_strengthening": true,
+    "offline_adapter": true,
+    "audits_preflight": true,
+    "documentary_design": true,
+    "offline_tests_without_db_supabase_ui": true,
+    "real_observer": false,
+    "UI_hook": false,
+    "WorkMap_hook": false,
+    "Significado_hook": false,
+    "DB_observer": false,
+    "Supabase_read": false,
+    "runtime_connector": false,
+    "registry_export": false,
+    "productive_shadow_activation": false
+  },
+  "no_modification_attestation": {
+    "src_modified": false,
+    "tests_modified": false,
+    "app_modified": false,
+    "db_modified": false,
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "registry_written": false,
+    "commit_created": false
+  },
+  "next_step": "REPLAY_ONLY_GATE2_CONTINUATION_PLAN_V1"
+}

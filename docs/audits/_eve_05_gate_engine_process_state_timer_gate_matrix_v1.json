@@ -1,0 +1,42 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-RECORD-RULE-SOURCE-QA-V1",
+  "module": "process_state_timer_gate",
+  "dictamen": "GATE_ENGINE_RECORD_RULE_QA_BLOCKED",
+  "satisfactionStatus": "blocked",
+  "sourcesRequired": ["D6", "D5", "D4"],
+  "sourcesRead": true,
+  "itemsChecked": {
+    "gates": ["PST-001", "PST-002", "PST-003", "PST-004", "PST-005", "PST-006"],
+    "rules": ["PST-ENG-001", "PST-ENG-002", "PST-ENG-003", "PST-ENG-004", "PST-ENG-005", "PST-ENG-006", "PST-ENG-007", "PST-ENG-008", "PST-ENG-009"]
+  },
+  "fieldsRequired": [
+    "process state",
+    "timer",
+    "event",
+    "exit condition",
+    "readiness impact",
+    "reentry condition",
+    "manual review",
+    "no process state sin evento/timer/salida"
+  ],
+  "observations": {
+    "declaredGatesCountMatches": true,
+    "declaredRulesCountMatches": true,
+    "allItemsHaveSourceRefs": true,
+    "d6ProcessStateTimerGatesSheetPresent": true
+  },
+  "qaClassification": {
+    "exact_match": 0,
+    "normalized_equivalent": 0,
+    "controlled_transformation_with_source": 0,
+    "mismatch": 0,
+    "missing_in_chip": 0,
+    "missing_in_source": 0,
+    "pending_source_proof": 15,
+    "not_applicable_with_justification": 0
+  },
+  "blockers": [
+    "Operational field equivalence for timer/event/exit/readiness/reentry was not exhaustively proven against D6/D5/D4."
+  ],
+  "satisfactionStatusReason": "Counts and source refs are present, but complete operational field proof remains pending."
+}

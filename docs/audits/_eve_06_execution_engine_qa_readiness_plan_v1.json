@@ -1,0 +1,209 @@
+{
+  "artifact": "_eve_06_execution_engine_qa_readiness_plan_v1",
+  "generated_for": "EVE-06-EXECUTION-ENGINE-MATERIAL-COMPARISON-PREP-V1",
+  "dictamen": "EXECUTION_ENGINE_MATERIAL_COMPARISON_PREP_READY_FOR_QA_WITH_GAPS",
+  "qa_status": "ready_for_independent_record_rule_source_qa_with_known_gaps",
+  "not_a_certification": true,
+  "required_scope": [
+    "Validate 6 module boundaries against canonical sources.",
+    "Validate 135 atomic rules against declared source roles.",
+    "Validate 18 failure guards and no-cableado behavior.",
+    "Validate 14 integration rules as contracts, not wiring.",
+    "Validate 20 source_to_target mappings and source role boundaries.",
+    "Validate 22 QA controls without productive runtime authority."
+  ],
+  "minimum_execution_order": [
+    "source_role_boundary_validation",
+    "module_boundary_validation",
+    "atomic_rule_source_validation",
+    "failure_guard_validation",
+    "integration_contract_validation",
+    "mapping_validation",
+    "qa_control_execution",
+    "gap_review_and_dictamen"
+  ],
+  "readiness_controls": [
+    {
+      "control_id": "EXE-QA-001",
+      "module_id": null,
+      "check": "required_dependencies",
+      "method": "Verify dependency IDs, versions and checksums.",
+      "expected_result": "EVE03, EVE04 v0.2, EVE05 v0.1, D6 and D8 present.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-002",
+      "module_id": null,
+      "check": "module_inventory",
+      "method": "Count requested modules.",
+      "expected_result": "Exactly 6 modules.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-003",
+      "module_id": null,
+      "check": "run_state_machine",
+      "method": "Validate all transitions against declared map.",
+      "expected_result": "0 illegal transitions.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-004",
+      "module_id": null,
+      "check": "interaction_state_machine",
+      "method": "Validate interaction transitions.",
+      "expected_result": "0 illegal transitions.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-005",
+      "module_id": null,
+      "check": "budget_40_20",
+      "method": "Simulate base/causal counters.",
+      "expected_result": "Base <= 40; causal <= 20.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-006",
+      "module_id": null,
+      "check": "compound_subfields",
+      "method": "Cross-check D6 UX_Subfield_Structure.",
+      "expected_result": "Every compound interaction persists separable subfields.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-007",
+      "module_id": null,
+      "check": "idempotency",
+      "method": "Replay same idempotency_key.",
+      "expected_result": "No duplicate writes.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-008",
+      "module_id": null,
+      "check": "revision_chain",
+      "method": "Submit correction revision.",
+      "expected_result": "Prior response/evidence preserved and superseded.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-009",
+      "module_id": null,
+      "check": "epistemic_policy",
+      "method": "Submit AI unconfirmed suggestion.",
+      "expected_result": "Never stored as captured_user_evidence.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-010",
+      "module_id": null,
+      "check": "variable_allowlist",
+      "method": "Materialize unknown variable.",
+      "expected_result": "Rejected.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-011",
+      "module_id": null,
+      "check": "C09_separation",
+      "method": "Submit satisfaction without operational feedback.",
+      "expected_result": "receiver_feedback remains unset.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-012",
+      "module_id": null,
+      "check": "C09_route_missing",
+      "method": "Submit feedback-like text without canonical C09 closure.",
+      "expected_result": "receiver_feedback_route_missing gap emitted.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-013",
+      "module_id": null,
+      "check": "B7_boundary",
+      "method": "Attempt candidate from B7/C20.",
+      "expected_result": "Rejected; preclassification only.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-014",
+      "module_id": null,
+      "check": "candidate_gate_dependency",
+      "method": "Attempt candidate without EVE05 gate summary.",
+      "expected_result": "Rejected.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-015",
+      "module_id": null,
+      "check": "conformance_before_consistency",
+      "method": "Evaluate consistency while conformance incomplete.",
+      "expected_result": "Consistency not evaluated.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-016",
+      "module_id": null,
+      "check": "scope_isolation",
+      "method": "Cross-case response/evidence access.",
+      "expected_result": "Rejected.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-017",
+      "module_id": null,
+      "check": "revision_recompute",
+      "method": "Revise source response.",
+      "expected_result": "Dependent variables/candidates marked stale and recompute requested.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-018",
+      "module_id": null,
+      "check": "no_diagnosis_or_export",
+      "method": "Search module outputs.",
+      "expected_result": "No diagnosis, IR, registry write or final export.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-019",
+      "module_id": null,
+      "check": "source_traceability",
+      "method": "Inspect each rule/field source_refs.",
+      "expected_result": "No rule without source reference.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-020",
+      "module_id": null,
+      "check": "typescript_compile",
+      "method": "Run tsc --noEmit on generated module.",
+      "expected_result": "Exit code 0.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-021",
+      "module_id": null,
+      "check": "manifest_checksums",
+      "method": "Hash package artifacts.",
+      "expected_result": "All listed artifacts have sha256.",
+      "prepared_status": "ready_for_qa_execution"
+    },
+    {
+      "control_id": "EXE-QA-022",
+      "module_id": null,
+      "check": "source_immutability",
+      "method": "Compare source checksums before/after generation.",
+      "expected_result": "No source mutated.",
+      "prepared_status": "ready_for_qa_execution"
+    }
+  ],
+  "blocking_conditions_for_future_qa": [
+    "Any source role overclaim, especially D1 as direct proof before extraction repair.",
+    "Any mismatch in counts: modules, atomic rules, guards, integrations, mappings, or QA controls.",
+    "Any implication of productive wiring, registry write, diagnosis, export, Supabase, SQL, WorkMap, Significado, or EVE brain connection.",
+    "Any unresolved D8 access regression beyond the documented path-long note."
+  ]
+}

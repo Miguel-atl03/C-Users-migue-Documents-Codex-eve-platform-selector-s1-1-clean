@@ -1,0 +1,288 @@
+{
+  "dictamen": "REAL_SIGNAL_EVIDENCE_COLLECTION_PLAN_SPECIFICITY_FIXED_REPLAY_ONLY_CONTINUES",
+  "generated_at": "2026-06-25T06:29:30.090Z",
+  "specificityFixApplied": true,
+  "planStatus": "specificity_fixed_replay_only_continues",
+  "observerAuthorized": false,
+  "realObservationAuthorized": false,
+  "readOnlyObserverDesignAuthorized": false,
+  "blockersClosedByPlan": 0,
+  "exitConditionsClosedByPlan": 0,
+  "operationallyClosedExitConditions": 0,
+  "evidencePriorityOrder": [
+    "P0_tenant_auth_isolation",
+    "P1_no_mutation_boundary",
+    "P2_provenance_sourceTrace",
+    "P3_idempotency_correlation_officialFlowRef",
+    "P4_mba_anchor_PM_MoC_PF_OLC",
+    "P5_b3_b7_boundary"
+  ],
+  "productOwnerEvidenceResponseRequiredFields": [
+    "evidence_id",
+    "evidence_owner",
+    "evidence_locator",
+    "source_system",
+    "source_environment",
+    "timestamp_or_version",
+    "proof_type",
+    "redaction_status",
+    "why_not_fixture",
+    "related_contract_field",
+    "related_blocker",
+    "related_exit_condition"
+  ],
+  "nonAcceptableEvidence": [
+    "narrative_only_answer_without_locator",
+    "screenshot_without_source_path_or_timestamp",
+    "fixture",
+    "synthetic_field",
+    "test_only_payload",
+    "replay_only_output",
+    "verbal_confirmation_without_artifact",
+    "code_comment_without_runtime_evidence",
+    "unversioned_document",
+    "unowned_evidence"
+  ],
+  "gate2": {
+    "replay_only_continues": true,
+    "observer_authorized": false,
+    "real_observation_authorized": false,
+    "read_only_observer_design_authorized": false
+  },
+  "audit_id": "eve_organism_real_signal_blocker_evidence_mapping_v1",
+  "total": 10,
+  "closed_by_fix": 0,
+  "still_open_or_unproven": 10,
+  "blockers": [
+    {
+      "blockerId": "ROB-001",
+      "blockerName": "no_safe_real_observation_entrypoint",
+      "currentStatus": "still_open_or_unproven",
+      "correctedNameIfApplicable": "renamed_from_real_observation_not_authorized",
+      "priority": "P0_P1",
+      "evidenceRequired": [
+        "safe real signal entrypoint",
+        "no mutation proof",
+        "tenant/auth/isolation proof",
+        "real non-fixture locator"
+      ],
+      "relatedContractFields": [
+        "security_boundary.authBoundaryRequired",
+        "security_boundary.tenantIsolationRequired",
+        "no_mutation_boundary.dbWriteAllowed",
+        "no_mutation_boundary.runtimeMutationAllowed",
+        "traceability.sourceRef"
+      ],
+      "minimumProof": "Product owner and technical inventory must provide locator-backed proof for safe entrypoint, tenant/auth/isolation, no mutation, and non-fixture source.",
+      "expectedProvider": "product_owner + technical_inventory + future_preflight",
+      "cannotCloseYet": true,
+      "canBeClosedByPlanAlone": false,
+      "statusAfterPlan": "still_open_or_unproven"
+    },
+    {
+      "blockerId": "ROB-002",
+      "blockerName": "tenant_session_activity_evidence_incomplete",
+      "currentStatus": "still_open_or_unproven",
+      "correctedNameIfApplicable": null,
+      "priority": "P0",
+      "evidenceRequired": [
+        "tenantId",
+        "organizationId",
+        "sessionId",
+        "activityId",
+        "actorId/userId"
+      ],
+      "relatedContractFields": [
+        "operational_context.tenantId",
+        "operational_context.organizationId",
+        "operational_context.sessionId",
+        "operational_context.activityId",
+        "operational_context.actorId",
+        "operational_context.userId"
+      ],
+      "minimumProof": "Locator-backed real product evidence for all required identity/context fields.",
+      "expectedProvider": "product_owner + technical_inventory",
+      "cannotCloseYet": true,
+      "canBeClosedByPlanAlone": false,
+      "statusAfterPlan": "still_open_or_unproven"
+    },
+    {
+      "blockerId": "ROB-003",
+      "blockerName": "provenance_sourceTrace_incomplete",
+      "currentStatus": "still_open_or_unproven",
+      "correctedNameIfApplicable": null,
+      "priority": "P2",
+      "evidenceRequired": [
+        "provenance",
+        "sourceTrace",
+        "sourceRef",
+        "evidenceRef",
+        "auditRef"
+      ],
+      "relatedContractFields": [
+        "traceability.provenance",
+        "traceability.sourceTrace",
+        "traceability.sourceRef",
+        "traceability.evidenceRef",
+        "traceability.auditRef"
+      ],
+      "minimumProof": "Real audit/source trace artifacts with owner, locator and timestamp/version.",
+      "expectedProvider": "product_owner + audit_log",
+      "cannotCloseYet": true,
+      "canBeClosedByPlanAlone": false,
+      "statusAfterPlan": "still_open_or_unproven"
+    },
+    {
+      "blockerId": "ROB-004",
+      "blockerName": "idempotency_correlation_unproven",
+      "currentStatus": "still_open_or_unproven",
+      "correctedNameIfApplicable": null,
+      "priority": "P3",
+      "evidenceRequired": [
+        "idempotencyKey real",
+        "correlationId real",
+        "real flow source",
+        "non-fixture proof"
+      ],
+      "relatedContractFields": [
+        "traceability.idempotencyKey",
+        "traceability.correlationId",
+        "traceability.sourceRef"
+      ],
+      "minimumProof": "Real flow evidence showing idempotency/correlation generated by product flow.",
+      "expectedProvider": "technical_inventory + audit_log",
+      "cannotCloseYet": true,
+      "canBeClosedByPlanAlone": false,
+      "statusAfterPlan": "still_open_or_unproven"
+    },
+    {
+      "blockerId": "ROB-005",
+      "blockerName": "officialFlowRef_unproven",
+      "currentStatus": "still_open_or_unproven",
+      "correctedNameIfApplicable": null,
+      "priority": "P3",
+      "evidenceRequired": [
+        "officialFlowRef real",
+        "approved equivalent with locator"
+      ],
+      "relatedContractFields": [
+        "traceability.officialFlowRef"
+      ],
+      "minimumProof": "Versioned official flow or approved equivalent mapping with locator.",
+      "expectedProvider": "product_owner + manual_review",
+      "cannotCloseYet": true,
+      "canBeClosedByPlanAlone": false,
+      "statusAfterPlan": "still_open_or_unproven"
+    },
+    {
+      "blockerId": "ROB-006",
+      "blockerName": "ui_workmap_significado_mutation_boundary_unproven",
+      "currentStatus": "still_open_or_unproven",
+      "correctedNameIfApplicable": null,
+      "priority": "P1",
+      "evidenceRequired": [
+        "no UI touch",
+        "no WorkMap mutation",
+        "no Significado mutation"
+      ],
+      "relatedContractFields": [
+        "no_mutation_boundary.uiTouchAllowed",
+        "no_mutation_boundary.workMapMutationAllowed",
+        "no_mutation_boundary.significadoMutationAllowed"
+      ],
+      "minimumProof": "Read-only/no-touch proof for UI, WorkMap and Significado boundaries.",
+      "expectedProvider": "technical_inventory",
+      "cannotCloseYet": true,
+      "canBeClosedByPlanAlone": false,
+      "statusAfterPlan": "still_open_or_unproven"
+    },
+    {
+      "blockerId": "ROB-007",
+      "blockerName": "db_supabase_no_write_auth_boundary_unproven",
+      "currentStatus": "still_open_or_unproven",
+      "correctedNameIfApplicable": null,
+      "priority": "P0_P1",
+      "evidenceRequired": [
+        "no DB write",
+        "no Supabase write",
+        "RLS/read boundary if DB appears",
+        "no service_role"
+      ],
+      "relatedContractFields": [
+        "no_mutation_boundary.dbWriteAllowed",
+        "no_mutation_boundary.supabaseWriteAllowed",
+        "security_boundary.rlsReadBoundaryRequiredIfDB",
+        "security_boundary.serviceRoleAllowed"
+      ],
+      "minimumProof": "Read-only, RLS/auth and no-write proof with locator.",
+      "expectedProvider": "technical_inventory + audit_log",
+      "cannotCloseYet": true,
+      "canBeClosedByPlanAlone": false,
+      "statusAfterPlan": "still_open_or_unproven"
+    },
+    {
+      "blockerId": "ROB-008",
+      "blockerName": "fixture_evidence_not_sufficient_for_real_observation",
+      "currentStatus": "still_open_or_unproven",
+      "correctedNameIfApplicable": null,
+      "priority": "P4",
+      "evidenceRequired": [
+        "proof that fixture/synthetic fields are not claimed as real evidence",
+        "real product artifact for every required field"
+      ],
+      "relatedContractFields": [
+        "mba_anchor.pmProcessId",
+        "mba_anchor.pfEvent",
+        "mba_anchor.objectState",
+        "mba_anchor.mocClass",
+        "mba_anchor.olcTransitionEvent"
+      ],
+      "minimumProof": "Every field must have real artifact locator; fixtures are rejected.",
+      "expectedProvider": "product_owner + manual_review",
+      "cannotCloseYet": true,
+      "canBeClosedByPlanAlone": false,
+      "statusAfterPlan": "still_open_or_unproven"
+    },
+    {
+      "blockerId": "ROB-009",
+      "blockerName": "observer_implementation_not_designed",
+      "currentStatus": "still_open_or_unproven",
+      "correctedNameIfApplicable": null,
+      "priority": "P0",
+      "evidenceRequired": [
+        "confirmation that observer design remains unauthorized until evidence preflight passes"
+      ],
+      "relatedContractFields": [
+        "security_boundary.authBoundaryRequired",
+        "no_mutation_boundary.runtimeMutationAllowed"
+      ],
+      "minimumProof": "Manual governance record that observer design remains unauthorized.",
+      "expectedProvider": "future_preflight + manual_review",
+      "cannotCloseYet": true,
+      "canBeClosedByPlanAlone": false,
+      "statusAfterPlan": "still_open_or_unproven"
+    },
+    {
+      "blockerId": "ROB-010",
+      "blockerName": "production_authority_still_prohibited",
+      "currentStatus": "still_open_or_unproven",
+      "correctedNameIfApplicable": null,
+      "priority": "P1",
+      "evidenceRequired": [
+        "replay-only lane preserved",
+        "parallel production does not cross into product authority"
+      ],
+      "relatedContractFields": [
+        "no_mutation_boundary.registryWriteAllowed",
+        "no_mutation_boundary.exportAllowed",
+        "no_mutation_boundary.diagnosisAllowed",
+        "no_mutation_boundary.runtimeMutationAllowed"
+      ],
+      "minimumProof": "Evidence that registry/export/diagnosis/runtime authority remains false.",
+      "expectedProvider": "technical_inventory + manual_review",
+      "cannotCloseYet": true,
+      "canBeClosedByPlanAlone": false,
+      "statusAfterPlan": "still_open_or_unproven"
+    }
+  ]
+}

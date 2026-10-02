@@ -1,0 +1,33 @@
+{
+  "auditId": "EVE-00-METHOD-KERNEL-OVERLAP-AUDIT-V1_2",
+  "dictamen": "METHOD_KERNEL_OVERLAP_AUDIT_READY_WITH_GAPS",
+  "gaps": [
+    {
+      "gapId": "MK-V1_2-GAP-001",
+      "status": "GAP_LIVE",
+      "severity": "high",
+      "name": "BOUNDARY_SOURCE_MISSING_D5_DOCX",
+      "description": "The package declares D5 as Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx, but that DOCX is not present in repo.",
+      "evidence": "XLSX near-match exists at docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx, but it has not been approved as DOCX substitute.",
+      "recommendation": "Miguel should provide D5 DOCX, approve XLSX as D5 boundary source, or leave D5 explicitly unresolved before any certification/cabling."
+    },
+    {
+      "gapId": "MK-V1_2-GAP-002",
+      "status": "GAP_LIVE",
+      "severity": "medium",
+      "name": "PACKAGE_DOCX_STALE_AFTER_ADJUSTMENT",
+      "description": "The DOCX was not modified during Package Adjust V1 and does not include D5 unresolved or the reinforced no-cabling boundaries now present in MD/JSON/TS/manifest.",
+      "evidence": "DOCX extracted text lacks D5 unresolved, no B0 replacement, no Runtime readiness/reentry gate and FND-007/FND-008 boundary clarification.",
+      "recommendation": "Regenerate or adjust DOCX in a separate document task if DOCX remains a human-facing package artifact."
+    },
+    {
+      "gapId": "MK-V1_2-GAP-003",
+      "status": "RISK_LIVE",
+      "severity": "medium",
+      "name": "CONTROLLED_WIRING_NOT_DESIGNED",
+      "description": "The package is consistent enough for re-audit, but no controlled wiring proposal, adapter contract or runtime state mapping exists.",
+      "evidence": "This task explicitly did not cable the chip or register runtimeAuthority.",
+      "recommendation": "Prepare a separate controlled wiring proposal after D5/DOCX gaps are resolved."
+    }
+  ]
+}

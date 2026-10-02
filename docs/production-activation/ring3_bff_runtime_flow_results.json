@@ -1,0 +1,104 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING3_BFF_RUNTIME_FLOW",
+  "generated_at": "2026-07-10T03:13:03.651Z",
+  "ring3_scope": "controlled_production_supervised_rollback_ready",
+  "target_classification": "local",
+  "supabase_local_available": true,
+  "pipeline": {
+    "p4": {
+      "script": "validate:p4",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_ms": 1878,
+      "stderr_tail": ""
+    },
+    "p5": {
+      "script": "validate:p5",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_ms": 1891,
+      "stderr_tail": ""
+    }
+  },
+  "pipeline_passed": true,
+  "context_presence": {
+    "valid": true,
+    "missing": []
+  },
+  "causal_chain": [
+    {
+      "id": "R3-CC-01",
+      "name": "controlled_production_access",
+      "passed": true,
+      "evidence": {
+        "controlled_tenant_id": "7c4a2f10-8e3d-4b91-a6f2-010001000001"
+      }
+    },
+    {
+      "id": "R3-CC-02",
+      "name": "scoped_tenant_case_run",
+      "passed": true,
+      "evidence": {
+        "controlled_case_id": "8d5b3e21-9f4e-5c02-b7a3-010002000002"
+      }
+    },
+    {
+      "id": "R3-CC-03",
+      "name": "activity primary selection",
+      "passed": true,
+      "evidence": {
+        "activity_id": "e86f784b-c702-4593-990d-7b71eb819052"
+      }
+    },
+    {
+      "id": "R3-CC-04",
+      "name": "runtime_interaction_instance",
+      "passed": true,
+      "evidence": {
+        "count": 1
+      }
+    },
+    {
+      "id": "R3-CC-05",
+      "name": "evidence_item",
+      "passed": true,
+      "evidence": {
+        "note": "evidence via subfield/gap chain"
+      }
+    },
+    {
+      "id": "R3-CC-06",
+      "name": "canonical_variable_record or readiness_gap_record",
+      "passed": true,
+      "evidence": {
+        "readiness_gap": 1
+      }
+    },
+    {
+      "id": "R3-CC-07",
+      "name": "gate evaluation",
+      "passed": true,
+      "evidence": {
+        "gate_evaluations": {
+          "B0": true,
+          "B2": true,
+          "B3_C09": false,
+          "B7_C20": true
+        }
+      }
+    },
+    {
+      "id": "R3-CC-08",
+      "name": "readiness_decision_record",
+      "passed": true,
+      "evidence": {
+        "readiness_decision_record_id": "1fcdd09a-1e94-4d02-b707-e4a262347f1c"
+      }
+    }
+  ],
+  "bff_runtime_flow_passed": true,
+  "production_supabase_touched": false,
+  "unknown_remote_touched": false,
+  "activation_allowed_general_production": false,
+  "diagnosis_created": false
+}

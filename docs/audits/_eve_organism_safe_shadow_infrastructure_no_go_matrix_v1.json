@@ -1,0 +1,29 @@
+{
+  "matrix_id": "EVE_ORGANISM_SAFE_SHADOW_INFRASTRUCTURE_NO_GO_MATRIX_V1",
+  "total": 18,
+  "no_go": [
+    { "code": "SSI-NG-001", "trigger": "no safe mirror/outbox", "immediate_action": "keep bridge blocked", "required_evidence": "mirror_or_outbox_ref", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-002", "trigger": "no append-only/read-replica", "immediate_action": "keep bridge blocked", "required_evidence": "append_only_log_ref or read_replica_ref", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-003", "trigger": "missing read-only credentials", "immediate_action": "keep bridge blocked", "required_evidence": "read_only_credentials_ref", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-004", "trigger": "service_role productive present", "immediate_action": "reject provisioning path", "required_evidence": "service_role_absent_attestation", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-005", "trigger": "write-capable adapter present", "immediate_action": "reject adapter and keep blocked", "required_evidence": "write_credentials_absent_attestation", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-006", "trigger": "tenant boundary unproven", "immediate_action": "keep bridge blocked", "required_evidence": "tenant_boundary_proof_ref", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-007", "trigger": "auth boundary unproven", "immediate_action": "keep bridge blocked", "required_evidence": "auth_boundary_proof_ref", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-008", "trigger": "missing correlation/idempotency", "immediate_action": "reject observed event", "required_evidence": "correlationId and idempotencyKey preservation proof", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-009", "trigger": "missing provenance/sourceTrace", "immediate_action": "reject observed event", "required_evidence": "provenance_sourceTrace preservation proof", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-010", "trigger": "no replay", "immediate_action": "keep bridge blocked", "required_evidence": "replay_store_ref", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-011", "trigger": "no checksum chain", "immediate_action": "keep bridge blocked", "required_evidence": "checksum_chain_ref", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-012", "trigger": "no latency measurement", "immediate_action": "keep bridge blocked", "required_evidence": "latency_budget_ref", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-013", "trigger": "registry writer reachable", "immediate_action": "reject provisioning path", "required_evidence": "no_registry_writer_attestation", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-014", "trigger": "export writer reachable", "immediate_action": "reject provisioning path", "required_evidence": "no_export_writer_attestation", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-015", "trigger": "final diagnosis path reachable", "immediate_action": "reject provisioning path", "required_evidence": "no_diagnosis_path_attestation", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-016", "trigger": "unclear owner", "immediate_action": "keep bridge blocked", "required_evidence": "human owner assigned", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-017", "trigger": "no S3* reviewer", "immediate_action": "keep bridge blocked", "required_evidence": "S3* reviewer assigned", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true },
+    { "code": "SSI-NG-018", "trigger": "rollback/degrade undefined", "immediate_action": "keep bridge blocked", "required_evidence": "rollback/degrade procedure defined", "blocks_bridge_implementation": true, "blocks_real_observation": true, "blocks_gate3": true }
+  ],
+  "summary": {
+    "all_block_bridge_implementation": true,
+    "all_block_real_observation": true,
+    "all_block_gate3": true
+  }
+}

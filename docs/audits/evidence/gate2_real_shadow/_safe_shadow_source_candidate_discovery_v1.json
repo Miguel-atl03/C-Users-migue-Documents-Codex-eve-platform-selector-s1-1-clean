@@ -1,0 +1,150 @@
+{
+  "dictamen": "GATE_2_SAFE_SHADOW_SOURCE_EXISTS_AS_CONTRACT_NOT_PROVISIONED",
+  "gate": "Gate 2 real-shadow",
+  "exercise": "discover_existing_safe_shadow_source_candidates",
+  "previous_blocker": "GATE_2_REAL_SHADOW_ENVIRONMENT_DECLARATION_REQUIRED",
+  "search_scope": [
+    "docs",
+    "docs/audits/evidence/gate2_real_shadow",
+    "sql",
+    "src",
+    "tests",
+    "scripts",
+    "fixtures",
+    "package.json"
+  ],
+  "candidates_found": [
+    {
+      "candidate_name": "shadow_only_outbox_events",
+      "candidate_type": "sql_contract",
+      "file_path": "sql/migrations/2026-06-27-create-shadow-only-outbox-events.sql",
+      "evidence_excerpt_short": "create table if not exists shadow_only_outbox_events; append-only shadow-only table; no credentials created; no observer created; no bridge created.",
+      "appears_executable": false,
+      "appears_document_only": false,
+      "read_only_declared": false,
+      "non_productive_declared": true,
+      "write_guard_declared": true,
+      "metadata_fields_declared": true
+    },
+    {
+      "candidate_name": "shadow_only_outbox_events_shadow_outcome_extension",
+      "candidate_type": "sql_contract",
+      "file_path": "sql/migrations/2026-06-28-add_shadow_outcome_to_shadow_only_outbox_events.sql",
+      "evidence_excerpt_short": "Adds shadow_outcome and shadow_outcome metadata; file states no DB/Supabase connection is opened and no authority is created.",
+      "appears_executable": false,
+      "appears_document_only": false,
+      "read_only_declared": false,
+      "non_productive_declared": true,
+      "write_guard_declared": true,
+      "metadata_fields_declared": true
+    },
+    {
+      "candidate_name": "OPTION_A_NON_PRODUCTIVE_SHADOW_OUTBOX_PROVISIONING_V1",
+      "candidate_type": "evidence",
+      "file_path": "docs/audits/_eve_organism_option_a_non_productive_shadow_outbox_provisioning_v1.json",
+      "evidence_excerpt_short": "migration_applied true and dynamic tests passed in local non-productive Docker target; cleanup stopped and removed the container with no persistent volume.",
+      "appears_executable": false,
+      "appears_document_only": true,
+      "read_only_declared": false,
+      "non_productive_declared": true,
+      "write_guard_declared": true,
+      "metadata_fields_declared": true
+    },
+    {
+      "candidate_name": "NonProductiveBridgeReaderRealSourceAdapter",
+      "candidate_type": "adapter",
+      "file_path": "src/services/eve-organism-bridge-reader-real-source-adapter.ts",
+      "evidence_excerpt_short": "sourceName shadow_only_outbox_events; readOnly true; sourceConnected false; realTableRead false; localInMemoryRecordsOnly true.",
+      "appears_executable": true,
+      "appears_document_only": false,
+      "read_only_declared": true,
+      "non_productive_declared": true,
+      "write_guard_declared": true,
+      "metadata_fields_declared": true
+    },
+    {
+      "candidate_name": "Gate2RealShadowBridgeReader",
+      "candidate_type": "service",
+      "file_path": "src/services/eve-organism-gate2-real-shadow-bridge-reader.ts",
+      "evidence_excerpt_short": "Allowed sources are shadow_only_outbox_events, fixture and local_memory; mode NON_PRODUCTIVE_READ_ONLY; authority flags remain false.",
+      "appears_executable": true,
+      "appears_document_only": false,
+      "read_only_declared": true,
+      "non_productive_declared": true,
+      "write_guard_declared": true,
+      "metadata_fields_declared": true
+    },
+    {
+      "candidate_name": "SAFE_SHADOW_INFRASTRUCTURE_INVENTORY_V1",
+      "candidate_type": "doc_contract",
+      "file_path": "docs/audits/_eve_organism_safe_shadow_infrastructure_inventory_v1.json",
+      "evidence_excerpt_short": "safe infrastructure inventory declares shadow mirror/outbox, append-only/read-replica and separate read-only credentials as missing.",
+      "appears_executable": false,
+      "appears_document_only": true,
+      "read_only_declared": false,
+      "non_productive_declared": false,
+      "write_guard_declared": false,
+      "metadata_fields_declared": true
+    }
+  ],
+  "classification": {
+    "executable_source_found": false,
+    "sql_or_ddl_candidate_found": true,
+    "document_contract_found": true,
+    "local_demo_adapter_found": true,
+    "ambiguous_candidate_found": false
+  },
+  "strongest_candidate": {
+    "candidate_name": "shadow_only_outbox_events",
+    "candidate_type": "sql_contract",
+    "file_path": "sql/migrations/2026-06-27-create-shadow-only-outbox-events.sql",
+    "why_strongest": "It is the concrete table/view-level candidate with required event metadata and append-only mutation guards, backed by prior non-productive provisioning evidence, but it is not currently provisioned or connected for read-only execution."
+  },
+  "minimum_contract_coverage": {
+    "source_name_declared": true,
+    "source_type_declared": true,
+    "non_productive_declared": true,
+    "read_only_credentials_declared": false,
+    "service_role_forbidden": true,
+    "event_table_or_view_declared": true,
+    "read_path_declared": false,
+    "write_guard_declared": true,
+    "tenant_scope_field_declared": true,
+    "correlation_field_declared": true,
+    "idempotency_field_declared": true,
+    "provenance_field_declared": true,
+    "official_outcome_field_declared": true,
+    "shadow_outcome_field_declared": true,
+    "replay_key_or_determinism_declared": true,
+    "created_or_occurred_at_declared": true
+  },
+  "decision": {
+    "ready_for_read_only_execution": false,
+    "requires_provisioning": true,
+    "requires_design": false,
+    "requires_human_owner_input": false,
+    "decision_summary": "A safe shadow source candidate exists as SQL/DDL, contract and historical non-productive provisioning evidence, but no current executable read-only source, separate read-only credential declaration, connected read path, sourceConnected=true or realTableRead=true was found."
+  },
+  "side_effects": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "writes_attempted": false,
+    "write_count": 0,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "runtime_mutated": false,
+    "object_inventory_mutated": false,
+    "mba_written": false,
+    "parallel_production_real_started": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false
+  },
+  "next_step": "PROVISION_GATE_2_SAFE_SHADOW_SOURCE_MINIMAL_CONTRACT_V1"
+}

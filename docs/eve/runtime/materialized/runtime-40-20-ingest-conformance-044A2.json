@@ -1,0 +1,40 @@
+{
+  "instruction": "044-A.2",
+  "classification": "response_ingest_real_path_conformant",
+  "production_consulted": false,
+  "gaby_touched": false,
+  "e2e_full_executed": false,
+  "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "renderer_regression": false,
+  "materiality_before": "partial (catch→ok:true + Object.entries(answers) recovery)",
+  "materiality_after": "implemented_and_connected",
+  "executable_path": {
+    "entry": "advanceGovernedExecution(action=ingest_response)",
+    "organ": "ingestRuntime4020ResponseLocal",
+    "file": "src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-service.ts",
+    "connection_file": "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts"
+  },
+  "bypass_removed": {
+    "catch_ok_true": true,
+    "ingest_candidate_ready_fallback": true,
+    "object_entries_answers_recovery": true
+  },
+  "subfield_source": "runtime_subfield_schema via ViewModel.subfields + ingest candidates",
+  "evidence_source": "ingest.evidence_item_candidates",
+  "scenarios": {
+    "A_valid_b0q01": "pass",
+    "B_missing_required_subfield": "pass",
+    "C_invalid_instance": "pass",
+    "D_induced_organ_failure": "pass",
+    "E_no_catch_ok_true_and_double_ingest": "pass"
+  },
+  "failure_contract": {
+    "on_ingest_fail": "throw blocked_real_ingest_path_failed",
+    "response_record": 0,
+    "runtime_subfield_response": 0,
+    "evidence_item": 0,
+    "canonical_variable_record": 0,
+    "budget_delta": 0,
+    "state_advance": false
+  }
+}

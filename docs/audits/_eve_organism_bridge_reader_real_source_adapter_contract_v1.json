@@ -1,0 +1,100 @@
+{
+  "contract_id": "NON_PRODUCTIVE_BRIDGE_READER_REAL_SOURCE_ADAPTER_CONTRACT_V1",
+  "adapter_contract_name": "NonProductiveBridgeReaderRealSourceAdapterContract",
+  "adapter_contract": {
+    "adapterName": "string",
+    "sourceName": "shadow_only_outbox_events",
+    "sourceKind": "shadow_outbox",
+    "mode": "NON_PRODUCTIVE_REAL_SOURCE_READ_ONLY",
+    "readOnly": true,
+    "shadowOnly": true,
+    "writesAllowed": false,
+    "observerRequired": false,
+    "gate3Required": false,
+    "fase9Required": false,
+    "registryWriteAllowed": false,
+    "exportAllowed": false,
+    "diagnosisAllowed": false,
+    "dbWriteAllowed": false,
+    "productiveAuthorityGranted": false,
+    "feeds_existing_bridge_reader": true,
+    "replaces_bridge_reader": false,
+    "reinterprets_divergence": false,
+    "decides_promotion": false,
+    "grants_authority": false
+  },
+  "future_functions_expected": [
+    "getAdapterContract",
+    "validateSourceRecord",
+    "mapToShadowOnlyOutboxEventRecord",
+    "getSourceReadiness",
+    "produceBridgeReaderInput",
+    "evaluateAdapterNoGo"
+  ],
+  "source_record_contract": {
+    "source_record_name": "NonProductiveBridgeReaderRealSourceRecord",
+    "required_fields": [
+      "eventId",
+      "tenantId",
+      "sessionId",
+      "activityId",
+      "correlationId",
+      "idempotencyKey",
+      "sourceRef",
+      "provenance",
+      "occurredAt",
+      "eventType",
+      "payload",
+      "officialOutcome",
+      "shadowOutcome"
+    ],
+    "required_if_available_fields": [
+      "replayId",
+      "traceId",
+      "schemaVersion",
+      "producer",
+      "checksum",
+      "noGoFlags",
+      "evidenceRefs",
+      "sourceCreatedAt",
+      "sourceSequence",
+      "sourcePartition",
+      "sourceTenantBoundary",
+      "sourceReadMode"
+    ],
+    "known_gaps": [
+      {
+        "field": "shadowOutcome",
+        "status": "required_gap",
+        "reason": "shadow_only_outbox_events migration proves official_outcome but does not prove a direct shadow_outcome column."
+      },
+      {
+        "field": "sourceSequence",
+        "status": "required_if_available_gap",
+        "reason": "Not proven as a current column in the shadow_only_outbox_events migration."
+      },
+      {
+        "field": "sourcePartition",
+        "status": "required_if_available_gap",
+        "reason": "Not proven as a current column in the shadow_only_outbox_events migration."
+      },
+      {
+        "field": "sourceReadMode",
+        "status": "required_if_available_gap",
+        "reason": "Must be asserted by the future read-only adapter, not inferred from DB writes."
+      }
+    ]
+  },
+  "readiness_states": [
+    "ready_for_non_productive_design",
+    "ready_for_non_productive_implementation",
+    "ready_with_gaps",
+    "blocked_by_missing_required_context",
+    "blocked_by_write_risk",
+    "blocked_by_observer_dependency",
+    "blocked_by_gate3_or_fase9_dependency",
+    "blocked_by_registry_export_diagnosis_dependency"
+  ],
+  "implementation_now": false,
+  "source_connected": false
+}

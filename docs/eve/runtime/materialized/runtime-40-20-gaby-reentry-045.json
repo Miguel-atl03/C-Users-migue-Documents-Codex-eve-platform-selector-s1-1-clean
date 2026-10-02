@@ -1,0 +1,84 @@
+{
+  "instruction": "045",
+  "generated_at": "2026-08-09",
+  "staging_project_ref": "shrpiwkxcdgvbqymjecx",
+  "production_contacted": false,
+  "remote_writes": "none",
+  "active_full_catalog": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "runtime_xlsx_sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+  "source_evidence": {
+    "044_closure": "docs/eve/runtime/materialized/runtime-40-20-synthetic-e2e-closure-044A6R.json",
+    "043_postactivation": "docs/eve/runtime/materialized/runtime-40-20-staging-postactivation-snapshot-043.json",
+    "governed_execution_service": "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts",
+    "governed_execution_route": "src/app/api/eve/runtime-40-20/governed-execution/advance/route.ts",
+    "client_bff_service": "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff-service.ts",
+    "client_bff_routes": [
+      "src/app/api/eve/runtime-40-20/client-bff/session/route.ts",
+      "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts"
+    ],
+    "panel_tests": "tests/regression/consultant-control-panel/consultant-control-panel.test.mjs"
+  },
+  "staging_catalog_status_read": {
+    "active_versions": 1,
+    "superseded_versions": 1,
+    "full_status": "active",
+    "b0_status": "superseded",
+    "full_source_xlsx_checksum": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+    "writes_performed": false
+  },
+  "local_tests": [
+    {
+      "name": "governed execution",
+      "command": "node --test src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution.test.mjs",
+      "result": "pass",
+      "passed": 4,
+      "failed": 0
+    },
+    {
+      "name": "runtime real local adapter",
+      "command": "node --test src/services/eve/runtime-40-20/runtime-real/runtime-40-20-runtime-real.test.mjs",
+      "result": "pass",
+      "passed": 20,
+      "failed": 0
+    },
+    {
+      "name": "client BFF",
+      "command": "node --test src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff.test.mjs",
+      "result": "fail",
+      "passed": 38,
+      "failed": 1,
+      "blocker": "Import guard detects active client-bff route importing createAuthenticatedServerSupabaseClient from @/lib/supabase-server."
+    },
+    {
+      "name": "consultant control panel",
+      "command": "node --test tests/regression/consultant-control-panel/consultant-control-panel.test.mjs",
+      "result": "pass",
+      "passed": 19,
+      "failed": 0
+    },
+    {
+      "name": "typecheck",
+      "command": "npm.cmd run typecheck",
+      "result": "fail",
+      "blocker": "Typecheck includes documentation code snapshots under docs/eve/runtime/materialized/_044A6_bundle_staging/code-snapshot with unresolved relative imports."
+    }
+  ],
+  "material_blockers": [
+    {
+      "code": "blocked_gaby_reentry",
+      "evidence": "The governed execution action set is synthetic-only for the 044 path: start_synthetic_run requires synthetic_case_token. The BFF real path is local-only/dependency-blocked and its own import guard fails."
+    },
+    {
+      "code": "blocked_security_boundary",
+      "evidence": "Client BFF test fails because active client-bff routes import Supabase server client; promotion cannot proceed under the current guard."
+    }
+  ],
+  "classification": "blocked_gaby_reentry",
+  "objective": "Reanudar Gaby sobre FULL Runtime 40/20 activo en staging.",
+  "result": "blocked",
+  "attempted_execution": false,
+  "reason": "No se ejecutó sesión real de Gaby porque la frontera material encontrada no provee una ruta gobernada de reentrada real en staging. La ruta 044 es sintética y la BFF real está bloqueada/local-only.",
+  "gaby_delta_from_044": 0,
+  "b0_modified": false,
+  "gaby_modified": false
+}

@@ -1,0 +1,49 @@
+{
+  "auditId": "EVE-03-CANONICAL-CATALOG-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "CANONICAL_CATALOG_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "blockingGaps": [],
+  "nonBlockingGaps": [
+    {
+      "gapId": "FIELD_LEVEL_SOURCE_PROOF_PENDING",
+      "severity": "medium",
+      "detail": "Mapping is initial at source unit to target artifact level; field-level source proof is pending."
+    },
+    {
+      "gapId": "SOURCE_UNITS_NOT_EXHAUSTIVELY_INVENTORIED",
+      "severity": "medium",
+      "detail": "Sheets and sections were inventoried initially, but every row/cell/paragraph unit was not exhaustively mapped."
+    },
+    {
+      "gapId": "NOT_A_PROMPT_TOP_LEVEL_MISSING",
+      "severity": "low",
+      "detail": "not_a_prompt was not found as a top-level identity field in the inspected package identity."
+    },
+    {
+      "gapId": "PACKAGE_ID_MINOR_MISMATCH",
+      "severity": "low",
+      "detail": "JSON package_id and manifest package_id differ by inclusion of Chip."
+    },
+    {
+      "gapId": "PACKAGE_XLSX_VS_D8_CONTENT_DIFF_PENDING",
+      "severity": "medium",
+      "detail": "The package XLSX and D8 were opened, but row-by-row content equivalence was not audited."
+    },
+    {
+      "gapId": "ROOT_JSON_VS_INTERNAL_JSON_DEEP_DIFF_PENDING",
+      "severity": "medium",
+      "detail": "Root/internal JSONs parse and align at high level, but deep record-level diff remains pending."
+    },
+    {
+      "gapId": "READY_WITH_FLAGS_REQUIRES_FOLLOWUP_QA",
+      "severity": "medium",
+      "detail": "Package status is READY_WITH_FLAGS, so a later exhaustive QA pass should resolve or accept flags."
+    }
+  ],
+  "wiringRisk": {
+    "runtimeAuthority": false,
+    "productImports": false,
+    "registryWrite": false,
+    "uiProductive": false,
+    "note": "WorkMapIntake references are catalog content references, not code wiring."
+  }
+}

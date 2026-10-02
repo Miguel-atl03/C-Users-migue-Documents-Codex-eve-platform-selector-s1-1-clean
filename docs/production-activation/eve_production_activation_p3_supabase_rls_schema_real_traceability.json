@@ -1,0 +1,50 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P3_SUPABASE_RLS_SCHEMA_REAL_COMPLETED",
+  "plan_phase": "Production activation — P3 Supabase / RLS / schema real",
+  "entry_conditions": {
+    "p0_p1r_accepted": true,
+    "p2_bff_security_contract_passed": true,
+    "p2_supabase_touched": false,
+    "p2_sql_executed": false
+  },
+  "sources_active": [
+    "Minimal Business Architecture EVE - Activación Total Plataforma EVE.pdf (checklist reference; PDF not present in repo workspace)",
+    "Marco Sistémico Estructural Oficial actual de EVE (via existing runtime architecture docs)",
+    "MMABP_Minimal_Business_Architecture_EVE_v1_1_B3_B7_alineado (via existing services/contracts)",
+    "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1 (via execution-core schema services)",
+    "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado (via catalog persistence contracts)",
+    "EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7 (via Capa1 scene schema references)",
+    "P0/P1-R accepted closeout",
+    "P2 BFF accepted closeout"
+  ],
+  "sources_not_used": [
+    "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+    "Plan_integracion_implementacion_trazabilidad_Runtime_40_20_EVE_MBA_actualizado",
+    "Handoff Gate 2 → Gate 5"
+  ],
+  "artifacts_created": [
+    "supabase/migrations/20260708123000_eve_runtime_40_20_p3_schema_rls.sql",
+    "scripts/eve/production-activation/p3-validate-runtime-schema.mjs",
+    "scripts/eve/production-activation/p3-validate-rls-policies.mjs",
+    "scripts/eve/production-activation/p3-scan-service-role-exposure.mjs",
+    "docs/production-activation/eve_production_activation_p3_supabase_rls_schema_real_closeout.md",
+    "docs/production-activation/eve_production_activation_p3_supabase_rls_schema_real_traceability.json",
+    "docs/production-activation/eve_production_activation_p3_supabase_schema_inventory.json",
+    "docs/production-activation/eve_production_activation_p3_rls_policy_inventory.json",
+    "docs/production-activation/eve_production_activation_p3_service_role_exposure_scan.json",
+    "docs/production-activation/eve_production_activation_p3_command_results.json",
+    "docs/production-activation/eve_production_activation_p3_boundary_ledger.json",
+    "docs/production-activation/eve_production_activation_p3_no_go_checklist.json"
+  ],
+  "artifacts_modified": [
+    "package.json"
+  ],
+  "readiness": {
+    "p3_supabase_rls_schema_passed": true,
+    "ready_for_p4_runtime_real_behind_significado": true,
+    "ready_for_production_activation": false,
+    "activation_allowed": false
+  },
+  "next_authorization_required": true,
+  "next_tree_point": "P4 — Runtime 40/20 real behind Significado, only after P3 accepted"
+}

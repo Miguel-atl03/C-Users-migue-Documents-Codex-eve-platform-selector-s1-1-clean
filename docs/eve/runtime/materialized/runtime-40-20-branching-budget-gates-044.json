@@ -1,0 +1,52 @@
+{
+  "instruction": "044",
+  "artifact": "runtime-40-20-branching-budget-gates-044",
+  "synthetic_run_id": "261fdbbd-6bca-43ee-91e7-4b6204fb55aa",
+  "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "branching": {
+    "persisted_count": 2,
+    "source": "runtime_branching_rule.opens_nodes catalog literals",
+    "heuristic_branching": false,
+    "llm_free_routing": false,
+    "demonstrated_routes": [
+      {
+        "from": "B3-Q22",
+        "to": "C09",
+        "rule_signal": "catalog_signal:rechazo",
+        "critical_route": "B3/C09 receiver_feedback / route_missing"
+      },
+      {
+        "from": "B7-Q39",
+        "to": "C20",
+        "rule_signal": "catalog_solo_si:baja confianza",
+        "critical_route": "B7/C20 AHE boundary (no diagnosis/IR)"
+      }
+    ]
+  },
+  "budget": {
+    "persisted_ledger_count": 6,
+    "run_base_visible_count": 4,
+    "run_causal_visible_count": 2,
+    "max_base": 40,
+    "max_causal": 20,
+    "base_exceeded": false,
+    "causal_exceeded": false,
+    "note": "Complete E2E means terminal readiness, not exhaustion of 60 interactions"
+  },
+  "semantic_gates": {
+    "sem_events": 1,
+    "demonstrated": ["SEM-001"],
+    "blocks_projection_when_required": true
+  },
+  "process_state_timer": {
+    "pst_events": 1,
+    "release_path": "release_timer with authorized test_clock fixture",
+    "deadlock_avoided": true
+  },
+  "critical_routes": {
+    "B0": "evaluated inside FULL (not superseded B0 catalog)",
+    "B2": "path exercised when interaction present",
+    "B3_C09": "branching + capture demonstrated",
+    "B7_C20": "boundary evaluated; no diagnosis/IR emission"
+  }
+}

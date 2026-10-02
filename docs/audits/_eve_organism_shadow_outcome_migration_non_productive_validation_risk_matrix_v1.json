@@ -1,0 +1,38 @@
+{
+  "risk_matrix_id": "SHADOW_OUTCOME_MIGRATION_NON_PRODUCTIVE_VALIDATION_RISK_MATRIX_V1",
+  "risks_total": 4,
+  "risks": [
+    {
+      "option_id": "OPTION_A",
+      "risk_level": "low",
+      "risk_description": "Static review does not prove physical schema behavior, but preserves all authority boundaries.",
+      "mitigation": "Use static requirements and keep physical validation blocked until explicit non-productive target approval.",
+      "allowed_now": true,
+      "blocks_next_step": false
+    },
+    {
+      "option_id": "OPTION_B",
+      "risk_level": "medium",
+      "risk_description": "No migration-specific safe no-op tooling is currently verified.",
+      "mitigation": "Require explicit tooling evidence before any dry-run/no-op path.",
+      "allowed_now": false,
+      "blocks_next_step": false
+    },
+    {
+      "option_id": "OPTION_C",
+      "risk_level": "high",
+      "risk_description": "A non-productive DB validation target would approach execution and must not be inferred.",
+      "mitigation": "Require separate explicit approval and target attestation before physical validation.",
+      "allowed_now": false,
+      "blocks_next_step": false
+    },
+    {
+      "option_id": "OPTION_D",
+      "risk_level": "medium",
+      "risk_description": "Blocking the path would delay readiness despite available migration and static review evidence.",
+      "mitigation": "Do not block; select static review only.",
+      "allowed_now": false,
+      "blocks_next_step": true
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "audit_id": "EVE-07-SOURCE-MISMATCH-TRIAGE-V1",
+  "audit_date": "2026-06-22",
+  "dictamen": "SOURCE_MISMATCH_TRIAGE_PASSED_EQUIVALENT_READY_FOR_PREFLIGHT_RETRY",
+  "affected_package": "docs/chips/parallel-production-interface/EVE_07_Parallel_Production_Interface_v0_1_1_candidate",
+  "created_candidate": "docs/chips/parallel-production-interface/EVE_07_Parallel_Production_Interface_v0_1_2_candidate",
+  "next_step": "SOURCE_PREFLIGHT_V1_RETRY",
+  "scope": "Surgical source mismatch triage only. No install, no runtime connection, no shadow activation, no src/tests/package.json changes, no EVE03/EVE06 changes.",
+  "eve03": {
+    "declared_sha": "265d9a0714937f4a9dd7d3833b1e36f53f61ef8271ae7fb46c73443402e5ede0",
+    "actual_sha": "d34e9fc6fbc226641996da98fb42cc69efdd98158460bf2b7db123917d0226f7",
+    "functionally_equivalent": true,
+    "consumed_by_eve07": [
+      "chip_id",
+      "version",
+      "source_node_registry",
+      "source_code_registry",
+      "canonical_variables",
+      "critical_routes",
+      "epistemic_policy"
+    ],
+    "observed_contract": {
+      "chip_id": "EVE-03-CANONICAL-CATALOG",
+      "version": "0.1.0",
+      "modules_present": [
+        "source_node_registry",
+        "source_code_registry",
+        "canonical_variables",
+        "node_variable_map",
+        "critical_routes",
+        "epistemic_policy",
+        "vsm_prep_guard"
+      ],
+      "source_node_registry_count": 164,
+      "source_code_registry_count": 164,
+      "critical_routes_count": 4
+    },
+    "source_proof_locator_checks": [
+      {
+        "ref": "EVE03:source_node_registry",
+        "locator": "$.modules.source_node_registry[16].mmabp_quadrant_primary",
+        "expected": "Governance/Readiness",
+        "actual": "Governance/Readiness",
+        "pass": true
+      },
+      {
+        "ref": "EVE03:source_code_registry",
+        "locator": "$.modules.source_code_registry[0].source_document",
+        "expected": "Bloque_0_Documento_Madre_Capa1_v2_1_EVE_rev4_redisenado_robusto.docx",
+        "actual": "Bloque_0_Documento_Madre_Capa1_v2_1_EVE_rev4_redisenado_robusto.docx",
+        "pass": true
+      }
+    ],
+    "reason": "EVE07 only consumes stable EVE03 registry surfaces and two source-proof locators; the current EVE03 keeps chip/version, required modules, registry counts, and both consumed locators unchanged for EVE07 purposes."
+  },
+  "eve06": {
+    "declared_sha": "c496efc42327ee8ee42531e87b93c75ab738b17d405fe2537aa225c8257e15fe",
+    "actual_sha": "da24945129cfd23b6fd39739bc6b7c358a21b76ad5ee40e799a93bb8d276e1e5",
+    "functionally_equivalent": true,
+    "consumed_by_eve07": [
+      "activity_runtime_run",
+      "interaction_instance",
+      "response_ingest",
+      "evidence_item",
+      "canonical_variable_record",
+      "structural_candidate_record",
+      "execution_pipeline",
+      "readiness/candidate handoff semantics"
+    ],
+    "observed_contract": {
+      "chip_id": "EVE-06-EXECUTION-ENGINE",
+      "version": "0.1.0",
+      "modules_present": [
+        "activity_runtime_run",
+        "interaction_instance",
+        "response_ingest",
+        "evidence_item",
+        "canonical_variable_record",
+        "structural_candidate_record"
+      ],
+      "atomic_rules": 135,
+      "source_proof_pending": 0,
+      "active_runtime_authority": false,
+      "product_wiring": false,
+      "database_migrations_applied": false,
+      "registry_write": false,
+      "diagnosis_enabled": false,
+      "export_enabled": false,
+      "parallel_production_enabled": false
+    },
+    "referenced_rule_ids_found": [
+      "ARR-001",
+      "ARR-002",
+      "ARR-003",
+      "ARR-004",
+      "CVR-003",
+      "CVR-006",
+      "CVR-007",
+      "CVR-008",
+      "CVR-015",
+      "EVI-001",
+      "EVI-002",
+      "EVI-005",
+      "EVI-014",
+      "RSP-007",
+      "RSP-008",
+      "SCR-001",
+      "SCR-005",
+      "SCR-015",
+      "SCR-016",
+      "SCR-017"
+    ],
+    "source_proof_semantic_check": {
+      "eve06_proofs_checked": 35,
+      "semantic_mismatches": 0,
+      "fields_checked": [
+        "rule_id",
+        "module",
+        "category",
+        "statement",
+        "condition",
+        "action",
+        "blocking",
+        "severity"
+      ]
+    },
+    "reason": "All EVE06 modules and rule IDs consumed by EVE07 are present in the current EVE06. For the 35 EVE06 proof units, the normative fields used by EVE07 match the current source: rule_id, module, category, statement, condition, action, blocking, and severity."
+  },
+  "incompatibility_checks": {
+    "field_name_used_by_eve07_changed": false,
+    "schema_used_by_eve07_removed": false,
+    "incompatible_type_change_detected": false,
+    "candidate_export_readiness_semantic_change_detected": false,
+    "productive_boundary_change_detected": false,
+    "registry_export_diagnosis_productive_enablement_detected": false,
+    "source_proof_matrix_break_detected": false,
+    "ts_smoke_semantics_break_detected": false
+  },
+  "candidate_v0_1_2": {
+    "created": true,
+    "rule_logic_changed": false,
+    "blocker_logic_changed": false,
+    "exb_031_changed": false,
+    "runtime_contract_changed": false,
+    "shadow_activated": false,
+    "updated_only": [
+      "package/version references",
+      "EVE03 declared sha metadata",
+      "EVE06 declared sha metadata",
+      "artifact filenames",
+      "artifact inventory hashes after metadata/version update"
+    ],
+    "files": [
+      {
+        "file": "AUDIT_EVE_07_Parallel_Production_Interface_v0_1_2_candidate_CERTIFICATION.md",
+        "size_bytes": 4031,
+        "sha256": "be49b6767d9450f3705c21479a4ffb0e6d4d11ecf5b9fd3a898ad57e9ae8d5b3"
+      },
+      {
+        "file": "EVE_07_Parallel_Production_Interface_v0_1_2_candidate.certification_report.json",
+        "size_bytes": 8909,
+        "sha256": "69423b0a546abf37374095e5e45145902dd4e6de26e3d940b92c6e689a0ba6f2"
+      },
+      {
+        "file": "EVE_07_Parallel_Production_Interface_v0_1_2_candidate.docx",
+        "size_bytes": 123986,
+        "sha256": "915b23564d910a599f2af4eeadb92fc4f109bc7d0632cef7f22bf72c79597a11"
+      },
+      {
+        "file": "EVE_07_Parallel_Production_Interface_v0_1_2_candidate.json",
+        "size_bytes": 219436,
+        "sha256": "e442323a7c128444485439212d7b8b6eda55112627469c6a24c406d614dd9314"
+      },
+      {
+        "file": "EVE_07_Parallel_Production_Interface_v0_1_2_candidate.manifest.json",
+        "size_bytes": 12106,
+        "sha256": "b1cd806378ad85df16047ff5e83c618e37d2cb46c640f27dc10615772d48def1"
+      },
+      {
+        "file": "EVE_07_Parallel_Production_Interface_v0_1_2_candidate.md",
+        "size_bytes": 132452,
+        "sha256": "49ae83bb283343bc24466308bdf41615960e0e65a8ef2360cc615036034b18e4"
+      },
+      {
+        "file": "EVE_07_Parallel_Production_Interface_v0_1_2_candidate.source_proof_matrix.json",
+        "size_bytes": 469649,
+        "sha256": "38c8613126e2f6ea3e6e8ee228ebc73551c8de4caf49fdf838554e3f0a7ab7fe"
+      },
+      {
+        "file": "EVE_07_Parallel_Production_Interface_v0_1_2_candidate.ts",
+        "size_bytes": 225414,
+        "sha256": "ddda3131d2952a1375a28861896eecc4494e5441b7b7b9a8b67fa563c44d4e16"
+      }
+    ]
+  },
+  "minimum_tests": {
+    "json_parse_ok": true,
+    "manifest_parse_ok": true,
+    "source_proof_matrix_parse_ok": true,
+    "source_proof_rows": 154,
+    "source_proof_certified": 154,
+    "source_proof_unresolved": 0,
+    "old_eve03_sha_absent_from_candidate_text": true,
+    "old_eve06_sha_absent_from_candidate_text": true,
+    "old_v0_1_1_candidate_refs_absent_from_candidate_text": true,
+    "docx_old_refs_absent_after_ooxml_patch": true,
+    "eve03_declared_sha_matches_current": true,
+    "eve06_declared_sha_matches_current": true,
+    "exb_031_predicate_ok": true,
+    "no_productive_wiring_pass": true,
+    "render_visual_qa": "not_completed",
+    "render_visual_qa_note": "DOCX render attempted through documents skill render_docx.py using a short temp path; it failed because the conversion executable was not found in this Windows runtime."
+  },
+  "exb_031": {
+    "pass": true,
+    "predicate_expression": "Boolean(c.overrideRequested) && !c.overrideAudited"
+  },
+  "no_productive_wiring": {
+    "pass": true,
+    "flags": {
+      "active_runtime_authority": false,
+      "product_wiring": false,
+      "database_migrations_applied": false,
+      "registry_write": false,
+      "diagnosis_enabled": false,
+      "final_export_enabled": false,
+      "final_transduction_enabled": false,
+      "parallel_production_enabled": false
+    }
+  },
+  "files_created": [
+    "docs/chips/parallel-production-interface/EVE_07_Parallel_Production_Interface_v0_1_2_candidate/**",
+    "docs/audits/AUDIT_EVE_07_SOURCE_MISMATCH_TRIAGE_V1.md",
+    "docs/audits/_eve_07_source_mismatch_triage_v1.json"
+  ],
+  "files_modified": [],
+  "non_actions": {
+    "installed": false,
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "src_modified": false,
+    "tests_modified": false,
+    "package_json_modified": false,
+    "eve03_modified": false,
+    "eve06_modified": false,
+    "commit": false,
+    "reset": false,
+    "stash": false,
+    "checkout": false,
+    "git_clean": false
+  }
+}

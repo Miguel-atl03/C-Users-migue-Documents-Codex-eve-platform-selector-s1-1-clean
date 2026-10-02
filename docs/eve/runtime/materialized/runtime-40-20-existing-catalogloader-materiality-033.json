@@ -1,0 +1,539 @@
+{
+  "instruction": "Codex 033 - Reutilizar y completar el CatalogLoader material existente",
+  "generated_at": "2026-08-05T17:49:02.905666+00:00",
+  "worktree": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform-operational-baseline-c312\\external-consumers\\eve-platform",
+  "restrictions_observed": {
+    "production_contacted": false,
+    "staging_contacted": true,
+    "staging_query_type": "SELECT only: pg_enum contract query 032B",
+    "writes_performed": false,
+    "code_modified": false,
+    "migrations_created": false,
+    "loader_created": false,
+    "commit_created": false,
+    "b0_modified": false,
+    "gaby_modified": false,
+    "sessions_runs_responses_modified": false
+  },
+  "existing_organ_candidates": [
+    {
+      "path": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-rector-catalog-loader-service.ts",
+      "function": "runRuntime4020RectorCatalogLoader",
+      "port_or_adapter": "local XLSX/DOCX extraction service",
+      "tests": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-rector-catalog-loader.test.mjs",
+      "tables_written": [],
+      "execution_path": "document_paths -> ZIP/XLSX parser -> extraction_report; no Supabase, no SQL, runtime_40_20_started=false",
+      "classification": "partial",
+      "reusability_for_public_runtime_loader": "not_reusable_as_persistence_loader"
+    },
+    {
+      "path": "src/services/eve/runtime-40-20/catalog-import/runtime-40-20-catalog-import-payload-builder-service.ts",
+      "function": "buildRuntime4020CatalogImportPayload",
+      "port_or_adapter": "local payload builder",
+      "tests": "src/services/eve/runtime-40-20/catalog-import/runtime-40-20-catalog-import-payload-builder.test.mjs",
+      "tables_written": [],
+      "target_tables_in_payload": "eve_runtime_*",
+      "execution_path": "canonicalization_result -> local draft_import_payload; no database writes",
+      "classification": "partial",
+      "reusability_for_public_runtime_loader": "not_reusable_without forbidden eve_runtime_* dependency and blocked identity/transform governance"
+    },
+    {
+      "path": "src/services/eve/runtime-40-20/catalog-import/runtime-40-20-catalog-import-persistence-dry-run-service.ts",
+      "function": "runRuntime4020CatalogImportPersistenceDryRun",
+      "port_or_adapter": "in_memory_dry_run_adapter",
+      "tests": "src/services/eve/runtime-40-20/catalog-import/runtime-40-20-catalog-import-persistence-dry-run.test.mjs",
+      "tables_written": [],
+      "target_tables_in_plan": "eve_runtime_*",
+      "execution_path": "payload -> dependency order simulation; real_persistence_allowed=false",
+      "classification": "partial",
+      "reusability_for_public_runtime_loader": "not_reusable_as real public.runtime_* loader"
+    },
+    {
+      "path": "supabase/migrations/20260803113000_eve_runtime_b0_catalog_for_significado.sql",
+      "function": "SQL seed, not code loader",
+      "port_or_adapter": "migration seed",
+      "tests": "B0 adapter/response tests plus migration presence; no generic loader tests",
+      "migration_or_contract_used": "public.runtime_catalog_version and public.runtime_interaction_def",
+      "tables_written": [
+        "public.runtime_catalog_version",
+        "public.runtime_interaction_def"
+      ],
+      "execution_path": "manual/versioned SQL seed -> fixed B0 catalog version -> four B0 interactions",
+      "classification": "implemented_and_connected_for_B0_seed_only",
+      "reusability_for_public_runtime_loader": "B0_specific"
+    },
+    {
+      "path": "src/services/significado-runtime-block0-repository.ts",
+      "function": "persistCanonicalSignificadoBlock0 / ensureRuntimeCatalogVersion",
+      "port_or_adapter": "service-role Supabase repository for participant B0 responses",
+      "tables_written": [
+        "role_runtime_session",
+        "activity_runtime_run",
+        "runtime_interaction_instance",
+        "response_record",
+        "runtime_subfield_response",
+        "evidence_item",
+        "canonical_variable_record",
+        "runtime_audit_trail"
+      ],
+      "execution_path": "authenticated participant context -> active runtime/run -> hard-coded EVE_RUNTIME_40_20_B0_V1 repair -> response/evidence persistence",
+      "classification": "implemented_and_connected_for_B0_runtime_responses",
+      "reusability_for_public_runtime_loader": "not catalog loader; writes runtime evidence, not draft catalog"
+    },
+    {
+      "path": "src/services/runtime-block0-catalog-adapter.ts + src/features/runtime/block0-catalog-snapshot.ts",
+      "function": "getRuntimeBlock0InteractionViewModels / getRuntimeBlock0InteractionById",
+      "port_or_adapter": "static in-process B0 view-model adapter",
+      "tables_written": [],
+      "execution_path": "static snapshot -> cloned view models",
+      "classification": "implemented_and_connected_for_UI_B0_snapshot",
+      "reusability_for_public_runtime_loader": "not database loader"
+    }
+  ],
+  "existing_catalogloader_classification": "partial",
+  "b0_route_materiality": {
+    "catalog_version_id_origin": "literal EVE_RUNTIME_40_20_B0_V1 in SQL seed and Significado repository constant",
+    "version_creation_or_selection": "SQL seed inserts/upserts public.runtime_catalog_version with status active; repository only repairs missing runtime session/run catalog_version_id",
+    "enums_used": {
+      "status": "active",
+      "interaction_group_source": "base_40",
+      "interaction_group_normalized": "base"
+    },
+    "interactions_inserted": 4,
+    "mappings_inserted": 0,
+    "source_node_refs_inserted": 0,
+    "subfields_inserted_into_catalog_table": 0,
+    "subfield_structure_storage": "JSONB array in public.runtime_interaction_def.subfield_structure for four B0 rows",
+    "activation": "B0 SQL seed writes status active directly; no generic QA/activation gate proven",
+    "qa_prior": "not proven as generic loader QA; B0 tests validate static adapter/response behavior",
+    "governed_boundary": "B0-specific Significado participant flow and migration seed",
+    "mechanism_classification": {
+      "catalog_version_id": "B0_specific",
+      "version_seed": "B0_specific",
+      "runtime_response_persistence": "B0_specific",
+      "static_catalog_adapter": "B0_specific",
+      "catalog_loader_extraction": "historical_only",
+      "public_runtime_draft_load": "not_proven"
+    }
+  },
+  "identity_blockers_review": [
+    {
+      "target": "public.runtime_catalog_version.catalog_version_id",
+      "existing_mechanism": "B0 literal constant or SQL seed only",
+      "classification": "catalog_identity_governance_approved",
+      "reason": "Closed by approved governance rule versioned in 034-A; no staging application or loader programming performed.",
+      "previous_classification": "blocked_catalog_identity_governance_missing",
+      "governance_rule": "EVE-RUNTIME-CATID-R1"
+    },
+    {
+      "target": "public.runtime_catalog_artifact_section.catalog_version_id",
+      "existing_mechanism": "B0 literal constant or SQL seed only",
+      "classification": "catalog_identity_governance_approved",
+      "reason": "Closed by approved governance rule versioned in 034-A; no staging application or loader programming performed.",
+      "previous_classification": "blocked_catalog_identity_governance_missing",
+      "governance_rule": "EVE-RUNTIME-CATID-R1"
+    },
+    {
+      "target": "public.source_node_ref.catalog_version_id",
+      "existing_mechanism": "B0 literal constant or SQL seed only",
+      "classification": "catalog_identity_governance_approved",
+      "reason": "Closed by approved governance rule versioned in 034-A; no staging application or loader programming performed.",
+      "previous_classification": "blocked_catalog_identity_governance_missing",
+      "governance_rule": "EVE-RUNTIME-CATID-R1"
+    },
+    {
+      "target": "public.runtime_interaction_def.catalog_version_id",
+      "existing_mechanism": "B0 literal constant or SQL seed only",
+      "classification": "catalog_identity_governance_approved",
+      "reason": "Closed by approved governance rule versioned in 034-A; no staging application or loader programming performed.",
+      "previous_classification": "blocked_catalog_identity_governance_missing",
+      "governance_rule": "EVE-RUNTIME-CATID-R1"
+    },
+    {
+      "target": "public.runtime_interaction_mapping.catalog_version_id",
+      "existing_mechanism": "B0 literal constant or SQL seed only",
+      "classification": "catalog_identity_governance_approved",
+      "reason": "Closed by approved governance rule versioned in 034-A; no staging application or loader programming performed.",
+      "previous_classification": "blocked_catalog_identity_governance_missing",
+      "governance_rule": "EVE-RUNTIME-CATID-R1"
+    },
+    {
+      "target": "public.runtime_subfield_schema.catalog_version_id",
+      "existing_mechanism": "B0 literal constant or SQL seed only",
+      "classification": "catalog_identity_governance_approved",
+      "reason": "Closed by approved governance rule versioned in 034-A; no staging application or loader programming performed.",
+      "previous_classification": "blocked_catalog_identity_governance_missing",
+      "governance_rule": "EVE-RUNTIME-CATID-R1"
+    }
+  ],
+  "field_blockers_review": [
+    {
+      "field": "opens_nodes",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "text[]",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "closes_nodes",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "text[]",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "mutual_exclusion_policy",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "jsonb",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "free_text_weight",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "numeric(8,2)",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "fatigue_policy",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "jsonb",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "must_not_infer",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "boolean",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "canonical_variables",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "text[]",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "required_variables",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "text[]",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "derived_variables",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "text[]",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "optional_variables",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "text[]",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "confirmation_weight",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "numeric(8,2)",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    },
+    {
+      "field": "can_be_inferred_from",
+      "loader_persists": false,
+      "explicit_transformation_found": false,
+      "source_authority": "031C preserves literal source value; 032B found no authorized coercion/parser for remote typed column",
+      "runtime_consumer_found": "not_authorizing_for_loader",
+      "remote_column_type": "text[]",
+      "nullable": "not_rechecked_in_remote_this_instruction",
+      "literal_preservation_without_false_semantics": "raw_row_json/payload_json only; not as active typed semantics",
+      "classification": "blocked_no_transformation_authority"
+    }
+  ],
+  "remote_enum_contract": {
+    "project_name": "eve-staging-onboarding",
+    "project_ref": "shrpiwkxcdgvbqymjecx",
+    "query_source": "docs/eve/runtime/materialized/runtime-40-20-remote-enum-contract-query-032B.sql",
+    "writes_performed": false,
+    "rows": [
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_catalog_status",
+        "enumsortorder": 1,
+        "enumlabel": "draft"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_catalog_status",
+        "enumsortorder": 2,
+        "enumlabel": "active"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_catalog_status",
+        "enumsortorder": 3,
+        "enumlabel": "frozen"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_catalog_status",
+        "enumsortorder": 4,
+        "enumlabel": "superseded"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_catalog_status",
+        "enumsortorder": 5,
+        "enumlabel": "archived"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_epistemic_status",
+        "enumsortorder": 1,
+        "enumlabel": "captured_user_evidence"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_epistemic_status",
+        "enumsortorder": 2,
+        "enumlabel": "ai_inferred_unconfirmed"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_epistemic_status",
+        "enumsortorder": 3,
+        "enumlabel": "user_confirmed_suggestion"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_epistemic_status",
+        "enumsortorder": 4,
+        "enumlabel": "user_corrected_evidence"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_epistemic_status",
+        "enumsortorder": 5,
+        "enumlabel": "user_confirmed_or_corrected_evidence"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_epistemic_status",
+        "enumsortorder": 6,
+        "enumlabel": "canonical_derivation"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_epistemic_status",
+        "enumsortorder": 7,
+        "enumlabel": "internal_calculated"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_epistemic_status",
+        "enumsortorder": 8,
+        "enumlabel": "derived_internal"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_group_normalized",
+        "enumsortorder": 1,
+        "enumlabel": "base"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_group_normalized",
+        "enumsortorder": 2,
+        "enumlabel": "causal"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_group_normalized",
+        "enumsortorder": 3,
+        "enumlabel": "internal"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_group_normalized",
+        "enumsortorder": 4,
+        "enumlabel": "clarification"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_group_normalized",
+        "enumsortorder": 5,
+        "enumlabel": "microconfirmation"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_group_source",
+        "enumsortorder": 1,
+        "enumlabel": "base_40"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_group_source",
+        "enumsortorder": 2,
+        "enumlabel": "causal_20"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_group_source",
+        "enumsortorder": 3,
+        "enumlabel": "internal"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_group_source",
+        "enumsortorder": 4,
+        "enumlabel": "clarification"
+      },
+      {
+        "enum_schema": "public",
+        "enum_name": "eve_runtime_group_source",
+        "enumsortorder": 5,
+        "enumlabel": "microconfirmation"
+      }
+    ],
+    "comparison": {
+      "historical_ddl_032B": "matches exact labels and order observed in staging pg_enum",
+      "xlsx_runtime": "no aliases created; XLSX/Implementation_Dictionaries remain source comparison inputs, not coercion authority",
+      "technical_spec": "no conflict detected by enum SELECT",
+      "remote_conflict": false
+    }
+  },
+  "extension_decision": {
+    "conditions": {
+      "catalogloader_material_exists": false,
+      "b0_material_route_exists": true,
+      "existing_mechanism_reusable": false,
+      "catalog_version_id_has_authority": true,
+      "enums_match": true,
+      "all_required_columns_resolved": false,
+      "no_inferred_transform_needed": false
+    },
+    "code_extension_performed": false,
+    "reason": "After 034-A, catalog identity governance is approved, but extension remains blocked because the existing B0 path is not a reusable CatalogLoader and twelve source-schema semantic transformations remain unresolved."
+  },
+  "tests_executed": [
+    {
+      "name": "rg materiality search",
+      "result": "completed",
+      "writes": false
+    },
+    {
+      "name": "Supabase staging pg_enum SELECT",
+      "result": "completed",
+      "writes": false,
+      "project_ref": "shrpiwkxcdgvbqymjecx"
+    },
+    {
+      "name": "node --test tests/regression/runtime-block0-catalog-adapter.test.ts",
+      "result": "passed",
+      "passed": 9,
+      "failed": 0,
+      "writes": false
+    },
+    {
+      "name": "node --test src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-rector-catalog-loader.test.mjs",
+      "result": "passed",
+      "passed": 18,
+      "failed": 0,
+      "writes": false
+    },
+    {
+      "name": "artifact JSON and ZIP validation",
+      "result": "passed",
+      "writes": false
+    }
+  ],
+  "final_classification": "blocked_existing_catalogloader_not_reusable",
+  "next_gap": null,
+  "catalog_identity_governance_034A": {
+    "status": "catalog_identity_governance_approved",
+    "rule_document": "docs/eve/runtime/rectors/Regla_Rectora_General_Identidad_Catalogo_Runtime_40_20_EVE_v1_0_APROBADA.md",
+    "rule_sha256": "4a2a1a2367e53202094b483e707c805194699bb9fd1de38046db30f1b4200468",
+    "approved_front_matter": {
+      "document_id": "EVE-RUNTIME-CATID-R1",
+      "version": "1.0",
+      "status": "APPROVED_GOVERNANCE_RULE",
+      "approval_date": "2026-08-05",
+      "scope": "Fase 2 / EVE-04 Runtime Catalog"
+    },
+    "governs": [
+      "CatalogLoader",
+      "catalog_version_id",
+      "catalog versioning",
+      "identity derived from interactions",
+      "source nodes",
+      "mappings",
+      "subfields",
+      "artifact sections",
+      "audit",
+      "replay"
+    ],
+    "does_not_authorize": [
+      "the twelve source-schema semantic transformations",
+      "catalog activation",
+      "B0 modification",
+      "staging application"
+    ],
+    "schema_source_semantic_mismatches_remaining": 12,
+    "updated_at": "2026-08-05T19:37:30.134367+00:00"
+  },
+  "final_classification_after_034A": "approved_catalog_identity_rule_versioned",
+  "next_gap_after_034A": {
+    "catalog_identity_block_closed": true,
+    "schema_source_semantic_mismatches_remaining": 12
+  }
+}

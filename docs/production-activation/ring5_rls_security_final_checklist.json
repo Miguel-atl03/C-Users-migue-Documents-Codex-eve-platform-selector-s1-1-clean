@@ -1,0 +1,94 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING5_RLS_SECURITY_FINAL_CHECKLIST",
+  "generated_at": "2026-07-10T03:50:00.000Z",
+  "authorization_ref": "ring5-authorization-general-production-activation-gate-rerun-20260710",
+  "ring": 5,
+  "ring_name": "general_production_activation_gate",
+  "version": "1.0.0",
+  "rls_security_final_required": true,
+  "checklist_defined_at_authorization": true,
+  "evaluation_requires_bound_production_target": true,
+  "evaluated_against_production": false,
+  "ring4_precedent": {
+    "rls_validated_in_ring4_no_go": true,
+    "evidence": "docs/production-activation/ring4_no_go_checklist.json#R4-NG-34"
+  },
+  "checks": [
+    {
+      "id": "R5-RLS-01",
+      "check": "rls_enabled_on_all_session_scoped_tables",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RLS-02",
+      "check": "tenant_isolation_policies_verified",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RLS-03",
+      "check": "service_role_usage_constrained_and_audited",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RLS-04",
+      "check": "anon_key_cannot_bypass_tenant_boundary",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RLS-05",
+      "check": "no_public_broad_read_on_diagnostic_or_export_tables",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RLS-06",
+      "check": "secrets_not_present_in_client_bundles",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RLS-07",
+      "check": "auth_session_binding_verified_for_production_target",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RLS-08",
+      "check": "privilege_escalation_paths_reviewed",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RLS-09",
+      "check": "security_advisors_reviewed_for_bound_target",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RLS-10",
+      "check": "no_sql_or_migration_against_production_at_authorization",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "verified",
+      "actual": true
+    }
+  ],
+  "all_checks_defined": true,
+  "all_checks_passed_against_production": false,
+  "production_supabase_touched": false,
+  "sql_executed_against_production": false,
+  "activation_allowed_general_production": false
+}

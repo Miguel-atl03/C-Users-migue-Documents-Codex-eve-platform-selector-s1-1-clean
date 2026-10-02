@@ -1,0 +1,175 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING4_ROLLBACK_ABORT_REQUIREMENTS",
+  "generated_at": "2026-07-09T07:48:00.000Z",
+  "authorization_ref": "ring4-authorization-expanded-production-scale-governance-20260709",
+  "ring": 4,
+  "ring_name": "expanded_production_scale_governance",
+  "version": "1.0.0",
+  "rollback_required": true,
+  "abort_required": true,
+  "rollback_threshold_required": true,
+  "abort_threshold_required": true,
+  "ring3_baseline": {
+    "rollback_drill_ref": "docs/production-activation/ring3_rollback_drill_results.json",
+    "rollback_drill_passed": true,
+    "abort_drill_ref": "docs/production-activation/ring3_abort_drill_results.json",
+    "abort_drill_passed": true,
+    "ring3_no_go_clean": true
+  },
+  "rollback_requirements": [
+    {
+      "id": "R4-RB-01",
+      "requirement": "expanded_production_session_revert_capability",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-RB-02",
+      "requirement": "traffic_ramp_revert_to_prior_phase",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-RB-03",
+      "requirement": "tenant_allowlist_revert_capability",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-RB-04",
+      "requirement": "case_allowlist_revert_capability",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-RB-05",
+      "requirement": "activation_allowed_remains_false_after_rollback",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-RB-06",
+      "requirement": "external_export_remains_false_after_rollback",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-RB-07",
+      "requirement": "production_public_access_remains_false_after_rollback",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-RB-08",
+      "requirement": "broad_production_access_remains_false_after_rollback",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-RB-09",
+      "requirement": "qa_green_real_general_remains_false_after_rollback",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-RB-10",
+      "requirement": "production_data_boundary_restored_after_rollback",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-RB-11",
+      "requirement": "expanded_production_ui_state_restored_to_safe_baseline",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-RB-12",
+      "requirement": "supervision_state_reset_to_pre_expansion_baseline",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-RB-13",
+      "requirement": "rollback_drill_must_pass_before_ring4_closeout",
+      "mandatory_for_ring4": true,
+      "execution_required": true
+    },
+    {
+      "id": "R4-RB-14",
+      "requirement": "slo_error_budget_rollback_threshold_defined",
+      "mandatory_for_ring4": true
+    }
+  ],
+  "abort_requirements": [
+    {
+      "id": "R4-AB-01",
+      "requirement": "dependency_blocked_path_observable",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-AB-02",
+      "requirement": "consultant_packet_dependency_blocked_on_abort",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-AB-03",
+      "requirement": "no_go_ring4_triggered_on_abort",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-AB-04",
+      "requirement": "audit_trail_recorded_on_abort",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-AB-05",
+      "requirement": "activation_allowed_remains_false_on_abort",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-AB-06",
+      "requirement": "expanded_production_session_terminated_safely_on_abort",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-AB-07",
+      "requirement": "expanded_production_ui_blocked_on_abort",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-AB-08",
+      "requirement": "consultant_notified_on_abort_path",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-AB-09",
+      "requirement": "production_data_boundary_honored_on_abort",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-AB-10",
+      "requirement": "traffic_ramp_halted_on_abort",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-AB-11",
+      "requirement": "tenant_case_allowlist_expansion_halted_on_abort",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-AB-12",
+      "requirement": "abort_drill_must_pass_before_ring4_closeout",
+      "mandatory_for_ring4": true,
+      "execution_required": true
+    },
+    {
+      "id": "R4-AB-13",
+      "requirement": "slo_error_budget_abort_threshold_defined",
+      "mandatory_for_ring4": true
+    }
+  ],
+  "all_requirements_defined_at_authorization": true,
+  "execution_drill_required_before_ring4_closeout": true
+}

@@ -1,0 +1,230 @@
+{
+  "schemaVersion": "1.0",
+  "mode": "audit_and_governance_shadow",
+  "fixtureCount": 18,
+  "commonExpectedSafetyFlags": {
+    "canBlockProductiveUserFlow": false,
+    "canModifyGovernanceState": false,
+    "canWriteRegistry": false,
+    "canTriggerExport": false,
+    "canTriggerParallelProduction": false,
+    "canTriggerRuntime": false,
+    "canTriggerDiagnosis": false,
+    "canExecuteSql": false,
+    "canWriteSupabase": false,
+    "canConnectEveBrain": false,
+    "runtimeAuthority": false
+  },
+  "commonExpectedBlockedActions": [
+    "registry_write",
+    "final_export",
+    "parallel_production_real",
+    "runtime_productive_activation",
+    "diagnosis_final",
+    "sql_execution",
+    "supabase_write",
+    "workmap_mutation",
+    "significado_mutation",
+    "eve_brain_connection"
+  ],
+  "fixtures": [
+    {
+      "fixtureId": "resolve_audit_trail_state",
+      "inputSummary": { "queryType": "resolve_audit_trail_state", "targetUnitId": "AUDIT-TRAIL-SAMPLE" },
+      "expectedReadinessState": "audit_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "audit_trail_state",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["audit_trail"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "resolve_governance_rule_state",
+      "inputSummary": { "queryType": "resolve_governance_rule_state", "ruleId": "governance-rule-sample" },
+      "expectedReadinessState": "governance_rule_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "governance_rule",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["governance_rules"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "resolve_system_state_evidence",
+      "inputSummary": { "queryType": "resolve_system_state_evidence", "systemStateEvidenceId": "SYS-NO-CABLEADO-AGGREGATE" },
+      "expectedReadinessState": "system_state_evidence_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "system_state_evidence",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["system_state_evidence_matrix"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "resolve_source_alias",
+      "inputSummary": { "queryType": "resolve_source_alias", "aliasId": "A07PJ" },
+      "expectedReadinessState": "source_alias_resolved",
+      "expectedResolved": true,
+      "expectedEntityKind": "source_alias",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["source_alias_resolution_qa_v1_1"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "resolve_source_role",
+      "inputSummary": { "queryType": "resolve_source_role", "sourceId": "D8" },
+      "expectedReadinessState": "source_role_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "source_role",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["source_role_qa_v1_1"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "validate_record_rule_source_qa",
+      "inputSummary": { "queryType": "validate_record_rule_source_qa" },
+      "expectedReadinessState": "record_rule_source_qa_satisfactory",
+      "expectedResolved": true,
+      "expectedEntityKind": "qa_summary",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["AUDIT_AND_GOVERNANCE_RECORD_RULE_QA_SATISFACTORY"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "validate_source_proof_satisfaction",
+      "inputSummary": { "queryType": "validate_source_proof_satisfaction" },
+      "expectedReadinessState": "source_proof_satisfactory",
+      "expectedResolved": true,
+      "expectedEntityKind": "source_proof_satisfaction",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["sourceProofRowsChecked:244"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "validate_system_state_evidence",
+      "inputSummary": { "queryType": "validate_system_state_evidence" },
+      "expectedReadinessState": "system_state_evidence_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "system_state_evidence_set",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["systemStateEvidenceRowsChecked:24"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "validate_internal_claim_boundary",
+      "inputSummary": { "queryType": "validate_internal_claim_boundary", "claimId": "certification_claim_boundary" },
+      "expectedReadinessState": "internal_claim_boundary_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "internal_claim_boundary",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["internalClaimUnverified:0"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "validate_no_circular_certification",
+      "inputSummary": { "queryType": "validate_no_circular_certification" },
+      "expectedReadinessState": "circular_certification_prevented",
+      "expectedResolved": true,
+      "expectedEntityKind": "certification_boundary",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["certificationClaimUnverified:0", "WORKBENCH_REPAIRED_NOT_REAUDITED"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "validate_d8_contextual_resolution",
+      "inputSummary": { "queryType": "validate_d8_contextual_resolution", "sourceId": "D8" },
+      "expectedReadinessState": "d8_contextual_resolved",
+      "expectedResolved": true,
+      "expectedEntityKind": "d8_contextual_genealogy",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["d8ContextualGap:0"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "validate_no_cableado",
+      "inputSummary": { "queryType": "validate_no_cableado" },
+      "expectedReadinessState": "no_cableado_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "no_cableado_control",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["noCableadoViolation:0"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "validate_brain_connection_preconditions_blocked",
+      "inputSummary": { "queryType": "validate_brain_connection_preconditions" },
+      "expectedReadinessState": "brain_connection_preconditions_blocked",
+      "expectedResolved": false,
+      "expectedEntityKind": "brain_connection_preconditions",
+      "expectedGapFlags": ["explicit_brain_wiring_authorization_missing", "shadow_implementation_missing", "manual_harness_approval_missing"],
+      "expectedRuleIdsOrSourceTrace": ["brainConnectionPreconditionsMet:false"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "detect_governance_gap",
+      "inputSummary": { "queryType": "detect_governance_gap", "ruleId": "missing-source-sample" },
+      "expectedReadinessState": "governance_rule_missing_source",
+      "expectedResolved": false,
+      "expectedEntityKind": "governance_gap",
+      "expectedGapFlags": ["governance_rule_missing_source"],
+      "expectedRuleIdsOrSourceTrace": ["manual_review_required"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "detect_alias_gap",
+      "inputSummary": { "queryType": "detect_alias_gap", "aliasId": "unknown-alias" },
+      "expectedReadinessState": "source_alias_missing",
+      "expectedResolved": false,
+      "expectedEntityKind": "alias_gap",
+      "expectedGapFlags": ["source_alias_missing"],
+      "expectedRuleIdsOrSourceTrace": ["source_alias_resolution_required"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "detect_unresolved_system_state",
+      "inputSummary": { "queryType": "detect_unresolved_system_state", "systemStateEvidenceId": "missing-system-state" },
+      "expectedReadinessState": "system_state_evidence_missing",
+      "expectedResolved": false,
+      "expectedEntityKind": "system_state_gap",
+      "expectedGapFlags": ["system_state_evidence_missing"],
+      "expectedRuleIdsOrSourceTrace": ["reentry_required"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "detect_brain_connection_blocker",
+      "inputSummary": { "queryType": "detect_brain_connection_blocker" },
+      "expectedReadinessState": "brain_connection_preconditions_blocked",
+      "expectedResolved": false,
+      "expectedEntityKind": "brain_connection_blocker",
+      "expectedGapFlags": ["no_controlled_wiring_phase", "registry_write_contract_missing", "human_approval_missing"],
+      "expectedRuleIdsOrSourceTrace": ["canConnectEveBrain:false"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    },
+    {
+      "fixtureId": "summarize_governance_readiness",
+      "inputSummary": { "queryType": "summarize_governance_readiness" },
+      "expectedReadinessState": "governance_readiness_with_controls",
+      "expectedResolved": true,
+      "expectedEntityKind": "governance_readiness_summary",
+      "expectedGapFlags": ["brain_connection_preconditions_blocked"],
+      "expectedRuleIdsOrSourceTrace": ["QA satisfactory", "static tests ready with gaps", "MODULE_TYPELESS_PACKAGE_JSON"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags",
+      "expectedBlockedActions": "commonExpectedBlockedActions"
+    }
+  ]
+}

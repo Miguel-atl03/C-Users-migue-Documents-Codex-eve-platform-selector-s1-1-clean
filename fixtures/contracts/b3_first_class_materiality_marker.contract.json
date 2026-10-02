@@ -1,0 +1,31 @@
+{
+  "marker_id": "B3_FIRST_CLASS_MATERIALITY_MARKER",
+  "scope": "B3 receiver feedback",
+  "tree_branch": "Capa 1.0 / B3 receiver feedback materiality",
+  "required_service_contract": "services/eve/capa1/b3-receiver-feedback-materializer",
+  "required_schema_contracts": [
+    "b3_receiver_feedback_object.schema.json",
+    "b3_operational_exception_evidence.schema.json",
+    "b3_b7_alignment_delta.schema.json"
+  ],
+  "required_state_machines": [
+    "ReceiverFeedbackObject",
+    "OperationalExceptionEvidence",
+    "B3B7AlignmentDelta"
+  ],
+  "required_test_contract": "tests/b3/receiver-feedback-materializer.test",
+  "required_source_refs": true,
+  "required_derivation_refs": true,
+  "required_governance_issue_links": true,
+  "required_readiness_decision": true,
+  "required_allowed_consumers": true,
+  "forbidden_outputs": [
+    "receiver_satisfaction_as_feedback",
+    "diagnosis",
+    "export"
+  ],
+  "materiality_level_when_absent": "L0 absent",
+  "materiality_level_when_contract_defined": "L4 contract_defined",
+  "materiality_level_when_tested": "L7 tested_materiality",
+  "no_go_if_false_positive": "receiver_satisfaction promoted as receiver_feedback."
+}

@@ -1,0 +1,84 @@
+{
+  "matrix_id": "eve_organism_gate2_authority_vsm_separation_matrix_v1",
+  "generated_at": "2026-06-25T19:35:58.198Z",
+  "note": "VSM is a parallel lens and does not replace MMABP.",
+  "rows": [
+    {
+      "vsm_function": "S1",
+      "eve_component": "tenant/session/activity/capability execution unit",
+      "allowed_responsibility": "bounded offline execution",
+      "forbidden_responsibility": "product mutation or self-promotion",
+      "independence_requirement": "execution unit cannot approve itself",
+      "ledger_requirement": "VALIDATION_DECISION",
+      "current_gate2_status": "current_gate2_shadow_or_validated",
+      "mba_relation": "S1 maps to capability execution context",
+      "risk_if_collapsed": "S1 absorbs governance"
+    },
+    {
+      "vsm_function": "S2",
+      "eve_component": "timers/idempotency/reentry coordination",
+      "allowed_responsibility": "coordinate waits and reentry",
+      "forbidden_responsibility": "approve authority",
+      "independence_requirement": "separate from S3 authority",
+      "ledger_requirement": "CAPABILITY_TRANSITION_REQUESTED",
+      "current_gate2_status": "design_defined",
+      "mba_relation": "PF timers and reentry",
+      "risk_if_collapsed": "waits become silent approval"
+    },
+    {
+      "vsm_function": "S3",
+      "eve_component": "capability authority and side-effect guard",
+      "allowed_responsibility": "decide local holds and denied effects",
+      "forbidden_responsibility": "audit itself",
+      "independence_requirement": "S3 cannot certify S3",
+      "ledger_requirement": "SIDE_EFFECT_DENIED",
+      "current_gate2_status": "design_defined",
+      "mba_relation": "PM/PF control rules",
+      "risk_if_collapsed": "policy enforcement and audit collapse"
+    },
+    {
+      "vsm_function": "S3*",
+      "eve_component": "ledger audit reconciliation bypass detection",
+      "allowed_responsibility": "independent audit and bypass detection",
+      "forbidden_responsibility": "execute side effects",
+      "independence_requirement": "independent from S3 executor",
+      "ledger_requirement": "ALGEDONIC_EVENT",
+      "current_gate2_status": "design_defined",
+      "mba_relation": "audit ledger and conformance",
+      "risk_if_collapsed": "auditor-executor collapse"
+    },
+    {
+      "vsm_function": "S4",
+      "eve_component": "divergence learning evolution",
+      "allowed_responsibility": "report-only learning loop",
+      "forbidden_responsibility": "activate policy",
+      "independence_requirement": "report-only in Gate 2",
+      "ledger_requirement": "PROMOTION_CHECKLIST_EVALUATED",
+      "current_gate2_status": "report_only",
+      "mba_relation": "future adaptation lane",
+      "risk_if_collapsed": "learning becomes unauthorized activation"
+    },
+    {
+      "vsm_function": "S5",
+      "eve_component": "activation contract identity limits",
+      "allowed_responsibility": "set identity and boundaries",
+      "forbidden_responsibility": "local default overrides",
+      "independence_requirement": "S5 does not absorb local decisions by default",
+      "ledger_requirement": "NO_GO_DECISION",
+      "current_gate2_status": "defined_by_contract",
+      "mba_relation": "activation contract",
+      "risk_if_collapsed": "identity collapses into operation"
+    },
+    {
+      "vsm_function": "algedonic_channel",
+      "eve_component": "human authority escalation",
+      "allowed_responsibility": "pause/degrade/escalate",
+      "forbidden_responsibility": "diagnose business",
+      "independence_requirement": "must preserve evidence and require manual review",
+      "ledger_requirement": "ALGEDONIC_EVENT",
+      "current_gate2_status": "design_defined_no_diagnosis",
+      "mba_relation": "B3/B7 boundary and rework",
+      "risk_if_collapsed": "pain signal becomes diagnosis"
+    }
+  ]
+}

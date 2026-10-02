@@ -1,0 +1,95 @@
+﻿{
+    "instruction":  "045-R2D",
+    "generated_at":  "2026-08-09T00:00:00-06:00",
+    "overall_materiality":  "partial",
+    "remote_contact":  false,
+    "code_changes":  false,
+    "pieces":  [
+                   {
+                       "piece":  "eve_object_definition",
+                       "schema":  "not_found",
+                       "service":  "local type references only",
+                       "caller":  "F5C local service/test",
+                       "tests":  "passed 10/10",
+                       "db_contract":  "not_found",
+                       "materiality":  "specification_only"
+                   },
+                   {
+                       "piece":  "eve_object_state_definition",
+                       "schema":  "not_found",
+                       "service":  "local state-like fields only",
+                       "caller":  "F5C local service/test",
+                       "tests":  "passed 10/10",
+                       "db_contract":  "not_found",
+                       "materiality":  "specification_only"
+                   },
+                   {
+                       "piece":  "runtime_object_binding",
+                       "schema":  "not_found",
+                       "service":  "materializeF5CLocalRuntimeObjectBindings",
+                       "caller":  "F5C local test",
+                       "tests":  "passed 10/10",
+                       "db_contract":  "not_found",
+                       "materiality":  "partial"
+                   },
+                   {
+                       "piece":  "object_materialization_event",
+                       "schema":  "not_found",
+                       "service":  "materializeF5CLocalObjectMaterializationEvents",
+                       "caller":  "F5C local test",
+                       "tests":  "passed 10/10",
+                       "db_contract":  "not_found",
+                       "materiality":  "partial"
+                   }
+               ],
+    "relevant_scene_objects":  [
+                                   {
+                                       "object":  "SceneEvidentialObject",
+                                       "found_as":  "EscenaEvidencial local definition reference",
+                                       "materiality":  "partial",
+                                       "runtime_scene_authority":  false
+                                   },
+                                   {
+                                       "object":  "SceneSet",
+                                       "found_as":  "local definition/type reference",
+                                       "materiality":  "partial",
+                                       "runtime_scene_authority":  false
+                                   },
+                                   {
+                                       "object":  "EvidenceBundle",
+                                       "found_as":  "local definition/type reference",
+                                       "materiality":  "partial",
+                                       "runtime_scene_authority":  false
+                                   },
+                                   {
+                                       "object":  "ReadinessDecision",
+                                       "found_as":  "local definition/type reference",
+                                       "materiality":  "partial",
+                                       "runtime_scene_authority":  false
+                                   },
+                                   {
+                                       "object":  "GovernanceIssue",
+                                       "found_as":  "local definition/type reference",
+                                       "materiality":  "partial",
+                                       "runtime_scene_authority":  false
+                                   },
+                                   {
+                                       "object":  "CanonicalRouteException",
+                                       "found_as":  "local definition/type reference",
+                                       "materiality":  "partial",
+                                       "runtime_scene_authority":  false
+                                   }
+                               ],
+    "conclusion":  "Object Inventory/F5 is local readiness only. No real persistent binding sufficient for scene identity was found.",
+    "evidence_files":  [
+                           "src/services/eve/object-binding/f5c-local-runtime-object-binding-service.ts",
+                           "src/services/eve/object-binding/f5c-local-binding-types.ts",
+                           "src/services/eve/object-binding/f5c-local-runtime-object-binding-service.test.mjs",
+                           "docs/implementation/f5c_local_runtime_object_binding_closeout.md",
+                           "docs/implementation/runtime_40_20_phase9_gap_audit_readiness_object_membrane_persistence_boundary_local_contract_closeout.md",
+                           "src/types/eve-organism-gate2-real-shadow-bridge-reader.ts",
+                           "src/types/eve-organism-bridge-reader-real-source-adapter.ts",
+                           "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts",
+                           "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-staging-persistence-types.ts"
+                       ]
+}

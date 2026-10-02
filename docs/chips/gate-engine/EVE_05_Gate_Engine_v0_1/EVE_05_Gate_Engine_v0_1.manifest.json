@@ -1,0 +1,875 @@
+{
+  "package_id": "EVE_05_Gate_Engine_Chip_v0_1",
+  "chip_id": "EVE-05-GATE-ENGINE",
+  "version": "0.1.0",
+  "stage": "05_gate_engine",
+  "generated_at": "2026-06-20T01:30:47+00:00",
+  "packaged_at": "2026-06-20T01:37:46+00:00",
+  "status": "READY_FOR_SHADOW_INTEGRATION",
+  "certification_status": "ARTIFACT_VALIDATED_NOT_ACTIVATED",
+  "installation_status": "NOT_INSTALLED",
+  "purpose": "Compilar un motor de gates que proteja rutas canónicas, resolución semántica, esperas/timers y validaciones MMABP de conformance y consistencia antes de readiness, diagnóstico o Producción Paralela.",
+  "modules": [
+    "critical_route_gate",
+    "semantic_resolution_gate",
+    "process_state_timer_gate",
+    "mmabp_conformance_gate",
+    "mmabp_consistency_gate"
+  ],
+  "dependencies": [
+    {
+      "chip_id": "EVE-00-METHOD-KERNEL",
+      "version": "0.2.0",
+      "required": true,
+      "role": "Reglas MMABP compiladas y source_refs D1."
+    },
+    {
+      "chip_id": "EVE-03-CANONICAL-CATALOG",
+      "version": "0.1.0",
+      "required": true,
+      "role": "source_node_registry y genealogía D8."
+    },
+    {
+      "chip_id": "EVE-04-RUNTIME-CATALOG",
+      "version": "0.2.0",
+      "required": true,
+      "role": "Interacciones 40+20, variables, rutas y estados corregidos."
+    },
+    {
+      "chip_id": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+      "version": "0.1.0",
+      "required": false,
+      "role": "Puente downstream deshabilitado en Fase 5."
+    }
+  ],
+  "source_documents": [
+    {
+      "source_id": "D1",
+      "document": "Fundamentals of Business Architecture Modeling.pdf",
+      "exists": true,
+      "sha256": "3dd3485afa518244cb600b4c479cad0ea11f242e88e4204b9422739ddf843147",
+      "role": "fuente metodológica primaria",
+      "authority": "Define las reglas MMABP de PM, MoC, PF, OLC, conformance y consistencia.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "2.2.6",
+        "2.3.6",
+        "3.1.5",
+        "3.2.4",
+        "4.1",
+        "4.2",
+        "4.3",
+        "4.4",
+        "4.5"
+      ],
+      "notes": null
+    },
+    {
+      "source_id": "D5",
+      "document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "exists": true,
+      "sha256": "fcda44fc8990ef0d19379c3425afb4a69186f6961a6f99d541d170826da1e318",
+      "role": "fuente normativa operativa",
+      "authority": "Gobierna rutas críticas, gates internos, fronteras B7/C09, QA, readiness y reentry.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "1",
+        "2",
+        "4",
+        "5",
+        "6.1",
+        "6.2",
+        "6.3",
+        "8.1",
+        "8.2",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "notes": null
+    },
+    {
+      "source_id": "D6",
+      "document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "exists": true,
+      "sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+      "role": "fuente ejecutable",
+      "authority": "Materializa rutas, gates, estados, diccionarios y pruebas como filas operables.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "Critical_Routes",
+        "Semantic_Resolution_Gates",
+        "Process_State_Timer_Gates",
+        "Readiness_Gaps_Reentry",
+        "Epistemic_Policy",
+        "Branching_Budget_Rules",
+        "QA_Checklist",
+        "Implementation_Dictionaries"
+      ],
+      "notes": null
+    },
+    {
+      "source_id": "D4",
+      "document": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "exists": true,
+      "sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8",
+      "role": "contrato técnico de implementación",
+      "authority": "Define CriticalRouteGate, MMABPGateEngine, eventos persistentes, API de evaluación, recomputación y QA.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "7",
+        "9",
+        "10",
+        "14",
+        "15",
+        "17",
+        "20",
+        "21",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28"
+      ],
+      "notes": null
+    },
+    {
+      "source_id": "D8",
+      "document": "EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+      "exists": true,
+      "sha256": "09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2",
+      "role": "fuente de genealogía canónica",
+      "authority": "Valida que rutas y variables remitan a nodos y códigos originales.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "Catalogo_Madre_Nodos",
+        "Canonical_Variables",
+        "Critical_Routes",
+        "Readiness_Reentry_Gaps"
+      ],
+      "notes": null
+    },
+    {
+      "source_id": "D7",
+      "document": "Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+      "exists": true,
+      "sha256": "bee5478d5ef059641707a1e513f1977fbb3f25785754f1fa4eef93ddf9d774a2",
+      "role": "frontera arquitectónica",
+      "authority": "Fija reducción 164→40+20, prioridad de rutas críticas y preservación de capacidad MMABP.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "0",
+        "1",
+        "4",
+        "5",
+        "8",
+        "10"
+      ],
+      "notes": "Contexto de compatibilidad; no se ejecuta desde narrativa."
+    },
+    {
+      "source_id": "D3",
+      "document": "EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+      "exists": true,
+      "sha256": "8b96eaa29282c042a714bbce80f0251e676425be91b766785e77c97f0c8bc31a",
+      "role": "frontera de integración downstream",
+      "authority": "Impide que gates activen diagnóstico, export final o Producción Paralela prematuramente.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "0",
+        "1",
+        "8",
+        "10"
+      ],
+      "notes": "Contexto de frontera; no define reglas MMABP."
+    },
+    {
+      "source_id": "D2",
+      "document": "Tabla de Diagnóstico de Inconsistencias Estructurales EVE.docx",
+      "exists": true,
+      "sha256": "3e5f5278872c5790b81931c6c765b4633139a348c0489d26599885997b12f0ca",
+      "role": "referencia downstream de traducción diagnóstica",
+      "authority": "Proporciona IDs de compartimentos para una traducción posterior, deshabilitada en Fase 5.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "tabla única, 13 compartimentos"
+      ],
+      "notes": "No se emite patología ni diagnóstico desde este chip."
+    },
+    {
+      "source_id": "VSM1",
+      "document": "Organizational Systems Managing Complexity with the Viable System model.pdf",
+      "exists": true,
+      "sha256": "00bd8009333bedf9bc5dbbd2d2ff3f295bb874066b319796744b1ef019fca418",
+      "role": "guardia contextual VSM",
+      "authority": "Evita tratar señales B7 como diagnóstico VSM cerrado sin identidad, recursión y variedad validadas.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "Partes I-II; identidad, desdoblamiento, discrecionalidad"
+      ],
+      "notes": "No se implementa un gate VSM en esta fase."
+    },
+    {
+      "source_id": "AHE1",
+      "document": "Marco de Interpretación y Observación Explicativo Arquitectura Humana Empresarial_(AHE).docx",
+      "exists": true,
+      "sha256": "8f7e729d77429c6179403220dd1dd111f85a615ff8b9ffbafb675e702744cb7e",
+      "role": "guardia contextual AHE",
+      "authority": "Evita convertir huellas humanas en diagnóstico AHE final dentro de Capa 1.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "naturaleza del instrumento; tres niveles; frontera diagnóstica"
+      ],
+      "notes": "No se implementa un gate AHE en esta fase."
+    }
+  ],
+  "source_fidelity_verification": {
+    "original_sources_exist": true,
+    "original_sources_read_in_task": true,
+    "source_to_target_mapping_created": true,
+    "chip_knowledge_derived_from_original_or_compiled_dependency": true,
+    "assumption_based": false,
+    "unmapped_source_units": [],
+    "approved_exclusions": [
+      "Instrucciones actualizadas para GPT personalizado.docx",
+      "Instrucciones_Maestras_y_Exhaustivas_para_IA_Arquitectura_Mínima_de_Negocio_(MMABP)_y_Diagnóstico_EVE™.docx"
+    ],
+    "mapping": [
+      {
+        "source": "D6!Critical_Routes",
+        "target": "modules.critical_route_gate.routes",
+        "status": "transduced_exact_plus_execution_contract",
+        "units": 4
+      },
+      {
+        "source": "D8!Critical_Routes + Catalogo_Madre_Nodos",
+        "target": "modules.critical_route_gate.routes[].genealogy",
+        "status": "transduced_exact",
+        "units": 18
+      },
+      {
+        "source": "D5:6.1-6.3,9,11 + D4:10,24",
+        "target": "modules.critical_route_gate.rules",
+        "status": "transduced_structured",
+        "units": 10
+      },
+      {
+        "source": "D6!Semantic_Resolution_Gates",
+        "target": "modules.semantic_resolution_gate.gate_definitions",
+        "status": "transduced_exact",
+        "units": 7
+      },
+      {
+        "source": "D5:8.1 + D4:3,10 + D1:3.1.5,3.2.4",
+        "target": "modules.semantic_resolution_gate.rules",
+        "status": "transduced_structured",
+        "units": 8
+      },
+      {
+        "source": "D6!Process_State_Timer_Gates",
+        "target": "modules.process_state_timer_gate.gate_definitions",
+        "status": "transduced_exact",
+        "units": 6
+      },
+      {
+        "source": "D5:8.2 + D4:3,10 + D1:2.3.6,3.2.4,4.3.5,4.4",
+        "target": "modules.process_state_timer_gate.rules",
+        "status": "transduced_structured",
+        "units": 9
+      },
+      {
+        "source": "D1 via EVE00 PM/MoC/PF/OLC rules",
+        "target": "modules.mmabp_conformance_gate.model_rules",
+        "status": "compiled_with_original_source_refs",
+        "units": 53
+      },
+      {
+        "source": "D1:1.3,4.1,4.2 + D4:1,3,27",
+        "target": "modules.mmabp_conformance_gate.engine_rules",
+        "status": "transduced_structured",
+        "units": 8
+      },
+      {
+        "source": "D1 via EVE00 consistency rules",
+        "target": "modules.mmabp_consistency_gate.method_rules",
+        "status": "compiled_with_original_source_refs",
+        "units": 15
+      },
+      {
+        "source": "D1:4.1-4.5 + D4:1 + D5:10-11",
+        "target": "modules.mmabp_consistency_gate.engine_rules",
+        "status": "transduced_structured",
+        "units": 10
+      },
+      {
+        "source": "D2 via EVE02 compartments",
+        "target": "modules.mmabp_consistency_gate.compartments",
+        "status": "downstream_reference_only",
+        "units": 13
+      },
+      {
+        "source": "D6!Readiness_Gaps_Reentry",
+        "target": "enums.readiness_states + gate readiness candidates",
+        "status": "transduced_exact",
+        "units": 7
+      },
+      {
+        "source": "D5+D7+D3",
+        "target": "integration_rules + failure_guards + boundaries",
+        "status": "transduced_structured",
+        "units": 14
+      }
+    ]
+  },
+  "counts": {
+    "critical_routes": 4,
+    "critical_route_engine_rules": 10,
+    "semantic_gates": 7,
+    "semantic_engine_rules": 8,
+    "process_state_timer_gates": 6,
+    "process_state_timer_engine_rules": 9,
+    "conformance_model_rules": 53,
+    "conformance_engine_rules": 8,
+    "consistency_method_rules": 15,
+    "consistency_engine_rules": 10,
+    "consistency_compartments": 13,
+    "atomic_rules_and_gate_definitions": 130,
+    "readiness_states": 7,
+    "failure_guards": 14,
+    "source_documents": 10
+  },
+  "integration_architecture": {
+    "authority_chain": [
+      "D1 manda sobre método MMABP.",
+      "D8 conserva genealogía canónica.",
+      "D7 decide reducción 164→40+20.",
+      "D5 gobierna gates, fronteras y QA.",
+      "D6 ejecuta definiciones de rutas, SEM, PST y readiness.",
+      "D4 implementa componentes, eventos, persistencia y recomputación.",
+      "D3 integra downstream sin activar diagnóstico ni export prematuro.",
+      "D2/EVE02 solo traducen inconsistencias en una etapa diagnóstica posterior."
+    ],
+    "integration_rules": [
+      {
+        "id": "INT-001",
+        "rule": "D1 manda sobre método MMABP; D5 gobierna; D6 ejecuta; D4 implementa; D3 integra.",
+        "blocking": true
+      },
+      {
+        "id": "INT-002",
+        "rule": "DOCX/PDF metodológicos se compilan a reglas; no se ejecutan como narrativa.",
+        "blocking": true
+      },
+      {
+        "id": "INT-003",
+        "rule": "XLSX se carga como fuente versionada y congelada; no se reinterpreta narrativamente.",
+        "blocking": true
+      },
+      {
+        "id": "INT-004",
+        "rule": "D8 valida genealogía; no se usa como entrevista visible.",
+        "blocking": true
+      },
+      {
+        "id": "INT-005",
+        "rule": "Conformance individual precede consistency.",
+        "blocking": true
+      },
+      {
+        "id": "INT-006",
+        "rule": "SEM y PST preparan candidatos; no diagnostican.",
+        "blocking": true
+      },
+      {
+        "id": "INT-007",
+        "rule": "Critical routes no cierran por IA ni texto libre sin ruta.",
+        "blocking": true
+      },
+      {
+        "id": "INT-008",
+        "rule": "Gate Engine emite candidatos de readiness; ReadinessEngine decide estado final.",
+        "blocking": true
+      },
+      {
+        "id": "INT-009",
+        "rule": "Inconsistency candidate no es patología; EVE02 se activa downstream y de forma explícita.",
+        "blocking": true
+      },
+      {
+        "id": "INT-010",
+        "rule": "B7/C20 solo readiness/preclassification; cero proyección directa.",
+        "blocking": true
+      },
+      {
+        "id": "INT-011",
+        "rule": "Una revisión invalida y recomputa dependientes con audit trail.",
+        "blocking": true
+      },
+      {
+        "id": "INT-012",
+        "rule": "Ningún gate expone Object Inventory, Membrane o SG Shadow en UI cliente.",
+        "blocking": true
+      }
+    ],
+    "failure_guards": [
+      {
+        "id": "FG-001",
+        "failure": "Usar Catálogo Madre como entrevista visible completa",
+        "consequence": "Sobrecarga cognitiva y ruptura de 40+20.",
+        "block": "UI/runtime design",
+        "gate_action": "reject_configuration",
+        "source_refs": [
+          "D7",
+          "D5:1"
+        ]
+      },
+      {
+        "id": "FG-002",
+        "failure": "Implementar desde narrativa DOCX en vez de XLSX",
+        "consequence": "Runtime ambiguo y no testeable.",
+        "block": "catalog loader",
+        "gate_action": "reject_activation",
+        "source_refs": [
+          "D5:2",
+          "D4:1",
+          "D6"
+        ]
+      },
+      {
+        "id": "FG-003",
+        "failure": "B7 genera MoC/IR/registry/export directo",
+        "consequence": "Diagnóstico prematuro y contaminación downstream.",
+        "block": "CR-B7",
+        "gate_action": "manual_review_required",
+        "source_refs": [
+          "D5:6.3",
+          "D6!Critical_Routes",
+          "D4:1"
+        ]
+      },
+      {
+        "id": "FG-004",
+        "failure": "Convertir satisfaction en receiver_feedback",
+        "consequence": "Rework falso, PF falso y OLC contaminado.",
+        "block": "CR-B3/C09",
+        "gate_action": "blocked_by_missing_canonical_route",
+        "source_refs": [
+          "D5:6.1",
+          "D5:6.2",
+          "D6!Critical_Routes"
+        ]
+      },
+      {
+        "id": "FG-005",
+        "failure": "Guardar pregunta compuesta como un solo texto",
+        "consequence": "Pérdida de trazabilidad, variables y QA.",
+        "block": "response ingest",
+        "gate_action": "blocked_by_missing_evidence",
+        "source_refs": [
+          "D5:7",
+          "D4:12",
+          "D6!UX_Subfield_Structure"
+        ]
+      },
+      {
+        "id": "FG-006",
+        "failure": "IA infiere ruta crítica",
+        "consequence": "Fabricación de hechos estructurales.",
+        "block": "critical route gate",
+        "gate_action": "manual_review_required",
+        "source_refs": [
+          "D6!Epistemic_Policy",
+          "D4:10"
+        ]
+      },
+      {
+        "id": "FG-007",
+        "failure": "Exponer Object Inventory/Membrane/SG Shadow en UI",
+        "consequence": "La UI muestra maquinaria interna al cliente.",
+        "block": "UI boundary",
+        "gate_action": "reject_projection",
+        "source_refs": [
+          "D3"
+        ]
+      },
+      {
+        "id": "FG-008",
+        "failure": "Saltar de evidencia a diagnóstico",
+        "consequence": "Violación de frontera Capa 1.",
+        "block": "diagnostic bridge",
+        "gate_action": "reject_transition",
+        "source_refs": [
+          "D4:1",
+          "D5:1",
+          "D2 downstream only"
+        ]
+      },
+      {
+        "id": "FG-009",
+        "failure": "C20 rutinario o simultáneo con B7 resuelto",
+        "consequence": "Carga innecesaria y preclasificación contaminada.",
+        "block": "B7 branching",
+        "gate_action": "reject_opening",
+        "source_refs": [
+          "D5:6.3",
+          "D6!Branching_Budget_Rules:BR-008"
+        ]
+      },
+      {
+        "id": "FG-010",
+        "failure": "Feedback textual sin receiver_feedback_route_missing",
+        "consequence": "Ruta crítica parece cerrada sin cierre canónico.",
+        "block": "C09",
+        "gate_action": "blocked_by_missing_canonical_route",
+        "source_refs": [
+          "D5:6.2",
+          "D6:C09"
+        ]
+      },
+      {
+        "id": "FG-011",
+        "failure": "Process State sin awaited event/timer/exit",
+        "consequence": "Deadlock y PF incompleto.",
+        "block": "PST",
+        "gate_action": "reentry_required",
+        "source_refs": [
+          "D5:8.2",
+          "D6!Process_State_Timer_Gates",
+          "D1:2.3.6"
+        ]
+      },
+      {
+        "id": "FG-012",
+        "failure": "Resolver ambigüedad semántica por default",
+        "consequence": "Clases/estados/atributos falsos.",
+        "block": "SEM",
+        "gate_action": "manual_review_required",
+        "source_refs": [
+          "D5:8.1",
+          "D6!Semantic_Resolution_Gates",
+          "D1:3.1.5"
+        ]
+      },
+      {
+        "id": "FG-013",
+        "failure": "Ejecutar consistencia antes de conformance",
+        "consequence": "Modelos pueden alinearse entre sí y seguir siendo falsos.",
+        "block": "MMABP consistency",
+        "gate_action": "not_evaluated_due_to_conformance",
+        "source_refs": [
+          "D1:4.1",
+          "D1:4.2"
+        ]
+      },
+      {
+        "id": "FG-014",
+        "failure": "Alinear modelos cosméticamente",
+        "consequence": "La contradicción real queda oculta.",
+        "block": "MMABP consistency",
+        "gate_action": "manual_review_required",
+        "source_refs": [
+          "D1:4.2"
+        ]
+      }
+    ],
+    "diagnostic_bridge": {
+      "enabled": false,
+      "target_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY@0.1.0",
+      "activation_preconditions": [
+        "conformance_complete",
+        "consistency_candidate_confirmed",
+        "readiness_allows_downstream",
+        "explicit_diagnostic_stage"
+      ],
+      "phase5_allowed_output": "inconsistency_candidate_only",
+      "phase5_forbidden_outputs": [
+        "pathology",
+        "final_diagnosis",
+        "VSM_closed_diagnosis",
+        "AHE_closed_diagnosis"
+      ]
+    }
+  },
+  "quality_assurance": {
+    "total": 20,
+    "pass": 20,
+    "fail": 0,
+    "tests": [
+      {
+        "id": "QA05-001",
+        "criterion": "JSON parseable",
+        "status": "PASS",
+        "evidence": "json.loads OK"
+      },
+      {
+        "id": "QA05-002",
+        "criterion": "Módulos exactos",
+        "status": "PASS",
+        "evidence": [
+          "critical_route_gate",
+          "semantic_resolution_gate",
+          "process_state_timer_gate",
+          "mmabp_conformance_gate",
+          "mmabp_consistency_gate"
+        ]
+      },
+      {
+        "id": "QA05-003",
+        "criterion": "Critical routes exactas",
+        "status": "PASS",
+        "evidence": [
+          "CR-B0-WorkMapIntake-semantic-entry",
+          "CR-B2-V3-transformation_exception",
+          "CR-B3-R9-receiver_feedback",
+          "CR-B7-AHE-boundary_guard"
+        ]
+      },
+      {
+        "id": "QA05-004",
+        "criterion": "SEM-001..SEM-007",
+        "status": "PASS",
+        "evidence": [
+          "SEM-001",
+          "SEM-002",
+          "SEM-003",
+          "SEM-004",
+          "SEM-005",
+          "SEM-006",
+          "SEM-007"
+        ]
+      },
+      {
+        "id": "QA05-005",
+        "criterion": "PST-001..PST-006",
+        "status": "PASS",
+        "evidence": [
+          "PST-001",
+          "PST-002",
+          "PST-003",
+          "PST-004",
+          "PST-005",
+          "PST-006"
+        ]
+      },
+      {
+        "id": "QA05-006",
+        "criterion": "53 reglas conformance",
+        "status": "PASS",
+        "evidence": 53
+      },
+      {
+        "id": "QA05-007",
+        "criterion": "15 reglas consistency",
+        "status": "PASS",
+        "evidence": 15
+      },
+      {
+        "id": "QA05-008",
+        "criterion": "13 compartimentos",
+        "status": "PASS",
+        "evidence": 13
+      },
+      {
+        "id": "QA05-009",
+        "criterion": "IDs únicos",
+        "status": "PASS",
+        "evidence": []
+      },
+      {
+        "id": "QA05-010",
+        "criterion": "B7 sin proyección directa",
+        "status": "PASS",
+        "evidence": [
+          "direct_MoC_output",
+          "direct_IR",
+          "direct_registry",
+          "direct_export",
+          "closed_VSM_diagnosis",
+          "closed_AHE_diagnosis"
+        ]
+      },
+      {
+        "id": "QA05-011",
+        "criterion": "C09 separa satisfaction/feedback",
+        "status": "PASS",
+        "evidence": "route CR-B3"
+      },
+      {
+        "id": "QA05-012",
+        "criterion": "Puente diagnóstico deshabilitado",
+        "status": "PASS",
+        "evidence": {
+          "enabled": false,
+          "target_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY@0.1.0",
+          "activation_preconditions": [
+            "conformance_complete",
+            "consistency_candidate_confirmed",
+            "readiness_allows_downstream",
+            "explicit_diagnostic_stage"
+          ],
+          "phase5_allowed_output": "inconsistency_candidate_only",
+          "phase5_forbidden_outputs": [
+            "pathology",
+            "final_diagnosis",
+            "VSM_closed_diagnosis",
+            "AHE_closed_diagnosis"
+          ]
+        }
+      },
+      {
+        "id": "QA05-013",
+        "criterion": "Fuentes directas existen",
+        "status": "PASS",
+        "evidence": [
+          [
+            "D1",
+            true
+          ],
+          [
+            "D5",
+            true
+          ],
+          [
+            "D6",
+            true
+          ],
+          [
+            "D4",
+            true
+          ],
+          [
+            "D8",
+            true
+          ],
+          [
+            "D7",
+            true
+          ],
+          [
+            "D3",
+            true
+          ],
+          [
+            "D2",
+            true
+          ],
+          [
+            "VSM1",
+            true
+          ],
+          [
+            "AHE1",
+            true
+          ]
+        ]
+      },
+      {
+        "id": "QA05-014",
+        "criterion": "Todas las reglas/gates tienen source_refs",
+        "status": "PASS",
+        "evidence": []
+      },
+      {
+        "id": "QA05-015",
+        "criterion": "TypeScript compila",
+        "status": "PASS",
+        "evidence": ""
+      },
+      {
+        "id": "QA05-016",
+        "criterion": "DOCX renderizado",
+        "status": "PASS",
+        "evidence": "20 páginas"
+      },
+      {
+        "id": "QA05-017",
+        "criterion": "No instalado",
+        "status": "PASS",
+        "evidence": "NOT_INSTALLED"
+      },
+      {
+        "id": "QA05-018",
+        "criterion": "No product wiring",
+        "status": "PASS",
+        "evidence": {
+          "recommended_repo_path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/",
+          "required_dependency_versions": {
+            "EVE-00-METHOD-KERNEL": "0.2.0",
+            "EVE-03-CANONICAL-CATALOG": "0.1.0",
+            "EVE-04-RUNTIME-CATALOG": "0.2.0"
+          },
+          "activation_mode": "shadow_first",
+          "active_runtime_authority": false,
+          "product_wiring": false,
+          "registry_write": false,
+          "diagnosis_enabled": false,
+          "export_enabled": false,
+          "parallel_production_enabled": false
+        }
+      },
+      {
+        "id": "QA05-019",
+        "criterion": "Atomic count coherente",
+        "status": "PASS",
+        "evidence": 130
+      },
+      {
+        "id": "QA05-020",
+        "criterion": "Sin output diagnóstico Fase 5",
+        "status": "PASS",
+        "evidence": "13/13 false"
+      }
+    ],
+    "docx_render_pages": 20,
+    "docx_visual_review": "PASS",
+    "typescript_compile": "PASS",
+    "json_parse": "PASS"
+  },
+  "activation_boundary": {
+    "recommended_repo_path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/",
+    "required_dependency_versions": {
+      "EVE-00-METHOD-KERNEL": "0.2.0",
+      "EVE-03-CANONICAL-CATALOG": "0.1.0",
+      "EVE-04-RUNTIME-CATALOG": "0.2.0"
+    },
+    "activation_mode": "shadow_first",
+    "active_runtime_authority": false,
+    "product_wiring": false,
+    "registry_write": false,
+    "diagnosis_enabled": false,
+    "export_enabled": false,
+    "parallel_production_enabled": false
+  },
+  "dictamen": "READY_FOR_SHADOW_INTEGRATION; no instalado, no productivo y sin diagnóstico/export/transducción activos.",
+  "derived_artifacts": [
+    {
+      "filename": "EVE_05_Gate_Engine_v0_1.docx",
+      "bytes": 66044,
+      "sha256": "ae2bf1ad7c18f59acf9876a0070dd4e9f12702b2501b4de6071a8fb2f74e1432",
+      "role": "documento rector humano"
+    },
+    {
+      "filename": "EVE_05_Gate_Engine_v0_1.json",
+      "bytes": 191931,
+      "sha256": "7da3ab5891463bec6c1ffd90c410a3f6ee12e08d86827227d2a0ba7d62ecd9e4",
+      "role": "chip máquina canónico"
+    },
+    {
+      "filename": "EVE_05_Gate_Engine_v0_1.ts",
+      "bytes": 153798,
+      "sha256": "6101c513077633b08d788f5a9e7468ed856a5a91469434d6b80bee6b131dbd39",
+      "role": "módulo TypeScript ejecutable"
+    },
+    {
+      "filename": "EVE_05_Gate_Engine_v0_1.md",
+      "bytes": 39999,
+      "sha256": "1d1bdce8366cab7427594001aee4880545ecc4860a5dc59941427eeada7a0773",
+      "role": "referencia técnica"
+    }
+  ]
+}

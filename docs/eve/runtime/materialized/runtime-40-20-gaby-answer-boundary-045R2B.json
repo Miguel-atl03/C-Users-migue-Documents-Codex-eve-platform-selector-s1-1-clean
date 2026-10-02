@@ -1,0 +1,48 @@
+﻿{
+    "metadata":  {
+                     "instruction":  "045-R2B",
+                     "git_root":  "C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone/external-consumers/eve-platform-operational-baseline-c312",
+                     "head":  "8becedf4940b9bd19ec9d9968b9308d34070b555",
+                     "final_classification":  "blocked_gaby_runtime_write_atomicity_gap",
+                     "staging_consulted":  "no",
+                     "staging_writes":  "none",
+                     "production_consulted":  "no",
+                     "remote_writes":  "none",
+                     "code_modified":  [
+
+                                       ],
+                     "sql_modified":  [
+
+                                      ],
+                     "B0_modified":  "no",
+                     "B1_modified":  "no",
+                     "Gaby_modified":  "no",
+                     "commit_created":  "no"
+                 },
+    "legacy_scene_answer_role":  "required_compatibility_for_current_gaby_transduction",
+    "legacy_write_path":  {
+                              "route":  "src/app/api/scenes/answers/route.ts",
+                              "service":  "src/services/scene-repository.ts::saveSceneQuestionAnswers",
+                              "writes":  [
+                                             "scene_question_answers",
+                                             "scene_answer_provenance"
+                                         ]
+                          },
+    "downstream_consumers":  [
+                                 "scene-derivation-engine reads scene_question_answers and writes scene_block_derivations",
+                                 "scene-light-preclassification-engine reads scene tables and writes scene_light_inferences / bundles",
+                                 "scene-consistency-engine reads scene answers and writes consistency/clarification records",
+                                 "scene-canonical-record-builder reads scene_question_answers, scene_answer_provenance, scene_block_derivations, scene_consistency_flags, scene_light_inferences and writes scene_canonical_records"
+                             ],
+    "runtime_write_path":  {
+                               "service":  "runtime-40-20-pg-persistence-adapter.ts::createResponseBundle",
+                               "writes":  [
+                                              "response_record",
+                                              "runtime_subfield_response",
+                                              "evidence_item",
+                                              "canonical_variable_record and related Runtime execution tables"
+                                          ]
+                           },
+    "atomicity_evidence":  "No material single transaction or RPC found spanning saveSceneQuestionAnswers plus Runtime response ingest.",
+    "closure":  "blocked_gaby_runtime_write_atomicity_gap"
+}

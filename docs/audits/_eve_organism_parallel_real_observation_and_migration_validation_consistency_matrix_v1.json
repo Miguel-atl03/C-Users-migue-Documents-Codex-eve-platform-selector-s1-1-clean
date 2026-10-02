@@ -1,0 +1,158 @@
+{
+  "matrix_id": "PARALLEL_REAL_OBSERVATION_AND_MIGRATION_VALIDATION_CONSISTENCY_MATRIX_V1",
+  "checks_total": 15,
+  "checks": [
+    {
+      "check_id": "PCM-001",
+      "subject": "A design_only vs B static_review_only",
+      "lane_a_value": "design_only",
+      "lane_b_value": "static_review_only",
+      "consistency": "consistent",
+      "severity": "info",
+      "finding": "Both lanes are documentary/readiness only.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-002",
+      "subject": "A requires non-productive migration validation vs B provides static review only",
+      "lane_a_value": "requires_non_productive_migration_validation",
+      "lane_b_value": "STATIC_SQL_REVIEW_ONLY",
+      "consistency": "partial",
+      "severity": "high_gap",
+      "finding": "B partially addresses A by defining a static route, but physical non-productive validation remains open.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-003",
+      "subject": "Observer creation",
+      "lane_a_value": false,
+      "lane_b_value": false,
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "No observer is created in either lane.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-004",
+      "subject": "Source connection",
+      "lane_a_value": false,
+      "lane_b_value": false,
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "No real source is connected.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-005",
+      "subject": "Real table read",
+      "lane_a_value": false,
+      "lane_b_value": false,
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "No real table is read.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-006",
+      "subject": "Migration execution",
+      "lane_a_value": false,
+      "lane_b_value": false,
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "No migration is executed.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-007",
+      "subject": "DB connection",
+      "lane_a_value": false,
+      "lane_b_value": false,
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "No DB connection is opened.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-008",
+      "subject": "Supabase connection",
+      "lane_a_value": false,
+      "lane_b_value": false,
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "No Supabase connection is opened.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-009",
+      "subject": "Gate 2 real-shadow",
+      "lane_a_value": false,
+      "lane_b_value": false,
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "Gate 2 real-shadow remains open/not closed.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-010",
+      "subject": "Gate 3",
+      "lane_a_value": false,
+      "lane_b_value": false,
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "Gate 3 remains false.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-011",
+      "subject": "Fase 9",
+      "lane_a_value": false,
+      "lane_b_value": false,
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "Fase 9 remains false.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-012",
+      "subject": "Registry/export/diagnosis",
+      "lane_a_value": false,
+      "lane_b_value": false,
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "No registry, export or diagnosis authority is opened.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-013",
+      "subject": "A no-go shadowOutcome contract vs B migration file/static requirements",
+      "lane_a_value": "requires_shadow_outcome_contract",
+      "lane_b_value": "static_requirements_for_shadow_outcome_migration",
+      "consistency": "consistent",
+      "severity": "info",
+      "finding": "B supports A at static-contract level for shadow_outcome.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-014",
+      "subject": "A future observer readiness vs B no physical validation",
+      "lane_a_value": "future_observer_readiness_only",
+      "lane_b_value": "no_physical_validation",
+      "consistency": "partial",
+      "severity": "high_gap",
+      "finding": "Future observer readiness still requires later physical non-productive migration validation or equivalent proof.",
+      "blocks_commit": false
+    },
+    {
+      "check_id": "PCM-015",
+      "subject": "Pair readiness for documentary commit",
+      "lane_a_value": "ready_with_gaps",
+      "lane_b_value": "static_review_path_decided",
+      "consistency": "consistent",
+      "severity": "none",
+      "finding": "The pair is consistent and ready for surgical documentary commit with explicit non-blocking gaps.",
+      "blocks_commit": false
+    }
+  ],
+  "blocking_inconsistencies": 0,
+  "consistent": true
+}

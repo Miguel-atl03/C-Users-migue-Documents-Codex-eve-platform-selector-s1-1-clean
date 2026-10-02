@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Propuesta concepto v2 · Hoja monumental</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --eve-accent: #5c7d8f;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-body: "Source Sans 3", "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Full monumental plane — content occupies ~25% of area */
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1100px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      /* ── Registry: tiny, top edge ── */
+      .registry {
+        position: absolute;
+        top: 36px;
+        left: 72px;
+        right: 72px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .registry-mark {
+        color: var(--eve-ink);
+        font-weight: 600;
+        letter-spacing: 0.42em;
+      }
+
+      .registry-mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .registry-strap {
+        letter-spacing: 0.32em;
+      }
+
+      /* ── Hero: spatial event, upper-left quadrant ── */
+      .monument {
+        position: absolute;
+        top: 148px;
+        left: 72px;
+        max-width: 520px;
+        margin: 0;
+      }
+
+      .monument-line {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 58px;
+        font-weight: 600;
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+      }
+
+      .monument-line em {
+        display: block;
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      .monument-sub {
+        margin: 32px 0 0;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--eve-mist);
+        letter-spacing: 0.02em;
+      }
+
+      /* ── Meta: whisper, top-right ── */
+      .meta {
+        position: absolute;
+        top: 148px;
+        right: 72px;
+        text-align: right;
+        font-size: 11px;
+        color: var(--eve-mist);
+        line-height: 1.6;
+      }
+
+      .meta button {
+        display: block;
+        margin-top: 4px;
+        margin-left: auto;
+        border: 0;
+        background: transparent;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      /* ── Room mark: floating inscription, center-right void ── */
+      .room {
+        position: absolute;
+        top: 420px;
+        right: 220px;
+        margin: 0;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-ink) 72%, var(--eve-mist));
+      }
+
+      /* ── Capture: two islands in lower plane, separated by void ── */
+      .capture {
+        position: absolute;
+        bottom: 120px;
+        left: 72px;
+        right: 72px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 180px;
+        align-items: end;
+      }
+
+      .island {
+        max-width: 380px;
+      }
+
+      .island.b {
+        justify-self: end;
+        text-align: right;
+        margin-bottom: 48px;
+      }
+
+      .island-q {
+        margin: 0 0 20px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        line-height: 1.45;
+        color: var(--eve-ink);
+      }
+
+      .island-opts {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+      }
+
+      .island-opts li {
+        font-size: 11px;
+        line-height: 1.45;
+        color: var(--eve-mist);
+        cursor: default;
+      }
+
+      .island-opts li.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .island.a .island-opts {
+        max-width: 34ch;
+      }
+
+      .island.b .island-opts {
+        margin-left: auto;
+        max-width: 30ch;
+      }
+
+      /* ── Action: single trace, bottom edge ── */
+      .trace {
+        position: absolute;
+        bottom: 52px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 0;
+        border-bottom: 1px solid var(--eve-ink);
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 0 0 5px;
+        cursor: pointer;
+      }
+
+      /* ── Structural void lines (architecture, not decoration) ── */
+      .void-line-h {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        height: 1px;
+        background: var(--eve-line);
+        opacity: 0.55;
+      }
+
+      .void-line-h.top {
+        top: 108px;
+      }
+
+      .void-line-v {
+        position: absolute;
+        top: 380px;
+        bottom: 200px;
+        left: 50%;
+        width: 1px;
+        background: var(--eve-line);
+        opacity: 0.35;
+        transform: translateX(-50%);
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 18px;
+        left: 72px;
+        font-size: 7px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Propuesta concepto v2 — hoja monumental">
+      <header class="registry">
+        <span class="registry-mark">EVE<sup>™</sup></span>
+        <span class="registry-strap">
+          Strategic &amp; Operational Architecture / Enterprise Viability Engine
+        </span>
+      </header>
+
+      <div class="void-line-h top" aria-hidden="true"></div>
+      <div class="void-line-v" aria-hidden="true"></div>
+
+      <div class="monument">
+        <h1 class="monument-line">
+          Lo que sostiene
+          <em>no siempre se ve.</em>
+        </h1>
+        <p class="monument-sub">Una forma distinta de mirar.</p>
+      </div>
+
+      <div class="meta">
+        <span>Hola.</span>
+        <button type="button">Cerrar sesión</button>
+      </div>
+
+      <p class="room">[ Comienza tu levantamiento ]</p>
+
+      <div class="capture">
+        <section class="island a">
+          <h2 class="island-q">¿Desde qué lugar participas normalmente en la empresa?</h2>
+          <ul class="island-opts">
+            <li class="is-on">Soy dueño/a, socio/a o parte de la dirección general.</li>
+            <li>Estoy a cargo o dirijo un área.</li>
+            <li>Superviso o coordino el trabajo de otras personas.</li>
+            <li>Analizo información, datos o procesos de la empresa.</li>
+            <li>Apoyo en administración, ventas, producción, atención o soporte.</li>
+            <li>Participo como externo, asesor o proveedor.</li>
+            <li>Otro.</li>
+          </ul>
+        </section>
+
+        <section class="island b">
+          <h2 class="island-q">¿Qué tan cerca estás de las decisiones?</h2>
+          <ul class="island-opts">
+            <li>Las tomo directamente.</li>
+            <li class="is-on">Participo en decidirlas.</li>
+            <li>Las propongo o las preparo.</li>
+            <li>Las ejecuto cuando ya fueron decididas.</li>
+            <li>Las vivo como impacto, pero no participo mucho en decidirlas.</li>
+          </ul>
+        </section>
+      </div>
+
+      <button class="trace" type="button">Guardar</button>
+
+      <p class="proposal-tag">Propuesta concepto v2 · hoja monumental · espacio sobre información</p>
+    </section>
+  </body>
+</html>

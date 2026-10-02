@@ -1,0 +1,158 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING4_OBSERVABILITY_SLO_POLICY",
+  "generated_at": "2026-07-09T07:48:00.000Z",
+  "authorization_ref": "ring4-authorization-expanded-production-scale-governance-20260709",
+  "ring": 4,
+  "ring_name": "expanded_production_scale_governance",
+  "version": "1.0.0",
+  "observability_required": true,
+  "slo_required": true,
+  "error_budget_required": true,
+  "ring3_baseline": {
+    "observability_results_ref": "docs/production-activation/ring3_observability_results.json",
+    "observability_passed": true,
+    "ring3_no_go_clean": true
+  },
+  "slo_definitions": [
+    {
+      "id": "R4-SLO-01",
+      "slo": "runtime_session_success_rate",
+      "description": "Percentage of expanded production sessions completing without unhandled failure",
+      "target": "defined_at_execution_authorization",
+      "error_budget_tracked": true,
+      "breach_triggers_scale_pause": true
+    },
+    {
+      "id": "R4-SLO-02",
+      "slo": "bff_client_safe_route_availability",
+      "description": "Availability of client-safe BFF routes under expanded production load",
+      "target": "defined_at_execution_authorization",
+      "error_budget_tracked": true,
+      "breach_triggers_scale_pause": true
+    },
+    {
+      "id": "R4-SLO-03",
+      "slo": "gates_readiness_decision_latency",
+      "description": "Latency of gates/readiness decisions within acceptable bounds",
+      "target": "defined_at_execution_authorization",
+      "error_budget_tracked": true,
+      "breach_triggers_rollback_evaluation": true
+    },
+    {
+      "id": "R4-SLO-04",
+      "slo": "consultant_packet_generation_success",
+      "description": "Consultant review packet generation succeeds under expanded load",
+      "target": "defined_at_execution_authorization",
+      "error_budget_tracked": true,
+      "breach_triggers_scale_pause": true
+    },
+    {
+      "id": "R4-SLO-05",
+      "slo": "audit_trail_completeness",
+      "description": "All expanded production events have complete audit trail",
+      "target": "100_percent",
+      "error_budget_tracked": false,
+      "breach_triggers_abort_evaluation": true
+    }
+  ],
+  "observability_requirements": [
+    {
+      "id": "R4-OB-01",
+      "requirement": "runtime_audit_trail_exists",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-OB-02",
+      "requirement": "correlation_id_present",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-OB-03",
+      "requirement": "idempotency_key_present",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-OB-04",
+      "requirement": "source_trace_present",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-OB-05",
+      "requirement": "scope_tenant_case_run_present",
+      "mandatory_for_ring4": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-OB-06",
+      "requirement": "expanded_production_marking_observable",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-OB-07",
+      "requirement": "traffic_ramp_percentage_observable",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-OB-08",
+      "requirement": "tenant_allowlist_state_observable",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-OB-09",
+      "requirement": "case_allowlist_state_observable",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-OB-10",
+      "requirement": "slo_metrics_collected_real_time",
+      "mandatory_for_ring4": true,
+      "execution_required": true
+    },
+    {
+      "id": "R4-OB-11",
+      "requirement": "error_budget_consumption_observable",
+      "mandatory_for_ring4": true,
+      "execution_required": true
+    },
+    {
+      "id": "R4-OB-12",
+      "requirement": "scale_governance_decisions_traceable",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-OB-13",
+      "requirement": "boundary_ledger_maintained",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-OB-14",
+      "requirement": "rollback_abort_drill_results_traceable",
+      "mandatory_for_ring4": true,
+      "execution_required": true
+    },
+    {
+      "id": "R4-OB-15",
+      "requirement": "human_supervision_status_observable",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-OB-16",
+      "requirement": "operator_monitoring_dashboard_active",
+      "mandatory_for_ring4": true,
+      "execution_required": true
+    }
+  ],
+  "observability_green_criteria": {
+    "all_slo_targets_met": true,
+    "error_budget_not_exhausted": true,
+    "audit_trail_complete": true,
+    "no_critical_alerts_active": true,
+    "required_for_scale_up": true
+  },
+  "chain_context_ref": "eve-local-activation-chain-fc26f195-189e-4a47-b8f8-222d1910ff66",
+  "all_requirements_defined_at_authorization": true
+}

@@ -1,0 +1,66 @@
+{
+  "riskSetId": "EVE-03-CANONICAL-CATALOG-SHADOW-MODE-RISKS-V1",
+  "mode": "canonical_catalog_shadow",
+  "risks": [
+    {
+      "riskId": "RISK-01",
+      "risk": "usar catalogo para crear nodos nuevos",
+      "severity": "high",
+      "mitigation": "shadow mode is read-only; create_node is blocked"
+    },
+    {
+      "riskId": "RISK-02",
+      "risk": "escribir registry",
+      "severity": "critical",
+      "mitigation": "canWriteRegistry false; registry_write blocked"
+    },
+    {
+      "riskId": "RISK-03",
+      "risk": "usar VSM1 para inventar estructura operacional",
+      "severity": "high",
+      "mitigation": "VSM1 limited to methodological guard"
+    },
+    {
+      "riskId": "RISK-04",
+      "risk": "tratar referencias faltantes como resueltas",
+      "severity": "high",
+      "mitigation": "missing references emit catalog_reference_missing or catalog_lookup_not_found"
+    },
+    {
+      "riskId": "RISK-05",
+      "risk": "ocultar las 33 variables referenciadas no definidas",
+      "severity": "high",
+      "mitigation": "gap CANONICAL_VARIABLES_REFERENCED_NOT_DEFINED remains visible with count 33"
+    },
+    {
+      "riskId": "RISK-06",
+      "risk": "usar source code sin source document",
+      "severity": "medium",
+      "mitigation": "source code validation must require source_document trace"
+    },
+    {
+      "riskId": "RISK-07",
+      "risk": "mutar canonical variables desde shadow",
+      "severity": "critical",
+      "mitigation": "canModifyCatalog false; create_variable blocked"
+    },
+    {
+      "riskId": "RISK-08",
+      "risk": "hacer Runtime readiness final",
+      "severity": "critical",
+      "mitigation": "canTriggerRuntime false; readiness states are internal shadow signals"
+    },
+    {
+      "riskId": "RISK-09",
+      "risk": "mezclar catalogo canonico con WorkMap draft",
+      "severity": "medium",
+      "mitigation": "WorkMapIntake can appear only as catalog content/source reference, never mutation"
+    },
+    {
+      "riskId": "RISK-10",
+      "risk": "exponer maquinaria interna en UI productiva",
+      "severity": "high",
+      "mitigation": "future trace UI is dev-only; product UI remains untouched"
+    }
+  ]
+}

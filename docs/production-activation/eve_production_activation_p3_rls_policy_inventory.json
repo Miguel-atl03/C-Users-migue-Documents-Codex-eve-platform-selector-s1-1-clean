@@ -1,0 +1,37 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P3_SUPABASE_RLS_SCHEMA_REAL_COMPLETED",
+  "policy_pattern": "tenant_case_scoped_authenticated",
+  "tables_with_rls": 19,
+  "policies_per_table": {
+    "select": "{table}_tenant_case_select",
+    "insert": "{table}_tenant_case_insert",
+    "update": "{table}_tenant_case_update"
+  },
+  "scope_expression": "tenant_id = eve_current_tenant_id() AND eve_can_access_case(case_id)",
+  "anonymous_unrestricted_access": false,
+  "public_unrestricted_access": false,
+  "anon_revoked": true,
+  "force_rls": true,
+  "bypass_rls_in_migration": false,
+  "inventory": [
+    "runtime_catalog_version",
+    "source_node_ref",
+    "runtime_interaction_def",
+    "runtime_interaction_mapping",
+    "role_runtime_session",
+    "activity_runtime_run",
+    "runtime_interaction_instance",
+    "runtime_subfield_response",
+    "evidence_item",
+    "canonical_variable_record",
+    "branching_decision",
+    "budget_ledger",
+    "semantic_resolution_event",
+    "process_state_timer_event",
+    "structural_candidate_record",
+    "readiness_gap_record",
+    "readiness_decision_record",
+    "parallel_export_payload",
+    "runtime_audit_trail"
+  ]
+}

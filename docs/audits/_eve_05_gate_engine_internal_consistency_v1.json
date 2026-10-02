@@ -1,0 +1,136 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "GATE_ENGINE_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "consistencyStatus": "major_consistency_ok_with_qa_gaps",
+  "checks": [
+    {
+      "id": "identity_coherent",
+      "status": "pass",
+      "details": "chip_id, version, stage, status, certification_status and installation_status are coherent across parsed package inventory."
+    },
+    {
+      "id": "modules_present",
+      "status": "pass",
+      "details": "All five expected modules are present."
+    },
+    {
+      "id": "declared_counts_present",
+      "status": "pass",
+      "details": "Declared counts match expected intake counts for routes, gates, rules, compartments, failure guards and atomic rules."
+    },
+    {
+      "id": "json_manifest_md_docx_ts_coherent",
+      "status": "pass",
+      "details": "All staged package files were read; JSON and manifest parse; identity and module declarations are coherent at intake level."
+    },
+    {
+      "id": "ts_runtime_authority_true",
+      "status": "pass",
+      "details": "No runtimeAuthority: true detected in TS."
+    },
+    {
+      "id": "ts_registry_write",
+      "status": "pass",
+      "details": "No registry write behavior detected. Package declarations keep registry_write false."
+    },
+    {
+      "id": "ts_productive_imports",
+      "status": "pass",
+      "details": "No productive imports detected; TS is self-contained package artifact."
+    },
+    {
+      "id": "installation_status",
+      "status": "pass",
+      "details": "installation_status is NOT_INSTALLED."
+    },
+    {
+      "id": "eve_brain_connection",
+      "status": "pass",
+      "details": "No EVE brain connection was created or detected in this audit."
+    },
+    {
+      "id": "productive_runtime",
+      "status": "pass",
+      "details": "No productive runtime was touched."
+    },
+    {
+      "id": "workmap_significado_supabase_sql",
+      "status": "pass",
+      "details": "No WorkMap, Significado, Supabase or SQL files were modified or used."
+    },
+    {
+      "id": "diagnostic_export_premature",
+      "status": "pass",
+      "details": "Package declares diagnosis_enabled false, export_enabled false and diagnostic bridge disabled for phase 5."
+    }
+  ],
+  "riskChecks": [
+    {
+      "risk": "rules_without_initial_rector_source",
+      "status": "not_detected_at_initial_mapping_level",
+      "note": "Rule-level QA is still pending; no full coverage claim."
+    },
+    {
+      "risk": "gate_without_initial_rector_source",
+      "status": "not_detected_at_initial_mapping_level",
+      "note": "All five modules have initial rector sources mapped."
+    },
+    {
+      "risk": "D2_not_aligned_with_consistency_gate",
+      "status": "not_detected_at_initial_mapping_level",
+      "note": "D2 is mapped only as downstream consistency compartment reference."
+    },
+    {
+      "risk": "D1_overreach",
+      "status": "guarded",
+      "note": "D1 is methodological, not runtime/UI/persistence source."
+    },
+    {
+      "risk": "VSM1_overreach",
+      "status": "guarded",
+      "note": "VSM1 is guard-only; no closed VSM diagnosis."
+    },
+    {
+      "risk": "AHE1_overreach",
+      "status": "guarded",
+      "note": "AHE1 is interpretive/human architecture guard-only; no AHE diagnosis."
+    },
+    {
+      "risk": "D4_D3_used_as_operational_source_instead_of_boundary",
+      "status": "guarded",
+      "note": "D4 is technical implementation contract; D3 is downstream boundary only."
+    },
+    {
+      "risk": "runtimeAuthority",
+      "status": "not_detected"
+    },
+    {
+      "risk": "registry_write",
+      "status": "not_detected"
+    },
+    {
+      "risk": "brain_connection",
+      "status": "not_detected"
+    },
+    {
+      "risk": "premature_diagnosis",
+      "status": "not_detected"
+    },
+    {
+      "risk": "premature_export_or_ir",
+      "status": "not_detected"
+    },
+    {
+      "risk": "mapping_not_exhaustive_rule_field",
+      "status": "open_gap",
+      "note": "Explicitly deferred to RECORD-RULE-SOURCE-QA."
+    }
+  ],
+  "conclusion": {
+    "majorInternalConsistencyOk": true,
+    "materialMismatchDetected": false,
+    "candidateNotInstalled": true,
+    "candidateNotWired": true,
+    "readyForRecordRuleSourceQa": true
+  }
+}

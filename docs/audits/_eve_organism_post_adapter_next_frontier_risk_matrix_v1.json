@@ -1,0 +1,30 @@
+{
+  "decision_id": "DECIDE_POST_ADAPTER_NEXT_FRONTIER_V1",
+  "risk_matrix": [
+    {
+      "option_id": "OPTION_A",
+      "risk_level": "low",
+      "risk_description": "Local synthetic E2E evidence stays within in-memory records and does not require DB, Supabase, migration execution or real source connection.",
+      "mitigation": "Keep records synthetic/local, require explicit shadowOutcome metadata, and preserve all authority flags false.",
+      "allowed_now": true,
+      "blocks_next_step": false
+    },
+    {
+      "option_id": "OPTION_B",
+      "risk_level": "medium",
+      "risk_description": "Migration validation path may drift toward infrastructure unless separately constrained as non-productive/no-op.",
+      "mitigation": "Require explicit no-op/non-productive validation path design before any migration validation attempt.",
+      "allowed_now": false,
+      "blocks_next_step": true
+    },
+    {
+      "option_id": "OPTION_C",
+      "risk_level": "low",
+      "risk_description": "Holding preserves authority but delays available local integration evidence.",
+      "mitigation": "Use only if local E2E evidence becomes impossible without physical schema.",
+      "allowed_now": true,
+      "blocks_next_step": true
+    }
+  ],
+  "selected_option_id": "OPTION_A"
+}

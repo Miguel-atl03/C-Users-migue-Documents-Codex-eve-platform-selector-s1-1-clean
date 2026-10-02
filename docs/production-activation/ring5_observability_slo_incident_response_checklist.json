@@ -1,0 +1,134 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING5_OBSERVABILITY_SLO_INCIDENT_RESPONSE_CHECKLIST",
+  "generated_at": "2026-07-10T03:50:00.000Z",
+  "authorization_ref": "ring5-authorization-general-production-activation-gate-rerun-20260710",
+  "ring": 5,
+  "ring_name": "general_production_activation_gate",
+  "version": "1.0.0",
+  "observability_slo_required": true,
+  "incident_response_required": true,
+  "checklist_defined_at_authorization": true,
+  "evaluation_requires_ring5_execution_authorization": true,
+  "evaluated_against_production": false,
+  "ring4_baseline": {
+    "observability_slo_results": "docs/production-activation/ring4_observability_slo_results.json",
+    "incident_response_results": "docs/production-activation/ring4_incident_response_results.json",
+    "observability_slo_policy": "docs/production-activation/ring4_observability_slo_policy.json",
+    "ring4_no_go_clean": true
+  },
+  "observability_checks": [
+    {
+      "id": "R5-OB-01",
+      "check": "runtime_audit_trail_complete_for_general_production",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-OB-02",
+      "check": "correlation_id_and_idempotency_present",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-OB-03",
+      "check": "activation_state_flags_observable",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-OB-04",
+      "check": "boundary_ledger_maintained_during_execution",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-OB-05",
+      "check": "operator_monitoring_dashboard_active",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    }
+  ],
+  "slo_checks": [
+    {
+      "id": "R5-SLO-01",
+      "check": "session_success_rate_within_target",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-SLO-02",
+      "check": "bff_client_safe_route_availability_within_target",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-SLO-03",
+      "check": "gates_readiness_latency_within_target",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-SLO-04",
+      "check": "error_budget_not_exhausted",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-SLO-05",
+      "check": "audit_trail_completeness_100_percent",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    }
+  ],
+  "incident_response_checks": [
+    {
+      "id": "R5-IR-01",
+      "check": "incident_owner_named",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-IR-02",
+      "check": "escalation_path_documented",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-IR-03",
+      "check": "severity_window_defined",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-IR-04",
+      "check": "rollback_abort_linkage_defined",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-IR-05",
+      "check": "no_critical_unresolved_incidents_before_activation",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    }
+  ],
+  "all_checks_defined": true,
+  "all_checks_passed_against_production": false,
+  "activation_allowed_general_production": false,
+  "qa_green_real_general_created": false
+}

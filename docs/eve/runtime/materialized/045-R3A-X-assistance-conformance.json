@@ -1,0 +1,503 @@
+{
+  "instruction": "045-R3A-X",
+  "gate": 17,
+  "expected": "0 necessary assistance mechanisms lost",
+  "necessary_assistance_lost_count": 0,
+  "note": "At this gate, inventory is complete; ports not finished — loss prevented by retirement gate criteria, not by deletion.",
+  "sections": [
+    {
+      "section": "LOGIN",
+      "assistance_available": [],
+      "assistance_trigger": [],
+      "input_scope": [],
+      "server_client_implementation": [],
+      "user_review": [],
+      "final_submission_path": "auth/session contracts",
+      "slot_ref_preservation": "n/a",
+      "Runtime_semantic_authority": "none_or_post_finalize",
+      "legacy_dependency": "ClientAuthScreen @ `/` access_screen",
+      "new_canvas_component": "EveCanvasPrototype.LoginCanvas (freeze/clean-clone only)",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "ESTADO_A",
+      "assistance_available": [],
+      "assistance_trigger": [],
+      "input_scope": [],
+      "server_client_implementation": [],
+      "user_review": [],
+      "final_submission_path": "auth/session contracts",
+      "slot_ref_preservation": "n/a",
+      "Runtime_semantic_authority": "none_or_post_finalize",
+      "legacy_dependency": "EmptyAssessmentState / ActiveAssessmentState @ `/` create_session",
+      "new_canvas_component": "EveCanvasPrototype.EstadoASection (freeze)",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "WORKMAP_EXPLANATION",
+      "assistance_available": [],
+      "assistance_trigger": [
+        "Guide rail / Ver ejemplo / runIntroTutorial",
+        "textarea blur; formal card after save attempt",
+        "Save / continue",
+        "none"
+      ],
+      "input_scope": [
+        "guide key / field focus",
+        "field text",
+        "full work map",
+        "n/a"
+      ],
+      "server_client_implementation": [
+        "client-only; work-map-*-validation services",
+        "src/domain/work-map.ts assist evaluators",
+        "work-map-save-validation.ts; finalize route",
+        "n/a"
+      ],
+      "user_review": [
+        "none",
+        "none",
+        "soft (continue with warnings)",
+        "n/a"
+      ],
+      "final_submission_path": "auth/session contracts",
+      "slot_ref_preservation": "n/a",
+      "Runtime_semantic_authority": "none_or_post_finalize",
+      "legacy_dependency": "orientative only; assistance on WORKMAP",
+      "new_canvas_component": "OfficialWorkMapExplanationSection",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "WORKMAP",
+      "assistance_available": [
+        "workmap_side_cognitive_guide",
+        "workmap_inline_blur_assist",
+        "workmap_formal_save_validation"
+      ],
+      "assistance_trigger": [
+        "Guide rail / Ver ejemplo / runIntroTutorial",
+        "textarea blur; formal card after save attempt",
+        "Save / continue",
+        "none"
+      ],
+      "input_scope": [
+        "guide key / field focus",
+        "field text",
+        "full work map",
+        "n/a"
+      ],
+      "server_client_implementation": [
+        "client-only; work-map-*-validation services",
+        "src/domain/work-map.ts assist evaluators",
+        "work-map-save-validation.ts; finalize route",
+        "n/a"
+      ],
+      "user_review": [
+        "none",
+        "none",
+        "soft (continue with warnings)",
+        "n/a"
+      ],
+      "final_submission_path": "/api/participant/workmap/finalize",
+      "slot_ref_preservation": "n/a",
+      "Runtime_semantic_authority": "none_or_post_finalize",
+      "legacy_dependency": "WorkMapIntake thin re-export; production via official canvas",
+      "new_canvas_component": "OfficialWorkMapSection → WorkMapEditor",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "SIGNIFICADO_EXPLANATION",
+      "assistance_available": [],
+      "assistance_trigger": [
+        "always visible",
+        "auto aside Ejemplo",
+        "debounce typing + focus/blur",
+        "Sí, es correcto / Quiero corregirlo",
+        "prefilled fields",
+        "none"
+      ],
+      "input_scope": [
+        "question id",
+        "B0-Q01 context",
+        "draftText + activity context",
+        "operational description",
+        "WorkMap activity text",
+        "anchor fields"
+      ],
+      "server_client_implementation": [
+        "block0-catalog-snapshot.ts",
+        "/api/coach/operational-description/intro-example",
+        "/api/coach/operational-description",
+        "infer-activity-boundary.ts; persist with block0",
+        "workmap-to-block0-prefill.ts",
+        "scanOperationalDescription"
+      ],
+      "user_review": [
+        "none",
+        "none",
+        "none (does not mutate draft)",
+        "required",
+        "implicit via edit/advance",
+        "n/a"
+      ],
+      "final_submission_path": "auth/session contracts",
+      "slot_ref_preservation": "n/a",
+      "Runtime_semantic_authority": "none_or_post_finalize",
+      "legacy_dependency": "implicit intro inside SignificadoDeTuTrabajo",
+      "new_canvas_component": "OfficialSignificadoExplanationSection",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "B0",
+      "assistance_available": [
+        "b0_help_text",
+        "b0_intro_example",
+        "b0_operational_description_coach",
+        "b0_boundary_confirmation",
+        "workmap_to_b0_prefill"
+      ],
+      "assistance_trigger": [
+        "always visible",
+        "auto aside Ejemplo",
+        "debounce typing + focus/blur",
+        "Sí, es correcto / Quiero corregirlo",
+        "prefilled fields",
+        "none"
+      ],
+      "input_scope": [
+        "question id",
+        "B0-Q01 context",
+        "draftText + activity context",
+        "operational description",
+        "WorkMap activity text",
+        "anchor fields"
+      ],
+      "server_client_implementation": [
+        "block0-catalog-snapshot.ts",
+        "/api/coach/operational-description/intro-example",
+        "/api/coach/operational-description",
+        "infer-activity-boundary.ts; persist with block0",
+        "workmap-to-block0-prefill.ts",
+        "scanOperationalDescription"
+      ],
+      "user_review": [
+        "none",
+        "none",
+        "none (does not mutate draft)",
+        "required",
+        "implicit via edit/advance",
+        "n/a"
+      ],
+      "final_submission_path": "/api/significado/block0",
+      "slot_ref_preservation": "n/a",
+      "Runtime_semantic_authority": "none_or_post_finalize",
+      "legacy_dependency": "SignificadoDeTuTrabajo thin re-export; production via official canvas",
+      "new_canvas_component": "OfficialSignificadoSection → SignificadoEditor",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "B05",
+      "assistance_available": [
+        "runtime_help_text",
+        "runtime_microconfirmation_contract"
+      ],
+      "assistance_trigger": [
+        "help under visible_text",
+        "intended confirmation_card / microconfirmation (sheet incomplete)",
+        "none live"
+      ],
+      "input_scope": [
+        "interaction definition",
+        "interaction VM",
+        "n/a"
+      ],
+      "server_client_implementation": [
+        "interaction-renderer + client-bff",
+        "Runtime microconfirmation budget",
+        "n/a"
+      ],
+      "user_review": [
+        "none",
+        "intended yes",
+        "n/a"
+      ],
+      "final_submission_path": "/api/eve/runtime-40-20/client-bff/answer",
+      "slot_ref_preservation": "required_on_answer",
+      "Runtime_semantic_authority": "server",
+      "legacy_dependency": "RuntimeFullQuestionnaireRunner + RuntimeInteractionSheet OR LegacySceneQuestionnaireRunner",
+      "new_canvas_component": "ComoOcurreSection + block05 reference (freeze/reference; not productive)",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "B1",
+      "assistance_available": [
+        "runtime_help_text",
+        "runtime_microconfirmation_contract"
+      ],
+      "assistance_trigger": [
+        "help under visible_text",
+        "intended confirmation_card / microconfirmation (sheet incomplete)",
+        "none live"
+      ],
+      "input_scope": [
+        "interaction definition",
+        "interaction VM",
+        "n/a"
+      ],
+      "server_client_implementation": [
+        "interaction-renderer + client-bff",
+        "Runtime microconfirmation budget",
+        "n/a"
+      ],
+      "user_review": [
+        "none",
+        "intended yes",
+        "n/a"
+      ],
+      "final_submission_path": "/api/eve/runtime-40-20/client-bff/answer",
+      "slot_ref_preservation": "required_on_answer",
+      "Runtime_semantic_authority": "server",
+      "legacy_dependency": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "new_canvas_component": "not_materialized_as_specific_section",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "B2",
+      "assistance_available": [
+        "runtime_help_text",
+        "runtime_microconfirmation_contract"
+      ],
+      "assistance_trigger": [
+        "help under visible_text",
+        "intended confirmation_card / microconfirmation (sheet incomplete)",
+        "none live"
+      ],
+      "input_scope": [
+        "interaction definition",
+        "interaction VM",
+        "n/a"
+      ],
+      "server_client_implementation": [
+        "interaction-renderer + client-bff",
+        "Runtime microconfirmation budget",
+        "n/a"
+      ],
+      "user_review": [
+        "none",
+        "intended yes",
+        "n/a"
+      ],
+      "final_submission_path": "/api/eve/runtime-40-20/client-bff/answer",
+      "slot_ref_preservation": "required_on_answer",
+      "Runtime_semantic_authority": "server",
+      "legacy_dependency": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "new_canvas_component": "not_materialized_as_specific_section",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "B3",
+      "assistance_available": [
+        "runtime_help_text",
+        "runtime_microconfirmation_contract"
+      ],
+      "assistance_trigger": [
+        "help under visible_text",
+        "intended confirmation_card / microconfirmation (sheet incomplete)",
+        "none live"
+      ],
+      "input_scope": [
+        "interaction definition",
+        "interaction VM",
+        "n/a"
+      ],
+      "server_client_implementation": [
+        "interaction-renderer + client-bff",
+        "Runtime microconfirmation budget",
+        "n/a"
+      ],
+      "user_review": [
+        "none",
+        "intended yes",
+        "n/a"
+      ],
+      "final_submission_path": "/api/eve/runtime-40-20/client-bff/answer",
+      "slot_ref_preservation": "required_on_answer",
+      "Runtime_semantic_authority": "server",
+      "legacy_dependency": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "new_canvas_component": "not_materialized_as_specific_section",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "B4",
+      "assistance_available": [
+        "runtime_help_text",
+        "runtime_microconfirmation_contract"
+      ],
+      "assistance_trigger": [
+        "help under visible_text",
+        "intended confirmation_card / microconfirmation (sheet incomplete)",
+        "none live"
+      ],
+      "input_scope": [
+        "interaction definition",
+        "interaction VM",
+        "n/a"
+      ],
+      "server_client_implementation": [
+        "interaction-renderer + client-bff",
+        "Runtime microconfirmation budget",
+        "n/a"
+      ],
+      "user_review": [
+        "none",
+        "intended yes",
+        "n/a"
+      ],
+      "final_submission_path": "/api/eve/runtime-40-20/client-bff/answer",
+      "slot_ref_preservation": "required_on_answer",
+      "Runtime_semantic_authority": "server",
+      "legacy_dependency": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "new_canvas_component": "not_materialized_as_specific_section",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "B5",
+      "assistance_available": [
+        "runtime_help_text",
+        "runtime_microconfirmation_contract"
+      ],
+      "assistance_trigger": [
+        "help under visible_text",
+        "intended confirmation_card / microconfirmation (sheet incomplete)",
+        "none live"
+      ],
+      "input_scope": [
+        "interaction definition",
+        "interaction VM",
+        "n/a"
+      ],
+      "server_client_implementation": [
+        "interaction-renderer + client-bff",
+        "Runtime microconfirmation budget",
+        "n/a"
+      ],
+      "user_review": [
+        "none",
+        "intended yes",
+        "n/a"
+      ],
+      "final_submission_path": "/api/eve/runtime-40-20/client-bff/answer",
+      "slot_ref_preservation": "required_on_answer",
+      "Runtime_semantic_authority": "server",
+      "legacy_dependency": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "new_canvas_component": "not_materialized_as_specific_section",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "B6",
+      "assistance_available": [
+        "runtime_help_text",
+        "runtime_microconfirmation_contract"
+      ],
+      "assistance_trigger": [
+        "help under visible_text",
+        "intended confirmation_card / microconfirmation (sheet incomplete)",
+        "none live"
+      ],
+      "input_scope": [
+        "interaction definition",
+        "interaction VM",
+        "n/a"
+      ],
+      "server_client_implementation": [
+        "interaction-renderer + client-bff",
+        "Runtime microconfirmation budget",
+        "n/a"
+      ],
+      "user_review": [
+        "none",
+        "intended yes",
+        "n/a"
+      ],
+      "final_submission_path": "/api/eve/runtime-40-20/client-bff/answer",
+      "slot_ref_preservation": "required_on_answer",
+      "Runtime_semantic_authority": "server",
+      "legacy_dependency": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "new_canvas_component": "not_materialized_as_specific_section",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "B7",
+      "assistance_available": [
+        "runtime_help_text",
+        "runtime_microconfirmation_contract"
+      ],
+      "assistance_trigger": [
+        "help under visible_text",
+        "intended confirmation_card / microconfirmation (sheet incomplete)",
+        "none live"
+      ],
+      "input_scope": [
+        "interaction definition",
+        "interaction VM",
+        "n/a"
+      ],
+      "server_client_implementation": [
+        "interaction-renderer + client-bff",
+        "Runtime microconfirmation budget",
+        "n/a"
+      ],
+      "user_review": [
+        "none",
+        "intended yes",
+        "n/a"
+      ],
+      "final_submission_path": "/api/eve/runtime-40-20/client-bff/answer",
+      "slot_ref_preservation": "required_on_answer",
+      "Runtime_semantic_authority": "server",
+      "legacy_dependency": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner (+ microconfirmation contracts)",
+      "new_canvas_component": "not_materialized_as_specific_section",
+      "necessary_assistance_lost": false
+    },
+    {
+      "section": "READINESS",
+      "assistance_available": [
+        "consistency_micro_clarification"
+      ],
+      "assistance_trigger": [
+        "MicroClarificationCard Guardar aclaracion"
+      ],
+      "input_scope": [
+        "consistency state"
+      ],
+      "server_client_implementation": [
+        "consistency-checker.ts; /api/questionnaire/submit"
+      ],
+      "user_review": [
+        "required to proceed"
+      ],
+      "final_submission_path": "/api/session/intermediate-output + clarification submit",
+      "slot_ref_preservation": "n/a",
+      "Runtime_semantic_authority": "none_or_post_finalize",
+      "legacy_dependency": "closure LoadingCard + MicroClarificationCard + ClientAssessmentComplete @ `/`",
+      "new_canvas_component": "not_materialized_as_canvas_section",
+      "necessary_assistance_lost": false
+    }
+  ],
+  "x2_update": {
+    "workmap_side_cognitive_guide": "preserved",
+    "workmap_inline_blur_assist": "preserved",
+    "workmap_formal_save_validation": "preserved",
+    "assistance_loss": 0,
+    "new_canvas_path": "OfficialWorkMapSection → WorkMapEditor"
+  },
+  "x3_update": {
+    "b0_help_text": "preserved",
+    "b0_intro_example": "preserved",
+    "b0_operational_description_coach": "preserved",
+    "b0_boundary_confirmation": "preserved",
+    "workmap_to_b0_prefill": "preserved",
+    "assistance_loss": 0,
+    "new_canvas_path": "OfficialSignificadoSection → SignificadoEditor"
+  }
+}

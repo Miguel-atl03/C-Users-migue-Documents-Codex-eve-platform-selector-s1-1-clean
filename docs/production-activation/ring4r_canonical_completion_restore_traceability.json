@@ -1,0 +1,124 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING4R_CANONICAL_COMPLETION_RESTORE_TRACEABILITY",
+  "generated_at": "2026-07-10T03:14:30.000Z",
+  "plan_phase": "Ring 4-R — canonical completion restore before Ring 5",
+  "restore_status": "COMPLETED",
+  "sources_used": [
+    "MMABP_Minimal_Business_Architecture_EVE_v1_1_B3_B7_alineado",
+    "Marco Sistémico Estructural Oficial actual",
+    "EVE_Plan_Activacion_por_Anillos_Produccion_Final.docx",
+    "Ring 3 accepted docs",
+    "Ring 4 authorization docs",
+    "Ring 4 blocked docs actuales",
+    "Ring 5 block record"
+  ],
+  "sources_excluded": [
+    "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+    "handoff",
+    "planes archivados",
+    "inferencias libres"
+  ],
+  "steps": [
+    {
+      "id": "R4-R.1",
+      "step": "Revalidar Ring 3 accepted",
+      "status": "passed",
+      "evidence": {
+        "command": "npm run validate:ring3",
+        "ring3_execution_completed": true,
+        "no_go_ring3_clean": true,
+        "ready_for_ring4_authorization": true,
+        "closeout": "docs/production-activation/ring3_controlled_production_execution_closeout.md"
+      }
+    },
+    {
+      "id": "R4-R.2",
+      "step": "Revalidar Ring 4 authorization",
+      "status": "passed",
+      "evidence": {
+        "ring4_authorized": true,
+        "authorization_ref": "ring4-authorization-expanded-production-scale-governance-20260709",
+        "authorization_record": "docs/production-activation/ring4_authorization_record.json",
+        "activation_allowed_general_production": false
+      }
+    },
+    {
+      "id": "R4-R.3",
+      "step": "Reejecutar validate:ring4",
+      "status": "passed",
+      "evidence": {
+        "attempt_1": "blocked_pending_ring4_scale_target (race with nested ring3 rewrite)",
+        "attempt_2": "completed exit_code=0",
+        "ring4_execution_completed": true,
+        "command_results": "docs/production-activation/ring4_command_results.json"
+      }
+    },
+    {
+      "id": "R4-R.4",
+      "step": "Confirmar Ring 4 target controlado",
+      "status": "passed",
+      "evidence": {
+        "target_classification": "local",
+        "scale_target_verified": true,
+        "scale_target_report": "docs/production-activation/ring4_scale_target_report.json"
+      }
+    },
+    {
+      "id": "R4-R.5",
+      "step": "Confirmar No-Go Ring 4 limpio",
+      "status": "passed",
+      "evidence": {
+        "no_go_ring4_clean": true,
+        "all_blocking_passed": true,
+        "no_go_checklist": "docs/production-activation/ring4_no_go_checklist.json"
+      }
+    },
+    {
+      "id": "R4-R.6",
+      "step": "Regenerar artefactos canónicos Ring 4",
+      "status": "passed",
+      "evidence": {
+        "closeout": "docs/production-activation/ring4_expanded_production_execution_closeout.md",
+        "final_activation_readiness": "docs/production-activation/ring4_final_activation_readiness.json",
+        "scale_decision_candidate": "docs/production-activation/ring4_scale_decision_candidate.json",
+        "boundary_ledger": "docs/production-activation/ring4_boundary_ledger.json",
+        "traceability": "docs/production-activation/ring4_expanded_production_execution_traceability.json"
+      }
+    },
+    {
+      "id": "R4-R.7",
+      "step": "Emitir closeout de reconciliación",
+      "status": "passed",
+      "evidence": {
+        "closeout": "docs/production-activation/ring4r_canonical_completion_restore_closeout.md",
+        "traceability": "docs/production-activation/ring4r_canonical_completion_restore_traceability.json",
+        "command_results": "docs/production-activation/ring4r_command_results.json",
+        "reconciled_state": "docs/production-activation/ring4r_reconciled_state_report.json",
+        "boundary": "docs/production-activation/ring4r_boundary_ledger.json"
+      }
+    },
+    {
+      "id": "R4-R.8",
+      "step": "Mantener Ring 5 bloqueado hasta nuevo intento",
+      "status": "passed",
+      "evidence": {
+        "ring5_authorized": false,
+        "ring5_execution_started": false,
+        "block_record_updated": "docs/production-activation/ring5_authorization_block_record.json",
+        "note": "Ring 5 remains blocked; only ready for a new authorization attempt after Ring4-R acceptance"
+      }
+    }
+  ],
+  "boundary_flags": {
+    "production_supabase_touched": false,
+    "remote_modified": false,
+    "sql_executed_against_production": false,
+    "diagnosis_created": false,
+    "export_real_external_executed": false,
+    "produccion_paralela_productiva_started": false,
+    "qa_green_real_general_created": false,
+    "activation_allowed_general_production": false
+  },
+  "ready_to_re_run_ring5_authorization": true,
+  "next_tree_point": "Re-run Ring 5 authorization gate only after Ring4-R accepted"
+}

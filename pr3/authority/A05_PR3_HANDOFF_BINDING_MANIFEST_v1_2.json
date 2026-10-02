@@ -1,0 +1,1248 @@
+{
+  "artifact_id": "EVE-PR3-HANDOFF-BINDING-MANIFEST-v1.2",
+  "supersedes": "EVE-PR3-HANDOFF-BINDING-MANIFEST-v1.1",
+  "state": "FIELD_LEVEL_AND_TECHNICAL_ENVELOPE_DEFINED_NOT_DEPLOYED",
+  "authority": "PROMPT PR3 v1.2.1 + promoted runtimes/profiles; technical binding only",
+  "legacy_dependency": "NONE",
+  "package_integrity_profile_ref": "EVE-PR3-ID-AND-IDEMPOTENCY-PROFILE-v1.1",
+  "source_evidence": [
+    {
+      "source_id": "B0_PROFILE",
+      "path": "b0_operational_profile_v0_1.json",
+      "sha256": "17df2c5b5ae151d692126b0b3fcc0301a9ef89dbf5ffc5683c2e32a0c968b30c"
+    },
+    {
+      "source_id": "B0_ENGINE",
+      "path": "runtime/engine.py",
+      "sha256": "51a74d5ea78901fceb0483ba6d380def081a8481ac84a85247fe3576f52a1128"
+    },
+    {
+      "source_id": "B05_PROFILE",
+      "path": "B05_Runtime_Profile_Bindings_v1_1_R2.json",
+      "sha256": "88e5fd88b922606cfec86bb9529a5e09708d0711dbe53763ef89463b98eb0aef"
+    },
+    {
+      "source_id": "B05_ENGINE",
+      "path": "runtime/engine.py",
+      "sha256": "c333a6f2473079e22309844796767451f6968c2a54001bb23bc95912e2101662"
+    },
+    {
+      "source_id": "B1_PROFILE",
+      "path": "profile.json",
+      "sha256": "32a6005436677be45bfadf886839c514588fadaa15511b9709acee03920b6294"
+    },
+    {
+      "source_id": "B1_MAPPING",
+      "path": "canonical_mapping.json",
+      "sha256": "22fcb748bc8e896bbf06efee4fa79dc029db91d02ce4980080709ecb45ace16f"
+    },
+    {
+      "source_id": "B1_UPSTREAM_INTERFACE",
+      "path": "13_B05_to_B1_Interface_Result_v1_0.json",
+      "sha256": "c328bf4743f60dacd9ae14237212fbef6f38299b6fc4f223ecf2cc15f781e98a"
+    },
+    {
+      "source_id": "B1_B2_CONSUMER",
+      "path": "14_B1_to_B2_Consumer_Sufficiency_v1_1.json",
+      "sha256": "877a96abf7046bf2970e92a310f85532309a1aff8b9aceeb8626ebe2bde23de4"
+    },
+    {
+      "source_id": "B2_PROFILE",
+      "path": "b2_profile_g1_1.json",
+      "sha256": "7c795ea221de055777ed5d97be3767ca71c94e3fc217d28de98564f01499f78f"
+    }
+  ],
+  "invariants": [
+    "release != receipt != consumption",
+    "downstream never repairs upstream",
+    "context-only fields do not become captured evidence",
+    "B0.5/B1 use zero generative model calls",
+    "B2 receives B1 antecedent as context and does not overwrite it",
+    "unknown/unresolved/restrictions travel explicitly"
+  ],
+  "bindings": [
+    {
+      "binding_id": "PR3-HO-B0-B05-1.1",
+      "producer": "B0",
+      "consumer": "B0.5",
+      "package_type": "scene_anchor_bundle",
+      "producer_profile": "EVE-B0-PR1-OPERATIONAL-PROFILE@0.1-R4",
+      "consumer_profile": "EVE-C1-B05-RUNTIME-PROFILE-1.1-R2@1.1-R2",
+      "field_bindings": [
+        {
+          "source_path": "B0.scene_anchor_bundle.bundle_type",
+          "target_path": "B0.5.start.b0_bundle.bundle_type",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.run_id",
+          "target_path": "B0.5.start.b0_bundle.run_id",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_id",
+          "target_path": "B0.5.start.b0_bundle.activity_id",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.context_revision",
+          "target_path": "B0.5.start.b0_bundle.context_revision",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.profile_ref",
+          "target_path": "B0.5.start.b0_bundle.profile_ref",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.profile_revision",
+          "target_path": "B0.5.start.b0_bundle.profile_revision",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.profile_hash",
+          "target_path": "B0.5.start.b0_bundle.profile_hash",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.anchor_fingerprint",
+          "target_path": "B0.5.start.b0_bundle.anchor_fingerprint",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_name_user_confirmed",
+          "target_path": "B0.5.start.b0_bundle.activity_name_user_confirmed",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_semantic_structure_confirmed",
+          "target_path": "B0.5.start.b0_bundle.activity_semantic_structure_confirmed",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.semantic_confirmation_status",
+          "target_path": "B0.5.start.b0_bundle.semantic_confirmation_status",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_summary_literal",
+          "target_path": "B0.5.start.b0_bundle.activity_summary_literal",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_frequency_base",
+          "target_path": "B0.5.start.b0_bundle.activity_frequency_base",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_frequency_pattern",
+          "target_path": "B0.5.start.b0_bundle.activity_frequency_pattern",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_typical_context",
+          "target_path": "B0.5.start.b0_bundle.activity_typical_context",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_primary_actor_scope",
+          "target_path": "B0.5.start.b0_bundle.activity_primary_actor_scope",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_start_condition_hint",
+          "target_path": "B0.5.start.b0_bundle.activity_start_condition_hint",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_end_result_hint",
+          "target_path": "B0.5.start.b0_bundle.activity_end_result_hint",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_variation_mode",
+          "target_path": "B0.5.start.b0_bundle.activity_variation_mode",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_exception_signature",
+          "target_path": "B0.5.start.b0_bundle.activity_exception_signature",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.block0_entry_mode",
+          "target_path": "B0.5.start.b0_bundle.block0_entry_mode",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_name_user_literal",
+          "target_path": "B0.5.start.b0_bundle.scene_name_user_literal",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_name_canonical",
+          "target_path": "B0.5.start.b0_bundle.scene_name_canonical",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_summary_literal",
+          "target_path": "B0.5.start.b0_bundle.scene_summary_literal",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_frequency_base",
+          "target_path": "B0.5.start.b0_bundle.scene_frequency_base",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_frequency_pattern",
+          "target_path": "B0.5.start.b0_bundle.scene_frequency_pattern",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_typical_context",
+          "target_path": "B0.5.start.b0_bundle.scene_typical_context",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_primary_actor_scope",
+          "target_path": "B0.5.start.b0_bundle.scene_primary_actor_scope",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_boundary_start_hint",
+          "target_path": "B0.5.start.b0_bundle.scene_boundary_start_hint",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_boundary_end_hint",
+          "target_path": "B0.5.start.b0_bundle.scene_boundary_end_hint",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_variation_mode",
+          "target_path": "B0.5.start.b0_bundle.scene_variation_mode",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_exception_signature",
+          "target_path": "B0.5.start.b0_bundle.scene_exception_signature",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scene_anchor_readiness",
+          "target_path": "B0.5.start.b0_bundle.scene_anchor_readiness",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.gap_flags",
+          "target_path": "B0.5.start.b0_bundle.gap_flags",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.open_gaps",
+          "target_path": "B0.5.start.b0_bundle.open_gaps",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.epistemic_state",
+          "target_path": "B0.5.start.b0_bundle.epistemic_state",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.provenance_refs",
+          "target_path": "B0.5.start.b0_bundle.provenance_refs",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.derivation_lineage",
+          "target_path": "B0.5.start.b0_bundle.derivation_lineage",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scale_status",
+          "target_path": "B0.5.start.b0_bundle.scale_status",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scale_assessment_source",
+          "target_path": "B0.5.start.b0_bundle.scale_assessment_source",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scale_assessment_status",
+          "target_path": "B0.5.start.b0_bundle.scale_assessment_status",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_scale_issue_flag",
+          "target_path": "B0.5.start.b0_bundle.activity_scale_issue_flag",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.scale_issue_reason",
+          "target_path": "B0.5.start.b0_bundle.scale_issue_reason",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.handoff",
+          "target_path": "B0.5.start.b0_bundle.handoff",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.interface_status",
+          "target_path": "B0.5.start.b0_bundle.interface_status",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; preserve exact upstream field"
+        }
+      ],
+      "consumer_guards": [
+        {
+          "source_path": "B0.scene_anchor_bundle.bundle_type",
+          "predicate": "== 'scene_anchor_bundle'",
+          "failure": "B0_INPUT_NOT_SCENE_ANCHOR_BUNDLE"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.activity_name_user_confirmed",
+          "predicate": "nonempty",
+          "failure": "B0_ANCHOR_INCOMPLETE"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.anchor_fingerprint",
+          "predicate": "nonempty",
+          "failure": "B0_ANCHOR_INCOMPLETE"
+        },
+        {
+          "source_path": "B0.scene_anchor_bundle.interface_status.direct_receiver_anchor",
+          "predicate": "is null",
+          "failure": "B0_FABRICATED_DIRECT_RECEIVER"
+        }
+      ],
+      "release_receipt_consumption": "three distinct events keyed to same immutable material_package_id",
+      "restrictions": [
+        "IFACE-B0-B05-001 stays downstream-owned; direct_receiver_anchor must remain absent/null in B0 output"
+      ],
+      "technical_envelope_bindings": [
+        {
+          "target_field": "material_package_id",
+          "source": "A07 MATERIAL_PACKAGE_KEY",
+          "rule": "DERIVE_EXACTLY_PER_A07",
+          "required": true
+        },
+        {
+          "target_field": "package_type",
+          "source": "scene_anchor_bundle",
+          "rule": "CONSTANT_FROM_BINDING",
+          "required": true
+        },
+        {
+          "target_field": "package_revision",
+          "source": "A07 package_revision policy",
+          "rule": "START_1_INCREMENT_ONLY_WHEN_BOUND_PAYLOAD_SHA256_CHANGES",
+          "required": true
+        },
+        {
+          "target_field": "producer_object_run_id",
+          "source": "B0.ObjectRun.object_run_id",
+          "rule": "IDENTITY_REFERENCE",
+          "required": true
+        },
+        {
+          "target_field": "consumer_object_key",
+          "source": "B0.5",
+          "rule": "CONSTANT_FROM_CHAIN_EDGE",
+          "required": true
+        },
+        {
+          "target_field": "binding_id",
+          "source": "PR3-HO-B0-B05-1.1",
+          "rule": "CONSTANT_FROM_A05",
+          "required": true
+        },
+        {
+          "target_field": "contract_set_id",
+          "source": "EVE-PR3-CS-B0-695fde9895d4748b",
+          "rule": "PRODUCER_CONTRACT_SET_ID",
+          "required": true
+        },
+        {
+          "target_field": "payload",
+          "source": "all A05 field_bindings for this edge",
+          "rule": "ASSEMBLE_EXACT_BOUND_PAYLOAD_NO_EXTRA_SEMANTICS",
+          "required": true
+        },
+        {
+          "target_field": "payload_sha256",
+          "source": "A07 canonical JSON payload hash",
+          "rule": "SHA256_CANONICAL_JSON_PER_A07",
+          "required": true
+        },
+        {
+          "target_field": "source_package_refs",
+          "source": [],
+          "rule": "PRESERVE_ORDERED_IMMUTABLE_REFS",
+          "required": true
+        },
+        {
+          "target_field": "restrictions",
+          "source": "producer gaps/restrictions/readiness relevant to consumer",
+          "rule": "PRESERVE_WITHOUT_DOWNSTREAM_REPAIR",
+          "required": true
+        },
+        {
+          "target_field": "released_at",
+          "source": "authoritative server release instant",
+          "rule": "RFC3339_UTC_6DIGITS_PER_A07",
+          "required": true
+        }
+      ],
+      "field_binding_count": 45,
+      "technical_envelope_field_count": 12
+    },
+    {
+      "binding_id": "PR3-HO-B05-B1-1.1",
+      "producer": "B0.5",
+      "consumer": "B1",
+      "package_type": "B05_TO_B1_CONTEXT_PACKAGE",
+      "producer_profile": "EVE-C1-B05-RUNTIME-PROFILE-1.1-R2@1.1-R2",
+      "consumer_profile": "EVE-B1-PR2-RUNTIME-PROFILE-1.1@1.1",
+      "package_composition": "composite technical envelope = exact preserved B0 scene_anchor_bundle + B0.5 scene_frame_bundle fields; no semantic merge",
+      "field_bindings": [
+        {
+          "source_path": "B0.5.runtime_memory.scene_anchor_bundle",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_anchor_bundle",
+          "transform": "EXACT_PASSTHROUGH_FROM_B0",
+          "required_for_transport": true,
+          "semantic_effect": "NONE; B0-owned package remains immutable and is not reconstructed by B1"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.profile_id",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.profile_id",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.profile_version",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.profile_version",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.input_scene_anchor_fingerprint",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.input_scene_anchor_fingerprint",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.informant_id",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.informant_id",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.optional_receiver_context",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.optional_receiver_context",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.direct_receiver_anchor_fabricated",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.direct_receiver_anchor_fabricated",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_reported_primary_beneficiary",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_reported_primary_beneficiary",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_beneficiary_knowledge_basis",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_beneficiary_knowledge_basis",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_reported_primary_affected",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_reported_primary_affected",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_affected_knowledge_basis",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_affected_knowledge_basis",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_beneficiary_affected_relation",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_beneficiary_affected_relation",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.benefit_damage_distribution_note",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.benefit_damage_distribution_note",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_beneficiary_enabled_outcome",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_beneficiary_enabled_outcome",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_value_contribution_mode",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_value_contribution_mode",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_primary_support_character",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_primary_support_character",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_macro_process_label",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_macro_process_label",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.process_knowledge_basis",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.process_knowledge_basis",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_enabled_next_step",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_enabled_next_step",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.next_step_knowledge_basis",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.next_step_knowledge_basis",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_priority_source",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_priority_source",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_priority_displacement_source",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_priority_displacement_source",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.canonical.scene_priority_pattern",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_priority_pattern",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT_ONLY; MUST NOT populate B1 captured trigger variables"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.gaps",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.gaps",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.scene_frame_confidence",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.scene_frame_confidence",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.scene_frame_readiness",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.scene_frame_readiness",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.frame_control_receipt",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.frame_control_receipt",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.B1_consumer",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.B1_consumer",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.PM_consumer",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.PM_consumer",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.counts",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.counts",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.interaction_ledger",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.interaction_ledger",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.exceptional_reentry_ledger",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.exceptional_reentry_ledger",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.provenance",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.provenance",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.audit",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.audit",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.forbidden_outputs_absent",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.forbidden_outputs_absent",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B0.5.scene_frame_bundle.candidates",
+          "target_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.candidates",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": false,
+          "semantic_effect": "CONTEXT/GOVERNANCE_ONLY"
+        }
+      ],
+      "consumer_guards": [
+        {
+          "source_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_anchor_bundle",
+          "predicate": "present and B0 anchor_fingerprint preserved",
+          "failure": "BLOCKED_BY_MISSING_EVIDENCE"
+        },
+        {
+          "source_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_macro_process_label",
+          "predicate": "nonempty and process_knowledge_basis != 'unconfirmed'",
+          "failure": "BLOCKED_BY_MISSING_EVIDENCE"
+        },
+        {
+          "source_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_enabled_next_step",
+          "predicate": "nonempty and next_step_knowledge_basis != 'unconfirmed'",
+          "failure": "BLOCKED_BY_MISSING_EVIDENCE"
+        },
+        {
+          "source_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_priority_source",
+          "predicate": "nonempty",
+          "failure": "BLOCKED_BY_MISSING_EVIDENCE"
+        },
+        {
+          "source_path": "B05_TO_B1_CONTEXT_PACKAGE.scene_frame.canonical.scene_beneficiary_enabled_outcome",
+          "predicate": "must not be reinterpreted as scene_beneficiary_need",
+          "failure": "SEMANTIC_CROSSING_FORBIDDEN"
+        }
+      ],
+      "required_entry_fields": [
+        "scene_anchor_bundle",
+        "scene_frame.canonical.scene_macro_process_label",
+        "scene_frame.canonical.scene_enabled_next_step",
+        "scene_frame.canonical.scene_priority_source"
+      ],
+      "release_receipt_consumption": "three distinct events keyed to same immutable material_package_id",
+      "restrictions": [
+        "scene_beneficiary_enabled_outcome != scene_beneficiary_need",
+        "PM owner remains EVE_INTERNAL_PM_CONSUMER_AUTHORITY"
+      ],
+      "technical_envelope_bindings": [
+        {
+          "target_field": "material_package_id",
+          "source": "A07 MATERIAL_PACKAGE_KEY",
+          "rule": "DERIVE_EXACTLY_PER_A07",
+          "required": true
+        },
+        {
+          "target_field": "package_type",
+          "source": "B05_TO_B1_CONTEXT_PACKAGE",
+          "rule": "CONSTANT_FROM_BINDING",
+          "required": true
+        },
+        {
+          "target_field": "package_revision",
+          "source": "A07 package_revision policy",
+          "rule": "START_1_INCREMENT_ONLY_WHEN_BOUND_PAYLOAD_SHA256_CHANGES",
+          "required": true
+        },
+        {
+          "target_field": "producer_object_run_id",
+          "source": "B0.5.ObjectRun.object_run_id",
+          "rule": "IDENTITY_REFERENCE",
+          "required": true
+        },
+        {
+          "target_field": "consumer_object_key",
+          "source": "B1",
+          "rule": "CONSTANT_FROM_CHAIN_EDGE",
+          "required": true
+        },
+        {
+          "target_field": "binding_id",
+          "source": "PR3-HO-B05-B1-1.1",
+          "rule": "CONSTANT_FROM_A05",
+          "required": true
+        },
+        {
+          "target_field": "contract_set_id",
+          "source": "EVE-PR3-CS-B0055-af216ca8a0b86903",
+          "rule": "PRODUCER_CONTRACT_SET_ID",
+          "required": true
+        },
+        {
+          "target_field": "payload",
+          "source": "all A05 field_bindings for this edge",
+          "rule": "ASSEMBLE_EXACT_BOUND_PAYLOAD_NO_EXTRA_SEMANTICS",
+          "required": true
+        },
+        {
+          "target_field": "payload_sha256",
+          "source": "A07 canonical JSON payload hash",
+          "rule": "SHA256_CANONICAL_JSON_PER_A07",
+          "required": true
+        },
+        {
+          "target_field": "source_package_refs",
+          "source": [
+            "upstream B0 scene_anchor MaterialPackage id"
+          ],
+          "rule": "PRESERVE_ORDERED_IMMUTABLE_REFS",
+          "required": true
+        },
+        {
+          "target_field": "restrictions",
+          "source": "producer gaps/restrictions/readiness relevant to consumer",
+          "rule": "PRESERVE_WITHOUT_DOWNSTREAM_REPAIR",
+          "required": true
+        },
+        {
+          "target_field": "released_at",
+          "source": "authoritative server release instant",
+          "rule": "RFC3339_UTC_6DIGITS_PER_A07",
+          "required": true
+        }
+      ],
+      "field_binding_count": 36,
+      "technical_envelope_field_count": 12
+    },
+    {
+      "binding_id": "PR3-HO-B1-B2-1.1",
+      "producer": "B1",
+      "consumer": "B2",
+      "package_type": "B1_TO_B2_CONTEXT_PACKAGE",
+      "producer_profile": "EVE-B1-PR2-RUNTIME-PROFILE-1.1@1.1",
+      "consumer_profile": "EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",
+      "package_composition": "immutable ref to B05_TO_B1_CONTEXT_PACKAGE + B1 trigger_bundle + B1 governance refs",
+      "field_bindings": [
+        {
+          "source_path": "B05_TO_B1_CONTEXT_PACKAGE.package_ref",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.upstream_context.b05_package_ref",
+          "transform": "IMMUTABLE_PACKAGE_REFERENCE",
+          "required_for_transport": true,
+          "semantic_effect": "LINEAGE_ONLY"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_source",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_source",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_channel",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_channel",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_type",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_type",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_clarity",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_clarity",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_frequency",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_frequency",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_pattern",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_pattern",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_preconditions",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_preconditions",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_exception_exists",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_exception_exists",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_source_normalized",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_source_normalized",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_channel_normalized",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_channel_normalized",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.scene_trigger_confidence",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.scene_trigger_confidence",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.scene_trigger_readiness",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.scene_trigger_readiness",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.scene_consistency_flags",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.scene_consistency_flags",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.epistemic_state",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.epistemic_state",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.coverage",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.coverage",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.context_revision",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.context_revision",
+          "transform": "IDENTITY_COPY",
+          "required_for_transport": true,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY; no direct write into B2 canonical variables"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_exception_description",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_exception_description",
+          "transform": "IDENTITY_COPY_IF_PRESENT",
+          "required_for_transport": false,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_exception_first_symptom",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_exception_first_symptom",
+          "transform": "IDENTITY_COPY_IF_PRESENT",
+          "required_for_transport": false,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_ambiguity_resolution_note",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_ambiguity_resolution_note",
+          "transform": "IDENTITY_COPY_IF_PRESENT",
+          "required_for_transport": false,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_source_hierarchy_note",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_source_hierarchy_note",
+          "transform": "IDENTITY_COPY_IF_PRESENT",
+          "required_for_transport": false,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_dominant_source",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_dominant_source",
+          "transform": "IDENTITY_COPY_IF_PRESENT",
+          "required_for_transport": false,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_dominant_channel",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_dominant_channel",
+          "transform": "IDENTITY_COPY_IF_PRESENT",
+          "required_for_transport": false,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B1.trigger_bundle.trigger_channel_other",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.trigger_channel_other",
+          "transform": "IDENTITY_COPY_IF_PRESENT",
+          "required_for_transport": false,
+          "semantic_effect": "UPSTREAM_CONTEXT_ONLY"
+        },
+        {
+          "source_path": "B1.runtime_governance.run_id",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.governance_refs.run_id",
+          "transform": "IDENTITY_OR_REFERENCE",
+          "required_for_transport": true,
+          "semantic_effect": "PROVENANCE/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B1.runtime_governance.interaction_instance_id",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.governance_refs.interaction_instance_id",
+          "transform": "IDENTITY_OR_REFERENCE",
+          "required_for_transport": true,
+          "semantic_effect": "PROVENANCE/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B1.runtime_governance.runtime_definition_id",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.governance_refs.runtime_definition_id",
+          "transform": "IDENTITY_OR_REFERENCE",
+          "required_for_transport": true,
+          "semantic_effect": "PROVENANCE/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B1.runtime_governance.response_id",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.governance_refs.response_id",
+          "transform": "IDENTITY_OR_REFERENCE",
+          "required_for_transport": true,
+          "semantic_effect": "PROVENANCE/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B1.runtime_governance.response_revision",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.governance_refs.response_revision",
+          "transform": "IDENTITY_OR_REFERENCE",
+          "required_for_transport": true,
+          "semantic_effect": "PROVENANCE/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B1.runtime_governance.supersedes",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.governance_refs.supersedes",
+          "transform": "IDENTITY_OR_REFERENCE",
+          "required_for_transport": true,
+          "semantic_effect": "PROVENANCE/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B1.runtime_governance.idempotency_key",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.governance_refs.idempotency_key",
+          "transform": "IDENTITY_OR_REFERENCE",
+          "required_for_transport": true,
+          "semantic_effect": "PROVENANCE/GOVERNANCE_ONLY"
+        },
+        {
+          "source_path": "B1.runtime_governance.NarrativeCanonicalBinding",
+          "target_path": "B1_TO_B2_CONTEXT_PACKAGE.governance_refs.NarrativeCanonicalBinding",
+          "transform": "IDENTITY_OR_REFERENCE",
+          "required_for_transport": true,
+          "semantic_effect": "PROVENANCE/GOVERNANCE_ONLY"
+        }
+      ],
+      "consumer_guards": [
+        {
+          "source_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.scene_trigger_readiness",
+          "predicate": "== true",
+          "failure": "REENTER_B1_EXPLICIT_LINEAGE"
+        },
+        {
+          "source_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.coverage.unresolved",
+          "predicate": "empty",
+          "failure": "REENTER_B1_EXPLICIT_LINEAGE"
+        },
+        {
+          "source_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.coverage.validation_errors",
+          "predicate": "empty",
+          "failure": "REENTER_B1_EXPLICIT_LINEAGE"
+        },
+        {
+          "source_path": "B1_TO_B2_CONTEXT_PACKAGE.trigger_bundle.*",
+          "predicate": "B2 treats as antecedent context; B2 transformation_causality_trigger cannot replace/rewrite B1 antecedent",
+          "failure": "UPSTREAM_REINTERPRETATION_FORBIDDEN"
+        }
+      ],
+      "required_bundle_fields": [
+        "trigger_source",
+        "trigger_channel",
+        "trigger_type",
+        "trigger_clarity",
+        "trigger_frequency",
+        "trigger_pattern",
+        "trigger_preconditions",
+        "trigger_exception_exists",
+        "trigger_source_normalized",
+        "trigger_channel_normalized",
+        "scene_trigger_confidence",
+        "scene_trigger_readiness",
+        "scene_consistency_flags",
+        "epistemic_state",
+        "coverage",
+        "context_revision"
+      ],
+      "conditional_fields": [
+        "trigger_exception_description",
+        "trigger_exception_first_symptom",
+        "trigger_ambiguity_resolution_note",
+        "trigger_source_hierarchy_note",
+        "trigger_dominant_source",
+        "trigger_dominant_channel",
+        "trigger_channel_other"
+      ],
+      "release_receipt_consumption": "three distinct events keyed to same immutable material_package_id",
+      "restrictions": [
+        "B2 begins where B1 stabilizes trigger; if not ready, B2 reenters B1 by explicit lineage",
+        "B2 cannot reconstruct antecedent from its own transformation questions"
+      ],
+      "technical_envelope_bindings": [
+        {
+          "target_field": "material_package_id",
+          "source": "A07 MATERIAL_PACKAGE_KEY",
+          "rule": "DERIVE_EXACTLY_PER_A07",
+          "required": true
+        },
+        {
+          "target_field": "package_type",
+          "source": "B1_TO_B2_CONTEXT_PACKAGE",
+          "rule": "CONSTANT_FROM_BINDING",
+          "required": true
+        },
+        {
+          "target_field": "package_revision",
+          "source": "A07 package_revision policy",
+          "rule": "START_1_INCREMENT_ONLY_WHEN_BOUND_PAYLOAD_SHA256_CHANGES",
+          "required": true
+        },
+        {
+          "target_field": "producer_object_run_id",
+          "source": "B1.ObjectRun.object_run_id",
+          "rule": "IDENTITY_REFERENCE",
+          "required": true
+        },
+        {
+          "target_field": "consumer_object_key",
+          "source": "B2",
+          "rule": "CONSTANT_FROM_CHAIN_EDGE",
+          "required": true
+        },
+        {
+          "target_field": "binding_id",
+          "source": "PR3-HO-B1-B2-1.1",
+          "rule": "CONSTANT_FROM_A05",
+          "required": true
+        },
+        {
+          "target_field": "contract_set_id",
+          "source": "EVE-PR3-CS-B1-57b594ed1b5dd5f1",
+          "rule": "PRODUCER_CONTRACT_SET_ID",
+          "required": true
+        },
+        {
+          "target_field": "payload",
+          "source": "all A05 field_bindings for this edge",
+          "rule": "ASSEMBLE_EXACT_BOUND_PAYLOAD_NO_EXTRA_SEMANTICS",
+          "required": true
+        },
+        {
+          "target_field": "payload_sha256",
+          "source": "A07 canonical JSON payload hash",
+          "rule": "SHA256_CANONICAL_JSON_PER_A07",
+          "required": true
+        },
+        {
+          "target_field": "source_package_refs",
+          "source": [
+            "upstream B0.5 context MaterialPackage id",
+            "transitively preserved B0 scene_anchor MaterialPackage id"
+          ],
+          "rule": "PRESERVE_ORDERED_IMMUTABLE_REFS",
+          "required": true
+        },
+        {
+          "target_field": "restrictions",
+          "source": "producer gaps/restrictions/readiness relevant to consumer",
+          "rule": "PRESERVE_WITHOUT_DOWNSTREAM_REPAIR",
+          "required": true
+        },
+        {
+          "target_field": "released_at",
+          "source": "authoritative server release instant",
+          "rule": "RFC3339_UTC_6DIGITS_PER_A07",
+          "required": true
+        }
+      ],
+      "field_binding_count": 32,
+      "technical_envelope_field_count": 12
+    }
+  ],
+  "completion_note": "Every promoted producer→consumer semantic/context field used by the next runtime is bound explicitly; each handoff also has an explicit MaterialPackage technical envelope. No physical database layout is implied.",
+  "total_semantic_context_field_bindings": 113,
+  "total_technical_envelope_bindings": 36,
+  "completeness_assertions": [
+    "B0→B0.5 binds every top-level field emitted by scene_anchor_bundle() and consumed by B0.5 start().",
+    "B0.5→B1 preserves the exact B0 scene_anchor_bundle and binds every scene_frame_bundle field used as B1 context; it does not promote context into new evidence.",
+    "B1→B2 binds the exact required/conditional trigger bundle and governance references identified by the promoted B1→B2 consumer-sufficiency contract.",
+    "Every edge carries a MaterialPackage envelope with deterministic identity, revision, payload hash, producer/consumer, restrictions, and distinct handoff events."
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "dictamen": "SHADOW_PREFLIGHT_READY_WITH_DECISION_REQUIRED",
+  "routesVerified": [
+    {
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1/EVE_04_Runtime_Catalog_v0_1.manifest.json",
+      "exists": true
+    },
+    {
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1/EVE_04_Runtime_Catalog_v0_1.json",
+      "exists": true
+    },
+    {
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1_1_candidate.manifest.json",
+      "exists": true
+    },
+    {
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1_1_candidate.json",
+      "exists": true
+    },
+    {
+      "path": "docs/audits/EVE_RUNTIME_CATALOG_SURGICAL_PATCH_01_APPLY_CCOV.md",
+      "exists": true
+    },
+    {
+      "path": "docs/audits/_eve_runtime_catalog_surgical_patch_01_patch_diff.json",
+      "exists": true
+    },
+    {
+      "path": "docs/audits/EVE04_CANDIDATE_FILENAME_NORMALIZATION.md",
+      "exists": true
+    },
+    {
+      "path": "docs/audits/EVE04_SHADOW_CANDIDATE_TEST_RECONCILE.md",
+      "exists": true
+    }
+  ],
+  "validation": {
+    "activeExists": true,
+    "candidateExists": true,
+    "b6q38": true,
+    "b6_6_8": true,
+    "trench_phrase": true,
+    "ccov001": "RESOLVED_IN_CANDIDATE",
+    "cvar001": "OPEN_PENDING_SOURCE_GAP",
+    "certification": "NOT_CERTIFIED",
+    "readiness": "READY_WITH_FLAGS",
+    "activeReplaced": false,
+    "aliasesExist": true,
+    "strictFilesExist": true,
+    "activeSha256": "df4674d5156d3747b6baf5906233c5b3d54378abd099870a5c0325f102c26dc0"
+  },
+  "connectionPoints": [
+    {
+      "kind": "chip registry",
+      "path": "src/config/rector-docs-registry.ts",
+      "status": "exists; runtime_40_20_full_catalog is non-authoritative; EVE04 candidate not registered"
+    },
+    {
+      "kind": "runtime catalog loader",
+      "path": "src/services/runtime-block0-catalog-adapter.ts",
+      "status": "Block0-only adapter; no EVE04 full catalog candidate loader found"
+    },
+    {
+      "kind": "active/default catalog selector",
+      "path": "src/app/api/questionnaire/catalog/route.ts",
+      "status": "default FULL_V03 / CAPA1_V2_1 path; no EVE04 candidate reference"
+    },
+    {
+      "kind": "runtime 40/20 manifest",
+      "path": "src/features/runtime/catalog/runtime-40-20.manifest.json",
+      "status": "declares full runtime catalog machine_readable_partial; only B0 materialized"
+    },
+    {
+      "kind": "shadow/candidate service existing",
+      "path": "src/services/eve-03-canonical-catalog-shadow-service.ts",
+      "status": "precedent service exists for EVE03; no EVE04 equivalent found"
+    },
+    {
+      "kind": "precedent EVE03 domain",
+      "path": "src/domain/eve-03-canonical-catalog-shadow.ts",
+      "status": "pure-domain evaluator pattern exists"
+    },
+    {
+      "kind": "precedent EVE03 dev harness",
+      "path": "src/app/dev/canonical-catalog-shadow/page.tsx",
+      "status": "dev-only visual harness pattern exists"
+    },
+    {
+      "kind": "recommended entrypoint",
+      "path": "src/services/eve-04-runtime-catalog-shadow-service.ts",
+      "status": "not present; recommended as mirror of EVE03 with runtimeAuthority false"
+    }
+  ],
+  "recommendation": "APPLY_SHADOW_CONNECTION_SERVICE_ONLY after human approval of the EVE03-mirror entrypoint for EVE04 candidate, with runtimeAuthority false and no product promotion.",
+  "commands": [
+    {
+      "command": "pwd",
+      "exitCode": 0,
+      "result": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform"
+    },
+    {
+      "command": "git status --short",
+      "exitCode": 0,
+      "result": "completed; workspace has pre-existing dirty/untracked files"
+    },
+    {
+      "command": "git diff --name-only",
+      "exitCode": 0,
+      "result": "completed; showed pre-existing src/product diffs"
+    },
+    {
+      "command": "git ls-files --others --exclude-standard",
+      "exitCode": 0,
+      "result": "completed; showed many untracked docs/chips/tests"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-candidate-filenames.test.ts",
+      "exitCode": 0,
+      "result": "PASS 5/5"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-shadow-candidate.test.ts",
+      "exitCode": 0,
+      "result": "PASS 11/11"
+    }
+  ],
+  "nonContamination": {
+    "productTouched": false,
+    "activeChipTouched": false,
+    "candidateTouched": false,
+    "docsRuntimeTouched": false,
+    "packageTouched": false,
+    "srcAppTouched": false,
+    "apiTouched": false,
+    "shadowConnected": false,
+    "runtimeAuthority": false
+  },
+  "filesCreatedOrModified": [
+    "docs/audits/EVE04_SHADOW_CONNECT_PREFLIGHT_RETRY.md",
+    "docs/audits/_eve04_shadow_connect_preflight_retry.json"
+  ],
+  "nextRecommendedStep": "APPLY_SHADOW_CONNECTION_SERVICE_ONLY"
+}

@@ -1,0 +1,76 @@
+{
+  "dictamen": "SHADOW_CANDIDATE_TEST_RECONCILED",
+  "test_reconciled": "tests/regression/eve-04-runtime-catalog-shadow-candidate.test.ts",
+  "old_expectation_removed": "strict candidate manifest/json absent",
+  "new_expectations": [
+    "active v0.1 exists",
+    "candidate v0.1.1 folder exists",
+    "candidate aliases exist",
+    "candidate strict filenames exist",
+    "strict JSON contains B6-Q38, B6_6_8, trench_phrase",
+    "strict manifest remains NOT_CERTIFIED and READY_WITH_FLAGS",
+    "strict manifest keeps CVAR-001 open",
+    "no product promotion or wiring"
+  ],
+  "validation": {
+    "aliases_exist": true,
+    "strict_files_exist": true,
+    "B6-Q38": true,
+    "B6_6_8": true,
+    "trench_phrase": true,
+    "CCOV-001": "RESOLVED_IN_CANDIDATE",
+    "CVAR-001": "OPEN_PENDING_SOURCE_GAP",
+    "manifest_cvar": "OPEN_PENDING_SOURCE_GAP",
+    "certification": "NOT_CERTIFIED",
+    "readiness": "READY_WITH_FLAGS"
+  },
+  "files_modified_or_created": [
+    "tests/regression/eve-04-runtime-catalog-shadow-candidate.test.ts",
+    "docs/audits/EVE04_SHADOW_CANDIDATE_TEST_RECONCILE.md",
+    "docs/audits/_eve04_shadow_candidate_test_reconcile.json"
+  ],
+  "commands": [
+    {
+      "command": "pwd",
+      "exitCode": 0,
+      "result": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform"
+    },
+    {
+      "command": "git status --short",
+      "exitCode": 0,
+      "result": "completed; workspace has pre-existing dirty/untracked files"
+    },
+    {
+      "command": "git diff --name-only",
+      "exitCode": 0,
+      "result": "completed; showed pre-existing src/product diffs"
+    },
+    {
+      "command": "git ls-files --others --exclude-standard",
+      "exitCode": 0,
+      "result": "completed; showed many untracked docs/chips/tests"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-candidate-filenames.test.ts",
+      "exitCode": 0,
+      "result": "PASS 5/5"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-shadow-candidate.test.ts",
+      "exitCode": 0,
+      "result": "PASS 11/11"
+    }
+  ],
+  "non_contamination": {
+    "product_touched": false,
+    "active_chip_touched": false,
+    "candidate_touched": false,
+    "docs_runtime_touched": false,
+    "package_touched": false,
+    "src_app_touched": false,
+    "api_touched": false,
+    "shadow_connected": false,
+    "runtimeAuthority": false
+  },
+  "next_recommended_step": "RETRY_SHADOW_PREFLIGHT"
+}

@@ -1,0 +1,63 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING2_AUTHORIZED_PILOT_CLIENT_POLICY",
+  "generated_at": "2026-07-09T01:09:00.000Z",
+  "authorization_ref": "ring2-authorization-authorized-pilot-client-20260709",
+  "ring": 2,
+  "ring_name": "authorized_pilot_client_scoped_supervised",
+  "pilot_client_required": true,
+  "pilot_client_must_be_authorized": true,
+  "pilot_scope_must_be_limited": true,
+  "pilot_case_must_be_explicitly_marked": true,
+  "pilot_data_consent_required": true,
+  "consultant_supervision_required": true,
+  "no_public_signup": true,
+  "no_public_access": true,
+  "no_unsupervised_diagnosis": true,
+  "allowed_user_type": "authorized_pilot_client",
+  "pilot_client_real_access_enabled": false,
+  "production_public_access_enabled": false,
+  "client_ui_mode": "supervised_pilot_client",
+  "bff_mode": "client_safe_bff_staging_or_safe_target",
+  "allowed_client_capabilities_after_execution": [
+    "view_client_safe_result_states",
+    "navigate_pilot_client_ui_explicit_scope",
+    "interact_with_guided_questionnaire_pilot_scope",
+    "view_resultado_en_revision_or_equivalent_safe_states"
+  ],
+  "prohibited_client_capabilities": [
+    "public_unauthenticated_access",
+    "public_signup_or_self_service_onboarding",
+    "unsupervised_pilot_session",
+    "diagnosis_final_view",
+    "external_export_download",
+    "consultant_only_artifacts_exposure_without_supervision",
+    "ir_registry_or_internal_engine_exposure",
+    "production_parallel_productive_outputs",
+    "general_production_activation"
+  ],
+  "pilot_scope_enforcement": {
+    "tenant_scope_required": true,
+    "case_scope_required": true,
+    "run_scope_required": true,
+    "pilot_marking_required": true,
+    "authorization_record_required": true,
+    "consent_record_required": true
+  },
+  "mba_constraints": {
+    "conformance_before_consistency": true,
+    "b3_c09_evidence_required": true,
+    "b7_no_diagnosis_ir_registry_export": true,
+    "no_causal_jump_capture_to_diagnosis": true,
+    "outputs_as_object_state": true
+  },
+  "structural_framework_refs": {
+    "client_membrane": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+    "client_bff": "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff-service.ts",
+    "fase9_client_membrane": "documented_in_marco_estructural"
+  },
+  "ring1_baseline": {
+    "ring1_scope": "internal_test_tenant_limited_client",
+    "ring1_execution_completed": true,
+    "ring1_no_go_clean": true
+  }
+}

@@ -1,0 +1,730 @@
+﻿{
+  "auditId": "EVE-05-GATE-ENGINE-WORKBENCH-EXACT-SOURCE-PROOF-REPAIR-V2",
+  "dictamen": "GATE_ENGINE_EXACT_SOURCE_PROOF_REPAIR_INCOMPLETE",
+  "sourcesIndexed": {
+    "D6": 84,
+    "D8": 988,
+    "D3": 80,
+    "D4": 280,
+    "D5": 35,
+    "D7": 45,
+    "D1": 1,
+    "VSM1": 1
+  },
+  "qualityRule": "PDF page, DOCX heading/paragraph, XLSX sheet/row. Generic locators rejected.",
+  "indexSample": {
+    "D6": [
+      {
+        "sourceDocument": "D6",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D6!Critical_Routes:row 2; key=CR-B0-WorkMapIntake-semantic-entry",
+        "sourceExcerpt": "critical_route_id=CR-B0-WorkMapIntake-semantic-entry | ruta=0.0 â†’ 0.1 â†’ 0.1a/0.D | nodos=0.0 â†’ 0.1 â†’ 0.1a/0.D | regla=Entrada robusta desde WorkMapIntake. Si la actividad llega parcial o fallida, Bloque 0 reconstruye sin inventar estructura. | bloqueo_si_falla=No consolidar actividad como evidencia dura; conservar weak_context o activar reconstrucciÃ³n guiada. | downstream=SceneCanonicalRecord; EvidenceBundle; MDSB | v1_1_enforcement=Ruta blindada. No relajar gates; si falla, ready_with_flags/reentry/manual_review segÃºn criticidad.",
+        "meta": {
+          "sheet": "Critical_Routes",
+          "row": 2,
+          "key": "CR-B0-WorkMapIntake-semantic-entry"
+        }
+      },
+      {
+        "sourceDocument": "D6",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D6!Critical_Routes:row 3; key=CR-B2-V3-transformation_exception",
+        "sourceExcerpt": "critical_route_id=CR-B2-V3-transformation_exception | ruta=2.9 / transformation_exception_type â†’ transformation_exception_exists â†’ transformation_exception_description | nodos=2.9 / transformation_exception_type â†’ transformation_exception_exists â†’ transformation_exception_description | regla=La excepciÃ³n de transformaciÃ³n se captura/deriva solo por ruta canÃ³nica; no desde texto libre sin trazabilidad. | bloqueo_si_falla=CanonicalRouteException / ready_with_flags; no generar candidato PF/OLC si falta ruta. | downstream=OperationalExceptionEvidence; EvidenceBundle; MDSB; Inventory/Registry | v1_1_enforcement=Ruta blindada. No relajar gates; si falla, ready_with_flags/reentry/manual_review segÃºn criticidad.",
+        "meta": {
+          "sheet": "Critical_Routes",
+          "row": 3,
+          "key": "CR-B2-V3-transformation_exception"
+        }
+      },
+      {
+        "sourceDocument": "D6",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D6!Critical_Routes:row 4; key=CR-B3-R9-receiver_feedback",
+        "sourceExcerpt": "critical_route_id=CR-B3-R9-receiver_feedback | ruta=3.10 â†’ 3.13 â†’ 3.13a â†’ receiver_feedback_exists â†’ receiver_feedback | nodos=3.10 â†’ 3.13 â†’ 3.13a â†’ receiver_feedback_exists â†’ receiver_feedback | regla=receiver_satisfaction no equivale a receiver_feedback. El feedback operativo exige seÃ±al de aviso, rechazo, devoluciÃ³n, correcciÃ³n, recontacto o bloqueo. | bloqueo_si_falla=receiver_feedback_route_missing / CanonicalRouteException / no crear rework desde satisfacciÃ³n subjetiva. | downstream=OperationalExceptionEvidence; EvidenceBundle; MDSB; Inventory/Registry PF/OLC | v1_1_enforcement=Ruta blindada. No relajar gates; si falla, ready_with_flags/reentry/manual_review segÃºn criticidad.",
+        "meta": {
+          "sheet": "Critical_Routes",
+          "row": 4,
+          "key": "CR-B3-R9-receiver_feedback"
+        }
+      },
+      {
+        "sourceDocument": "D6",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D6!Critical_Routes:row 5; key=CR-B7-AHE-boundary_guard",
+        "sourceExcerpt": "critical_route_id=CR-B7-AHE-boundary_guard | ruta=7.0 â†’ 7.0a â†’ 7.3 â†’ 7.3a â†’ 7.4 | nodos=7.0 â†’ 7.0a â†’ 7.3 â†’ 7.3a â†’ 7.4 | regla=B7 transporta seÃ±al preclasificatoria no diagnÃ³stica; no produce inventario, IR, export, VSM/AHE cerrado ni diagnÃ³stico. | bloqueo_si_falla=ManualReviewRequest / EvidenceInsufficiency / TransductionBlocker segÃºn caso. | downstream=EvidenceBundle; Capa 2.0/2.5 prep | v1_1_enforcement=Ruta blindada. No relajar gates; si falla, ready_with_flags/reentry/manual_review segÃºn criticidad.",
+        "meta": {
+          "sheet": "Critical_Routes",
+          "row": 5,
+          "key": "CR-B7-AHE-boundary_guard"
+        }
+      },
+      {
+        "sourceDocument": "D6",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D6!Semantic_Resolution_Gates:row 2; key=SEM-001",
+        "sourceExcerpt": "gate_id=SEM-001 | riesgo_controlado=Convertir estado en clase | trigger_condition=B2 o MoC detecta etiqueta que parece estado | internal_checks=Â¿Es entidad estable o condiciÃ³n temporal del objeto? | possible_outputs=state, phase, class_candidate, ambiguous | blocking_rule=No proyectar a MoC como clase hasta resolver. | mmabp_target=MoC/OLC",
+        "meta": {
+          "sheet": "Semantic_Resolution_Gates",
+          "row": 2,
+          "key": "SEM-001"
+        }
+      },
+      {
+        "sourceDocument": "D6",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D6!Semantic_Resolution_Gates:row 3; key=SEM-002",
+        "sourceExcerpt": "gate_id=SEM-002 | riesgo_controlado=Convertir atributo en clase | trigger_condition=Atributo descrito como entidad | internal_checks=Â¿La propiedad tiene existencia independiente o solo califica a una clase? | possible_outputs=attribute, class_candidate, ambiguous | blocking_rule=Si es atributo, no crear clase separada. | mmabp_target=MoC",
+        "meta": {
+          "sheet": "Semantic_Resolution_Gates",
+          "row": 3,
+          "key": "SEM-002"
+        }
+      },
+      {
+        "sourceDocument": "D6",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D6!Semantic_Resolution_Gates:row 4; key=SEM-003",
+        "sourceExcerpt": "gate_id=SEM-003 | riesgo_controlado=Convertir proceso en objeto | trigger_condition=Verbo/actividad aparece como objeto | internal_checks=Â¿Es cosa del negocio o trabajo realizado sobre una cosa? | possible_outputs=process_candidate, object_candidate, ambiguous | blocking_rule=No crear objeto si solo es acciÃ³n/proceso. | mmabp_target=MoC/PF",
+        "meta": {
+          "sheet": "Semantic_Resolution_Gates",
+          "row": 4,
+          "key": "SEM-003"
+        }
+      },
+      {
+        "sourceDocument": "D6",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D6!Semantic_Resolution_Gates:row 5; key=SEM-004",
+        "sourceExcerpt": "gate_id=SEM-004 | riesgo_controlado=ISA falso por 'tipo de' | trigger_condition=Usuario dice tipo de sin especializaciÃ³n real | internal_checks=Â¿La especializaciÃ³n tiene identidad conceptual estable y reglas propias? | possible_outputs=ISA, attribute_value, role, phase, ambiguous | blocking_rule=No usar JerarquÃ­a ISA como sustituto de atributo tipo. | mmabp_target=MoC",
+        "meta": {
+          "sheet": "Semantic_Resolution_Gates",
+          "row": 5,
+          "key": "SEM-004"
+        }
+      },
+      {
+        "sourceDocument": "D6",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D6!Semantic_Resolution_Gates:row 6; key=SEM-005",
+        "sourceExcerpt": "gate_id=SEM-005 | riesgo_controlado=Alias o duplicado conceptual | trigger_condition=Dos nombres parecen referir a la misma clase | internal_checks=Comparar significado, relaciones, estados y uso operativo. | possible_outputs=same_concept, different_concept, synonym, ambiguous | blocking_rule=Conservar alias sin duplicar clase hasta confirmar. | mmabp_target=MoC",
+        "meta": {
+          "sheet": "Semantic_Resolution_Gates",
+          "row": 6,
+          "key": "SEM-005"
+        }
+      },
+      {
+        "sourceDocument": "D6",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D6!Semantic_Resolution_Gates:row 7; key=SEM-006",
+        "sourceExcerpt": "gate_id=SEM-006 | riesgo_controlado=ConfusiÃ³n role/phase/end | trigger_condition=Clase cambia por contexto, etapa o terminaciÃ³n | internal_checks=Â¿Es papel contextual, fase temporal o estado final? | possible_outputs=role, phase, end, state, class | blocking_rule=No fijar como clase estÃ¡tica sin resolver dinÃ¡mica. | mmabp_target=MoC/OLC",
+        "meta": {
+          "sheet": "Semantic_Resolution_Gates",
+          "row": 7,
+          "key": "SEM-006"
+        }
+      }
+    ],
+    "D8": [
+      {
+        "sourceDocument": "D8",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D8!Critical_Routes:row 2; key=CR-B0-WorkMapIntake-semantic-entry",
+        "sourceExcerpt": "critical_route_id=CR-B0-WorkMapIntake-semantic-entry | Ruta=0.0 â†’ 0.1 â†’ 0.1a/0.D | Nodos=0.0; 0.1; 0.1a; 0.D; block0_entry_control | Regla=Entrada robusta desde WorkMapIntake. Si la actividad llega parcial o fallida, Bloque 0 reconstruye sin inventar estructura. | Bloqueo_si_falla=No consolidar actividad como evidencia dura; conservar weak_context o activar reconstrucciÃ³n guiada. | Downstream=SceneCanonicalRecord; EvidenceBundle; MDSB",
+        "meta": {
+          "sheet": "Critical_Routes",
+          "row": 2,
+          "key": "CR-B0-WorkMapIntake-semantic-entry"
+        }
+      },
+      {
+        "sourceDocument": "D8",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D8!Critical_Routes:row 3; key=CR-B2-V3-transformation_exception",
+        "sourceExcerpt": "critical_route_id=CR-B2-V3-transformation_exception | Ruta=2.9 / transformation_exception_type â†’ transformation_exception_exists â†’ transformation_exception_description | Nodos=2.9; 2.10; 2.11; 2.12 | Regla=La excepciÃ³n de transformaciÃ³n se captura/deriva solo por ruta canÃ³nica; no desde texto libre sin trazabilidad. | Bloqueo_si_falla=CanonicalRouteException / ready_with_flags; no generar candidato PF/OLC si falta ruta. | Downstream=OperationalExceptionEvidence; EvidenceBundle; MDSB; Inventory/Registry",
+        "meta": {
+          "sheet": "Critical_Routes",
+          "row": 3,
+          "key": "CR-B2-V3-transformation_exception"
+        }
+      },
+      {
+        "sourceDocument": "D8",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D8!Critical_Routes:row 4; key=CR-B3-R9-receiver_feedback",
+        "sourceExcerpt": "critical_route_id=CR-B3-R9-receiver_feedback | Ruta=3.10 â†’ 3.13 â†’ 3.13a â†’ receiver_feedback_exists â†’ receiver_feedback | Nodos=3.10; 3.13; 3.13a; 3.D | Regla=receiver_satisfaction no equivale a receiver_feedback. El feedback operativo exige seÃ±al de aviso, rechazo, devoluciÃ³n, correcciÃ³n, recontacto o bloqueo. | Bloqueo_si_falla=receiver_feedback_route_missing / CanonicalRouteException / no crear rework desde satisfacciÃ³n subjetiva. | Downstream=OperationalExceptionEvidence; EvidenceBundle; MDSB; Inventory/Registry PF/OLC",
+        "meta": {
+          "sheet": "Critical_Routes",
+          "row": 4,
+          "key": "CR-B3-R9-receiver_feedback"
+        }
+      },
+      {
+        "sourceDocument": "D8",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D8!Critical_Routes:row 5; key=CR-B7-AHE-boundary_guard",
+        "sourceExcerpt": "critical_route_id=CR-B7-AHE-boundary_guard | Ruta=7.0 â†’ 7.0a â†’ 7.3 â†’ 7.3a â†’ 7.4 | Nodos=7.0; 7.0a; 7.3; 7.3a; 7.4 | Regla=B7 transporta seÃ±al preclasificatoria no diagnÃ³stica; no produce inventario, IR, export, VSM/AHE cerrado ni diagnÃ³stico. | Bloqueo_si_falla=ManualReviewRequest / EvidenceInsufficiency / TransductionBlocker segÃºn caso. | Downstream=EvidenceBundle; Capa 2.0/2.5 prep",
+        "meta": {
+          "sheet": "Critical_Routes",
+          "row": 5,
+          "key": "CR-B7-AHE-boundary_guard"
+        }
+      },
+      {
+        "sourceDocument": "D8",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D8!Epistemic_Governance:row 2; key=B0_0_0",
+        "sourceExcerpt": "capture_node_id=B0_0_0 | source_block=0 | source_question_code_intact=0.0 | epistemic_status=source_reference / ai_inferred_unconfirmed / weak_context | provenance_type=source_reference / ai_inferred_unconfirmed / weak_context | confirmation_policy=Confirmar si baja confianza | can_be_inferred_from=WorkMapIntake + revisiÃ³n semÃ¡ntica IA + contador de intentos | must_not_infer=No inferir como captured_user_evidence; exigir confirmaciÃ³n si afecta ruta canÃ³nica. | audit_requirement=Audit log requerido si se deriva, corrige, bloquea o modifica ruta crÃ­tica. | generated_from=WorkMapIntake + revisiÃ³n semÃ¡ntica IA + contador de intentos",
+        "meta": {
+          "sheet": "Epistemic_Governance",
+          "row": 2,
+          "key": "B0_0_0"
+        }
+      },
+      {
+        "sourceDocument": "D8",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D8!Epistemic_Governance:row 3; key=B0_0_1",
+        "sourceExcerpt": "capture_node_id=B0_0_1 | source_block=0 | source_question_code_intact=0.1 | epistemic_status=user_confirmed_evidence / user_corrected_evidence / reconstructed_user_evidence | provenance_type=user_confirmed_evidence / user_corrected_evidence / reconstructed_user_evidence | confirmation_policy=Confirmar siempre | can_be_inferred_from=activity_literal_from_workmap y componentes semÃ¡nticos disponibles; si fallÃ³ la asistencia, usa solo contexto literal dÃ©bil | must_not_infer=No inferir como captured_user_evidence; exigir confirmaciÃ³n si afecta ruta canÃ³nica. | audit_requirement=Audit log requerido si se deriva, corrige, bloquea o modifica ruta crÃ­tica. | generated_from=activity_literal_from_workmap y componentes semÃ¡nticos disponibles; si fallÃ³ la asistencia, usa solo contexto literal dÃ©bil",
+        "meta": {
+          "sheet": "Epistemic_Governance",
+          "row": 3,
+          "key": "B0_0_1"
+        }
+      },
+      {
+        "sourceDocument": "D8",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D8!Epistemic_Governance:row 4; key=B0_0_1a",
+        "sourceExcerpt": "capture_node_id=B0_0_1a | source_block=0 | source_question_code_intact=0.1a | epistemic_status=user_corrected_evidence | provenance_type=user_corrected_evidence | confirmation_policy=No aplica / captura directa | can_be_inferred_from=0.1 | must_not_infer=No inferir como captured_user_evidence; exigir confirmaciÃ³n si afecta ruta canÃ³nica. | audit_requirement=Audit log requerido si se deriva, corrige, bloquea o modifica ruta crÃ­tica. | generated_from=0.1",
+        "meta": {
+          "sheet": "Epistemic_Governance",
+          "row": 4,
+          "key": "B0_0_1a"
+        }
+      },
+      {
+        "sourceDocument": "D8",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D8!Epistemic_Governance:row 5; key=B0_0_2",
+        "sourceExcerpt": "capture_node_id=B0_0_2 | source_block=0 | source_question_code_intact=0.2 | epistemic_status=captured_user_evidence or user_confirmed_suggestion | provenance_type=captured_user_evidence or user_confirmed_suggestion | confirmation_policy=No aplica / captura directa | can_be_inferred_from=Puede sugerirse desde estructura semÃ¡ntica completa/parcial, pero debe ser editable; si no hay estructura usable, se captura desde cero. | must_not_infer=No inferir como captured_user_evidence; exigir confirmaciÃ³n si afecta ruta canÃ³nica. | audit_requirement=Audit log requerido si se deriva, corrige, bloquea o modifica ruta crÃ­tica. | generated_from=Puede sugerirse desde estructura semÃ¡ntica completa/parcial, pero debe ser editable; si no hay estructura usable, se captura desde cero.",
+        "meta": {
+          "sheet": "Epistemic_Governance",
+          "row": 5,
+          "key": "B0_0_2"
+        }
+      },
+      {
+        "sourceDocument": "D8",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D8!Epistemic_Governance:row 6; key=B0_0_3",
+        "sourceExcerpt": "capture_node_id=B0_0_3 | source_block=0 | source_question_code_intact=0.3 | epistemic_status=captured_user_evidence | provenance_type=captured_user_evidence | confirmation_policy=No aplica / captura directa | can_be_inferred_from=No aplica | must_not_infer=No inferir como captured_user_evidence; exigir confirmaciÃ³n si afecta ruta canÃ³nica. | audit_requirement=Audit log requerido si se deriva, corrige, bloquea o modifica ruta crÃ­tica. | generated_from=No aplica",
+        "meta": {
+          "sheet": "Epistemic_Governance",
+          "row": 6,
+          "key": "B0_0_3"
+        }
+      },
+      {
+        "sourceDocument": "D8",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "kind": "xlsx",
+        "sourceLocator": "D8!Epistemic_Governance:row 7; key=B0_0_3a",
+        "sourceExcerpt": "capture_node_id=B0_0_3a | source_block=0 | source_question_code_intact=0.3a | epistemic_status=captured_user_evidence | provenance_type=captured_user_evidence | confirmation_policy=No aplica / captura directa | can_be_inferred_from=0.3 | must_not_infer=No inferir como captured_user_evidence; exigir confirmaciÃ³n si afecta ruta canÃ³nica. | audit_requirement=Audit log requerido si se deriva, corrige, bloquea o modifica ruta crÃ­tica. | generated_from=0.3",
+        "meta": {
+          "sheet": "Epistemic_Governance",
+          "row": 7,
+          "key": "B0_0_3a"
+        }
+      }
+    ],
+    "D3": [
+      {
+        "sourceDocument": "D3",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "kind": "docx",
+        "sourceLocator": "D3:heading=\"document-start\"; paragraph 1",
+        "sourceExcerpt": "EVE Runtime 40/20, Capa 1.0 y ProducciÃ³n Paralela",
+        "meta": {
+          "heading": "document-start",
+          "paragraph": 1
+        }
+      },
+      {
+        "sourceDocument": "D3",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "kind": "docx",
+        "sourceLocator": "D3:heading=\"document-start\"; paragraph 2",
+        "sourceExcerpt": "ConexiÃ³n operativa exhaustiva con los 8 bloques de Capa 1.0, ProducciÃ³n Paralela 1.6, MBA Control Plane y las fases Runtime implementadas hasta Fase 8",
+        "meta": {
+          "heading": "document-start",
+          "paragraph": 2
+        }
+      },
+      {
+        "sourceDocument": "D3",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "kind": "docx",
+        "sourceLocator": "D3:heading=\"document-start\"; paragraph 5",
+        "sourceExcerpt": "Tesis central: Capa 1.0 capturÃ³ la estructura necesaria para diagnosticar la Arquitectura EVE; ProducciÃ³n Paralela la convirtiÃ³ en lÃ­nea lateral de inventario, IR, assessment y candidate export; Runtime 40/20 toma esa base canÃ³nica y la vuelve metabolismo vivo de actividad, preguntas, evidencia, estados y candidatos, sin saltar a diagnÃ³stico, export final ni transducciÃ³n real.",
+        "meta": {
+          "heading": "document-start",
+          "paragraph": 5
+        }
+      },
+      {
+        "sourceDocument": "D3",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "kind": "docx",
+        "sourceLocator": "D3:heading=\"0. Fuentes utilizadas y alcance\"; paragraph 7",
+        "sourceExcerpt": "0. Fuentes utilizadas y alcance",
+        "meta": {
+          "heading": "0. Fuentes utilizadas y alcance",
+          "paragraph": 7
+        }
+      },
+      {
+        "sourceDocument": "D3",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "kind": "docx",
+        "sourceLocator": "D3:heading=\"0. Fuentes utilizadas y alcance\"; paragraph 8",
+        "sourceExcerpt": "Este documento fue rehecho usando la informaciÃ³n ya acumulada durante la implementaciÃ³n de Fases 5â€“8 y cruzÃ¡ndola con cuatro documentos fuente proporcionados para profundizar la conexiÃ³n entre Capa 1.0, ProducciÃ³n Paralela, el Mapa Maestro MBA/Soft Governance y el cierre operativo 1.0â€“1.6.",
+        "meta": {
+          "heading": "0. Fuentes utilizadas y alcance",
+          "paragraph": 8
+        }
+      },
+      {
+        "sourceDocument": "D3",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "kind": "docx",
+        "sourceLocator": "D3:heading=\"0. Fuentes utilizadas y alcance\"; paragraph 9",
+        "sourceExcerpt": "DiseÃ±o estructural Plataforma EVE - Capa 1.0.docx.",
+        "meta": {
+          "heading": "0. Fuentes utilizadas y alcance",
+          "paragraph": 9
+        }
+      },
+      {
+        "sourceDocument": "D3",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "kind": "docx",
+        "sourceLocator": "D3:heading=\"0. Fuentes utilizadas y alcance\"; paragraph 10",
+        "sourceExcerpt": "DiseÃ±o estructural Plataforma EVE â€” Capa 1.0 para ProducciÃ³n Paralela.docx.",
+        "meta": {
+          "heading": "0. Fuentes utilizadas y alcance",
+          "paragraph": 10
+        }
+      },
+      {
+        "sourceDocument": "D3",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "kind": "docx",
+        "sourceLocator": "D3:heading=\"0. Fuentes utilizadas y alcance\"; paragraph 11",
+        "sourceExcerpt": "Mapa_Maestro_Implementacion_MBA_EVE_y_Trazabilidad_Soft_Governance_V02.docx.",
+        "meta": {
+          "heading": "0. Fuentes utilizadas y alcance",
+          "paragraph": 11
+        }
+      },
+      {
+        "sourceDocument": "D3",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "kind": "docx",
+        "sourceLocator": "D3:heading=\"0. Fuentes utilizadas y alcance\"; paragraph 12",
+        "sourceExcerpt": "Cierre_MBA_Operativo_1_0_1_6_EVE_V01.docx.",
+        "meta": {
+          "heading": "0. Fuentes utilizadas y alcance",
+          "paragraph": 12
+        }
+      },
+      {
+        "sourceDocument": "D3",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "kind": "docx",
+        "sourceLocator": "D3:heading=\"0. Fuentes utilizadas y alcance\"; paragraph 13",
+        "sourceExcerpt": "Evidencia operativa construida durante Fases 5â€“8: Object Inventory, Integration Membrane, Control Plane / SG Shadow y ProducciÃ³n Paralela rehearsal.",
+        "meta": {
+          "heading": "0. Fuentes utilizadas y alcance",
+          "paragraph": 13
+        }
+      }
+    ],
+    "D4": [
+      {
+        "sourceDocument": "D4",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "kind": "docx",
+        "sourceLocator": "D4:heading=\"document-start\"; paragraph 1",
+        "sourceExcerpt": "EVEâ„¢ Runtime 40+20 EspecificaciÃ³n TÃ©cnica Ejecutable v1.0.1",
+        "meta": {
+          "heading": "document-start",
+          "paragraph": 1
+        }
+      },
+      {
+        "sourceDocument": "D4",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "kind": "docx",
+        "sourceLocator": "D4:heading=\"document-start\"; paragraph 2",
+        "sourceExcerpt": "ImplementaciÃ³n del CatÃ¡logo Runtime 40+20 EVE/MMABP v1.1.1 Operacional Ajustado",
+        "meta": {
+          "heading": "document-start",
+          "paragraph": 2
+        }
+      },
+      {
+        "sourceDocument": "D4",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "kind": "docx",
+        "sourceLocator": "D4:heading=\"0. Dictamen ejecutivo\"; paragraph 4",
+        "sourceExcerpt": "0. Dictamen ejecutivo",
+        "meta": {
+          "heading": "0. Dictamen ejecutivo",
+          "paragraph": 4
+        }
+      },
+      {
+        "sourceDocument": "D4",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "kind": "docx",
+        "sourceLocator": "D4:heading=\"0. Dictamen ejecutivo\"; paragraph 5",
+        "sourceExcerpt": "Esta especificaciÃ³n convierte la arquitectura Runtime 40+20 ya definida en una arquitectura tÃ©cnica implementable. No rediseÃ±a el catÃ¡logo; traduce el artefacto v1.1.1 a entidades, estados, reglas, contratos de API, persistencia, mÃ¡quinas de avance, gates MMABP, presupuestos de carga, payloads y pruebas de aceptaciÃ³n. El objetivo es que el siguiente chat o equipo de implementaciÃ³n no vuelva a diseÃ±ar la soluciÃ³n, sino que ejecute.",
+        "meta": {
+          "heading": "0. Dictamen ejecutivo",
+          "paragraph": 5
+        }
+      },
+      {
+        "sourceDocument": "D4",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "kind": "docx",
+        "sourceLocator": "D4:heading=\"0. Dictamen ejecutivo\"; paragraph 6",
+        "sourceExcerpt": "La plataforma implementa los 164 nodos del CatÃ¡logo Madre como biblioteca canÃ³nica de evidencia y genealogÃ­a. La experiencia visible se implementa mediante 40 interacciones base y hasta 20 causales adaptativas por actividad primaria. Cada interacciÃ³n runtime puede cubrir varios nodos madre, pero debe persistir subrespuestas y variables canÃ³nicas por separado.",
+        "meta": {
+          "heading": "0. Dictamen ejecutivo",
+          "paragraph": 6
+        }
+      },
+      {
+        "sourceDocument": "D4",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "kind": "docx",
+        "sourceLocator": "D4:heading=\"1. Principios no negociables de implementaciÃ³n\"; paragraph 7",
+        "sourceExcerpt": "1. Principios no negociables de implementaciÃ³n",
+        "meta": {
+          "heading": "1. Principios no negociables de implementaciÃ³n",
+          "paragraph": 7
+        }
+      },
+      {
+        "sourceDocument": "D4",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "kind": "docx",
+        "sourceLocator": "D4:heading=\"2. Arquitectura lÃ³gica de componentes\"; paragraph 9",
+        "sourceExcerpt": "2. Arquitectura lÃ³gica de componentes",
+        "meta": {
+          "heading": "2. Arquitectura lÃ³gica de componentes",
+          "paragraph": 9
+        }
+      },
+      {
+        "sourceDocument": "D4",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "kind": "docx",
+        "sourceLocator": "D4:heading=\"3. Modelo de datos lÃ³gico\"; paragraph 11",
+        "sourceExcerpt": "3. Modelo de datos lÃ³gico",
+        "meta": {
+          "heading": "3. Modelo de datos lÃ³gico",
+          "paragraph": 11
+        }
+      },
+      {
+        "sourceDocument": "D4",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "kind": "docx",
+        "sourceLocator": "D4:heading=\"3. Modelo de datos lÃ³gico\"; paragraph 12",
+        "sourceExcerpt": "El modelo se expresa como entidades persistentes. Los nombres son deliberadamente cercanos a los artefactos EVE para que no se pierda trazabilidad entre producto, mÃ©todo y MBA.",
+        "meta": {
+          "heading": "3. Modelo de datos lÃ³gico",
+          "paragraph": 12
+        }
+      },
+      {
+        "sourceDocument": "D4",
+        "sourcePath": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "kind": "docx",
+        "sourceLocator": "D4:heading=\"4. Estados y mÃ¡quinas de avance\"; paragraph 14",
+        "sourceExcerpt": "4. Estados y mÃ¡quinas de avance",
+        "meta": {
+          "heading": "4. Estados y mÃ¡quinas de avance",
+          "paragraph": 14
+        }
+      }
+    ],
+    "D5": [
+      {
+        "sourceDocument": "D5",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "kind": "docx",
+        "sourceLocator": "D5:heading=\"document-start\"; paragraph 1",
+        "sourceExcerpt": "CatÃ¡logo Runtime 40+20 EVE/MMABP v1.1.1 Operacional Ajustado",
+        "meta": {
+          "heading": "document-start",
+          "paragraph": 1
+        }
+      },
+      {
+        "sourceDocument": "D5",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "kind": "docx",
+        "sourceLocator": "D5:heading=\"document-start\"; paragraph 2",
+        "sourceExcerpt": "EspecificaciÃ³n para implementaciÃ³n, QA y ProducciÃ³n Paralela",
+        "meta": {
+          "heading": "document-start",
+          "paragraph": 2
+        }
+      },
+      {
+        "sourceDocument": "D5",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "kind": "docx",
+        "sourceLocator": "D5:heading=\"0.1 Ficha de cambio controlado v1.1.1\"; paragraph 3",
+        "sourceExcerpt": "0.1 Ficha de cambio controlado v1.1.1",
+        "meta": {
+          "heading": "0.1 Ficha de cambio controlado v1.1.1",
+          "paragraph": 3
+        }
+      },
+      {
+        "sourceDocument": "D5",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "kind": "docx",
+        "sourceLocator": "D5:heading=\"1. PropÃ³sito y frontera\"; paragraph 5",
+        "sourceExcerpt": "1. PropÃ³sito y frontera",
+        "meta": {
+          "heading": "1. PropÃ³sito y frontera",
+          "paragraph": 5
+        }
+      },
+      {
+        "sourceDocument": "D5",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "kind": "docx",
+        "sourceLocator": "D5:heading=\"1. PropÃ³sito y frontera\"; paragraph 6",
+        "sourceExcerpt": "Este documento convierte el CatÃ¡logo Runtime 40+20 EVE/MMABP de diseÃ±o conceptual en una especificaciÃ³n operacional implementable. Su funciÃ³n no es volver a explicar el catÃ¡logo madre ni ampliar la teorÃ­a; su funciÃ³n es gobernar el workbook operativo que serÃ¡ leÃ­do por interfaz, motor de branching, QA y ProducciÃ³n Paralela.",
+        "meta": {
+          "heading": "1. PropÃ³sito y frontera",
+          "paragraph": 6
+        }
+      },
+      {
+        "sourceDocument": "D5",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "kind": "docx",
+        "sourceLocator": "D5:heading=\"1. PropÃ³sito y frontera\"; paragraph 7",
+        "sourceExcerpt": "Frontera estricta: Capa 1 produce evidencia estructural gobernada. No diagnostica, no monetiza, no genera narrativa final, no exporta diagramas desde texto libre y no convierte seÃ±ales VSM/AHE en diagnÃ³stico cerrado.",
+        "meta": {
+          "heading": "1. PropÃ³sito y frontera",
+          "paragraph": 7
+        }
+      },
+      {
+        "sourceDocument": "D5",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "kind": "docx",
+        "sourceLocator": "D5:heading=\"2. Regla de autoridad entre artefactos\"; paragraph 8",
+        "sourceExcerpt": "2. Regla de autoridad entre artefactos",
+        "meta": {
+          "heading": "2. Regla de autoridad entre artefactos",
+          "paragraph": 8
+        }
+      },
+      {
+        "sourceDocument": "D5",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "kind": "docx",
+        "sourceLocator": "D5:heading=\"2. Regla de autoridad entre artefactos\"; paragraph 10",
+        "sourceExcerpt": "El DOCX piensa y gobierna; el XLSX opera; la UI representa; ProducciÃ³n Paralela consume. Si hay conflicto de implementaciÃ³n, prevalece el XLSX operativo siempre que conserve las reglas normativas de este DOCX y la trazabilidad al CatÃ¡logo Madre.",
+        "meta": {
+          "heading": "2. Regla de autoridad entre artefactos",
+          "paragraph": 10
+        }
+      },
+      {
+        "sourceDocument": "D5",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "kind": "docx",
+        "sourceLocator": "D5:heading=\"3. Dictamen de transformaciÃ³n v0.9 â†’ v1.1.1\"; paragraph 11",
+        "sourceExcerpt": "3. Dictamen de transformaciÃ³n v0.9 â†’ v1.1.1",
+        "meta": {
+          "heading": "3. Dictamen de transformaciÃ³n v0.9 â†’ v1.1.1",
+          "paragraph": 11
+        }
+      },
+      {
+        "sourceDocument": "D5",
+        "sourcePath": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "kind": "docx",
+        "sourceLocator": "D5:heading=\"4. Modelo de artefacto operativo\"; paragraph 13",
+        "sourceExcerpt": "4. Modelo de artefacto operativo",
+        "meta": {
+          "heading": "4. Modelo de artefacto operativo",
+          "paragraph": 13
+        }
+      }
+    ],
+    "D7": [
+      {
+        "sourceDocument": "D7",
+        "sourcePath": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+        "kind": "docx",
+        "sourceLocator": "D7:heading=\"document-start\"; paragraph 1",
+        "sourceExcerpt": "CatÃ¡logo Runtime 40+20 EVEâ„¢ / MMABP",
+        "meta": {
+          "heading": "document-start",
+          "paragraph": 1
+        }
+      },
+      {
+        "sourceDocument": "D7",
+        "sourcePath": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+        "kind": "docx",
+        "sourceLocator": "D7:heading=\"document-start\"; paragraph 2",
+        "sourceExcerpt": "DerivaciÃ³n operativa del CatÃ¡logo Madre Capa 1 v1.0",
+        "meta": {
+          "heading": "document-start",
+          "paragraph": 2
+        }
+      },
+      {
+        "sourceDocument": "D7",
+        "sourcePath": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+        "kind": "docx",
+        "sourceLocator": "D7:heading=\"document-start\"; paragraph 3",
+        "sourceExcerpt": "Bloques 0, 0.5 y 1â€“7 Â· Nodo CanÃ³nico de Captura Â· Mapa PM/MoC/PF/OLC Â· Branching Â· Contrato de salida Â· QA",
+        "meta": {
+          "heading": "document-start",
+          "paragraph": 3
+        }
+      },
+      {
+        "sourceDocument": "D7",
+        "sourcePath": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+        "kind": "docx",
+        "sourceLocator": "D7:heading=\"0. RevisiÃ³n clÃ­nica del CatÃ¡logo Madre\"; paragraph 7",
+        "sourceExcerpt": "0. RevisiÃ³n clÃ­nica del CatÃ¡logo Madre",
+        "meta": {
+          "heading": "0. RevisiÃ³n clÃ­nica del CatÃ¡logo Madre",
+          "paragraph": 7
+        }
+      },
+      {
+        "sourceDocument": "D7",
+        "sourcePath": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+        "kind": "docx",
+        "sourceLocator": "D7:heading=\"0. RevisiÃ³n clÃ­nica del CatÃ¡logo Madre\"; paragraph 8",
+        "sourceExcerpt": "El CatÃ¡logo Madre estÃ¡ correctamente estructurado como inventario canÃ³nico versionado, no como flujo visible. La reducciÃ³n a 40+20 debe ocurrir en runtime, no mediante eliminaciÃ³n editorial. Los nodos no visibles permanecen como derivaciones, aclaraciones, gaps, reglas, checkpoints o preparaciÃ³n VSM/AHE no diagnÃ³stica.",
+        "meta": {
+          "heading": "0. RevisiÃ³n clÃ­nica del CatÃ¡logo Madre",
+          "paragraph": 8
+        }
+      },
+      {
+        "sourceDocument": "D7",
+        "sourcePath": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+        "kind": "docx",
+        "sourceLocator": "D7:heading=\"0.1 Inventario fuente\"; paragraph 9",
+        "sourceExcerpt": "0.1 Inventario fuente",
+        "meta": {
+          "heading": "0.1 Inventario fuente",
+          "paragraph": 9
+        }
+      },
+      {
+        "sourceDocument": "D7",
+        "sourcePath": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+        "kind": "docx",
+        "sourceLocator": "D7:heading=\"0.1 Inventario fuente\"; paragraph 10",
+        "sourceExcerpt": "Lectura: el workbook contiene 164 nodos Ãºnicos. El hecho de que haya 121 nodos marcados en la cubeta base_40 no significa que deban mostrarse como 121 preguntas; significa que son nodos de alto valor que deben preservarse en interacciones compuestas, inferencias, prellenados o microconfirmaciones.",
+        "meta": {
+          "heading": "0.1 Inventario fuente",
+          "paragraph": 10
+        }
+      },
+      {
+        "sourceDocument": "D7",
+        "sourcePath": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+        "kind": "docx",
+        "sourceLocator": "D7:heading=\"0.2 Rutas crÃ­ticas blindadas\"; paragraph 11",
+        "sourceExcerpt": "0.2 Rutas crÃ­ticas blindadas",
+        "meta": {
+          "heading": "0.2 Rutas crÃ­ticas blindadas",
+          "paragraph": 11
+        }
+      },
+      {
+        "sourceDocument": "D7",
+        "sourcePath": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+        "kind": "docx",
+        "sourceLocator": "D7:heading=\"0.3 AuditorÃ­a fuente incorporada\"; paragraph 12",
+        "sourceExcerpt": "0.3 AuditorÃ­a fuente incorporada",
+        "meta": {
+          "heading": "0.3 AuditorÃ­a fuente incorporada",
+          "paragraph": 12
+        }
+      },
+      {
+        "sourceDocument": "D7",
+        "sourcePath": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+        "kind": "docx",
+        "sourceLocator": "D7:heading=\"1. DecisiÃ³n arquitectÃ³nica del catÃ¡logo runtime\"; paragraph 14",
+        "sourceExcerpt": "1. DecisiÃ³n arquitectÃ³nica del catÃ¡logo runtime",
+        "meta": {
+          "heading": "1. DecisiÃ³n arquitectÃ³nica del catÃ¡logo runtime",
+          "paragraph": 14
+        }
+      }
+    ],
+    "D1": [
+      {
+        "sourceDocument": "D1",
+        "sourcePath": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/sources/Fundamentals of Business Architecture Modeling.pdf",
+        "kind": "pdf",
+        "sourceLocator": "D1:PDF exact page locator pending",
+        "sourceExcerpt": "PDF source exists; page+excerpt exact locator not generated in this V2 fast repair pass.",
+        "meta": {}
+      }
+    ],
+    "VSM1": [
+      {
+        "sourceDocument": "VSM1",
+        "sourcePath": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/Organizational Systems Managing Complexity with the Viable System model.pdf",
+        "kind": "pdf",
+        "sourceLocator": "VSM1:PDF exact page locator pending",
+        "sourceExcerpt": "PDF source exists; page+excerpt exact locator not generated in this V2 fast repair pass.",
+        "meta": {}
+      }
+    ]
+  }
+}
+

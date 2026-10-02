@@ -1,0 +1,758 @@
+{
+  "source": "promoted Madres (plain-text dump)",
+  "blocks": {
+    "B0": {
+      "0.0": {
+        "question_code": "0.0",
+        "text": "Carga interna de activity_literal_from_workmap y estado de calidad semántica desde WorkMapIntake.",
+        "short_ui_label": "No visible",
+        "help_text": "No aplica para usuario.",
+        "examples": [],
+        "options": [],
+        "field_type": "internal_preload",
+        "answer_mode": "sistema",
+        "free_text_condition": null,
+        "allows_free_text": "no",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.0"
+      },
+      "0.1": {
+        "question_code": "0.1",
+        "text": "Esto es lo que entendimos de esta actividad. ¿Está correcto?",
+        "short_ui_label": "Confirmar actividad",
+        "help_text": "Revísalo rápido. Si algo no representa tu trabajo, corrígelo. Ejemplo: “Revisar facturas con soporte incompleto hasta dejarlas listas para pago”.",
+        "examples": [],
+        "options": [
+          "Sí, está correcto",
+          "Quiero corregirlo",
+          "No corresponde a esta actividad"
+        ],
+        "field_type": "generated_confirmed",
+        "answer_mode": "confirmar / corregir",
+        "free_text_condition": null,
+        "allows_free_text": "sí, si corrige",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.1"
+      },
+      "0.1a": {
+        "question_code": "0.1a",
+        "text": "Corrige la frase para que diga claramente qué haces, sobre qué trabajas y qué queda listo.",
+        "short_ui_label": "Corregir actividad",
+        "help_text": "Usa una frase simple. Ejemplos: “Confirmar stock de pedidos urgentes antes de liberarlos” o “Reagendar una cita cancelada hasta dejarla confirmada”.",
+        "examples": [],
+        "options": [],
+        "field_type": "free_text",
+        "answer_mode": "libre guiada",
+        "free_text_condition": null,
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.1a"
+      },
+      "0.2": {
+        "question_code": "0.2",
+        "text": "[INTERNO] Derivar una descripción breve reconocible de la actividad a partir de la estructura semántica confirmada/corregida en 0.1/0.1a, sin agregar hechos nuevos.",
+        "short_ui_label": "Resumen derivado de la actividad",
+        "help_text": "N/A — no visible al usuario.",
+        "examples": [],
+        "options": [],
+        "field_type": "internal_calculated",
+        "answer_mode": "canonical_derivation",
+        "free_text_condition": null,
+        "allows_free_text": "no",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.2"
+      },
+      "0.3": {
+        "question_code": "0.3",
+        "text": "¿Con qué frecuencia haces esta actividad?",
+        "short_ui_label": "Frecuencia",
+        "help_text": "Elige lo que más se parece a una semana o mes normal. No pasa nada si es irregular.",
+        "examples": [],
+        "options": [
+          "Varias veces al día",
+          "Diaria",
+          "Varias veces por semana",
+          "Semanal",
+          "Varias veces al mes",
+          "Mensual",
+          "Solo en cierre",
+          "Solo ante contingencias",
+          "Irregular",
+          "Estacional"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "cerrada",
+        "free_text_condition": null,
+        "allows_free_text": "no",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.3"
+      },
+      "0.3a": {
+        "question_code": "0.3a",
+        "text": "Si cambia la frecuencia, ¿qué la hace más probable?",
+        "short_ui_label": "Qué la activa más",
+        "help_text": "Ejemplos: cierre de mes, volumen alto, errores, urgencias, solicitudes externas, auditorías o cambios de turno.",
+        "examples": [],
+        "options": [
+          "Depende del volumen",
+          "Depende de fechas de cierre",
+          "Depende de urgencias",
+          "Depende de errores o retrabajos",
+          "Depende de solicitudes externas",
+          "Otro"
+        ],
+        "field_type": "hybrid_choice_text",
+        "answer_mode": "híbrida",
+        "free_text_condition": null,
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.3a"
+      },
+      "0.4": {
+        "question_code": "0.4",
+        "text": "¿En qué situación suele aparecer esta actividad?",
+        "short_ui_label": "Situación típica",
+        "help_text": "Ejemplos: al iniciar el turno, cuando entra una solicitud, al cierre de mes, después de una aprobación, cuando falta información o cuando alguien pide corrección.",
+        "examples": [],
+        "options": [],
+        "field_type": "free_text",
+        "answer_mode": "libre",
+        "free_text_condition": null,
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.4"
+      },
+      "0.5_actor_scope": {
+        "question_code": "0.5_actor_scope",
+        "text": "¿Quién la hace normalmente o sobre quién recae directamente?",
+        "short_ui_label": "Quién la sostiene",
+        "help_text": "Puede ser tú, tu equipo, otra persona, otro equipo o un sistema con intervención humana. Aquí no preguntamos todavía por beneficiario final.",
+        "examples": [],
+        "options": [
+          "Yo mismo",
+          "Mi equipo",
+          "Otra persona del equipo",
+          "Otro equipo",
+          "Un sistema con intervención humana",
+          "Es compartida",
+          "Otro"
+        ],
+        "field_type": "hybrid_choice_text",
+        "answer_mode": "híbrida",
+        "free_text_condition": null,
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.5_actor_scope"
+      },
+      "0.6": {
+        "question_code": "0.6",
+        "text": "¿Qué recibes, ves o necesitas para empezar esta actividad?",
+        "short_ui_label": "Para empezar",
+        "help_text": "Piensa en la señal mínima. Ejemplos: llega una solicitud, aparece una factura, recibes una alerta, se aprueba un caso, alguien te pide corrección.",
+        "examples": [],
+        "options": [],
+        "field_type": "free_text / generated_confirmed",
+        "answer_mode": "libre o confirmación editable",
+        "free_text_condition": null,
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.6"
+      },
+      "0.7": {
+        "question_code": "0.7",
+        "text": "[INTERNO] Recuperar de la actividad confirmada en 0.1 qué queda listo al terminar y consolidarlo como señal de cierre de la escena.",
+        "short_ui_label": "Cierre derivado de la actividad",
+        "help_text": "N/A — no visible al usuario.",
+        "examples": [],
+        "options": [],
+        "field_type": "internal_calculated",
+        "answer_mode": "canonical_derivation",
+        "free_text_condition": null,
+        "allows_free_text": "no",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.7"
+      },
+      "0.8": {
+        "question_code": "0.8",
+        "text": "¿La haces casi siempre igual o cambia según el caso?",
+        "short_ui_label": "Variación",
+        "help_text": "Piensa en cómo ocurre realmente, no en cómo debería ocurrir en el procedimiento ideal.",
+        "examples": [],
+        "options": [
+          "Casi siempre igual",
+          "Tiene variaciones menores",
+          "Tiene variaciones relevantes",
+          "Cambia mucho según el caso",
+          "No estoy seguro"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "cerrada",
+        "free_text_condition": null,
+        "allows_free_text": "no",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.8"
+      },
+      "0.8a": {
+        "question_code": "0.8a",
+        "text": "¿Cuál es el cambio o caso especial más común?",
+        "short_ui_label": "Caso especial común",
+        "help_text": "Describe solo el caso más típico. Ejemplo: “cambia cuando falta soporte”, “cambia si el pedido es urgente”, “cambia si el sistema no actualiza”.",
+        "examples": [],
+        "options": [],
+        "field_type": "free_text",
+        "answer_mode": "libre",
+        "free_text_condition": null,
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.8a"
+      },
+      "0.A": {
+        "question_code": "0.A",
+        "text": "El nombre suena amplio. ¿Qué distingue esta actividad de otras parecidas?",
+        "short_ui_label": "Aclarar actividad",
+        "help_text": "Por ejemplo, “dar seguimiento” puede significar muchas cosas. Dinos seguimiento a qué, con qué propósito y hasta qué queda listo.",
+        "examples": [],
+        "options": [],
+        "field_type": "clarification",
+        "answer_mode": "aclarada",
+        "free_text_condition": null,
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.A"
+      },
+      "0.B": {
+        "question_code": "0.B",
+        "text": "Parece que el inicio y el cierre se mezclan. Completa: empieza cuando ___ y termina cuando ___.",
+        "short_ui_label": "Aclarar inicio y cierre",
+        "help_text": "Buscamos el borde práctico de la actividad, no una explicación perfecta. Ejemplo: “empieza cuando recibo la factura; termina cuando queda marcada para pago”.",
+        "examples": [],
+        "options": [],
+        "field_type": "clarification",
+        "answer_mode": "aclarada",
+        "free_text_condition": null,
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.B"
+      },
+      "0.C": {
+        "question_code": "0.C",
+        "text": "Esta descripción parece muy grande o muy pequeña. ¿Qué parte concreta conviene revisar de inicio a fin?",
+        "short_ui_label": "Ajustar tamaño",
+        "help_text": "No buscamos algo tan grande como “gestionar compras” ni tan pequeño como “dar clic en aprobar”. Buscamos una unidad intermedia: “revisar una factura con incidencia antes de enviarla a pago”.",
+        "examples": [],
+        "options": [],
+        "field_type": "clarification",
+        "answer_mode": "aclarada",
+        "free_text_condition": null,
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.C"
+      },
+      "0.D": {
+        "question_code": "0.D",
+        "text": "La estructura parece incompleta. ¿Qué falta: sobre qué trabajas, con qué criterio o qué queda listo?",
+        "short_ui_label": "Completar estructura",
+        "help_text": "Ayúdanos a completar la frase. Debe quedar claro qué haces, sobre qué trabajas y qué resultado dejas.",
+        "examples": [],
+        "options": [
+          "Falta sobre qué trabajo",
+          "Falta criterio o estándar",
+          "Falta qué queda listo",
+          "Falta más de una cosa"
+        ],
+        "field_type": "clarification",
+        "answer_mode": "aclarada",
+        "free_text_condition": null,
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B0 · Ficha canónica 0.D"
+      }
+    },
+    "B05": {
+      "0.5.1": {
+        "question_code": "0.5.1",
+        "text": "Por lo que conoces de tu trabajo, ¿quién termina viéndose más beneficiado cuando esta actividad sale bien?",
+        "short_ui_label": "Quién termina beneficiándose",
+        "help_text": "Piensa más allá de quien recibe tu trabajo directamente. ¿Quién obtiene realmente el beneficio?",
+        "examples": [
+          "Yo libero la requisición para Compras, pero quien realmente se beneficia es Producción, porque sin ese material no puede seguir trabajando.",
+          "Le entrego el reporte a mi jefe, pero quien termina beneficiándose es el cliente, porque con esa información se corrige el pedido antes de que salga."
+        ],
+        "options": [
+          "La misma persona o equipo que recibe mi trabajo",
+          "Yo mismo o mi equipo",
+          "Otra persona o equipo dentro de la empresa",
+          "Un cliente de la empresa",
+          "Un proveedor o socio externo",
+          "Otra persona o grupo fuera de la empresa",
+          "No lo puedo identificar"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "selected_option = Otra persona o equipo dentro de la empresa OR Otra persona o grupo fuera de la empresa",
+        "allows_free_text": "conditional",
+        "knowledge_basis_capture": "Microcontrol de un toque: Lo veo directamente en mi trabajo (direct_observation) / Lo conozco por mi rol y por cómo trabajamos con otros (role_based_knowledge) / Es mi mejor estimación (best_estimate) / No lo puedo confirmar (unconfirmed). No cuenta como pregunta de contenido.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.1"
+      },
+      "0.5.1a": {
+        "question_code": "0.5.1a",
+        "text": "Por lo que conoces de este trabajo, ¿quién termina viéndose más afectado cuando esta actividad sale mal, se retrasa o no se realiza?",
+        "short_ui_label": "Quién termina afectado",
+        "help_text": "Piensa más allá de quien nota primero el problema. ¿Quién termina cargando con la consecuencia?",
+        "examples": [
+          "Si no libero la orden a tiempo, Compras me pregunta qué pasó, pero quien termina atorado es Producción porque se queda esperando material.",
+          "Si el dato sale mal, mi jefe lo detecta primero, pero el problema termina en Facturación porque tiene que corregir documentos y volver a procesarlos."
+        ],
+        "options": [
+          "La misma persona o equipo que recibe mi trabajo",
+          "Yo mismo o mi equipo",
+          "Otra persona o equipo dentro de la empresa",
+          "Un cliente de la empresa",
+          "Un proveedor o socio externo",
+          "Otra persona o grupo fuera de la empresa",
+          "No lo puedo identificar"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "selected_option = Otra persona o equipo dentro de la empresa OR Otra persona o grupo fuera de la empresa",
+        "allows_free_text": "conditional",
+        "knowledge_basis_capture": "Microcontrol de un toque: Lo veo directamente en mi trabajo (direct_observation) / Lo conozco por mi rol y por cómo trabajamos con otros (role_based_knowledge) / Es mi mejor estimación (best_estimate) / No lo puedo confirmar (unconfirmed). No cuenta como pregunta de contenido.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.1a"
+      },
+      "0.5.1_rel": {
+        "question_code": "0.5.1_rel",
+        "text": "No visible. EVE deriva si beneficiario y afectado parecen ser la misma entidad, entidades distintas o si la relación no puede resolverse.",
+        "short_ui_label": "Relación beneficiario/afectado",
+        "help_text": "N/A - no se muestra en flujo base.",
+        "examples": [
+          "Si ambas respuestas identifican claramente a Producción, EVE deriva same_entity.",
+          "Si beneficiario = Proveedor y afectado = Producción, EVE deriva different_entities.",
+          "Si ambas respuestas usan una categoría amplia sin identidad suficiente, EVE conserva unresolved_relation y puede abrir 0.5.A."
+        ],
+        "options": [
+          "same_entity",
+          "different_entities",
+          "unresolved_relation"
+        ],
+        "field_type": "internal_calculated",
+        "answer_mode": "canonical_derivation",
+        "free_text_condition": "N/A",
+        "allows_free_text": "no",
+        "knowledge_basis_capture": "N/A",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.1_rel"
+      },
+      "0.5.1b": {
+        "question_code": "0.5.1b",
+        "text": "Cuando son distintos, ¿qué gana uno y qué problema termina cargando el otro?",
+        "short_ui_label": "Cómo se reparte el beneficio y el problema",
+        "help_text": "Úsala solo cuando haga falta entender cómo se reparte el beneficio y el problema.",
+        "examples": [
+          "Producción gana continuidad porque recibe material a tiempo; el proveedor carga el problema cuando el pago queda detenido por una validación pendiente.",
+          "Ventas puede cerrar el pedido con rapidez, pero Postventa termina absorbiendo el reclamo cuando la información de entrega salió incompleta.",
+          "Dirección obtiene el número para decidir, mientras el analista termina rehaciendo el archivo cada vez que cambian el corte o el criterio de última hora."
+        ],
+        "options": [],
+        "field_type": "free_text",
+        "answer_mode": "free_text",
+        "free_text_condition": "N/A",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": "Hereda proveniencia de 0.5.1 y 0.5.1a; puede registrarse ajuste en scene_answer_provenance si el informante aclara que está estimando.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.1b"
+      },
+      "0.5.1c": {
+        "question_code": "0.5.1c",
+        "text": "Pensando en quien termina recibiendo el beneficio, ¿qué obtiene o qué logra cuando esta actividad sale bien?",
+        "short_ui_label": "Qué puede hacer o resolver",
+        "help_text": "Piensa en el resultado que esa persona, equipo o cliente finalmente obtiene gracias a que el trabajo salió bien.",
+        "examples": [
+          "Producción puede arrancar el lote porque ya tiene liberado el material que estaba detenido.",
+          "El comprador puede decidir si aprueba o rechaza la cotización porque ya tiene costos, plazo y condiciones comparables.",
+          "El cliente puede recibir su pedido completo porque el error de inventario se corrigió antes de surtir y embarcar."
+        ],
+        "options": [],
+        "field_type": "free_text",
+        "answer_mode": "free_text",
+        "free_text_condition": "N/A",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": "Se conserva en scene_answer_provenance si el motor necesita distinguir observación directa, conocimiento por rol, estimación o no confirmado; no agrega una pregunta de contenido.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.1c"
+      },
+      "0.5.1d": {
+        "question_code": "0.5.1d",
+        "text": "Para que ese beneficio ocurra, ¿tu actividad lo deja resuelto o todavía necesita que alguien más haga algo después?",
+        "short_ui_label": "Cómo contribuye la actividad",
+        "help_text": "Piensa en el papel real de la actividad, no en el nombre del puesto.",
+        "examples": [
+          "Con mi actividad el proveedor queda pagado; aquí el resultado se resuelve directamente.",
+          "Preparo el expediente completo y lo dejo listo para Jurídico; yo no cierro el contrato, pero sin mi trabajo ellos no pueden seguir.",
+          "Yo no fabrico ni entrego nada al cliente; reviso y autorizo que la orden cumpla condiciones para que Producción pueda liberarla."
+        ],
+        "options": [
+          "Lo resuelve directamente",
+          "Deja algo listo para que otro pueda resolverlo",
+          "Coordina, valida o autoriza para que ocurra",
+          "Hace más de una de esas cosas",
+          "No estoy seguro"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "N/A",
+        "allows_free_text": "no",
+        "knowledge_basis_capture": "N/A; la incertidumbre sobre el modo se captura con la opción No estoy seguro.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.1d"
+      },
+      "0.5.2": {
+        "question_code": "0.5.2",
+        "text": "¿Cómo le llaman ustedes al trabajo o proceso más grande del que forma parte esta actividad?",
+        "short_ui_label": "Trabajo o proceso mayor",
+        "help_text": "No pongas la tarea que acabas de describir. Piensa en el trabajo mayor dentro del que esa tarea tiene sentido.",
+        "examples": [
+          "Validar una factura no es el proceso completo; en nuestro día a día eso cae dentro de Cuentas por Pagar.",
+          "Revisar expedientes de candidatos es una actividad; el trabajo más grande al que pertenece es contratación de personal.",
+          "Contar faltantes en piso es una parte del trabajo; acá lo ubicamos dentro de control de inventario y abastecimiento."
+        ],
+        "options": [
+          "N/A",
+          "la interfaz puede ofrecer una acción secundaria 'No estoy seguro'."
+        ],
+        "field_type": "free_text",
+        "answer_mode": "free_text",
+        "free_text_condition": "N/A",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": "Microcontrol de un toque: Lo veo directamente en mi trabajo (direct_observation) / Lo conozco por mi rol y por cómo trabajamos con otros (role_based_knowledge) / Es mi mejor estimación (best_estimate) / No lo puedo confirmar (unconfirmed). No cuenta como pregunta de contenido.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.2"
+      },
+      "0.5.3": {
+        "question_code": "0.5.3",
+        "text": "Cuando esto queda bien hecho, ¿qué puede avanzar después?",
+        "short_ui_label": "Qué puede avanzar después",
+        "help_text": "No repitas lo que entregas. Piensa en el siguiente avance que ya puede ocurrir porque esto quedó listo.",
+        "examples": [
+          "Cuando termino la validación, Tesorería ya puede liberar el pago al proveedor.",
+          "Cuando queda aprobada la orden, Almacén ya puede preparar el surtido y embarcar.",
+          "Cuando cierro las incidencias de nómina, Finanzas ya puede correr el cálculo final sin esperar correcciones."
+        ],
+        "options": [],
+        "field_type": "free_text",
+        "answer_mode": "free_text",
+        "free_text_condition": "N/A",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": "Microcontrol de un toque: Lo veo directamente en mi trabajo (direct_observation) / Lo conozco por mi rol y por cómo trabajamos con otros (role_based_knowledge) / Es mi mejor estimación (best_estimate) / No lo puedo confirmar (unconfirmed). No cuenta como pregunta de contenido.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.3"
+      },
+      "0.5.4": {
+        "question_code": "0.5.4",
+        "text": "Cuando todo urge, ¿quién o qué decide que esta actividad va primero?",
+        "short_ui_label": "Qué pone esta actividad primero",
+        "help_text": "Piensa en lo que pasa de verdad en el día a día, no en lo que dice el procedimiento.",
+        "examples": [
+          "Aunque tenga una lista de pendientes, si mi gerente dice que el embarque de hoy se libera primero, dejo lo demás y saco eso.",
+          "En soporte manda el ticket con el SLA más corto; aunque otro problema sea molesto, el sistema nos pone primero lo que está por vencer.",
+          "En cierre de mes no hay que preguntarlo: las actividades del cierre desplazan casi todo lo demás porque la fecha no se mueve."
+        ],
+        "options": [
+          "Mi jefe o alguien de dirección",
+          "El cliente",
+          "Una fecha, sistema, ticket o SLA",
+          "Una regla o procedimiento",
+          "Yo mismo con lo que veo en el momento",
+          "Lo acordamos entre varias personas",
+          "Cambia según la urgencia, no hay una fuente estable",
+          "Otro (especificar)"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "selected_option = Otro",
+        "allows_free_text": "conditional",
+        "knowledge_basis_capture": "N/A; pregunta anclada en experiencia operativa habitual.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.4"
+      },
+      "0.5.4a": {
+        "question_code": "0.5.4a",
+        "text": "Si ya empezaste esta actividad y aparece algo que te hace soltarla, ¿de dónde suele venir?",
+        "short_ui_label": "Qué te hace soltar lo que ya empezaste",
+        "help_text": "Piensa en la urgencia que realmente te cambia el orden del día.",
+        "examples": [
+          "Voy a mitad de la conciliación y me habla dirección porque falta un dato para una reunión; dejo lo que estoy haciendo y saco ese dato.",
+          "Estoy revisando facturas y entra una incidencia de proveedor bloqueado; el sistema la marca crítica y tengo que resolverla antes de seguir.",
+          "Ya tenía programado el análisis semanal, pero Producción reporta que se va a quedar sin material; paro el análisis y me meto a destrabar el abastecimiento."
+        ],
+        "options": [
+          "Mi jefe o dirección",
+          "El cliente",
+          "Otra área",
+          "Un sistema, ticket o alarma",
+          "Una emergencia o incidente",
+          "Yo mismo porque veo un riesgo mayor",
+          "Otro (especificar)",
+          "Casi nunca pasa"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "selected_option = Otro",
+        "allows_free_text": "conditional",
+        "knowledge_basis_capture": "N/A; pregunta anclada en experiencia operativa habitual.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.4a"
+      },
+      "0.5.A": {
+        "question_code": "0.5.A",
+        "text": "Solo para ubicarlo: ¿quién se beneficia y quién termina afectado son la misma persona/equipo o son distintos?",
+        "short_ui_label": "Aclarar si es la misma parte",
+        "help_text": "Respóndelo con lo que realmente conoces; no hace falta reconstruir todo el proceso.",
+        "examples": [
+          "Sé que Producción recibe el beneficio y también es quien se queda parado si falla: es la misma parte.",
+          "El proveedor recibe el beneficio del pago, pero Producción absorbe el problema si el material no llega: son distintos.",
+          "Yo solo veo que mi jefe recibe el reporte; no sé si el impacto termina en otra área: no lo puedo confirmar."
+        ],
+        "options": [
+          "Son la misma persona o equipo",
+          "Son distintos",
+          "No lo puedo confirmar"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "N/A",
+        "allows_free_text": "no",
+        "knowledge_basis_capture": "La opción No lo puedo confirmar preserva explícitamente el límite epistemológico.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.A"
+      },
+      "0.5.B": {
+        "question_code": "0.5.B",
+        "text": "Lo que pusiste parece ser tu tarea. ¿Cómo le llaman al trabajo más grande del que forma parte?",
+        "short_ui_label": "Aclarar el trabajo mayor",
+        "help_text": "Sube un nivel: de la tarea puntual al trabajo mayor donde esa tarea encaja.",
+        "examples": [
+          "'Revisar pagos' es la tarea; 'Cuentas por Pagar' es el trabajo más grande donde ocurre.",
+          "'Actualizar candidatos' es la tarea; 'Contratación' es el trabajo mayor al que pertenece.",
+          "'Revisar faltantes' es la tarea; 'Planeación de materiales y abastecimiento' es el trabajo mayor."
+        ],
+        "options": [],
+        "field_type": "free_text",
+        "answer_mode": "free_text",
+        "free_text_condition": "N/A",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": "Conservar process_knowledge_basis; si la aclaración cambia la base de conocimiento, actualizar proveniencia sin borrar la respuesta original.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.B"
+      },
+      "0.5.C": {
+        "question_code": "0.5.C",
+        "text": "Lo que escribiste es lo que tú haces. ¿Qué puede avanzar después gracias a que eso quedó listo?",
+        "short_ui_label": "Aclarar qué avanza después",
+        "help_text": "Busca el siguiente movimiento real del trabajo, no tu propio entregable.",
+        "examples": [
+          "No 'mando el archivo'; el avance es que Tesorería ya puede liberar el pago.",
+          "No 'termino la revisión'; el avance es que Producción ya puede arrancar el lote.",
+          "No 'cierro el ticket'; el avance es que el usuario puede volver a operar sin el bloqueo."
+        ],
+        "options": [],
+        "field_type": "free_text",
+        "answer_mode": "free_text",
+        "free_text_condition": "N/A",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": "Conservar next_step_knowledge_basis; si la aclaración cambia la base de conocimiento, actualizar proveniencia sin borrar la respuesta original.",
+        "source_ref": "Madre B05 · Ficha canónica 0.5.C"
+      }
+    },
+    "B1": {
+      "1.1": {
+        "question_code": "1.1",
+        "text": "¿De dónde viene normalmente la señal que te indica empezar?",
+        "short_ui_label": "Origen de la señal",
+        "help_text": "Piensa en qué te avisa normalmente que esta actividad ya puede o debe comenzar. No preguntamos todavía qué haces después, sino de dónde viene la señal inicial. Ejemplos: un cliente lo solicita, un sistema lo notifica, tu jefe lo ordena o tú mismo lo disparas por rutina.",
+        "examples": [],
+        "options": [
+          "1) Un cliente (interno o externo) me lo solicita",
+          "2) Un sistema o aplicación me lo notifica",
+          "3) Mi jefe o superior me lo ordena",
+          "4) Un compañero me lo pasa",
+          "5) Yo mismo lo decido",
+          "6) Una combinación de los anteriores"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "N/A",
+        "allows_free_text": "no",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.1"
+      },
+      "1.2": {
+        "question_code": "1.2",
+        "text": "Cuando esto comienza, ¿es algo que esperas que ocurra o es algo que te sorprende?",
+        "short_ui_label": "Tipo de disparador",
+        "help_text": "Aquí nos interesa saber si el inicio es previsible o reactivo. No es una evaluación de tu desempeño. Es una manera de entender si esta actividad vive en una rutina esperable o en un régimen de sorpresa. Ejemplo: “sé que cada fin de mes pasa” versus “me cae de repente”.",
+        "examples": [],
+        "options": [
+          "1) Es planificado: sé que va a ocurrir y más o menos cuándo",
+          "2) Es reactivo: me sorprende, no lo veo venir",
+          "3) Es una mezcla: a veces es planificado, a veces es sorpresa"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "N/A",
+        "allows_free_text": "no",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.2"
+      },
+      "1.3": {
+        "question_code": "1.3",
+        "text": "Cuando esto debe comenzar, ¿está muy claro para ti que es el momento, o hay ambigüedad?",
+        "short_ui_label": "Claridad del inicio",
+        "help_text": "Piensa si normalmente sabes con claridad “ya es momento de empezar” o si muchas veces dudas si debes comenzar ahora, esperar, o revisar algo antes. Ejemplo claro: una notificación con hora definida. Ejemplo ambiguo: señales incompletas o mensajes contradictorios.",
+        "examples": [],
+        "options": [
+          "1) Muy claro",
+          "2) Claro",
+          "3) Ambiguo",
+          "4) Muy ambiguo"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "N/A",
+        "allows_free_text": "no",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.3"
+      },
+      "1.4": {
+        "question_code": "1.4",
+        "text": "¿Con qué frecuencia ocurre este disparador y si hay un patrón que puedas predecir?",
+        "short_ui_label": "Frecuencia del disparador",
+        "help_text": "Queremos saber si esto ocurre con un ritmo reconocible o si aparece sin patrón. Responde pensando en cómo suele pasar la mayor parte del tiempo. Ejemplos: diaria, semanal, mensual, bajo demanda, continuo o completamente irregular.",
+        "examples": [],
+        "options": [
+          "1) Diaria",
+          "2) Semanal",
+          "3) Mensual",
+          "4) Bajo demanda",
+          "5) Continuo",
+          "6) Irregular"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "N/A",
+        "allows_free_text": "no",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.4"
+      },
+      "1.5": {
+        "question_code": "1.5",
+        "text": "¿Por qué medio te llega la noticia de que debes comenzar?",
+        "short_ui_label": "Canal del disparador",
+        "help_text": "Piensa en el medio concreto por el que te enteras normalmente. Puedes marcar más de uno si en la práctica llega por varios canales. Ejemplos: email, sistema, mensaje, presencial o reunión. Si marcas “Otro”, escribe cuál.",
+        "examples": [],
+        "options": [
+          "1) Email",
+          "2) Teléfono o mensaje de texto",
+          "3) Un sistema o aplicación",
+          "4) Presencial",
+          "5) Reunión o llamada de equipo",
+          "6) Otro (especificar)"
+        ],
+        "field_type": "multi_choice",
+        "answer_mode": "multi_choice",
+        "free_text_condition": "selected_option = \"Otro (especificar)\"",
+        "allows_free_text": "conditional",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.5"
+      },
+      "1.6": {
+        "question_code": "1.6",
+        "text": "Para que este disparador ocurra, ¿qué debe haber ocurrido antes?",
+        "short_ui_label": "Precondiciones del inicio",
+        "help_text": "Escribe la condición previa mínima para que la actividad sí tenga sentido empezar. No describas todo el proceso; solo lo que necesariamente debe haber pasado antes. Ejemplos: “el cliente debe haber pagado”, “debe ser fin de mes”, “debe existir stock”, “debe llegar aprobación”.",
+        "examples": [],
+        "options": [
+          "Texto corto guiado, máximo 150 caracteres."
+        ],
+        "field_type": "free_text",
+        "answer_mode": "free_text",
+        "free_text_condition": "Siempre",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.6"
+      },
+      "1.7": {
+        "question_code": "1.7",
+        "text": "¿Hay momentos en que esto debería comenzar pero no comienza?",
+        "short_ui_label": "Excepciones del inicio",
+        "help_text": "Piensa en los casos en que, en teoría, ya debería haber empezado, pero algo falla y no arranca. No importa si pasa poco o mucho; importa registrarlo. Ejemplo: el cliente sí solicita algo, pero nadie lo registra; el sistema debería avisar, pero la notificación no llega.",
+        "examples": [],
+        "options": [
+          "1) No, siempre funciona como debería",
+          "2) Sí, a veces ocurre pero es raro",
+          "3) Sí, ocurre regularmente",
+          "4) Sí, ocurre frecuentemente"
+        ],
+        "field_type": "single_choice",
+        "answer_mode": "single_choice",
+        "free_text_condition": "N/A",
+        "allows_free_text": "no",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.7"
+      },
+      "1.8": {
+        "question_code": "1.8",
+        "text": "Si respondiste “Sí” en la pregunta anterior, ¿qué ocurre en esos momentos? ¿Cómo te das cuenta de que algo no funcionó?",
+        "short_ui_label": "Descripción de la excepción",
+        "help_text": "Describe brevemente qué pasa cuando la actividad debería iniciar y no inicia, y cuál es la primera señal de que algo falló. Ejemplos: “el email nunca llega”, “el sistema no genera ticket”, “me doy cuenta porque otro equipo reclama”, “la fecha vence y nadie movió nada”.",
+        "examples": [],
+        "options": [
+          "Texto corto guiado, máximo 200 caracteres."
+        ],
+        "field_type": "free_text",
+        "answer_mode": "free_text",
+        "free_text_condition": "Siempre que 1.7 indique excepción",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.8"
+      },
+      "1.A": {
+        "question_code": "1.A",
+        "text": "Cuando no está claro si debe empezar, ¿qué señal usas tú para decidir si comienzas o esperas?",
+        "short_ui_label": "Aclaración sobre ambigüedad",
+        "help_text": "Esta aclaración aparece solo si dijiste que el inicio es ambiguo. Nos ayuda a entender qué haces tú para resolver esa falta de claridad. Ejemplos: esperas confirmación, revisas sistema, preguntas a alguien, o comienzas por experiencia propia.",
+        "examples": [],
+        "options": [
+          "Texto abierto breve."
+        ],
+        "field_type": "free_text",
+        "answer_mode": "clarification",
+        "free_text_condition": "Siempre que se active",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.A"
+      },
+      "1.B": {
+        "question_code": "1.B",
+        "text": "Cuando debería empezar y no empieza, ¿qué es lo primero que notas?",
+        "short_ui_label": "Aclaración de silencio",
+        "help_text": "Esta aclaración busca el primer síntoma visible de que el inicio falló. No pedimos una explicación larga, sino la primera evidencia concreta. Ejemplos: no llegó notificación, el ticket no aparece, nadie confirma, el cliente insiste o la fecha ya venció.",
+        "examples": [],
+        "options": [
+          "Texto abierto breve."
+        ],
+        "field_type": "free_text",
+        "answer_mode": "clarification",
+        "free_text_condition": "Siempre que se active",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.B"
+      },
+      "1.C": {
+        "question_code": "1.C",
+        "text": "Si la señal viene por varias fuentes o canales, ¿cuál manda realmente cuando se contradicen?",
+        "short_ui_label": "Aclaración de jerarquía de señal",
+        "help_text": "A veces la misma actividad se activa por varias fuentes o llega por varios medios. Esta aclaración identifica cuál manda cuando no coinciden. Ejemplo: el sistema dice una cosa, pero tu jefe te pide otra; o llega correo y también llamada, pero una de las dos define la acción real.",
+        "examples": [],
+        "options": [
+          "Opciones derivadas de las respuestas seleccionadas en 1.1 y 1.5 para identificar fuente dominante y canal dominante, más nota libre guiada de jerarquía."
+        ],
+        "field_type": "hybrid_choice_text",
+        "answer_mode": "clarification",
+        "free_text_condition": "Siempre que se active",
+        "allows_free_text": "sí",
+        "knowledge_basis_capture": null,
+        "source_ref": "Madre B1 · Ficha canónica 1.C"
+      }
+    }
+  }
+}

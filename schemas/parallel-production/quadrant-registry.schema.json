@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/parallel-production/quadrant-registry.schema.json",
+  "title": "EVE Capa 1 Parallel Production Quadrant Registry Package",
+  "type": "object",
+  "required": [
+    "registry_package_id",
+    "registry_package_type",
+    "registry_version",
+    "source_inventory_id",
+    "client_id",
+    "registries",
+    "registry_readiness",
+    "boundaries"
+  ],
+  "properties": {
+    "registry_package_type": { "const": "quadrant_registry_package" },
+    "registry_version": { "const": "1.0.0" },
+    "source_inventory_id": { "type": "string", "minLength": 1 },
+    "client_id": { "type": "string", "minLength": 1 },
+    "registries": {
+      "type": "object",
+      "required": ["PM", "PF", "MoC", "OLC"],
+      "properties": {
+        "PM": { "$ref": "#/$defs/quadrant_registry" },
+        "PF": { "$ref": "#/$defs/quadrant_registry" },
+        "MoC": { "$ref": "#/$defs/quadrant_registry" },
+        "OLC": { "$ref": "#/$defs/quadrant_registry" }
+      }
+    },
+    "registry_readiness": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": [
+            "registries_ready",
+            "registries_ready_with_gaps",
+            "partial_registries",
+            "blocked_by_missing_facts",
+            "blocked_by_semantic_conflict",
+            "manual_review_required"
+          ]
+        }
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "not_diagram",
+        "not_mmabp_ir",
+        "not_diagnostic",
+        "not_capa2_readiness",
+        "not_monetization",
+        "not_final_narrative"
+      ],
+      "properties": {
+        "not_diagram": { "const": true },
+        "not_mmabp_ir": { "const": true },
+        "not_diagnostic": { "const": true },
+        "not_capa2_readiness": { "const": true },
+        "not_monetization": { "const": true },
+        "not_final_narrative": { "const": true }
+      }
+    },
+    "design_gap_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Optional references to design-gap.schema.json gap_id values."
+    }
+  },
+  "$defs": {
+    "quadrant_registry": {
+      "type": "object",
+      "required": ["quadrant", "elements", "gaps"],
+      "properties": {
+        "quadrant": { "enum": ["PM", "PF", "MoC", "OLC"] },
+        "elements": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/registry_element" }
+        },
+        "gaps": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/registry_gap" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "registry_element": {
+      "type": "object",
+      "required": [
+        "element_id",
+        "element_type",
+        "label",
+        "source_fact_ids",
+        "conformance_status",
+        "consistency_status"
+      ],
+      "properties": {
+        "element_id": { "type": "string", "minLength": 1 },
+        "element_type": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "source_fact_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "conformance_status": {
+          "enum": [
+            "pending",
+            "conformant",
+            "conformant_with_flags",
+            "non_conformant",
+            "insufficient_evidence",
+            "requires_reentry"
+          ]
+        },
+        "consistency_status": {
+          "enum": [
+            "pending",
+            "consistent",
+            "consistent_with_flags",
+            "inconsistent",
+            "unresolved",
+            "requires_reentry"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "registry_gap": {
+      "type": "object",
+      "required": ["gap_id", "gap_type", "description"],
+      "properties": {
+        "gap_id": { "type": "string", "minLength": 1 },
+        "gap_type": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "source_fact_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

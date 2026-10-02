@@ -1,0 +1,3361 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <!--
+      EVE · Bloque 2 · Transformación · composición "LA PIEZA" · v2 (Madre B2-UX-EVID-001)
+      HTML de diseño aislado (no reemplaza eve-shell-bloques-v1.html).
+      Versión anterior (Madre v2.1, taxonomía visible): eve-b2-la-pieza-v1.b2-1.4-madre-v1.html
+
+      Mesa piloto (contrato B2 v0.8 candidato P3.2.2, promoción HOLD)
+        La hoja no cambia. El avance sí: una admisión de presentación decide qué banda se abre.
+        2.1 es el único render contextual de entrada. Sin referente literal vigente no se muestran
+        2.5, 2.4a, 2.6, 2.3, 2.7 ni 2.11. Una precisión no asigna objeto, sujeto ni acción.
+        2.4b solo después de 2.4a en la misma banda. C04 solo con dos referentes literales ya dichos.
+
+      Idea de UI
+        Una historia, un caso. La cota es la línea del caso: ANTES · LO QUE HACES · CÓMO QUEDA.
+        Cada respuesta se inscribe en la sección de la cota que le corresponde. El usuario no ve
+        Objeto/Sujeto/Acción, atributos, dominancia ni topología: eso queda en el modelo interno.
+          foco      2.1  con qué trabajas (el caso queda como título del plano)
+          antes     2.5
+          haces     2.4a → 2.4b (subcampos progresivos)
+          queda     2.6 → precisión factual 2.1a/b/c y 2.2_* solo si falta un dato (Madre §8, §20.C)
+          magnitud  2.3 (escala sobre la cota) → 2.7 → 2.8 si Pocas/Muchas veces
+          sombra    2.9 → 2.10/2.B · 2.11 → 2.12/2.C (cota discontinua)
+          limita    C04 solo si hay dos o más referentes literales sustentados (nunca inventados)
+
+      Runtime (Madre §21): B2-Q12 2.1 · 2.1a/b/c   B2-Q13 2.5   B2-Q14 2.4a · 2.4b
+                           B2-Q15 2.6 · 2.2_*      B2-Q16 2.3 · 2.7   B2-Q17 2.9 · 2.11
+                           C04 relaciones · 2.A    C05 2.10 · 2.B     C06 2.12 · 2.C   C07 2.8
+      Madre: Bloque_2_Documento_Madre_Capa1_v2_1_EVE_redisenado_UX_evidencia.docx
+
+      Reglas del prototipo (sin motor de proyección): el prototipo NO interpreta el relato para
+      cerrar dimensiones, referentes ni atributos; quedan en transformation_model_review como
+      pendientes. Las precisiones factuales se abren con reglas deterministas y trazadas (rule_id).
+
+      Parámetros: ?band=foco|antes|haces|queda|magnitud|sombra|limita
+                  ?activity=2 (sin compuerta "Abre +")  ?codes=0  ?memory=<texto>
+                  ?refs=objeto:pedidos,sujeto:clientes  (simula referentes proyectados → C04)
+    -->
+    <title>EVE — Bloque 2 · La pieza · v2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #9aa1ab;
+        --eve-mist-deep: #7a8190;
+        --eve-line: #d8dce2;
+        --font-mono: "IBM Plex Mono", "Consolas", monospace;
+        --pad-x: clamp(24px, 5vw, 72px);
+        --stage-h: clamp(600px, 66vh, 720px);
+        --cota-y: 40%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-mono);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      @keyframes eve-fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes eve-caret {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .build {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 30;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .screen {
+        position: relative;
+        display: flow-root;
+        width: 100%;
+        max-width: 1440px;
+        min-height: 100svh;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+      }
+
+      /* Shell */
+      .shell-nav {
+        position: absolute;
+        top: 14px;
+        left: 20px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .phase-arrow {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 200ms ease;
+      }
+
+      .phase-arrow:hover {
+        color: var(--eve-ink);
+      }
+
+      .block-marks {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .block-mark {
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        line-height: 1;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 200ms ease;
+      }
+
+      .block-mark:hover,
+      .block-mark.is-current {
+        color: var(--eve-ink);
+      }
+
+      .kicker-band {
+        position: absolute;
+        top: clamp(48px, 8vh, 88px);
+        left: 50%;
+        z-index: 6;
+        width: min(560px, 54vw);
+        text-align: center;
+        transform: translateX(-50%);
+      }
+
+      .block-meta {
+        margin: 0 0 12px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .kicker {
+        margin: 0;
+        color: var(--eve-ink);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        line-height: 1.55;
+        text-transform: uppercase;
+      }
+
+      .madre-help {
+        max-height: 0;
+        margin: 0;
+        overflow: hidden;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        opacity: 0;
+        transition:
+          opacity 380ms ease,
+          max-height 380ms ease,
+          margin 280ms ease;
+      }
+
+      .madre-help.is-open {
+        max-height: 520px;
+        margin-top: 16px;
+        opacity: 1;
+      }
+
+      .madre-help p {
+        margin: 0 0 6px;
+      }
+
+      .examples-toggle {
+        margin: 4px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist-deep);
+        font-family: inherit;
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 200ms ease;
+      }
+
+      .examples-toggle:hover,
+      .examples-toggle.is-open {
+        color: var(--eve-ink);
+      }
+
+      .madre-help .example {
+        margin: 10px 0 0;
+        color: var(--eve-mist-deep);
+        text-align: left;
+      }
+
+      /* Stage: el plano */
+      .stage {
+        position: relative;
+        height: var(--stage-h);
+        margin: clamp(230px, 27vh, 300px) var(--pad-x) 0;
+      }
+
+      /* La cota: la línea del caso */
+      .cota {
+        position: absolute;
+        top: var(--cota-y);
+        left: 0;
+        right: 0;
+        z-index: 1;
+        height: 1px;
+        background: var(--eve-line);
+      }
+
+      .cota::before,
+      .cota::after {
+        content: "";
+        position: absolute;
+        top: -6px;
+        width: 1px;
+        height: 13px;
+        background: var(--eve-mist);
+      }
+
+      .cota::before {
+        left: 0;
+      }
+
+      .cota::after {
+        right: 0;
+      }
+
+      .stage.is-shadow .cota {
+        background: repeating-linear-gradient(90deg, var(--eve-mist) 0 5px, transparent 5px 11px);
+      }
+
+      /* Secciones del caso sobre la cota */
+      .part-tick {
+        position: absolute;
+        top: calc(var(--cota-y) - 10px);
+        z-index: 2;
+        width: 1px;
+        height: 21px;
+        background: var(--eve-line);
+        opacity: 0;
+        transition:
+          opacity 400ms ease,
+          background 300ms ease;
+      }
+
+      .part-tick[data-at="haces"] {
+        left: 37%;
+      }
+
+      .part-tick[data-at="queda"] {
+        left: 74%;
+      }
+
+      .part-tick.is-on {
+        background: var(--eve-ink);
+      }
+
+      .part-label {
+        position: absolute;
+        top: calc(var(--cota-y) + 28px);
+        z-index: 2;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        opacity: 0;
+        transition:
+          opacity 400ms ease,
+          color 300ms ease;
+      }
+
+      .part-label[data-part="antes"] {
+        left: 10px;
+      }
+
+      .part-label[data-part="haces"] {
+        left: calc(37% + 10px);
+      }
+
+      .part-label[data-part="queda"] {
+        right: 10px;
+      }
+
+      .part-label.is-current {
+        color: var(--eve-ink);
+      }
+
+      .stage.is-story .part-tick,
+      .stage.is-story .part-label {
+        opacity: 1;
+      }
+
+      .story-cols {
+        display: none;
+      }
+
+      .stage.is-story .story-cols {
+        display: block;
+      }
+
+      .story-col {
+        position: absolute;
+        top: calc(var(--cota-y) - 20px);
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        height: 40px;
+        margin: 0;
+        padding: 0 14px;
+        overflow: hidden;
+        background: var(--eve-sheet);
+        white-space: nowrap;
+      }
+
+      .story-col[hidden] {
+        display: none;
+      }
+
+      .story-text {
+        overflow: hidden;
+        color: var(--eve-ink);
+        font-size: clamp(12px, 1.1vw, 15px);
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        text-overflow: ellipsis;
+      }
+
+      .story-text.is-alt {
+        color: var(--eve-mist);
+      }
+
+      .story-col[data-part="antes"] {
+        left: 12px;
+        max-width: calc(37% - 24px);
+      }
+
+      .story-col[data-part="haces"] {
+        left: calc(37% + 12px);
+        max-width: calc(37% - 24px);
+      }
+
+      .story-col[data-part="queda"] {
+        right: 12px;
+        justify-content: flex-end;
+        max-width: calc(26% - 24px);
+      }
+
+      /* El caso: título del plano */
+      .caso {
+        position: absolute;
+        bottom: calc(100% - var(--cota-y) + 64px);
+        left: 0;
+        z-index: 3;
+        max-width: min(640px, 62%);
+        margin: 0;
+        animation: eve-fade 600ms ease both;
+      }
+
+      .caso-meta {
+        display: block;
+        margin: 0 0 8px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .caso-text {
+        display: -webkit-box;
+        margin: 0;
+        overflow: hidden;
+        color: var(--eve-ink);
+        font-size: clamp(13px, 1.2vw, 16px);
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.45;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+
+      .caso-text.is-alt {
+        color: var(--eve-mist);
+      }
+
+      .stage.is-shadow .caso-text {
+        color: var(--eve-mist-deep);
+      }
+
+      /* Tramos e islas */
+      .band {
+        position: absolute;
+        inset: 0;
+        z-index: 4;
+        display: none;
+      }
+
+      .band.is-active {
+        display: block;
+        animation: eve-fade 600ms ease both;
+      }
+
+      .isle {
+        position: absolute;
+      }
+
+      .isle.top {
+        top: 0;
+      }
+
+      .isle.up {
+        bottom: calc(100% - var(--cota-y) + 64px);
+      }
+
+      .isle.down {
+        top: calc(var(--cota-y) + 64px);
+      }
+
+      .isle.down.far {
+        top: calc(var(--cota-y) + 124px);
+      }
+
+      .isle.l {
+        left: 0;
+      }
+
+      .isle.c2 {
+        left: 37%;
+      }
+
+      .isle.r {
+        right: 0;
+        text-align: right;
+      }
+
+      .isle.up::before,
+      .isle.down::before {
+        content: "";
+        position: absolute;
+        width: 1px;
+        background: var(--eve-line);
+      }
+
+      .isle.up::before {
+        top: calc(100% + 8px);
+        height: 48px;
+      }
+
+      .isle.down::before {
+        bottom: calc(100% + 8px);
+        height: 48px;
+      }
+
+      .isle.down.far::before {
+        height: 108px;
+      }
+
+      .isle.l::before,
+      .isle.c2::before {
+        left: 0;
+      }
+
+      .isle.r::before {
+        right: 0;
+      }
+
+      .w-34 {
+        width: min(440px, 34%);
+      }
+
+      .w-40 {
+        width: min(520px, 40%);
+      }
+
+      .w-44 {
+        width: min(580px, 44%);
+      }
+
+      /* Pregunta / respuesta (gramática del shell) */
+      .q-block + .q-block,
+      .q-block + .clarify-slot,
+      .clarify-slot + .q-block {
+        margin-top: 36px;
+      }
+
+      .q-code {
+        margin: 0 0 8px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .hide-codes .q-code {
+        display: none;
+      }
+
+      .q-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .isle.r .q-head {
+        flex-direction: row-reverse;
+      }
+
+      .q-label {
+        flex: 1;
+        min-width: 0;
+        margin: 0;
+        color: var(--eve-ink);
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+
+      .help-plus {
+        flex: 0 0 auto;
+        margin: 1px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1;
+        cursor: pointer;
+        transition:
+          color 240ms ease,
+          opacity 240ms ease;
+      }
+
+      .help-plus.is-seen {
+        color: var(--eve-mist);
+      }
+
+      .help-plus:hover,
+      .help-plus.is-open {
+        color: var(--eve-ink);
+      }
+
+      .gate-hint {
+        max-height: 0;
+        margin: 8px 0 0;
+        overflow: hidden;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        line-height: 1.4;
+        text-transform: uppercase;
+        opacity: 0;
+        transition:
+          opacity 240ms ease,
+          max-height 240ms ease,
+          color 240ms ease;
+      }
+
+      .gate-hint.is-visible {
+        max-height: 3em;
+        opacity: 1;
+      }
+
+      .gate-hint.is-flash {
+        color: var(--eve-ink);
+      }
+
+      .q-whisper {
+        margin: 10px 0 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .sub-label {
+        margin: 18px 0 0;
+        color: var(--eve-mist-deep);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .opt-list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .opt-list.is-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+      }
+
+      .isle.r .opt-list {
+        align-items: flex-end;
+      }
+
+      .isle.r .opt-list.is-row {
+        justify-content: flex-end;
+      }
+
+      .opt {
+        margin: 0;
+        padding: 2px 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        line-height: 1.4;
+        text-align: inherit;
+        cursor: pointer;
+        transition:
+          color 280ms ease,
+          font-weight 180ms ease;
+      }
+
+      .opt:hover {
+        color: var(--eve-ink);
+      }
+
+      .opt.is-active {
+        color: var(--eve-ink);
+        font-weight: 700;
+      }
+
+      /* Acciones secundarias: salidas de desconocimiento o límite, susurradas */
+      .opt.is-alt {
+        font-size: 8px;
+        letter-spacing: 0.04em;
+      }
+
+      .opt-list .opt.is-alt:first-of-type:not(:first-child) {
+        margin-top: 4px;
+      }
+
+      .alt-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 18px;
+        margin-top: 10px;
+      }
+
+      .isle.r .alt-row {
+        justify-content: flex-end;
+      }
+
+      .opt-list.is-locked,
+      .alt-row.is-locked,
+      .scale.is-locked {
+        opacity: 0.38;
+        pointer-events: none;
+      }
+
+      .opt-list.is-committed .opt:not(.is-active) {
+        display: none;
+      }
+
+      .choice-back {
+        display: none;
+        margin: 12px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 11px;
+        line-height: 1;
+        cursor: pointer;
+        opacity: 0.72;
+      }
+
+      .choice-back.is-visible {
+        display: block;
+      }
+
+      .isle.r .choice-back {
+        margin-left: auto;
+      }
+
+      .choice-back:hover {
+        color: var(--eve-ink);
+        opacity: 1;
+      }
+
+      .answer-field {
+        margin-top: 30px;
+      }
+
+      .answer-field.is-followup {
+        margin-top: 12px;
+      }
+
+      .answer-field.is-locked {
+        opacity: 0.38;
+        pointer-events: none;
+      }
+
+      .q-value {
+        display: block;
+        width: 100%;
+        min-height: 3.2em;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.55;
+        text-align: inherit;
+        white-space: pre-wrap;
+        word-break: break-word;
+        outline: none;
+        caret-color: var(--eve-ink);
+        cursor: text;
+      }
+
+      .q-value.is-empty[contenteditable="true"]:not(:focus)::before {
+        content: "";
+        display: inline-block;
+        width: 1.5px;
+        height: 1.05em;
+        background: var(--eve-ink);
+        vertical-align: -0.18em;
+        animation: eve-caret 1s step-end infinite;
+      }
+
+      .clarify-slot {
+        display: none;
+      }
+
+      .clarify-slot.is-open {
+        display: block;
+      }
+
+      .trench {
+        margin: 0 0 18px;
+      }
+
+      .trench-lead {
+        margin: 0 0 10px;
+        color: var(--eve-ink);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .trench-landing {
+        margin: 0 0 10px;
+        color: var(--eve-mist-deep);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .trench-example {
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      /* Escala de magnitud inscrita en la cota */
+      .scale {
+        position: absolute;
+        top: var(--cota-y);
+        left: 0;
+        right: 0;
+        z-index: 3;
+        height: 0;
+      }
+
+      .scale-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--eve-ink);
+        transition: width 500ms ease;
+      }
+
+      .scale-mark {
+        position: absolute;
+        top: -9px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        margin: 0;
+        padding: 0 8px;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        transform: translateX(-50%);
+        cursor: pointer;
+      }
+
+      .scale-tick {
+        width: 1px;
+        height: 19px;
+        background: var(--eve-mist);
+        transition:
+          background 300ms ease,
+          transform 300ms ease;
+      }
+
+      .scale-label {
+        color: var(--eve-mist);
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        transition: color 280ms ease;
+      }
+
+      .scale-mark:hover .scale-label {
+        color: var(--eve-ink);
+      }
+
+      .scale-mark.is-active .scale-tick {
+        background: var(--eve-ink);
+        transform: scaleY(1.6);
+      }
+
+      .scale-mark.is-active .scale-label {
+        color: var(--eve-ink);
+        font-weight: 700;
+      }
+
+      .scale.is-muted .scale-tick {
+        background: var(--eve-line);
+      }
+
+      .scale.is-muted .scale-label {
+        color: var(--eve-line);
+      }
+
+      /* Pie del plano: rótulo + acción */
+      .sheet-foot {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 48px;
+        margin: 48px var(--pad-x) 0;
+        padding-bottom: 88px;
+      }
+
+      .rotulo {
+        max-width: 46ch;
+        padding-top: 10px;
+        border-top: 1px solid var(--eve-line);
+      }
+
+      .rotulo-meta {
+        display: block;
+        margin: 0 0 8px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .rotulo-text {
+        margin: 0;
+        color: var(--eve-mist-deep);
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.6;
+      }
+
+      .closure {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+      }
+
+      .scene-toggle {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 220ms ease;
+      }
+
+      .scene-toggle.is-ready {
+        color: var(--eve-ink);
+        text-decoration: underline;
+        text-underline-offset: 6px;
+      }
+
+      .scene-toggle:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      .closure-hint,
+      .saved-mark {
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 7px;
+        letter-spacing: 0.12em;
+        text-align: right;
+        text-transform: uppercase;
+      }
+
+      .ops-notify {
+        position: fixed;
+        bottom: 24px;
+        left: 24px;
+        z-index: 20;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0;
+        transition: opacity 400ms ease;
+      }
+
+      .ops-notify.is-visible {
+        opacity: 1;
+      }
+
+      .replay {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 20;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 900px) {
+        .stage {
+          height: auto;
+          margin-top: 240px;
+        }
+
+        .cota,
+        .part-tick,
+        .part-label,
+        .stage.is-story .story-cols,
+        .isle::before {
+          display: none;
+        }
+
+        .caso {
+          position: static;
+          max-width: none;
+          margin: 0 0 40px;
+        }
+
+        .band.is-active {
+          position: static;
+          display: flex;
+          flex-direction: column;
+          gap: 44px;
+        }
+
+        .isle {
+          position: static;
+          width: 100% !important;
+          text-align: left !important;
+        }
+
+        .isle.r .q-head {
+          flex-direction: row;
+        }
+
+        .isle.r .opt-list,
+        .isle.r .opt-list.is-row,
+        .isle.r .alt-row {
+          align-items: flex-start;
+          justify-content: flex-start;
+        }
+
+        .scale {
+          position: relative;
+          top: 0;
+          height: 64px;
+        }
+
+        .sheet-foot {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="build" id="build"></p>
+
+    <main class="screen" id="screen">
+      <nav class="shell-nav" aria-label="Navegación del levantamiento">
+        <button class="phase-arrow" id="nav-back" type="button" aria-label="Tramo anterior">←</button>
+        <div class="block-marks">
+          <a class="block-mark" href="eve-shell-bloques-v1?band=actividad">Bloque 0</a>
+          <a class="block-mark" href="eve-shell-bloques-v1?band=beneficio">Bloque 0.5</a>
+          <a class="block-mark" href="eve-shell-bloques-v1?band=origen">Bloque 1</a>
+          <span class="block-mark is-current" aria-current="step">Bloque 2</span>
+        </div>
+      </nav>
+
+      <header class="kicker-band">
+        <p class="block-meta">Transformación · ¿Qué cambia realmente en esta escena?</p>
+        <p class="kicker" id="kicker"></p>
+        <div class="madre-help" id="madre-help" aria-live="polite"></div>
+      </header>
+
+      <section class="stage band-foco" id="stage" aria-label="Plano del caso">
+        <div class="cota" aria-hidden="true"></div>
+        <span class="part-tick" data-at="haces" aria-hidden="true"></span>
+        <span class="part-tick" data-at="queda" aria-hidden="true"></span>
+        <p class="part-label" data-part="antes">Antes</p>
+        <p class="part-label" data-part="haces">Lo que haces</p>
+        <p class="part-label" data-part="queda">Cómo queda</p>
+
+        <div class="story-cols" aria-live="polite">
+          <p class="story-col" data-part="antes" hidden><span class="story-text"></span></p>
+          <p class="story-col" data-part="haces" hidden><span class="story-text"></span></p>
+          <p class="story-col" data-part="queda" hidden><span class="story-text"></span></p>
+        </div>
+
+        <p class="caso" id="caso" hidden>
+          <span class="caso-meta">El caso</span>
+          <span class="caso-text" id="caso-text"></span>
+        </p>
+
+        <!-- B2-Q12 · 2.1 -->
+        <div class="band" data-band="foco">
+          <div class="isle up l w-44">
+            <article class="q-block">
+              <p class="q-code">2.1 · Con qué trabajas</p>
+              <div class="q-head">
+                <p class="q-label" id="q-21-label">En un caso normal de esta actividad, ¿con qué trabajas o a quién atiendes?</p>
+                <button class="help-plus" type="button" data-field="2.1" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.1">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.1" role="textbox" aria-label="Con qué trabajas"></div>
+              </div>
+              <div class="alt-row" data-alt="2.1"></div>
+            </article>
+            <div class="clarify-slot" id="slot-21-reentry">
+              <article class="q-block">
+                <div class="trench" id="trench-21"></div>
+                <p class="q-code">2.1 · Precisar el caso</p>
+                <div class="q-head">
+                  <p class="q-label" id="reentry-21-label">En un caso normal, ¿cómo llamas a eso con lo que trabajas?</p>
+                  <button class="help-plus" type="button" data-field="2.1_reentry" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="2.1_reentry">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.1_reentry" role="textbox" aria-label="Cómo llamas a ese caso"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- B2-Q13 · 2.5 -->
+        <div class="band" data-band="antes">
+          <div class="isle down l w-34">
+            <article class="q-block">
+              <p class="q-code">2.5 · Cómo está antes</p>
+              <div class="q-head">
+                <p class="q-label">Antes de que empieces, ¿cómo está lo que vas a trabajar o atender?</p>
+                <button class="help-plus" type="button" data-field="2.5" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.5">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.5" role="textbox" aria-label="Cómo está antes"></div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- B2-Q14 · 2.4a → 2.4b -->
+        <div class="band" data-band="haces">
+          <div class="isle down c2 w-34">
+            <article class="q-block">
+              <p class="q-code">2.4a · Lo que haces tú</p>
+              <div class="q-head">
+                <p class="q-label">¿Qué haces tú para dejarlo listo?</p>
+                <button class="help-plus" type="button" data-field="2.4a" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.4a">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.4a" role="textbox" aria-label="Lo que haces tú"></div>
+              </div>
+            </article>
+            <article class="q-block" id="q-24b" hidden>
+              <p class="q-code">2.4b · La señal para actuar</p>
+              <div class="q-head">
+                <p class="q-label">¿Qué pasó o qué viste para hacer ese cambio?</p>
+                <button class="help-plus" type="button" data-field="2.4b" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.4b">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.4b" role="textbox" aria-label="La señal para actuar"></div>
+              </div>
+              <div class="alt-row" data-alt="2.4b"></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- B2-Q15 · 2.6 · precisión 2.1a/b/c (B2-Q12) · 2.2_* -->
+        <div class="band" data-band="queda">
+          <div class="isle down r w-34">
+            <article class="q-block">
+              <p class="q-code">2.6 · Cómo queda después</p>
+              <div class="q-head">
+                <p class="q-label">Cuando terminas tu parte, ¿cómo queda?</p>
+                <button class="help-plus" type="button" data-field="2.6" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.6">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.6" role="textbox" aria-label="Cómo queda después"></div>
+              </div>
+            </article>
+            <div class="clarify-slot" id="slot-26-delta">
+              <article class="q-block">
+                <div class="trench" id="trench-26"></div>
+                <p class="q-code">Precisión · Qué quedó distinto</p>
+                <div class="q-head">
+                  <p class="q-label">Entre cómo lo encontraste y cómo lo dejaste, ¿qué quedó distinto?</p>
+                  <button class="help-plus" type="button" data-field="2.6_delta" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="2.6_delta">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.6_delta" role="textbox" aria-label="Qué quedó distinto"></div>
+                </div>
+              </article>
+            </div>
+
+            <article class="q-block" data-probe="2.1a" hidden>
+              <p class="q-code">2.1a · Precisar con qué trabajas</p>
+              <div class="q-head">
+                <p class="q-label">¿Cómo llamas a eso con lo que estás trabajando?</p>
+                <button class="help-plus" type="button" data-field="2.1a" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.1a">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.1a" role="textbox" aria-label="Cómo lo llamas"></div>
+              </div>
+              <div class="alt-row" data-alt="2.1a"></div>
+            </article>
+            <article class="q-block" data-probe="2.1b" hidden>
+              <p class="q-code">2.1b · Precisar a quién atiendes</p>
+              <div class="q-head">
+                <p class="q-label">¿A quién atiendes en el caso que acabas de contar?</p>
+                <button class="help-plus" type="button" data-field="2.1b" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.1b">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.1b" role="textbox" aria-label="A quién atiendes"></div>
+              </div>
+              <div class="alt-row" data-alt="2.1b"></div>
+            </article>
+            <article class="q-block" data-probe="2.1c" hidden>
+              <p class="q-code">2.1c · Precisar el trabajo que ajustas</p>
+              <div class="q-head">
+                <p class="q-label">¿Qué trabajo estás organizando o ajustando en ese caso?</p>
+                <button class="help-plus" type="button" data-field="2.1c" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.1c">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.1c" role="textbox" aria-label="Qué trabajo ajustas"></div>
+              </div>
+              <div class="alt-row" data-alt="2.1c"></div>
+            </article>
+
+            <article class="q-block" data-probe="2.2_obj" hidden>
+              <p class="q-code">2.2_obj · Qué quedó distinto</p>
+              <div class="q-head">
+                <p class="q-label" data-probe-label="2.2_obj"></p>
+                <button class="help-plus" type="button" data-field="2.2_obj" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.2_obj">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.2_obj" role="textbox" aria-label="Qué quedó distinto"></div>
+              </div>
+              <div class="alt-row" data-alt="2.2_obj"></div>
+            </article>
+            <article class="q-block" data-probe="2.2_suj" hidden>
+              <p class="q-code">2.2_suj · Qué cambió con la atención</p>
+              <div class="q-head">
+                <p class="q-label" data-probe-label="2.2_suj"></p>
+                <button class="help-plus" type="button" data-field="2.2_suj" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.2_suj">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.2_suj" role="textbox" aria-label="Qué cambió con la atención"></div>
+              </div>
+              <div class="alt-row" data-alt="2.2_suj"></div>
+            </article>
+            <article class="q-block" data-probe="2.2_acc" hidden>
+              <p class="q-code">2.2_acc · Qué cambió en la forma de trabajar</p>
+              <div class="q-head">
+                <p class="q-label" data-probe-label="2.2_acc"></p>
+                <button class="help-plus" type="button" data-field="2.2_acc" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.2_acc">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.2_acc" role="textbox" aria-label="Qué cambió en la forma de trabajar"></div>
+              </div>
+              <div class="alt-row" data-alt="2.2_acc"></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- B2-Q16 · 2.3 → 2.7 · C07 2.8 -->
+        <div class="band" data-band="magnitud">
+          <div class="isle top l w-40">
+            <article class="q-block">
+              <p class="q-code">2.3 · Qué tanto cambia</p>
+              <div class="q-head">
+                <p class="q-label">Comparado con cómo estaba al empezar, ¿qué tan distinto queda al terminar?</p>
+                <button class="help-plus" type="button" data-field="2.3" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.3">Abre + antes de responder</p>
+              <p class="q-whisper" id="scale-context"></p>
+              <div class="alt-row" data-choice-alt="2.3"></div>
+            </article>
+          </div>
+          <div class="scale" id="scale" role="radiogroup" aria-label="Qué tanto cambia">
+            <span class="scale-fill" id="scale-fill"></span>
+          </div>
+          <div class="isle down far l w-40" id="isle-27" hidden>
+            <article class="q-block">
+              <p class="q-code">2.7 · Si hay que volver sobre el caso</p>
+              <div class="q-head">
+                <p class="q-label">Para dejar listo un mismo caso, ¿normalmente basta con hacerlo una vez o tienes que volver sobre él?</p>
+                <button class="help-plus" type="button" data-field="2.7" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.7">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-choice="2.7" role="radiogroup" aria-label="Si hay que volver sobre el caso"></div>
+              <button class="choice-back" type="button" data-back-for="2.7" aria-label="Ver todas las opciones">←</button>
+            </article>
+          </div>
+          <div class="isle down far r w-34" id="isle-28" hidden>
+            <article class="q-block">
+              <p class="q-code">2.8 · Cuántas vueltas por caso</p>
+              <div class="q-head">
+                <p class="q-label">En un mismo caso, ¿cuántas vueltas suelen hacer falta hasta dejarlo listo?</p>
+                <button class="help-plus" type="button" data-field="2.8" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.8">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-choice="2.8" role="radiogroup" aria-label="Cuántas vueltas por caso"></div>
+              <button class="choice-back" type="button" data-back-for="2.8" aria-label="Ver todas las opciones">←</button>
+            </article>
+          </div>
+        </div>
+
+        <!-- B2-Q17 · 2.9 → 2.11 · C05 2.10/2.B · C06 2.12/2.C -->
+        <div class="band" data-band="sombra">
+          <div class="isle down l w-40">
+            <article class="q-block">
+              <p class="q-code">2.9 · Cuando no queda como debería</p>
+              <div class="q-head">
+                <p class="q-label">¿Hay veces en que ese trabajo no queda como debería?</p>
+                <button class="help-plus" type="button" data-field="2.9" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.9">Abre + antes de responder</p>
+              <div class="opt-list" data-choice="2.9" role="radiogroup" aria-label="Cuando no queda como debería"></div>
+              <button class="choice-back" type="button" data-back-for="2.9" aria-label="Ver todas las opciones">←</button>
+            </article>
+            <article class="q-block" id="q-210" hidden>
+              <p class="q-code">2.10 · Qué queda mal</p>
+              <div class="q-head">
+                <p class="q-label">Cuando eso pasa, ¿qué queda mal o sin terminar?</p>
+                <button class="help-plus" type="button" data-field="2.10" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.10">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.10" role="textbox" aria-label="Qué queda mal"></div>
+              </div>
+            </article>
+            <div class="clarify-slot" id="slot-2B">
+              <article class="q-block">
+                <div class="trench" id="trench-2B"></div>
+                <p class="q-code">2.B · Aclarar el fallo</p>
+                <div class="q-head">
+                  <p class="q-label">¿Qué es lo primero que ves que queda mal o no cambia como debería?</p>
+                  <button class="help-plus" type="button" data-field="2.B" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="2.B">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.B" role="textbox" aria-label="Lo primero que queda mal"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="isle down r w-40" id="isle-211" hidden>
+            <article class="q-block">
+              <p class="q-code">2.11 · Cambios fuera de lo acordado</p>
+              <div class="q-head">
+                <p class="q-label">¿Se hace algún cambio que no queda registrado o se hace por fuera de la forma acordada de trabajar?</p>
+                <button class="help-plus" type="button" data-field="2.11" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.11">Abre + antes de responder</p>
+              <div class="opt-list" data-choice="2.11" role="radiogroup" aria-label="Cambios fuera de lo acordado"></div>
+              <button class="choice-back" type="button" data-back-for="2.11" aria-label="Ver todas las opciones">←</button>
+            </article>
+            <article class="q-block" id="q-212" hidden>
+              <p class="q-code">2.12 · El cambio y quién lo hace</p>
+              <div class="q-head">
+                <p class="q-label">¿Qué cambio se hace por fuera de esa forma de trabajar?</p>
+                <button class="help-plus" type="button" data-field="2.12" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.12">Abre + antes de responder</p>
+              <p class="sub-label">Cambio concreto</p>
+              <div class="answer-field is-followup">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.12" role="textbox" aria-label="Cambio concreto"></div>
+              </div>
+              <div id="sub-212-quien" hidden>
+                <p class="sub-label">¿Quién lo hace, hasta donde tú sabes?</p>
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.12_quien" role="textbox" aria-label="Quién lo hace"></div>
+                </div>
+                <div class="alt-row" data-alt="2.12_quien"></div>
+              </div>
+            </article>
+            <div class="clarify-slot" id="slot-2C">
+              <article class="q-block">
+                <div class="trench" id="trench-2C"></div>
+                <p class="q-code">2.C · Aclarar cambio oculto</p>
+                <div class="q-head">
+                  <p class="q-label">¿Qué cambio puedes señalar y qué sabes de quién lo hizo?</p>
+                  <button class="help-plus" type="button" data-field="2.C" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="2.C">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.C" role="textbox" aria-label="Cambio que puedes señalar"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- C04 · 2.1_*_Relacion · 2.1_ABC_Prioridad · 2.A (solo con referentes literales) -->
+        <div class="band" data-band="limita">
+          <div class="isle down l w-40">
+            <article class="q-block" id="q-rel">
+              <p class="q-code" id="rel-code"></p>
+              <div class="q-head">
+                <p class="q-label" id="rel-label"></p>
+                <button class="help-plus" type="button" id="rel-help" data-field="" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" id="rel-gate" data-gate-for="">Abre + antes de responder</p>
+              <div class="opt-list" id="rel-list" data-choice="" role="radiogroup" aria-label="Qué te frena más"></div>
+              <button class="choice-back" type="button" id="rel-back" data-back-for="" aria-label="Ver todas las opciones">←</button>
+            </article>
+            <div class="clarify-slot" id="slot-2A">
+              <article class="q-block">
+                <div class="trench" id="trench-2A"></div>
+                <p class="q-code">2.A · Precisar qué frena el avance</p>
+                <div class="q-head">
+                  <p class="q-label">En un caso que se atrasó, ¿qué te impidió avanzar primero?</p>
+                  <button class="help-plus" type="button" data-field="2.A" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="2.A">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.A" role="textbox" aria-label="Qué te impidió avanzar"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="isle down r w-34" id="isle-prio" hidden>
+            <article class="q-block">
+              <p class="q-code">2.1_ABC_Prioridad · Orden de los otros frenos</p>
+              <div class="q-head">
+                <p class="q-label">Después de ese primer freno, ¿cuál de los otros dos pesa más?</p>
+                <button class="help-plus" type="button" data-field="2.1_ABC_Prioridad" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.1_ABC_Prioridad">Abre + antes de responder</p>
+              <div class="opt-list" data-choice="2.1_ABC_Prioridad" role="radiogroup" aria-label="Orden de los otros frenos"></div>
+              <button class="choice-back" type="button" data-back-for="2.1_ABC_Prioridad" aria-label="Ver todas las opciones">←</button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <footer class="sheet-foot">
+        <div class="rotulo">
+          <span class="rotulo-meta">Escena · Memoria operativa</span>
+          <p class="rotulo-text" id="memory"></p>
+        </div>
+        <div class="closure">
+          <p class="closure-hint" id="closure-hint"></p>
+          <button class="scene-toggle" id="advance" type="button">Continuar</button>
+          <p class="saved-mark" id="saved-mark" hidden>Bloque 2 guardado</p>
+        </div>
+      </footer>
+    </main>
+
+    <p class="ops-notify" id="ops-notify" role="status" aria-live="polite"></p>
+    <button class="replay" id="replay" type="button">Reiniciar</button>
+
+    <script>
+      const BUILD = "B2 2.1-pilot";
+      const MADRE_VERSION = "B2-UX-EVID-001 · contrato P3.2.2 HOLD";
+      const DRAFT_KEY = "eve-b2-pieza-draft-v2-pilot";
+      const SAVE_KEY = "eve-b2-pieza-v2-pilot";
+      const SHELL_URL = "eve-shell-bloques-v1";
+
+      const params = new URLSearchParams(window.location.search);
+      const HELP_GATE_ENABLED = (Number.parseInt(params.get("activity") || "1", 10) || 1) === 1;
+      const SHOW_CODES = params.get("codes") !== "0";
+      const START_BAND = params.get("band");
+      const MEMORY_OVERRIDE = (params.get("memory") || "").trim();
+      const FIXTURE_MEMORY =
+        "Atiendo las guardias y eventos comerciales mediante la recepción del visitante, preguntas sobre su necesidad, demostración de productos y registro de sus datos de contacto, para generar un Contacto Comercial calificado o una Venta de Exhibición atendida.";
+
+      /* ?refs= · referentes proyectados simulados (solo revisión de diseño de C04) */
+      const FIXTURE_REFS = (() => {
+        const out = {};
+        (params.get("refs") || "").split(",").forEach((pair) => {
+          const [dim, ...rest] = pair.split(":");
+          const value = rest.join(":").trim();
+          if (["objeto", "sujeto", "accion"].includes((dim || "").trim()) && value) out[dim.trim()] = value;
+        });
+        return out;
+      })();
+
+      /* Madre B2 v0.2 · help_text y tres ejemplos por ficha (los ejemplos viven en «Ver ejemplos») */
+      const Q = {
+        "2.1": {
+          help: "Nómbralo como lo hacen en tu trabajo. Todavía no hace falta explicar todo el proceso.",
+          examples: [
+            "Yo reviso la factura que llegó con soporte incompleto. Trabajo sobre esa factura y sus comprobantes; no sobre todos los pagos del mes.",
+            "Atiendo al personal de nuevo ingreso para que aprenda a operar la caja. En ese caso estoy trabajando con la persona que se está capacitando.",
+            "Organizo las entregas del turno: junto los pedidos, las rutas y la disponibilidad para que el reparto quede coordinado.",
+          ],
+        },
+        "2.1a": {
+          help: "Usa el nombre concreto: la factura, el pedido, el expediente o el material que acabas de mencionar.",
+          examples: [
+            "Cuando digo «el pendiente» me refiero a una factura sin comprobante de recepción; no a todo el expediente del proveedor.",
+            "Estoy corrigiendo la cuenta del cliente en el sistema. No cambia el cliente como persona: cambia la información de su registro.",
+            "Es la pieza que sale del horno y que revisamos antes de pasarla al siguiente trabajo; no estoy hablando del informe de inspección.",
+          ],
+        },
+        "2.1b": {
+          help: "Nombra a quien recibe la atención, no a quien hace el trabajo.",
+          examples: [
+            "Es la compañera que está aprendiendo a operar la caja. Al terminar la práctica puede hacer el cobro sin que yo le marque cada paso.",
+            "Reviso al proveedor que quiere empezar a surtirnos y verifico si cumple las condiciones para trabajar con nosotros.",
+            "Atiendo al equipo del siguiente turno para que conozca los pendientes que debe tomar; no me refiero al supervisor que da la explicación.",
+          ],
+        },
+        "2.1c": {
+          help: "Nombra el trabajo que queda organizado de otra manera, no solo el verbo que usas para hacerlo.",
+          examples: [
+            "Estoy organizando el reparto del turno: antes hay entregas sin ruta y al terminar cada salida tiene un recorrido y un horario acordado.",
+            "Ajusto la revisión de expedientes para que las validaciones no se pisen; cambia cómo se reparte y se hace esa revisión.",
+            "Coordino la atención de incidencias entre turnos: dejo acordado quién toma cada pendiente y cuándo se vuelve a revisar.",
+          ],
+        },
+        "2.1_AB_Relacion": {
+          help: "Compara lo que te pasó en casos reales. Si pesa igual o cambia según el caso, también indícalo.",
+          examples: [
+            "Reviso solicitudes y atiendo a sus solicitantes. Esta semana se juntaron muchas solicitudes; lo que más me atrasó fue revisar el montón, no las llamadas.",
+            "Los expedientes eran pocos, pero cada solicitante necesitó varias aclaraciones. Lo que me frenó fue atender cada caso con la persona.",
+            "Cuando hay campaña pesa el número de solicitudes; fuera de campaña pesa resolver las dudas de cada solicitante. No tengo una sola respuesta para todos los días.",
+          ],
+        },
+        "2.1_AC_Relacion": {
+          help: "Compara lo que te pasó en casos reales. Si pesa igual o cambia según el caso, también indícalo.",
+          examples: [
+            "Las órdenes se trabajan igual, pero llegaron demasiadas juntas. Lo que nos frena es sacar todas, no resolver cada orden por separado.",
+            "Son pocas entregas, pero acordar rutas y horarios con varias restricciones lleva casi todo el trabajo. El número de pedidos no explica ese atasco.",
+            "Hay días de muchos pedidos sencillos y días de dos pedidos muy complicados. El freno cambia según el caso y no lo resolvería eligiendo siempre la misma opción.",
+          ],
+        },
+        "2.1_BC_Relacion": {
+          help: "Compara lo que te pasó en casos reales. Si pesa igual o cambia según el caso, también indícalo.",
+          examples: [
+            "La forma de capacitar ya está preparada. Lo que nos toma más es acompañar a cada persona hasta que logra hacer la operación por su cuenta.",
+            "El grupo es pequeño; lo difícil fue organizar la práctica entre turnos sin dejar la operación descubierta.",
+            "Con personal nuevo pesa acompañar a cada quien; con personal experimentado pesa coordinar horarios. Depende de quiénes entran a la práctica.",
+          ],
+        },
+        "2.1_ABC_Relacion": {
+          help: "Compara lo que te pasó en casos reales. Si pesa igual o cambia según el caso, también indícalo.",
+          examples: [
+            "Tenemos pedidos, clientes que confirmar y rutas por organizar. En el cierre del turno lo que más nos atrasó fue la cantidad de pedidos acumulados.",
+            "Llegaron pocos pedidos, pero varios clientes cambiaron horario y dirección; resolver con ellos esas condiciones llevó más que preparar las rutas.",
+            "Pedidos y clientes ya estaban claros; el atasco fue cuadrar rutas, horarios y puntos de entrega. Eso fue lo que más tardó en quedar resuelto.",
+          ],
+        },
+        "2.1_ABC_Prioridad": {
+          help: "Compara los dos que quedan. Si pesan igual o cambian según el caso, no hace falta forzar un orden.",
+          examples: [
+            "Primero pesa revisar todos los pedidos. Después pesa acordar la entrega con cada cliente, y al final acomodar las rutas.",
+            "La coordinación de rutas es el primer freno. Entre revisar los pedidos y hablar con los clientes no noto una diferencia estable.",
+            "Hoy se juntaron pedidos, ayer faltó respuesta de los clientes. No podría dar un orden que sirva para todos los turnos.",
+          ],
+        },
+        "2.2_obj": {
+          help: "Habla de lo que cambió, no de los pasos que hiciste. Si quedó igual, también dilo.",
+          examples: [
+            "La factura tenía un importe equivocado. Corregí ese importe; el proveedor, la fecha y el resto de los datos no cambiaron.",
+            "Al pedido le faltaba la dirección completa. Al terminar quedó capturada y revisada; no cambié los productos ni las cantidades.",
+            "La pieza tenía rebaba en el borde y la retiré. El material siguió siendo el mismo; cambió la terminación de ese borde.",
+          ],
+        },
+        "2.2_suj": {
+          help: "Cuenta el cambio que viste durante la atención, no un beneficio lejano que solo supones.",
+          examples: [
+            "La compañera necesitaba ayuda para hacer el cobro. Después de la práctica pudo hacerlo sola; no estoy diciendo que cambió su puesto.",
+            "El proveedor no tenía la verificación terminada. Al cerrar la revisión quedó verificado; los datos de su cuenta no se modificaron.",
+            "El cliente no sabía cómo restablecer el acceso. Al terminar pudo entrar por su cuenta; el cambio fue poder usarlo, no que yo actualizara su ficha.",
+          ],
+        },
+        "2.2_acc": {
+          help: "Cuenta la diferencia concreta en ese trabajo. No necesitas hablar de procesos ni de sus características.",
+          examples: [
+            "Las entregas estaban sin orden de salida. Al terminar quedaron acomodadas por ruta y horario; el cambio fue cómo se iba a realizar el reparto.",
+            "Dos turnos revisaban el mismo pendiente. Dejé acordado quién toma cada caso y cuándo lo pasa, para que esa revisión ya no se duplique.",
+            "La revisión se hacía con un archivo distinto en cada turno. Dejé una forma común de revisar y registrar el resultado; esa fue la parte que cambié.",
+          ],
+        },
+        "2.3": {
+          help: "Valora el cambio que queda, no el tiempo que tardas ni el esfuerzo que te cuesta.",
+          examples: [
+            "En esa factura solo corrijo una fecha y todo lo demás sigue igual. Para este caso lo describiría como un cambio pequeño.",
+            "El expediente llega con varios datos y soportes pendientes. Al terminar ya puede usarse para decidir porque quedó completo y revisado.",
+            "La orden ya no seguirá como una compra: después de resolver el caso queda una devolución con otro destino. El cambio no es solo corregir un dato.",
+          ],
+        },
+        "2.4a": {
+          help: "Cuenta tu intervención en ese caso, sin describir lo que hacen otras personas después.",
+          examples: [
+            "Comparo la factura con la orden y la recepción. Si un dato no coincide, lo corrijo o dejo señalado qué falta antes de enviarla a pago.",
+            "Le muestro a la compañera cómo hacer el cobro y después la acompaño mientras lo intenta; intervengo en lo que todavía no puede resolver sola.",
+            "Reúno los pendientes del turno, acuerdo quién tomará cada uno y dejo registrados los horarios para que no haya dos personas sobre lo mismo.",
+          ],
+        },
+        "2.4b": {
+          help: "Cuenta la señal concreta que te llevó a actuar, no la meta general del área.",
+          examples: [
+            "La factura llegó a revisión, pero la corrección la hice cuando vi que el importe no coincidía con la orden. Son dos señales distintas.",
+            "Empecé a apoyar a la compañera porque se incorporó al turno; repetí la explicación al ver que el cobro no le salía por sí sola.",
+            "Ya estaba organizando el reparto. Cambié la asignación cuando me avisaron que una ruta no iba a poder salir en el horario acordado.",
+          ],
+        },
+        "2.5": {
+          help: "Describe lo que encuentras en ese momento. Puede venir incompleto, listo para revisar o sin ningún problema.",
+          examples: [
+            "La factura está capturada, pero falta el comprobante de recepción. Todavía no sé si el importe corresponde a lo que se recibió.",
+            "La compañera conoce la caja, pero todavía necesita que le indiquen cómo registrar una devolución sin cancelar toda la venta.",
+            "Los pendientes del turno están en la lista, pero varios no tienen responsable ni horario acordado.",
+          ],
+        },
+        "2.6": {
+          help: "Describe cómo queda en ese momento, no lo que otra persona hará después. Si sigue igual, dilo.",
+          examples: [
+            "La factura queda revisada y con el soporte completo. Todavía no está pagada: eso lo hace Tesorería después.",
+            "La compañera ya hizo una devolución por sí sola y pudo explicar los pasos. No estoy diciendo que ya domina todas las operaciones de caja.",
+            "La máquina sigue funcionando igual que antes. Revisé sus lecturas y dejé el resultado de la revisión registrado; no cambié su ajuste.",
+          ],
+        },
+        "2.7": {
+          help: "Piensa en volver sobre el mismo caso, no en atender varios casos distintos.",
+          examples: [
+            "Tomo una factura, la reviso y la dejo lista. Después tomo otra factura: son casos distintos, no varias vueltas de la primera.",
+            "El mismo expediente vuelve con correcciones. Lo reviso otra vez y lo regreso si todavía falta algo; cada vuelta es sobre ese expediente.",
+            "En el monitoreo voy ajustando durante todo el turno. No hay un número de vueltas con un cierre claro por caso.",
+          ],
+        },
+        "2.8": {
+          help: "Cuenta también la primera vez que lo trabajas. Elige lo que pasa normalmente, no el caso más extremo.",
+          examples: [
+            "Reviso el expediente, lo devuelvo porque falta un documento y lo reviso cuando vuelve. Para ese caso fueron dos vueltas.",
+            "La misma propuesta pasa cuatro veces por revisión antes de quedar lista; no estoy contando cuatro propuestas diferentes.",
+            "Hay casos que salen a la segunda y otros que necesitan más de diez vueltas. No tengo un rango típico: lo marcaría como variable.",
+          ],
+        },
+        "2.9": {
+          help: "Piensa en lo que te toca dejar listo y no queda bien, aunque pase pocas veces.",
+          examples: [
+            "La factura debía quedar lista para pago, pero algunas veces sigue con el importe incorrecto aunque ya la dimos por revisada.",
+            "La orden aparece duplicada y se trabajan dos versiones del mismo pedido. Eso no era el resultado que tenía que quedar.",
+            "En los casos que conozco siempre queda como se acordó. No voy a marcar una falla solo porque el sistema la esté preguntando.",
+          ],
+        },
+        "2.10": {
+          help: "Describe algo que puedas señalar: el dato equivocado, lo que falta o el cambio que no quedó guardado.",
+          examples: [
+            "La orden sigue apareciendo dos veces. Una versión trae la corrección y la otra conserva la dirección anterior.",
+            "El sistema muestra la factura como revisada, pero el comprobante que faltaba sigue sin estar adjunto.",
+            "Damos por terminada la capacitación, pero al hacer el cobro la persona todavía necesita que le indiquen el mismo paso.",
+          ],
+        },
+        "2.11": {
+          help: "Habla de cambios concretos en ese trabajo, no de si te parecen buenos o malos.",
+          examples: [
+            "Para sacar un pedido urgente cambiamos la asignación por teléfono, pero la orden del sistema se queda con la asignación anterior.",
+            "El encargado permite corregir el precio en una hoja aparte. La corrección sí se hace, aunque todavía no aparece en el registro habitual.",
+            "En los casos que atiendo, los ajustes se autorizan y se registran como está acordado. No conozco cambios por fuera de esa forma de trabajar.",
+          ],
+        },
+        "2.12": {
+          help: "Describe el cambio. Sobre quién lo hace, indica solo lo que realmente sabes.",
+          examples: [
+            "Ventas cambia la fecha comprometida en su archivo, pero la fecha del pedido no se actualiza en el sistema.",
+            "En el turno de noche corrigen cantidades en una hoja aparte. Sé en qué turno ocurre, pero no sé quién hizo cada ajuste.",
+            "Yo cambio la prioridad de algunas órdenes con autorización del encargado; el cambio se ejecuta, aunque todavía no queda en el registro habitual.",
+          ],
+        },
+        "2.A": {
+          help: "Cuenta un caso que recuerdes. No hace falta escoger una categoría.",
+          examples: [
+            "Tenía todos los datos, pero entraron muchos expedientes juntos y no alcanzaba a revisarlos uno por uno.",
+            "Eran pocos casos, pero cada solicitante pidió aclaraciones distintas; hasta resolverlas no podía avanzar.",
+            "Ese día no había nadie autorizado para liberar el trabajo. No fue el número de casos ni la atención a personas lo que nos detuvo.",
+          ],
+        },
+        "2.B": {
+          help: "Describe una señal que puedas reconocer, no solo «falla» o «sale mal».",
+          examples: [
+            "La orden conserva la dirección vieja aunque ya guardé la corrección; lo noto al volver a abrirla.",
+            "La pieza sigue sin cumplir la medida después del ajuste; la misma lectura queda fuera de lo permitido.",
+            "El expediente aparece aprobado, pero le sigue faltando el documento que era necesario revisar.",
+          ],
+        },
+        "2.C": {
+          help: "Describe lo que viste. Si no sabes quién lo hizo, también puedes decirlo.",
+          examples: [
+            "El precio cambia en la hoja de Ventas, pero no en el pedido del sistema; eso es lo que puedo señalar.",
+            "Veo corregida la cantidad cuando empieza mi turno. No presencié el ajuste y no sé quién lo hizo.",
+            "El coordinador confirma la entrega por mensaje, pero la orden queda sin esa actualización hasta el día siguiente.",
+          ],
+        },
+      };
+
+      /* La ayuda de un subcampo es la de su ficha */
+      const HELP_KEY = { "2.12_quien": "2.12", "2.1_reentry": "2.1", "2.6_delta": "2.6" };
+
+      /* Acciones secundarias de campos abiertos (salidas de desconocimiento o límite) */
+      const ALTS = {
+        "2.1": [{ id: "no_precisa", label: "No puedo precisarlo todavía" }],
+        "2.1a": [{ id: "no_precisa", label: "No puedo precisarlo" }],
+        "2.1b": [{ id: "no_precisa", label: "No puedo precisarlo" }],
+        "2.1c": [{ id: "no_precisa", label: "No puedo precisarlo" }],
+        "2.2_obj": [
+          { id: "sin_cambio", label: "Ningún cambio observado" },
+          { id: "no_compara", label: "No puedo compararlo" },
+        ],
+        "2.2_suj": [
+          { id: "sin_cambio", label: "Ningún cambio observado" },
+          { id: "no_compara", label: "No puedo compararlo" },
+        ],
+        "2.2_acc": [
+          { id: "sin_cambio", label: "Ningún cambio observado" },
+          { id: "no_compara", label: "No puedo compararlo" },
+        ],
+        "2.4b": [
+          { id: "misma_b1", label: "Es la misma señal con la que empieza la actividad" },
+          { id: "sin_cambio", label: "No hubo cambio" },
+          { id: "no_sabe", label: "No lo sé" },
+        ],
+        "2.12_quien": [{ id: "no_sabe", label: "No lo sé" }],
+      };
+
+      /* Opciones cerradas · rótulo de pantalla + valor técnico canónico */
+      const OPTIONS = {
+        "2.3": [
+          { id: "pequeno", label: "Pequeño", canonical: "Pequeño" },
+          { id: "medio", label: "Medio", canonical: "Medio" },
+          { id: "grande", label: "Grande", canonical: "Grande" },
+          { id: "radical", label: "Radical", canonical: "Radical" },
+          { id: "sin_cambio", label: "No observé un cambio", alt: true, canonical: null, status: "no_observed_change" },
+          { id: "no_compara", label: "No puedo compararlo", alt: true, canonical: null, status: "unknown" },
+        ],
+        "2.7": [
+          { id: "una_vez", label: "Una sola vez", canonical: "Una sola vez" },
+          { id: "pocas", label: "Pocas veces", canonical: "Pocas veces" },
+          { id: "muchas", label: "Muchas veces", canonical: "Muchas veces" },
+          { id: "continuo", label: "Continuo", canonical: "Continuo" },
+          { id: "no_determina", label: "No puedo determinarlo", alt: true, canonical: null, status: "unresolved" },
+        ],
+        "2.8": [
+          { id: "2_3", label: "2–3 vueltas", canonical: "2-3 ciclos" },
+          { id: "4_5", label: "4–5 vueltas", canonical: "4-5 ciclos" },
+          { id: "6_10", label: "6–10 vueltas", canonical: "6-10 ciclos" },
+          { id: "mas_10", label: "Más de 10 vueltas", canonical: "Más de 10 ciclos" },
+          { id: "variable", label: "Variable", canonical: "Variable" },
+          { id: "no_sabe", label: "No lo sé", alt: true, canonical: null, status: "unresolved" },
+        ],
+        /* 2.9 · option_value_mapping V3 (C1-INSTR-V3-R9-001) */
+        "2.9": [
+          { id: "no_ok", label: "No, siempre queda como debería", canonical: "No, siempre se transforma correctamente" },
+          { id: "si_raro", label: "Sí, pero es raro", canonical: "Sí, a veces falla pero es raro" },
+          { id: "si_regular", label: "Sí, pasa con regularidad", canonical: "Sí, falla regularmente" },
+          { id: "si_frecuente", label: "Sí, pasa muy seguido", canonical: "Sí, falla frecuentemente" },
+          { id: "no_confirma", label: "No puedo confirmarlo", alt: true, canonical: null, status: "unresolved" },
+        ],
+        "2.11": [
+          { id: "no", label: "No, los cambios siguen la forma acordada y quedan registrados", canonical: "no_reportado" },
+          { id: "si_a_veces", label: "Sí, a veces", canonical: "ocasional" },
+          { id: "si_frecuente", label: "Sí, con frecuencia", canonical: "frecuente" },
+          {
+            id: "sin_referencia",
+            label: "No hay una forma acordada que pueda usar como referencia",
+            alt: true,
+            canonical: null,
+            status: "unresolved",
+          },
+          { id: "no_confirma", label: "No puedo confirmarlo", alt: true, canonical: null, status: "unresolved" },
+        ],
+      };
+
+      const CANONICAL_OUTPUT = {
+        "2.1": "transformation_focus_literal",
+        "2.1a": "objeto_tipo",
+        "2.1b": "sujeto_tipo",
+        "2.1c": "accion_tipo",
+        "2.1_AB_Relacion": "dimension_dominante_AB",
+        "2.1_AC_Relacion": "dimension_dominante_AC",
+        "2.1_BC_Relacion": "dimension_dominante_BC",
+        "2.1_ABC_Relacion": "dimension_dominante_ABC",
+        "2.1_ABC_Prioridad": "ranking_dimensiones",
+        "2.2_obj": "atributos_objeto_cambian",
+        "2.2_suj": "atributos_sujeto_cambian",
+        "2.2_acc": "atributos_accion_cambian",
+        "2.3": "transformation_magnitude",
+        "2.4a": "transformation_causality_action",
+        "2.4b": "transformation_causality_trigger",
+        "2.5": "transformation_state_initial",
+        "2.6": "transformation_state_final",
+        "2.7": "transformation_iterations",
+        "2.8": "transformation_iteration_count",
+        "2.9": "transformation_exception_type",
+        "2.10": "transformation_exception_description",
+        "2.11": "transformation_hidden_changes",
+        "2.12": "transformation_hidden_changes_description",
+        "2.A": "dimension_dominante_clarificada",
+        "2.B": "transformation_exception_description_clarified",
+        "2.C": "transformation_hidden_changes_description_clarified",
+      };
+
+      const RUNTIME_OF = {
+        "2.1": "B2-Q12",
+        "2.1a": "B2-Q12",
+        "2.1b": "B2-Q12",
+        "2.1c": "B2-Q12",
+        "2.5": "B2-Q13",
+        "2.4a": "B2-Q14",
+        "2.4b": "B2-Q14",
+        "2.6": "B2-Q15",
+        "2.2_obj": "B2-Q15",
+        "2.2_suj": "B2-Q15",
+        "2.2_acc": "B2-Q15",
+        "2.3": "B2-Q16",
+        "2.7": "B2-Q16",
+        "2.8": "C07",
+        "2.9": "B2-Q17",
+        "2.10": "C05",
+        "2.B": "C05",
+        "2.11": "B2-Q17",
+        "2.12": "C06",
+        "2.C": "C06",
+        "2.A": "C04",
+        "2.1_ABC_Prioridad": "C04",
+      };
+
+      const DIM_ORDER = ["objeto", "sujeto", "accion"];
+      const DIM_WORD = { objeto: "Objeto", sujeto: "Sujeto", accion: "Acción" };
+      const ID_PROBE_DIM = { "2.1a": "objeto", "2.1b": "sujeto", "2.1c": "accion" };
+      const CHANGE_PROBE_OF = { "2.1a": "2.2_obj", "2.1b": "2.2_suj", "2.1c": "2.2_acc" };
+      const DIM_OF_CHANGE = { "2.2_obj": "objeto", "2.2_suj": "sujeto", "2.2_acc": "accion" };
+      const LIMIT_ID = { objeto: "objeto_limita", sujeto: "sujeto_limita", accion: "accion_limita" };
+
+      const BANDS = [
+        { id: "foco", title: "Con qué trabajas", runtime: "B2-Q12" },
+        { id: "antes", title: "Cómo está antes", runtime: "B2-Q13", when: () => referentTri() === "true" },
+        { id: "haces", title: "Qué haces y qué te lleva a hacerlo", runtime: "B2-Q14", when: () => referentTri() === "true" },
+        { id: "queda", title: "Cómo queda al terminar", runtime: "B2-Q15", when: () => referentTri() === "true" },
+        { id: "magnitud", title: "Qué tanto cambia y si vuelves sobre el caso", runtime: "B2-Q16 · C07", when: () => referentTri() === "true" },
+        { id: "sombra", title: "Cuando no queda como debería", runtime: "B2-Q17 · C05 · C06", when: () => referentTri() === "true" },
+        { id: "limita", title: "Qué te frena en esos casos", runtime: "C04", when: () => referentDims().length >= 2 },
+      ];
+      const STORY_PART = { antes: "antes", haces: "haces", queda: "queda" };
+      const SCALE_X = { pequeno: 12.5, medio: 37.5, grande: 62.5, radical: 87.5 };
+
+      /* ---------- estado ---------- */
+
+      function blankState() {
+        return {
+          band: "foco",
+          text: {},
+          alt: {},
+          choice: {},
+          reveal: { "2.4b": false, "2.11": false },
+          probes: { evaluated: false, sig: "", identity: null, change: null, rules: {} },
+          open: { "2.A": false, "2.B": false, "2.C": false, "2.6_delta": false },
+          pilot: { admissions: [], reentry21: false },
+          helpSeen: {},
+          expanded: {},
+          saved: false,
+        };
+      }
+
+      function loadDraft() {
+        try {
+          const raw = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null");
+          if (!raw || typeof raw !== "object") return null;
+          const base = blankState();
+          return {
+            ...base,
+            ...raw,
+            reveal: { ...base.reveal, ...(raw.reveal || {}) },
+            probes: { ...base.probes, ...(raw.probes || {}) },
+            open: { ...base.open, ...(raw.open || {}) },
+            pilot: {
+              ...base.pilot,
+              ...(raw.pilot || {}),
+              admissions: Array.isArray(raw.pilot?.admissions) ? raw.pilot.admissions : [],
+            },
+          };
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function saveDraft() {
+        try {
+          localStorage.setItem(DRAFT_KEY, JSON.stringify(state));
+        } catch (_) {
+          /* best-effort */
+        }
+      }
+
+      let state = loadDraft() || blankState();
+      let helpOpen = null;
+      let examplesOpen = false;
+
+      function loadMemory() {
+        if (MEMORY_OVERRIDE) return MEMORY_OVERRIDE;
+        try {
+          const b0 = JSON.parse(localStorage.getItem("eve-shell-b0-v1") || "null");
+          const confirmed = b0?.answers?.find((a) => a.code === "0.1")?.activity_name_user_confirmed;
+          if (confirmed) return confirmed;
+        } catch (_) {
+          /* fixture */
+        }
+        return FIXTURE_MEMORY;
+      }
+      const MEMORY = loadMemory();
+
+      function loadB1Signal() {
+        try {
+          const b1 = JSON.parse(localStorage.getItem("eve-shell-b1-v1") || "null");
+          const pick = (code) => b1?.answers?.find((a) => a.code === code)?.value ?? null;
+          if (!b1) return null;
+          return { "1.1": pick("1.1"), "1.2": pick("1.2") };
+        } catch (_) {
+          return null;
+        }
+      }
+
+      /* ---------- utilidades ---------- */
+
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+      function txt(field) {
+        return (state.text[field] || "").trim();
+      }
+
+      function normalize(text) {
+        return (text || "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9\s]/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      function meaningfulWords(text) {
+        return normalize(text)
+          .split(" ")
+          .filter((w) => w.length > 2);
+      }
+
+      function short(text, max = 60) {
+        const clean = (text || "").trim().replace(/\s+/g, " ");
+        return clean.length > max ? `${clean.slice(0, max - 1).trim()}…` : clean;
+      }
+
+      function joinOr(items) {
+        if (items.length <= 1) return items.join("");
+        return `${items.slice(0, -1).join(", ")} o ${items[items.length - 1]}`;
+      }
+
+      function optionOf(field, id) {
+        return (OPTIONS[field] || []).find((o) => o.id === id) || null;
+      }
+
+      function altLabel(field) {
+        const id = state.alt[field];
+        return id ? ALTS[field]?.find((a) => a.id === id)?.label || "" : "";
+      }
+
+      function answered(field) {
+        return Boolean(txt(field)) || Boolean(state.alt[field]);
+      }
+
+      function helpKey(field) {
+        return HELP_KEY[field] || field;
+      }
+
+      function canAnswer(field) {
+        return !HELP_GATE_ENABLED || Boolean(state.helpSeen[helpKey(field)]);
+      }
+
+      /* ---------- precisión factual (Madre §8, §20.C, B2-R1…R3, R14, R16) ---------- */
+
+      const ATTENTION_VERB = /\b(atiendo|atender|atencion|capacito|capacitar|acompano|acompanar|asesoro|asesorar|oriento|orientar|entreno|entrenar|enseno|ensenar|instruyo|instruir)\b/;
+      const ORGANIZE_VERB = /\b(organizo|organizar|coordino|coordinar|ajusto|ajustar|programo|programar|asigno|asignar|planeo|planear|distribuyo|distribuir)\b/;
+      const PERSON_OR_RECORD_NOUN = /\b(cliente|clientes|proveedor|proveedores|empleado|empleados|usuario|usuarios|paciente|pacientes|alumno|alumnos|socio|socios|visitante|visitantes)\b/;
+      const RECORD_NOUN = /\b(cuenta|cuentas|expediente|expedientes|registro|registros|ficha|fichas|alta|altas|datos|solicitud|solicitudes|factura|facturas|pedido|pedidos|contrato|contratos|documento|documentos|orden|ordenes)\b/;
+      const GENERIC_FOCUS = /^(de todo|todo|varios|varias cosas|cosas|lo que llegue|lo que sea|pendientes|el trabajo|mi trabajo|lo normal|gente|personas|a quien llegue|a todos)$/;
+      const GENERIC_RECEIVER = /\b(gente|personas|a quien llegue|a todos|quien sea)\b/;
+      const GENERIC_FINAL = /^(listo|lista|terminado|terminada|hecho|hecha|bien|ok|completo|completa|queda listo|queda lista|resuelto|resuelta|atendido|atendida|normal|cerrado|cerrada)$/;
+      const NO_CHANGE = /\b(sigue igual|sigue como|queda igual|quedo igual|igual que antes|no cambi|sin cambio|lo mismo)\b/;
+      const UNKNOWN_BEFORE = /\b(no (lo )?se|desconozco|no sabria|no tengo forma de saber)\b/;
+
+      function inputSig() {
+        return ["2.1", "2.5", "2.4a", "2.6"].map((f) => normalize(txt(f)) + (state.alt[f] || "")).join("|");
+      }
+
+      function noChangeDeclared() {
+        return NO_CHANGE.test(normalize(txt("2.6")));
+      }
+
+      function beforeUnknown() {
+        return UNKNOWN_BEFORE.test(normalize(txt("2.5")));
+      }
+
+      function sameStates() {
+        const a = normalize(txt("2.5"));
+        return Boolean(a) && a === normalize(txt("2.6"));
+      }
+
+      function needsDeltaClarification() {
+        if (!answered("2.6") || noChangeDeclared() || beforeUnknown()) return false;
+        const final = normalize(txt("2.6"));
+        return sameStates() || meaningfulWords(final).length < 2 || GENERIC_FINAL.test(final);
+      }
+
+      function focusLiteral() {
+        return txt("2.1_reentry") || txt("2.1");
+      }
+
+      /* B2-ADMISSIBLE-REFERENT-P3.2. El literal del usuario habilita la cota.
+         No clasifica objeto, sujeto ni acción. Un candidato no se fabrica aquí. */
+      function referentTri() {
+        if (state.alt["2.1"] === "no_precisa" && !txt("2.1_reentry")) return "false";
+        const focus = normalize(focusLiteral());
+        if (!focus) return "unknown";
+        const words = meaningfulWords(focus);
+        if (words.length < 2 || GENERIC_FOCUS.test(focus) || GENERIC_RECEIVER.test(focus)) return "false";
+        const hasPerson = PERSON_OR_RECORD_NOUN.test(focus);
+        const hasRecord = RECORD_NOUN.test(focus);
+        if (hasPerson && hasRecord) return "unknown";
+        return "true";
+      }
+
+      function admit(action, target, reason) {
+        const last = state.pilot.admissions[state.pilot.admissions.length - 1];
+        if (last && last.action === action && last.target === target && last.reason === reason) return last;
+        const entry = {
+          at: new Date().toISOString(),
+          action,
+          target,
+          reason,
+          referent: referentTri(),
+          presentation_only: true,
+        };
+        state.pilot.admissions.push(entry);
+        if (state.pilot.admissions.length > 40) state.pilot.admissions.shift();
+        return entry;
+      }
+
+      function activityCue() {
+        const raw = (MEMORY || "").replace(/\s+/g, " ").trim();
+        if (!raw) return "";
+        const cut = raw.split(/[.;]/)[0].trim();
+        return cut.length > 72 ? `${cut.slice(0, 69).trim()}…` : cut;
+      }
+
+      function identityProbeFor() {
+        return null;
+      }
+
+      function changeProbeFor() {
+        return null;
+      }
+
+      function evaluateProbes() {
+        const identity = identityProbeFor();
+        const change = changeProbeFor(identity?.code || null);
+        state.probes = {
+          evaluated: true,
+          sig: inputSig(),
+          identity: identity?.code || null,
+          change: change?.code || null,
+          step: 0,
+          rules: { identity: identity?.rule || null, change: change?.rule || null },
+        };
+        return Boolean(identity || change);
+      }
+
+      function probesStale() {
+        return state.probes.evaluated && state.probes.sig !== inputSig();
+      }
+
+      function activeProbes() {
+        if (!state.probes.evaluated || probesStale()) return [];
+        return [state.probes.identity, state.probes.change].filter(Boolean);
+      }
+
+      /* Una precisión a la vez: la de cambio espera a que el referente quede precisado */
+      function shownProbes() {
+        const active = activeProbes();
+        if (active.length === 2 && !state.probes.step) return [state.probes.identity];
+        return active;
+      }
+
+      /* Referentes literales: solo precisión explícita del usuario o fixture de proyección */
+      function referents() {
+        const out = {};
+        Object.entries(ID_PROBE_DIM).forEach(([code, dim]) => {
+          if (activeProbes().includes(code) && txt(code)) out[dim] = { value: txt(code), source: code, status: "user_clarified" };
+        });
+        Object.entries(FIXTURE_REFS).forEach(([dim, value]) => {
+          if (!out[dim]) out[dim] = { value, source: "?refs", status: "fixture_simulated_projection" };
+        });
+        return out;
+      }
+
+      function referentDims() {
+        const refs = referents();
+        return DIM_ORDER.filter((d) => refs[d]);
+      }
+
+      function changeProbeLabel(code) {
+        const refs = referents();
+        if (code === "2.2_obj") {
+          return refs.objeto
+            ? `Entre cómo lo encontraste y cómo lo dejaste, ¿qué quedó distinto en «${refs.objeto.value}»?`
+            : "Entre cómo lo encontraste y cómo lo dejaste, ¿qué quedó distinto?";
+        }
+        if (code === "2.2_suj") {
+          return refs.sujeto
+            ? `Al terminar tu intervención, ¿qué quedó diferente para «${refs.sujeto.value}»?`
+            : "Durante tu atención, ¿qué le cambió a esa persona o equipo?";
+        }
+        return "Al terminar, ¿qué quedó organizado o funcionando de otra manera?";
+      }
+
+      /* ---------- C04 · comparación del limitante (una sola, con referentes literales) ---------- */
+
+      function relField() {
+        const d = referentDims();
+        if (d.length === 3) return "2.1_ABC_Relacion";
+        if (d.length !== 2) return "";
+        if (d.includes("objeto") && d.includes("sujeto")) return "2.1_AB_Relacion";
+        if (d.includes("objeto") && d.includes("accion")) return "2.1_AC_Relacion";
+        return "2.1_BC_Relacion";
+      }
+
+      function factorLabel(dim) {
+        const r = referents()[dim]?.value || "";
+        if (dim === "objeto") return `La cantidad de «${r}»`;
+        if (dim === "sujeto") return `La atención que requiere «${r}»`;
+        return `El trabajo que requiere «${r}»`;
+      }
+
+      function relQuestion(field) {
+        const r = referents();
+        if (field === "2.1_AB_Relacion") {
+          return `En esos casos, ¿qué te frena más: sacar los «${r.objeto.value}» o atender a «${r.sujeto.value}»?`;
+        }
+        if (field === "2.1_AC_Relacion") {
+          return `¿Qué te frena más: la cantidad de «${r.objeto.value}» o el trabajo que lleva «${r.accion.value}»?`;
+        }
+        if (field === "2.1_BC_Relacion") {
+          return `¿Qué te frena más: atender a «${r.sujeto.value}» o el trabajo que lleva «${r.accion.value}»?`;
+        }
+        return "En los casos que se atrasan, ¿qué es lo que más te frena?";
+      }
+
+      function relOptions(field) {
+        if (!field) return [];
+        const dims = referentDims();
+        const main = dims.map((d) => ({ id: LIMIT_ID[d], label: factorLabel(d) }));
+        const equal =
+          field === "2.1_ABC_Relacion"
+            ? { id: "tres_igual", label: "Las tres cosas pesan igual" }
+            : { id: "ambos_igual", label: "Las dos cosas pesan igual" };
+        return [
+          ...main,
+          equal,
+          { id: "depende", label: "Depende del caso", alt: true },
+          { id: "sin_freno", label: "No encuentro un freno claro", alt: true },
+          { id: "no_se", label: "No lo sé", alt: true },
+        ];
+      }
+
+      function relChoice() {
+        const f = relField();
+        return f ? state.choice[f] || "" : "";
+      }
+
+      function firstBrake() {
+        const v = relChoice();
+        return DIM_ORDER.find((d) => LIMIT_ID[d] === v) || null;
+      }
+
+      function needsPriority() {
+        return relField() === "2.1_ABC_Relacion" && Boolean(firstBrake());
+      }
+
+      function priorityOptions() {
+        const first = firstBrake();
+        if (!first) return [];
+        const rest = DIM_ORDER.filter((d) => d !== first);
+        return [
+          ...rest.map((d) => ({ id: `pesa_${d}`, label: `Pesa más ${factorLabel(d).charAt(0).toLowerCase()}${factorLabel(d).slice(1)}` })),
+          { id: "pesan_igual", label: "Pesan igual", alt: true },
+          { id: "cambia", label: "Cambia según el caso", alt: true },
+          { id: "no_se", label: "No lo sé", alt: true },
+        ];
+      }
+
+      /* B2-R11: 2.A una vez, solo ante comparación insuficiente y resoluble con un caso concreto */
+      function needs2A() {
+        return Boolean(relField()) && relChoice() === "no_se";
+      }
+
+      function dominantDim() {
+        const v = relChoice();
+        const first = firstBrake();
+        if (first) return first;
+        if (v === "ambos_igual") return "mixed_bipartite";
+        if (v === "tres_igual") return "mixed_tripartite";
+        return null;
+      }
+
+      /* ---------- rutas específicas ---------- */
+
+      function discreteCycles() {
+        return state.choice["2.7"] === "pocas" || state.choice["2.7"] === "muchas";
+      }
+
+      function transformFails() {
+        return ["si_raro", "si_regular", "si_frecuente"].includes(state.choice["2.9"]);
+      }
+
+      function exceptionExists() {
+        const v = state.choice["2.9"];
+        if (v === "no_ok") return false;
+        if (transformFails()) return true;
+        return "unresolved";
+      }
+
+      function hiddenChanges() {
+        return state.choice["2.11"] === "si_a_veces" || state.choice["2.11"] === "si_frecuente";
+      }
+
+      /* B2-R12 */
+      function genericText(text) {
+        const raw = (text || "").trim();
+        if (!raw) return true;
+        if (/^(normal|pendiente|ok|bien|falla|sale mal|pasa|cambia|nada|igual|a veces|queda mal|mal|ocurre|alguien|no oficial)$/.test(normalize(raw))) {
+          return true;
+        }
+        return meaningfulWords(raw).length < 3;
+      }
+
+      /* ---------- completitud por tramo ---------- */
+
+      function bandReady(id) {
+        switch (id) {
+          case "foco":
+            return answered("2.1") && (state.pilot.reentry21 ? referentTri() === "true" : true);
+          case "antes":
+            return answered("2.5");
+          case "haces":
+            return answered("2.4a") && (!state.reveal["2.4b"] || answered("2.4b"));
+          case "queda":
+            return answered("2.6") && (!state.open["2.6_delta"] || answered("2.6_delta"));
+          case "magnitud":
+            return Boolean(state.choice["2.3"]) && Boolean(state.choice["2.7"]) && (!discreteCycles() || Boolean(state.choice["2.8"]));
+          case "sombra":
+            return (
+              Boolean(state.choice["2.9"]) &&
+              (!transformFails() || answered("2.10")) &&
+              (!state.open["2.B"] || answered("2.B")) &&
+              (!state.reveal["2.11"] ||
+                (Boolean(state.choice["2.11"]) &&
+                  (!hiddenChanges() || (answered("2.12") && answered("2.12_quien"))) &&
+                  (!state.open["2.C"] || answered("2.C"))))
+            );
+          case "limita":
+            return (
+              Boolean(relChoice()) &&
+              (!needsPriority() || Boolean(state.choice["2.1_ABC_Prioridad"])) &&
+              (!state.open["2.A"] || answered("2.A"))
+            );
+          default:
+            return false;
+        }
+      }
+
+      function visibleBands() {
+        return BANDS.filter((b) => !b.when || b.when());
+      }
+
+      /* ---------- interacción ---------- */
+
+      function flashGate(field) {
+        $$(`.gate-hint[data-gate-for="${helpKey(field)}"]`).forEach((el) => {
+          el.classList.add("is-flash");
+          setTimeout(() => el.classList.remove("is-flash"), 700);
+        });
+      }
+
+      function toggleHelp(field) {
+        if (!field) return;
+        helpOpen = helpOpen === field ? null : field;
+        examplesOpen = false;
+        state.helpSeen[field] = true;
+        saveDraft();
+        refresh();
+      }
+
+      function choose(field, id) {
+        if (!canAnswer(field)) return flashGate(field);
+        state.choice[field] = id;
+        state.expanded[field] = false;
+        if (field === "2.7" && !discreteCycles()) delete state.choice["2.8"];
+        if (field === "2.9" && !transformFails()) state.open["2.B"] = false;
+        if (field === "2.11" && !hiddenChanges()) state.open["2.C"] = false;
+        if (field === relField()) {
+          if (!needs2A()) state.open["2.A"] = false;
+          if (!needsPriority()) delete state.choice["2.1_ABC_Prioridad"];
+        }
+        state.saved = false;
+        saveDraft();
+        refresh();
+      }
+
+      function toggleAlt(field, id) {
+        if (!canAnswer(field)) return flashGate(field);
+        if (state.alt[field] === id) {
+          delete state.alt[field];
+        } else {
+          state.alt[field] = id;
+          state.text[field] = "";
+          const el = $(`[data-answer="${field}"]`);
+          if (el) el.textContent = "";
+        }
+        state.saved = false;
+        saveDraft();
+        refresh();
+      }
+
+      function goTo(bandId) {
+        state.band = bandId;
+        helpOpen = null;
+        examplesOpen = false;
+        saveDraft();
+        refresh();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function openAndFocus(field) {
+        saveDraft();
+        refresh();
+        focusAnswer(field);
+      }
+
+      function advance() {
+        const band = state.band;
+        if (!bandReady(band)) return;
+
+        if (band === "foco" && referentTri() !== "true") {
+          state.pilot.reentry21 = true;
+          admit(
+            "HOLD",
+            "antes",
+            "B2-ADMISSIBLE-REFERENT no es true. Se pide el caso concreto. No se abre la cota ni se asigna dimensión.",
+          );
+          saveDraft();
+          refresh();
+          return focusAnswer("2.1_reentry");
+        }
+
+        if (band === "foco") {
+          admit("ADMIT", "antes", "Referente literal vigente. transformation_primary_dimensions sigue unresolved.");
+        }
+
+        if (band === "haces" && !state.reveal["2.4b"]) {
+          state.reveal["2.4b"] = true;
+          admit("ADMIT", "2.4b", "B2-Q14 compuesto: 2.4a ya está en esta interacción, antes de la cláusula causal.");
+          return openAndFocus("2.4b");
+        }
+
+        if (band === "queda" && needsDeltaClarification() && !state.open["2.6_delta"]) {
+          state.open["2.6_delta"] = true;
+          admit(
+            "ADMIT",
+            "2.6_delta",
+            "El antes y el después no contrastan. Aclaración factual. No se abre 2.2_obj, 2.2_suj ni 2.2_acc.",
+          );
+          return openAndFocus("2.6_delta");
+        }
+
+        if (band === "sombra") {
+          if (transformFails() && genericText(txt("2.10")) && !state.open["2.B"]) {
+            state.open["2.B"] = true;
+            return openAndFocus("2.B");
+          }
+          if (!state.reveal["2.11"]) {
+            state.reveal["2.11"] = true;
+            saveDraft();
+            return refresh();
+          }
+          if (hiddenChanges() && genericText(txt("2.12")) && !state.open["2.C"]) {
+            state.open["2.C"] = true;
+            return openAndFocus("2.C");
+          }
+        }
+
+        if (band === "limita" && needs2A() && !state.open["2.A"]) {
+          state.open["2.A"] = true;
+          return openAndFocus("2.A");
+        }
+
+        const order = visibleBands();
+        const idx = order.findIndex((b) => b.id === band);
+        const next = order[idx + 1];
+        if (next) return goTo(next.id);
+        saveBlock();
+      }
+
+      function bandHasPendingStep(band) {
+        if (band === "sombra") {
+          return (
+            (transformFails() && genericText(txt("2.10")) && !state.open["2.B"]) ||
+            !state.reveal["2.11"] ||
+            (hiddenChanges() && genericText(txt("2.12")) && !state.open["2.C"])
+          );
+        }
+        if (band === "queda") return needsDeltaClarification() && !state.open["2.6_delta"];
+        if (band === "limita") return needs2A() && !state.open["2.A"];
+        return false;
+      }
+
+      function back() {
+        const order = visibleBands();
+        const idx = order.findIndex((b) => b.id === state.band);
+        if (idx > 0) return goTo(order[idx - 1].id);
+        window.location.href = `${SHELL_URL}?band=antes`;
+      }
+
+      function focusAnswer(field) {
+        const el = $(`[data-answer="${field}"]`);
+        if (el && el.isContentEditable) setTimeout(() => el.focus(), 60);
+      }
+
+      function notify(message) {
+        const el = $("#ops-notify");
+        el.textContent = message;
+        el.classList.add("is-visible");
+        clearTimeout(notify.timer);
+        notify.timer = setTimeout(() => el.classList.remove("is-visible"), 3200);
+      }
+
+      /* ---------- trincheras (comentario → aterrizaje → ejemplo → pregunta) ---------- */
+
+      function renderTrench(id, lead, landing, example) {
+        const el = document.getElementById(id);
+        el.replaceChildren();
+        [
+          ["trench-lead", lead],
+          ["trench-landing", landing],
+          ["trench-example", example],
+        ].forEach(([cls, text]) => {
+          const p = document.createElement("p");
+          p.className = cls;
+          p.textContent = text;
+          el.appendChild(p);
+        });
+      }
+
+      function caseRef() {
+        const refs = referents();
+        const first = DIM_ORDER.find((d) => refs[d]);
+        return first ? `«${refs[first].value}»` : "ese caso";
+      }
+
+      function renderTrenches() {
+        if (state.pilot.reentry21 && referentTri() !== "true") {
+          const said = short(txt("2.1"), 48);
+          const rival = referentTri() === "unknown";
+          renderTrench(
+            "trench-21",
+            "Nos falta una precisión para seguir este caso.",
+            rival
+              ? `A lo que me refiero es: en “${said}” aparecen cosas distintas y todavía no se ve cuál es el caso de esta vez.`
+              : `A lo que me refiero es: con “${said || "lo que escribiste"}” todavía no se ve sobre qué caso concreto va esta actividad.`,
+            "Por ejemplo: si el trabajo es atender gente, nombra a la persona o el caso de un día normal; si es un papel o un registro, nómbralo como lo llaman en el trabajo.",
+          );
+          const label = $("#reentry-21-label");
+          if (label) {
+            label.textContent = rival
+              ? "De lo que acabas de decir, ¿cuál es el caso que vamos a seguir?"
+              : "En un caso normal, ¿cómo llamas a eso con lo que trabajas?";
+          }
+        }
+        if (state.open["2.6_delta"]) {
+          const before = short(txt("2.5"), 42);
+          const after = short(txt("2.6"), 42);
+          renderTrench(
+            "trench-26",
+            "Aquí hay una mezcla que no nos termina de cerrar.",
+            `A lo que me refiero es: al empezar quedó “${before || "sin detalle"}” y al terminar “${after || "sin detalle"}”, y todavía no se ve qué cambió.`,
+            "Por ejemplo: si revisas una factura, puede cambiar el importe, el soporte o nada; di el cambio que sí viste, o di que quedó igual.",
+          );
+        }
+        if (state.open["2.A"]) {
+          const factors = referentDims().map((d) => factorLabel(d).charAt(0).toLowerCase() + factorLabel(d).slice(1));
+          renderTrench(
+            "trench-2A",
+            "Nos falta una precisión para ver qué te frena.",
+            `A lo que me refiero es: con «No lo sé» todavía no se ve si lo que te atrasa es ${joinOr(factors)}, u otra cosa.`,
+            "Por ejemplo: piensa en un caso que se haya atrasado y cuenta qué fue lo primero que no te dejó avanzar; no hace falta escoger una de las opciones.",
+          );
+        }
+        if (state.open["2.B"]) {
+          const after = short(txt("2.6"), 44);
+          renderTrench(
+            "trench-2B",
+            "Nos falta una precisión sobre lo que queda mal.",
+            `A lo que me refiero es: con “${short(txt("2.10"), 50)}” todavía no se ve qué es lo que queda mal en ${caseRef()}.`,
+            after
+              ? `Por ejemplo: si al terminar debía quedar “${after}”, puede ser un dato que sigue mal, algo que falta o un cambio que no quedó guardado.`
+              : "Por ejemplo: puede ser un dato que sigue mal, algo que falta o un cambio que no quedó guardado.",
+          );
+        }
+        if (state.open["2.C"]) {
+          renderTrench(
+            "trench-2C",
+            "Nos falta una precisión sobre ese cambio.",
+            `A lo que me refiero es: con “${short(txt("2.12"), 50)}” todavía no se ve qué cambio se hace por fuera de la forma acordada.`,
+            `Por ejemplo: qué cambia en ${caseRef()} y dónde se nota ese cambio, aunque no sepas quién lo hizo.`,
+          );
+        }
+      }
+
+      /* ---------- render ---------- */
+
+      function makeOpt(option, role, extraClass = "") {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `opt${option.alt ? " is-alt" : ""}${extraClass ? ` ${extraClass}` : ""}`;
+        btn.textContent = option.label;
+        btn.dataset.id = option.id;
+        if (role) btn.setAttribute("role", role);
+        return btn;
+      }
+
+      function mountList(container, field, options, role) {
+        const sig = `${field}|${options.map((o) => `${o.id}:${o.label}`).join(",")}`;
+        if (container.dataset.sig === sig) return;
+        container.dataset.sig = sig;
+        container.replaceChildren(...options.map((o) => makeOpt(o, role)));
+      }
+
+      function renderStage(meta) {
+        const refsReady = meta.id !== "foco";
+        const caso = $("#caso");
+        caso.hidden = !refsReady || meta.id === "magnitud";
+        const casoText = $("#caso-text");
+        casoText.textContent = focusLiteral() || altLabel("2.1");
+        casoText.classList.toggle("is-alt", !txt("2.1"));
+        casoText.title = txt("2.1");
+
+        const parts = { antes: "2.5", haces: "2.4a", queda: "2.6" };
+        $$(".story-col").forEach((col) => {
+          const value = txt(parts[col.dataset.part]);
+          col.hidden = !value;
+          col.querySelector(".story-text").textContent = value;
+          col.title = value;
+        });
+        $$(".part-tick").forEach((tick) => tick.classList.toggle("is-on", Boolean(txt(parts[tick.dataset.at]))));
+        $$(".part-label").forEach((label) => label.classList.toggle("is-current", STORY_PART[meta.id] === label.dataset.part));
+      }
+
+      function renderProbes() {
+        const active = shownProbes();
+        $$("[data-probe]").forEach((block) => {
+          block.hidden = !active.includes(block.dataset.probe);
+        });
+        $$("[data-probe-label]").forEach((label) => {
+          label.textContent = changeProbeLabel(label.dataset.probeLabel);
+        });
+      }
+
+      function renderScale() {
+        const scale = $("#scale");
+        if (!scale.querySelector(".scale-mark")) {
+          OPTIONS["2.3"]
+            .filter((o) => !o.alt)
+            .forEach((option) => {
+              const btn = document.createElement("button");
+              btn.type = "button";
+              btn.className = "scale-mark";
+              btn.dataset.id = option.id;
+              btn.setAttribute("role", "radio");
+              btn.style.left = `${SCALE_X[option.id]}%`;
+              const tick = document.createElement("span");
+              tick.className = "scale-tick";
+              const label = document.createElement("span");
+              label.className = "scale-label";
+              label.textContent = option.label;
+              btn.append(tick, label);
+              scale.appendChild(btn);
+            });
+        }
+        const v = state.choice["2.3"];
+        $$(".scale-mark", scale).forEach((btn) => {
+          const on = btn.dataset.id === v;
+          btn.classList.toggle("is-active", on);
+          btn.setAttribute("aria-checked", on ? "true" : "false");
+        });
+        const isAlt = Boolean(optionOf("2.3", v)?.alt);
+        scale.classList.toggle("is-locked", !canAnswer("2.3"));
+        scale.classList.toggle("is-muted", isAlt);
+        $("#scale-fill").style.width = v && !isAlt ? `${SCALE_X[v]}%` : "0";
+
+        const altRow = $('[data-choice-alt="2.3"]');
+        mountList(
+          altRow,
+          "2.3-alt",
+          OPTIONS["2.3"].filter((o) => o.alt),
+          "radio",
+        );
+        $$(".opt", altRow).forEach((btn) => btn.classList.toggle("is-active", btn.dataset.id === v));
+        altRow.classList.toggle("is-locked", !canAnswer("2.3"));
+
+        const before = short(txt("2.5"), 48);
+        const after = short(txt("2.6"), 48);
+        $("#scale-context").textContent =
+          before || after ? `Al empezar: “${before || "—"}” · Al terminar: “${after || "—"}”` : "";
+      }
+
+      function renderRelation() {
+        const f = relField();
+        if (!f) return;
+        $("#rel-code").textContent = `${f} · ${f === "2.1_ABC_Relacion" ? "Qué frena el avance" : "Qué te frena en esos casos"}`;
+        $("#rel-label").textContent = relQuestion(f);
+        $("#rel-help").dataset.field = f;
+        $("#rel-gate").dataset.gateFor = f;
+        $("#rel-back").dataset.backFor = f;
+        const list = $("#rel-list");
+        list.dataset.choice = f;
+        mountList(list, f, relOptions(f), "radio");
+        $("#q-rel").hidden = state.open["2.A"];
+        $("#slot-2A").classList.toggle("is-open", state.open["2.A"]);
+        $("#isle-prio").hidden = !needsPriority();
+        mountList($('[data-choice="2.1_ABC_Prioridad"]'), "2.1_ABC_Prioridad", priorityOptions(), "radio");
+      }
+
+      function renderConditionals() {
+        const reentry = $("#slot-21-reentry");
+        if (reentry) reentry.classList.toggle("is-open", state.pilot.reentry21 && referentTri() !== "true");
+        const delta = $("#slot-26-delta");
+        if (delta) delta.classList.toggle("is-open", Boolean(state.open["2.6_delta"]));
+        $("#q-24b").hidden = !state.reveal["2.4b"];
+        $("#isle-27").hidden = !state.choice["2.3"];
+        $("#isle-28").hidden = !discreteCycles();
+        $("#q-210").hidden = !transformFails() || state.open["2.B"];
+        $("#slot-2B").classList.toggle("is-open", transformFails() && state.open["2.B"]);
+        $("#isle-211").hidden = !state.reveal["2.11"];
+        $("#q-212").hidden = !hiddenChanges() || state.open["2.C"];
+        $("#sub-212-quien").hidden = !txt("2.12") && !answered("2.12_quien");
+        $("#slot-2C").classList.toggle("is-open", hiddenChanges() && state.open["2.C"]);
+      }
+
+      function renderControls() {
+        $$("[data-choice]").forEach((list) => {
+          const field = list.dataset.choice;
+          if (!field) return;
+          const v = state.choice[field];
+          $$(".opt", list).forEach((btn) => {
+            const on = btn.dataset.id === v;
+            btn.classList.toggle("is-active", on);
+            btn.setAttribute("aria-checked", on ? "true" : "false");
+          });
+          const committed = Boolean(v) && !state.expanded[field];
+          list.classList.toggle("is-committed", committed);
+          list.classList.toggle("is-locked", !canAnswer(field));
+          const backBtn = $(`.choice-back[data-back-for="${field}"]`);
+          if (backBtn) backBtn.classList.toggle("is-visible", committed);
+        });
+
+        $$("[data-alt]").forEach((row) => {
+          const field = row.dataset.alt;
+          mountList(row, `alt:${field}`, ALTS[field] || [], "button");
+          $$(".opt", row).forEach((btn) => {
+            const on = state.alt[field] === btn.dataset.id;
+            btn.classList.add("is-alt");
+            btn.classList.toggle("is-active", on);
+            btn.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+          row.classList.toggle("is-locked", !canAnswer(field));
+        });
+
+        $$(".gate-hint").forEach((el) => {
+          const f = el.dataset.gateFor;
+          el.classList.toggle("is-visible", Boolean(f) && !canAnswer(f));
+        });
+
+        $$(".help-plus").forEach((btn) => {
+          const f = btn.dataset.field;
+          btn.classList.toggle("is-open", Boolean(f) && helpOpen === f);
+          btn.classList.toggle("is-seen", Boolean(f) && Boolean(state.helpSeen[f]) && helpOpen !== f);
+          btn.setAttribute("aria-expanded", helpOpen === f ? "true" : "false");
+        });
+
+        $$("[data-answer]").forEach((el) => {
+          const f = el.dataset.answer;
+          const allowed = canAnswer(f);
+          el.setAttribute("contenteditable", allowed ? "true" : "false");
+          el.closest(".answer-field")?.classList.toggle("is-locked", !allowed);
+          el.classList.toggle("is-empty", !txt(f) && !el.textContent.trim());
+        });
+      }
+
+      function renderHelp() {
+        const box = $("#madre-help");
+        box.replaceChildren();
+        const card = helpOpen ? Q[helpOpen] : null;
+        if (card) {
+          const p = document.createElement("p");
+          p.textContent = card.help;
+          box.appendChild(p);
+          if (card.examples?.length) {
+            const toggle = document.createElement("button");
+            toggle.type = "button";
+            toggle.className = `examples-toggle${examplesOpen ? " is-open" : ""}`;
+            toggle.id = "examples-toggle";
+            toggle.textContent = examplesOpen ? "Ocultar ejemplos" : "Ver ejemplos";
+            toggle.setAttribute("aria-expanded", examplesOpen ? "true" : "false");
+            box.appendChild(toggle);
+            if (examplesOpen) {
+              card.examples.forEach((text, i) => {
+                const ex = document.createElement("p");
+                ex.className = "example";
+                ex.textContent = `${i + 1}. ${text}`;
+                box.appendChild(ex);
+              });
+            }
+          }
+        }
+        box.classList.toggle("is-open", Boolean(card));
+      }
+
+      function renderClosure() {
+        const order = visibleBands();
+        const waitingReferent = state.band === "foco" && referentTri() !== "true";
+        const isLast = order[order.length - 1].id === state.band && !waitingReferent;
+        const ready = bandReady(state.band);
+        const btn = $("#advance");
+        btn.textContent = isLast && !bandHasPendingStep(state.band) ? "Guardar Bloque 2" : "Continuar";
+        btn.disabled = !ready;
+        btn.classList.toggle("is-ready", ready);
+        const pendingClarification =
+          (state.band === "foco" && answered("2.1") && referentTri() !== "true") ||
+          (state.band === "queda" && state.open["2.6_delta"] && !answered("2.6_delta")) ||
+          (state.band === "limita" && state.open["2.A"] && !answered("2.A")) ||
+          (state.band === "sombra" &&
+            ((state.open["2.B"] && !answered("2.B")) || (state.open["2.C"] && !answered("2.C"))));
+        const pendingProbe = false;
+        $("#closure-hint").textContent = pendingClarification || pendingProbe ? "Nos falta una precisión antes de seguir" : "";
+        $("#saved-mark").hidden = !(isLast && state.saved);
+      }
+
+      /* Las islas son absolutas: el plano crece para que ninguna invada el pie */
+      function fitStage() {
+        const stage = $("#stage");
+        stage.style.height = "";
+        stage.style.removeProperty("--cota-y");
+        if (window.innerWidth <= 900) return;
+        const base = stage.offsetHeight;
+        stage.style.setProperty("--cota-y", `${Math.round(base * 0.4)}px`);
+        const top = stage.getBoundingClientRect().top;
+        let needed = base;
+        $$(".band.is-active .isle").forEach((isle) => {
+          if (isle.offsetParent) needed = Math.max(needed, isle.getBoundingClientRect().bottom - top + 48);
+        });
+        stage.style.height = `${Math.ceil(needed)}px`;
+      }
+
+      function refresh() {
+        if (referentTri() === "true") state.pilot.reentry21 = false;
+        if (!visibleBands().some((b) => b.id === state.band)) state.band = visibleBands()[0]?.id || "foco";
+        const meta = BANDS.find((b) => b.id === state.band) || BANDS[0];
+        $$(".band").forEach((el) => el.classList.toggle("is-active", el.dataset.band === meta.id));
+        const stage = $("#stage");
+        stage.className = `stage band-${meta.id}`;
+        stage.classList.toggle("is-story", Boolean(STORY_PART[meta.id]));
+        stage.classList.toggle("is-scale", meta.id === "magnitud");
+        stage.classList.toggle("is-shadow", meta.id === "sombra");
+
+        $("#kicker").textContent = meta.title;
+        const cue = activityCue();
+        const q21 = $("#q-21-label");
+        if (q21) {
+          q21.textContent = cue
+            ? `En un caso normal de «${cue}», ¿con qué trabajas o a quién atiendes?`
+            : "En un caso normal de esta actividad, ¿con qué trabajas o a quién atiendes?";
+        }
+        $("#build").textContent = `Build ${BUILD} · La pieza · ${meta.runtime}`;
+        document.body.classList.toggle("hide-codes", !SHOW_CODES);
+
+        renderHelp();
+        renderStage(meta);
+        renderProbes();
+        renderScale();
+        renderRelation();
+        renderConditionals();
+        renderTrenches();
+        renderControls();
+        renderClosure();
+        fitStage();
+      }
+
+      /* ---------- payload (Madre §15, §16, §20.B, §20.D, §23) ---------- */
+
+      function textAnswer(code, extra = {}) {
+        return {
+          code,
+          runtime_id: RUNTIME_OF[code],
+          visible_value: txt(code) || null,
+          secondary_action: altLabel(code) || null,
+          provenance: "captured_user_evidence",
+          canonical_variable_output: CANONICAL_OUTPUT[code],
+          ...extra,
+        };
+      }
+
+      function choiceAnswer(code, extra = {}) {
+        const option = optionOf(code, state.choice[code]);
+        return {
+          code,
+          runtime_id: RUNTIME_OF[code],
+          visible_value: option?.label || null,
+          canonical_value: option ? option.canonical : null,
+          value_status: option ? option.status || "captured" : "unresolved",
+          provenance: "captured_user_evidence",
+          canonical_variable_output: CANONICAL_OUTPUT[code],
+          ...extra,
+        };
+      }
+
+      function review(variable_name, fields) {
+        return {
+          variable_name,
+          canonical_value: null,
+          candidate_value: null,
+          status: "unresolved",
+          evidence_refs: [],
+          rule_id: null,
+          unresolved_reason: null,
+          alternatives: [],
+          source_version: `${BUILD} · ${MADRE_VERSION}`,
+          ...fields,
+        };
+      }
+
+      function deltaStatus() {
+        const probe = state.probes.change && activeProbes().includes(state.probes.change) ? state.probes.change : null;
+        if (state.choice["2.3"] === "sin_cambio" || noChangeDeclared() || (probe && state.alt[probe] === "sin_cambio")) {
+          return { value: "no_observed_change", evidence_refs: ["2.6", "2.3", probe].filter(Boolean) };
+        }
+        if (txt("2.6_delta")) return { value: "described_difference", evidence_refs: ["2.5", "2.6", "2.6_delta"] };
+        if (state.choice["2.3"] === "no_compara" || beforeUnknown() || (probe && state.alt[probe] === "no_compara")) {
+          return { value: "unknown", evidence_refs: ["2.5", "2.3", probe].filter(Boolean) };
+        }
+        if (probe && txt(probe)) return { value: "supported_change", evidence_refs: ["2.5", "2.6", probe] };
+        const declared = ["pequeno", "medio", "grande", "radical"].includes(state.choice["2.3"]);
+        if (declared && txt("2.5") && txt("2.6") && !sameStates()) {
+          return { value: "supported_change", evidence_refs: ["2.5", "2.6", "2.3"] };
+        }
+        return { value: "unknown", evidence_refs: ["2.5", "2.6"] };
+      }
+
+      function payload() {
+        const probes = shownProbes();
+        const refs = referents();
+        const b1 = loadB1Signal();
+
+        /* scene_question_answers: solo respuestas efectivamente aportadas en nodos visibles */
+        const answers = [textAnswer("2.1"), textAnswer("2.5"), textAnswer("2.4a")];
+        const trigger = textAnswer("2.4b");
+        if (state.alt["2.4b"] === "misma_b1") {
+          trigger.evidence_reuse = {
+            source_ref: b1 ? "B1 · 1.1 / 1.2" : null,
+            source_value: b1,
+            link: "explícito (el usuario lo indicó)",
+            status: b1 ? "reused_with_reference" : "reuse_declared_source_unavailable",
+          };
+        }
+        answers.push(trigger, textAnswer("2.6"));
+        probes.forEach((code) =>
+          answers.push(
+            textAnswer(code, {
+              epistemic_status: "user_clarified",
+              probe_rule: code === state.probes.identity ? state.probes.rules.identity : state.probes.rules.change,
+              visible_question: code.startsWith("2.2_") ? changeProbeLabel(code) : undefined,
+            }),
+          ),
+        );
+        answers.push(choiceAnswer("2.3"), choiceAnswer("2.7"));
+        if (discreteCycles()) answers.push(choiceAnswer("2.8"));
+        answers.push(choiceAnswer("2.9", { option_value_mapping: "C1-INSTR-V3-R9-001 · 2.9 → transformation_exception_type" }));
+        if (transformFails()) answers.push(textAnswer("2.10"));
+        answers.push(choiceAnswer("2.11"));
+        if (hiddenChanges()) {
+          answers.push({
+            code: "2.12",
+            runtime_id: RUNTIME_OF["2.12"],
+            provenance: "captured_user_evidence",
+            canonical_variable_output: CANONICAL_OUTPUT["2.12"],
+            visible_value: {
+              cambio_concreto: txt("2.12") || null,
+              quien_lo_hace: txt("2.12_quien") || null,
+              quien_status: state.alt["2.12_quien"] === "no_sabe" ? "unknown_declared" : txt("2.12_quien") ? "reported" : "missing",
+            },
+          });
+        }
+        const relation = relField();
+        if (relation) {
+          const option = relOptions(relation).find((o) => o.id === relChoice());
+          answers.push({
+            code: relation,
+            runtime_id: "C04",
+            visible_question: relQuestion(relation),
+            visible_value: option?.label || null,
+            provenance: "captured_user_evidence",
+            canonical_variable_output: CANONICAL_OUTPUT[relation],
+            referents_used: Object.fromEntries(referentDims().map((d) => [d, refs[d]])),
+          });
+          if (needsPriority()) {
+            const prio = priorityOptions().find((o) => o.id === state.choice["2.1_ABC_Prioridad"]);
+            answers.push({
+              code: "2.1_ABC_Prioridad",
+              runtime_id: "C04",
+              visible_value: prio?.label || null,
+              provenance: "captured_user_evidence",
+              canonical_variable_output: CANONICAL_OUTPUT["2.1_ABC_Prioridad"],
+            });
+          }
+        }
+
+        const clarifications = [];
+        const clarify = (code, origin) =>
+          clarifications.push({
+            code,
+            runtime_id: RUNTIME_OF[code],
+            provenance: "clarification",
+            origin_codes: origin,
+            canonical_variable_output: CANONICAL_OUTPUT[code],
+            value: txt(code) || null,
+          });
+        if (state.open["2.A"] && needs2A()) clarify("2.A", [relation]);
+        if (state.open["2.B"] && transformFails()) clarify("2.B", ["2.9", "2.10"]);
+        if (state.open["2.C"] && hiddenChanges()) clarify("2.C", ["2.11", "2.12"]);
+        if (txt("2.1_reentry")) {
+          clarifications.push({
+            code: "2.1_reentry",
+            clarification_of: "2.1",
+            provenance: "clarification",
+            value: txt("2.1_reentry"),
+            closes_transformation_primary_dimensions: false,
+            note: "Precisión del caso. No asigna objeto, sujeto ni acción.",
+          });
+        }
+        if (state.open["2.6_delta"]) {
+          clarifications.push({
+            code: "2.6_delta",
+            clarification_of: "2.6",
+            provenance: "clarification",
+            value: txt("2.6_delta") || null,
+            closes_attribute_variables: false,
+            note: "Contraste factual. No abre 2.2_obj, 2.2_suj ni 2.2_acc.",
+          });
+        }
+
+        /* Proyecciones: el prototipo no interpreta el relato; solo transporta precisiones explícitas */
+        const delta = deltaStatus();
+        const dominant = dominantDim();
+        const PENDING_ENGINE = "Proyección pendiente del motor de EVE; el prototipo no interpreta el relato para cerrarla.";
+        const tipoVar = { objeto: "objeto_tipo", sujeto: "sujeto_tipo", accion: "accion_tipo" };
+        const attrVar = { objeto: "atributos_objeto_cambian", sujeto: "atributos_sujeto_cambian", accion: "atributos_accion_cambian" };
+        const changeProbe = probes.find((c) => c.startsWith("2.2_")) || null;
+
+        const model_review = [];
+        const clarifiedDims = DIM_ORDER.filter((d) => refs[d]?.status === "user_clarified");
+        const supportedDims = clarifiedDims.filter(
+          (d) => delta.value === "supported_change" && changeProbe && DIM_OF_CHANGE[changeProbe] === d,
+        );
+        model_review.push(
+          review("transformation_primary_dimensions", {
+            canonical_value: supportedDims.length ? supportedDims.map((d) => DIM_WORD[d]) : null,
+            candidate_value: !supportedDims.length && clarifiedDims.length ? clarifiedDims.map((d) => DIM_WORD[d]) : null,
+            status: supportedDims.length ? "user_clarified" : clarifiedDims.length ? "candidate" : "unresolved",
+            evidence_refs: ["2.1", ...clarifiedDims.map((d) => refs[d].source), changeProbe].filter(Boolean),
+            rule_id: supportedDims.length ? "referente_precisado_y_cambio_precisado" : null,
+            unresolved_reason: supportedDims.length ? null : PENDING_ENGINE,
+          }),
+        );
+        DIM_ORDER.forEach((d) => {
+          const r = refs[d];
+          model_review.push(
+            review(tipoVar[d], {
+              canonical_value: r?.status === "user_clarified" ? r.value : null,
+              candidate_value: r?.status === "fixture_simulated_projection" ? r.value : null,
+              status: r ? (r.status === "user_clarified" ? "user_clarified" : "candidate") : "unresolved",
+              evidence_refs: r ? [r.source] : ["2.1"],
+              rule_id: r ? (r.status === "user_clarified" ? "precision_factual_explicita" : "fixture_refs") : null,
+              unresolved_reason: r ? null : PENDING_ENGINE,
+            }),
+          );
+          const isProbeDim = changeProbe && DIM_OF_CHANGE[changeProbe] === d;
+          model_review.push(
+            review(attrVar[d], {
+              candidate_value: null,
+              status: isProbeDim && state.alt[changeProbe] === "sin_cambio" ? "not_applicable" : "unresolved",
+              evidence_refs: ["2.5", "2.6", isProbeDim ? changeProbe : null].filter(Boolean),
+              unresolved_reason:
+                "La normalización de atributos contra el diccionario interno (6.A) requiere el motor de proyección; el literal viaja en transformation_change_trace.",
+            }),
+          );
+        });
+        model_review.push(
+          review("dimension_dominante", {
+            canonical_value: dominant,
+            status: dominant ? "captured_comparison" : "unresolved",
+            evidence_refs: relation ? [relation, state.open["2.A"] ? "2.A" : null].filter(Boolean) : [],
+            rule_id: relation ? "comparacion_explicita_C04" : null,
+            unresolved_reason: dominant
+              ? null
+              : relation
+                ? `Comparación sin limitante único: ${relOptions(relation).find((o) => o.id === relChoice())?.label || "sin respuesta"}.`
+                : "Sin dos referentes literales sustentados no se abre la comparación; identificar un referente no demuestra qué limita el trabajo.",
+          }),
+        );
+
+        let ranking = null;
+        let partialOrder = null;
+        if (needsPriority()) {
+          const first = firstBrake();
+          const pick = state.choice["2.1_ABC_Prioridad"] || "";
+          const second = DIM_ORDER.find((d) => pick === `pesa_${d}`);
+          if (second) ranking = [first, second, DIM_ORDER.find((d) => d !== first && d !== second)];
+          else partialOrder = { first, rest: pick || null };
+        }
+        model_review.push(
+          review("ranking_dimensiones", {
+            canonical_value: ranking,
+            status: ranking ? "captured_comparison" : "unresolved",
+            evidence_refs: needsPriority() ? [relation, "2.1_ABC_Prioridad"] : [],
+            alternatives: partialOrder ? [partialOrder] : [],
+            unresolved_reason: ranking ? null : "Sin orden total sustentado; no se inventa un ranking.",
+          }),
+        );
+
+        const metricHint =
+          dominant === "objeto"
+            ? "volumen"
+            : dominant === "sujeto"
+              ? "cantidad de sujetos atendidos"
+              : dominant === "accion"
+                ? "complejidad/frecuencia del trabajo"
+                : dominant
+                  ? "mezcla"
+                  : null;
+        const metricReadiness = metricHint
+          ? "ready_for_metric_selection"
+          : relation && relChoice() === "no_se"
+            ? "needs_factual_clarification"
+            : "needs_block5_context";
+        model_review.push(
+          review("transformation_metric_hint", {
+            canonical_value: metricHint,
+            status: metricHint ? "canonical_derivation" : "unresolved",
+            evidence_refs: metricHint ? [relation] : [],
+            rule_id: metricHint ? "hint_desde_limitante_comparado" : null,
+            unresolved_reason: metricHint ? null : "Limitante no determinado para B5; B5 decide la métrica.",
+          }),
+        );
+
+        const change_trace = [
+          {
+            referent_ref: DIM_ORDER.map((d) => refs[d]?.source).find(Boolean) || "2.1",
+            case_ref: "caso_normal · 2.1",
+            initial_evidence_ref: txt("2.5") ? "2.5" : null,
+            intervention_evidence_ref: txt("2.4a") ? "2.4a" : null,
+            final_evidence_ref: txt("2.6") ? "2.6" : null,
+            changed_property_literal: txt("2.6_delta") || (changeProbe ? txt(changeProbe) || altLabel(changeProbe) || null : null),
+            canonical_property: null,
+            projection_status:
+              delta.value === "no_observed_change"
+                ? "no_observed_change"
+                : changeProbe && txt(changeProbe)
+                  ? "user_clarified"
+                  : "pending_projection",
+          },
+        ];
+
+        const iterationCount =
+          state.choice["2.7"] === "continuo" ? "N/A" : discreteCycles() ? optionOf("2.8", state.choice["2.8"])?.canonical ?? null : null;
+
+        const flags = {
+          transformation_entity_missing: referentTri() !== "true",
+          transformation_magnitude_inconsistency: false,
+          transformation_state_no_delta: delta.value === "no_observed_change" || sameStates(),
+          transformation_iteration_needs_count: discreteCycles() && !optionOf("2.8", state.choice["2.8"])?.canonical,
+          transformation_exception_needs_clarification:
+            transformFails() && genericText(txt("2.10")) && (!state.open["2.B"] || genericText(txt("2.B"))),
+          transformation_exception_route_unresolved: exceptionExists() === "unresolved",
+          transformation_hidden_change_needs_clarification:
+            hiddenChanges() &&
+            ((genericText(txt("2.12")) && (!state.open["2.C"] || genericText(txt("2.C")))) ||
+              state.alt["2.12_quien"] === "no_sabe"),
+          transformation_dominance_ambiguous: Boolean(relation) && relChoice() === "no_se",
+          transformation_contradiction_flag: false,
+          model_projection_unsupported: false,
+          transformation_reference_mismatch: false,
+          reused_evidence_not_independent: false,
+          capacity_factor_outside_transformed_subject: false,
+        };
+
+        const gaps = [];
+        if (flags.transformation_entity_missing) gaps.push("ausencia de referente concreto");
+        probes
+          .filter((c) => c.startsWith("2.1") && state.alt[c] === "no_precisa")
+          .forEach(() => gaps.push("identidad ambigua"));
+        if (delta.value === "unknown") gaps.push("contraste antes/después insuficiente");
+        if (delta.value === "no_observed_change") gaps.push("estados sin cambio observado");
+        if (flags.transformation_iteration_needs_count) gaps.push("iteración sin escala");
+        if (flags.transformation_exception_needs_clarification) gaps.push("excepción sin síntoma");
+        if (flags.transformation_exception_route_unresolved) gaps.push("ruta V3 no cerrada");
+        if (hiddenChanges() && state.alt["2.12_quien"] === "no_sabe") gaps.push("cambio no registrado sin origen conocido");
+        if (!metricHint) gaps.push("limitante no determinado para B5");
+
+        const blockingGaps = gaps.filter((g) => g !== "limitante no determinado para B5");
+        const raised = Object.entries(flags).filter(([, v]) => v).map(([k]) => k);
+        const readiness = flags.transformation_exception_route_unresolved
+          ? "blocked_by_missing_canonical_route"
+          : flags.transformation_entity_missing
+            ? "blocked_by_missing_evidence"
+            : raised.length || blockingGaps.length
+              ? "ready_with_flags"
+              : "ready";
+        const issues = raised.length + blockingGaps.length;
+
+        const runtime = ["B2-Q12", "B2-Q13", "B2-Q14", "B2-Q15", "B2-Q16", "B2-Q17"];
+        if (relation) runtime.push("C04");
+        if (transformFails()) runtime.push("C05");
+        if (hiddenChanges()) runtime.push("C06");
+        if (discreteCycles()) runtime.push("C07");
+
+        const internalOnly = ["2.1a", "2.1b", "2.1c", "2.2_obj", "2.2_suj", "2.2_acc"].filter((c) => !probes.includes(c));
+
+        return {
+          block_id: "2",
+          build: BUILD,
+          madre_version: MADRE_VERSION,
+          composition: "la_pieza · historia de un caso",
+          pilot: {
+            role: "mesa_piloto",
+            contract: "EVE-C1-B2-MOTHER-CONTRACT · 0.8-CANDIDATE-P3.2.2 · HOLD",
+            referent: {
+              tri_state: referentTri(),
+              literal: focusLiteral() || null,
+              source_ref: txt("2.1_reentry") ? "2.1_reentry" : txt("2.1") ? "2.1" : null,
+              closes_dimension: false,
+            },
+            admissions: state.pilot.admissions,
+          },
+          saved_at: new Date().toISOString(),
+          scene_memory: MEMORY,
+          runtime_interactions: runtime,
+          interaction_budget: {
+            visible_answers: answers.length,
+            clarifications_shown: clarifications.length,
+            factual_probes_shown: probes,
+            nodes_resolved_internally_without_question: internalOnly,
+          },
+          simulation: Object.keys(FIXTURE_REFS).length ? { refs: FIXTURE_REFS, note: "Referentes simulados vía ?refs= para revisar C04." } : null,
+          answers,
+          clarifications,
+          derivations: {
+            transformation_focus_literal: txt("2.1") || null,
+            transformation_primary_dimensions: model_review[0].canonical_value,
+            objeto_tipo: refs.objeto?.status === "user_clarified" ? refs.objeto.value : null,
+            sujeto_tipo: refs.sujeto?.status === "user_clarified" ? refs.sujeto.value : null,
+            accion_tipo: refs.accion?.status === "user_clarified" ? refs.accion.value : null,
+            dimension_dominante: dominant,
+            ...(relation ? { [CANONICAL_OUTPUT[relation]]: dominant } : {}),
+            ranking_dimensiones: ranking,
+            atributos_objeto_cambian: null,
+            atributos_sujeto_cambian: null,
+            atributos_accion_cambian: null,
+            transformation_attributes: null,
+            transformation_magnitude: optionOf("2.3", state.choice["2.3"])?.canonical ?? null,
+            transformation_causality_action: txt("2.4a") || null,
+            transformation_causality_trigger:
+              txt("2.4b") || (state.alt["2.4b"] === "misma_b1" ? { reused_from: "B1", value: b1 } : null),
+            transformation_state_initial: txt("2.5") || null,
+            transformation_state_final: txt("2.6") || null,
+            transformation_iterations: optionOf("2.7", state.choice["2.7"])?.canonical ?? null,
+            transformation_iteration_count: iterationCount,
+            transformation_exception_type: optionOf("2.9", state.choice["2.9"])?.canonical ?? null,
+            transformation_exception_exists: exceptionExists(),
+            transformation_exception_exists_source: "2.9 → transformation_exception_type (V3)",
+            transformation_exception_description: transformFails() ? txt("2.10") || null : null,
+            transformation_hidden_changes: optionOf("2.11", state.choice["2.11"])?.canonical ?? null,
+            transformation_hidden_changes_description: hiddenChanges()
+              ? { cambio_concreto: txt("2.12") || null, quien_lo_hace: txt("2.12_quien") || null }
+              : null,
+            transformation_metric_hint: metricHint,
+            transformation_model_review: model_review,
+            transformation_change_trace: change_trace,
+            transformation_delta_status: delta,
+            transformation_metric_readiness: metricReadiness,
+          },
+          flags,
+          gaps,
+          scene_transformation_confidence: {
+            level: issues === 0 ? "suficiente" : issues <= 2 ? "parcial" : "insuficiente",
+            reasoning: [...raised.map((f) => `flag: ${f}`), ...blockingGaps.map((g) => `gap: ${g}`)],
+          },
+          scene_transformation_readiness: readiness,
+        };
+      }
+
+      function saveBlock() {
+        const data = payload();
+        try {
+          localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+        } catch (_) {
+          /* best-effort */
+        }
+        state.saved = true;
+        helpOpen = null;
+        saveDraft();
+        refresh();
+        notify("Bloque 2 guardado");
+        console.info("[Bloque 2 · La pieza v2]", data);
+      }
+
+      /* ---------- arranque ---------- */
+
+      function init() {
+        ["2.7", "2.8", "2.9", "2.11"].forEach((field) => {
+          const list = $(`[data-choice="${field}"]`);
+          if (list) mountList(list, field, OPTIONS[field], "radio");
+        });
+
+        $$("[data-answer]").forEach((el) => {
+          const f = el.dataset.answer;
+          if (state.text[f]) el.textContent = state.text[f];
+          el.addEventListener("input", () => {
+            state.text[f] = el.innerText.replace(/\u00a0/g, " ");
+            if (state.text[f].trim()) delete state.alt[f];
+            el.classList.toggle("is-empty", !el.textContent.trim());
+            state.saved = false;
+            saveDraft();
+            const meta = BANDS.find((b) => b.id === state.band) || BANDS[0];
+            renderStage(meta);
+            renderScale();
+            renderConditionals();
+            renderControls();
+            renderClosure();
+            fitStage();
+          });
+        });
+        window.addEventListener("resize", fitStage);
+
+        document.addEventListener("click", (event) => {
+          const t = event.target;
+          if (t.closest("#examples-toggle")) {
+            examplesOpen = !examplesOpen;
+            return renderHelp();
+          }
+          const help = t.closest(".help-plus");
+          if (help) return toggleHelp(help.dataset.field);
+          const backBtn = t.closest(".choice-back");
+          if (backBtn) {
+            state.expanded[backBtn.dataset.backFor] = true;
+            return refresh();
+          }
+          const mark = t.closest(".scale-mark");
+          if (mark) return choose("2.3", mark.dataset.id);
+          const opt = t.closest(".opt");
+          if (opt) {
+            const altRow = opt.closest("[data-alt]");
+            if (altRow) return toggleAlt(altRow.dataset.alt, opt.dataset.id);
+            const choiceAlt = opt.closest("[data-choice-alt]");
+            if (choiceAlt) return choose(choiceAlt.dataset.choiceAlt, opt.dataset.id);
+            const single = opt.closest("[data-choice]");
+            if (single && single.dataset.choice) return choose(single.dataset.choice, opt.dataset.id);
+          }
+        });
+
+        $("#advance").addEventListener("click", advance);
+        $("#nav-back").addEventListener("click", back);
+        $("#replay").addEventListener("click", () => {
+          localStorage.removeItem(DRAFT_KEY);
+          localStorage.removeItem(SAVE_KEY);
+          window.location.href = window.location.pathname + window.location.search.replace(/([?&])band=[^&]*&?/, "$1");
+        });
+
+        $("#memory").textContent = MEMORY;
+        admit(
+          "ADMIT",
+          "2.1",
+          "AI_DEFAULT_CONTEXTUAL_RENDER. Pregunta del lienzo citada con la actividad heredada. Sin opciones de objeto, sujeto o acción.",
+        );
+        if (START_BAND && BANDS.some((b) => b.id === START_BAND)) state.band = START_BAND;
+        if (!visibleBands().some((b) => b.id === state.band)) state.band = "foco";
+        refresh();
+      }
+
+      init();
+    </script>
+  </body>
+</html>

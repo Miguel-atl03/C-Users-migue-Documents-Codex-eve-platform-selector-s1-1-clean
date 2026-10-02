@@ -1,0 +1,34 @@
+{
+  "marker_id": "B7_FIRST_CLASS_MATERIALITY_MARKER",
+  "scope": "B7 signal-only preclassification boundary",
+  "tree_branch": "Capa 1.0 / B7 preclassification boundary object ownership",
+  "required_service_contract": "services/eve/capa1/b7-preclassification-boundary-service",
+  "required_schema_contracts": [
+    "b7_preclassification_record.schema.json",
+    "no_render_zone.schema.json",
+    "b3_b7_alignment_delta.schema.json"
+  ],
+  "required_state_machines": [
+    "PreclassificationRecord",
+    "NoRenderZone",
+    "B3B7AlignmentDelta"
+  ],
+  "required_test_contract": "tests/b7/preclassification-boundary-service.test",
+  "required_source_refs": true,
+  "required_derivation_refs": true,
+  "required_governance_issue_links": true,
+  "required_readiness_decision": true,
+  "required_allowed_consumers": true,
+  "forbidden_outputs": [
+    "structural_fact",
+    "registry",
+    "IR",
+    "export",
+    "diagnosis",
+    "OperationalExceptionEvidence"
+  ],
+  "materiality_level_when_absent": "L0 absent",
+  "materiality_level_when_contract_defined": "L4 contract_defined",
+  "materiality_level_when_tested": "L7 tested_materiality",
+  "no_go_if_false_positive": "B7 promoted downstream into structural fact, export, diagnosis or OEE."
+}

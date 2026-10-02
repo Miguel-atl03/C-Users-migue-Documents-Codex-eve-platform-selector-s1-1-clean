@@ -1,0 +1,29 @@
+{
+  "decision_id": "DECIDE_POST_PHYSICAL_VALIDATION_PLAN_NEXT_FRONTIER_V1",
+  "risk_matrix": [
+    {
+      "option_id": "OPTION_A",
+      "risk_level": "critical",
+      "risk_description": "Executing physical validation now would require DB connection and migration execution before the non-productive DB environment is confirmed.",
+      "mitigation": "Block execution until environment readiness, credentials, approval, snapshot, rollback, and evidence ledger are verified.",
+      "allowed_now": false,
+      "blocks_next_step": true
+    },
+    {
+      "option_id": "OPTION_B",
+      "risk_level": "low",
+      "risk_description": "Readiness design is documentary and preserves all productive authority flags as false.",
+      "mitigation": "Keep scope to readiness design only; prohibit environment creation, DB/Supabase connection, migration execution, SQL modification, observer, source connection, and real table read.",
+      "allowed_now": true,
+      "blocks_next_step": false
+    },
+    {
+      "option_id": "OPTION_C",
+      "risk_level": "medium",
+      "risk_description": "Holding preserves safety but leaves the environment readiness gap unaddressed.",
+      "mitigation": "Use only if readiness cannot be designed safely; otherwise prefer readiness design.",
+      "allowed_now": true,
+      "blocks_next_step": false
+    }
+  ]
+}

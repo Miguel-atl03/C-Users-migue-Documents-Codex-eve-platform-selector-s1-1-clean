@@ -1,0 +1,69 @@
+{
+  "artifact": "runtime-40-20-catalog-identity-evidence-032B",
+  "generated_at": "2026-08-05T17:19:23Z",
+  "search_terms": [
+    "catalog_version_id",
+    "catalog id",
+    "runtime catalog identity",
+    "version identity"
+  ],
+  "hits": [
+    {
+      "source": "technical_spec_docx",
+      "location": "paragraph:159",
+      "text": "  catalog_version_id TEXT PRIMARY KEY,",
+      "candidate_rule": false,
+      "note": "Column mention only."
+    },
+    {
+      "source": "technical_spec_docx",
+      "location": "paragraph:169",
+      "text": "  catalog_version_id TEXT NOT NULL REFERENCES runtime_catalog_version(catalog_version_id),",
+      "candidate_rule": false,
+      "note": "Column mention only."
+    },
+    {
+      "source": "technical_spec_docx",
+      "location": "paragraph:196",
+      "text": "  catalog_version_id TEXT NOT NULL REFERENCES runtime_catalog_version(catalog_version_id),",
+      "candidate_rule": false,
+      "note": "Column mention only."
+    },
+    {
+      "source": "technical_spec_docx",
+      "location": "paragraph:283",
+      "text": "CREATE TABLE role_runtime_session (\n  role_runtime_session_id TEXT PRIMARY KEY,\n  case_id TEXT NOT NULL,\n  role_id TEXT NOT NULL,\n  catalog_version_id TEXT NOT NULL REFERENCES runtime_catalog_version(catalog_version_id),\n  primary_activity_limit INTEGER NOT NULL DEFAULT 8,\n  selected_primary_activity_count INTEGER NOT NULL DEFAULT 0,\n  secondary_activity_count INTEGER NOT NULL DEFAULT 0,\n  total_estimated_minutes INTEGER NOT NULL DEFAULT 0,\n  total_elapsed_minutes INTEGER NOT NULL DEFAULT 0,\n  state TEXT NOT NULL CHECK (state IN ('draft','active','in_progress','ready_with_flags','completed','blocked','archived')),\n  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE TABLE source_node_ref (\n  source_node_ref_id TEXT ",
+      "candidate_rule": false,
+      "note": "Column mention only."
+    },
+    {
+      "source": "technical_spec_docx",
+      "location": "paragraph:289",
+      "text": "{\n  \"payload_type\": \"scr_patch\",\n  \"run_id\": \"RUN-123\",\n  \"activity_id\": \"ACT-456\",\n  \"catalog_version_id\": \"runtime_40_20_v1_1_1\",\n  \"activity_anchor\": {\n    \"activity_name_user_confirmed\": \"Preparar factura para pago\",\n    \"activity_semantic_action_verb\": \"preparar\",\n    \"activity_semantic_input_object\": \"factura con soporte\",\n    \"activity_semantic_procedure_standard\": \"criterio de revisión interna\",\n    \"activity_semantic_output_product\": \"factura lista para pago\",\n    \"block0_entry_mode\": \"confirm_structured_activity\",\n    \"semantic_confirmation_status\": \"user_confirmed\"\n  },\n  \"block_outputs\": {\n    \"B0\": {\"readiness\": \"ready\", \"gap_flags\": []},\n    \"B05\": {\"scene_functional_client\": \"tesorería\", \"scene_macro_process\": \"cuentas por pagar\"},\n    \"B1\": {\"trigger_source\": \"factura recib",
+      "candidate_rule": false,
+      "note": "DDL column or illustrative payload example; not a governed identity generation rule."
+    },
+    {
+      "source": "runtime-40-20-public-persistence-map-032.json",
+      "location": "offset:2637",
+      "text": "apping\",\n    \"public.runtime_subfield_schema\"\n  ],\n  \"projection_rows\": [\n    {\n      \"target_table\": \"public.runtime_catalog_version\",\n      \"target_column\": \"catalog_version_id\",\n      \"postgres_type\": \"text\",\n      \"required_by_database\": true,\n      \"source_artifact\": null,\n      \"source_collection\": null,\n      \"source_field\": null,\n      \"trace_id\": null,\n      \"source_sheet\": null,\n      \"transformation\": \"blocked_catalog_version_identity_missing\",\n      \"transformation_authority\": \"Version_Control searched;",
+      "candidate_rule": false
+    },
+    {
+      "source": "runtime-40-20-projection-authority-032A.json",
+      "location": "offset:8683",
+      "text": "abels_materialized_from_unreachable_blob\"\n    }\n  ],\n  \"table_comparison\": [\n    {\n      \"table\": \"runtime_catalog_version\",\n      \"remote_columns\": [\n        \"catalog_version_id\",\n        \"version_label\",\n        \"spec_version_label\",\n        \"status\",\n        \"source_xlsx_filename\",\n        \"source_xlsx_checksum\",\n        \"source_docx_filename\",\n        \"source_docx_checksum\",\n        \"mother_catalog_version\",\n        \"runtime_rule_mother\",\n        \"notes\",\n        \"activated_at\",\n        \"superseded_by_catalog_v",
+      "candidate_rule": false
+    }
+  ],
+  "rejected_non_authorities": [
+    "B0 id",
+    "package name",
+    "checksum",
+    "date",
+    "concatenated convention",
+    "illustrative spec example runtime_40_20_v1_1_1"
+  ],
+  "decision": "governed_catalog_identity_decision_required",
+  "final_blocker": "blocked_catalog_identity_governance_missing"
+}

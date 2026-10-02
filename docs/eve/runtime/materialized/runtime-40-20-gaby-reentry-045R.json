@@ -1,0 +1,60 @@
+﻿{
+    "instruction":  {
+                        "instruction":  "045-R",
+                        "generated_at":  "2026-08-09",
+                        "final_classification":  "blocked_gaby_real_entrypoint",
+                        "first_factual_blocker":  "No existe accion real equivalente en la frontera gobernada: ALLOWED_ACTIONS y GovernedExecutionAction solo incluyen start_synthetic_run para crear run; la ruta API exige synthetic_case_token antes de invocar el servicio.",
+                        "staging_contact":  "none",
+                        "production_contact":  "none",
+                        "remote_writes":  0
+                    },
+    "audited_components":  [
+                               {
+                                   "component":  "Gaby current entry",
+                                   "state":  "partial",
+                                   "evidence":  "Client BFF events exist but do not start governed Runtime 40/20 run."
+                               },
+                               {
+                                   "component":  "Client BFF",
+                                   "state":  "partial",
+                                   "evidence":  "BFF focal test passes 38/39; import guard fails on direct Supabase import."
+                               },
+                               {
+                                   "component":  "Governed execution service",
+                                   "state":  "implemented_not_connected",
+                                   "evidence":  "Synthetic action exists; real action absent."
+                               },
+                               {
+                                   "component":  "Governed execution API route",
+                                   "state":  "implemented_not_connected",
+                                   "evidence":  "Requires synthetic_case_token."
+                               },
+                               {
+                                   "component":  "Panel consumer",
+                                   "state":  "implemented_not_connected",
+                                   "evidence":  "No same real Gaby run available."
+                               }
+                           ],
+    "tests":  [
+                  {
+                      "command":  "governed execution focal",
+                      "result":  "pass 4/4"
+                  },
+                  {
+                      "command":  "client bff focal",
+                      "result":  "fail 38/39"
+                  },
+                  {
+                      "command":  "rg start_real_run",
+                      "result":  "not_found"
+                  }
+              ],
+    "security":  {
+                     "staging_writes":  "none",
+                     "production_consulted":  "no",
+                     "production_writes":  0,
+                     "B0_modified":  "no",
+                     "Gaby_modified":  "no",
+                     "commit_created":  "no"
+                 }
+}

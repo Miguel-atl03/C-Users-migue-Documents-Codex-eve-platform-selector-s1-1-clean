@@ -1,0 +1,80 @@
+{
+  "instruction": "040-C",
+  "title": "Runtime 40/20 local boundary validation after mapping projection correction",
+  "classification": "staging_mapping_projection_reconciled_local_only",
+  "fixture_contract": "local PostgreSQL fixture reproduces real 040-A mapping columns (8) and UNIQUE (catalog_version_id, runtime_interaction_id, source_node_ref_id, mapping_role); dual local contract retained for non-mapping organs pending later deployment authorization",
+  "validation_results": {
+    "catalog_versions": 1,
+    "artifact_sections": 33,
+    "source_nodes": 164,
+    "interaction_definitions": 60,
+    "interaction_mappings": 170,
+    "subfields": 57,
+    "semantic_total": 720,
+    "mapping_duplicates": 0,
+    "lineage_lost": 0,
+    "exact_replay_no_writes": true,
+    "altered_content_blocked": true,
+    "missing_row_blocked": true,
+    "additional_row_blocked": true,
+    "concurrency_governed": true,
+    "rollback_complete": true,
+    "b0_delta": 0,
+    "anon_execute": "denied",
+    "authenticated_execute": "denied",
+    "service_role_execute": "allowed"
+  },
+  "tests_executed": [
+    {
+      "name": "CatalogLoader local PostgreSQL exact",
+      "path": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-canonical-catalog-draft-loader-postgres-local.test.mjs",
+      "result": "passed"
+    },
+    {
+      "name": "Governed RPC candidate 040-C local",
+      "path": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load.test.mjs",
+      "result": "passed"
+    },
+    {
+      "name": "focal lint",
+      "result": "passed"
+    },
+    {
+      "name": "typecheck",
+      "result": "passed"
+    },
+    {
+      "name": "build",
+      "result": "passed"
+    },
+    {
+      "name": "git diff --check (040-C touched paths)",
+      "result": "passed"
+    }
+  ],
+  "mapping_columns_observed_local": [
+    "mapping_id",
+    "catalog_version_id",
+    "runtime_interaction_id",
+    "source_node_ref_id",
+    "mapping_role",
+    "output_variable_name",
+    "route_id",
+    "created_at"
+  ],
+  "mapping_columns_absent_local": ["mapping_ordinal", "mapping_payload"],
+  "remote_contact": {
+    "staging_consulted": "no",
+    "production_consulted": "no",
+    "remote_writes": "none"
+  },
+  "security": {
+    "catalog_loaded": "no",
+    "catalog_activated": "no",
+    "B0_modified": "no",
+    "B1_modified": "no",
+    "Gaby_modified": "no",
+    "commit_created": "no",
+    "deployed": "no"
+  }
+}

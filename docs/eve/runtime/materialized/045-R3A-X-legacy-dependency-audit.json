@@ -1,0 +1,80 @@
+{
+  "instruction": "045-R3A-X",
+  "gate": 14,
+  "scan_method": "import/route/page wiring + assistance inventory + freeze candidates",
+  "artifacts": [
+    {
+      "artifact": "src/app/page.tsx",
+      "classification": "still_required_legacy_flow",
+      "notes": "Current official orchestrator until OfficialCanvasExperience replaces it"
+    },
+    {
+      "artifact": "src/components/client/*",
+      "classification": "still_required_legacy_flow",
+      "notes": "Login/EstadoA/Complete UI"
+    },
+    {
+      "artifact": "src/components/WorkMapIntake.tsx",
+      "classification": "shared_function_extract_first",
+      "notes": "Extract assist/validation; replace presentation"
+    },
+    {
+      "artifact": "src/components/significado/*",
+      "classification": "shared_function_extract_first",
+      "notes": "Keep coach hooks/services; replace shell"
+    },
+    {
+      "artifact": "src/components/LegacySceneQuestionnaireRunner.tsx",
+      "classification": "still_required_legacy_flow",
+      "notes": "Only while Runtime FULL not universal"
+    },
+    {
+      "artifact": "src/components/RuntimeFullQuestionnaireRunner.tsx",
+      "classification": "shared_function_extract_first",
+      "notes": "BFF wiring reusable; UI becomes block sections"
+    },
+    {
+      "artifact": "src/components/QuestionnaireRunner.tsx",
+      "classification": "safe_to_delete",
+      "notes": "Unmounted from page.tsx; extract mission UI only if needed first"
+    },
+    {
+      "artifact": "src/services/work-map-*.ts / domain/work-map.ts",
+      "classification": "still_required_non_UI"
+    },
+    {
+      "artifact": "src/app/api/coach/**",
+      "classification": "still_required_non_UI"
+    },
+    {
+      "artifact": "src/app/api/significado/block0/**",
+      "classification": "still_required_non_UI"
+    },
+    {
+      "artifact": "src/app/api/participant/workmap/finalize/**",
+      "classification": "still_required_non_UI"
+    },
+    {
+      "artifact": "src/app/api/eve/runtime-40-20/client-bff/**",
+      "classification": "still_required_non_UI"
+    },
+    {
+      "artifact": "src/hooks/use-operational-description-*.ts",
+      "classification": "still_required_non_UI"
+    },
+    {
+      "artifact": "src/components/eve-worksheet/presentation-contract.*",
+      "classification": "still_required_non_UI"
+    },
+    {
+      "artifact": "src/app/dev/e2e-block0",
+      "classification": "still_required_legacy_flow",
+      "notes": "Dev harness; later redirect/remove"
+    },
+    {
+      "artifact": "/dev/lienzo-eve",
+      "classification": "safe_to_delete",
+      "notes": "Not live in C312; freeze retains history; when reintroduced only as redirect"
+    }
+  ]
+}

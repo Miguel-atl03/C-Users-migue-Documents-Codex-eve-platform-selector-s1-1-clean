@@ -1,0 +1,86 @@
+{
+  "audit_id": "EVE-07-PARALLEL-PRODUCTION-INTERFACE-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "PARALLEL_PRODUCTION_INTERFACE_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "mapping_level": "initial_preliminary_not_final",
+  "mappings": [
+    {
+      "targetModule": "scr_payload",
+      "targetEntityOrRule": "SceneCanonicalRecordPatch / SCRP rules",
+      "targetField": "payload_schema and block_outputs/source_refs/gaps",
+      "sources": [
+        {"sourceId": "D4", "sourceRole": "direct_rule_source", "sourceLocator": "sections 21, 23.1, 25", "sourceSectionOrSheet": "D4:21,D4:23.1,D4:25", "sourceEvidenceType": "payload_schema_contract", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "EVE06", "sourceRole": "direct_rule_source", "sourceLocator": "modules.activity_runtime_run and canonical_variable_record", "sourceSectionOrSheet": "EVE06 modules", "sourceEvidenceType": "execution_dependency", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "D6", "sourceRole": "direct_rule_source", "sourceLocator": "Critical_Routes, QA_Checklist", "sourceSectionOrSheet": "D6 workbook", "sourceEvidenceType": "gate_dependency", "confidence": "medium", "mappingStatus": "needs_exact_proof"},
+        {"sourceId": "D8", "sourceRole": "direct_rule_source", "sourceLocator": "Catalogo_Madre_Nodos, Canonical_Variables", "sourceSectionOrSheet": "D8 workbook", "sourceEvidenceType": "structural_reference", "confidence": "medium", "mappingStatus": "needs_exact_proof"}
+      ],
+      "notes": "Initial mapping confirms likely source coverage; exact field-by-field proof remains for QA."
+    },
+    {
+      "targetModule": "evidence_bundle_payload",
+      "targetEntityOrRule": "EvidenceBundlePatch / EVBP rules",
+      "targetField": "evidence_items, canonical_variables, route_statuses, readiness, gap_records",
+      "sources": [
+        {"sourceId": "EVE06", "sourceRole": "direct_rule_source", "sourceLocator": "modules.evidence_item and canonical_variable_record", "sourceSectionOrSheet": "EVE06 modules", "sourceEvidenceType": "evidence_governance", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "EVE05", "sourceRole": "direct_rule_source", "sourceLocator": "execution_pipeline and gates", "sourceSectionOrSheet": "EVE05 modules", "sourceEvidenceType": "gate_dependency", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "D5", "sourceRole": "direct_rule_source", "sourceLocator": "sections 2, 6.1, 6.2, 6.3", "sourceSectionOrSheet": "D5 sections", "sourceEvidenceType": "evidence_governance", "confidence": "medium", "mappingStatus": "needs_exact_proof"},
+        {"sourceId": "EVE03", "sourceRole": "contextual_dependency", "sourceLocator": "source_node_registry/canonical_variables", "sourceSectionOrSheet": "EVE03 modules", "sourceEvidenceType": "contextual_guard", "confidence": "medium", "mappingStatus": "initial_mapped"}
+      ],
+      "notes": "Evidence bundle must remain governed evidence, not final truth."
+    },
+    {
+      "targetModule": "mdsb_payload",
+      "targetEntityOrRule": "MMABPDesignSourceBundlePatch / MDSB rules",
+      "targetField": "structural_candidates, conformance_checkpoints, consistency_checkpoints, export_restriction",
+      "sources": [
+        {"sourceId": "D4", "sourceRole": "direct_rule_source", "sourceLocator": "section 23.3", "sourceSectionOrSheet": "D4:23.3", "sourceEvidenceType": "payload_schema_contract", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "EVE06", "sourceRole": "direct_rule_source", "sourceLocator": "modules.structural_candidate_record", "sourceSectionOrSheet": "EVE06 modules", "sourceEvidenceType": "execution_dependency", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "EVE05", "sourceRole": "direct_rule_source", "sourceLocator": "conformance/consistency gates", "sourceSectionOrSheet": "EVE05 modules", "sourceEvidenceType": "gate_dependency", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "D3", "sourceRole": "direct_rule_source", "sourceLocator": "integration boundaries", "sourceSectionOrSheet": "D3 tables/rules", "sourceEvidenceType": "export_boundary", "confidence": "medium", "mappingStatus": "needs_exact_proof"}
+      ],
+      "notes": "MDSB is design source bundle only; no final diagram or diagnosis."
+    },
+    {
+      "targetModule": "mmabp_ir_candidate",
+      "targetEntityOrRule": "mmabp_ir_candidate / IRCD rules",
+      "targetField": "quadrant_partitions, nodes, relations, gate_snapshot_refs, candidate_state",
+      "sources": [
+        {"sourceId": "D3", "sourceRole": "direct_rule_source", "sourceLocator": "D3 Table5 and rules R3/R4/R5", "sourceSectionOrSheet": "D3 boundaries", "sourceEvidenceType": "export_boundary", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "D6", "sourceRole": "direct_rule_source", "sourceLocator": "Parallel_Production_Contract, MMABP_Output_Map", "sourceSectionOrSheet": "D6 workbook", "sourceEvidenceType": "structural_reference", "confidence": "medium", "mappingStatus": "needs_exact_proof"},
+        {"sourceId": "EVE05", "sourceRole": "direct_rule_source", "sourceLocator": "conformance and consistency gates", "sourceSectionOrSheet": "EVE05 modules", "sourceEvidenceType": "gate_dependency", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "D1", "sourceRole": "methodological_guard", "sourceLocator": "declared sections 2.2.6, 2.3.6, 2.3.3, 3.1.5, 3.2.4, 4.1-4.5", "sourceSectionOrSheet": "PDF exact text pending", "sourceEvidenceType": "methodological_guard", "confidence": "low", "mappingStatus": "excluded_from_direct_proof"}
+      ],
+      "notes": "D1 is guard only until exact extraction/citation exists."
+    },
+    {
+      "targetModule": "registry_candidate",
+      "targetEntityOrRule": "registry_candidate / REGC rules",
+      "targetField": "registry_target, record_type, source refs, conformance_status, consistency_status, candidate_state",
+      "sources": [
+        {"sourceId": "D3", "sourceRole": "direct_rule_source", "sourceLocator": "D3 Table6/Table10/R4", "sourceSectionOrSheet": "D3 boundaries", "sourceEvidenceType": "registry_boundary", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "D4", "sourceRole": "direct_rule_source", "sourceLocator": "sections 13, 21, 23", "sourceSectionOrSheet": "D4 sections", "sourceEvidenceType": "payload_schema_contract", "confidence": "medium", "mappingStatus": "needs_exact_proof"},
+        {"sourceId": "D6", "sourceRole": "direct_rule_source", "sourceLocator": "Parallel_Production_Contract", "sourceSectionOrSheet": "D6 workbook", "sourceEvidenceType": "registry_boundary", "confidence": "medium", "mappingStatus": "needs_exact_proof"},
+        {"sourceId": "EVE04", "sourceRole": "direct_rule_source", "sourceLocator": "runtime catalog flags/source mappings", "sourceSectionOrSheet": "EVE04 modules", "sourceEvidenceType": "structural_reference", "confidence": "medium", "mappingStatus": "pending_locator"}
+      ],
+      "notes": "Registry candidate must remain candidate; no active write."
+    },
+    {
+      "targetModule": "export_blockers",
+      "targetEntityOrRule": "export_blocker catalog / EXB rules including EXB-031",
+      "targetField": "blocker_code, trigger_condition, hard_block, resolution_action, predicate_expression",
+      "sources": [
+        {"sourceId": "D4", "sourceRole": "direct_rule_source", "sourceLocator": "sections 9, 23, 27; Table25 for EXB-031", "sourceSectionOrSheet": "D4 sections/tables", "sourceEvidenceType": "blocker_rule", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "D3", "sourceRole": "direct_rule_source", "sourceLocator": "R8 and Tables 10-12", "sourceSectionOrSheet": "D3 boundaries", "sourceEvidenceType": "no_wiring_guard", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "EVE05", "sourceRole": "direct_rule_source", "sourceLocator": "execution_pipeline/failure_guards", "sourceSectionOrSheet": "EVE05 modules", "sourceEvidenceType": "gate_dependency", "confidence": "high", "mappingStatus": "initial_mapped"},
+        {"sourceId": "EVE06", "sourceRole": "direct_rule_source", "sourceLocator": "execution_pipeline/failure_guards", "sourceSectionOrSheet": "EVE06 modules", "sourceEvidenceType": "execution_dependency", "confidence": "high", "mappingStatus": "initial_mapped"}
+      ],
+      "notes": "EXB-031 present with expected predicate; later QA must verify exact behavior independently."
+    }
+  ],
+  "mapping_summary": {
+    "target_modules_mapped": 6,
+    "mappings_requiring_exact_proof": 7,
+    "excluded_from_direct_proof": ["D1 for material rules until exact PDF text extraction exists"],
+    "assumptionBased": true,
+    "assumptionBased_note": "Initial source-to-target mapping uses package declarations plus preliminary source inventory; exact proof remains pending."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING1_OPERATING_ENVELOPE",
+  "generated_at": "2026-07-08T22:35:00.000Z",
+  "authorization_ref": "ring1-authorization-internal-test-tenant-20260708",
+  "ring": 1,
+  "ring_name": "internal_test_tenant_limited_client",
+  "allowed_user_type": "internal_test_client",
+  "allowed_data_type": "controlled_test_tenant_data",
+  "real_client_data_allowed": false,
+  "external_client_access_allowed": false,
+  "supabase_production_touch_allowed": false,
+  "runtime_environment": "local_or_staging_only",
+  "rollback_required": true,
+  "abort_required": true,
+  "observability_required": true,
+  "no_go_required": true,
+  "envelope": {
+    "allowed": [
+      "internal_test_client_session_with_explicit_test_tenant",
+      "test_tenant_marked_tenant_case_run_scope",
+      "limited_client_ui_in_safe_mode",
+      "bff_client_safe_routes_local_or_staging",
+      "runtime_real_in_local_or_staging_environment",
+      "gates_readiness_real_in_local_or_staging_environment",
+      "client_safe_result_local_or_staging",
+      "consultant_packet_local_or_staging",
+      "parallel_payload_rehearsal_local_or_staging",
+      "rollback_drill_reexecution_ring1",
+      "abort_path_drill_reexecution_ring1",
+      "observability_audit_reexecution_ring1",
+      "no_go_constraint_verification_ring1"
+    ],
+    "explicitly_not_allowed": [
+      "production_supabase_read_write",
+      "remote_supabase_modification",
+      "db_push",
+      "apply_migration_against_production",
+      "real_external_client_access",
+      "production_public_access",
+      "public_signup",
+      "diagnosis_final_creation",
+      "external_export_productivo",
+      "produccion_paralela_productiva",
+      "activation_allowed_general_production",
+      "qa_green_real_creation"
+    ]
+  },
+  "ring0_chain_context_ref": "eve-local-activation-chain-eb11721c-9429-4317-a231-904ec986983e",
+  "authoritative_root": "external-consumers/eve-platform"
+}

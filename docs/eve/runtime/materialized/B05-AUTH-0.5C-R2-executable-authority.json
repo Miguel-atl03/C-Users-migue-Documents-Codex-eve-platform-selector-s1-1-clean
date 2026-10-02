@@ -1,0 +1,62 @@
+{
+  "instruction": "B05-AUTH-0.5C-R2",
+  "scope": "B0.5 / 0.5.3 -> 0.5.C",
+  "authority_chain": [
+    "approved rector decision",
+    "Documento Madre / materialized authority artifact",
+    "044A3M source-capture crosswalk",
+    "server-side branching authority",
+    "governed runtime resolver",
+    "0.5.C conditional clarification authorization",
+    "tests"
+  ],
+  "question_0_5_3": {
+    "question_code": "0.5.3",
+    "canonical_question_text": "Cuando terminas esta actividad con éxito, ¿qué cosa importante puedes hacer avanzar a continuación?",
+    "help_text": "Piensa en qué puedes poner en marcha, liberar, decidir, aprobar, continuar o cerrar gracias a que esta actividad quedó bien terminada. No necesitamos un concepto técnico ni que sepas identificar un ‘hito’; descríbelo como sucede en tu trabajo.",
+    "canonical_variable_output": "scene_enabled_milestone",
+    "provenance": "captured_user_evidence",
+    "same_slot": true
+  },
+  "question_0_5_C": {
+    "question_code": "0.5.C",
+    "field_type": "clarification",
+    "answer_mode": "clarification",
+    "canonical_variable_output": "scene_enabled_milestone + clarifications_bundle_0_5_C",
+    "provenance": "clarification",
+    "storage": "separate_from_primary_0_5_3_evidence"
+  },
+  "branching_predicate": {
+    "source_interaction_id": "B05-Q07",
+    "source_code": "0.5.3",
+    "trigger_variable": "clarification_required_0_5_C",
+    "operator": "equals",
+    "expected_value": true,
+    "target_interaction_id": "C02",
+    "target_source_code": "0.5.C",
+    "opens_new_interaction_definition": false
+  },
+  "heuristic_authority": {
+    "authority": "clarification_trigger_only",
+    "semantic_truth_authority": false,
+    "allowed_output": "clarification_required true|false",
+    "forbidden_outputs": [
+      "scene_enabled_milestone",
+      "semantic truth",
+      "diagnosis",
+      "primary evidence replacement"
+    ],
+    "server_side_only": true,
+    "client_conditional_authority": false
+  },
+  "status": {
+    "B05_0_5_C_EXECUTABLE_AUTHORITY": "CLOSED",
+    "0.5.C_semantic_authority": "AUTH-2_MATERIALIZED",
+    "server_conditional_authority_for_0_5_C": true,
+    "heuristic_authority": "clarification_trigger_only",
+    "heuristic_semantic_truth_authority": false,
+    "functional_Runtime_UI_conformance": "NOT_DECLARED",
+    "B0.5_functional_certification": "NOT_DECLARED",
+    "STOP": "B0.5"
+  }
+}

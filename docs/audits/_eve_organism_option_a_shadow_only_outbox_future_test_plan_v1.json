@@ -1,0 +1,105 @@
+{
+  "future_test_plan_id": "EVE_ORGANISM_OPTION_A_SHADOW_ONLY_OUTBOX_FUTURE_TEST_PLAN_V1",
+  "spec_id": "OPTION_A_SHADOW_ONLY_OUTBOX_PROVISIONING_SPEC_V1",
+  "tests_written_now": false,
+  "categories_total": 8,
+  "categories": [
+    {
+      "category": "contract_completeness",
+      "tests": [
+        "rejects missing tenant_id",
+        "rejects missing session_id",
+        "rejects missing activity_id",
+        "rejects missing provenance",
+        "rejects missing sourceTrace",
+        "rejects missing correlationId",
+        "rejects missing idempotencyKey",
+        "rejects missing officialOutcome",
+        "rejects unknown redaction_status",
+        "rejects missing payload_hash",
+        "rejects append_only_attestation false",
+        "rejects no_write_attestation false"
+      ]
+    },
+    {
+      "category": "append_only",
+      "tests": [
+        "insert allowed only under approved future writer",
+        "update blocked",
+        "delete blocked",
+        "destructive upsert blocked",
+        "overwrite blocked",
+        "payload_hash immutable",
+        "checksum chain maintained"
+      ]
+    },
+    {
+      "category": "credential_boundary",
+      "tests": [
+        "bridge reader cannot write",
+        "writer cannot read product secrets",
+        "service_role productive unavailable",
+        "registry writer unreachable",
+        "export writer unreachable",
+        "final diagnosis path unreachable"
+      ]
+    },
+    {
+      "category": "tenant_auth_isolation",
+      "tests": [
+        "cross-tenant event blocked",
+        "tenant/session/activity mismatch blocked",
+        "actor_ref preserved",
+        "RLS/read boundary tested if applicable"
+      ]
+    },
+    {
+      "category": "dedupe_replay",
+      "tests": [
+        "same idempotencyKey same payload dedupes",
+        "same idempotencyKey different payload blocks replay poisoning",
+        "replay_ref reproducible",
+        "checksum chain reproducible"
+      ]
+    },
+    {
+      "category": "governance_s3_star",
+      "tests": [
+        "divergence review queue requires S3*",
+        "S3* cannot mutate outbox",
+        "EVE-08 records/blocks but does not operate",
+        "audit tampering detected"
+      ]
+    },
+    {
+      "category": "algedonic",
+      "tests": [
+        "tenant leak quarantines",
+        "write-capable adapter quarantines",
+        "service_role present quarantines",
+        "checksum break quarantines",
+        "latency collapse degrades"
+      ]
+    },
+    {
+      "category": "gate_boundary",
+      "tests": [
+        "provisioning spec does not authorize provisioning",
+        "outbox provisioning does not authorize bridge implementation",
+        "bridge implementation does not authorize real observation",
+        "real observation does not authorize Gate 3",
+        "no output crosses release gate"
+      ]
+    }
+  ],
+  "gate_boundary": {
+    "option_a_target_approved": true,
+    "option_a_provisioning_spec": "created",
+    "actual_provisioning": "not_authorized",
+    "bridge_implementation": "not_authorized",
+    "real_observation": "not_authorized",
+    "gate3": "not_authorized",
+    "fase9": "not_authorized"
+  },
+  "next_required_review": "OPTION_A_SHADOW_ONLY_OUTBOX_PROVISIONING_SPEC_REVIEW_V1"
+}

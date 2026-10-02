@@ -1,0 +1,456 @@
+/**
+ * Continuous-canvas Significado / B0 band styles — ported from 045-R3A-V freeze
+ * (.significado* / workmapSideMeta / workmapKicker / sheetAdvanceQuiet).
+ * Tokens inherit from .canvasRoot when nested.
+ */
+
+.significadoScreen {
+  min-height: 100svh;
+  width: min(100%, 1260px);
+  margin: 0 auto;
+  padding: 48px 46px 56px;
+  background: var(--eve-sheet, #fafbfc);
+  color: var(--eve-ink, #12141a);
+  scroll-margin-top: 0;
+}
+
+.workmapTopbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 24px;
+  margin-bottom: 16px;
+  color: var(--eve-mist, #7a8190);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+}
+
+.workmapTopbarLogo {
+  --eve-mark-height: 11px;
+  --eve-text-size: 7px;
+  --eve-gap: 7px;
+  --eve-tracking: 0.42em;
+  --eve-tm-size: 4px;
+}
+
+.significadoIntro {
+  max-width: 920px;
+  margin: 64px auto 72px;
+  text-align: center;
+}
+
+.significadoIntro h2 {
+  margin: 0;
+  color: var(--eve-ink, #12141a);
+  font-family: var(--eve-font-display, "Segoe UI", sans-serif);
+  font-size: clamp(40px, 4vw, 58px);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+}
+
+.significadoIntro p {
+  margin: 24px auto 0;
+  max-width: 560px;
+  color: var(--eve-mist, #7a8190);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.significadoBand,
+.significadoFooter {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 78px;
+  border-bottom: 1px solid var(--eve-line, #d8dce2);
+  padding: 36px 0 40px;
+}
+
+.significadoFooter {
+  grid-template-columns: 260px minmax(0, 1fr) auto;
+  align-items: end;
+  border-bottom: 0;
+  padding-bottom: 12px;
+}
+
+.significadoFooter > p {
+  margin: 0;
+  max-width: 520px;
+  color: var(--eve-mist, #7a8190);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.workmapSideMeta {
+  padding-top: 6px;
+}
+
+.workmapKicker {
+  color: var(--eve-ink, #12141a);
+  font-family: var(--eve-font-display, "Segoe UI", sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.workmapSideMeta p {
+  max-width: 190px;
+  margin: 10px 0 0;
+  color: var(--eve-mist, #7a8190);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.significadoBandBody h3 {
+  margin: 0 0 22px;
+  font-family: var(--eve-font-display, "Segoe UI", sans-serif);
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.significadoContextLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: var(--eve-mist, #7a8190);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.significadoLiteral {
+  margin: 0 0 28px;
+  max-width: 720px;
+  color: var(--eve-ink, #12141a);
+  font-family: var(--eve-font-display, "Segoe UI", sans-serif);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.significadoPrefillNote {
+  margin: -8px 0 20px;
+  max-width: 640px;
+  color: var(--eve-mist, #7a8190);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.significadoOpContrast {
+  margin: 0 0 18px;
+  max-width: 640px;
+  color: var(--eve-ink, #12141a);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.significadoOpGuide {
+  max-width: 680px;
+  margin: 0 0 28px;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--eve-line, #d8dce2);
+}
+
+.significadoOpGuideLabel {
+  margin: 0 0 8px;
+  color: var(--eve-mist, #7a8190);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.significadoOpGuideExample {
+  margin: 0;
+  color: var(--eve-mist, #7a8190);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.significadoOpHints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.significadoOpStructureLabel {
+  margin: 16px 0 0;
+  color: var(--eve-mist, #7a8190);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.significadoOpHints li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--eve-mist, #7a8190);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.significadoOpCheck {
+  color: var(--eve-accent, #5c7d8f);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.significadoField {
+  display: grid;
+  gap: 10px;
+}
+
+.significadoField span {
+  color: var(--eve-mist, #7a8190);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.significadoFieldStrong span {
+  color: var(--eve-ink, #12141a);
+  opacity: 1;
+}
+
+.significadoFieldIncomplete span {
+  color: var(--eve-ink, #12141a);
+}
+
+.significadoFieldIncomplete textarea {
+  border-bottom-color: var(--eve-ink, #12141a);
+}
+
+.significadoFieldLocked {
+  opacity: 0.72;
+}
+
+.significadoFieldLocked textarea {
+  cursor: default;
+}
+
+.significadoStanceRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.significadoStanceButton {
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: var(--eve-mist, #7a8190);
+  font-family: var(--eve-font-body, "Segoe UI", sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 2px;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    font-weight 180ms ease,
+    border-bottom-color 180ms ease,
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.significadoStanceButton:hover:not(:disabled) {
+  color: var(--eve-ink, #12141a);
+  transform: translateY(-1px);
+}
+
+.significadoStanceButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.significadoStanceButtonActive {
+  color: var(--eve-ink, #12141a);
+  font-weight: 700;
+  border-bottom-color: var(--eve-ink, #12141a);
+  transform: translateY(0);
+}
+
+.significadoFieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 28px;
+}
+
+.significadoFieldStack {
+  display: grid;
+  gap: 22px;
+}
+
+.significadoField textarea {
+  width: 100%;
+  resize: vertical;
+  border: 0;
+  border-bottom: 1px solid var(--eve-line, #d8dce2);
+  background: transparent;
+  color: var(--eve-ink, #12141a);
+  font-family: var(--eve-font-body, "Segoe UI", sans-serif);
+  font-size: 15px;
+  line-height: 1.45;
+  padding: 8px 0 12px;
+  outline: none;
+  transition:
+    border-bottom-color 220ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.significadoField textarea:focus {
+  border-bottom-color: var(--eve-accent, #5c7d8f);
+  transform: translateY(-1px);
+}
+
+.significadoField textarea::placeholder {
+  color: rgba(122, 129, 144, 0.72);
+}
+
+.significadoField textarea:disabled {
+  opacity: 0.85;
+  cursor: not-allowed;
+}
+
+.significadoCoachHint {
+  margin: 8px 0 0;
+  color: var(--eve-mist, #7a8190);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.significadoCoachComplete {
+  margin: 8px 0 0;
+  color: var(--eve-accent, #5c7d8f);
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.significadoBoundaryHost {
+  margin-top: 8px;
+  max-width: 720px;
+}
+
+.significadoBoundaryTitle {
+  margin: 0 0 16px;
+  font-family: var(--eve-font-display, "Segoe UI", sans-serif);
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.significadoVariationBlock {
+  display: grid;
+  gap: 14px;
+  padding-top: 8px;
+  max-width: 720px;
+}
+
+.significadoVariationQuestion {
+  margin: 0;
+  color: var(--eve-ink, #12141a);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.significadoStatusAlert {
+  margin: 0 0 18px;
+  max-width: 640px;
+  color: var(--eve-ink, #12141a);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.significadoStatusActions {
+  margin-top: 10px;
+}
+
+.significadoQuietLink {
+  border: 0;
+  background: transparent;
+  color: var(--eve-accent, #5c7d8f);
+  font-family: var(--eve-font-body, "Segoe UI", sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.significadoQuietLink:hover {
+  color: var(--eve-ink, #12141a);
+}
+
+.sheetAdvanceQuiet {
+  min-height: 48px;
+  border: 0;
+  background: transparent;
+  color: var(--eve-accent, #5c7d8f);
+  font-family: var(--eve-font-body, "Segoe UI", sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  justify-self: end;
+  transition:
+    color 200ms ease,
+    opacity 200ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sheetAdvanceQuiet:hover:not(:disabled) {
+  color: var(--eve-ink, #12141a);
+  transform: translateY(-1px);
+}
+
+.sheetAdvanceQuiet:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .significadoScreen {
+    padding: 24px 22px 40px;
+  }
+
+  .significadoIntro {
+    margin: 48px auto 42px;
+    text-align: left;
+  }
+
+  .significadoIntro h2 {
+    font-size: 42px;
+  }
+
+  .significadoBand,
+  .significadoFooter {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .significadoFieldGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .significadoLiteral {
+    font-size: 20px;
+  }
+
+  .sheetAdvanceQuiet {
+    justify-self: start;
+  }
+}

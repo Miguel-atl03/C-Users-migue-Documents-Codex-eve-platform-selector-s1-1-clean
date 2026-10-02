@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PF-SUP-03 EscenaEvidencial Contract",
+  "type": "object",
+  "required": [
+    "id",
+    "case_id",
+    "state",
+    "source_ref",
+    "derivation_ref",
+    "governance_issue_refs",
+    "readiness_decision_ref",
+    "allowed_consumers",
+    "forbidden_consumers",
+    "audit_log"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "constructing",
+        "with_observable_acts",
+        "with_mmabp_elements",
+        "with_vsm_primary_hypothesis",
+        "with_mmabp_inconsistency",
+        "with_eve_manifestation",
+        "ahe_situated",
+        "validated",
+        "blocked_by_insufficient_causality",
+        "manual_review_required",
+        "superseded",
+        "archived"
+      ]
+    },
+    "source_ref": {
+      "type": "string"
+    },
+    "derivation_ref": {
+      "type": "string"
+    },
+    "governance_issue_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "readiness_decision_ref": {
+      "type": "string"
+    },
+    "allowed_consumers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_consumers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audit_log": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "implementation_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "materiality_level": {
+      "type": "string",
+      "enum": [
+        "L0 absent",
+        "L1 documented_only",
+        "L2 vocabulary_only",
+        "L3 guardrail_only",
+        "L4 contract_defined",
+        "L5 schema_present",
+        "L6 service_present",
+        "L7 tested_materiality",
+        "L8 executable_materiality"
+      ],
+      "const": "L4 contract_defined"
+    },
+    "materiality_rationale": {
+      "type": "string"
+    },
+    "escena_evidencial_id": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "evidence_bundle_id": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "source_scene_refs": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "observable_act_refs": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "mmabp_element_refs": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "vsm_hypothesis_primary_refs": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "mmabp_inconsistency_refs": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "eve_local_node_refs": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "ahe_translation_refs": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

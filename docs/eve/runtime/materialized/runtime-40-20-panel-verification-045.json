@@ -1,0 +1,36 @@
+{
+  "instruction": "045",
+  "generated_at": "2026-08-09",
+  "objective": "Verificar Panel consultor frente a Runtime 40/20.",
+  "result": "panel_local_regression_passed_but_integrated_gaby_path_blocked",
+  "tested_components": [
+    "RuntimeRunTable",
+    "Runtime40BaseGrid",
+    "Runtime20CausalGrid",
+    "GateReadinessPanel",
+    "OperationalTraceTimeline",
+    "RuntimeSelectedRunPanel"
+  ],
+  "tests": [
+    {
+      "name": "client BFF",
+      "command": "node --test src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff.test.mjs",
+      "result": "fail",
+      "passed": 38,
+      "failed": 1,
+      "blocker": "Import guard detects active client-bff route importing createAuthenticatedServerSupabaseClient from @/lib/supabase-server."
+    },
+    {
+      "name": "consultant control panel",
+      "command": "node --test tests/regression/consultant-control-panel/consultant-control-panel.test.mjs",
+      "result": "pass",
+      "passed": 19,
+      "failed": 0
+    }
+  ],
+  "blockers": [
+    "blocked_gaby_reentry",
+    "blocked_security_boundary"
+  ],
+  "classification_candidate_if_panel_only": "panel_verification_local_passed"
+}

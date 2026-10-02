@@ -1,0 +1,90 @@
+{
+  "task": "EVE-00-METHOD-KERNEL-PACKAGE-DOCX-SYNC-V1",
+  "dictamen": "METHOD_KERNEL_DOCX_SYNC_READY_WITH_GAPS",
+  "updated_file": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.docx",
+  "source_used_for_sync": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.md",
+  "consistency_checked_against": [
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.manifest.json",
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.ts"
+  ],
+  "docx_validation": {
+    "docx_read_extract_succeeds": true,
+    "contains_d1_as_primary_methodological_source": true,
+    "contains_d4_as_runtime_boundary_source": true,
+    "contains_d5_as_verified_runtime_boundary_source": true,
+    "contains_d5_unresolved_marker": false,
+    "counts": {
+      "fundamentals_mmabp_rules": 8,
+      "pm_rules": 10,
+      "moc_rules": 10,
+      "pf_rules": 16,
+      "olc_rules": 17,
+      "consistency_rules": 15,
+      "total": 76
+    },
+    "operative_states": [
+      "ready",
+      "ready_with_flags",
+      "blocked_by_missing_evidence",
+      "blocked_by_contradiction",
+      "manual_review_required",
+      "reentry_required"
+    ],
+    "blocked_by_missing_canonical_route_scope": "Runtime boundary note only; not an operative Method Kernel 00 state",
+    "boundaries_confirmed": [
+      "no diagnostica patologias EVE",
+      "no produce IR",
+      "no exporta registry",
+      "no ejecuta Produccion Paralela",
+      "no reemplaza Runtime catalog",
+      "no reemplaza WorkMap",
+      "no decide seleccion primaria",
+      "no reemplaza B0",
+      "no bloquea UI directa antes de evidencia suficiente",
+      "no actua como Runtime readiness/reentry gate"
+    ],
+    "fnd_007_fnd_008_scope": "D4/D5 are compatibility boundary references only; they are not Runtime 40/20 gate implementations"
+  },
+  "parse_validation": {
+    "package_json_parse": true,
+    "manifest_parse": true,
+    "audit_json_parse": true
+  },
+  "render_validation": {
+    "attempted": true,
+    "passed": false,
+    "reason": "render_docx.py could not start the document converter because the LibreOffice/soffice executable was not found in this environment"
+  },
+  "test_validation": {
+    "command": "node --test tests/regression/eve-00-method-kernel-package.test.ts",
+    "passed": false,
+    "tests_total": 5,
+    "tests_passed": 4,
+    "tests_failed": 1,
+    "failing_test": "D1 exists and D5 is explicitly unresolved when DOCX is absent",
+    "failing_location": "tests/regression/eve-00-method-kernel-package.test.ts:65-75",
+    "failing_assertion": "line 70 expects existsSync(d5DocxPath) === false, but D5 DOCX now exists"
+  },
+  "no_touch_confirmation": {
+    "no_cabling": true,
+    "no_registry": true,
+    "no_src": true,
+    "no_runtime_productivo": true,
+    "no_workmap": true,
+    "no_significado": true,
+    "no_ui": true,
+    "no_page_tsx": true,
+    "no_api": true,
+    "no_supabase": true,
+    "no_sql": true,
+    "no_package_json_or_lock": true,
+    "no_middleware": true,
+    "package_md_json_manifest_ts_not_modified": true
+  },
+  "remaining_gaps": [
+    "CONTROLLED_WIRING_NOT_DESIGNED",
+    "TEST_BASELINE_STILL_EXPECTS_D5_ABSENT"
+  ],
+  "resolved_gap": "PACKAGE_DOCX_STALE_AFTER_ADJUSTMENT"
+}

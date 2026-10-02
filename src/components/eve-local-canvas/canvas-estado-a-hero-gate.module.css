@@ -1,0 +1,227 @@
+/**
+ * Header monumental — primera pantalla completa del lienzo.
+ * Top bar = registry de sección; saludo/sesión a media altura.
+ */
+
+.gate {
+  --eve-ink: #12141a;
+  --eve-sheet: #fafbfc;
+  --eve-mist: #7a8190;
+  --eve-font-display: var(--font-eve-display), "Times New Roman", serif;
+  --eve-font-code: var(--font-eve-mono, "IBM Plex Mono"), "Consolas", monospace;
+
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100svh;
+  height: 100svh;
+  margin: 0;
+  padding: 0;
+  background: var(--eve-sheet);
+  color: var(--eve-ink);
+  font-family: var(--eve-font-code);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  scroll-margin-top: 0;
+}
+
+.topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 36px;
+  width: 100%;
+  margin: 0;
+  padding: 24px clamp(24px, 4vw, 56px);
+  box-sizing: border-box;
+}
+
+.logo {
+  --eve-mark-height: 11px;
+  --eve-text-size: 7px;
+  --eve-gap: 7px;
+  --eve-tracking: 0.42em;
+  --eve-tm-size: 4px;
+}
+
+.slogan {
+  color: var(--eve-mist);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  line-height: 1;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Welcome + sign-out: one line, mid viewport. */
+.sessionRow {
+  position: absolute;
+  top: 50%;
+  right: clamp(24px, 5vw, 72px);
+  z-index: 3;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 1.25em;
+  transform: translateY(-50%);
+  text-align: right;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--eve-mist);
+  line-height: 1.4;
+}
+
+.metaAction {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: min(640px, 100%);
+  padding: clamp(96px, 14vh, 140px) clamp(24px, 5vw, 72px) clamp(40px, 6vh, 72px);
+}
+
+.monumentLine {
+  margin: 0;
+  font-family: var(--eve-font-display);
+  font-size: clamp(44px, 7vw, 72px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--eve-ink);
+}
+
+.monumentEmphasis {
+  display: block;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.monumentSub {
+  margin: clamp(20px, 3vh, 28px) 0 0;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--eve-mist);
+}
+
+.enterLife .topbar,
+.enterLife .sessionRow,
+.enterLife .stage {
+  animation: quietRise 1.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.enterLife .topbar {
+  animation-delay: 40ms;
+}
+
+.enterLife .stage {
+  animation-delay: 180ms;
+}
+
+.enterLife .sessionRow {
+  animation-delay: 260ms;
+}
+
+@keyframes quietRise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes quietRiseMid {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-50% + 14px));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
+
+.enterLife .sessionRow {
+  animation-name: quietRiseMid;
+}
+
+@media (max-width: 720px) {
+  .gate {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .topbar {
+    position: static;
+    padding: 20px 22px;
+  }
+
+  .slogan {
+    white-space: normal;
+    max-width: 28ch;
+  }
+
+  .sessionRow {
+    position: static;
+    transform: none;
+    margin: clamp(48px, 12vh, 96px) clamp(24px, 5vw, 72px) 0;
+    justify-content: flex-start;
+    text-align: left;
+    flex-wrap: wrap;
+  }
+
+  .enterLife .sessionRow {
+    animation-name: quietRise;
+  }
+
+  .stage {
+    height: auto;
+    padding-top: clamp(40px, 8vh, 72px);
+  }
+
+  .monumentLine {
+    font-size: clamp(36px, 11vw, 48px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enterLife .topbar,
+  .enterLife .sessionRow,
+  .enterLife .stage {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .sessionRow {
+    transform: translateY(-50%);
+  }
+}

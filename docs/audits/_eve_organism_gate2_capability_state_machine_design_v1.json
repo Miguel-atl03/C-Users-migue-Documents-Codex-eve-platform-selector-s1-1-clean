@@ -1,0 +1,651 @@
+{
+  "design_id": "eve_organism_gate2_capability_state_machine_design_v1",
+  "generated_at": "2026-06-25T19:35:58.198Z",
+  "technical_object": "CapabilityAuthorityRecord",
+  "technical_object_constraints": {
+    "governance_artifact": true,
+    "not_client_MoC_class": true,
+    "does_not_replace_business_OLC": true,
+    "cannot_create_business_ObjectState": true
+  },
+  "states": [
+    {
+      "state": "OFF",
+      "semantic": "longitudinal authority state",
+      "allowed_actions": [
+        "read_contract"
+      ],
+      "forbidden_actions": [
+        "product_write",
+        "db_write",
+        "registry_write",
+        "export",
+        "diagnosis",
+        "ui_exposure",
+        "self_promotion"
+      ],
+      "allowed_side_effect_classes": [
+        "NONE",
+        "LOCAL_MEMORY_ONLY",
+        "LOCAL_AUDIT_RECORD"
+      ],
+      "human_authority_required": false,
+      "audit_required": true,
+      "current_gate2_allowed": true,
+      "future_only": false,
+      "exit_conditions_required": [
+        "real evidence",
+        "tenant/auth proof",
+        "ledger proof",
+        "rollback proof"
+      ]
+    },
+    {
+      "state": "VALIDATED",
+      "semantic": "longitudinal authority state",
+      "allowed_actions": [
+        "read_contract",
+        "evaluate_offline",
+        "append_ledger_record"
+      ],
+      "forbidden_actions": [
+        "product_write",
+        "db_write",
+        "registry_write",
+        "export",
+        "diagnosis",
+        "ui_exposure",
+        "self_promotion"
+      ],
+      "allowed_side_effect_classes": [
+        "NONE",
+        "LOCAL_MEMORY_ONLY",
+        "LOCAL_AUDIT_RECORD"
+      ],
+      "human_authority_required": false,
+      "audit_required": true,
+      "current_gate2_allowed": true,
+      "future_only": false,
+      "exit_conditions_required": [
+        "real evidence",
+        "tenant/auth proof",
+        "ledger proof",
+        "rollback proof"
+      ]
+    },
+    {
+      "state": "SHADOW",
+      "semantic": "longitudinal authority state",
+      "allowed_actions": [
+        "read_contract",
+        "evaluate_offline",
+        "append_ledger_record"
+      ],
+      "forbidden_actions": [
+        "product_write",
+        "db_write",
+        "registry_write",
+        "export",
+        "diagnosis",
+        "ui_exposure",
+        "self_promotion"
+      ],
+      "allowed_side_effect_classes": [
+        "NONE",
+        "LOCAL_MEMORY_ONLY",
+        "LOCAL_AUDIT_RECORD"
+      ],
+      "human_authority_required": false,
+      "audit_required": true,
+      "current_gate2_allowed": true,
+      "future_only": false,
+      "exit_conditions_required": [
+        "real evidence",
+        "tenant/auth proof",
+        "ledger proof",
+        "rollback proof"
+      ]
+    },
+    {
+      "state": "SUPERVISED",
+      "semantic": "longitudinal authority state",
+      "allowed_actions": [
+        "read_contract",
+        "evaluate_offline",
+        "append_ledger_record"
+      ],
+      "forbidden_actions": [
+        "product_write",
+        "db_write",
+        "registry_write",
+        "export",
+        "diagnosis",
+        "ui_exposure",
+        "self_promotion"
+      ],
+      "allowed_side_effect_classes": [
+        "NONE",
+        "LOCAL_MEMORY_ONLY",
+        "LOCAL_AUDIT_RECORD"
+      ],
+      "human_authority_required": true,
+      "audit_required": true,
+      "current_gate2_allowed": false,
+      "future_only": true,
+      "exit_conditions_required": [
+        "real evidence",
+        "tenant/auth proof",
+        "ledger proof",
+        "rollback proof"
+      ]
+    },
+    {
+      "state": "CONTROLLED_ACTIVE",
+      "semantic": "longitudinal authority state",
+      "allowed_actions": [
+        "read_contract",
+        "evaluate_offline",
+        "append_ledger_record"
+      ],
+      "forbidden_actions": [
+        "product_write",
+        "db_write",
+        "registry_write",
+        "export",
+        "diagnosis",
+        "ui_exposure",
+        "self_promotion"
+      ],
+      "allowed_side_effect_classes": [
+        "NONE",
+        "LOCAL_MEMORY_ONLY",
+        "LOCAL_AUDIT_RECORD"
+      ],
+      "human_authority_required": true,
+      "audit_required": true,
+      "current_gate2_allowed": false,
+      "future_only": true,
+      "exit_conditions_required": [
+        "real evidence",
+        "tenant/auth proof",
+        "ledger proof",
+        "rollback proof"
+      ]
+    },
+    {
+      "state": "ACTIVE",
+      "semantic": "longitudinal authority state",
+      "allowed_actions": [
+        "read_contract",
+        "evaluate_offline",
+        "append_ledger_record"
+      ],
+      "forbidden_actions": [
+        "product_write",
+        "db_write",
+        "registry_write",
+        "export",
+        "diagnosis",
+        "ui_exposure",
+        "self_promotion"
+      ],
+      "allowed_side_effect_classes": [
+        "NONE",
+        "LOCAL_MEMORY_ONLY",
+        "LOCAL_AUDIT_RECORD"
+      ],
+      "human_authority_required": true,
+      "audit_required": true,
+      "current_gate2_allowed": false,
+      "future_only": true,
+      "exit_conditions_required": [
+        "real evidence",
+        "tenant/auth proof",
+        "ledger proof",
+        "rollback proof"
+      ]
+    },
+    {
+      "state": "DEGRADED",
+      "semantic": "lateral exception state",
+      "allowed_actions": [
+        "read_contract",
+        "evaluate_offline",
+        "append_ledger_record"
+      ],
+      "forbidden_actions": [
+        "product_write",
+        "db_write",
+        "registry_write",
+        "export",
+        "diagnosis",
+        "ui_exposure",
+        "self_promotion"
+      ],
+      "allowed_side_effect_classes": [
+        "NONE",
+        "LOCAL_MEMORY_ONLY",
+        "LOCAL_AUDIT_RECORD"
+      ],
+      "human_authority_required": false,
+      "audit_required": true,
+      "current_gate2_allowed": true,
+      "future_only": false,
+      "exit_conditions_required": [
+        "real evidence",
+        "tenant/auth proof",
+        "ledger proof",
+        "rollback proof"
+      ]
+    },
+    {
+      "state": "QUARANTINED",
+      "semantic": "lateral exception state",
+      "allowed_actions": [
+        "read_contract",
+        "evaluate_offline",
+        "append_ledger_record"
+      ],
+      "forbidden_actions": [
+        "product_write",
+        "db_write",
+        "registry_write",
+        "export",
+        "diagnosis",
+        "ui_exposure",
+        "self_promotion"
+      ],
+      "allowed_side_effect_classes": [
+        "NONE",
+        "LOCAL_MEMORY_ONLY",
+        "LOCAL_AUDIT_RECORD"
+      ],
+      "human_authority_required": false,
+      "audit_required": true,
+      "current_gate2_allowed": true,
+      "future_only": false,
+      "exit_conditions_required": [
+        "real evidence",
+        "tenant/auth proof",
+        "ledger proof",
+        "rollback proof"
+      ]
+    },
+    {
+      "state": "ROLLBACK_IN_PROGRESS",
+      "semantic": "lateral exception state",
+      "allowed_actions": [
+        "read_contract",
+        "evaluate_offline",
+        "append_ledger_record"
+      ],
+      "forbidden_actions": [
+        "product_write",
+        "db_write",
+        "registry_write",
+        "export",
+        "diagnosis",
+        "ui_exposure",
+        "self_promotion"
+      ],
+      "allowed_side_effect_classes": [
+        "NONE",
+        "LOCAL_MEMORY_ONLY",
+        "LOCAL_AUDIT_RECORD"
+      ],
+      "human_authority_required": true,
+      "audit_required": true,
+      "current_gate2_allowed": false,
+      "future_only": false,
+      "exit_conditions_required": [
+        "real evidence",
+        "tenant/auth proof",
+        "ledger proof",
+        "rollback proof"
+      ]
+    },
+    {
+      "state": "REVOKED",
+      "semantic": "lateral exception state",
+      "allowed_actions": [
+        "read_contract",
+        "evaluate_offline",
+        "append_ledger_record"
+      ],
+      "forbidden_actions": [
+        "product_write",
+        "db_write",
+        "registry_write",
+        "export",
+        "diagnosis",
+        "ui_exposure",
+        "self_promotion"
+      ],
+      "allowed_side_effect_classes": [
+        "NONE",
+        "LOCAL_MEMORY_ONLY",
+        "LOCAL_AUDIT_RECORD"
+      ],
+      "human_authority_required": true,
+      "audit_required": true,
+      "current_gate2_allowed": true,
+      "future_only": false,
+      "exit_conditions_required": [
+        "real evidence",
+        "tenant/auth proof",
+        "ledger proof",
+        "rollback proof"
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "transition_id": "TR-001",
+      "from_state": "OFF",
+      "to_state": "VALIDATED",
+      "trigger": "validation evidence accepted",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": false,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": false,
+      "timer_name": "none",
+      "timer_status": "not_required",
+      "timeout_action": "not_applicable",
+      "current_gate2_authorized": true,
+      "reason": "current_gate2_authorized_if_offline_only"
+    },
+    {
+      "transition_id": "TR-002",
+      "from_state": "VALIDATED",
+      "to_state": "SHADOW",
+      "trigger": "offline/replay shadow lane selected",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": false,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": false,
+      "timer_name": "none",
+      "timer_status": "not_required",
+      "timeout_action": "not_applicable",
+      "current_gate2_authorized": true,
+      "reason": "current_gate2_authorized_if_no_product_side_effect"
+    },
+    {
+      "transition_id": "TR-003",
+      "from_state": "SHADOW",
+      "to_state": "SUPERVISED",
+      "trigger": "human authority plus real evidence",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required",
+        "real_product_evidence",
+        "tenant_auth_isolation_proof",
+        "no_mutation_proof",
+        "ledger_entry_required",
+        "human_authority_required",
+        "gate2_to_gate3_checklist_passed"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effects_until_future_authorized_promotion",
+      "timer_required": true,
+      "timer_name": "review_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "degrade_or_request_review",
+      "current_gate2_authorized": false,
+      "reason": "future_only_requires_real_evidence_human_authority_no_mutation_tenant_auth_ledger_and_promotion_checklist",
+      "future_only": true,
+      "current_gate2_result": "blocked_by_current_authority"
+    },
+    {
+      "transition_id": "TR-004",
+      "from_state": "SUPERVISED",
+      "to_state": "CONTROLLED_ACTIVE",
+      "trigger": "release authority requested",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": true,
+      "timer_name": "review_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "degrade_or_request_review",
+      "current_gate2_authorized": false,
+      "reason": "future_only",
+      "future_only": true
+    },
+    {
+      "transition_id": "TR-005",
+      "from_state": "CONTROLLED_ACTIVE",
+      "to_state": "ACTIVE",
+      "trigger": "full release approved",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": true,
+      "timer_name": "review_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "degrade_or_request_review",
+      "current_gate2_authorized": false,
+      "reason": "future_only",
+      "future_only": true
+    },
+    {
+      "transition_id": "TR-006",
+      "from_state": "ANY_LIVE",
+      "to_state": "DEGRADED",
+      "trigger": "high finding or missing proof",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": true,
+      "timer_name": "degradation_review_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "degrade_or_request_review",
+      "current_gate2_authorized": false,
+      "reason": "design_only"
+    },
+    {
+      "transition_id": "TR-007",
+      "from_state": "ANY_LIVE",
+      "to_state": "QUARANTINED",
+      "trigger": "critical finding or tenant/auth breach",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": true,
+      "timer_name": "quarantine_review_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "remain_quarantined_or_revoke",
+      "current_gate2_authorized": false,
+      "reason": "design_only"
+    },
+    {
+      "transition_id": "TR-008",
+      "from_state": "CONTROLLED_ACTIVE_OR_ACTIVE",
+      "to_state": "ROLLBACK_IN_PROGRESS",
+      "trigger": "rollback requested",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": true,
+      "timer_name": "rollback_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "degrade_or_request_review",
+      "current_gate2_authorized": false,
+      "reason": "future_only"
+    },
+    {
+      "transition_id": "TR-009",
+      "from_state": "ANY",
+      "to_state": "REVOKED",
+      "trigger": "authority revoked by human decision",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": false,
+      "timer_name": "none",
+      "timer_status": "not_required",
+      "timeout_action": "not_applicable",
+      "current_gate2_authorized": false,
+      "reason": "design_only"
+    },
+    {
+      "transition_id": "TR-010",
+      "from_state": "DEGRADED",
+      "to_state": "SHADOW",
+      "trigger": "review accepted",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": true,
+      "timer_name": "review_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "degrade_or_request_review",
+      "current_gate2_authorized": false,
+      "reason": "design_only"
+    },
+    {
+      "transition_id": "TR-011",
+      "from_state": "QUARANTINED",
+      "to_state": "SHADOW",
+      "trigger": "review and evidence accepted",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": true,
+      "timer_name": "quarantine_review_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "degrade_or_request_review",
+      "current_gate2_authorized": false,
+      "reason": "design_only"
+    },
+    {
+      "transition_id": "TR-012",
+      "from_state": "ROLLBACK_IN_PROGRESS",
+      "to_state": "SHADOW",
+      "trigger": "rollback completed to shadow",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": true,
+      "timer_name": "rollback_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "degrade_or_request_review",
+      "current_gate2_authorized": false,
+      "reason": "future_only"
+    },
+    {
+      "transition_id": "TR-013",
+      "from_state": "ROLLBACK_IN_PROGRESS",
+      "to_state": "OFF",
+      "trigger": "rollback completed to off",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": true,
+      "timer_name": "rollback_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "degrade_or_request_review",
+      "current_gate2_authorized": false,
+      "reason": "future_only"
+    },
+    {
+      "transition_id": "TR-014",
+      "from_state": "ROLLBACK_IN_PROGRESS",
+      "to_state": "REVOKED",
+      "trigger": "rollback failed or authority revoked",
+      "required_evidence": [
+        "source_artifact_hash",
+        "ledger_entry",
+        "human_authority_ref_if_required"
+      ],
+      "required_human_authority": true,
+      "required_ledger_entry": true,
+      "side_effect_policy": "no_product_side_effect_in_gate2",
+      "timer_required": true,
+      "timer_name": "rollback_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "degrade_or_request_review",
+      "current_gate2_authorized": false,
+      "reason": "future_only"
+    }
+  ],
+  "current_supervised": 0,
+  "current_controlled_active": 0,
+  "current_active": 0,
+  "current_gate2_allowed_states": [
+    "OFF",
+    "VALIDATED",
+    "SHADOW",
+    "DEGRADED",
+    "QUARANTINED",
+    "ROLLBACK_IN_PROGRESS",
+    "REVOKED"
+  ],
+  "current_gate2_not_allowed_states": [
+    "SUPERVISED",
+    "CONTROLLED_ACTIVE",
+    "ACTIVE"
+  ],
+  "fix_state_machine_applied": true
+}

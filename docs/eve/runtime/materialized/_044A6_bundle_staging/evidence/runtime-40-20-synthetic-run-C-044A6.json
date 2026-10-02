@@ -1,0 +1,310 @@
+{
+  "scenario": "C_fail_closed",
+  "token": "C-2026-08-09T06-28-34-861Z",
+  "run_id": "19d75197-5113-4601-ab03-4e10c328f483",
+  "case_id": "synthetic:044A6:C-2026-08-09T06-28-34-861Z",
+  "lineage": [
+    {
+      "runtime_interaction_id": "B0-Q01",
+      "instance_id": "498c7d5b-b13f-4f5b-9b33-07d4ae7348a8",
+      "source_capture_slot_count": 5,
+      "response_id": "6d179a88-7537-4e88-88f5-77d09eaaf099",
+      "budget_base": 1,
+      "budget_causal": 0,
+      "branching_outcomes": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B0-Q02",
+      "instance_id": "59ad3819-d6dc-4a73-9025-76a57abc78b9",
+      "source_capture_slot_count": 3,
+      "response_id": "87cb1dfa-b7f9-4882-ae67-cf468c11804e",
+      "budget_base": 2,
+      "budget_causal": 0,
+      "branching_outcomes": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B0-Q03",
+      "instance_id": "4055b48c-2f59-43a7-a4cc-bcb1d01dcc89",
+      "source_capture_slot_count": 3,
+      "response_id": "08fe8264-70ef-4b85-8ffb-e615e8f01099",
+      "budget_base": 3,
+      "budget_causal": 0,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C01",
+          "result": "not_opened",
+          "trigger_canonical_variable": "activity_frequency_base",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "b7_confidence": null
+    }
+  ],
+  "stateTrace": [
+    {
+      "at": "start",
+      "state": "active_base_capture",
+      "run_id": "19d75197-5113-4601-ab03-4e10c328f483",
+      "synthetic_run_label": "run-044A6-C-2026-08-09T06-28-34-861Z"
+    },
+    {
+      "at": "post_capture",
+      "opened_remaining": 0
+    },
+    {
+      "at": "evaluate_gates",
+      "phase": "readiness_evaluation",
+      "classification": "runtime_40_20_regulatory_layer_conformant_local_only"
+    },
+    {
+      "at": "complete_readiness_error",
+      "error": "Error: caller_forced_ready_rejected"
+    }
+  ],
+  "gates": {
+    "ok": true,
+    "classification": "runtime_40_20_regulatory_layer_conformant_local_only",
+    "c20": {
+      "status": "available",
+      "confidence_level": "high",
+      "confidence_score": null,
+      "producer": "connected",
+      "rector": "EVE_Runtime_B7_Confidence_Governance_Rule_v1_0",
+      "note": "Epistemic confidence only. confidence_score nullable/non-authoritative. Business structural inconsistency preserved, not penalized. EVE pathology table diagnostic_only / forbidden in B7."
+    },
+    "diagnostic_non_contamination_boundary": "enforced",
+    "EVE_pathology_inputs_to_confidence": 0,
+    "critical_routes": [
+      {
+        "gate": "CR-B0",
+        "outcome": "passed",
+        "reason": null,
+        "evidence_basis": {
+          "organ": "evaluateB0SemanticEntryGateLocally",
+          "b0": {
+            "b0_gate_candidate_ref": "synthetic:044A6:C-2026-08-09T06-28-34-861Z:B0:1:semantic_entry_gate_candidate",
+            "b0_q01_protected": true,
+            "semantic_entry_route": "B0-Q01",
+            "protected_object_hint": "ActivitySemanticEntry / SceneCanonicalRecord readiness",
+            "action_verb_present": true,
+            "input_or_object_present": true,
+            "procedure_or_standard_present": true,
+            "output_or_result_present": true,
+            "user_correction_note_preserved": false,
+            "semantic_confirmation_status": "confirmed",
+            "preload_confirmed": true,
+            "ambiguous_activity_text_blocked": false,
+            "minimum_structure_present": true,
+            "readiness_gap_record_candidate_created": false,
+            "reentry_required_candidate_created": false,
+            "finding_code": "b0_semantic_entry_blocked",
+            "ready_declared": false,
+            "scene_canonical_record_real_created": false,
+            "source_trace": {
+              "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+              "source_sheet": "regulatory_layer_044A5BR",
+              "source_row_number": 1,
+              "instruction": "044-A.5B-R",
+              "organ": "regulatory_layer"
+            },
+            "blocking_reasons": []
+          }
+        },
+        "organ": "critical-gates"
+      },
+      {
+        "gate": "CR-B2",
+        "outcome": "passed",
+        "reason": null,
+        "evidence_basis": {
+          "organ": "evaluateB2TransformationExceptionGateLocally",
+          "b2": {
+            "b2_gate_candidate_ref": "synthetic:044A6:C-2026-08-09T06-28-34-861Z:B2:1:transformation_exception_gate_candidate",
+            "transformation_exception_route": "CR-B2",
+            "protected_object_hint": "TransformationExceptionEvidence / CanonicalRouteException",
+            "transformation_exception_exists": false,
+            "transformation_exception_description": "",
+            "transformation_exception_route_unresolved": false,
+            "textual_exception_separated_from_closed_route": true,
+            "textual_exception_without_closed_route_blocked": false,
+            "blocked_by_missing_canonical_route_candidate_created": false,
+            "route_gap_candidate_created": false,
+            "readiness_gap_record_candidate_created": false,
+            "finding_code": "transformation_exception_route_unresolved",
+            "closed_variable_from_free_text_created": false,
+            "pf_olc_projection_without_closed_route": false,
+            "source_trace": {
+              "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+              "source_sheet": "regulatory_layer_044A5BR",
+              "source_row_number": 1,
+              "instruction": "044-A.5B-R",
+              "organ": "regulatory_layer"
+            },
+            "blocking_reasons": []
+          }
+        },
+        "organ": "critical-gates"
+      },
+      {
+        "gate": "CR-B3",
+        "outcome": "passed",
+        "reason": null,
+        "evidence_basis": {
+          "organ": "evaluateB3ReceiverFeedbackGateLocally",
+          "satisfaction_separated": true,
+          "feedback_separated": true,
+          "b3": {
+            "b3_gate_candidate_ref": "synthetic:044A6:C-2026-08-09T06-28-34-861Z:B3:1:receiver_feedback_gate_candidate",
+            "cr_b3_r9_c09_route": "CR-B3-R9 / C09",
+            "protected_object_hint": "ReceiverFeedbackObject / OperationalExceptionEvidence",
+            "receiver_feedback_exists": false,
+            "receiver_feedback": "Feedback canónico de receptor ausente / no capturado",
+            "receiver_feedback_gap_flag": false,
+            "receiver_feedback_route_missing": false,
+            "receiver_satisfaction_separated": true,
+            "delivery_failure_separated": true,
+            "satisfaction_general_as_feedback_blocked": false,
+            "ambiguous_comment_as_receiver_feedback_blocked": false,
+            "c09_closed_by_wrong_route": false,
+            "route_missing_preserved_when_no_canonical_route": false,
+            "readiness_gap_record_candidate_created": false,
+            "finding_code": "receiver_feedback_route_missing",
+            "handoff_feedback_closed_without_canonical_route": false,
+            "receiver_feedback_object_real_created": false,
+            "source_trace": {
+              "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+              "source_sheet": "regulatory_layer_044A5BR",
+              "source_row_number": 1,
+              "instruction": "044-A.5B-R",
+              "organ": "regulatory_layer"
+            },
+            "blocking_reasons": []
+          }
+        },
+        "organ": "critical-gates"
+      },
+      {
+        "gate": "CR-B7",
+        "outcome": "passed",
+        "reason": null,
+        "evidence_basis": {
+          "organ": "evaluateB7C20NonDiagnosticBoundaryGateLocally",
+          "non_diagnostic": true,
+          "b7": {
+            "b7_gate_candidate_ref": "synthetic:044A6:C-2026-08-09T06-28-34-861Z:B7:1:non_diagnostic_boundary_gate_candidate",
+            "b7_q39_boundary_supported": true,
+            "b7_q40_boundary_supported": true,
+            "c20_boundary_supported": true,
+            "protected_object_hint": "PreclassificationRecord / NonDiagnosticBoundary",
+            "diagnostic_status_non_diagnostic": true,
+            "signal_status_preclassification_only": true,
+            "confidence_supported": true,
+            "uncertainty_supported": true,
+            "microconfirmation_refs_supported": true,
+            "moc_direct_blocked": true,
+            "registry_direct_blocked": true,
+            "ir_direct_blocked": true,
+            "export_direct_blocked": true,
+            "diagnosis_blocked": true,
+            "root_cause_blocked": true,
+            "monetization_blocked": true,
+            "final_narrative_blocked": true,
+            "vsm_ahe_final_blocked": true,
+            "readiness_gap_record_candidate_created_if_elevation_attempted": false,
+            "finding_code": "b7_non_diagnostic_boundary_violation",
+            "export_preview_created": false,
+            "source_trace": {
+              "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+              "source_sheet": "regulatory_layer_044A5BR",
+              "source_row_number": 1,
+              "instruction": "044-A.5B-R",
+              "organ": "regulatory_layer"
+            },
+            "blocking_reasons": []
+          }
+        },
+        "organ": "critical-gates"
+      }
+    ],
+    "sem": [
+      {
+        "gate": "SEM-001",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-002",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-003",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-004",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-005",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-006",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-007",
+        "outcome": "passed"
+      }
+    ],
+    "pst": [
+      {
+        "gate": "PST-001",
+        "outcome": "not_applicable"
+      },
+      {
+        "gate": "PST-002",
+        "outcome": "not_applicable"
+      },
+      {
+        "gate": "PST-003",
+        "outcome": "not_applicable"
+      },
+      {
+        "gate": "PST-004",
+        "outcome": "not_applicable"
+      },
+      {
+        "gate": "PST-005",
+        "outcome": "not_applicable"
+      },
+      {
+        "gate": "PST-006",
+        "outcome": "not_applicable"
+      }
+    ],
+    "timer_event_id": null
+  },
+  "readiness": null,
+  "readinessError": "Error: caller_forced_ready_rejected",
+  "reconciliation": {
+    "interaction_instances": 3,
+    "responses": 3,
+    "subfields": 6,
+    "evidence": 6,
+    "canonical": 14,
+    "branching": 0,
+    "budget": 3,
+    "sem": 7,
+    "pst": 0,
+    "readiness_gaps": 0,
+    "readiness_decisions": 0,
+    "audit": 7,
+    "budget_sums": {
+      "base_used": 3,
+      "causal_used": 0
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-MATERIAL-COMPARISON-UNBLOCK-V0",
+  "dictamen": "GATE_ENGINE_MATERIAL_COMPARISON_UNBLOCKED_READY_FOR_QA_RERUN",
+  "pdfTextExtractionBlocked": false,
+  "extractorsTried": [
+    {
+      "extractorTried": "pdftotext",
+      "extractorAvailable": false,
+      "extractionSucceeded": false,
+      "blockedReason": "not available in PATH or bundled bin"
+    },
+    {
+      "extractorTried": "Python pypdf",
+      "extractorAvailable": true,
+      "extractionSucceeded": true,
+      "extractedChars": null,
+      "outputPath": null,
+      "blockedReason": null
+    },
+    {
+      "extractorTried": "Python pdfminer.high_level.extract_text",
+      "extractorAvailable": true,
+      "extractionSucceeded": true,
+      "extractedChars": null,
+      "outputPath": null,
+      "blockedReason": null
+    },
+    {
+      "extractorTried": "Python PyMuPDF / fitz",
+      "extractorAvailable": false,
+      "extractionSucceeded": false,
+      "blockedReason": "module not available"
+    },
+    {
+      "extractorTried": "Node pdfjs-dist",
+      "extractorAvailable": true,
+      "extractionSucceeded": "not_needed_after_pdfminer_success",
+      "blockedReason": null
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "D1",
+      "path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/sources/Fundamentals of Business Architecture Modeling.pdf",
+      "extractorUsed": "pdfminer.high_level.extract_text",
+      "extractionSucceeded": true,
+      "extractedChars": 520530,
+      "pages": 293,
+      "outputPath": null,
+      "relevantSignalsFound": [
+        "Business Architecture Modeling",
+        "Object Life Cycle Model",
+        "Conformance Evaluation",
+        "Consistency Evaluation",
+        "Basic Factual Consistency Rules"
+      ],
+      "blockedReason": null
+    },
+    {
+      "sourceId": "VSM1",
+      "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/Organizational Systems Managing Complexity with the Viable System model.pdf",
+      "pathAccessNote": "Direct path exceeded legacy Windows access behavior; temporary short-path copy was used for extraction without modifying the original PDF.",
+      "tempCopyUsed": true,
+      "extractorUsed": "pdfminer.high_level.extract_text",
+      "extractionSucceeded": true,
+      "extractedChars": 800630,
+      "pages": 385,
+      "outputPath": null,
+      "relevantSignalsFound": [
+        "Viable System Model",
+        "requisite variety",
+        "identity"
+      ],
+      "blockedReason": null
+    }
+  ]
+}

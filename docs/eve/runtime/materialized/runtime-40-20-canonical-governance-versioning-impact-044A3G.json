@@ -1,0 +1,38 @@
+{
+  "instruction": "044-A.3G",
+  "classification": "blocked_rector_canonical_mapping_semantics_absent",
+  "governance_decision_package_ready": true,
+  "catalog_version_id_active": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "governing_rules_consulted": [
+    "docs/eve/runtime/rectors/Regla_Rectora_General_Identidad_Catalogo_Runtime_40_20_EVE_v1_0_APROBADA.md (EVE-RUNTIME-CATID-R1)",
+    "docs/eve/runtime/rectors/Regla_Rectora_General_Persistencia_Semantica_Runtime_40_20_EVE_v1_0_APROBADA.md (EVE-RUNTIME-SEMPERSIST-R1)",
+    "docs/eve/runtime/materialized/runtime-40-20-B0-full-activation-semantics-043A.json",
+    "docs/eve/runtime/materialized/runtime-40-20-phase2-QA-activation-conformance-043.json"
+  ],
+  "hypothetical": "IF human-approved new authoritative content defines executable evidence/subfield → canonical_variable_name and/or executable must_not_infer policies that are not present in the current XLSX/DOCX literals used to compose the active catalog identity",
+  "findings_from_approved_rules": {
+    "identity_depends_on_xlsx_checksums": "EVE-RUNTIME-CATID-R1 composes catalog_version_id from a canonical manifest including exact SHA-256 of Runtime XLSX and Madre XLSX. Changing authoritative workbook content changes the checksum and therefore the identity.",
+    "active_full_must_remain_immutable_as_identity": "The active FULL identity string is bound to the checksummed sources that produced it. Approved new mapping content that alters those sources cannot be silently written into the same identity.",
+    "activation_pattern_observed": "Phase-2 / 043 activation pattern: load new catalog version as draft → QA → activate; previous active may be superseded; historical identities preserved.",
+    "sempersist_forbids_invented_aliases": "SEMPERSIST-R1 forbids alias/fuzzy creation; new executable mappings require explicit approved rector content, not runtime invention."
+  },
+  "dictamen": {
+    "constitutes_new_authoritative_content": true,
+    "requires_new_catalog_identity": true,
+    "requires_new_xlsx_or_docx_version": true,
+    "active_full_may_remain_immutable": true,
+    "requires_draft_load_and_qa_reactivation": true,
+    "invented_version_number": null,
+    "note": "No new version label (e.g. v1.1.2) is assigned here. Identity must be recomputed per EVE-RUNTIME-CATID-R1 after approved source content exists."
+  },
+  "versioning_impact": "resolved_by_existing_identity_and_activation_rules",
+  "steps_not_executed": [
+    "catalog modification",
+    "xlsx/docx modification",
+    "new catalog_version_id creation",
+    "draft load",
+    "QA",
+    "activation",
+    "044-A.3 reopen"
+  ]
+}

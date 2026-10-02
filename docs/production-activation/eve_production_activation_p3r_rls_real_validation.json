@@ -1,0 +1,53 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P3R_SUPABASE_ENVIRONMENT_BINDING_MIGRATION_APPLICATION_COMPLETED",
+  "plan_phase": "Production activation — P3-R Supabase environment binding and migration application",
+  "generated_at": "2026-07-08T01:10:00-06:00",
+  "validation_target": "supabase_local_eve-platform",
+  "validation_mode": "live_postgres_inspection",
+  "static_validator": {
+    "script": "scripts/eve/production-activation/p3-validate-rls-policies.mjs",
+    "status": "passed",
+    "tables_checked": 19,
+    "failures": [],
+    "anonymous_unrestricted_access": false,
+    "public_unrestricted_access": false
+  },
+  "real_db_validation": {
+    "status": "passed",
+    "tables_with_rls_enabled": 19,
+    "tables_with_force_rls": 19,
+    "policy_pattern": "tenant_case_select_insert_update",
+    "policies_per_table": 3,
+    "total_runtime_policies": 57,
+    "anon_table_grants_on_runtime_tables": null,
+    "anon_policies_on_runtime_tables": 0,
+    "unscoped_using_true_policies": 0,
+    "sample_rls_state": [
+      {
+        "table": "runtime_catalog_version",
+        "rowsecurity": true,
+        "forcerowsecurity": true,
+        "policy_count": 3
+      },
+      {
+        "table": "parallel_export_payload",
+        "rowsecurity": true,
+        "forcerowsecurity": true,
+        "policy_count": 3
+      },
+      {
+        "table": "runtime_audit_trail",
+        "rowsecurity": true,
+        "forcerowsecurity": true,
+        "policy_count": 3
+      }
+    ]
+  },
+  "service_role_guard": {
+    "script": "scripts/eve/production-activation/p3-scan-service-role-exposure.mjs",
+    "status": "passed",
+    "service_role_in_client": false,
+    "service_role_key_committed": false,
+    "next_public_service_role_found": false
+  }
+}

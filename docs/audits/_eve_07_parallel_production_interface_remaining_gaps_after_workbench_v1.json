@@ -1,0 +1,51 @@
+{
+  "auditId": "EVE07-WORKBENCH-CONTENT-REPAIR-V1",
+  "dictamen": "PARALLEL_PRODUCTION_INTERFACE_WORKBENCH_CONTENT_REPAIRED_READY_FOR_INDEPENDENT_QA_RERUN",
+  "workbenchRegistry": {
+    "pendingSourceProof": 0,
+    "pendingLocatorPrecision": 0,
+    "directD1PrimaryProofs": 0,
+    "unclassifiedCertificationClaims": 0
+  },
+  "liveGaps": [
+    {
+      "gapId": "INDEPENDENT_QA_RERUN_REQUIRED",
+      "severity": "blocking_for_certification",
+      "count": 1,
+      "description": "La mesa prepara evidencia; no acepta ni certifica sus propias reparaciones.",
+      "nextAction": "Reejecutar QA independiente V1_1 contra fuentes originales."
+    },
+    {
+      "gapId": "REPAIRED_PROOFS_REQUIRE_INDEPENDENT_ACCEPTANCE",
+      "severity": "blocking_for_certification",
+      "count": 3,
+      "rules": [
+        "REGC-006",
+        "REGC-011",
+        "EXBE-013"
+      ],
+      "nextAction": "Verificar source path, locator, excerpt, hash, rol y equivalencia semántica."
+    },
+    {
+      "gapId": "MAPPING_LOCATORS_REQUIRE_INDEPENDENT_ACCEPTANCE",
+      "severity": "blocking_for_certification",
+      "count": 27,
+      "description": "26 mappings y la nota técnica D8 fueron preparados; deben ser aceptados por QA."
+    },
+    {
+      "gapId": "CERTIFICATION_CLAIMS_REQUIRE_INDEPENDENT_ACCEPTANCE",
+      "severity": "blocking_for_certification",
+      "count": 16,
+      "description": "Las claims antiguas fueron degradadas o convertidas en checks de mesa, no certificación."
+    },
+    {
+      "gapId": "SHADOW_HARNESS_OUT_OF_SEQUENCE_NON_CERTIFYING",
+      "severity": "non_blocking",
+      "count": 1,
+      "description": "La evidencia anticipada del harness se conserva como no certificante."
+    }
+  ],
+  "noMaterialSemanticGapIntroducedByWorkbench": true,
+  "qaSatisfactoryDeclared": false,
+  "certificationDeclared": false
+}

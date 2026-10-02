@@ -1,0 +1,1807 @@
+{
+  "scenario": "B_microconfirmation_C20",
+  "token": "B-2026-08-09T07-23-05-904Z",
+  "run_id": "cf3fa2ec-4d10-41f4-a8b1-474f5e2cca17",
+  "case_id": "synthetic:044A6R:B-2026-08-09T07-23-05-904Z",
+  "lineage": [
+    {
+      "runtime_interaction_id": "B0-Q01",
+      "instance_id": "5c77b32e-4836-4d3d-90f1-6f0da2a0fbbc",
+      "source_capture_slot_count": 5,
+      "response_id": "e06a6814-4aa8-407e-b0bf-20728274909b",
+      "budget_base": 1,
+      "budget_causal": 0,
+      "branching_outcomes": [],
+      "run_state": "active_base_capture",
+      "runtime_phase": "questionnaire_main",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B0-Q02",
+      "instance_id": "5ed59efa-bef2-40f7-9cfa-d05d13ae9cc8",
+      "source_capture_slot_count": 3,
+      "response_id": "4e4d8601-c6c8-4877-8a87-c0db80cef8cd",
+      "budget_base": 2,
+      "budget_causal": 0,
+      "branching_outcomes": [],
+      "run_state": "active_base_capture",
+      "runtime_phase": "questionnaire_main",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B0-Q03",
+      "instance_id": "5bdeb5f0-e01f-4ce3-bba4-d7431860f400",
+      "source_capture_slot_count": 3,
+      "response_id": "f47bcab6-8411-4ba1-8c56-d382e1b7ef53",
+      "budget_base": 3,
+      "budget_causal": 0,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C01",
+          "result": "not_opened",
+          "trigger_canonical_variable": "activity_frequency_base",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "active_base_capture",
+      "runtime_phase": "questionnaire_main",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B0-Q04",
+      "instance_id": "fc09311c-d447-4326-af59-3d1937e7b659",
+      "source_capture_slot_count": 3,
+      "response_id": "07753663-67cc-4d2f-9533-7d5fcaaf108c",
+      "budget_base": 4,
+      "budget_causal": 0,
+      "branching_outcomes": [],
+      "run_state": "active_base_capture",
+      "runtime_phase": "questionnaire_main",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B05-Q05",
+      "instance_id": "a9cb9382-95b6-494f-94c0-ec1ac08b8a27",
+      "source_capture_slot_count": 5,
+      "response_id": "5d95ce04-bb63-4b9d-ac01-8a2f3c5f4506",
+      "budget_base": 5,
+      "budget_causal": 0,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C02",
+          "result": "opened",
+          "trigger_canonical_variable": "relacion_beneficiario_afectado_0_5_1_rel",
+          "eligibility": "causal_required_by_exact_signal"
+        }
+      ],
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture",
+      "state_machine_transitions": [
+        {
+          "from": "active_base_capture",
+          "to": "base_complete",
+          "cause": "governed_base_complete_before_causal",
+          "audit_id": "54b859fb-0843-4ac5-927b-ee79a61863a2",
+          "at": "2026-08-09T07:24:00.840Z"
+        },
+        {
+          "from": "base_complete",
+          "to": "causal_evaluation_pending",
+          "cause": "governed_causal_evaluation_pending",
+          "audit_id": "0a655999-4f9c-45d0-8abd-83b354e72cdc",
+          "at": "2026-08-09T07:24:01.036Z"
+        },
+        {
+          "from": "causal_evaluation_pending",
+          "to": "active_causal_capture",
+          "cause": "governed_causal_capture_started",
+          "audit_id": "53dc4d4c-b6fb-4ef0-bc53-3dd4dabdf11f",
+          "at": "2026-08-09T07:24:01.198Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "C02",
+      "instance_id": "9f042774-5023-4ddc-a905-0473f1fae615",
+      "source_capture_slot_count": 3,
+      "response_id": "4148f0c2-097e-4b31-8a54-44c65fee1997",
+      "budget_base": 5,
+      "budget_causal": 1,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [
+        {
+          "from": "active_causal_capture",
+          "to": "causal_evaluation_pending",
+          "cause": "governed_causal_capture_completed",
+          "audit_id": "5a77a09b-a075-43af-956c-a3d68b8d2c55",
+          "at": "2026-08-09T07:24:01.916Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B05-Q06",
+      "instance_id": "873f2272-5e5a-4201-b2e6-5933f33348d3",
+      "source_capture_slot_count": 2,
+      "response_id": "cadd0460-3082-4a63-811f-de4e349476c1",
+      "budget_base": 6,
+      "budget_causal": 1,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B05-Q07",
+      "instance_id": "fa0043c5-49ff-43fa-8e28-c375f0663e1b",
+      "source_capture_slot_count": 3,
+      "response_id": "d79e9e29-9701-40c6-bccb-4af28a8b1374",
+      "budget_base": 7,
+      "budget_causal": 1,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B1-Q08",
+      "instance_id": "738305f1-98de-4c7a-aa29-b54c3ac2d234",
+      "source_capture_slot_count": 2,
+      "response_id": "27557d37-b66d-41ce-91bf-df938470e254",
+      "budget_base": 8,
+      "budget_causal": 1,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B1-Q09",
+      "instance_id": "69d57475-9726-491e-b68f-17500d6fd116",
+      "source_capture_slot_count": 2,
+      "response_id": "23c4325e-f4ce-4fd0-92f0-25cda380cc89",
+      "budget_base": 9,
+      "budget_causal": 1,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C03",
+          "result": "not_opened",
+          "trigger_canonical_variable": "trigger_clarity",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B1-Q10",
+      "instance_id": "abccf343-7892-4b05-b326-a8b9f9374034",
+      "source_capture_slot_count": 1,
+      "response_id": "15c8f465-b90d-4f4d-af6e-13bfe17754c8",
+      "budget_base": 10,
+      "budget_causal": 1,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B1-Q11",
+      "instance_id": "52ce3e69-95c8-4bef-a0fd-eabd7a302abd",
+      "source_capture_slot_count": 2,
+      "response_id": "d3d9263b-7323-4abf-8d07-71bc84fc5809",
+      "budget_base": 11,
+      "budget_causal": 1,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C03",
+          "result": "not_opened",
+          "trigger_canonical_variable": "trigger_exception_exists",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B2-Q12",
+      "instance_id": "29592033-ee93-4e9e-b578-a35d29287944",
+      "source_capture_slot_count": 4,
+      "response_id": "22527256-ade8-4ecf-a84b-8f2042bce583",
+      "budget_base": 12,
+      "budget_causal": 1,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C04",
+          "result": "not_opened",
+          "trigger_canonical_variable": "transformation_primary_dimensions",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B2-Q13",
+      "instance_id": "4f37ed2d-949b-4059-a70d-89b8e048aea5",
+      "source_capture_slot_count": 3,
+      "response_id": "8cef0e89-2cc0-46e1-b72c-4524b74ea7ba",
+      "budget_base": 13,
+      "budget_causal": 1,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B2-Q14",
+      "instance_id": "9ee5576c-12ec-459a-b2c9-2dc25c2bd966",
+      "source_capture_slot_count": 2,
+      "response_id": "161902a1-63a8-4e5e-95a6-4c8bbf5cf57d",
+      "budget_base": 14,
+      "budget_causal": 1,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B2-Q15",
+      "instance_id": "12344ee1-3ccd-4d23-ab01-8530d246ff33",
+      "source_capture_slot_count": 2,
+      "response_id": "0d732fe3-9ee3-41f2-a50e-41f94cd4bc46",
+      "budget_base": 15,
+      "budget_causal": 1,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B2-Q16",
+      "instance_id": "06380248-4b6c-4c15-a837-4f04d2e15255",
+      "source_capture_slot_count": 2,
+      "response_id": "52bab07f-6310-4f75-a65c-47351bf115c6",
+      "budget_base": 16,
+      "budget_causal": 1,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C07",
+          "result": "not_opened",
+          "trigger_canonical_variable": "transformation_iterations",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B2-Q17",
+      "instance_id": "0b7a9a7c-e2af-4a61-95cc-613d10908b64",
+      "source_capture_slot_count": 2,
+      "response_id": "34b41d39-d984-4241-b9a3-ab9c245204a7",
+      "budget_base": 17,
+      "budget_causal": 1,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C05",
+          "result": "not_opened",
+          "trigger_canonical_variable": "transformation_exception_type",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        },
+        {
+          "target_causal_interaction_id": "C06",
+          "result": "not_opened",
+          "trigger_canonical_variable": "transformation_hidden_changes",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B3-Q18",
+      "instance_id": "956efb1d-6e1c-4e4c-b49e-ba4aa356e182",
+      "source_capture_slot_count": 3,
+      "response_id": "ae01a061-24e9-4df1-8b89-215108fa9944",
+      "budget_base": 18,
+      "budget_causal": 1,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C10",
+          "result": "not_opened",
+          "trigger_canonical_variable": "primary_receiver",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B3-Q19",
+      "instance_id": "8f7ab6ea-15ca-4c64-bbbd-07f2d97606ea",
+      "source_capture_slot_count": 3,
+      "response_id": "a9c8911d-7fd1-43c5-bb72-981ffb49ef50",
+      "budget_base": 19,
+      "budget_causal": 1,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C10",
+          "result": "not_opened",
+          "trigger_canonical_variable": "receiver_type",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B3-Q20",
+      "instance_id": "c9e86ab7-c584-4e75-886e-06aaa1d05f16",
+      "source_capture_slot_count": 4,
+      "response_id": "fab56291-ecaf-4f68-91f1-4857273e4be8",
+      "budget_base": 20,
+      "budget_causal": 1,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B3-Q21",
+      "instance_id": "53223e1e-354b-4f99-a9f2-647cf75e54e1",
+      "source_capture_slot_count": 1,
+      "response_id": "1fed748b-5fb6-4c07-be63-d574479a8edd",
+      "budget_base": 21,
+      "budget_causal": 1,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C08",
+          "result": "not_opened",
+          "trigger_canonical_variable": "delivery_exception_exists",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        },
+        {
+          "target_causal_interaction_id": "C09",
+          "result": "not_opened",
+          "trigger_canonical_variable": "delivery_exception_exists",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B3-Q22",
+      "instance_id": "c8c96ed4-bf95-4d27-a9da-fb2f1cb01c4a",
+      "source_capture_slot_count": 2,
+      "response_id": "3a9d6d51-249a-4dca-bb3c-98e389a535c4",
+      "budget_base": 22,
+      "budget_causal": 1,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C08",
+          "result": "not_opened",
+          "trigger_canonical_variable": "receiver_satisfaction",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        },
+        {
+          "target_causal_interaction_id": "C09",
+          "result": "not_opened",
+          "trigger_canonical_variable": "receiver_satisfaction",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B4-Q23",
+      "instance_id": "bd2fa3df-c546-4063-a7bc-c6c5518fbb19",
+      "source_capture_slot_count": 3,
+      "response_id": "a7a7e447-9f61-409b-a2f6-b79bcf451c81",
+      "budget_base": 23,
+      "budget_causal": 1,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B4-Q24",
+      "instance_id": "e6d23c5c-0a9a-4a2f-9368-d0a94240e3a3",
+      "source_capture_slot_count": 3,
+      "response_id": "ec559ca3-4038-44b8-8cc4-935f884cc475",
+      "budget_base": 24,
+      "budget_causal": 1,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C11",
+          "result": "opened",
+          "trigger_canonical_variable": "deadlock_risk",
+          "eligibility": "causal_required_by_exact_signal"
+        }
+      ],
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture",
+      "state_machine_transitions": [
+        {
+          "from": "causal_evaluation_pending",
+          "to": "active_causal_capture",
+          "cause": "governed_causal_capture_started",
+          "audit_id": "96dac138-9e62-4aac-91be-0b8d2917792c",
+          "at": "2026-08-09T07:24:16.811Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "C11",
+      "instance_id": "5ade6fa1-c17d-416f-a5f0-9591c6228e9c",
+      "source_capture_slot_count": 1,
+      "response_id": "13e0b5b6-b65d-4dfc-9dbc-95773ed74e17",
+      "budget_base": 24,
+      "budget_causal": 2,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [
+        {
+          "from": "active_causal_capture",
+          "to": "causal_evaluation_pending",
+          "cause": "governed_causal_capture_completed",
+          "audit_id": "2320e9a3-a398-47ab-804c-5a54cfa90737",
+          "at": "2026-08-09T07:24:17.596Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B4-Q25",
+      "instance_id": "8be36742-c933-4a3e-9995-ae21c672d80a",
+      "source_capture_slot_count": 1,
+      "response_id": "d2eb2b41-084f-4d2e-a607-566db5c383a4",
+      "budget_base": 25,
+      "budget_causal": 2,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C12",
+          "result": "not_opened",
+          "trigger_canonical_variable": "iteration_pattern",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B4-Q26",
+      "instance_id": "3d0654ca-4d76-4e3a-b014-16b172367a53",
+      "source_capture_slot_count": 1,
+      "response_id": "92134aa9-3ba0-43fb-9195-ab3125e0100f",
+      "budget_base": 26,
+      "budget_causal": 2,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C13",
+          "result": "opened",
+          "trigger_canonical_variable": "route_alternatives",
+          "eligibility": "causal_required_by_exact_signal"
+        }
+      ],
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture",
+      "state_machine_transitions": [
+        {
+          "from": "causal_evaluation_pending",
+          "to": "active_causal_capture",
+          "cause": "governed_causal_capture_started",
+          "audit_id": "393ec9a1-cb17-47df-88c4-4bb10ae96ca7",
+          "at": "2026-08-09T07:24:18.897Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "C13",
+      "instance_id": "d8bdee2b-2902-4bf9-b422-f4a1872429e2",
+      "source_capture_slot_count": 1,
+      "response_id": "dda64ce1-8b56-4961-ba14-7bb68f342828",
+      "budget_base": 26,
+      "budget_causal": 3,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [
+        {
+          "from": "active_causal_capture",
+          "to": "causal_evaluation_pending",
+          "cause": "governed_causal_capture_completed",
+          "audit_id": "fa007372-7aae-4b84-b44f-fb0c51b1d0f5",
+          "at": "2026-08-09T07:24:19.605Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B4-Q27",
+      "instance_id": "ab2973ce-4a85-44ef-ad46-2c732fae5626",
+      "source_capture_slot_count": 2,
+      "response_id": "2a4fd78c-06cb-4dce-8122-3ee448ced446",
+      "budget_base": 27,
+      "budget_causal": 3,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C14",
+          "result": "not_opened",
+          "trigger_canonical_variable": "hidden_subprocess",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B4-Q28",
+      "instance_id": "95f96ebe-e662-4cc9-bbc5-97b41059abff",
+      "source_capture_slot_count": 4,
+      "response_id": "29587bb7-e901-47dd-b4f7-6e0d4e2dd034",
+      "budget_base": 28,
+      "budget_causal": 3,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C14",
+          "result": "not_opened",
+          "trigger_canonical_variable": "real_vs_official_sequence",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B5-Q29",
+      "instance_id": "4bace5ee-4717-4805-afe8-539a44a85ac9",
+      "source_capture_slot_count": 5,
+      "response_id": "ac5e0aa2-9667-47d8-a477-7837d197d506",
+      "budget_base": 29,
+      "budget_causal": 3,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B5-Q30",
+      "instance_id": "6f0f9c79-dfa3-4ec1-87ac-dc3d2fd4b036",
+      "source_capture_slot_count": 3,
+      "response_id": "2961f18e-bb73-45d6-af55-9be62717fa39",
+      "budget_base": 30,
+      "budget_causal": 3,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B5-Q31",
+      "instance_id": "01bbf90e-848c-443b-85a5-ff35cd507f84",
+      "source_capture_slot_count": 2,
+      "response_id": "aa810863-6efa-41be-8c61-f031cec12465",
+      "budget_base": 31,
+      "budget_causal": 3,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B5-Q32",
+      "instance_id": "1cea6e3d-1180-4bcf-9b05-f7f0d7fd27c2",
+      "source_capture_slot_count": 2,
+      "response_id": "884ee7d4-24d1-41f0-9df6-706dfc3f5466",
+      "budget_base": 32,
+      "budget_causal": 3,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B5-Q33",
+      "instance_id": "ce2cda32-51ee-4ee2-a4e3-423976481454",
+      "source_capture_slot_count": 3,
+      "response_id": "13edafd2-a8ab-47b6-a023-69db06741b6d",
+      "budget_base": 33,
+      "budget_causal": 3,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C15",
+          "result": "opened",
+          "trigger_canonical_variable": "variedad_residual_5_12",
+          "eligibility": "causal_required_by_exact_signal"
+        }
+      ],
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture",
+      "state_machine_transitions": [
+        {
+          "from": "causal_evaluation_pending",
+          "to": "active_causal_capture",
+          "cause": "governed_causal_capture_started",
+          "audit_id": "b9a3becf-5906-484c-9071-0d19c2abdbbd",
+          "at": "2026-08-09T07:24:25.589Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "C15",
+      "instance_id": "a645277e-4edd-4092-bd5f-e0233114afbe",
+      "source_capture_slot_count": 5,
+      "response_id": "f7554f06-c05e-4857-bd61-38c151cdfd8b",
+      "budget_base": 33,
+      "budget_causal": 4,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [
+        {
+          "from": "active_causal_capture",
+          "to": "causal_evaluation_pending",
+          "cause": "governed_causal_capture_completed",
+          "audit_id": "abf54be3-7c32-4a6b-abce-01a7d6233260",
+          "at": "2026-08-09T07:24:26.519Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B6-Q34",
+      "instance_id": "9dff525f-8930-429e-ad2b-c13103e73be3",
+      "source_capture_slot_count": 1,
+      "response_id": "f95edd1f-7d43-49a9-af1d-ebb6b124f3f2",
+      "budget_base": 34,
+      "budget_causal": 4,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B6-Q35",
+      "instance_id": "014ce093-9d7c-42a2-a7a2-b503e58058b1",
+      "source_capture_slot_count": 1,
+      "response_id": "634225c4-c367-4587-8e60-611312f738da",
+      "budget_base": 35,
+      "budget_causal": 4,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C16",
+          "result": "not_opened",
+          "trigger_canonical_variable": "rework_present",
+          "reason": "exact_typed_predicate_not_matched",
+          "eligibility": "causal_not_opened_exact_predicate"
+        }
+      ],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B6-Q36",
+      "instance_id": "89466f34-764e-4df4-b720-5233ec7315f9",
+      "source_capture_slot_count": 2,
+      "response_id": "9ab44a21-6f61-4954-9393-d53700acaae2",
+      "budget_base": 36,
+      "budget_causal": 4,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C17",
+          "result": "opened",
+          "trigger_canonical_variable": "missing_information",
+          "eligibility": "causal_required_by_exact_signal"
+        },
+        {
+          "target_causal_interaction_id": "C17",
+          "result": "blocked_double_open",
+          "reason": "same_causal_already_opened_for_run"
+        }
+      ],
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture",
+      "state_machine_transitions": [
+        {
+          "from": "causal_evaluation_pending",
+          "to": "active_causal_capture",
+          "cause": "governed_causal_capture_started",
+          "audit_id": "8465e593-c4f7-40d4-bc24-e9f68c5f0a08",
+          "at": "2026-08-09T07:24:28.870Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "C17",
+      "instance_id": "9be36207-bdad-4da0-aba3-bd3cf0fc4b4c",
+      "source_capture_slot_count": 4,
+      "response_id": "acd31518-7745-4b09-9895-ac3eaf7e4f4f",
+      "budget_base": 36,
+      "budget_causal": 5,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [
+        {
+          "from": "active_causal_capture",
+          "to": "causal_evaluation_pending",
+          "cause": "governed_causal_capture_completed",
+          "audit_id": "8064b82e-101f-47f5-a5ee-18bc177fb9af",
+          "at": "2026-08-09T07:24:30.000Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B6-Q37",
+      "instance_id": "75a1811c-4118-40f0-951d-51536277547a",
+      "source_capture_slot_count": 3,
+      "response_id": "ac5b7b2c-ab1c-4da6-a723-7bd261a04595",
+      "budget_base": 37,
+      "budget_causal": 5,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C18",
+          "result": "opened",
+          "trigger_canonical_variable": "human_sacrifice",
+          "eligibility": "causal_required_by_exact_signal"
+        },
+        {
+          "target_causal_interaction_id": "C18",
+          "result": "blocked_double_open",
+          "reason": "same_causal_already_opened_for_run"
+        }
+      ],
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture",
+      "state_machine_transitions": [
+        {
+          "from": "causal_evaluation_pending",
+          "to": "active_causal_capture",
+          "cause": "governed_causal_capture_started",
+          "audit_id": "4af6fc82-b051-42d7-9d02-ba477e7c2bda",
+          "at": "2026-08-09T07:24:31.305Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "C18",
+      "instance_id": "763564c6-c803-44bb-8aeb-986d7b2b0630",
+      "source_capture_slot_count": 5,
+      "response_id": "2eed9e7e-3c04-4baf-965c-60f292459738",
+      "budget_base": 37,
+      "budget_causal": 6,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [
+        {
+          "from": "active_causal_capture",
+          "to": "causal_evaluation_pending",
+          "cause": "governed_causal_capture_completed",
+          "audit_id": "133a4e89-6dab-470d-8872-faf654090b1e",
+          "at": "2026-08-09T07:24:32.605Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B6-Q38",
+      "instance_id": "24a6641b-1575-4ba2-ab47-6be782322199",
+      "source_capture_slot_count": 3,
+      "response_id": "c4649c5b-5b05-4e04-9b40-63a6a3cefaf6",
+      "budget_base": 38,
+      "budget_causal": 6,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C19",
+          "result": "opened",
+          "trigger_canonical_variable": "residual_variety_absorption",
+          "eligibility": "causal_required_by_exact_signal"
+        },
+        {
+          "target_causal_interaction_id": "C19",
+          "result": "blocked_double_open",
+          "reason": "same_causal_already_opened_for_run"
+        }
+      ],
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture",
+      "state_machine_transitions": [
+        {
+          "from": "causal_evaluation_pending",
+          "to": "active_causal_capture",
+          "cause": "governed_causal_capture_started",
+          "audit_id": "14797150-faae-4fd0-b9d1-d126168f8c86",
+          "at": "2026-08-09T07:24:33.742Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "C19",
+      "instance_id": "998fa969-bbad-4910-a5e6-bdf2782112b9",
+      "source_capture_slot_count": 7,
+      "response_id": "aa4108ea-0aee-4b3b-9d1a-f11de9146d93",
+      "budget_base": 38,
+      "budget_causal": 7,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [
+        {
+          "from": "active_causal_capture",
+          "to": "causal_evaluation_pending",
+          "cause": "governed_causal_capture_completed",
+          "audit_id": "5292dcf1-23cd-4779-b314-6d8e60bee06f",
+          "at": "2026-08-09T07:24:35.329Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B7-Q39",
+      "instance_id": "36a7aff2-d98c-4adb-94a0-0867ea9199c0",
+      "source_capture_slot_count": 3,
+      "response_id": "1493cfa9-0e79-47a6-b3ae-e596afb2c481",
+      "budget_base": 39,
+      "budget_causal": 7,
+      "branching_outcomes": [
+        {
+          "target_causal_interaction_id": "C20",
+          "result": "opened",
+          "trigger_canonical_variable": "confidence_level",
+          "eligibility": "causal_required_by_exact_signal"
+        }
+      ],
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture",
+      "state_machine_transitions": [
+        {
+          "from": "causal_evaluation_pending",
+          "to": "active_causal_capture",
+          "cause": "governed_causal_capture_started",
+          "audit_id": "19723b40-d3c7-4fab-9535-fd6143275d0c",
+          "at": "2026-08-09T07:24:36.555Z"
+        }
+      ],
+      "b7_confidence": {
+        "level": "medium",
+        "score": null
+      }
+    },
+    {
+      "runtime_interaction_id": "C20",
+      "instance_id": "de964b44-b76b-4a3f-9f16-04650c3e6583",
+      "source_capture_slot_count": 7,
+      "response_id": "c8cd9db7-b02e-4af0-a72a-0a0b5c5ced69",
+      "budget_base": 39,
+      "budget_causal": 8,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [
+        {
+          "from": "active_causal_capture",
+          "to": "causal_evaluation_pending",
+          "cause": "governed_causal_capture_completed",
+          "audit_id": "80e4d97b-22d9-49da-aee9-ab512c7b29be",
+          "at": "2026-08-09T07:24:38.058Z"
+        }
+      ],
+      "b7_confidence": null
+    },
+    {
+      "runtime_interaction_id": "B7-Q40",
+      "instance_id": "4d113285-0682-4784-9528-a06d36c50007",
+      "source_capture_slot_count": 4,
+      "response_id": "8edbf438-72ba-4599-8a0e-305dc5dcac9e",
+      "budget_base": 40,
+      "budget_causal": 8,
+      "branching_outcomes": [],
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending",
+      "state_machine_transitions": [],
+      "b7_confidence": null
+    }
+  ],
+  "stateTrace": [
+    {
+      "at": "start",
+      "state": "active_base_capture",
+      "run_id": "cf3fa2ec-4d10-41f4-a8b1-474f5e2cca17",
+      "synthetic_run_label": "run-044A6R-B-2026-08-09T07-23-05-904Z"
+    },
+    {
+      "at": "ingest:B05-Q05",
+      "from": "active_base_capture",
+      "to": "base_complete",
+      "cause": "governed_base_complete_before_causal",
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture"
+    },
+    {
+      "at": "ingest:B05-Q05",
+      "from": "base_complete",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_evaluation_pending",
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture"
+    },
+    {
+      "at": "ingest:B05-Q05",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture"
+    },
+    {
+      "at": "ingest:C02",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending"
+    },
+    {
+      "at": "ingest:B4-Q24",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture"
+    },
+    {
+      "at": "ingest:C11",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending"
+    },
+    {
+      "at": "ingest:B4-Q26",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture"
+    },
+    {
+      "at": "ingest:C13",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending"
+    },
+    {
+      "at": "ingest:B5-Q33",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture"
+    },
+    {
+      "at": "ingest:C15",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending"
+    },
+    {
+      "at": "ingest:B6-Q36",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture"
+    },
+    {
+      "at": "ingest:C17",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending"
+    },
+    {
+      "at": "ingest:B6-Q37",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture"
+    },
+    {
+      "at": "ingest:C18",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending"
+    },
+    {
+      "at": "ingest:B6-Q38",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture"
+    },
+    {
+      "at": "ingest:C19",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending"
+    },
+    {
+      "at": "ingest:B7-Q39",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "run_state": "active_causal_capture",
+      "runtime_phase": "active_causal_capture"
+    },
+    {
+      "at": "ingest:C20",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "run_state": "causal_evaluation_pending",
+      "runtime_phase": "causal_evaluation_pending"
+    },
+    {
+      "at": "post_capture",
+      "opened_remaining": 0
+    },
+    {
+      "at": "evaluate_gates",
+      "phase": "readiness_evaluation",
+      "classification": "blocked_readiness_engine"
+    },
+    {
+      "at": "complete_readiness",
+      "readiness_state": "blocked",
+      "terminal": "blocked",
+      "state_machine_transitions": [
+        {
+          "from": "causal_evaluation_pending",
+          "to": "readiness_evaluation",
+          "cause": "governed_causals_resolved_to_readiness",
+          "audit_id": "3d161aba-acc7-4436-b368-ce4f7367f5cc",
+          "at": "2026-08-09T07:24:39.954Z"
+        },
+        {
+          "from": "readiness_evaluation",
+          "to": "blocked",
+          "cause": "governed_readiness:blocked",
+          "audit_id": "c9de08f9-7af1-4aab-935a-d8f2954670cc",
+          "at": "2026-08-09T07:24:40.125Z"
+        }
+      ]
+    }
+  ],
+  "live_state_transitions": [
+    {
+      "at_interaction": "B05-Q05",
+      "from": "active_base_capture",
+      "to": "base_complete",
+      "cause": "governed_base_complete_before_causal",
+      "audit_id": "54b859fb-0843-4ac5-927b-ee79a61863a2",
+      "at": "2026-08-09T07:24:00.840Z"
+    },
+    {
+      "at_interaction": "B05-Q05",
+      "from": "base_complete",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_evaluation_pending",
+      "audit_id": "0a655999-4f9c-45d0-8abd-83b354e72cdc",
+      "at": "2026-08-09T07:24:01.036Z"
+    },
+    {
+      "at_interaction": "B05-Q05",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "audit_id": "53dc4d4c-b6fb-4ef0-bc53-3dd4dabdf11f",
+      "at": "2026-08-09T07:24:01.198Z"
+    },
+    {
+      "at_interaction": "C02",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "audit_id": "5a77a09b-a075-43af-956c-a3d68b8d2c55",
+      "at": "2026-08-09T07:24:01.916Z"
+    },
+    {
+      "at_interaction": "B4-Q24",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "audit_id": "96dac138-9e62-4aac-91be-0b8d2917792c",
+      "at": "2026-08-09T07:24:16.811Z"
+    },
+    {
+      "at_interaction": "C11",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "audit_id": "2320e9a3-a398-47ab-804c-5a54cfa90737",
+      "at": "2026-08-09T07:24:17.596Z"
+    },
+    {
+      "at_interaction": "B4-Q26",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "audit_id": "393ec9a1-cb17-47df-88c4-4bb10ae96ca7",
+      "at": "2026-08-09T07:24:18.897Z"
+    },
+    {
+      "at_interaction": "C13",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "audit_id": "fa007372-7aae-4b84-b44f-fb0c51b1d0f5",
+      "at": "2026-08-09T07:24:19.605Z"
+    },
+    {
+      "at_interaction": "B5-Q33",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "audit_id": "b9a3becf-5906-484c-9071-0d19c2abdbbd",
+      "at": "2026-08-09T07:24:25.589Z"
+    },
+    {
+      "at_interaction": "C15",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "audit_id": "abf54be3-7c32-4a6b-abce-01a7d6233260",
+      "at": "2026-08-09T07:24:26.519Z"
+    },
+    {
+      "at_interaction": "B6-Q36",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "audit_id": "8465e593-c4f7-40d4-bc24-e9f68c5f0a08",
+      "at": "2026-08-09T07:24:28.870Z"
+    },
+    {
+      "at_interaction": "C17",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "audit_id": "8064b82e-101f-47f5-a5ee-18bc177fb9af",
+      "at": "2026-08-09T07:24:30.000Z"
+    },
+    {
+      "at_interaction": "B6-Q37",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "audit_id": "4af6fc82-b051-42d7-9d02-ba477e7c2bda",
+      "at": "2026-08-09T07:24:31.305Z"
+    },
+    {
+      "at_interaction": "C18",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "audit_id": "133a4e89-6dab-470d-8872-faf654090b1e",
+      "at": "2026-08-09T07:24:32.605Z"
+    },
+    {
+      "at_interaction": "B6-Q38",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "audit_id": "14797150-faae-4fd0-b9d1-d126168f8c86",
+      "at": "2026-08-09T07:24:33.742Z"
+    },
+    {
+      "at_interaction": "C19",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "audit_id": "5292dcf1-23cd-4779-b314-6d8e60bee06f",
+      "at": "2026-08-09T07:24:35.329Z"
+    },
+    {
+      "at_interaction": "B7-Q39",
+      "from": "causal_evaluation_pending",
+      "to": "active_causal_capture",
+      "cause": "governed_causal_capture_started",
+      "audit_id": "19723b40-d3c7-4fab-9535-fd6143275d0c",
+      "at": "2026-08-09T07:24:36.555Z"
+    },
+    {
+      "at_interaction": "C20",
+      "from": "active_causal_capture",
+      "to": "causal_evaluation_pending",
+      "cause": "governed_causal_capture_completed",
+      "audit_id": "80e4d97b-22d9-49da-aee9-ab512c7b29be",
+      "at": "2026-08-09T07:24:38.058Z"
+    },
+    {
+      "at_interaction": "complete_readiness",
+      "from": "causal_evaluation_pending",
+      "to": "readiness_evaluation",
+      "cause": "governed_causals_resolved_to_readiness",
+      "audit_id": "3d161aba-acc7-4436-b368-ce4f7367f5cc",
+      "at": "2026-08-09T07:24:39.954Z"
+    },
+    {
+      "at_interaction": "complete_readiness",
+      "from": "readiness_evaluation",
+      "to": "blocked",
+      "cause": "governed_readiness:blocked",
+      "audit_id": "c9de08f9-7af1-4aab-935a-d8f2954670cc",
+      "at": "2026-08-09T07:24:40.125Z"
+    }
+  ],
+  "gates": {
+    "ok": true,
+    "classification": "blocked_readiness_engine",
+    "c20": {
+      "status": "available",
+      "confidence_level": "high",
+      "confidence_score": null,
+      "producer": "connected",
+      "rector": "EVE_Runtime_B7_Confidence_Governance_Rule_v1_0",
+      "note": "Epistemic confidence only. confidence_score nullable/non-authoritative. Business structural inconsistency preserved, not penalized. EVE pathology table diagnostic_only / forbidden in B7."
+    },
+    "diagnostic_non_contamination_boundary": "enforced",
+    "EVE_pathology_inputs_to_confidence": 0,
+    "critical_routes": [
+      {
+        "gate": "CR-B0",
+        "outcome": "passed",
+        "reason": null,
+        "evidence_basis": {
+          "organ": "evaluateB0SemanticEntryGateLocally",
+          "b0": {
+            "b0_gate_candidate_ref": "synthetic:044A6R:B-2026-08-09T07-23-05-904Z:B0:1:semantic_entry_gate_candidate",
+            "b0_q01_protected": true,
+            "semantic_entry_route": "B0-Q01",
+            "protected_object_hint": "ActivitySemanticEntry / SceneCanonicalRecord readiness",
+            "action_verb_present": true,
+            "input_or_object_present": true,
+            "procedure_or_standard_present": true,
+            "output_or_result_present": true,
+            "user_correction_note_preserved": false,
+            "semantic_confirmation_status": "confirmed",
+            "preload_confirmed": true,
+            "ambiguous_activity_text_blocked": false,
+            "minimum_structure_present": true,
+            "readiness_gap_record_candidate_created": false,
+            "reentry_required_candidate_created": false,
+            "finding_code": "b0_semantic_entry_blocked",
+            "ready_declared": false,
+            "scene_canonical_record_real_created": false,
+            "source_trace": {
+              "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+              "source_sheet": "regulatory_layer_044A5BR",
+              "source_row_number": 1,
+              "instruction": "044-A.5B-R",
+              "organ": "regulatory_layer"
+            },
+            "blocking_reasons": []
+          }
+        },
+        "organ": "critical-gates"
+      },
+      {
+        "gate": "CR-B2",
+        "outcome": "passed",
+        "reason": null,
+        "evidence_basis": {
+          "organ": "evaluateB2TransformationExceptionGateLocally",
+          "b2": {
+            "b2_gate_candidate_ref": "synthetic:044A6R:B-2026-08-09T07-23-05-904Z:B2:1:transformation_exception_gate_candidate",
+            "transformation_exception_route": "CR-B2",
+            "protected_object_hint": "TransformationExceptionEvidence / CanonicalRouteException",
+            "transformation_exception_exists": false,
+            "transformation_exception_type": "No, siempre se transforma correctamente",
+            "transformation_exception_description": "",
+            "transformation_exception_route_unresolved": false,
+            "textual_exception_separated_from_closed_route": true,
+            "textual_exception_without_closed_route_blocked": false,
+            "blocked_by_missing_canonical_route_candidate_created": false,
+            "route_gap_candidate_created": false,
+            "readiness_gap_record_candidate_created": false,
+            "finding_code": "transformation_exception_route_unresolved",
+            "closed_variable_from_free_text_created": false,
+            "pf_olc_projection_without_closed_route": false,
+            "source_trace": {
+              "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+              "source_sheet": "regulatory_layer_044A5BR",
+              "source_row_number": 1,
+              "instruction": "044-A.5B-R",
+              "organ": "regulatory_layer"
+            },
+            "blocking_reasons": []
+          }
+        },
+        "organ": "critical-gates"
+      },
+      {
+        "gate": "CR-B3",
+        "outcome": "passed",
+        "reason": null,
+        "evidence_basis": {
+          "organ": "evaluateB3ReceiverFeedbackGateLocally",
+          "satisfaction_separated": true,
+          "feedback_separated": true,
+          "b3": {
+            "b3_gate_candidate_ref": "synthetic:044A6R:B-2026-08-09T07-23-05-904Z:B3:1:receiver_feedback_gate_candidate",
+            "cr_b3_r9_c09_route": "CR-B3-R9 / C09",
+            "protected_object_hint": "ReceiverFeedbackObject / OperationalExceptionEvidence",
+            "receiver_feedback_exists": false,
+            "receiver_feedback": "Feedback canónico de receptor ausente / no capturado",
+            "receiver_feedback_gap_flag": false,
+            "receiver_feedback_route_missing": false,
+            "receiver_satisfaction_separated": true,
+            "delivery_failure_separated": true,
+            "satisfaction_general_as_feedback_blocked": false,
+            "ambiguous_comment_as_receiver_feedback_blocked": false,
+            "c09_closed_by_wrong_route": false,
+            "route_missing_preserved_when_no_canonical_route": false,
+            "readiness_gap_record_candidate_created": false,
+            "finding_code": "receiver_feedback_route_missing",
+            "handoff_feedback_closed_without_canonical_route": false,
+            "receiver_feedback_object_real_created": false,
+            "source_trace": {
+              "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+              "source_sheet": "regulatory_layer_044A5BR",
+              "source_row_number": 1,
+              "instruction": "044-A.5B-R",
+              "organ": "regulatory_layer"
+            },
+            "blocking_reasons": []
+          }
+        },
+        "organ": "critical-gates"
+      },
+      {
+        "gate": "CR-B7",
+        "outcome": "passed",
+        "reason": null,
+        "evidence_basis": {
+          "organ": "evaluateB7C20NonDiagnosticBoundaryGateLocally",
+          "non_diagnostic": true,
+          "b7": {
+            "b7_gate_candidate_ref": "synthetic:044A6R:B-2026-08-09T07-23-05-904Z:B7:1:non_diagnostic_boundary_gate_candidate",
+            "b7_q39_boundary_supported": true,
+            "b7_q40_boundary_supported": true,
+            "c20_boundary_supported": true,
+            "protected_object_hint": "PreclassificationRecord / NonDiagnosticBoundary",
+            "diagnostic_status_non_diagnostic": true,
+            "signal_status_preclassification_only": true,
+            "confidence_supported": true,
+            "uncertainty_supported": true,
+            "microconfirmation_refs_supported": true,
+            "moc_direct_blocked": true,
+            "registry_direct_blocked": true,
+            "ir_direct_blocked": true,
+            "export_direct_blocked": true,
+            "diagnosis_blocked": true,
+            "root_cause_blocked": true,
+            "monetization_blocked": true,
+            "final_narrative_blocked": true,
+            "vsm_ahe_final_blocked": true,
+            "readiness_gap_record_candidate_created_if_elevation_attempted": false,
+            "finding_code": "b7_non_diagnostic_boundary_violation",
+            "export_preview_created": false,
+            "source_trace": {
+              "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+              "source_sheet": "regulatory_layer_044A5BR",
+              "source_row_number": 1,
+              "instruction": "044-A.5B-R",
+              "organ": "regulatory_layer"
+            },
+            "blocking_reasons": []
+          }
+        },
+        "organ": "critical-gates"
+      }
+    ],
+    "blocking_reasons": [
+      "PST-001_failed",
+      "PST-002_failed",
+      "PST-003_failed",
+      "PST-004_failed",
+      "PST-005_failed",
+      "PST-006_failed"
+    ],
+    "sem": [
+      {
+        "gate": "SEM-001",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-002",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-003",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-004",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-005",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-006",
+        "outcome": "passed"
+      },
+      {
+        "gate": "SEM-007",
+        "outcome": "passed"
+      }
+    ],
+    "pst": [
+      {
+        "gate": "PST-001",
+        "outcome": "failed"
+      },
+      {
+        "gate": "PST-002",
+        "outcome": "failed"
+      },
+      {
+        "gate": "PST-003",
+        "outcome": "failed"
+      },
+      {
+        "gate": "PST-004",
+        "outcome": "failed"
+      },
+      {
+        "gate": "PST-005",
+        "outcome": "failed"
+      },
+      {
+        "gate": "PST-006",
+        "outcome": "failed"
+      }
+    ],
+    "timer_event_id": null
+  },
+  "readiness": {
+    "readiness_state": "blocked",
+    "readiness_decision_id": "9ac117a2-e65b-4316-837c-f26005f82bbd",
+    "terminal_state": "blocked",
+    "classification_hint": "blocked_readiness_engine",
+    "dominant_gate": "PST",
+    "gap_ids": [
+      "9a1efdb2-479b-4609-98b1-fca9b5ba83d1"
+    ],
+    "state_machine_transitions": [
+      {
+        "from": "causal_evaluation_pending",
+        "to": "readiness_evaluation",
+        "cause": "governed_causals_resolved_to_readiness",
+        "audit_id": "3d161aba-acc7-4436-b368-ce4f7367f5cc",
+        "at": "2026-08-09T07:24:39.954Z"
+      },
+      {
+        "from": "readiness_evaluation",
+        "to": "blocked",
+        "cause": "governed_readiness:blocked",
+        "audit_id": "c9de08f9-7af1-4aab-935a-d8f2954670cc",
+        "at": "2026-08-09T07:24:40.125Z"
+      }
+    ],
+    "writes_scene": false,
+    "writes_mba": false,
+    "parallel_production": false
+  },
+  "readinessError": null,
+  "reconciliation": {
+    "interaction_instances": 48,
+    "responses": 48,
+    "subfields": 114,
+    "evidence": 114,
+    "canonical": 138,
+    "branching": 8,
+    "budget": 48,
+    "sem": 7,
+    "pst": 0,
+    "readiness_gaps": 1,
+    "readiness_decisions": 1,
+    "audit": 73,
+    "budget_sums": {
+      "base_used": 40,
+      "causal_used": 8
+    },
+    "persisted_state_transitions": [
+      {
+        "summary": "initialized -> semantic_preload_loaded: governed_start_synthetic_run",
+        "from": "initialized",
+        "to": "semantic_preload_loaded",
+        "cause": "governed_start_synthetic_run",
+        "created_at": "2026-08-09T07:23:53.154Z"
+      },
+      {
+        "summary": "semantic_preload_loaded -> b0_confirmation_pending: governed_semantic_preload_loaded",
+        "from": "semantic_preload_loaded",
+        "to": "b0_confirmation_pending",
+        "cause": "governed_semantic_preload_loaded",
+        "created_at": "2026-08-09T07:23:53.317Z"
+      },
+      {
+        "summary": "b0_confirmation_pending -> active_base_capture: governed_b0_confirmed_synthetic",
+        "from": "b0_confirmation_pending",
+        "to": "active_base_capture",
+        "cause": "governed_b0_confirmed_synthetic",
+        "created_at": "2026-08-09T07:23:53.492Z"
+      },
+      {
+        "summary": "active_base_capture -> base_complete: governed_base_complete_before_causal",
+        "from": "active_base_capture",
+        "to": "base_complete",
+        "cause": "governed_base_complete_before_causal",
+        "created_at": "2026-08-09T07:23:58.445Z"
+      },
+      {
+        "summary": "base_complete -> causal_evaluation_pending: governed_causal_evaluation_pending",
+        "from": "base_complete",
+        "to": "causal_evaluation_pending",
+        "cause": "governed_causal_evaluation_pending",
+        "created_at": "2026-08-09T07:23:58.637Z"
+      },
+      {
+        "summary": "causal_evaluation_pending -> active_causal_capture: governed_causal_capture_started",
+        "from": "causal_evaluation_pending",
+        "to": "active_causal_capture",
+        "cause": "governed_causal_capture_started",
+        "created_at": "2026-08-09T07:23:58.797Z"
+      },
+      {
+        "summary": "active_causal_capture -> causal_evaluation_pending: governed_causal_capture_completed",
+        "from": "active_causal_capture",
+        "to": "causal_evaluation_pending",
+        "cause": "governed_causal_capture_completed",
+        "created_at": "2026-08-09T07:23:59.520Z"
+      },
+      {
+        "summary": "causal_evaluation_pending -> active_causal_capture: governed_causal_capture_started",
+        "from": "causal_evaluation_pending",
+        "to": "active_causal_capture",
+        "cause": "governed_causal_capture_started",
+        "created_at": "2026-08-09T07:24:14.412Z"
+      },
+      {
+        "summary": "active_causal_capture -> causal_evaluation_pending: governed_causal_capture_completed",
+        "from": "active_causal_capture",
+        "to": "causal_evaluation_pending",
+        "cause": "governed_causal_capture_completed",
+        "created_at": "2026-08-09T07:24:15.183Z"
+      },
+      {
+        "summary": "causal_evaluation_pending -> active_causal_capture: governed_causal_capture_started",
+        "from": "causal_evaluation_pending",
+        "to": "active_causal_capture",
+        "cause": "governed_causal_capture_started",
+        "created_at": "2026-08-09T07:24:16.501Z"
+      },
+      {
+        "summary": "active_causal_capture -> causal_evaluation_pending: governed_causal_capture_completed",
+        "from": "active_causal_capture",
+        "to": "causal_evaluation_pending",
+        "cause": "governed_causal_capture_completed",
+        "created_at": "2026-08-09T07:24:17.209Z"
+      },
+      {
+        "summary": "causal_evaluation_pending -> active_causal_capture: governed_causal_capture_started",
+        "from": "causal_evaluation_pending",
+        "to": "active_causal_capture",
+        "cause": "governed_causal_capture_started",
+        "created_at": "2026-08-09T07:24:23.192Z"
+      },
+      {
+        "summary": "active_causal_capture -> causal_evaluation_pending: governed_causal_capture_completed",
+        "from": "active_causal_capture",
+        "to": "causal_evaluation_pending",
+        "cause": "governed_causal_capture_completed",
+        "created_at": "2026-08-09T07:24:24.121Z"
+      },
+      {
+        "summary": "causal_evaluation_pending -> active_causal_capture: governed_causal_capture_started",
+        "from": "causal_evaluation_pending",
+        "to": "active_causal_capture",
+        "cause": "governed_causal_capture_started",
+        "created_at": "2026-08-09T07:24:26.473Z"
+      },
+      {
+        "summary": "active_causal_capture -> causal_evaluation_pending: governed_causal_capture_completed",
+        "from": "active_causal_capture",
+        "to": "causal_evaluation_pending",
+        "cause": "governed_causal_capture_completed",
+        "created_at": "2026-08-09T07:24:27.603Z"
+      },
+      {
+        "summary": "causal_evaluation_pending -> active_causal_capture: governed_causal_capture_started",
+        "from": "causal_evaluation_pending",
+        "to": "active_causal_capture",
+        "cause": "governed_causal_capture_started",
+        "created_at": "2026-08-09T07:24:28.903Z"
+      },
+      {
+        "summary": "active_causal_capture -> causal_evaluation_pending: governed_causal_capture_completed",
+        "from": "active_causal_capture",
+        "to": "causal_evaluation_pending",
+        "cause": "governed_causal_capture_completed",
+        "created_at": "2026-08-09T07:24:30.209Z"
+      },
+      {
+        "summary": "causal_evaluation_pending -> active_causal_capture: governed_causal_capture_started",
+        "from": "causal_evaluation_pending",
+        "to": "active_causal_capture",
+        "cause": "governed_causal_capture_started",
+        "created_at": "2026-08-09T07:24:31.340Z"
+      },
+      {
+        "summary": "active_causal_capture -> causal_evaluation_pending: governed_causal_capture_completed",
+        "from": "active_causal_capture",
+        "to": "causal_evaluation_pending",
+        "cause": "governed_causal_capture_completed",
+        "created_at": "2026-08-09T07:24:32.933Z"
+      },
+      {
+        "summary": "causal_evaluation_pending -> active_causal_capture: governed_causal_capture_started",
+        "from": "causal_evaluation_pending",
+        "to": "active_causal_capture",
+        "cause": "governed_causal_capture_started",
+        "created_at": "2026-08-09T07:24:34.157Z"
+      },
+      {
+        "summary": "active_causal_capture -> causal_evaluation_pending: governed_causal_capture_completed",
+        "from": "active_causal_capture",
+        "to": "causal_evaluation_pending",
+        "cause": "governed_causal_capture_completed",
+        "created_at": "2026-08-09T07:24:35.662Z"
+      },
+      {
+        "summary": "causal_evaluation_pending -> readiness_evaluation: governed_causals_resolved_to_readiness",
+        "from": "causal_evaluation_pending",
+        "to": "readiness_evaluation",
+        "cause": "governed_causals_resolved_to_readiness",
+        "created_at": "2026-08-09T07:24:37.549Z"
+      },
+      {
+        "summary": "readiness_evaluation -> blocked: governed_readiness:blocked",
+        "from": "readiness_evaluation",
+        "to": "blocked",
+        "cause": "governed_readiness:blocked",
+        "created_at": "2026-08-09T07:24:37.713Z"
+      }
+    ],
+    "gap_records": [
+      {
+        "readiness_gap_id": "9a1efdb2-479b-4609-98b1-fca9b5ba83d1",
+        "gap_type": "process_state_without_timer",
+        "gap_code": "process_state_timer_failed",
+        "route_id": "PST",
+        "reentry_target": null,
+        "severity": "high",
+        "description": "process_state_timer_failed",
+        "metadata_json": {
+          "synthetic": true,
+          "instruction": "044-A.6R",
+          "affected_route": "PST",
+          "evidence_basis": null,
+          "blocking_outcome": "blocked",
+          "isolated_from_gaby": true,
+          "regulatory_blocking": [
+            "PST-001_failed",
+            "PST-002_failed",
+            "PST-003_failed",
+            "PST-004_failed",
+            "PST-005_failed",
+            "PST-006_failed"
+          ]
+        }
+      }
+    ],
+    "decision_records": [
+      {
+        "readiness_decision_id": "9ac117a2-e65b-4316-837c-f26005f82bbd",
+        "readiness_state": "blocked",
+        "decision_reason": "process_state_timer_failed",
+        "gap_ids": [
+          "9a1efdb2-479b-4609-98b1-fca9b5ba83d1"
+        ]
+      }
+    ],
+    "terminal_run_state": "blocked",
+    "terminal_readiness_state": "blocked"
+  }
+}

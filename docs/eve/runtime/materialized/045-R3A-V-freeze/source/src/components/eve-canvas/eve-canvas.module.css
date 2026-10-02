@@ -1,0 +1,2961 @@
+.canvas {
+  /* Provisional brand tokens — exploratory, not official brand book */
+  --eve-ink: #12141a;
+  --eve-paper: #f3f4f6;
+  --eve-sheet: #fafbfc;
+  --eve-graphite: #17191f;
+  --eve-graphite-soft: #22252d;
+  --eve-mist: #7a8190;
+  --eve-line: #d8dce2;
+  --eve-accent: #5c7d8f;
+  --eve-accent-soft: rgba(92, 125, 143, 0.16);
+  --eve-on-dark: #f3f4f6;
+  --eve-on-dark-muted: rgba(243, 244, 246, 0.68);
+  --eve-font-display: var(--font-eve-display), "Segoe UI", sans-serif;
+  --eve-font-body: var(--font-eve-body), "Segoe UI", sans-serif;
+  --eve-display-hero: clamp(46px, 4.35vw, 64px);
+  --eve-display-ghost: clamp(38px, 4.2vw, 58px);
+  --eve-display-section: clamp(52px, 5.85vw, 84px);
+  --eve-display-subsection: clamp(30px, 3vw, 44px);
+  --eve-display-compact: clamp(44px, 4.9vw, 68px);
+  --eve-body-large: clamp(18px, 1.65vw, 24px);
+  --eve-body: 14px;
+  --eve-label: 11px;
+  min-height: 100vh;
+  background: var(--eve-sheet);
+  color: var(--eve-ink);
+  font-family: var(--eve-font-body);
+  font-feature-settings: "ss01" on, "kern" on;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 1600px) {
+  .canvas {
+    --eve-display-hero: clamp(64px, 3.95vw, 82px);
+  }
+}
+
+.darkIntro {
+  height: 100svh;
+  min-height: 620px;
+  background:
+    radial-gradient(1200px 640px at 70% -10%, rgba(92, 125, 143, 0.14), transparent 58%),
+    var(--eve-graphite);
+  color: var(--eve-on-dark);
+  padding: 34px 80px 66px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.topbar,
+.sectionTopbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  align-items: center;
+  min-height: 22px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 26px;
+}
+
+.loginLogo {
+  --eve-mark-height: 11px;
+  --eve-text-size: 7px;
+  --eve-gap: 7px;
+  --eve-tracking: 0.42em;
+  --eve-tm-size: 4px;
+}
+
+.strapline {
+  position: static;
+  max-width: none;
+  text-align: right;
+  letter-spacing: 0.36em;
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--eve-on-dark-muted);
+  line-height: 1;
+  white-space: nowrap;
+  transform: translateY(1px);
+}
+
+.engineLine {
+  display: none;
+}
+
+.heroGhost {
+  margin-top: 74px;
+  text-align: center;
+  color: rgba(243, 244, 246, 0.06);
+  font-family: var(--eve-font-display);
+  font-size: clamp(44px, 5vw, 70px);
+  line-height: 0.88;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.heroTitle {
+  width: min(1120px, 100%);
+  margin: 26px auto 0;
+  text-align: center;
+  font-family: var(--eve-font-display);
+  font-size: clamp(48px, 5vw, 74px);
+  line-height: 0.96;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.heroLine {
+  display: block;
+  white-space: nowrap;
+}
+
+.loginLower {
+  margin-top: 82px;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 80px;
+  align-items: end;
+}
+
+.loginPanel {
+  display: block;
+}
+
+.loginCopy {
+  max-width: 360px;
+  font-family: var(--eve-font-display);
+  font-size: clamp(32px, 2.8vw, 42px);
+  line-height: 1.02;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.loginForm {
+  display: grid;
+  grid-template-columns: 185px 185px 150px;
+  gap: 12px;
+  align-items: end;
+}
+
+.fieldLabel {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--eve-on-dark-muted);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.54em;
+}
+
+.darkInput {
+  width: 100%;
+  min-height: 46px;
+  border: 0;
+  border-bottom: 1px solid rgba(243, 244, 246, 0.28);
+  border-radius: 0;
+  background: transparent;
+  color: var(--eve-on-dark);
+  padding: 0 2px;
+  font-family: var(--eve-font-body);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 220ms ease, background-color 220ms ease;
+}
+
+.darkInput:focus {
+  border-bottom-color: var(--eve-accent);
+  background: rgba(92, 125, 143, 0.08);
+}
+
+.lightButton,
+.darkButton {
+  min-height: 46px;
+  border: 1px solid transparent;
+  padding: 0 22px;
+  font-family: var(--eve-font-body);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.lightButton {
+  background: var(--eve-on-dark);
+  color: var(--eve-graphite);
+}
+
+.lightButton:hover,
+.darkButton:hover {
+  transform: translateY(-1px);
+}
+
+.darkButton {
+  background: var(--eve-graphite-soft);
+  color: var(--eve-on-dark);
+}
+
+.accessNote {
+  position: absolute;
+  right: 48px;
+  bottom: clamp(28px, 4vh, 38px);
+  color: rgba(247, 247, 242, 0.66);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.createAccount {
+  margin-top: 12px;
+  color: #d8d8d2;
+  font-size: 10px;
+}
+
+.significadoScreen {
+  min-height: 100svh;
+  width: min(100%, 1260px);
+  margin: 0 auto;
+  padding: 48px 46px 56px;
+  background: var(--eve-sheet);
+  color: var(--eve-ink);
+}
+
+.significadoOrient {
+  min-height: 100svh;
+  width: min(100%, 1260px);
+  margin: 0 auto;
+  padding: 48px 46px 56px;
+  background: var(--eve-paper);
+  color: var(--eve-ink);
+  border-top: 1px solid var(--eve-line);
+  border-bottom: 1px solid var(--eve-line);
+}
+
+.significadoOrientInner {
+  max-width: 640px;
+  margin: 72px auto 0;
+}
+
+.significadoOrientInner .significadoKicker {
+  text-align: left;
+}
+
+.significadoOrientInner h2 {
+  margin: 0;
+  font-family: var(--eve-font-display);
+  font-size: clamp(40px, 4vw, 56px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+.significadoOrientLead {
+  margin: 22px 0 0;
+  color: var(--eve-mist);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.significadoOrientPoints {
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 22px;
+}
+
+.significadoOrientPoints li {
+  display: grid;
+  gap: 6px;
+  padding-top: 18px;
+  border-top: 1px solid var(--eve-line);
+  color: var(--eve-mist);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.significadoOrientPoints strong {
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.significadoOrientPoints span {
+  display: block;
+}
+
+.significadoOrientNote {
+  margin: 36px 0 0;
+  color: var(--eve-mist);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* ——— Capítulo de actividad (post-Significado) ——— */
+
+.activityChapter {
+  position: relative;
+  min-height: 100svh;
+  width: min(100%, 1260px);
+  margin: 0 auto;
+  padding: 36px 46px 48px;
+  background: var(--eve-graphite);
+  color: var(--eve-on-dark);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.activityChapterAtmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 42%, rgba(92, 125, 143, 0.09) 58%, transparent 78%),
+    repeating-linear-gradient(
+      -12deg,
+      transparent,
+      transparent 46px,
+      rgba(243, 244, 246, 0.015) 46px,
+      rgba(243, 244, 246, 0.015) 47px
+    );
+  animation: eveAtmosphereDrift 18s ease-in-out infinite alternate;
+}
+
+.activityChapterTop {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.activityChapterStage {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+  margin: clamp(56px, 12vh, 120px) auto 0;
+  text-align: center;
+}
+
+.activityChapterEyebrow {
+  margin: 0;
+  color: var(--eve-on-dark-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: eveFadeUp 560ms ease both;
+}
+
+.activityChapterGhost {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  transform: translateX(-50%);
+  margin: 0;
+  color: rgba(243, 244, 246, 0.045);
+  font-family: var(--eve-font-display);
+  font-size: clamp(120px, 22vw, 220px);
+  font-weight: 500;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  pointer-events: none;
+  user-select: none;
+  animation: eveGhostIn 900ms ease both;
+}
+
+.activityChapterTitle {
+  position: relative;
+  margin: 28px 0 0;
+  font-family: var(--eve-font-display);
+  font-size: clamp(32px, 4.4vw, 56px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--eve-on-dark);
+  animation: eveTitleReveal 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 80ms;
+}
+
+.activityChapterRule {
+  width: 72px;
+  height: 1px;
+  margin: 28px auto 0;
+  background: var(--eve-accent);
+  transform-origin: center;
+  animation: eveLineDraw 700ms ease both;
+  animation-delay: 280ms;
+}
+
+.activityChapterFrame {
+  margin: 22px auto 0;
+  max-width: 34em;
+  color: rgba(243, 244, 246, 0.72);
+  font-size: 16px;
+  line-height: 1.5;
+  animation: eveFadeUp 640ms ease both;
+  animation-delay: 220ms;
+}
+
+.activityChapterMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 28px 0 0;
+  animation: eveFadeUp 640ms ease both;
+  animation-delay: 320ms;
+}
+
+.activityChapterChip {
+  padding: 7px 12px;
+  border: 1px solid rgba(243, 244, 246, 0.14);
+  color: var(--eve-on-dark-muted);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.activityChapterDetail {
+  margin: 22px auto 0;
+  max-width: 40em;
+  color: rgba(243, 244, 246, 0.55);
+  font-size: 14px;
+  line-height: 1.5;
+  animation: eveFadeUp 640ms ease both;
+  animation-delay: 380ms;
+}
+
+.activityChapterAction {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(40px, 8vh, 72px);
+  text-align: center;
+  animation: eveFadeUp 700ms ease both;
+  animation-delay: 420ms;
+}
+
+.activityChapterButton {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--eve-on-dark);
+  font: inherit;
+  font-family: var(--eve-font-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+  transition: color 160ms ease, text-underline-offset 160ms ease;
+}
+
+.activityChapterButton:hover {
+  color: #fff;
+  text-underline-offset: 9px;
+}
+
+.comoStageTop {
+  display: grid;
+  gap: 18px;
+}
+
+.comoQuestionEnter {
+  animation: eveFadeUp 420ms ease both;
+}
+
+.comoQuestionStack {
+  display: grid;
+  gap: 0;
+}
+
+/* Zona 4 — captura: pregunta subordinada, bandas claras, sin labels duplicados */
+.comoQuestionStack .comoCaptureBand {
+  padding: 22px 0 24px;
+  gap: 48px;
+}
+
+.comoQuestionStack .comoCaptureBandStart {
+  margin-top: 18px;
+  padding-top: 34px;
+  border-top: 1px solid color-mix(in srgb, var(--eve-ink) 14%, var(--eve-line));
+}
+
+.comoQuestionStack .comoCaptureBandStart:first-child {
+  margin-top: 0;
+  border-top: 0;
+  padding-top: 28px;
+}
+
+.comoQuestionStack .comoCaptureBandFollow {
+  padding-top: 16px;
+  padding-bottom: 18px;
+  border-bottom-color: color-mix(in srgb, var(--eve-line) 70%, transparent);
+}
+
+.comoQuestionStack .comoCaptureBandAnswered {
+  opacity: 0.92;
+}
+
+.comoCaptureFollowLabel {
+  color: var(--eve-mist);
+  font-family: var(--eve-font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  max-width: 190px;
+}
+
+.comoQuestionTitle {
+  margin: 0 0 12px !important;
+  max-width: 640px;
+  font-family: var(--eve-font-display);
+  font-size: 18px !important;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.35 !important;
+  color: var(--eve-ink);
+}
+
+.comoQuestionStack .comoStepHelp {
+  margin: 0 0 16px;
+  max-width: 560px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.comoQuestionStack .comoEcho {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  font-size: 12px;
+}
+
+.comoScreen {
+  min-height: 100svh;
+  width: min(100%, 1260px);
+  margin: 0 auto;
+  padding: 48px 46px 56px;
+  background: var(--eve-sheet);
+  color: var(--eve-ink);
+}
+
+.comoOrient {
+  min-height: 100svh;
+  width: min(100%, 1260px);
+  margin: 0 auto;
+  padding: 48px 46px 56px;
+  background: var(--eve-paper);
+  color: var(--eve-ink);
+  border-top: 1px solid var(--eve-line);
+  border-bottom: 1px solid var(--eve-line);
+}
+
+.comoOrientInner {
+  max-width: 640px;
+  margin: 72px auto 0;
+}
+
+.comoOrientInner h2 {
+  margin: 0;
+  font-family: var(--eve-font-display);
+  font-size: clamp(40px, 4vw, 56px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+.comoOrientLead {
+  margin: 22px 0 0;
+  color: var(--eve-mist);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.comoOrientPoints {
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 22px;
+}
+
+.comoOrientPoints li {
+  display: grid;
+  gap: 6px;
+  padding-top: 18px;
+  border-top: 1px solid var(--eve-line);
+  color: var(--eve-mist);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.comoOrientPoints strong {
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.comoOrientPoints span {
+  display: block;
+}
+
+.comoOrientNext {
+  margin: 28px 0 0;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.comoStickyRail {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  margin: 8px 0 0;
+  padding: 12px 0 12px;
+  background: color-mix(in srgb, var(--eve-sheet) 88%, var(--eve-mist) 12%);
+  border-bottom: 1px solid var(--eve-line);
+  box-shadow: 0 8px 18px -16px color-mix(in srgb, var(--eve-ink) 35%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.comoActivityAnchor {
+  display: grid;
+  gap: 6px;
+  max-width: 720px;
+}
+
+.comoActivityMetaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 14px;
+}
+
+.comoActivityLiteral {
+  margin: 0;
+  max-width: 640px;
+  font-family: var(--eve-font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--eve-ink) 86%, var(--eve-mist));
+}
+
+.comoActivityLiteralClamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.comoActivityLiteralToggle {
+  justify-self: start;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: var(--eve-font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.comoActivityLiteralToggle:hover {
+  color: var(--eve-ink);
+}
+
+.comoActivityArea {
+  color: var(--eve-mist);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.comoActivityProgress {
+  margin-left: auto;
+  color: var(--eve-mist);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.comoChapterRail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.comoChapterPill {
+  padding: 5px 10px;
+  border: 1px solid var(--eve-line);
+  color: var(--eve-mist);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.comoChapterPillActive {
+  border-color: var(--eve-ink);
+  color: var(--eve-ink);
+  background: color-mix(in srgb, var(--eve-ink) 6%, transparent);
+}
+
+.comoChapterPillDone {
+  color: var(--eve-ink);
+  opacity: 0.72;
+}
+
+.comoIntro {
+  max-width: 720px;
+  margin: 28px auto 24px;
+}
+
+.comoIntroVisuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.comoFrameLine {
+  margin: 0 0 16px;
+  max-width: 520px;
+  color: var(--eve-mist);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.sheetMarquee {
+  position: relative;
+  overflow: hidden;
+  margin: 0 -4px;
+  padding: 10px 0;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+}
+
+.sheetMarqueeTrack {
+  display: flex;
+  width: max-content;
+  gap: 0;
+  animation: eveMarquee 42s linear infinite;
+}
+
+.sheetMarqueeItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding-right: 28px;
+  color: color-mix(in srgb, var(--eve-ink) 72%, var(--eve-mist));
+  font-family: var(--eve-font-display);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.sheetMarqueeDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--eve-ink) 35%, transparent);
+  flex-shrink: 0;
+}
+
+@keyframes eveMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheetMarqueeTrack {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+    max-width: 100%;
+    gap: 8px 18px;
+    row-gap: 8px;
+  }
+
+  .sheetMarquee {
+    mask-image: none;
+    overflow: visible;
+  }
+
+  .sheetMarqueeItem {
+    padding-right: 0;
+    white-space: normal;
+  }
+}
+
+.comoIntro h2 {
+  margin: 0;
+  font-family: var(--eve-font-display);
+  font-size: clamp(34px, 3.4vw, 46px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.comoIntro p {
+  margin: 12px 0 0;
+  color: var(--eve-mist);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.comoProgress {
+  margin-top: 8px !important;
+  font-size: 12px !important;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.comoStepHelp {
+  margin: 8px 0 18px;
+  color: var(--eve-mist);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.comoProbeTag {
+  margin: 0 0 8px;
+  color: var(--eve-ink);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.comoRuntimeTrace {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.comoEcho {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-left: 2px solid var(--eve-accent);
+  background: color-mix(in srgb, var(--eve-accent) 8%, transparent);
+  color: var(--eve-mist);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.comoNavRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.comoNavGhost {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.comoNavGhost:disabled {
+  opacity: 0.4;
+  cursor: default;
+  text-decoration: none;
+}
+
+.comoScreen,
+.comoOrient,
+.activityChapter,
+#como-ocurre,
+#como-ocurre-stage {
+  scroll-margin-top: 12px;
+}
+
+.significadoOrientNext {
+  margin: 28px 0 24px;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+
+.significadoIntro {
+  max-width: 920px;
+  margin: 64px auto 72px;
+  text-align: center;
+}
+
+.significadoKicker {
+  margin: 0 0 18px;
+  color: var(--eve-mist);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.significadoIntro h2 {
+  margin: 0;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: clamp(40px, 4vw, 58px);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+}
+
+.significadoIntro p {
+  margin: 24px auto 0;
+  max-width: 560px;
+  color: var(--eve-mist);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.significadoBand,
+.significadoFooter {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 78px;
+  border-bottom: 1px solid var(--eve-line);
+  padding: 36px 0 40px;
+}
+
+.significadoFooter {
+  grid-template-columns: 260px minmax(0, 1fr) auto;
+  align-items: end;
+  border-bottom: 0;
+  padding-bottom: 12px;
+}
+
+.significadoFooter > p {
+  margin: 0;
+  max-width: 520px;
+  color: var(--eve-mist);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.significadoBandBody h3 {
+  margin: 0 0 22px;
+  font-family: var(--eve-font-display);
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.significadoContextLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: var(--eve-mist);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.significadoLiteral {
+  margin: 0 0 28px;
+  max-width: 720px;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.significadoPrefillNote {
+  margin: -8px 0 20px;
+  max-width: 640px;
+  color: var(--eve-mist);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.significadoOpContrast {
+  margin: 0 0 18px;
+  max-width: 640px;
+  color: var(--eve-ink);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.significadoOpGuide {
+  max-width: 680px;
+  margin: 0 0 28px;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--eve-line);
+}
+
+.significadoOpGuideLabel {
+  margin: 0 0 8px;
+  color: var(--eve-mist);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.significadoOpGuideExample {
+  margin: 0;
+  color: var(--eve-mist);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.significadoOpHints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.significadoOpStructureLabel {
+  margin: 16px 0 0;
+  color: var(--eve-mist);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.significadoOpHints li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--eve-mist);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.significadoOpCheck {
+  color: var(--eve-accent);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.significadoField {
+  display: grid;
+  gap: 10px;
+}
+
+.significadoField span {
+  color: var(--eve-mist);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.significadoFieldStrong span {
+  color: var(--eve-ink);
+  opacity: 1;
+}
+
+.significadoFieldIncomplete span {
+  color: var(--eve-ink);
+}
+
+.significadoFieldIncomplete textarea {
+  border-bottom-color: var(--eve-ink);
+}
+
+.significadoStanceRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.significadoStanceButton {
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: var(--eve-font-body);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 2px;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    font-weight 180ms ease,
+    border-bottom-color 180ms ease,
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.significadoStanceButton:hover {
+  color: var(--eve-ink);
+  transform: translateY(-1px);
+}
+
+.significadoStanceButtonActive {
+  color: var(--eve-ink);
+  font-weight: 700;
+  border-bottom-color: var(--eve-ink);
+  transform: translateY(0);
+}
+
+.significadoFieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 28px;
+}
+
+.significadoFieldStack {
+  display: grid;
+  gap: 22px;
+}
+
+.significadoField textarea {
+  width: 100%;
+  resize: vertical;
+  border: 0;
+  border-bottom: 1px solid var(--eve-line);
+  background: transparent;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-body);
+  font-size: 15px;
+  line-height: 1.45;
+  padding: 8px 0 12px;
+  outline: none;
+  transition:
+    border-bottom-color 220ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.significadoField textarea:focus {
+  border-bottom-color: var(--eve-accent);
+  transform: translateY(-1px);
+}
+
+.significadoField textarea::placeholder {
+  color: rgba(122, 129, 144, 0.72);
+}
+
+.significadoCheck {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--eve-ink);
+  font-size: 14px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.significadoCheck input {
+  margin-top: 3px;
+}
+
+.significadoExampleChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.significadoExampleChip {
+  border: 1px solid var(--eve-line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: var(--eve-font-body);
+  font-size: 12px;
+  line-height: 1.3;
+  padding: 6px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.significadoExampleChip:hover {
+  color: var(--eve-ink);
+  border-color: var(--eve-mist);
+}
+
+.significadoExampleChipActive {
+  color: var(--eve-ink);
+  border-color: var(--eve-ink);
+  font-weight: 600;
+}
+
+.significadoVariationBlock {
+  display: grid;
+  gap: 14px;
+  padding-top: 8px;
+}
+
+.significadoVariationQuestion {
+  margin: 0;
+  color: var(--eve-ink);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.significadoClarifyBox {
+  display: grid;
+  gap: 12px;
+  max-width: 680px;
+  margin-bottom: 22px;
+  color: var(--eve-ink);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.significadoClarifyBox p {
+  margin: 0;
+}
+
+.significadoClarifyQuestion {
+  margin-top: 4px !important;
+  font-weight: 600;
+}
+
+.estadoAScreen,
+.orientScreen,
+.workmapScreen,
+.significadoScreen,
+.significadoOrient,
+#significado-c,
+#significado-anchor {
+  scroll-margin-top: 0;
+}
+
+.estadoAScreen {
+  min-height: 100svh;
+  background: var(--eve-sheet);
+  color: var(--eve-ink);
+  width: min(100%, 1260px);
+  margin: 0 auto;
+  padding: 48px 46px 40px;
+}
+
+.estadoATopbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 36px;
+  margin-bottom: 16px;
+}
+
+.estadoALogo {
+  --eve-mark-height: 11px;
+  --eve-text-size: 7px;
+  --eve-gap: 7px;
+  --eve-tracking: 0.42em;
+  --eve-tm-size: 4px;
+}
+
+.estadoASlogan {
+  color: var(--eve-mist);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  line-height: 1;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.estadoAIntro {
+  max-width: 920px;
+  margin: 72px auto 72px;
+  text-align: center;
+}
+
+.estadoATitle {
+  margin: 0;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: clamp(44px, 4.2vw, 62px);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+}
+
+.estadoASubtitle {
+  max-width: 640px;
+  margin: 28px auto 0;
+  color: var(--eve-mist);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.estadoAQuestions {
+  border-top: 1px solid var(--eve-line);
+  display: block;
+}
+
+.estadoAQuestion {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 78px;
+  padding: 40px 0 36px;
+  border-bottom: 1px solid var(--eve-line);
+}
+
+.estadoAQuestionMeta {
+  padding-top: 6px;
+}
+
+.estadoANumber {
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.estadoAQuestionMeta p {
+  margin: 10px 0 0;
+  color: var(--eve-mist);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.estadoAQuestionBody h3 {
+  margin: 0 0 28px;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: clamp(24px, 2.35vw, 34px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+
+.estadoAOptionGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px 32px;
+}
+
+.estadoAOptionGridFive {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.estadoAOption {
+  min-height: 44px;
+  display: block;
+  align-items: start;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: var(--eve-font-body);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    font-weight 200ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+}
+
+.estadoAOption:hover {
+  color: var(--eve-ink);
+  transform: translateY(-2px);
+}
+
+.estadoAOptionSelected {
+  color: var(--eve-ink);
+  font-weight: 700;
+  transform: translateY(0);
+}
+
+.estadoAFooter {
+  display: grid;
+  grid-template-columns: 260px 1fr 250px;
+  gap: 78px;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.estadoAFooter p {
+  margin: 0;
+  color: var(--eve-mist);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.sheetAdvance,
+.sheetAdvanceQuiet {
+  min-height: 48px;
+  border: 0;
+  background: transparent;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    opacity 200ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    letter-spacing 220ms ease;
+}
+
+.sheetAdvance {
+  border-bottom: 1px solid var(--eve-ink);
+  padding: 0 0 10px;
+}
+
+.sheetAdvance:disabled {
+  color: var(--eve-mist);
+  border-bottom-color: var(--eve-line);
+  cursor: not-allowed;
+}
+
+.sheetAdvanceQuiet {
+  color: var(--eve-accent);
+  justify-self: end;
+}
+
+.sheetAdvanceQuiet:hover,
+.sheetAdvance:not(:disabled):hover {
+  color: var(--eve-graphite);
+  transform: translateY(2px);
+  letter-spacing: 0.06em;
+}
+
+.sheetGateNote {
+  margin: 0;
+  color: var(--eve-mist);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: right;
+}
+
+.sheetReveal {
+  animation: eveSheetEnter 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ——— Motion hoja: reveal / título / banda / stagger / cinta ——— */
+
+.motionReveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 780ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 780ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 780ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--motion-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.motionRevealTitle {
+  transform: translateY(36px) scale(0.985);
+  filter: blur(6px);
+}
+
+.motionRevealBand {
+  transform: translateY(32px);
+}
+
+.motionRevealIn {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.motionStagger > * {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.motionRevealIn.motionStagger > * {
+  animation: eveFadeUp 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.motionRevealIn.motionStagger > *:nth-child(1) {
+  animation-delay: 40ms;
+}
+
+.motionRevealIn.motionStagger > *:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.motionRevealIn.motionStagger > *:nth-child(3) {
+  animation-delay: 200ms;
+}
+
+.motionRevealIn.motionStagger > *:nth-child(4) {
+  animation-delay: 280ms;
+}
+
+.motionRevealIn.motionStagger > *:nth-child(5) {
+  animation-delay: 360ms;
+}
+
+.motionRevealIn.motionStagger > *:nth-child(n + 6) {
+  animation-delay: 420ms;
+}
+
+.whiteSection {
+  background: #ffffff;
+  padding: 38px 48px 70px;
+}
+
+.workmapScreen {
+  min-height: 100svh;
+  width: min(100%, 1260px);
+  margin: 0 auto;
+  padding: 48px 46px 40px;
+  background: var(--eve-sheet);
+  color: var(--eve-ink);
+}
+
+.workmapTopbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 24px;
+  margin-bottom: 16px;
+  color: var(--eve-mist);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+}
+
+.workmapIntro {
+  max-width: 920px;
+  margin: 72px auto 72px;
+  text-align: center;
+}
+
+.workmapIntro h2 {
+  margin: 0;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: clamp(44px, 4.2vw, 62px);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+}
+
+.workmapIntro p {
+  margin: 28px 0 0;
+  color: var(--eve-mist);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.workmapLocationRow,
+.workmapRoleRow,
+.workmapFooter {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 78px;
+  border-bottom: 1px solid var(--eve-line);
+}
+
+.workmapLocationRow {
+  border-top: 1px solid var(--eve-line);
+  padding: 40px 0 36px;
+}
+
+.workmapSideMeta {
+  padding-top: 6px;
+}
+
+.workmapKicker {
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.workmapSideMeta p {
+  max-width: 190px;
+  margin: 10px 0 0;
+  color: var(--eve-mist);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.workmapLocationBody h3 {
+  margin: 0;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: clamp(24px, 2.35vw, 34px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  text-align: right;
+}
+
+.workmapRoleBody h3 {
+  margin: 0;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: clamp(24px, 2.35vw, 34px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.workmapAreaTabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 22px;
+  margin-top: 34px;
+}
+
+.workmapAreaTabs button {
+  min-height: 38px;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: var(--eve-font-body);
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    font-weight 200ms ease;
+}
+
+.workmapAreaTabs button:hover {
+  color: var(--eve-ink);
+  transform: translateY(-1px);
+}
+
+.workmapAreaTabs .workmapAreaTabActive {
+  color: var(--eve-ink);
+  font-weight: 700;
+  transform: translateY(0);
+}
+
+.workmapCustomAreaRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 140px;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.workmapCustomAreaRow input,
+.workmapTextField,
+.workmapActivityField {
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-body);
+  outline: none;
+  resize: none;
+}
+
+.workmapCustomAreaRow input {
+  min-height: 38px;
+  font-size: 11px;
+}
+
+.workmapCustomAreaRow button,
+.workmapInlineButton,
+.workmapRemoveButton {
+  border: 0;
+  background: transparent;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: left;
+  cursor: pointer;
+}
+
+.workmapRemoveButton {
+  margin-top: 8px;
+  color: var(--eve-mist);
+  font-weight: 600;
+}
+
+.workmapRoleRow {
+  padding: 40px 0 36px;
+}
+
+.workmapRoleAside {
+  color: #5d6875;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.workmapRoleIndex {
+  margin-bottom: 9px;
+  color: #303030;
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.workmapRoleAside p {
+  max-width: 190px;
+  margin: 0;
+}
+
+.workmapAssistantNote {
+  margin-top: 22px !important;
+  color: #2f54c8;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.workmapInputLine {
+  min-height: 40px;
+  padding: 0 0 13px;
+  color: #101820;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.workmapTextField {
+  min-height: 52px;
+  margin-top: 20px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid var(--eve-line);
+  color: var(--eve-ink);
+  font-size: 14px;
+  line-height: 1.5;
+  transition: border-color 180ms ease;
+}
+
+.workmapTextField:focus {
+  border-bottom-color: var(--eve-accent);
+}
+
+.workmapInlineAssistance {
+  margin: 14px 0 42px;
+  color: #2f54c8;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.workmapInlineAssistance + h3 {
+  margin-top: 34px;
+}
+
+.workmapActivities {
+  margin-top: 34px;
+}
+
+.workmapActivityLine {
+  min-height: 44px;
+  padding: 16px 0;
+  color: #3f4854;
+  font-size: 10px;
+  line-height: 1.24;
+}
+
+.workmapActivityField {
+  min-height: 28px;
+  padding: 0;
+  color: var(--eve-ink);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.workmapInlineButton {
+  margin: 0;
+}
+
+.workmapInlineActionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 34px;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.workmapFieldHint {
+  margin: 10px 0 0;
+  max-width: 640px;
+  color: var(--eve-accent);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.workmapFieldHintReview {
+  color: var(--eve-ink);
+  font-weight: 600;
+}
+
+.workmapFieldHintWarning {
+  color: var(--eve-mist);
+  font-weight: 500;
+}
+
+.workmapFieldHintCoverage {
+  color: var(--eve-mist);
+  font-weight: 600;
+}
+
+.workmapFieldNeedsReview {
+  border-bottom-color: var(--eve-accent);
+}
+
+.workmapFooter {
+  grid-template-columns: 260px minmax(0, 1fr) 250px;
+  align-items: center;
+  padding: 34px 0 0;
+  border-bottom: 0;
+}
+
+.workmapFooter > p {
+  margin: 0;
+  color: var(--eve-mist);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.workmapContinueButton {
+  min-height: 52px;
+  border: 0;
+  background: var(--eve-graphite);
+  color: var(--eve-on-dark);
+  font-family: var(--eve-font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.workmapContinueButton:hover {
+  background: var(--eve-graphite-soft);
+  transform: translateY(-1px);
+}
+
+.sheet {
+  border-top: 1px solid #2c2c2a;
+  max-width: 1260px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.ghostLetter {
+  position: absolute;
+  top: -20px;
+  left: 28px;
+  color: rgba(25, 25, 23, 0.06);
+  font-size: 230px;
+  line-height: 0.8;
+  pointer-events: none;
+}
+
+.sectionHeader {
+  min-height: 260px;
+  display: grid;
+  grid-template-columns: 220px 1fr 300px;
+  gap: 48px;
+  align-items: center;
+  border-bottom: 1px solid #deded8;
+  position: relative;
+}
+
+.kicker {
+  letter-spacing: 0.42em;
+  font-size: var(--eve-label);
+  font-weight: 800;
+  color: #050505;
+}
+
+.sideCopy {
+  margin-top: 28px;
+  max-width: 180px;
+  color: #5d6470;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.headline {
+  font-size: var(--eve-display-section);
+  line-height: 1.02;
+  font-weight: 400;
+}
+
+.headerNote {
+  border-top: 1px solid #2c2c2a;
+  padding-top: 22px;
+  text-align: right;
+  font-size: var(--eve-body-large);
+  line-height: 1.25;
+}
+
+.questionRow {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 88px;
+  padding: 48px 0 56px;
+  border-bottom: 1px solid #deded8;
+}
+
+.rowNumber {
+  letter-spacing: 0.38em;
+  font-size: var(--eve-label);
+  font-weight: 800;
+  line-height: 1.28;
+}
+
+.rowHelp {
+  margin-top: 16px;
+  color: #5d6470;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.questionTitle {
+  text-align: right;
+  font-size: var(--eve-display-subsection);
+  line-height: 1.08;
+  font-weight: 400;
+  margin-bottom: 42px;
+}
+
+.optionGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 34px 44px;
+}
+
+.optionGridNarrow {
+  grid-template-columns: repeat(5, minmax(110px, 1fr));
+}
+
+.option {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 12px;
+  align-items: start;
+  font-size: var(--eve-body);
+  line-height: 1.25;
+}
+
+.radio {
+  width: 11px;
+  height: 11px;
+  border: 1px solid #9b9b96;
+  border-radius: 999px;
+  margin-top: 3px;
+}
+
+.radioSelected {
+  border-color: #1f1f1d;
+  box-shadow: inset 0 0 0 3px #ffffff;
+  background: #1f1f1d;
+}
+
+.selectedText {
+  font-weight: 800;
+}
+
+.continueRow {
+  display: grid;
+  grid-template-columns: 230px 1fr 250px;
+  gap: 88px;
+  align-items: center;
+  padding: 42px 0 22px;
+}
+
+.continuityCopy {
+  color: #5d6470;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.orientScreen {
+  background: var(--eve-paper);
+  color: var(--eve-ink);
+  border-top: 1px solid var(--eve-line);
+  border-bottom: 1px solid var(--eve-line);
+  padding: 56px 46px 48px;
+}
+
+.orientInner {
+  width: min(100%, 1260px);
+  margin: 0 auto;
+}
+
+.orientHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 48px;
+  align-items: end;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--eve-line);
+}
+
+.orientHeaderSolo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.orientStaticList {
+  display: grid;
+  margin-top: 8px;
+}
+
+.orientStaticRow {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--eve-line);
+}
+
+.orientStaticRow .orientRowNumber {
+  padding-top: 2px;
+}
+
+.orientKicker {
+  margin: 0 0 12px;
+  color: var(--eve-mist);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.orientTitle {
+  margin: 0;
+  font-family: var(--eve-font-display);
+  font-size: clamp(36px, 3.6vw, 52px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.orientLead {
+  max-width: 520px;
+  margin: 16px 0 0;
+  color: var(--eve-mist);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.orientProgress {
+  display: grid;
+  gap: 10px;
+  justify-items: end;
+  text-align: right;
+}
+
+.orientProgressLabel {
+  margin: 0;
+  color: var(--eve-mist);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.orientProgressTrack {
+  width: 160px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.orientProgressTick {
+  height: 3px;
+  background: rgba(18, 20, 26, 0.12);
+  transition: background-color 220ms ease;
+}
+
+.orientProgressTickDone {
+  background: var(--eve-accent);
+}
+
+.orientProgressCount {
+  font-family: var(--eve-font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.orientProgressCount span {
+  color: var(--eve-mist);
+  font-weight: 500;
+}
+
+.orientList {
+  display: grid;
+  margin-top: 8px;
+}
+
+.orientRow {
+  border-bottom: 1px solid var(--eve-line);
+}
+
+.orientRowViewed .orientRowNumber {
+  color: var(--eve-accent);
+}
+
+.orientRowButton {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 64px;
+  gap: 20px;
+  align-items: center;
+  padding: 22px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 220ms ease, padding-left 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.orientRowButton:hover {
+  padding-left: 6px;
+}
+
+.orientRowButton:hover .orientRowTitle,
+.orientRowOpen .orientRowTitle {
+  color: var(--eve-ink);
+}
+
+.orientRowDetail {
+  padding: 0 0 22px 92px;
+  animation: eveFadeUp 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.orientRowNumber {
+  font-family: var(--eve-font-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--eve-mist);
+}
+
+.orientRowMain {
+  display: grid;
+  gap: 4px;
+}
+
+.orientRowTitle {
+  font-family: var(--eve-font-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--eve-ink);
+}
+
+.orientRowCopy {
+  color: var(--eve-mist);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.orientRowHint {
+  color: var(--eve-mist);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.orientRowDetailTitle {
+  margin: 0 0 8px;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.orientRowDetail p {
+  margin: 0;
+  max-width: 640px;
+  color: var(--eve-mist);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.orientFooter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 32px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.orientFooterNote {
+  margin: 0;
+  color: var(--eve-mist);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.orientContinueButton {
+  min-height: 48px;
+  border: 0;
+  background: var(--eve-graphite);
+  color: var(--eve-on-dark);
+  font-family: var(--eve-font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background-color 180ms ease, opacity 180ms ease;
+}
+
+.orientContinueButton:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.orientContinueButton:not(:disabled):hover {
+  background: var(--eve-graphite-soft);
+}
+
+.stepGrid {
+  --step-card: clamp(250px, 18.8vw, 386px);
+  --step-card-tall: clamp(216px, 36vh, 368px);
+  --step-gap: clamp(14px, 1.1vw, 22px);
+  min-height: calc((var(--step-card-tall) * 2) + var(--step-gap));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, var(--step-card)));
+  grid-template-rows: repeat(2, minmax(var(--step-card-tall), auto));
+  gap: var(--step-gap);
+  align-content: center;
+  justify-content: start;
+}
+
+.stepButton {
+  width: 100%;
+  min-height: var(--step-card-tall);
+  border: 1px solid rgba(243, 244, 246, 0.12);
+  background: #e8eaee;
+  color: var(--eve-graphite);
+  padding: 40px 32px 18px;
+  text-align: left;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(90px);
+  transition:
+    opacity 640ms ease,
+    transform 760ms cubic-bezier(0.19, 1, 0.22, 1),
+    background-color 280ms ease,
+    border-color 280ms ease;
+}
+
+.stepButton:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.stepButton:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.stepButton:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.stepButton:nth-child(4) {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.stepButtonRevealed {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.stepButton:hover,
+.stepButton:focus-visible {
+  background: #f2f4f7;
+  border-color: rgba(92, 125, 143, 0.35);
+  transform: translateY(-6px);
+  outline: none;
+  z-index: 4;
+}
+
+.stepButtonActive {
+  background: #f7f8fa;
+  border-color: var(--eve-accent);
+  transform: translateY(-8px);
+  z-index: 5;
+}
+
+.stepNumber {
+  display: block;
+  font-family: var(--eve-font-display);
+  font-size: clamp(42px, 3.4vw, 56px);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.stepTitle {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--eve-font-display);
+  font-size: clamp(20px, 1.7vw, 26px);
+  line-height: 1.06;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.stepCopy {
+  display: block;
+  margin-top: 18px;
+  color: #5f6672;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.28;
+}
+
+.stepDetailView {
+  width: min(100%, 1500px);
+  min-height: 560px;
+  margin: 0;
+  padding: 84px 0 74px clamp(56px, 4.3vw, 88px);
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: 360px minmax(0, 760px) 104px;
+  gap: 88px;
+  align-items: start;
+  color: #f6f6f0;
+  animation: eveFadeUp 420ms ease both;
+}
+
+.stepDetailMeta {
+  display: grid;
+  gap: 32px;
+  color: rgba(246, 246, 240, 0.76);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.42em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  white-space: pre-line;
+}
+
+.stepDetailBody h3 {
+  max-width: 760px;
+  margin: 0;
+  color: var(--eve-on-dark);
+  font-family: var(--eve-font-display);
+  font-size: clamp(54px, 5vw, 76px);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+}
+
+.stepDetailBody p {
+  max-width: 730px;
+  margin: 32px 0 0;
+  color: rgba(246, 246, 240, 0.72);
+  font-size: clamp(26px, 2.1vw, 34px);
+  line-height: 1.34;
+}
+
+.stepDetailBody .stepDetailRequirement {
+  margin-top: 42px;
+  max-width: 420px;
+}
+
+.stepDetailClose {
+  width: 104px;
+  height: 104px;
+  border: 1px solid rgba(243, 244, 246, 0.35);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--eve-on-dark);
+  font-size: 48px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color 220ms ease,
+    transform 220ms ease,
+    background-color 220ms ease;
+}
+
+.stepDetailClose:hover,
+.stepDetailClose:focus-visible {
+  border-color: var(--eve-accent);
+  background: var(--eve-accent-soft);
+  transform: scale(1.03);
+  outline: none;
+}
+
+@keyframes eveFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes eveSheetEnter {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes eveTitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.985);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes eveLineDraw {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes eveGhostIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes eveAtmosphereDrift {
+  from {
+    opacity: 0.7;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(-1.5%, 1%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheetReveal,
+  .motionReveal,
+  .motionRevealIn,
+  .motionRevealTitle,
+  .motionRevealBand,
+  .motionStagger > *,
+  .motionRevealIn.motionStagger > *,
+  .orientRowDetail,
+  .activityChapterTitle,
+  .activityChapterEyebrow,
+  .activityChapterFrame,
+  .activityChapterMeta,
+  .activityChapterDetail,
+  .activityChapterAction,
+  .activityChapterRule,
+  .activityChapterGhost,
+  .activityChapterAtmosphere,
+  .comoQuestionEnter {
+    animation: none !important;
+    filter: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}
+
+.workmapHeader {
+  min-height: 250px;
+}
+
+.roleBlock {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 88px;
+  padding: 42px 0 58px;
+  border-bottom: 1px solid #e3e3de;
+}
+
+.roleIndex {
+  font-size: 30px;
+  line-height: 1;
+  margin-bottom: 34px;
+}
+
+.roleName {
+  border-bottom: 1px solid #cfcfca;
+  padding-bottom: 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.fieldLine {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 42px;
+  align-items: start;
+  border-bottom: 1px solid #e0e0da;
+  padding: 16px 0;
+  font-size: 14px;
+}
+
+.fieldQuestion {
+  text-align: right;
+  font-size: 28px;
+  font-weight: 400;
+  margin: 26px 0 14px;
+}
+
+.mutedText {
+  color: #5e6570;
+}
+
+.activities {
+  counter-reset: activities;
+}
+
+.activityLine {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e3e3de;
+  font-size: 14px;
+}
+
+.assistantNote {
+  max-width: 250px;
+  margin-top: 28px;
+  color: #2f6db5;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.addActivity {
+  margin-top: 18px;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.blackEvidence {
+  min-height: 360px;
+  background: #252522;
+  color: #f6f6f0;
+  padding: 54px 48px;
+}
+
+.evidenceInner {
+  max-width: 1260px;
+  margin: 0 auto;
+}
+
+.evidenceGhost {
+  color: rgba(255, 255, 255, 0.08);
+  font-size: clamp(34px, 4vw, 50px);
+  line-height: 0.95;
+  font-weight: 700;
+  text-align: center;
+}
+
+.evidenceTitle {
+  margin-top: 54px;
+  max-width: 520px;
+  font-size: 34px;
+  line-height: 1.05;
+  font-weight: 400;
+}
+
+.evidenceLabel {
+  margin-top: 74px;
+  letter-spacing: 0.25em;
+  font-size: 11px;
+  color: #d4d4ce;
+}
+
+.cIntro {
+  grid-template-columns: 230px minmax(360px, 1fr) 330px;
+}
+
+.compactHeadline {
+  font-size: var(--eve-display-compact);
+}
+
+.evidenceStatement {
+  border-top: 1px solid #2c2c2a;
+  padding-top: 24px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.extractionRow {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 88px;
+  padding: 34px 0 42px;
+  border-bottom: 1px solid #e0e0da;
+}
+
+.extractionTitle {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 26px;
+}
+
+.evidenceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.evidenceCell {
+  border-top: 1px solid #2e2e2c;
+  padding-top: 14px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.cellLabel {
+  display: block;
+  margin-bottom: 10px;
+  letter-spacing: 0.2em;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.storyText {
+  max-width: 880px;
+  margin: 0 auto;
+  border-top: 1px solid #2e2e2c;
+  padding-top: 18px;
+  color: #454b54;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .darkIntro,
+  .whiteSection,
+  .orientScreen,
+  .blackEvidence {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .topbar,
+  .sectionTopbar,
+  .loginLower,
+  .sectionHeader,
+  .questionRow,
+  .continueRow,
+  .orientHeader,
+  .orientFooter,
+  .roleBlock,
+  .extractionRow,
+  .cIntro,
+  .estadoAQuestion,
+  .estadoAFooter {
+    grid-template-columns: 1fr;
+  }
+
+  .orientProgress {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .orientRowButton {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .orientStaticRow {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .orientRowHint {
+    display: none;
+  }
+
+  .orientRowDetail {
+    padding-left: 56px;
+  }
+
+  .strapline {
+    position: static;
+    max-width: 260px;
+    margin-top: 12px;
+    text-align: left;
+    white-space: normal;
+    transform: none;
+  }
+
+  .engineLine {
+    position: static;
+    margin-top: 8px;
+    white-space: normal;
+  }
+
+  .loginForm,
+  .optionGrid,
+  .optionGridNarrow,
+  .evidenceGrid,
+  .estadoAOptionGrid,
+  .estadoAOptionGridFive {
+    grid-template-columns: 1fr;
+  }
+
+  .heroTitle,
+  .headline,
+  .compactHeadline {
+    text-align: left;
+    font-size: 42px;
+  }
+
+  .heroLine {
+    white-space: normal;
+  }
+
+  .heroGhost {
+    text-align: left;
+    font-size: 42px;
+  }
+
+  .loginCopy {
+    margin-bottom: 28px;
+  }
+
+  .accessNote {
+    position: static;
+    justify-self: start;
+  }
+
+  .questionTitle,
+  .headerNote,
+  .fieldQuestion {
+    text-align: left;
+  }
+
+  .stepGrid {
+    min-height: auto;
+    display: grid;
+    gap: 12px;
+  }
+
+  .stepButton,
+  .stepButton:nth-child(n) {
+    position: static;
+    width: 100%;
+  }
+
+  .estadoAScreen {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    padding: 24px 22px 32px;
+  }
+
+  .estadoATopbar {
+    gap: 18px;
+  }
+
+  .estadoASlogan {
+    text-align: right;
+    font-size: 10px;
+  }
+
+  .estadoAIntro {
+    margin: 56px auto 42px;
+  }
+
+  .estadoATitle {
+    font-size: 42px;
+    white-space: normal;
+  }
+
+  .estadoAQuestions {
+    display: block;
+  }
+
+  .significadoScreen {
+    padding: 24px 22px 40px;
+  }
+
+  .significadoOrient {
+    padding: 24px 22px 40px;
+  }
+
+  .significadoOrientInner {
+    margin-top: 48px;
+  }
+
+  .significadoOrientInner h2 {
+    font-size: 42px;
+  }
+
+  .significadoIntro {
+    margin: 48px auto 42px;
+    text-align: left;
+  }
+
+  .significadoIntro h2 {
+    font-size: 42px;
+  }
+
+  .significadoBand,
+  .significadoFooter {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .comoQuestionStack .comoCaptureBand {
+    gap: 12px;
+  }
+
+  .comoQuestionTitle {
+    font-size: 17px !important;
+  }
+
+  .significadoFieldGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .significadoLiteral {
+    font-size: 20px;
+  }
+
+  .comoScreen,
+  .comoOrient,
+  .activityChapter {
+    padding: 24px 22px 40px;
+  }
+
+  .activityChapterStage {
+    margin-top: 48px;
+    text-align: left;
+  }
+
+  .activityChapterTitle {
+    font-size: 34px;
+  }
+
+  .activityChapterMeta {
+    justify-content: flex-start;
+  }
+
+  .activityChapterAction {
+    text-align: left;
+  }
+
+  .activityChapterGhost {
+    left: 0;
+    transform: none;
+    font-size: 120px;
+  }
+
+  .comoOrientInner {
+    margin-top: 48px;
+  }
+
+  .comoOrientInner h2 {
+    font-size: 42px;
+  }
+
+  .comoIntro {
+    margin: 32px auto 28px;
+  }
+
+  .comoIntro h2 {
+    font-size: 36px;
+  }
+
+  .comoStickyRail {
+    position: static;
+    backdrop-filter: none;
+  }
+}

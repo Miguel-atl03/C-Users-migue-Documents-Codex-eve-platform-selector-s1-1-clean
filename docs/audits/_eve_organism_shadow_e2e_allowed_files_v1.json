@@ -1,0 +1,144 @@
+{
+  "generated_at": "2026-06-24T20:26:02.801Z",
+  "future_allowed_files": [
+    "src/types/eve-organism-shadow-e2e.ts",
+    "src/services/eve-organism-shadow-e2e-adapter.ts",
+    "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+    "docs/audits/AUDIT_EVE_ORGANISM_SHADOW_E2E_PREFLIGHT_V1.md",
+    "docs/audits/_eve_organism_shadow_e2e_preflight_v1.json",
+    "docs/audits/AUDIT_EVE_ORGANISM_SHADOW_E2E_HARNESS_V1.md",
+    "docs/audits/_eve_organism_shadow_e2e_harness_v1.json"
+  ],
+  "future_forbidden_files": [
+    "app/**",
+    "src/app/**",
+    "components/**",
+    "pages/**",
+    "docs/chips/**",
+    "docs/runtime/**",
+    "package.json",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "supabase/**",
+    "migrations/**",
+    "registry/export productivo",
+    "DB/SQL files"
+  ],
+  "adapter_candidates": [
+    {
+      "candidate_path": "src/services/eve-organism-shadow-e2e-adapter.ts",
+      "allowed": true,
+      "why": "Can host read-only adapter/harness outside UI and DB wiring.",
+      "risk": "medium",
+      "dependencies_needed": [
+        "Composition Root Shadow command/result types",
+        "real-flow signal fixture or read-only event payload",
+        "injected clock/correlation"
+      ],
+      "forbidden_dependencies": [
+        "src/app/**",
+        "components/**",
+        "Supabase client",
+        "DB/SQL writes",
+        "registry/export productivo",
+        "runtime activation"
+      ]
+    },
+    {
+      "candidate_path": "src/services/eve-organism-shadow-e2e-harness.ts",
+      "allowed": true,
+      "why": "Can host read-only adapter/harness outside UI and DB wiring.",
+      "risk": "low",
+      "dependencies_needed": [
+        "Composition Root Shadow command/result types",
+        "real-flow signal fixture or read-only event payload",
+        "injected clock/correlation"
+      ],
+      "forbidden_dependencies": [
+        "src/app/**",
+        "components/**",
+        "Supabase client",
+        "DB/SQL writes",
+        "registry/export productivo",
+        "runtime activation"
+      ]
+    },
+    {
+      "candidate_path": "src/types/eve-organism-shadow-e2e.ts",
+      "allowed": true,
+      "why": "Can define typed read-only signal contract.",
+      "risk": "low",
+      "dependencies_needed": [
+        "Composition Root Shadow command/result types",
+        "real-flow signal fixture or read-only event payload",
+        "injected clock/correlation"
+      ],
+      "forbidden_dependencies": [
+        "src/app/**",
+        "components/**",
+        "Supabase client",
+        "DB/SQL writes",
+        "registry/export productivo",
+        "runtime activation"
+      ]
+    },
+    {
+      "candidate_path": "tests/regression/eve-organism-shadow-e2e-preflight.test.ts",
+      "allowed": true,
+      "why": "Can validate no-cableado harness behavior.",
+      "risk": "low",
+      "dependencies_needed": [
+        "Composition Root Shadow command/result types",
+        "real-flow signal fixture or read-only event payload",
+        "injected clock/correlation"
+      ],
+      "forbidden_dependencies": [
+        "src/app/**",
+        "components/**",
+        "Supabase client",
+        "DB/SQL writes",
+        "registry/export productivo",
+        "runtime activation"
+      ]
+    },
+    {
+      "candidate_path": "docs/audits/AUDIT_EVE_ORGANISM_SHADOW_E2E_V1.md",
+      "allowed": true,
+      "why": "Audit artifact only.",
+      "risk": "low",
+      "dependencies_needed": [
+        "Composition Root Shadow command/result types",
+        "real-flow signal fixture or read-only event payload",
+        "injected clock/correlation"
+      ],
+      "forbidden_dependencies": [
+        "src/app/**",
+        "components/**",
+        "Supabase client",
+        "DB/SQL writes",
+        "registry/export productivo",
+        "runtime activation"
+      ]
+    },
+    {
+      "candidate_path": "docs/audits/_eve_organism_shadow_e2e_v1.json",
+      "allowed": true,
+      "why": "Audit artifact only.",
+      "risk": "low",
+      "dependencies_needed": [
+        "Composition Root Shadow command/result types",
+        "real-flow signal fixture or read-only event payload",
+        "injected clock/correlation"
+      ],
+      "forbidden_dependencies": [
+        "src/app/**",
+        "components/**",
+        "Supabase client",
+        "DB/SQL writes",
+        "registry/export productivo",
+        "runtime activation"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/mba-control-plane/compliance-report.schema.json",
+  "title": "EVE MBA Control Plane Compliance Report",
+  "type": "object",
+  "required": [
+    "report_id",
+    "case_id",
+    "generated_at",
+    "operation_mode",
+    "events_observed",
+    "object_states_reached",
+    "valid_transitions",
+    "non_conformant_transitions",
+    "warnings",
+    "hard_gate_candidates",
+    "circular_dependencies_detected",
+    "findings_should_return_to_p_sup_06",
+    "findings_affecting_capa1_or_capa2_readiness",
+    "timer_ledger",
+    "findings",
+    "shadow_mode_next_action",
+    "summary"
+  ],
+  "properties": {
+    "report_id": { "type": "string", "minLength": 1 },
+    "case_id": { "type": ["string", "null"] },
+    "session_id": { "type": ["string", "null"] },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "operation_mode": {
+      "enum": ["shadow_mode", "soft_governance_mode", "enforcement_mode"]
+    },
+    "events_observed": { "type": "array" },
+    "object_states_reached": { "type": "array" },
+    "valid_transitions": { "type": "array" },
+    "non_conformant_transitions": { "type": "array" },
+    "warnings": { "type": "array" },
+    "hard_gate_candidates": { "type": "array" },
+    "circular_dependencies_detected": { "type": "array" },
+    "findings_should_return_to_p_sup_06": { "type": "array" },
+    "findings_affecting_capa1_or_capa2_readiness": { "type": "array" },
+    "timer_ledger": { "type": "array" },
+    "findings": { "type": "array" },
+    "shadow_mode_next_action": { "type": "string" },
+    "summary": { "type": "object" }
+  },
+  "additionalProperties": true
+}

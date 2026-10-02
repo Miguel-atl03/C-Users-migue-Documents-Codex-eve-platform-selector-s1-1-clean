@@ -1,0 +1,203 @@
+{
+  "audit_id": "EVE_ORGANISM_SHADOW_E2E_ENTRYPOINT_DECISION_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "source_preflight": "docs/audits/_eve_organism_shadow_e2e_preflight_v1.json",
+  "critical_gap_resolved_by_design": {
+    "gap_id": "G2-GAP-001",
+    "type": "SHADOW_E2E_ENTRYPOINT_UNKNOWN",
+    "resolution": "Use fixture/replay adapter as first Gate 2 harness entrypoint."
+  },
+  "inventory_basis": {
+    "shadow_input_candidates": 80,
+    "safe_observation_candidates": 49,
+    "unsafe_constraints": [
+      "No DB writes",
+      "No Supabase requirement",
+      "No UI touch",
+      "No production flow mutation",
+      "No registry/export/diagnosis"
+    ]
+  },
+  "entrypoint_options": [
+    {
+      "entrypoint_candidate_id": "E2E-ENTRY-001",
+      "source_type": "synthetic_fixture_replay",
+      "source_path": "tests/fixtures/eve-organism-shadow-e2e/*.json",
+      "signals_available": [
+        "tenantId",
+        "organizationId",
+        "sessionId",
+        "activityId",
+        "actorId",
+        "clientIntent",
+        "evidenceInputs",
+        "candidateInputs",
+        "officialFlowRef",
+        "idempotencyKey",
+        "correlationId"
+      ],
+      "tenant_session_activity_available": true,
+      "provenance_available": true,
+      "idempotency_correlation_available": true,
+      "requires_db": false,
+      "requires_supabase": false,
+      "touches_ui": false,
+      "touches_production_flow": false,
+      "risk_level": "low",
+      "decision": "accept",
+      "reason": "Safest first harness: it can replay real-shaped signals without reading or mutating production systems."
+    },
+    {
+      "entrypoint_candidate_id": "E2E-ENTRY-002",
+      "source_type": "audit_trace_replay",
+      "source_path": "docs/audits/_eve_organism_shadow_e2e_signal_inventory_v1.json",
+      "signals_available": [
+        "route/service signal names",
+        "source paths",
+        "evidence lines",
+        "safe observation flags"
+      ],
+      "tenant_session_activity_available": "partial",
+      "provenance_available": "partial",
+      "idempotency_correlation_available": false,
+      "requires_db": false,
+      "requires_supabase": false,
+      "touches_ui": false,
+      "touches_production_flow": false,
+      "risk_level": "low",
+      "decision": "reject",
+      "reason": "Useful as source evidence, but not sufficient as the only entrypoint because it lacks stable full command context."
+    },
+    {
+      "entrypoint_candidate_id": "E2E-ENTRY-003",
+      "source_type": "read_only_service_adapter",
+      "source_path": "src/services/**",
+      "signals_available": [
+        "service inputs",
+        "service outputs",
+        "domain traces"
+      ],
+      "tenant_session_activity_available": "partial",
+      "provenance_available": "partial",
+      "idempotency_correlation_available": "partial",
+      "requires_db": "unknown",
+      "requires_supabase": "unknown",
+      "touches_ui": false,
+      "touches_production_flow": "unknown",
+      "risk_level": "medium",
+      "decision": "reject",
+      "reason": "Cannot be the first harness entrypoint until service-side read boundaries and DB/Supabase dependencies are proven."
+    },
+    {
+      "entrypoint_candidate_id": "E2E-ENTRY-004",
+      "source_type": "workmap_event_adapter",
+      "source_path": "WorkMap flow files",
+      "signals_available": [
+        "sessionId",
+        "activityId",
+        "activity payload"
+      ],
+      "tenant_session_activity_available": "partial",
+      "provenance_available": "unknown",
+      "idempotency_correlation_available": "unknown",
+      "requires_db": "unknown",
+      "requires_supabase": "unknown",
+      "touches_ui": "possible",
+      "touches_production_flow": "possible",
+      "risk_level": "high",
+      "decision": "reject",
+      "reason": "WorkMap is explicitly out of scope for this design task and may imply product flow wiring."
+    },
+    {
+      "entrypoint_candidate_id": "E2E-ENTRY-005",
+      "source_type": "significado_adapter",
+      "source_path": "Significado flow files",
+      "signals_available": [
+        "sessionId",
+        "Significado trace",
+        "intent-like payload"
+      ],
+      "tenant_session_activity_available": "partial",
+      "provenance_available": "partial",
+      "idempotency_correlation_available": false,
+      "requires_db": "unknown",
+      "requires_supabase": "unknown",
+      "touches_ui": "possible",
+      "touches_production_flow": "possible",
+      "risk_level": "high",
+      "decision": "reject",
+      "reason": "Significado files are explicitly out of scope; first harness must not touch this flow."
+    },
+    {
+      "entrypoint_candidate_id": "E2E-ENTRY-006",
+      "source_type": "runtime_response_adapter",
+      "source_path": "runtime response routes/services",
+      "signals_available": [
+        "response",
+        "trace",
+        "audit",
+        "sessionId"
+      ],
+      "tenant_session_activity_available": "partial",
+      "provenance_available": "partial",
+      "idempotency_correlation_available": "unknown",
+      "requires_db": "possible",
+      "requires_supabase": "possible",
+      "touches_ui": false,
+      "touches_production_flow": "possible",
+      "risk_level": "high",
+      "decision": "reject",
+      "reason": "Runtime observation must wait until a Supabase-free, mutation-free boundary is proven."
+    },
+    {
+      "entrypoint_candidate_id": "E2E-ENTRY-007",
+      "source_type": "admin_trace_adapter",
+      "source_path": "src/app/admin/**",
+      "signals_available": [
+        "sessionId",
+        "trace",
+        "audit route data"
+      ],
+      "tenant_session_activity_available": "partial",
+      "provenance_available": "partial",
+      "idempotency_correlation_available": false,
+      "requires_db": "unknown",
+      "requires_supabase": "unknown",
+      "touches_ui": true,
+      "touches_production_flow": false,
+      "risk_level": "high",
+      "decision": "reject",
+      "reason": "Admin routes are safe to inventory but not safe to modify or use as first harness entrypoint because UI/app touch is forbidden."
+    },
+    {
+      "entrypoint_candidate_id": "E2E-ENTRY-008",
+      "source_type": "controlled_test_fixture",
+      "source_path": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+      "signals_available": [
+        "fixture observed signal",
+        "expected command",
+        "expected blockers",
+        "expected comparison"
+      ],
+      "tenant_session_activity_available": true,
+      "provenance_available": true,
+      "idempotency_correlation_available": true,
+      "requires_db": false,
+      "requires_supabase": false,
+      "touches_ui": false,
+      "touches_production_flow": false,
+      "risk_level": "low",
+      "decision": "accept",
+      "reason": "Accepted as the test execution form for the fixture/replay adapter."
+    }
+  ],
+  "recommended_entrypoint": {
+    "entrypoint_candidate_id": "E2E-ENTRY-001",
+    "recommended": "fixture/replay adapter",
+    "mode": "fixture",
+    "source_path": "tests/fixtures/eve-organism-shadow-e2e/*.json",
+    "implementation_file": "src/services/eve-organism-shadow-e2e-adapter.ts",
+    "reason": "It resolves the unknown entrypoint without DB, Supabase, UI, production flow mutation, registry writes, exports, or diagnosis.",
+    "rejected_options_count": 6
+  }
+}

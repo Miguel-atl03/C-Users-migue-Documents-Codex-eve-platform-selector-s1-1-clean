@@ -1,0 +1,37 @@
+{
+  "instruction": "045-R3A-X2",
+  "section": "WORKMAP",
+  "assistance_loss": 0,
+  "workmap_side_cognitive_guide": "preserved",
+  "workmap_inline_blur_assist": "preserved",
+  "workmap_formal_save_validation": "preserved",
+  "mechanisms": {
+    "workmap_side_cognitive_guide": {
+      "component": "WorkMapEditor guide rail + GuideCardBody",
+      "trigger": "guide step click / runIntroTutorial opens first unseen guide",
+      "context_input": "WorkMapGuideKey + guideContent / validation helpers",
+      "output": "side panel educational copy",
+      "client_or_server": "client",
+      "persistence_effect": "guideSeen flags on WorkMapData via writeWorkMapDraft",
+      "canvas_path": "OfficialWorkMapSection → WorkMapEditor"
+    },
+    "workmap_inline_blur_assist": {
+      "component": "WorkMapEditor field blur handlers",
+      "trigger": "textarea blur on responsibility/activity fields",
+      "context_input": "field text + evaluateInlineFieldValidationEntry / classify*Sufficiency",
+      "output": "assist message; user retains control (accept/edit)",
+      "client_or_server": "client (+ domain/services validators)",
+      "persistence_effect": "fieldValidationState on WorkMapData; no silent replace of human text",
+      "canvas_path": "OfficialWorkMapSection → WorkMapEditor"
+    },
+    "workmap_formal_save_validation": {
+      "component": "WorkMapEditor save/continue + evaluateWorkMapOperationalReadiness",
+      "trigger": "Save / Continue CTA",
+      "context_input": "full WorkMapData",
+      "output": "readiness / warnings; may continue with warnings per contract",
+      "client_or_server": "client services; finalize remains server",
+      "persistence_effect": "draft save + optional finalize via page orchestration",
+      "canvas_path": "OfficialWorkMapSection → WorkMapEditor → page onSave/onContinue"
+    }
+  }
+}

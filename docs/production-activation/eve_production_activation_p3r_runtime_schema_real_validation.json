@@ -1,0 +1,59 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P3R_SUPABASE_ENVIRONMENT_BINDING_MIGRATION_APPLICATION_COMPLETED",
+  "plan_phase": "Production activation — P3-R Supabase environment binding and migration application",
+  "generated_at": "2026-07-08T01:10:00-06:00",
+  "validation_target": "supabase_local_eve-platform",
+  "validation_mode": "live_postgres_inspection",
+  "static_validator": {
+    "script": "scripts/eve/production-activation/p3-validate-runtime-schema.mjs",
+    "status": "passed",
+    "migration_file": "20260708123000_eve_runtime_40_20_p3_schema_rls.sql",
+    "expected_tables": 19,
+    "failures": []
+  },
+  "real_db_validation": {
+    "status": "passed",
+    "tables_present": 19,
+    "tables_missing": [],
+    "tables": [
+      "activity_runtime_run",
+      "branching_decision",
+      "budget_ledger",
+      "canonical_variable_record",
+      "evidence_item",
+      "parallel_export_payload",
+      "process_state_timer_event",
+      "readiness_decision_record",
+      "readiness_gap_record",
+      "role_runtime_session",
+      "runtime_audit_trail",
+      "runtime_catalog_version",
+      "runtime_interaction_def",
+      "runtime_interaction_instance",
+      "runtime_interaction_mapping",
+      "runtime_subfield_response",
+      "semantic_resolution_event",
+      "source_node_ref",
+      "structural_candidate_record"
+    ],
+    "required_columns_per_table": [
+      "tenant_id",
+      "case_id",
+      "source_trace",
+      "metadata"
+    ],
+    "missing_columns": null,
+    "tenant_id_type": "uuid",
+    "case_id_type": "uuid",
+    "auth_helpers_present": [
+      "eve_can_access_case",
+      "eve_current_auth_user_id",
+      "eve_current_case_ids",
+      "eve_current_tenant_id"
+    ],
+    "capa1_bridge_tables_present": [
+      "usuarios",
+      "sesiones_llenado"
+    ]
+  }
+}

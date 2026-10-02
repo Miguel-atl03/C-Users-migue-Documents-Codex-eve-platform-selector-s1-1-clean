@@ -1,0 +1,65 @@
+{
+  "package_id": "CLIENTE_001_DIAGRAM_CODE_DRAFT_V1",
+  "package_type": "diagram_code_generation_package",
+  "schema_version": "1.0.0",
+  "client_id": "CLIENTE_001",
+  "source_handoff_package_id": "CLIENTE_001_DESIGN_HANDOFF_V1",
+  "source_mmabp_ir_package_id": null,
+  "source_registry_package_id": "CLIENTE_001_QUADRANT_REGISTRIES_V1",
+  "generation_source": "registry_without_ir",
+  "reason_for_draft_mode": "MoC y timer aun no tienen IR validado, pero el area de diseno requiere exploracion visual trazada.",
+  "missing_ir_gap_ids": ["DGAP_TIMER_WARNING_001", "DGAP_MOC_SUPPORT_001"],
+  "blocked_downstream_uses": ["capa_2", "capa_2_5", "capa_3", "diagnostic", "monetization", "final_narrative", "final_export"],
+  "explicit_warning": "Draft artifact cannot be treated as validated MMABP-IR export.",
+  "generation_readiness": "ready_with_warnings",
+  "generation_mode": "draft_with_warnings",
+  "prohibited_downstream_uses": ["capa_2", "capa_2_5", "capa_3", "diagnostic", "monetization", "final_narrative", "final_export"],
+  "exports": [
+    {
+      "export_id": "DRAFT_EXP_PF_BPMN_001",
+      "quadrant": "PF",
+      "export_format": "BPMN_XML",
+      "generation_source": "registry_without_ir",
+      "source_ir_element_ids": [],
+      "source_registry_element_ids": ["PF_PSTATE_001"],
+      "source_fact_ids": ["FACT_000001"],
+      "source_candidate_ids": ["CAND_001"],
+      "source_evidence_ids": ["EVID_001", "EVID_002"],
+      "source_scene_ids": ["SC_001"],
+      "source_blocks": ["block_4", "block_2"],
+      "source_questions": ["4.3", "2.3"],
+      "traceability_status": "minimum_registry_trace",
+      "semantic_preservation_status": "draft_only",
+      "allowed_uses": ["exploratory_draft"],
+      "prohibited_uses": ["candidate_export_package_final", "final_export", "capa_2", "capa_2_5", "capa_3", "diagnostic", "monetization", "final_narrative"],
+      "warnings": [
+        {
+          "warning_id": "WARN_DRAFT_NO_IR_001",
+          "warning_type": "registry_without_validated_ir",
+          "severity": "medium",
+          "owner": "parallel_production_design_area",
+          "affected_artifact_type": "diagram_code_generation_package",
+          "affected_element_ids": ["DRAFT_EXP_PF_BPMN_001", "PF_PSTATE_001"],
+          "reason": "Draft generado desde registry sin IR validado.",
+          "downstream_effect": "Solo exploratorio; no alimenta export final ni capas posteriores.",
+          "allowed_uses": ["exploratory_draft"],
+          "prohibited_uses": ["final_export", "capa_2", "capa_2_5", "capa_3"],
+          "related_gap_ids": ["DGAP_TIMER_WARNING_001"],
+          "resolution_recommendation": "Completar IR y reports antes de promover a candidate.",
+          "traceability_status": "minimum_registry_trace",
+          "semantic_preservation_status": "draft_only"
+        }
+      ],
+      "gaps": ["DGAP_TIMER_WARNING_001"]
+    }
+  ],
+  "boundaries": {
+    "not_diagnostic": true,
+    "not_monetization": true,
+    "not_final_narrative": true,
+    "does_not_modify_capa2_readiness": true,
+    "does_not_modify_core_contract": true,
+    "does_not_replace_handoff_to_capa2": true
+  }
+}
+

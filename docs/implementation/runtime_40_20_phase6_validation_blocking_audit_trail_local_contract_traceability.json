@@ -1,0 +1,95 @@
+{
+  "audit_id": "RUNTIME_40_20_PHASE6_VALIDATION_BLOCKING_AUDIT_TRAIL_LOCAL_CONTRACT_V1",
+  "plan_phase": {
+    "part": "PARTE 2",
+    "phase": "FASE 6",
+    "phase_name": "Ingesta de respuestas y evidencia",
+    "tree_points": [
+      "6.13 Validation and blocking",
+      "6.14 Response audit trail"
+    ]
+  },
+  "new_functionality_implemented": true,
+  "phase6_started_local": true,
+  "phase6_closed_local": false,
+  "ready_for_phase7_authorization": false,
+  "control_de_fuente_no_inferencia": {
+    "rector_documents_referenced": true,
+    "content_traceable_to_documents_or_instruction": true,
+    "free_inference_detected": false,
+    "unauthorized_expansion_detected": false
+  },
+  "rector_documents_referenced": [
+    "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+    "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+    "EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx"
+  ],
+  "source_classification": {
+    "6_13_validation_and_blocking": "direct_source_and_derived_boundary",
+    "6_14_response_audit_trail": "direct_source_and_derived_boundary",
+    "audit_candidate_not_audit_trail_real": "derived_boundary",
+    "validation_candidate_not_persistence": "derived_boundary"
+  },
+  "validation_and_blocking": {
+    "validation_blocking_decision_created": true,
+    "missing_idempotency_key_blocks": true,
+    "missing_response_revision_number_blocks": true,
+    "unknown_subfield_blocks": true,
+    "invalid_epistemic_status_blocks": true,
+    "invalid_provenance_type_blocks": true,
+    "confirmation_without_reference_blocks": true,
+    "correction_without_supersedes_or_reference_blocks": true,
+    "missing_source_trace_blocks": true,
+    "value_incompatible_with_expected_type_blocks": true,
+    "expected_type_unknown_allowed": true,
+    "auto_type_conversion_used": false
+  },
+  "response_audit_trail": {
+    "response_audit_trail_candidates_created": true,
+    "response_ingest_candidate_created_action_supported": true,
+    "response_ingest_blocked_action_supported": true,
+    "subfield_response_candidate_created_action_supported": true,
+    "evidence_item_candidate_created_action_supported": true,
+    "response_revision_registered_action_supported": true,
+    "correction_supersedes_previous_action_supported": true,
+    "epistemic_violation_blocked_action_supported": true,
+    "idempotency_replay_detected_action_supported": true,
+    "validation_blocked_action_supported": true,
+    "value_type_mismatch_blocked_action_supported": true,
+    "missing_source_trace_blocked_action_supported": true,
+    "real_audit_trail_created": false
+  },
+  "boundary": {
+    "runtime_40_20_started": false,
+    "catalog_activated": false,
+    "migration_applied": false,
+    "supabase_touched": false,
+    "sql_executed": false,
+    "endpoint_created": false,
+    "response_persisted_real": false,
+    "runtime_subfield_response_real_created": false,
+    "evidence_item_real_created": false,
+    "canonical_variable_record_real_created": false,
+    "runtime_audit_trail_real_created": false,
+    "canonical_variable_service_executed": false,
+    "branching_engine_executed": false,
+    "readiness_engine_executed": false,
+    "export_real_created": false
+  },
+  "files_created": [
+    "docs/implementation/runtime_40_20_phase6_validation_blocking_audit_trail_local_contract_closeout.md",
+    "docs/implementation/runtime_40_20_phase6_validation_blocking_audit_trail_local_contract_traceability.json"
+  ],
+  "files_modified": [
+    "src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-types.ts",
+    "src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-service.ts",
+    "src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest.test.mjs"
+  ],
+  "test_execution": {
+    "command": "node --test src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest.test.mjs",
+    "status": "passed",
+    "reason": "136 tests passed, 0 failed"
+  },
+  "next_tree_point": "6.15 Relationship with Phase 5 + 6.16 Relationship with Phase 7 + 6.17 Persistence boundary",
+  "next_authorization_required": true
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/parallel-production/design-handoff-package.schema.json",
+  "title": "EVE Capa 1 Parallel Production Design Handoff Package",
+  "type": "object",
+  "required": [
+    "handoff_package_id",
+    "handoff_package_type",
+    "handoff_version",
+    "client_id",
+    "artifact_refs",
+    "handoff_readiness",
+    "handoff_gaps",
+    "receiving_area_contract",
+    "boundaries"
+  ],
+  "properties": {
+    "handoff_package_type": { "const": "parallel_production_design_handoff_package" },
+    "handoff_version": { "const": "1.0.0" },
+    "client_id": { "type": "string", "minLength": 1 },
+    "artifact_refs": {
+      "type": "object",
+      "required": [
+        "mmabp_design_source_bundle_id",
+        "client_mmabp_structural_facts_id",
+        "quadrant_registry_package_id",
+        "mmabp_ir_package_id"
+      ],
+      "properties": {
+        "mmabp_design_source_bundle_id": { "type": "string", "minLength": 1 },
+        "client_mmabp_structural_facts_id": { "type": "string", "minLength": 1 },
+        "quadrant_registry_package_id": { "type": "string", "minLength": 1 },
+        "mmabp_ir_package_id": { "type": "string", "minLength": 1 }
+      }
+    },
+    "handoff_readiness": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": [
+            "ready_for_design_area",
+            "ready_for_design_area_with_gaps",
+            "partial_handoff",
+            "blocked_by_missing_artifact",
+            "blocked_by_ir_gap",
+            "manual_review_required"
+          ]
+        }
+      }
+    },
+    "handoff_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gap_id", "gap_type", "description"]
+      }
+    },
+    "receiving_area_contract": {
+      "type": "object",
+      "required": [
+        "may_generate_diagram_code",
+        "must_preserve_source_refs",
+        "must_not_invent_semantics",
+        "must_not_diagnose"
+      ],
+      "properties": {
+        "may_generate_diagram_code": { "const": true },
+        "must_preserve_source_refs": { "const": true },
+        "must_not_invent_semantics": { "const": true },
+        "must_not_diagnose": { "const": true }
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "not_core_runtime_change",
+        "not_capa2_handoff_replacement",
+        "not_export_package",
+        "not_diagnostic",
+        "not_monetization",
+        "not_final_narrative"
+      ],
+      "properties": {
+        "not_core_runtime_change": { "const": true },
+        "not_capa2_handoff_replacement": { "const": true },
+        "not_export_package": { "const": true },
+        "not_diagnostic": { "const": true },
+        "not_monetization": { "const": true },
+        "not_final_narrative": { "const": true }
+      }
+    },
+    "design_gap_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Optional references to design-gap.schema.json gap_id values."
+    }
+  },
+  "additionalProperties": true
+}

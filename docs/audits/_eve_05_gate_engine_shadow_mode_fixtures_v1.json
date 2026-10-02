@@ -1,0 +1,150 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-SHADOW-MODE-DESIGN-V1",
+  "mode": "gate_engine_shadow",
+  "fixtureCount": 12,
+  "defaultExpectedSafetyFlags": {
+    "canBlockUserFlow": false,
+    "canModifyPayload": false,
+    "canWriteRegistry": false,
+    "canModifyCatalog": false,
+    "canTriggerRuntime": false,
+    "canTriggerDiagnosis": false,
+    "canTriggerExport": false,
+    "canConnectEveBrain": false,
+    "runtimeAuthority": false
+  },
+  "fixtures": [
+    {
+      "fixtureId": "resolve_existing_gate",
+      "inputSummary": "queryType=resolve_gate; gateId=SEM-001; module=semantic_resolution_gate",
+      "expectedReadinessState": "gate_engine_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "gate",
+      "expectedGapFlags": [],
+      "expectedRuleIds": [],
+      "sourceTrace": ["D6!Semantic_Resolution_Gates", "D5", "D4"],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "resolve_missing_gate",
+      "inputSummary": "queryType=resolve_gate; gateId=SEM-999",
+      "expectedReadinessState": "gate_engine_lookup_not_found",
+      "expectedResolved": false,
+      "expectedEntityKind": "missing_gate",
+      "expectedGapFlags": ["gate_not_found"],
+      "expectedRuleIds": [],
+      "sourceTrace": [],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "resolve_existing_rule",
+      "inputSummary": "queryType=resolve_rule; ruleId=CRT-ENG-001",
+      "expectedReadinessState": "gate_engine_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "rule",
+      "expectedGapFlags": [],
+      "expectedRuleIds": ["CRT-ENG-001"],
+      "sourceTrace": ["D8!Critical_Routes", "D6!Critical_Routes"],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "validate_critical_route_gate_valid",
+      "inputSummary": "queryType=validate_critical_route_gate; routeId=CR-B0-WorkMapIntake-semantic-entry",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "critical_route_gate",
+      "expectedGapFlags": [],
+      "expectedRuleIds": ["CRT-ENG-001"],
+      "sourceTrace": ["D6!Critical_Routes", "D8!Critical_Routes", "D5", "D4"],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "validate_semantic_resolution_gate_valid",
+      "inputSummary": "queryType=validate_semantic_resolution_gate; gateId=SEM-001",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "semantic_resolution_gate",
+      "expectedGapFlags": [],
+      "expectedRuleIds": ["SEM-001"],
+      "sourceTrace": ["D6!Semantic_Resolution_Gates", "D5", "D4"],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "validate_process_state_timer_gate_valid",
+      "inputSummary": "queryType=validate_process_state_timer_gate; gateId=PST-002",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "process_state_timer_gate",
+      "expectedGapFlags": [],
+      "expectedRuleIds": ["PST-002"],
+      "sourceTrace": ["D6!Process_State_Timer_Gates", "D5", "D4", "D1"],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "validate_mmabp_conformance_gate_valid",
+      "inputSummary": "queryType=validate_mmabp_conformance_gate; ruleId=MOC-005",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "mmabp_conformance_rule",
+      "expectedGapFlags": [],
+      "expectedRuleIds": ["MOC-005"],
+      "sourceTrace": ["D1", "D5", "D7", "D8"],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "validate_mmabp_consistency_gate_valid",
+      "inputSummary": "queryType=validate_mmabp_consistency_gate; ruleId=CONS-014",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "mmabp_consistency_rule",
+      "expectedGapFlags": [],
+      "expectedRuleIds": ["CONS-014"],
+      "sourceTrace": ["D1", "D2", "D5", "D8"],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "validate_failure_guard_valid",
+      "inputSummary": "queryType=validate_failure_guard; ruleId=FG-001",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "failure_guard",
+      "expectedGapFlags": [],
+      "expectedRuleIds": ["FG-001"],
+      "sourceTrace": ["D7", "D5"],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "validate_atomic_rule_source_proof",
+      "inputSummary": "queryType=validate_atomic_rule; ruleId=SEM-ENG-005",
+      "expectedReadinessState": "documentary_satisfaction_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "atomic_rule",
+      "expectedGapFlags": [],
+      "expectedRuleIds": ["SEM-ENG-005"],
+      "sourceTrace": ["D4"],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "validate_no_overreach_d1_vsm1_ahe1",
+      "inputSummary": "queryType=validate_no_overreach; sourceDocumentId=D1,VSM1,AHE1",
+      "expectedReadinessState": "no_overreach_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "no_overreach_guard",
+      "expectedGapFlags": [],
+      "expectedRuleIds": [],
+      "sourceTrace": ["D1", "VSM1", "AHE1"],
+      "expectedSafetyFlags": "defaultFalse"
+    },
+    {
+      "fixtureId": "validate_no_runtime_authority",
+      "inputSummary": "queryType=validate_no_runtime_authority; requestedOutputType=shadow_trace",
+      "expectedReadinessState": "documentary_satisfaction_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "no_cableado_guard",
+      "expectedGapFlags": [],
+      "expectedRuleIds": [],
+      "sourceTrace": ["installation_contract", "static_tests_closeout"],
+      "expectedSafetyFlags": "defaultFalse"
+    }
+  ]
+}

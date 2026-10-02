@@ -1,0 +1,96 @@
+{
+  "auditId": "CHIP-RECTOR-EVE-00-METHOD-KERNEL-OVERLAP-AUDIT-V1",
+  "dictamen": "METHOD_KERNEL_SOURCE_MISSING",
+  "adjustments": [
+    {
+      "adjustmentId": "MK-ADJ-001",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/source package or upstream source folder",
+      "changeType": "source_policy_fix",
+      "reason": "D1 - Fundamentals of Business Architecture Modeling.pdf is declared as primary compiled source but was not found in repo.",
+      "riskIfNotAdjusted": "The chip cannot be certified as a methodological MMABP kernel against its primary source.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-ADJ-002",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.manifest.json",
+      "changeType": "manifest_fix",
+      "reason": "Manifest module counts differ from JSON/MD/TS actual counts: pm 12 vs 10, moc 13 vs 10, olc 12 vs 17.",
+      "riskIfNotAdjusted": "Package appears internally certified by total count while module-level authority is wrong.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-ADJ-003",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+      "changeType": "json_fix",
+      "reason": "json.readiness_states includes blocked_by_missing_canonical_route but runtime_boundary.allowed_states does not.",
+      "riskIfNotAdjusted": "Wired consumers may disagree on allowed states and produce unreachable or untyped flow states.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-ADJ-004",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.ts",
+      "changeType": "ts_candidate_fix",
+      "reason": "EveGateState omits blocked_by_missing_canonical_route while the exported object includes it in readiness_states.",
+      "riskIfNotAdjusted": "Type-level allowed states and runtime object states can diverge during wiring.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-ADJ-005",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.ts",
+      "changeType": "ts_candidate_fix",
+      "reason": "EveMethodKernel type omits object properties present in the exported constant, including authority, model_quadrants, readiness_states, execution_pipeline, source_registry and change_log.",
+      "riskIfNotAdjusted": "The TS candidate may fail type checking or encourage consumers to ignore important governance metadata.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-ADJ-006",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.md",
+      "changeType": "documentation_fix",
+      "reason": "MD allowed states omit blocked_by_missing_canonical_route while JSON/TS object readiness_states include it.",
+      "riskIfNotAdjusted": "Human-readable and machine-readable authority disagree on readiness vocabulary.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-ADJ-007",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.manifest.json",
+      "changeType": "manifest_fix",
+      "reason": "Manifest declares D5 as Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx, but only the XLSX near-match was found.",
+      "riskIfNotAdjusted": "Boundary source traceability remains ambiguous.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-ADJ-008",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+      "changeType": "scope_boundary_fix",
+      "reason": "FND-007 and FND-008 use D4/D5 readiness and output-contract language. This should be explicitly bounded as methodological precondition, not executable Runtime gate.",
+      "riskIfNotAdjusted": "Method Kernel may invade Runtime 40/20 readiness/reentry authority when wired.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-ADJ-009",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+      "changeType": "scope_boundary_fix",
+      "reason": "Add explicit prohibitions that Method Kernel does not select primary activities, rewrite WorkMap, replace B0, emit pathology labels, produce IR, export registry or execute Produccion Paralela.",
+      "riskIfNotAdjusted": "Future wiring may overuse the chip as an execution authority rather than a pre-runtime methodological validator.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-ADJ-010",
+      "targetFile": "tests/regression/method-kernel-package-consistency.test.ts",
+      "changeType": "manual_review",
+      "reason": "No package-specific regression test was found or run in this task.",
+      "riskIfNotAdjusted": "Future package edits can reintroduce count, state or source-policy drift silently.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    }
+  ]
+}

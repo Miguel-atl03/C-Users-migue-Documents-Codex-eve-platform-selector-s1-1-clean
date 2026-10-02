@@ -1,0 +1,328 @@
+{
+  "policyId": "PRE_RUNTIME_CONTEXT_BUNDLE_EVE_V1_0",
+  "version": "1.0.0",
+  "status": "operational_machine_readable",
+  "name": "PreRuntimeContextBundle EVE v1.0",
+  "purpose": "Gobernar cómo la información de Estado A y WorkMap viaja hacia selección primaria, Significado, Bloque 0, Runtime 40/20 y Producción Paralela sin convertirse en evidencia MMABP confirmada.",
+  "authority": {
+    "runtimeAuthority": "This machine-readable policy should be imported by platform services. XLSX/DOCX are not read at runtime.",
+    "scope": "Pre-runtime context only; does not select activities by itself and does not diagnose."
+  },
+  "coreRules": {
+    "roleFunctionalEqualsClientLabel": {
+      "clientLabel": "Lugar desde donde participas",
+      "internalName": "functional_role_context",
+      "rule": "Ambos refieren al mismo dato visto desde dos lenguajes: UI para cliente e identidad epistemológica interna."
+    },
+    "contextIsNotEvidence": "Estado A y WorkMap producen contexto y señales. Runtime confirma, corrige o descarta. Ningún dato de Estado A puede convertirse por sí solo en evidencia MMABP confirmada.",
+    "significadoIsConsumer": "La pantalla Significado consume selectedPrimaryActivities y PreRuntimeContextBundle; no selecciona actividades.",
+    "selectorUseIsAuxiliary": "El selector primario puede usar el bundle como contexto auxiliar, nunca como driver único de selección ni exclusión.",
+    "workmapSnapshotPreserved": "El WorkMap completo debe preservarse con actividades primarias y no primarias.",
+    "nonPrimaryActivitiesAreContext": "Las actividades no primarias se preservan como contexto, cobertura, gaps y posibles rutas de promoción, no reciben Runtime 40/20 completo inmediato."
+  },
+  "sourceMapping": {
+    "estadoA": {
+      "functionalRoleOrParticipationPlace": {
+        "clientLabels": [
+          "Lugar desde donde participas",
+          "Desde dónde participas",
+          "Rol funcional"
+        ],
+        "internalField": "functional_role_context",
+        "epistemicStatus": "captured_user_context",
+        "uses": [
+          "actor_perspective",
+          "observation_boundary",
+          "authority_context",
+          "runtime_wording_context"
+        ],
+        "mustNotBeUsedFor": [
+          "diagnosis_direct",
+          "confirmed_process",
+          "confirmed_actor_authority"
+        ]
+      },
+      "decisionLevel": {
+        "clientLabels": [
+          "Nivel de toma de decisiones",
+          "Qué nivel de decisiones tomas"
+        ],
+        "internalField": "decision_level_context",
+        "epistemicStatus": "captured_user_context",
+        "uses": [
+          "discretion_context",
+          "escalation_context",
+          "block5_hint",
+          "control_interpretation"
+        ],
+        "mustNotBeUsedFor": [
+          "substitute_runtime_evidence",
+          "confirmed_authority_without_runtime"
+        ]
+      },
+      "decisionScope": {
+        "clientLabels": [
+          "Qué tipo de decisiones tomas",
+          "Alcance de decisiones"
+        ],
+        "internalField": "decision_scope_context",
+        "epistemicStatus": "captured_user_context",
+        "uses": [
+          "boundary_of_authority",
+          "escalation_hint",
+          "governance_context"
+        ],
+        "mustNotBeUsedFor": [
+          "direct_vsm_diagnosis",
+          "direct_ahe_diagnosis"
+        ]
+      },
+      "declaredFunctions": {
+        "clientLabels": [
+          "Funciones",
+          "Qué funciones tienes"
+        ],
+        "internalField": "declared_function_scope_context",
+        "epistemicStatus": "captured_user_context",
+        "uses": [
+          "role_coverage_check",
+          "workmap_completeness_check",
+          "responsibility_interpretation"
+        ],
+        "mustNotBeUsedFor": [
+          "confirmed_pm_process"
+        ]
+      }
+    },
+    "workMap": {
+      "areas": {
+        "internalField": "workmap_area_context",
+        "epistemicStatus": "captured_user_context",
+        "uses": [
+          "organizational_context",
+          "participation_boundary",
+          "coverage_check"
+        ],
+        "mustNotBeUsedFor": [
+          "swimlane_in_pf",
+          "confirmed_process_owner"
+        ]
+      },
+      "responsibilities": {
+        "internalField": "workmap_responsibility_context",
+        "epistemicStatus": "captured_user_context",
+        "uses": [
+          "functional_frame",
+          "activity_interpretation",
+          "coverage_check",
+          "possible_process_container_candidate"
+        ],
+        "mustNotBeUsedFor": [
+          "confirmed_pm_process_without_runtime"
+        ]
+      },
+      "activities": {
+        "internalField": "workmap_activity_inventory",
+        "epistemicStatus": "captured_user_context",
+        "uses": [
+          "primary_activity_selection_input",
+          "runtime_prefill_source",
+          "workmap_snapshot"
+        ],
+        "mustNotBeUsedFor": [
+          "confirmed_pf_task_without_runtime"
+        ]
+      },
+      "nonPrimaryActivities": {
+        "internalField": "non_primary_activity_context",
+        "epistemicStatus": "context_only",
+        "uses": [
+          "context",
+          "promotion_later",
+          "role_coverage",
+          "gaps",
+          "future_reentry"
+        ],
+        "mustNotBeUsedFor": [
+          "runtime_40_20_full_immediate"
+        ]
+      },
+      "firstWorkMapQuestion": {
+        "internalField": "workmap_entry_context",
+        "epistemicStatus": "captured_user_context",
+        "uses": [
+          "workmap_entry_anchor",
+          "role_scope_context",
+          "transition_to_workmap"
+        ],
+        "mustNotBeUsedFor": [
+          "diagnosis_direct",
+          "confirmed_mba_fact"
+        ]
+      }
+    }
+  },
+  "bundleShape": {
+    "preRuntimeContextBundleId": "string",
+    "policyVersion": "PRE_RUNTIME_CONTEXT_BUNDLE_EVE_V1_0",
+    "createdAt": "iso_datetime",
+    "sourceState": {
+      "estadoAAvailable": "boolean",
+      "workMapAvailable": "boolean",
+      "primarySelectionAvailable": "boolean"
+    },
+    "estadoAContext": {
+      "functional_role_context": "ContextField<string>",
+      "decision_level_context": "ContextField<string>",
+      "decision_scope_context": "ContextField<string>",
+      "declared_function_scope_context": "ContextField<string[]>"
+    },
+    "workMapContext": {
+      "areas": "ContextField<Array>",
+      "responsibilities": "ContextField<Array>",
+      "activities": "ContextField<Array>",
+      "first_workmap_question": "ContextField<string>"
+    },
+    "selectionContext": {
+      "selectedPrimaryActivities": "Array",
+      "nonPrimaryContextActivities": "Array",
+      "selectionPolicyVersion": "string",
+      "selectionMode": "string"
+    },
+    "runtimeContext": {
+      "significadoHandoffAllowed": "boolean",
+      "b0PrefillAllowed": "boolean",
+      "contextMayBeDisplayedToUser": "boolean",
+      "contextMustNotBeSavedAsConfirmedEvidence": "boolean"
+    }
+  },
+  "epistemicStatuses": [
+    {
+      "status": "captured_user_context",
+      "meaning": "Dato declarado por el usuario en Estado A o WorkMap, válido como contexto, no como evidencia MMABP confirmada."
+    },
+    {
+      "status": "inferred_from_workmap",
+      "meaning": "Inferencia semántica desde WorkMap; requiere confirmación si será evidencia de B0 o Runtime."
+    },
+    {
+      "status": "context_only",
+      "meaning": "Acompaña selección, wording, cobertura o trazabilidad; no puede cerrar variables Runtime."
+    },
+    {
+      "status": "confirmed_in_runtime",
+      "meaning": "El usuario confirmó o corrigió el dato dentro de Runtime; puede entrar al evidence bundle según ruta canónica."
+    },
+    {
+      "status": "gap",
+      "meaning": "Dato esperado no disponible o insuficiente."
+    },
+    {
+      "status": "contradiction_flag",
+      "meaning": "Tensión entre Estado A, WorkMap o Runtime; requiere microconfirmación o revisión."
+    }
+  ],
+  "allowedUsesByStage": {
+    "primaryActivitySelectionV1_3": {
+      "allowed": [
+        "context_auxiliary",
+        "coverage_check",
+        "wording_support",
+        "non_primary_context_preservation"
+      ],
+      "notAllowed": [
+        "select_by_role_alone",
+        "exclude_by_decision_level_alone",
+        "diagnose_by_estado_a"
+      ]
+    },
+    "significado": {
+      "allowed": [
+        "show_activity_context",
+        "orient_user",
+        "handoff_primary_activity",
+        "hold_non_primary_context"
+      ],
+      "notAllowed": [
+        "select_activities",
+        "diagnose",
+        "treat_prefill_as_confirmed_answer"
+      ]
+    },
+    "block0": {
+      "allowed": [
+        "prefill_context",
+        "reduce_redundancy",
+        "confirmation_prompt",
+        "boundary_prompt_if_missing"
+      ],
+      "notAllowed": [
+        "auto_confirm_operational_description",
+        "auto_confirm_start_end",
+        "save_workmap_prefill_as_evidence"
+      ]
+    },
+    "runtime40_20": {
+      "allowed": [
+        "contextualize_questions",
+        "route_microclarifications",
+        "carry_epistemic_status"
+      ],
+      "notAllowed": [
+        "skip_runtime_evidence",
+        "replace_user_answer_with_context"
+      ]
+    },
+    "parallelProduction": {
+      "allowed": [
+        "context_bundle_attachment",
+        "traceability",
+        "gap_analysis",
+        "readiness_context"
+      ],
+      "notAllowed": [
+        "build_pm_moc_pf_olc_from_context_only"
+      ]
+    }
+  },
+  "directionOfTravel": [
+    "Estado A",
+    "WorkMap",
+    "PreRuntimeContextBundle",
+    "PrimaryActivitySelectionPolicy v1.3",
+    "Significado",
+    "Bloque 0",
+    "Runtime 40/20",
+    "EvidenceBundle / Producción Paralela"
+  ],
+  "qaAssertions": [
+    {
+      "id": "PRC-QA-001",
+      "assertion": "PreRuntimeContextBundle exists before Significado starts when Estado A and WorkMap are available."
+    },
+    {
+      "id": "PRC-QA-002",
+      "assertion": "functional_role_context is populated from Estado A or marked gap."
+    },
+    {
+      "id": "PRC-QA-003",
+      "assertion": "decision_level_context is populated from Estado A or marked gap."
+    },
+    {
+      "id": "PRC-QA-004",
+      "assertion": "selectedPrimaryActivities and nonPrimaryContextActivities are both present after selection."
+    },
+    {
+      "id": "PRC-QA-005",
+      "assertion": "Significado receives PreRuntimeContextBundle and does not select activities."
+    },
+    {
+      "id": "PRC-QA-006",
+      "assertion": "B0 prefill may reference WorkMap context but must not mark it as confirmed evidence."
+    },
+    {
+      "id": "PRC-QA-007",
+      "assertion": "Estado A data is not used for diagnosis or confirmed PM/MoC/PF/OLC facts."
+    }
+  ]
+}

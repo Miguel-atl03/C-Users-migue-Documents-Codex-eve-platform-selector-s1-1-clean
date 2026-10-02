@@ -1,0 +1,66 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P3R_SUPABASE_ENVIRONMENT_BINDING_MIGRATION_APPLICATION_COMPLETED",
+  "plan_phase": "Production activation — P3-R Supabase environment binding and migration application",
+  "generated_at": "2026-07-08T01:10:00-06:00",
+  "remote_host": "bwflscplkjohdhkiqqoc.supabase.co",
+  "remote_classification": "unknown_production_final",
+  "inspection_mode": "read_only_mcp_list_tables",
+  "remote_modified": false,
+  "sql_executed_against_remote": false,
+  "apply_migration_against_remote": false,
+  "p3_contract_tables_expected": 19,
+  "remote_present_count": 18,
+  "remote_missing": [
+    "parallel_export_payload"
+  ],
+  "shape_mismatch_summary": {
+    "tables_with_tenant_case_uuid_contract_on_local": 19,
+    "tables_matching_p3_uuid_scope_on_remote": 0,
+    "dominant_remote_drift": [
+      "tenant_id and case_id absent on most runtime tables",
+      "tenant_id/case_id typed as text where present (role_runtime_session, activity_runtime_run)",
+      "parallel_export_payload absent on remote"
+    ]
+  },
+  "remote_present": [
+    "runtime_catalog_version",
+    "source_node_ref",
+    "runtime_interaction_def",
+    "runtime_interaction_mapping",
+    "role_runtime_session",
+    "activity_runtime_run",
+    "runtime_interaction_instance",
+    "runtime_subfield_response",
+    "evidence_item",
+    "canonical_variable_record",
+    "branching_decision",
+    "budget_ledger",
+    "semantic_resolution_event",
+    "process_state_timer_event",
+    "structural_candidate_record",
+    "readiness_gap_record",
+    "readiness_decision_record",
+    "runtime_audit_trail"
+  ],
+  "shape_mismatches": [
+    {
+      "table": "runtime_catalog_version",
+      "issues": ["tenant_id_missing", "case_id_missing"],
+      "rls_enabled": true
+    },
+    {
+      "table": "role_runtime_session",
+      "issues": ["tenant_id_not_uuid:text", "case_id_not_uuid:text"],
+      "rls_enabled": true,
+      "column_types": { "tenant_id": "text", "case_id": "text" }
+    },
+    {
+      "table": "activity_runtime_run",
+      "issues": ["tenant_id_not_uuid:text", "case_id_missing"],
+      "rls_enabled": true,
+      "column_types": { "tenant_id": "text", "case_id": null }
+    }
+  ],
+  "full_shape_mismatch_table_count": 18,
+  "conclusion": "Remote hosted project diverges from P3 contract; P3 migration must not be applied to remote without explicit production authorization. Local safe target now matches P3 contract."
+}

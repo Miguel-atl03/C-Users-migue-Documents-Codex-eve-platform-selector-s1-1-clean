@@ -1,0 +1,83 @@
+{
+  "dictamen": "SHADOW_ONLY_OUTBOX_EVENTS_SHADOW_OUTCOME_MIGRATION_FILE_V2_READY_FOR_SURGICAL_COMMIT",
+  "reviewed_migration_file": "sql/migrations/2026-06-28-add_shadow_outcome_to_shadow_only_outbox_events.sql",
+  "migration_executed": false,
+  "sql_modified_by_review": false,
+  "json_validation": {
+    "all_parse": true
+  },
+  "fields_confirmed": [
+    "shadow_outcome",
+    "shadow_outcome_provenance",
+    "shadow_outcome_schema_version",
+    "shadow_outcome_generated_at",
+    "shadow_outcome_producer",
+    "shadow_outcome_checksum",
+    "shadow_outcome_evidence_refs",
+    "shadow_outcome_no_go_flags",
+    "shadow_outcome_readiness",
+    "shadow_outcome_source_ref"
+  ],
+  "dml_scan": {
+    "passed": true,
+    "forbidden_dml_detected": false
+  },
+  "forbidden_source_scan": {
+    "passed": true,
+    "forbidden_sources_detected": [],
+    "non_blocking_safety_comments": [
+      "official_outcome appears only as comparison target and explicitly not as source",
+      "registry/export/diagnosis/Gate 3/Fase 9/productive runtime appear only as prohibited authority/source statements"
+    ]
+  },
+  "rls_review": {
+    "rls_relaxed": false,
+    "update_delete_enabled": false,
+    "permissive_policy_created": false
+  },
+  "constraint_scope_review": {
+    "pg_constraint_guards_found": 3,
+    "guards_with_conrelid_or_regclass": 3,
+    "guards_without_table_scope": 0,
+    "passed": true
+  },
+  "metadata_constraint_review": {
+    "passed": true
+  },
+  "producer_constraint_review": {
+    "passed": true,
+    "allowed_producer": "EVE_SHADOW_NON_PRODUCTIVE"
+  },
+  "readiness_constraint_review": {
+    "passed": true
+  },
+  "idempotency_review": {
+    "passed": true,
+    "add_column_if_not_exists": true,
+    "constraint_creation_guarded": true,
+    "constraint_guard_table_scoped": true
+  },
+  "authority": {
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "observer_created": false,
+    "observer_authorized": false,
+    "real_observation_authorized": false,
+    "read_only_observer_authorized": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "db_written": false,
+    "ui_touched": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "productive_brain_connection": false
+  },
+  "gaps": [],
+  "blockers": [],
+  "commit_readiness": {
+    "ready": true,
+    "recommended_next_step": "COMMIT_SHADOW_ONLY_OUTBOX_EVENTS_SHADOW_OUTCOME_MIGRATION_FILE_V1"
+  }
+}

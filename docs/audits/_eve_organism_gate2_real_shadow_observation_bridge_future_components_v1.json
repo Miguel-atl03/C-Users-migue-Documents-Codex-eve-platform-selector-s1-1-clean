@@ -1,0 +1,59 @@
+{
+  "components_id": "EVE_ORGANISM_GATE2_REAL_SHADOW_OBSERVATION_BRIDGE_FUTURE_COMPONENTS_V1",
+  "mode": "IMPLEMENTATION_DESIGN_ONLY",
+  "components": [
+    {
+      "name": "RealShadowObservationIngress",
+      "responsibility": "receive observable events already emitted by safe infrastructure",
+      "forbidden": ["direct productive DB extraction", "write-capable connections", "invent missing context"],
+      "runtime_created_now": false
+    },
+    {
+      "name": "RealShadowEventValidator",
+      "responsibility": "validate RealShadowObservableEvent contract",
+      "rejects": ["missing tenant/session/activity", "missing provenance/sourceTrace", "missing correlationId", "missing idempotencyKey", "missing officialOutcome", "missing source_environment", "unknown redaction_status", "overcollection risk"],
+      "runtime_created_now": false
+    },
+    {
+      "name": "RealShadowDedupeGuard",
+      "responsibility": "dedupe by idempotencyKey + tenant_id + officialFlowRef",
+      "prevents": ["duplicate divergence", "duplicate contradictory shadow candidate", "non-reproducible re-evaluation"],
+      "runtime_created_now": false
+    },
+    {
+      "name": "ShadowEvaluationRunner",
+      "responsibility": "invoke EVE shadow evaluation without side effects",
+      "uses": ["Composition Root shadow", "existing Gate 2 guardrails"],
+      "forbidden": ["product writes", "registry", "export", "final diagnosis"],
+      "runtime_created_now": false
+    },
+    {
+      "name": "OfficialShadowComparator",
+      "responsibility": "compare officialOutcome vs shadowOutcome",
+      "output": "ShadowDivergenceReport",
+      "runtime_created_now": false
+    },
+    {
+      "name": "ShadowOnlyEvidenceStore",
+      "responsibility": "store shadow-only evidence in append-only or read-replica infrastructure",
+      "blocked_if_missing_safe_infrastructure": true,
+      "runtime_created_now": false
+    },
+    {
+      "name": "BridgeGovernanceRecorder",
+      "responsibility": "record audit/governance findings without productive authority",
+      "runtime_created_now": false
+    },
+    {
+      "name": "BridgeAlgedonicGuard",
+      "responsibility": "detect critical No-Go and degrade/quarantine bridge capability",
+      "runtime_created_now": false
+    },
+    {
+      "name": "S3StarDivergenceReviewQueue",
+      "responsibility": "route divergences to S3* human review",
+      "must_not": ["approve Gate 3", "close exit conditions automatically", "emit diagnosis"],
+      "runtime_created_now": false
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+    "instruction":  "045-R3A-T",
+    "artifact":  "runtime-40-20-R3AT-real-next-renderer",
+    "date":  "2026-08-10",
+    "staging_project":  "eve-staging-onboarding",
+    "staging_ref":  "shrpiwkxcdgvbqymjecx",
+    "summary":  "Connected render_next to the authenticated Gaby path. The first render creates the shown interaction instance. The answer path rebinds an existing shown instance into the governed store without creating a duplicate instance before ingesting the answer.",
+    "files":  [
+                  "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-real-application-service.ts",
+                  "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts",
+                  "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-supabase-real-persistence-adapter.ts",
+                  "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-pg-persistence-adapter.ts",
+                  "src/app/api/eve/runtime-40-20/client-bff/interaction/route.ts",
+                  "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts",
+                  "src/components/SceneQuestionnaireRunner.tsx",
+                  "src/app/page.tsx",
+                  "tests/regression/consultant-control-panel/runtime-40-20-gaby-runtime-frontdoor-045R3AT.test.mjs"
+              ],
+    "validation":  {
+                       "focal_test":  "passed: node --test tests/regression/consultant-control-panel/runtime-40-20-gaby-runtime-frontdoor-045R3AT.test.mjs",
+                       "focal_lint":  "passed on R3A-T implementation files; page.tsx has inherited warnings unrelated to R3A-T",
+                       "typecheck":  "passed: npm run typecheck",
+                       "build":  "passed: npm run build",
+                       "global_lint":  "failed due inherited pre-existing docs/scripts/test lint debt outside R3A-T",
+                       "remote_roundtrip":  "not executed: no authenticated Gaby browser/session token available to this Codex task; no fabricated write was performed"
+                   },
+    "remaining_blocker":  "authenticated_gaby_staging_roundtrip_required",
+    "classification":  "blocked_gaby_real_roundtrip",
+    "security":  {
+                     "staging_consulted":  "no",
+                     "staging_writes":  "none",
+                     "production_consulted":  "no",
+                     "remote_database_writes":  "none",
+                     "catalog_activated":  "no",
+                     "B0_modified":  "no",
+                     "B1_modified":  "no",
+                     "Gaby_modified":  "no",
+                     "commit_created":  "no"
+                 }
+}

@@ -1,0 +1,91 @@
+{
+  "audit_id": "eve_organism_real_observable_signal_contract_examples_v1",
+  "created_at": "2026-06-25T04:42:31Z",
+  "dictamen": "REAL_OBSERVABLE_SIGNAL_CONTRACT_CONSOLIDATED_REPLAY_ONLY_CONTINUES",
+  "examples": [
+    {
+      "example_id": "EX-001",
+      "title": "Future candidate completo pero no autorizado",
+      "expected_status": "real_candidate_requires_evidence",
+      "signal": {
+        "identity": {
+          "contractName": "REAL_OBSERVABLE_SIGNAL_CONTRACT",
+          "contractVersion": "V1",
+          "signalId": "sig-example-evidencebundle-ready",
+          "signalKind": "mba_event",
+          "signalName": "EvidenceBundleReadyForTransduction",
+          "observationMode": "future_real_observable_candidate",
+          "signalStatus": "requires_real_product_evidence"
+        },
+        "mba_anchor": {
+          "pmProcessId": "P-SUP-02",
+          "pmTargetState": "EvidenceBundle [ReadyForTransduction]",
+          "pfId": "PF-SUP-02",
+          "pfEvent": "EvidenceBundleReadyForTransduction",
+          "objectName": "EvidenceBundle",
+          "objectState": "ReadyForTransduction",
+          "objectStateNotation": "EvidenceBundle [ReadyForTransduction]",
+          "mocClass": "EvidenceBundle",
+          "mocOperation": "marcarReady()",
+          "olcToState": "ReadyForTransduction"
+        },
+        "admissibilityStatus": "real_candidate_requires_evidence"
+      },
+      "forbidden_conclusion": "observer_ready"
+    },
+    {
+      "example_id": "EX-002",
+      "title": "Bloqueado por OLC",
+      "expected_status": "blocked_olc_violation",
+      "signal": {
+        "identity": {
+          "signalName": "SolicitudDiagnosticaAceptada"
+        },
+        "mba_anchor": {
+          "objectName": "CasoDiagnosticoEVE",
+          "objectState": "Opened",
+          "objectStateNotation": "CasoDiagnosticoEVE [Opened]",
+          "olcToState": "Opened"
+        },
+        "admissibilityStatus": "blocked_olc_violation"
+      },
+      "reason": "[Opened] no está autorizado; debe ser CasoDiagnosticoEVE [InDiagnosticProduction]."
+    },
+    {
+      "example_id": "EX-003",
+      "title": "B7 contaminante",
+      "expected_status": "blocked_b3_b7_violation",
+      "signal": {
+        "identity": {
+          "signalKind": "b7_boundary_check",
+          "signalName": "B7SignalUsedAsStructuralFact"
+        },
+        "b3_b7_boundary": {
+          "b7StructuralFactAllowed": true,
+          "b7DiagnosticUseAllowed": true
+        },
+        "admissibilityStatus": "blocked_b3_b7_violation"
+      },
+      "reason": "B7 solo puede ser metadata no diagnóstica."
+    },
+    {
+      "example_id": "EX-004",
+      "title": "Fixture falsamente presentado como real",
+      "expected_status": "blocked_missing_real_evidence",
+      "signal": {
+        "identity": {
+          "observationMode": "offline_fixture",
+          "signalStatus": "blocked"
+        },
+        "traceability": {
+          "provenance": "synthetic_fixture",
+          "idempotencyKey": "fixture-idem-001",
+          "correlationId": "fixture-corr-001",
+          "officialFlowRef": "canonical_future_name"
+        },
+        "admissibilityStatus": "blocked_missing_real_evidence"
+      },
+      "reason": "Valores sintéticos no cierran ROB-008 ni prueban evidencia real."
+    }
+  ]
+}

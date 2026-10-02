@@ -1,0 +1,154 @@
+{
+  "task": "EVE-00-METHOD-KERNEL-CONTROLLED-WIRING-DESIGN-V1",
+  "dictamen": "METHOD_KERNEL_CONTROLLED_WIRING_DESIGN_READY",
+  "modes": {
+    "shadow_mode": {
+      "description": "Runs internally after structural candidates exist; produces trace only.",
+      "allowedInputs": [
+        "structuralCandidateRecord",
+        "pmCandidate",
+        "mocCandidate",
+        "pfCandidate",
+        "olcCandidate",
+        "evidenceItems",
+        "canonicalVariableRecords",
+        "sourceRefs",
+        "provenance",
+        "confirmed RuntimeBlock0ResponseBundle",
+        "prior conformanceResults",
+        "prior consistencyResults"
+      ],
+      "allowedOutputs": [
+        "methodKernelEvaluationResult",
+        "conformanceFindings",
+        "consistencyFindings",
+        "missingEvidenceFlags",
+        "contradictionFlags",
+        "sourceRefTrace",
+        "auditEvents"
+      ],
+      "prohibitedActions": [
+        "block user flow",
+        "modify payload",
+        "write registry",
+        "trigger EVE diagnosis",
+        "emit IR",
+        "execute Produccion Paralela",
+        "decide primary activities",
+        "replace Runtime readiness"
+      ],
+      "canBlockUserFlow": false,
+      "canModifyPayload": false,
+      "canWriteRegistry": false,
+      "canTriggerDiagnosis": false,
+      "requiredTests": [
+        "package parse and consistency",
+        "shadow emits audit only",
+        "shadow does not mutate input payload",
+        "shadow does not write registry",
+        "shadow rejects unprovenanced free text"
+      ],
+      "promotionCriteria": [
+        "zero payload mutation across fixtures",
+        "stable sourceRefTrace",
+        "no false Runtime readiness decisions",
+        "Miguel approval to enter advisory design"
+      ]
+    },
+    "advisory_mode": {
+      "description": "Produces internal recommendations only; can suggest methodological flags without blocking.",
+      "allowedInputs": [
+        "all shadow mode inputs",
+        "stable structuralCandidateRecord schema",
+        "validated sourceRefTrace",
+        "prior shadow auditEvents"
+      ],
+      "allowedOutputs": [
+        "methodKernelEvaluationResult",
+        "readinessMethodologicalDecision",
+        "manualReviewRequest",
+        "conformanceFindings",
+        "consistencyFindings",
+        "sourceRefTrace",
+        "auditEvents"
+      ],
+      "prohibitedActions": [
+        "block user flow",
+        "replace Runtime readiness",
+        "write final Runtime gate",
+        "surface UI instructions directly",
+        "diagnose EVE pathology",
+        "decide primary activities"
+      ],
+      "canBlockUserFlow": false,
+      "canModifyPayload": false,
+      "canWriteRegistry": false,
+      "canTriggerDiagnosis": false,
+      "requiredTests": [
+        "advisory decisions are methodological only",
+        "ready_with_flags does not equal Runtime readiness",
+        "manual_review_required does not block UI",
+        "SelectionPolicy result remains unchanged",
+        "WorkMap and Significado payloads remain unchanged"
+      ],
+      "promotionCriteria": [
+        "approved interface contract",
+        "fixtures cover valid, missing evidence and contradiction scenarios",
+        "no invasion of Runtime/SelectionPolicy/WorkMap",
+        "Miguel approval to design controlled gate"
+      ]
+    },
+    "controlled_gate_mode": {
+      "description": "Future explicit gate for methodological conformance only; disabled by default.",
+      "allowedInputs": [
+        "versioned structuralCandidateRecord",
+        "complete PM/MoC/PF/OLC candidates",
+        "confirmed evidenceItems",
+        "sourceRefs",
+        "provenance",
+        "approved conformanceResults",
+        "approved consistencyResults"
+      ],
+      "allowedOutputs": [
+        "readinessMethodologicalDecision",
+        "manualReviewRequest",
+        "missingEvidenceFlags",
+        "contradictionFlags",
+        "sourceRefTrace",
+        "auditEvents"
+      ],
+      "prohibitedActions": [
+        "activate by default",
+        "block B0",
+        "block WorkMap",
+        "block SelectionPolicy",
+        "replace Runtime readiness/reentry",
+        "write runtimeAuthority without separate authorization",
+        "emit diagnosis",
+        "emit IR",
+        "emit registry",
+        "emit Produccion Paralela payload"
+      ],
+      "canBlockUserFlow": false,
+      "canModifyPayload": false,
+      "canWriteRegistry": false,
+      "canTriggerDiagnosis": false,
+      "requiredTests": [
+        "feature flag or explicit config disabled by default",
+        "authorized-only activation path",
+        "complete candidate contract",
+        "methodological gate cannot block B0 or WorkMap",
+        "no registry writes",
+        "no runtimeAuthority drift",
+        "golden contradiction fixtures"
+      ],
+      "promotionCriteria": [
+        "Miguel explicit authorization",
+        "expanded regression suite passing",
+        "documented rollback path",
+        "separate registry decision",
+        "no unresolved boundary risks"
+      ]
+    }
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "audit_id": "EVE_ORGANISM_REAL_SIGNAL_BOUNDARY_EVIDENCE_REQUEST_V1",
+  "generated_at": "2026-06-25T02:23:38.498Z",
+  "dictamen": "BOUNDARY_EVIDENCE_PARTIAL_REPLAY_ONLY_CONTINUES",
+  "exit_conditions": [
+    {
+      "exit_condition_id": "ROEC-001",
+      "requirement": "Real tenantId is present in a safe observed signal.",
+      "evidence_found": true,
+      "evidence_paths": [
+        "src/types/eve-organism-composition-root.ts"
+      ],
+      "status": "partial",
+      "reason": "Evidence exists only as type/product-boundary/service evidence and does not close a real read-only observer condition."
+    },
+    {
+      "exit_condition_id": "ROEC-002",
+      "requirement": "Real organizationId is present in a safe observed signal.",
+      "evidence_found": true,
+      "evidence_paths": [
+        "src/types/eve-organism-composition-root.ts"
+      ],
+      "status": "partial",
+      "reason": "Evidence exists only as type/product-boundary/service evidence and does not close a real read-only observer condition."
+    },
+    {
+      "exit_condition_id": "ROEC-003",
+      "requirement": "Real sessionId is present in a safe observed signal.",
+      "evidence_found": true,
+      "evidence_paths": [
+        "src/types/eve-organism-composition-root.ts",
+        "src/lib/session-boundary.ts"
+      ],
+      "status": "partial",
+      "reason": "Evidence exists only as type/product-boundary/service evidence and does not close a real read-only observer condition."
+    },
+    {
+      "exit_condition_id": "ROEC-004",
+      "requirement": "Real activityId is present in a safe observed signal.",
+      "evidence_found": true,
+      "evidence_paths": [
+        "src/types/eve-organism-composition-root.ts",
+        "src/services/significado-activity-anchor-adapter.ts"
+      ],
+      "status": "partial",
+      "reason": "Evidence exists only as type/product-boundary/service evidence and does not close a real read-only observer condition."
+    },
+    {
+      "exit_condition_id": "ROEC-005",
+      "requirement": "Real actorId or userId is present without leaking personal data.",
+      "evidence_found": true,
+      "evidence_paths": [
+        "src/lib/session-boundary.ts"
+      ],
+      "status": "partial",
+      "reason": "Evidence exists only as type/product-boundary/service evidence and does not close a real read-only observer condition."
+    },
+    {
+      "exit_condition_id": "ROEC-006",
+      "requirement": "Real provenance includes stable source identity/path/locator.",
+      "evidence_found": true,
+      "evidence_paths": [
+        "src/domain/questionnaire.ts",
+        "src/services/scene-repository.ts"
+      ],
+      "status": "partial",
+      "reason": "Evidence exists only as type/product-boundary/service evidence and does not close a real read-only observer condition."
+    },
+    {
+      "exit_condition_id": "ROEC-007",
+      "requirement": "Candidate signals preserve sourceTrace from real non-mutating evidence.",
+      "evidence_found": true,
+      "evidence_paths": [
+        "src/domain/eve-03-canonical-catalog-shadow.ts"
+      ],
+      "status": "partial",
+      "reason": "Evidence exists only as type/product-boundary/service evidence and does not close a real read-only observer condition."
+    },
+    {
+      "exit_condition_id": "ROEC-008",
+      "requirement": "Real idempotencyKey is present or safely derived read-only.",
+      "evidence_found": false,
+      "evidence_paths": [],
+      "status": "open",
+      "reason": "Human decision keeps idempotencyKey as shadow contract only; no real signal proof."
+    },
+    {
+      "exit_condition_id": "ROEC-009",
+      "requirement": "Real correlationId is present or safely derived read-only.",
+      "evidence_found": false,
+      "evidence_paths": [],
+      "status": "open",
+      "reason": "Human decision keeps correlationId as shadow contract only; no real signal proof."
+    },
+    {
+      "exit_condition_id": "ROEC-010",
+      "requirement": "Real officialFlowRef exists without executing or mutating official flow.",
+      "evidence_found": false,
+      "evidence_paths": [],
+      "status": "open",
+      "reason": "officialFlowRef accepted only as future canonical name; no real official flow reference."
+    },
+    {
+      "exit_condition_id": "ROEC-011",
+      "requirement": "Observer does not import, mount, hook or mutate UI/app/components/pages.",
+      "evidence_found": true,
+      "evidence_paths": [
+        "src/services/eve-organism-shadow-e2e-adapter.ts"
+      ],
+      "status": "partial",
+      "reason": "Evidence exists only as type/product-boundary/service evidence and does not close a real read-only observer condition."
+    },
+    {
+      "exit_condition_id": "ROEC-012",
+      "requirement": "Observer does not write or mutate WorkMap state or files.",
+      "evidence_found": false,
+      "evidence_paths": [],
+      "status": "open",
+      "reason": "WorkMap draft/write surfaces exist; no passive observer seam proven."
+    },
+    {
+      "exit_condition_id": "ROEC-013",
+      "requirement": "Observer does not write or mutate Significado state or files.",
+      "evidence_found": false,
+      "evidence_paths": [],
+      "status": "open",
+      "reason": "Significado draft/persist surfaces exist; no passive observer seam proven."
+    },
+    {
+      "exit_condition_id": "ROEC-014",
+      "requirement": "No insert/update/delete/query execution with write authority.",
+      "evidence_found": false,
+      "evidence_paths": [],
+      "status": "open",
+      "reason": "Multiple DB writes exist in product APIs; no observer-specific no-write boundary proven."
+    },
+    {
+      "exit_condition_id": "ROEC-015",
+      "requirement": "No Supabase dependency, or fully proven read-only boundary.",
+      "evidence_found": false,
+      "evidence_paths": [],
+      "status": "open",
+      "reason": "Supabase is used by product APIs; no no-Supabase or read-only Supabase boundary proven."
+    },
+    {
+      "exit_condition_id": "ROEC-016",
+      "requirement": "No productive runtime state mutation.",
+      "evidence_found": false,
+      "evidence_paths": [],
+      "status": "open",
+      "reason": "Runtime observability and runtime APIs exist; no future observer runtime non-mutation proof."
+    },
+    {
+      "exit_condition_id": "ROEC-017",
+      "requirement": "No registry write, final export, or diagnosis enablement.",
+      "evidence_found": false,
+      "evidence_paths": [],
+      "status": "open",
+      "reason": "Export routes/services exist; no observer boundary excluding export/diagnosis proven."
+    },
+    {
+      "exit_condition_id": "ROEC-018",
+      "requirement": "If DB read ever appears, RLS/auth/tenant isolation must be proven before preflight retry.",
+      "evidence_found": true,
+      "evidence_paths": [
+        "src/lib/session-boundary.ts"
+      ],
+      "status": "partial",
+      "reason": "Evidence exists only as type/product-boundary/service evidence and does not close a real read-only observer condition."
+    }
+  ],
+  "summary": {
+    "total": 18,
+    "closed": 0,
+    "partial": 9,
+    "open": 9
+  }
+}

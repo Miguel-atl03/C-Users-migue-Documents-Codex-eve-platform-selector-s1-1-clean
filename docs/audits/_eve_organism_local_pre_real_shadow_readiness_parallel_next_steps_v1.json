@@ -1,0 +1,36 @@
+{
+  "parallelization_allowed": true,
+  "parallel_pair": [
+    "DESIGN_SHADOW_ONLY_REAL_OBSERVATION_READINESS_V1",
+    "SHADOW_OUTCOME_MIGRATION_NON_PRODUCTIVE_VALIDATION_PATH_V1"
+  ],
+  "reason": "Both are design/readiness paths and neither may connect real source, execute migration, create observer, close Gate 2, enable Gate 3 or start Fase 9.",
+  "must_remain_false": [
+    "source_connected",
+    "real_table_read",
+    "migration_executed",
+    "db_connected",
+    "supabase_connected",
+    "observer_created",
+    "gate2_real_shadow_closed",
+    "gate3_ready",
+    "fase9_started",
+    "registry_written",
+    "export_generated",
+    "diagnosis_enabled"
+  ],
+  "must_not_do": [
+    "connect_real_source",
+    "read_real_table",
+    "execute_migration",
+    "connect_db",
+    "connect_supabase",
+    "create_observer",
+    "close_gate2_real_shadow",
+    "enable_gate3",
+    "start_fase9",
+    "write_registry",
+    "generate_export",
+    "enable_diagnosis"
+  ]
+}

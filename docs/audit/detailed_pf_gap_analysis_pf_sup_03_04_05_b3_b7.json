@@ -1,0 +1,213 @@
+{
+  "tramo": "DETAILED_PROCESS_GAP_ANALYSIS_PF_SUP_03_04_05_AND_B3_B7_V1",
+  "dictamen": "DETAILED_PROCESS_GAP_ANALYSIS_PF_SUP_03_04_05_AND_B3_B7_COMPLETED",
+  "rector_source": "C:\\Users\\migue\\Downloads\\Minimal Business Architecture EVE\\MMABP_Minimal_Business_Architecture_EVE_v1_1_B3_B7_alineado.docx",
+  "rector_source_type": "full_docx_shared_read",
+  "rector_first_extraction": {
+    "PF-SUP-03": {
+      "nombre_del_proceso": "Transducir evidencia por rol funcional",
+      "objeto_gobernado": "EscenaEvidencial",
+      "trigger": "Solicitud de transduccion causal",
+      "target_state": "EscenaEvidencial [Validated]",
+      "process_steps": [
+        "Recibir EvidenceBundle[ReadyForTransduction]",
+        "Extraer ElementoMMABP[Extracted]",
+        "Formular HipotesisVSMPrimaria[Formulated]",
+        "Detectar InconsistenciaMMABP[Detected]",
+        "Manifestar NodoEVELocal[Manifested]",
+        "Construir EscenaEvidencial[Constructed]",
+        "Situar TraduccionAHEMaterial[Situated]",
+        "Validar escena evidencial",
+        "Producir EscenaEvidencial[Validated]"
+      ],
+      "process_states": ["Constructing", "WithMMABPElements", "WithVSMHypothesis", "WithMMABPInconsistency", "WithEVEManifestation", "AHESituated", "Validated", "BlockedByInsufficientCausality"],
+      "timers": ["max_tiempo_consumo_evidence_bundle", "max_tiempo_validacion_inconsistencia", "max_tiempo_validacion_escena_evidencial"],
+      "salidas_normales": ["EscenaEvidencial[Validated]", "EscenaEvidencialValidated"],
+      "salidas_alternativas": ["EscenaEvidencial[BlockedByInsufficientCausality]"],
+      "rework": ["EvidenceBundle[ReworkRequired]", "reentry evidential route to PF-SUP-03"],
+      "reglas_b3_b7_aplicables": ["B3 only through canonical operational receiver feedback route.", "B7 remains non-diagnostic and cannot promote to closed VSM/AHE hypothesis, registry, IR, export or diagnosis."]
+    },
+    "PF-SUP-04": {
+      "nombre_del_proceso": "Agregar causalidad empresarial",
+      "objeto_gobernado": "PeliculaCausalAgregada",
+      "trigger": "Solicitud de agregacion empresarial",
+      "target_state": "PeliculaCausalAgregada [Aggregated]",
+      "process_steps": [
+        "Recibir EscenaEvidencial[Validated]",
+        "Construir SceneSet[AggregationEligible]",
+        "Construir AggregationIndex[Built]",
+        "Detectar PatronCausalMultirol[Identified]",
+        "Estimar PerdidaMonetizable[Estimated]",
+        "Componer PeliculaCausalAgregada[Composed]",
+        "Validar trazabilidad compuesta",
+        "Producir PeliculaCausalAgregada[Aggregated]"
+      ],
+      "process_states": ["ScenesReceived", "AggregationEligible", "IndexBuilt", "PatternIdentified", "LossEstimated", "Composed", "Aggregated", "BlockedByInsufficientScenes"],
+      "timers": ["max_tiempo_escenas_agregables", "max_tiempo_patron_multirol", "max_tiempo_validacion_pelicula"],
+      "salidas_normales": ["PeliculaCausalAgregada[Aggregated]", "PeliculaCausalAggregated"],
+      "salidas_alternativas": ["PeliculaCausalAgregada[BlockedByInsufficientScenes]"],
+      "rework": ["solicitud de enriquecimiento hacia PF-SUP-03 when scene set is insufficient"],
+      "reglas_b3_b7_aplicables": ["B3 can affect PF only as accepted operational event/rework/block/handoff/coordination with route_ref.", "B7 cannot create process step, structural fact or aggregation input by itself."]
+    },
+    "PF-SUP-05": {
+      "nombre_del_proceso": "Componer sintesis experta",
+      "objeto_gobernado": "DiagnosticoExpertoFinal",
+      "trigger": "Solicitud de sintesis experta",
+      "target_state": "DiagnosticoExpertoFinal [Delivered]",
+      "process_steps": [
+        "Recibir PeliculaCausalAgregada[Aggregated]",
+        "Verificar trazabilidad experta",
+        "Crear SynthesisCase[TraceabilityChecked]",
+        "Redactar NarrativaFinalCliente[Drafted]",
+        "Formular TeoremaInevitabilidad[Formulated]",
+        "Redactar RecomendacionConsultiva[Drafted]",
+        "Ejecutar revision experta",
+        "Producir DiagnosticoExpertoFinal[ExpertReviewed]",
+        "Aprobar y entregar diagnostico",
+        "Producir DiagnosticoExpertoFinal[Delivered]"
+      ],
+      "process_states": ["MovieReceived", "TraceabilityChecked", "NarrativeDrafted", "TheoremFormulated", "RecommendationDrafted", "ExpertReviewed", "Delivered", "BlockedByWeakTraceability"],
+      "timers": ["max_tiempo_revision_experta", "max_tiempo_trazabilidad_sintesis"],
+      "salidas_normales": ["DiagnosticoExpertoFinal[Delivered]", "DiagnosticoExpertoFinalDelivered"],
+      "salidas_alternativas": ["DiagnosticoExpertoFinal[BlockedByWeakTraceability]"],
+      "rework": ["solicitud de recomposicion hacia PF-SUP-04 when traceability is weak"],
+      "reglas_b3_b7_aplicables": ["B3 evidence must remain routed and traceable.", "B7 preclassification cannot become diagnosis, structural fact, expert conclusion, registry, OEE, IR or export."]
+    },
+    "b3_b7_applicable_rules": [
+      "B3 puede producir evento operacional si receiver_feedback tiene ruta canonica; B7 solo transporta senal preclasificatoria no diagnostica.",
+      "Frontera B3/R9: El feedback operativo del receptor solo entra como evidencia estructural si proviene de 3.13a, ReceiverFeedbackObject u OEE con trazabilidad; no se deriva de satisfaccion subjetiva.",
+      "Frontera B7: Las senales 7.0a y 7.3a permanecen como preclasificacion no diagnostica; no abren inventario, diagrama, hipotesis VSM/AHE cerrada ni OEE."
+    ]
+  },
+  "repo_visibility": "full",
+  "no_go_triggered": false,
+  "pf_analysis": [
+    {
+      "pf_id": "PF-SUP-03",
+      "rector_name": "Transducir evidencia por rol funcional",
+      "governed_object": "EscenaEvidencial",
+      "target_state": "EscenaEvidencial[Validated]",
+      "overall_status": "runtime_stub",
+      "steps": [
+        {"step_id": "PF03-01", "rector_step": "Solicitud de transduccion causal", "required_state_or_output": "start request", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No orchestration entry point found.", "minimum_materiality_needed": "PF-SUP-03 runner/adapter accepting EvidenceBundle ready event.", "deferred_dependency": "olc"},
+        {"step_id": "PF03-02", "rector_step": "Recibir EvidenceBundle[ReadyForTransduction]", "required_state_or_output": "EvidenceBundle consumed", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "runtime_stub", "gap": "No service verifies actual bundle readiness.", "minimum_materiality_needed": "Guarded input contract requiring EvidenceBundle[ReadyForTransduction].", "deferred_dependency": "olc"},
+        {"step_id": "PF03-03", "rector_step": "Extraer ElementoMMABP[Extracted]", "required_state_or_output": "WithMMABPElements", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No MMABPElement extractor found.", "minimum_materiality_needed": "Extractor contract with source evidence refs.", "deferred_dependency": "moc_and_olc"},
+        {"step_id": "PF03-04", "rector_step": "Formular HipotesisVSMPrimaria[Formulated]", "required_state_or_output": "WithVSMHypothesis", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No VSM hypothesis service/test found.", "minimum_materiality_needed": "VSM hypothesis candidate contract.", "deferred_dependency": "moc"},
+        {"step_id": "PF03-05", "rector_step": "Detectar InconsistenciaMMABP[Detected]", "required_state_or_output": "WithMMABPInconsistency", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No inconsistency detector found.", "minimum_materiality_needed": "Detector with explainable rule id.", "deferred_dependency": "moc_and_olc"},
+        {"step_id": "PF03-06", "rector_step": "Manifestar NodoEVELocal[Manifested]", "required_state_or_output": "WithEVEManifestation", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No node manifestation service found.", "minimum_materiality_needed": "Local node candidate contract.", "deferred_dependency": "moc"},
+        {"step_id": "PF03-07", "rector_step": "Construir EscenaEvidencial[Constructed]", "required_state_or_output": "EscenaEvidencial constructed", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "runtime_stub", "gap": "No constructor/orchestrator found.", "minimum_materiality_needed": "EscenaEvidencial builder preserving observable acts.", "deferred_dependency": "moc_and_olc"},
+        {"step_id": "PF03-08", "rector_step": "Situar TraduccionAHEMaterial[Situated]", "required_state_or_output": "AHESituated", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No AHE material translation service found.", "minimum_materiality_needed": "AHE boundary guard, non-diagnostic.", "deferred_dependency": "moc"},
+        {"step_id": "PF03-09", "rector_step": "Validar escena evidencial", "required_state_or_output": "EscenaCausalValidada", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No validation service/test found.", "minimum_materiality_needed": "Validator with pass/block/rework outcomes.", "deferred_dependency": "olc"},
+        {"step_id": "PF03-10", "rector_step": "Producir EscenaEvidencial[Validated]", "required_state_or_output": "EscenaEvidencial[Validated]", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "runtime_stub", "gap": "No executable proof of full flow.", "minimum_materiality_needed": "End-to-end local test with no diagnosis/export.", "deferred_dependency": "olc"}
+      ],
+      "process_states": ["Constructing", "WithMMABPElements", "WithVSMHypothesis", "WithMMABPInconsistency", "WithEVEManifestation", "AHESituated", "Validated", "BlockedByInsufficientCausality"],
+      "timers": [{"name": "max_tiempo_escena_evidencial_validated", "class": "timer_contract_only", "missing_rector_names": ["max_tiempo_consumo_evidence_bundle", "max_tiempo_validacion_inconsistencia", "max_tiempo_validacion_escena_evidencial"]}],
+      "rework_paths": [],
+      "blocking_paths": ["EscenaEvidencial[BlockedByInsufficientCausality]"],
+      "no_go_risks": ["Overclaiming runtime_stub as executable PF implementation."]
+    },
+    {
+      "pf_id": "PF-SUP-04",
+      "rector_name": "Agregar causalidad empresarial",
+      "governed_object": "PeliculaCausalAgregada",
+      "target_state": "PeliculaCausalAgregada[Aggregated]",
+      "overall_status": "guardrail_only",
+      "steps": [
+        {"step_id": "PF04-01", "rector_step": "Solicitud de agregacion", "required_state_or_output": "start request", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No PF-SUP-04 orchestration endpoint found.", "minimum_materiality_needed": "Aggregation request adapter.", "deferred_dependency": "olc"},
+        {"step_id": "PF04-02", "rector_step": "Recibir EscenaEvidencial[Validated]", "required_state_or_output": "Validated scenes input", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No service checks validated scenes input.", "minimum_materiality_needed": "Input validator requiring 2..* validated scenes.", "deferred_dependency": "olc"},
+        {"step_id": "PF04-03", "rector_step": "Construir SceneSet[AggregationEligible]", "required_state_or_output": "AggregationEligible", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs", "src/services/mba/nonconformance-rules.mjs"], "materiality_class": "guardrail_only", "gap": "SceneSet object/service absent.", "minimum_materiality_needed": "SceneSet builder with count and traceability.", "deferred_dependency": "moc_and_olc"},
+        {"step_id": "PF04-04", "rector_step": "Construir AggregationIndex[Built]", "required_state_or_output": "IndexBuilt", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No AggregationIndex service found.", "minimum_materiality_needed": "Index builder by actor/node/artifact/signal.", "deferred_dependency": "moc"},
+        {"step_id": "PF04-05", "rector_step": "Detectar PatronCausalMultirol[Identified]", "required_state_or_output": "PatternIdentified", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No PF-SUP-04 pattern detector found.", "minimum_materiality_needed": "Multi-role pattern detector.", "deferred_dependency": "moc"},
+        {"step_id": "PF04-06", "rector_step": "Estimar PerdidaMonetizable[Estimated]", "required_state_or_output": "LossEstimated", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No PF-SUP-04 loss estimator found.", "minimum_materiality_needed": "Traced loss estimate contract.", "deferred_dependency": "moc"},
+        {"step_id": "PF04-07", "rector_step": "Componer PeliculaCausalAgregada[Composed]", "required_state_or_output": "Composed", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No composition service found.", "minimum_materiality_needed": "PeliculaCausalAgregada composer.", "deferred_dependency": "moc_and_olc"},
+        {"step_id": "PF04-08", "rector_step": "Validar trazabilidad compuesta", "required_state_or_output": "TrazabilidadAgregadaValidada", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No aggregate traceability validator found.", "minimum_materiality_needed": "Traceability validator across input scenes.", "deferred_dependency": "olc"},
+        {"step_id": "PF04-09", "rector_step": "Producir PeliculaCausalAgregada[Aggregated]", "required_state_or_output": "PeliculaCausalAgregada[Aggregated]", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs", "src/services/mba/nonconformance-rules.mjs"], "materiality_class": "guardrail_only", "gap": "No executable output producer found.", "minimum_materiality_needed": "PF-SUP-04 test proving output or block.", "deferred_dependency": "olc"}
+      ],
+      "process_states": ["ScenesReceived", "AggregationEligible", "IndexBuilt", "PatternIdentified", "LossEstimated", "Composed", "Aggregated", "BlockedByInsufficientScenes"],
+      "timers": [{"name": "max_tiempo_pelicula_causal_aggregated", "class": "timer_contract_only", "missing_rector_names": ["max_tiempo_escenas_agregables", "max_tiempo_patron_multirol", "max_tiempo_validacion_pelicula"]}],
+      "rework_paths": [],
+      "blocking_paths": ["PeliculaCausalAgregada[BlockedByInsufficientScenes]", "MBA-GATE-PEL-2-SCENES"],
+      "no_go_risks": ["Confusing Capa 2.5 aggregation with PF-SUP-04 implementation."]
+    },
+    {
+      "pf_id": "PF-SUP-05",
+      "rector_name": "Componer sintesis experta",
+      "governed_object": "DiagnosticoExpertoFinal",
+      "target_state": "DiagnosticoExpertoFinal[Delivered]",
+      "overall_status": "guardrail_only",
+      "steps": [
+        {"step_id": "PF05-01", "rector_step": "Solicitud de sintesis", "required_state_or_output": "start request", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No synthesis endpoint/service found.", "minimum_materiality_needed": "Synthesis request adapter.", "deferred_dependency": "olc"},
+        {"step_id": "PF05-02", "rector_step": "Recibir PeliculaCausalAgregada[Aggregated]", "required_state_or_output": "PeliculaRecibida", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs", "src/services/mba/nonconformance-rules.mjs"], "materiality_class": "guardrail_only", "gap": "No input verification service found.", "minimum_materiality_needed": "Input guard requiring PeliculaCausalAgregada[Aggregated].", "deferred_dependency": "olc"},
+        {"step_id": "PF05-03", "rector_step": "Verificar trazabilidad experta", "required_state_or_output": "TraceabilityChecked", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No expert traceability service found.", "minimum_materiality_needed": "Expert traceability validator.", "deferred_dependency": "olc"},
+        {"step_id": "PF05-04", "rector_step": "Crear SynthesisCase[TraceabilityChecked]", "required_state_or_output": "SynthesisCase", "repo_evidence_paths": [], "materiality_class": "absent", "gap": "SynthesisCase first-class object absent.", "minimum_materiality_needed": "SynthesisCase contract.", "deferred_dependency": "moc_and_olc"},
+        {"step_id": "PF05-05", "rector_step": "Redactar NarrativaFinalCliente[Drafted]", "required_state_or_output": "NarrativeDrafted", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No final client narrative service found.", "minimum_materiality_needed": "Draft narrative builder with source trace.", "deferred_dependency": "moc"},
+        {"step_id": "PF05-06", "rector_step": "Formular TeoremaInevitabilidad[Formulated]", "required_state_or_output": "TheoremFormulated", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No theorem service found.", "minimum_materiality_needed": "Theorem builder with evidence limits.", "deferred_dependency": "moc"},
+        {"step_id": "PF05-07", "rector_step": "Redactar RecomendacionConsultiva[Drafted]", "required_state_or_output": "RecommendationDrafted", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No recommendation service found.", "minimum_materiality_needed": "Recommendation draft builder.", "deferred_dependency": "moc"},
+        {"step_id": "PF05-08", "rector_step": "Ejecutar revision experta", "required_state_or_output": "ExpertReviewed", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No review workflow/test found.", "minimum_materiality_needed": "S3/S5 expert review state machine.", "deferred_dependency": "olc"},
+        {"step_id": "PF05-09", "rector_step": "Producir DiagnosticoExpertoFinal[ExpertReviewed]", "required_state_or_output": "ExpertReviewed", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "type_contract", "gap": "No executable production proof.", "minimum_materiality_needed": "Review output contract.", "deferred_dependency": "olc"},
+        {"step_id": "PF05-10", "rector_step": "Aprobar y entregar diagnostico", "required_state_or_output": "Delivered approval", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs", "src/services/mba/nonconformance-rules.mjs"], "materiality_class": "guardrail_only", "gap": "Final diagnosis remains unauthorized.", "minimum_materiality_needed": "Delivery gate with explicit authorization.", "deferred_dependency": "olc"},
+        {"step_id": "PF05-11", "rector_step": "Producir DiagnosticoExpertoFinal[Delivered]", "required_state_or_output": "DiagnosticoExpertoFinal[Delivered]", "repo_evidence_paths": ["src/services/mba/domain-state-registry.mjs"], "materiality_class": "blocked_by_no_go", "gap": "Must not execute in current scope.", "minimum_materiality_needed": "Future authorized Gate/Fase only.", "deferred_dependency": "olc"}
+      ],
+      "process_states": ["MovieReceived", "TraceabilityChecked", "NarrativeDrafted", "TheoremFormulated", "RecommendationDrafted", "ExpertReviewed", "Delivered", "BlockedByWeakTraceability"],
+      "timers": [{"name": "max_tiempo_diagnostico_final_delivered", "class": "timer_contract_only", "missing_rector_names": ["max_tiempo_revision_experta", "max_tiempo_trazabilidad_sintesis"]}],
+      "rework_paths": [],
+      "blocking_paths": ["DiagnosticoExpertoFinal[BlockedByWeakTraceability]", "NC-01"],
+      "no_go_risks": ["Final diagnosis delivery must remain blocked without explicit authorization."]
+    }
+  ],
+  "b3": {
+    "status": "guardrail_only_partial",
+    "evidence_paths": [
+      "fixtures/canonical/capa-1/v2.1/question-catalog-v2-1.master.json",
+      "fixtures/canonical/capa-1/v2.1/canonical-dictionary-v2-1.json",
+      "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/EVE_04_Runtime_Catalog_v0_2.ts",
+      "schemas/common/enums-v2-1.json"
+    ],
+    "gaps": [
+      "ReceiverFeedbackObject first-class service/schema absent.",
+      "OperationalExceptionEvidence first-class service/schema absent.",
+      "CanonicalRouteException not found.",
+      "No executable PF bridge from receiver_feedback to rework/block/handoff event."
+    ],
+    "minimum_materiality_needed": [
+      "ReceiverFeedbackObject or OperationalExceptionEvidence contract.",
+      "route_ref/source_ref required fields.",
+      "Boundary test proving receiver_satisfaction cannot create PF event.",
+      "Gap/reentry behavior when 3.13a route is missing."
+    ]
+  },
+  "b7": {
+    "status": "guardrail_only_partial",
+    "evidence_paths": [
+      "schemas/common/enums-v2-1.json",
+      "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/EVE_04_Runtime_Catalog_v0_2.ts",
+      "docs/chips/agent-constitution/EVE_01_Agent_Constitution_v0_1/EVE_01_Agent_Constitution_v0_1.ts",
+      "src/types/eve-organism-gate2-signal-guardrails.ts"
+    ],
+    "gaps": [
+      "PreclassificationRecord first-class service/schema absent.",
+      "interpretation_limit field not found as first-class implementation.",
+      "non_diagnostic_signal_only field not found as first-class implementation.",
+      "No executable test proving B7 cannot create structural fact, registry, IR, export or diagnosis."
+    ],
+    "minimum_materiality_needed": [
+      "PreclassificationRecord contract.",
+      "Boundary fields interpretation_limit and non_diagnostic_signal_only.",
+      "Downstream contamination guard test.",
+      "No structural fact/registry/IR/export/diagnosis assertion for B7."
+    ]
+  },
+  "findings_summary": {
+    "critical": 0,
+    "high": 4,
+    "medium": 2,
+    "low": 1,
+    "info": 1
+  },
+  "files_created": [
+    "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.md",
+    "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+    "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7_findings.md"
+  ],
+  "next_step": "MOC_GAP_ANALYSIS_FOR_PF_SUP_03_04_05_B3_B7_V1"
+}

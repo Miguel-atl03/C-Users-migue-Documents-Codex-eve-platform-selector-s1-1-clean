@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/parallel-production/conformance-report.schema.json",
+  "title": "EVE Capa 1 Parallel Production Conformance Report",
+  "type": "object",
+  "required": [
+    "report_id",
+    "client_id",
+    "source_artifact_id",
+    "source_artifact_type",
+    "checked_elements",
+    "conformance_status",
+    "findings",
+    "blocking_gaps",
+    "warnings"
+  ],
+  "properties": {
+    "conformance_status": {
+      "enum": ["passed", "passed_with_warnings", "partial", "blocked"]
+    },
+    "checked_elements": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "finding_id",
+          "element_id",
+          "rule_id",
+          "status",
+          "reason",
+          "source_evidence_ids",
+          "source_fact_ids",
+          "gap_ids"
+        ]
+      }
+    },
+    "blocking_gaps": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

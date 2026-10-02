@@ -1,0 +1,102 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING1_OBSERVABILITY_REQUIREMENTS",
+  "generated_at": "2026-07-08T22:35:00.000Z",
+  "authorization_ref": "ring1-authorization-internal-test-tenant-20260708",
+  "ring": 1,
+  "ring_name": "internal_test_tenant_limited_client",
+  "observability_required": true,
+  "ring0_baseline": {
+    "observability_results_ref": "docs/production-activation/ring0_observability_results.json",
+    "observability_passed": true,
+    "p9a2_observability_ref": "docs/production-activation/eve_production_activation_p9a2_observability_audit_results.json",
+    "p9a2_observability_passed": true
+  },
+  "requirements": [
+    {
+      "id": "R1-OB-01",
+      "requirement": "runtime_audit_trail_exists",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": true
+    },
+    {
+      "id": "R1-OB-02",
+      "requirement": "correlation_id_present",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": true
+    },
+    {
+      "id": "R1-OB-03",
+      "requirement": "idempotency_key_present",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": true
+    },
+    {
+      "id": "R1-OB-04",
+      "requirement": "source_trace_present",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": true
+    },
+    {
+      "id": "R1-OB-05",
+      "requirement": "scope_tenant_case_run_present",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": true
+    },
+    {
+      "id": "R1-OB-06",
+      "requirement": "test_tenant_marking_observable",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": false
+    },
+    {
+      "id": "R1-OB-07",
+      "requirement": "limited_client_session_observable",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": false
+    },
+    {
+      "id": "R1-OB-08",
+      "requirement": "bff_client_safe_route_traceable",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": false
+    },
+    {
+      "id": "R1-OB-09",
+      "requirement": "gates_readiness_decision_traceable",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": true
+    },
+    {
+      "id": "R1-OB-10",
+      "requirement": "no_go_checklist_traceable",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": true
+    },
+    {
+      "id": "R1-OB-11",
+      "requirement": "ring1_authorization_artifacts_traceable",
+      "mandatory_for_ring1": true,
+      "ring1_authorization_satisfied": true
+    },
+    {
+      "id": "R1-OB-12",
+      "requirement": "boundary_ledger_maintained",
+      "mandatory_for_ring1": true,
+      "ring1_authorization_satisfied": true
+    },
+    {
+      "id": "R1-OB-13",
+      "requirement": "rollback_abort_drill_results_traceable",
+      "mandatory_for_ring1": true,
+      "execution_required": true
+    },
+    {
+      "id": "R1-OB-14",
+      "requirement": "client_safe_result_state_observable",
+      "mandatory_for_ring1": true,
+      "ring0_precedent": true
+    }
+  ],
+  "chain_context_ref": "eve-local-activation-chain-eb11721c-9429-4317-a231-904ec986983e",
+  "all_requirements_defined_at_authorization": true
+}

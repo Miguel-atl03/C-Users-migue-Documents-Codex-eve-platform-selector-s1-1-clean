@@ -1,0 +1,434 @@
+{
+  "status": "passed",
+  "overall_status": "passed",
+  "checked_at": "2026-10-02T22:29:19.298Z",
+  "contract_id": "platform-design-handoff-contract.capa-1.parallel-production.v1",
+  "next_contract_id": "platform-diagram-code-generation-contract.capa-1.parallel-production.v1",
+  "bundle_type": "mmabp_design_source_bundle",
+  "bundle_version": "1.0.0",
+  "validation_order": [
+    "core_contract_requires_evidence_bundle_for_transduction",
+    "core_contract_does_not_require_mmabp_design_source_bundle",
+    "existing_normative_schemas",
+    "new_audit_and_generation_schemas",
+    "fixtures_by_stage",
+    "mmabp_design_source_bundle",
+    "client_mmabp_structural_facts",
+    "inventory_readiness",
+    "quadrant_registry_package",
+    "conformance_report",
+    "consistency_report",
+    "mmabp_ir_package",
+    "parallel_production_design_handoff_package",
+    "diagram_code_generation_package",
+    "candidate_export_package",
+    "parallel_production_validation_report"
+  ],
+  "validated_artifacts": [
+    {
+      "artifact": "design_gap",
+      "id": "DGAP_MOC_SUPPORT_001",
+      "file": "design-gap-moc-support.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "design_gap",
+      "id": "DGAP_TIMER_WARNING_001",
+      "file": "design-gap-non-blocking.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "mmabp_design_source_bundle",
+      "id": "MMABPDSB_001",
+      "file": "valid-mmabp-design-source-bundle.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "client_mmabp_structural_facts",
+      "id": "CLIENTE_001_MMABP_FACTS_V1",
+      "file": "client-mmabp-structural-facts.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "inventory_readiness",
+      "id": "CLIENTE_001_INVENTORY_READINESS_V1",
+      "file": "inventory-readiness-ready.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "quadrant_registry_package",
+      "id": "CLIENTE_001_QUADRANT_REGISTRIES_V1",
+      "file": "quadrant-registries.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "conformance_report",
+      "id": "CLIENTE_001_CONFORMANCE_REPORT_V1",
+      "file": "conformance-report-passed.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "consistency_report",
+      "id": "CLIENTE_001_CONSISTENCY_REPORT_V1",
+      "file": "consistency-report-passed.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "mmabp_ir_package",
+      "id": "CLIENTE_001_MMABP_IR_V1",
+      "file": "mmabp-ir-package.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "parallel_production_design_handoff_package",
+      "id": "CLIENTE_001_DESIGN_HANDOFF_V1",
+      "file": "design-handoff-package.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "diagram_code_generation_package",
+      "id": "CLIENTE_001_DIAGRAM_CODE_DRAFT_V1",
+      "file": "diagram-code-generation-draft-with-warnings.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "diagram_code_generation_package",
+      "id": "CLIENTE_001_DIAGRAM_CODE_GENERATION_V1",
+      "file": "diagram-code-generation-package.json",
+      "status": "passed"
+    },
+    {
+      "artifact": "candidate_export_package",
+      "id": "CLIENTE_001_CANDIDATE_EXPORT_PACKAGE_V1",
+      "file": "candidate-export-package.json",
+      "status": "passed"
+    }
+  ],
+  "passed": [
+    "contract_surface"
+  ],
+  "warnings": [],
+  "warnings_count": 3,
+  "warnings_by_severity": {
+    "medium": 3
+  },
+  "warning_objects": [
+    {
+      "warning_id": "WARN_DRAFT_NO_IR_001",
+      "warning_type": "registry_without_validated_ir",
+      "severity": "medium",
+      "owner": "parallel_production_design_area",
+      "affected_artifact_type": "diagram_code_generation_package",
+      "affected_element_ids": [
+        "DRAFT_EXP_PF_BPMN_001",
+        "PF_PSTATE_001"
+      ],
+      "reason": "Draft generado desde registry sin IR validado.",
+      "downstream_effect": "Solo exploratorio; no alimenta export final ni capas posteriores.",
+      "allowed_uses": [
+        "exploratory_draft"
+      ],
+      "prohibited_uses": [
+        "final_export",
+        "capa_2",
+        "capa_2_5",
+        "capa_3"
+      ],
+      "related_gap_ids": [
+        "DGAP_TIMER_WARNING_001"
+      ],
+      "resolution_recommendation": "Completar IR y reports antes de promover a candidate.",
+      "traceability_status": "minimum_registry_trace",
+      "semantic_preservation_status": "draft_only",
+      "artifact_id": "CLIENTE_001_DIAGRAM_CODE_DRAFT_V1"
+    },
+    {
+      "warning_id": "WARN_TIMER_001",
+      "warning_type": "timer_missing_for_final_export",
+      "severity": "medium",
+      "owner": "parallel_production_design_area",
+      "affected_artifact_type": "diagram_code_generation_package",
+      "affected_element_ids": [
+        "EXP_PF_BPMN_001",
+        "PF_IR_PSTATE_001"
+      ],
+      "reason": "Timer pendiente para exportacion final estable.",
+      "downstream_effect": "Puede producir candidato, pero no export final estable.",
+      "allowed_uses": [
+        "candidate_export_package"
+      ],
+      "prohibited_uses": [
+        "final_export",
+        "capa_2",
+        "capa_2_5",
+        "capa_3"
+      ],
+      "related_gap_ids": [
+        "DGAP_TIMER_WARNING_001"
+      ],
+      "resolution_recommendation": "Confirmar timer/timeout antes de export final.",
+      "traceability_status": "complete",
+      "semantic_preservation_status": "passed_with_warnings",
+      "artifact_id": "CLIENTE_001_DIAGRAM_CODE_GENERATION_V1"
+    },
+    {
+      "warning_id": "WARN_MOC_SUPPORT_001",
+      "warning_type": "moc_details_pending",
+      "severity": "medium",
+      "owner": "parallel_production_design_area",
+      "affected_artifact_type": "diagram_code_generation_package",
+      "affected_element_ids": [
+        "EXP_OLC_PLANTUML_001",
+        "OLC_IR_STATE_001"
+      ],
+      "reason": "MoC declara la clase Solicitud, pero atributos/operaciones quedan pendientes como gap no bloqueante.",
+      "downstream_effect": "Puede producir candidato OLC, pero PlantUML estable requiere completar detalles MoC.",
+      "allowed_uses": [
+        "candidate_export_package"
+      ],
+      "prohibited_uses": [
+        "final_export",
+        "capa_2",
+        "capa_2_5",
+        "capa_3"
+      ],
+      "related_gap_ids": [
+        "DGAP_MOC_SUPPORT_001"
+      ],
+      "resolution_recommendation": "Completar atributos y operaciones de Solicitud en MoC antes de export final.",
+      "traceability_status": "complete",
+      "semantic_preservation_status": "passed_with_warnings",
+      "artifact_id": "CLIENTE_001_DIAGRAM_CODE_GENERATION_V1"
+    }
+  ],
+  "draft_artifacts_count": 1,
+  "draft_artifacts": [
+    "CLIENTE_001_DIAGRAM_CODE_DRAFT_V1"
+  ],
+  "artifacts_blocked_by_warning": [],
+  "artifacts_allowed_with_warnings": [
+    "CLIENTE_001_DIAGRAM_CODE_DRAFT_V1",
+    "CLIENTE_001_DIAGRAM_CODE_GENERATION_V1"
+  ],
+  "prohibited_downstream_uses_detected": false,
+  "prohibited_downstream_use_violations": [],
+  "generated_candidate_files_count": 4,
+  "generated_formats": [
+    "BPMN_XML",
+    "PLANTUML_CLASS",
+    "PLANTUML_STATE"
+  ],
+  "generated_by_quadrant": {
+    "PM": 1,
+    "PF": 1,
+    "MoC": 1,
+    "OLC": 1
+  },
+  "traceability_coverage": "complete",
+  "semantic_preservation_status": "passed_with_warnings",
+  "generated_warnings_count": 3,
+  "gaps_count": 4,
+  "blocking_gaps_count": 0,
+  "candidate_only_confirmed": true,
+  "prohibited_uses_confirmed": true,
+  "blocked": [],
+  "gaps": [
+    "DGAP_MOC_SUPPORT_001",
+    "DGAP_TIMER_WARNING_001"
+  ],
+  "diagnostic_leakage_detected": false,
+  "core_contract_unchanged": true,
+  "capa2_readiness_unchanged": true,
+  "fixture_count": 14,
+  "schema_count": 11,
+  "new_schema_count": 6,
+  "contract_surface": {
+    "status": "passed",
+    "failureCount": 0,
+    "warningCount": 0,
+    "errors": [],
+    "warnings": [],
+    "schema_files": [
+      "schemas/parallel-production/mmabp-design-source-bundle.schema.json",
+      "schemas/parallel-production/structural-fact.schema.json",
+      "schemas/parallel-production/quadrant-registry.schema.json",
+      "schemas/parallel-production/mmabp-ir.schema.json",
+      "schemas/parallel-production/design-handoff-package.schema.json",
+      "schemas/parallel-production/inventory-readiness.schema.json",
+      "schemas/parallel-production/design-gap.schema.json",
+      "schemas/parallel-production/conformance-report.schema.json",
+      "schemas/parallel-production/consistency-report.schema.json",
+      "schemas/parallel-production/diagram-code-generation-package.schema.json",
+      "schemas/parallel-production/candidate-export-package.schema.json"
+    ],
+    "new_schema_files": [
+      "schemas/parallel-production/inventory-readiness.schema.json",
+      "schemas/parallel-production/design-gap.schema.json",
+      "schemas/parallel-production/conformance-report.schema.json",
+      "schemas/parallel-production/consistency-report.schema.json",
+      "schemas/parallel-production/diagram-code-generation-package.schema.json",
+      "schemas/parallel-production/candidate-export-package.schema.json"
+    ],
+    "contract_doc_path": "docs/capa1-parallel-production-design-handoff-contract.md",
+    "diagram_contract_doc_path": "docs/contracts/platform-diagram-code-generation-contract.capa-1.parallel-production.v1.md"
+  },
+  "bundle_fixture_count": 1,
+  "structural_fact_fixture_count": 1,
+  "inventory_readiness_fixture_count": 1,
+  "design_gap_fixture_count": 2,
+  "quadrant_registry_fixture_count": 1,
+  "conformance_report_fixture_count": 1,
+  "consistency_report_fixture_count": 1,
+  "mmabp_ir_fixture_count": 1,
+  "design_handoff_fixture_count": 1,
+  "diagram_code_generation_fixture_count": 2,
+  "candidate_export_package_fixture_count": 1,
+  "failures": [],
+  "fixture_results": [
+    {
+      "file": "valid-mmabp-design-source-bundle.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "structural_fact_results": [
+    {
+      "file": "client-mmabp-structural-facts.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "inventory_readiness_results": [
+    {
+      "file": "inventory-readiness-ready.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "design_gap_results": [
+    {
+      "file": "design-gap-moc-support.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "file": "design-gap-non-blocking.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "quadrant_registry_results": [
+    {
+      "file": "quadrant-registries.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "conformance_report_results": [
+    {
+      "file": "conformance-report-passed.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "consistency_report_results": [
+    {
+      "file": "consistency-report-passed.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "mmabp_ir_results": [
+    {
+      "file": "mmabp-ir-package.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "design_handoff_results": [
+    {
+      "file": "design-handoff-package.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "diagram_code_generation_results": [
+    {
+      "file": "diagram-code-generation-draft-with-warnings.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "file": "diagram-code-generation-package.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "generated_candidate_file_results": [
+    {
+      "file": "candidate-export-package.json",
+      "status": "passed",
+      "failureCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": [],
+      "summary": {
+        "generated_candidate_files_count": 4,
+        "generated_formats": [
+          "BPMN_XML",
+          "PLANTUML_CLASS",
+          "PLANTUML_STATE"
+        ],
+        "generated_by_quadrant": {
+          "PM": 1,
+          "PF": 1,
+          "MoC": 1,
+          "OLC": 1
+        },
+        "traceability_coverage": "complete",
+        "semantic_preservation_status": "passed_with_warnings",
+        "warnings_count": 3,
+        "gaps_count": 4,
+        "blocking_gaps_count": 0,
+        "candidate_only_confirmed": true,
+        "prohibited_uses_confirmed": true
+      }
+    }
+  ]
+}

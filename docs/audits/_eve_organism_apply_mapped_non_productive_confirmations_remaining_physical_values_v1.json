@@ -1,0 +1,200 @@
+{
+  "dictamen": "APPLY_MAPPED_NON_PRODUCTIVE_CONFIRMATIONS_POST_COMMIT_CLOSEOUT_DONE",
+  "groups_total": 14,
+  "groups": [
+    {
+      "group_id": "physical_db_identity",
+      "pending_fields": [
+        "production_db_identifier_masked",
+        "non_productive_db_identifier_masked",
+        "physical_environment_name_or_alias"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "Local Synthetic E2E uses synthetic local/in-memory records and does not connect to a physical DB target.",
+      "required_non_secret_value_type": "masked database aliases or non-secret identifiers",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_non_secret_values"
+    },
+    {
+      "group_id": "physical_supabase_exclusion",
+      "pending_fields": [
+        "production_supabase_project_masked",
+        "non_productive_supabase_project_masked",
+        "exclusion_reviewer"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "Local Synthetic E2E records supabase_connected=false and cannot identify or exclude a physical Supabase project.",
+      "required_non_secret_value_type": "masked Supabase/project references or explicit not-applicable basis",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_non_secret_values"
+    },
+    {
+      "group_id": "migration_target_database",
+      "pending_fields": [
+        "target_database_name_or_alias",
+        "target_database_environment",
+        "target_database_owner",
+        "target_database_reference_without_secret"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "No physical migration target database is accessed by the local synthetic path.",
+      "required_non_secret_value_type": "target DB alias, owner role and redacted reference",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_non_secret_values"
+    },
+    {
+      "group_id": "migration_target_schema",
+      "pending_fields": [
+        "target_schema_name",
+        "target_table_name",
+        "schema_owner",
+        "schema_reference_without_secret"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "No real schema is selected or read by Local Synthetic E2E.",
+      "required_non_secret_value_type": "schema/table aliases and non-secret ownership/reference",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_non_secret_values"
+    },
+    {
+      "group_id": "schema_baseline_plan",
+      "pending_fields": [
+        "schema_baseline_method",
+        "schema_baseline_owner",
+        "schema_baseline_output_path",
+        "baseline_capture_before_execution"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "Local synthetic tests do not capture a physical schema baseline.",
+      "required_non_secret_value_type": "baseline method, owner and evidence path",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_plan_values"
+    },
+    {
+      "group_id": "rls_baseline_plan",
+      "pending_fields": [
+        "rls_applicable",
+        "rls_baseline_method",
+        "rls_baseline_owner",
+        "rls_baseline_output_path"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "Local synthetic path does not select a physical DB/Supabase RLS boundary.",
+      "required_non_secret_value_type": "RLS applicability and baseline evidence plan",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_plan_values"
+    },
+    {
+      "group_id": "constraint_baseline_plan",
+      "pending_fields": [
+        "constraint_baseline_method",
+        "constraint_baseline_owner",
+        "constraint_baseline_output_path",
+        "baseline_capture_before_execution"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "No physical constraints are inspected in Local Synthetic E2E.",
+      "required_non_secret_value_type": "constraint baseline method, owner and output path",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_plan_values"
+    },
+    {
+      "group_id": "snapshot_plan",
+      "pending_fields": [
+        "snapshot_method",
+        "snapshot_owner",
+        "snapshot_storage_location_without_secret",
+        "restore_validation_plan"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "No physical target exists in the local synthetic evidence, so no snapshot plan is proven.",
+      "required_non_secret_value_type": "snapshot method, owner, non-secret storage path and restore validation plan",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_plan_values"
+    },
+    {
+      "group_id": "rollback_plan",
+      "pending_fields": [
+        "rollback_strategy",
+        "safe_forward_strategy",
+        "rollback_owner",
+        "stop_condition"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "Rollback depends on the physical target and execution boundary, neither of which is confirmed.",
+      "required_non_secret_value_type": "rollback/safe-forward strategy and owner role",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_plan_values"
+    },
+    {
+      "group_id": "evidence_ledger_path",
+      "pending_fields": [
+        "evidence_ledger_path",
+        "evidence_ledger_owner",
+        "evidence_retention_policy",
+        "evidence_access_boundary"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "The future physical execution ledger is distinct from local synthetic audit documents.",
+      "required_non_secret_value_type": "repository or document path, owner and retention/access policy",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_plan_values"
+    },
+    {
+      "group_id": "execution_approval_path",
+      "pending_fields": [
+        "execution_approver",
+        "approval_scope",
+        "approval_required_before_execution",
+        "approval_record_path"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "Local synthetic evidence does not grant or record approval for physical migration validation.",
+      "required_non_secret_value_type": "approver role/name, scope and approval record path",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_governance_values"
+    },
+    {
+      "group_id": "risk_owner",
+      "pending_fields": [
+        "risk_owner_name",
+        "risk_owner_role",
+        "approval_scope",
+        "approval_required_before_execution"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "Risk ownership for physical validation is a human governance value, not derivable from local synthetic tests.",
+      "required_non_secret_value_type": "risk owner name or role and scope",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_governance_values"
+    },
+    {
+      "group_id": "human_no_production_attestation",
+      "pending_fields": [
+        "attesting_person_or_role",
+        "attestation_date",
+        "attestation_scope"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "The local evidence can state no production was used in local tests, but cannot replace a human attestation for future physical validation.",
+      "required_non_secret_value_type": "attesting role/person, date and scope",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_attestation"
+    },
+    {
+      "group_id": "owner_reviewer_dates",
+      "pending_fields": [
+        "owner",
+        "reviewer",
+        "approving_owner",
+        "confirmation_date",
+        "attestation_date"
+      ],
+      "why_local_synthetic_e2e_cannot_prove_it": "Owners, reviewers and dates require explicit human confirmation.",
+      "required_non_secret_value_type": "names, roles or dates without secrets",
+      "blocks_acceptance_review": true,
+      "blocks_physical_validation_execution": true,
+      "suggested_completion_mode": "user_declarative_non_secret_values"
+    }
+  ]
+}

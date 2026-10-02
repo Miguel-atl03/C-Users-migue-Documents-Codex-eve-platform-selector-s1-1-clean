@@ -1,0 +1,80 @@
+{
+  "dictamen": "NON_PRODUCTIVE_BRIDGE_READER_REAL_SOURCE_ADAPTER_SCOPE_DEFINED_WITH_GAPS",
+  "scope_id": "DEFINE_NON_PRODUCTIVE_BRIDGE_READER_REAL_SOURCE_ADAPTER_SCOPE_V1",
+  "base_commit": "415ce6be5d639562cc9d2d68f9d7f34546004cf6",
+  "base_tramo": "GATE2_REAL_SHADOW_BRIDGE_READER_NON_PRODUCTIVE_IMPLEMENTATION_V1",
+  "closeout": "GATE2_REAL_SHADOW_BRIDGE_READER_POST_COMMIT_CLOSEOUT_COMPLETE",
+  "adapter_implemented": false,
+  "source_connected": false,
+  "recommended_source": "shadow_only_outbox_events",
+  "source_candidates_total": 12,
+  "eligible_sources_total": 1,
+  "blocked_sources_total": 11,
+  "future_adapter_contract_defined": true,
+  "future_adapter_contract": {
+    "adapterName": "required",
+    "sourceKind": "required",
+    "mode": "NON_PRODUCTIVE_REAL_SOURCE_READ_ONLY",
+    "readOnly": true,
+    "shadowOnly": true,
+    "writesAllowed": false,
+    "observerRequired": false,
+    "gate3Required": false,
+    "fase9Required": false,
+    "registryWriteAllowed": false,
+    "exportAllowed": false,
+    "diagnosisAllowed": false,
+    "required_methods": [
+      "mapToShadowOnlyOutboxEventRecord",
+      "validateSourceRecord",
+      "getSourceReadiness",
+      "produceBridgeReaderInput"
+    ],
+    "replaces_bridge_reader": false
+  },
+  "future_allowlist_status": "proposed_pending_approval",
+  "authority": {
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "observer_created": false,
+    "observer_authorized": false,
+    "real_observation_authorized": false,
+    "read_only_observer_authorized": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "db_written": false,
+    "ui_touched": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "productive_brain_connection": false,
+    "adapter_implemented": false
+  },
+  "remaining_gaps": [
+    {
+      "id": "REAL-SOURCE-ADAPTER-GAP-001",
+      "severity": "high",
+      "description": "Falta diseno e implementacion aprobada del adapter read-only para shadow_only_outbox_events."
+    },
+    {
+      "id": "REAL-SOURCE-ADAPTER-GAP-002",
+      "severity": "high",
+      "description": "Falta verificar el adapter futuro contra infraestructura shadow-only/outbox/read-replica sin writes."
+    },
+    {
+      "id": "REAL-SOURCE-ADAPTER-GAP-003",
+      "severity": "medium",
+      "description": "Falta evidencia de ejecucion del Bridge Reader con fuente real no productiva; el estado cerrado actual sigue fixture/local/in-memory."
+    }
+  ],
+  "gap_counts": {
+    "total": 3,
+    "critical": 0,
+    "high": 2,
+    "medium": 1
+  },
+  "blockers": [],
+  "blockers_total": 0,
+  "next_step": "DESIGN_NON_PRODUCTIVE_BRIDGE_READER_REAL_SOURCE_ADAPTER_V1"
+}

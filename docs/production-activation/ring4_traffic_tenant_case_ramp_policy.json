@@ -1,0 +1,83 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING4_TRAFFIC_TENANT_CASE_RAMP_POLICY",
+  "generated_at": "2026-07-09T07:48:00.000Z",
+  "authorization_ref": "ring4-authorization-expanded-production-scale-governance-20260709",
+  "ring": 4,
+  "ring_name": "expanded_production_scale_governance",
+  "version": "1.0.0",
+  "ring4_ramp_strategy": "phased",
+  "initial_traffic_percentage_requires_execution_authorization": true,
+  "tenant_allowlist_required": true,
+  "case_allowlist_required": true,
+  "operator_monitoring_required": true,
+  "automatic_scale_up_allowed": false,
+  "scale_up_requires_no_go_clean": true,
+  "scale_up_requires_observability_green": true,
+  "scale_up_requires_human_authorization": true,
+  "ramp_phases": [
+    {
+      "id": "R4-RAMP-01",
+      "phase": "pre_ramp_baseline",
+      "traffic_percentage": 0,
+      "description": "Authorization step only; no traffic ramp active",
+      "status": "authorization_baseline"
+    },
+    {
+      "id": "R4-RAMP-02",
+      "phase": "initial_ramp",
+      "traffic_percentage": "requires_execution_authorization",
+      "description": "First traffic percentage set only after Ring 4 execution authorization and human approval",
+      "requires_execution_authorization": true,
+      "requires_human_authorization": true,
+      "requires_no_go_clean": true,
+      "requires_observability_green": true
+    },
+    {
+      "id": "R4-RAMP-03",
+      "phase": "incremental_ramp",
+      "traffic_percentage": "incremental_after_stability_window",
+      "description": "Subsequent increments only after stability window and governance checks pass",
+      "requires_human_authorization": true,
+      "requires_no_go_clean": true,
+      "requires_observability_green": true,
+      "requires_error_budget_available": true
+    }
+  ],
+  "tenant_ramp_rules": {
+    "allowlist_required": true,
+    "allowlist_expansion_requires_human_authorization": true,
+    "allowlist_expansion_requires_consultant_review": true,
+    "tenant_isolation_enforced": true,
+    "cross_tenant_access_forbidden": true,
+    "automatic_tenant_expansion_allowed": false
+  },
+  "case_ramp_rules": {
+    "allowlist_required": true,
+    "allowlist_expansion_requires_human_authorization": true,
+    "allowlist_expansion_requires_consultant_review": true,
+    "case_isolation_enforced": true,
+    "cross_case_access_forbidden": true,
+    "automatic_case_expansion_allowed": false
+  },
+  "operator_monitoring": {
+    "operator_monitoring_required": true,
+    "real_time_dashboard_required": true,
+    "slo_monitoring_required": true,
+    "error_budget_monitoring_required": true,
+    "incident_escalation_path_required": true
+  },
+  "scale_up_gates": {
+    "no_go_clean": true,
+    "observability_green": true,
+    "human_authorization": true,
+    "consultant_review_for_tenant_case_expansion": true,
+    "error_budget_available": true,
+    "rollback_threshold_not_breached": true,
+    "abort_threshold_not_breached": true
+  },
+  "ring3_baseline": {
+    "ring3_controlled_production_scope_binding_ref": "docs/production-activation/eve_local_activation_chain_context.json",
+    "controlled_production_access": true,
+    "scoped_production_data_only": true
+  }
+}

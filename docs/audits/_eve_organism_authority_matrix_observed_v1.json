@@ -1,0 +1,168 @@
+{
+  "artifact_id": "_eve_organism_authority_matrix_observed_v1",
+  "task": "REPO_TECHNICAL_INVENTORY_FOR_PRODUCTIVE_ACTIVATION_V1",
+  "generated_on": "2026-06-24",
+  "authority_scope": "observed_from_repo_files_not_certification",
+  "rows": [
+    {
+      "authority_id": "AUTH-001",
+      "surface": "Client auth session",
+      "path": "src/lib/supabase.ts",
+      "observed_authority": "Creates browser Supabase client when NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY exist.",
+      "can_write_productive_state": false,
+      "activation_status": "client_available_not_authority_contract",
+      "risk": "Client state alone is not enough to authorize productive activation."
+    },
+    {
+      "authority_id": "AUTH-002",
+      "surface": "Server Supabase client",
+      "path": "src/lib/supabase-server.ts",
+      "observed_authority": "Creates server Supabase client with public anon key when configured.",
+      "can_write_productive_state": true,
+      "activation_status": "requires_route_level_boundary",
+      "risk": "Write permissions depend on route logic and Supabase policies not fully inventoried here."
+    },
+    {
+      "authority_id": "AUTH-003",
+      "surface": "Session boundary",
+      "path": "src/lib/session-boundary.ts",
+      "observed_authority": "Authenticates commercial bearer token and resolves demo/commercial session ownership.",
+      "can_write_productive_state": false,
+      "activation_status": "observed_boundary",
+      "risk": "Coverage over every route must be checked before activation."
+    },
+    {
+      "authority_id": "AUTH-004",
+      "surface": "Rector docs registry",
+      "path": "src/config/rector-docs-registry.ts",
+      "observed_authority": "Declares runtimeAuthority true for selected operational docs and false for full runtime catalog.",
+      "can_write_productive_state": false,
+      "activation_status": "declarative_registry",
+      "risk": "This is documentation/config authority, not a complete runtime gate."
+    },
+    {
+      "authority_id": "AUTH-005",
+      "surface": "Document transduction QA policy",
+      "path": "src/config/document-transduction-qa-policy.ts",
+      "observed_authority": "Rejects runtimeAuthority claims without TS or JSON target.",
+      "can_write_productive_state": false,
+      "activation_status": "qa_policy_observed",
+      "risk": "QA policy does not itself wire runtime decisions."
+    },
+    {
+      "authority_id": "AUTH-006",
+      "surface": "Primary activity selector",
+      "path": "src/services/primary-activity-selector.ts",
+      "observed_authority": "Selects primary activities through policy artifacts.",
+      "can_write_productive_state": true,
+      "activation_status": "productive_flow_observed",
+      "risk": "Downstream authority must remain bounded to activity selection, not full chip activation."
+    },
+    {
+      "authority_id": "AUTH-007",
+      "surface": "WorkMap flow",
+      "path": "src/app/page.tsx",
+      "observed_authority": "Controls WorkMap intake, questionnaire states and support activity orchestration states.",
+      "can_write_productive_state": true,
+      "activation_status": "productive_ui_flow_observed",
+      "risk": "Support activity loop exists in product UI; activation contract must protect from chip overreach."
+    },
+    {
+      "authority_id": "AUTH-008",
+      "surface": "Significado Block0 route",
+      "path": "src/app/api/significado/block0/route.ts",
+      "observed_authority": "Persists Significado Block0 answers after session owner resolution.",
+      "can_write_productive_state": true,
+      "activation_status": "productive_api_observed",
+      "risk": "Must not become an unreviewed bridge for chip writes."
+    },
+    {
+      "authority_id": "AUTH-009",
+      "surface": "MBA shadow observer",
+      "path": "src/services/mba/shadow-observer.js",
+      "observed_authority": "Logs shadow observations and may use service role persistence when configured.",
+      "can_write_productive_state": true,
+      "activation_status": "shadow_persistence_observed",
+      "risk": "Shadow persistence needs explicit separation from product activation."
+    },
+    {
+      "authority_id": "AUTH-010",
+      "surface": "Parallel production runtime repository",
+      "path": "src/services/parallel-production/runtime/repository.mjs",
+      "observed_authority": "Uses MBA_SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SERVICE_ROLE_KEY for runtime artifact persistence.",
+      "can_write_productive_state": true,
+      "activation_status": "service_role_write_capable",
+      "risk": "High authority surface; requires activation contract, tenant scoping and rollback controls."
+    },
+    {
+      "authority_id": "AUTH-011",
+      "surface": "Runtime observability admin",
+      "path": "src/app/api/runtime/observability/route.ts",
+      "observed_authority": "Reads runtime observability data for admin use.",
+      "can_write_productive_state": false,
+      "activation_status": "read_observability",
+      "risk": "Read surface must not be mistaken for write authority."
+    },
+    {
+      "authority_id": "AUTH-012",
+      "surface": "Runtime VSM admin",
+      "path": "src/app/api/runtime/vsm/route.ts",
+      "observed_authority": "Builds runtime VSM snapshots.",
+      "can_write_productive_state": false,
+      "activation_status": "read_snapshot_observed",
+      "risk": "Referenced runtime-vsm path exists, but productive governance semantics need confirmation."
+    },
+    {
+      "authority_id": "AUTH-013",
+      "surface": "EVE-00 Method Kernel",
+      "path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/",
+      "observed_authority": "Candidate package with shadow/dev artifacts.",
+      "can_write_productive_state": false,
+      "activation_status": "candidate_not_wired_observed",
+      "risk": "No productive authority should be inferred from package presence."
+    },
+    {
+      "authority_id": "AUTH-014",
+      "surface": "EVE-04 Runtime Catalog shadow service",
+      "path": "src/services/eve-04-runtime-catalog-shadow-service.ts",
+      "observed_authority": "Shadow validation service for runtime catalog candidate.",
+      "can_write_productive_state": false,
+      "activation_status": "shadow_only_observed",
+      "risk": "Dirty worktree indicates EVE04 work in progress; do not promote without isolation."
+    },
+    {
+      "authority_id": "AUTH-015",
+      "surface": "EVE-08 Audit and Governance dev harness",
+      "path": "src/app/dev/eve-08-audit-and-governance-shadow/",
+      "observed_authority": "Dev-only visualization of audit/governance shadow behavior.",
+      "can_write_productive_state": false,
+      "activation_status": "dev_harness_only_observed",
+      "risk": "Manual visual approval does not equal productive authority."
+    },
+    {
+      "authority_id": "AUTH-016",
+      "surface": "Package scripts",
+      "path": "package.json",
+      "observed_authority": "Build, lint, regression, runtime observability and validation scripts.",
+      "can_write_productive_state": false,
+      "activation_status": "operator_tooling",
+      "risk": "Scripts can call live endpoints; activation runbooks must distinguish audit from mutation."
+    }
+  ],
+  "summary": {
+    "authority_rows": 16,
+    "write_capable_rows": 6,
+    "shadow_only_rows": 2,
+    "candidate_not_wired_rows": 1,
+    "requires_activation_contract": true
+  },
+  "non_contamination_attestation": {
+    "src_modified_by_this_task": false,
+    "tests_modified_by_this_task": false,
+    "package_json_modified_by_this_task": false,
+    "db_modified_by_this_task": false,
+    "chips_modified_by_this_task": false,
+    "runtime_connected_by_this_task": false,
+    "registry_written_by_this_task": false
+  }
+}

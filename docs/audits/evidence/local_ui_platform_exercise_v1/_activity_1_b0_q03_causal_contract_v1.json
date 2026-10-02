@@ -1,0 +1,115 @@
+{
+  "dictamen": "LOCAL_UI_ACTIVITY_1_B0_Q03_CAUSAL_CONTRACT_READY",
+  "base_commit": "a65a0e39d2770588c42e799c17e6a13b78144c94",
+  "official_screen": "Significado de tu trabajo",
+  "base_transition": "LOCAL_UI_ACTIVITY_1_NEXT_REQUIRED_SECTION_EXECUTED_PASSED",
+  "exercise_part": "part_1_b0_q03_contract",
+  "route_used": "/dev/e2e-block0",
+  "ui_started": true,
+  "initial_condition_reached": true,
+  "initial_condition": {
+    "official_screen": "Significado de tu trabajo",
+    "activity_label": "Actividad 1 de 8",
+    "progress_before": "3/4 secciones listas para revisar",
+    "b0_q02_ready": true,
+    "b0_q04_ready": true,
+    "b0_q01_ready": true,
+    "b0_q03_pending": true,
+    "continue_button_enabled": false,
+    "visible_errors": [],
+    "loading_state": false
+  },
+  "b0_q03_fields": [
+    {
+      "field_id": "B0-Q03.frequency_base",
+      "label": "Con que frecuencia ocurre",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "current_value": "",
+      "placeholder": null,
+      "probable_effect": "Completa la frecuencia de la actividad y aporta una de las tres partes requeridas de B0-Q03.",
+      "validation_or_blocking_rule_visible": "B0-Q03 permanece pendiente mientras este campo este vacio.",
+      "risk_level": "low",
+      "reason": "Campo visible, habilitado y actualmente vacio; forma parte del contrato canonico de B0-Q03."
+    },
+    {
+      "field_id": "B0-Q03.typical_context",
+      "label": "En que situacion suele darse",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "current_value": "",
+      "placeholder": null,
+      "probable_effect": "Completa el contexto tipico de ocurrencia y aporta una de las tres partes requeridas de B0-Q03.",
+      "validation_or_blocking_rule_visible": "B0-Q03 permanece pendiente mientras este campo este vacio.",
+      "risk_level": "low",
+      "reason": "Campo visible, habilitado y actualmente vacio; forma parte del contrato canonico de B0-Q03."
+    },
+    {
+      "field_id": "B0-Q03.primary_actor_scope",
+      "label": "Sobre quien recae directamente",
+      "type": "input",
+      "enabled": true,
+      "required_input": true,
+      "current_value": "",
+      "placeholder": null,
+      "probable_effect": "Completa el responsable directo y aporta una de las tres partes requeridas de B0-Q03.",
+      "validation_or_blocking_rule_visible": "B0-Q03 permanece pendiente mientras este campo este vacio.",
+      "risk_level": "low",
+      "reason": "Campo visible, habilitado y actualmente vacio; forma parte del contrato canonico de B0-Q03."
+    }
+  ],
+  "primary_transition_selected": {
+    "transition_id": "fill_b0_q03_compound_fields",
+    "transition_type": "composite",
+    "fields_to_fill": [
+      "B0-Q03.frequency_base",
+      "B0-Q03.typical_context",
+      "B0-Q03.primary_actor_scope"
+    ],
+    "authorized_input_texts": {
+      "B0-Q03.frequency_base": "Mensualmente, durante el cierre financiero y cuando se actualiza el forecast de headcount.",
+      "B0-Q03.typical_context": "Cuando Finanzas o People detectan variaciones relevantes entre el headcount real, el presupuesto aprobado y el forecast vigente.",
+      "B0-Q03.primary_actor_scope": "Analista financiero responsable de seguimiento de headcount por unidad de negocio."
+    },
+    "selection_reason": "B0-Q03 es una pregunta compuesta; la regla local de preparacion exige que todos sus subcampos requeridos tengan valor para pasar de 3/4 a 4/4."
+  },
+  "causal_contract": {
+    "initial_condition": "Pantalla oficial Significado de tu trabajo en Actividad 1 de 8, progreso 3/4, B0-Q03 visible y pendiente con sus tres campos vacios, Continuar deshabilitado.",
+    "user_action": "Completar los tres campos B0-Q03 con los textos autorizados.",
+    "expected_event": "input/local state update, validation update and section completion update",
+    "expected_mechanism": "SignificadoDeTuTrabajo actualiza visualDraft; isQuestionPrepared valida los subcampos; countBlock0PreparedProgress recalcula progreso; formatBlock0QuestionProgress muestra 4/4.",
+    "expected_resulting_condition": "B0-Q03 queda listo o equivalente; progreso pasa de 3/4 a 4/4; Continuar podria habilitarse si todos los gates oficiales siguen completos; sin errores ni Supabase.",
+    "success_criterion_for_execution": "Los tres campos reflejan los valores autorizados, B0-Q03 queda listo o el progreso cambia a 4/4, la frontera local/demo se preserva y no aparece nueva falla."
+  },
+  "technical_trace": {
+    "official_screen": "Significado de tu trabajo",
+    "internal_component_or_file": "src/components/significado/SignificadoDeTuTrabajo.tsx",
+    "handler_or_event": "input change updating visualDraft for RuntimeBlock0Question",
+    "validation_logic_file": "src/components/significado/SignificadoDeTuTrabajo.tsx::isQuestionPrepared",
+    "official_contract_reference": "src/features/runtime/block0-catalog-snapshot.ts::B0-Q03; docs/audits/CLOSEOUT_SIGNIFICADO_UI_VISUAL_FINAL_FROZEN_V1_0.md; docs/audits/AUDIT_SIGNIFICADO_UI_OPERATIONAL_FREEZE_V1.md; tests/regression/e2e-block0-demo-contract.test.ts",
+    "endpoint_if_observed": null,
+    "transition_is_ui_only": true,
+    "synthetic_frontier_connected": true,
+    "bridge_reader_or_adapter_involved": false
+  },
+  "contract_ready_for_execution": true,
+  "safety": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "real_table_read": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false
+  },
+  "next_step": "RUN_LOCAL_UI_ACTIVITY_1_B0_Q03_EXECUTION_V1"
+}

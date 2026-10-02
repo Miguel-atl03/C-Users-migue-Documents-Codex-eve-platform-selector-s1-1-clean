@@ -1,0 +1,45 @@
+{
+  "future_migration_requirements_id": "SHADOW_ONLY_OUTBOX_EVENTS_SHADOW_OUTCOME_FUTURE_MIGRATION_REQUIREMENTS_V1",
+  "source": "shadow_only_outbox_events",
+  "future_migration_required": true,
+  "migration_not_created_now": true,
+  "sql_modified_now": false,
+  "field_required": "shadow_outcome",
+  "suggested_type": "jsonb",
+  "nullable_allowed_for_comparable_records": false,
+  "purpose": "Store exact shadow result calculated before comparison so Bridge Reader can compare official_outcome against shadow_outcome without derivation.",
+  "prohibitions": {
+    "do_not_derive_from_official_outcome": true,
+    "do_not_assume_equal_to_official_outcome": true,
+    "do_not_populate_from_registry": true,
+    "do_not_populate_from_export": true,
+    "do_not_populate_from_diagnosis": true,
+    "do_not_populate_from_ui_state": true,
+    "do_not_populate_from_gate3_state": true,
+    "do_not_populate_from_fase9_state": true,
+    "do_not_populate_from_productive_runtime_mutation": true
+  },
+  "required_controls": {
+    "provenance_required": true,
+    "checksum_audit_required": true,
+    "append_only_compatibility_required": true,
+    "read_only_adapter_future_requirement": true,
+    "non_productive_first": true,
+    "observer_not_required": true,
+    "gate3_not_required": true,
+    "fase9_not_required": true,
+    "registry_export_diagnosis_not_required": true
+  },
+  "future_acceptance_criteria": [
+    "shadow_outcome exists in SQL/migration/schema audit",
+    "shadow_outcome semantic_match is exact_shadow_outcome",
+    "mapping_quality is direct",
+    "requires_derivation is false",
+    "requires_productive_authority is false",
+    "allowed_for_adapter is true",
+    "official_outcome remains forbidden as substitute",
+    "payload/report/diagnosis/export/registry/UI/Gate3/Fase9/runtime remain forbidden as substitutes"
+  ],
+  "adapter_implementation_unblocked_now": false,
+  "next_step": "DESIGN_SHADOW_ONLY_OUTBOX_EVENTS_SHADOW_OUTCOME_FUTURE_MIGRATION_V1"
+}

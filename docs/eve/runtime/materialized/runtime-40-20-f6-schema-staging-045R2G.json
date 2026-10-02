@@ -1,0 +1,2266 @@
+{
+  "instruction": "045-R2G",
+  "project_ref": "shrpiwkxcdgvbqymjecx",
+  "captured_at": "2026-08-10T08:02:45.162Z",
+  "remote_writes": false,
+  "tables": [
+    {
+      "table_name": "control_plane_projection_job",
+      "rls_enabled": true,
+      "rls_forced": false
+    },
+    {
+      "table_name": "export_boundary_check",
+      "rls_enabled": true,
+      "rls_forced": false
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "rls_enabled": true,
+      "rls_forced": false
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "rls_enabled": true,
+      "rls_forced": false
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "rls_enabled": true,
+      "rls_forced": false
+    },
+    {
+      "table_name": "review_control_event",
+      "rls_enabled": true,
+      "rls_forced": false
+    },
+    {
+      "table_name": "rls_probe_result",
+      "rls_enabled": true,
+      "rls_forced": false
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "rls_enabled": true,
+      "rls_forced": false
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "rls_enabled": true,
+      "rls_forced": false
+    }
+  ],
+  "columns": [
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 1,
+      "column_name": "projection_job_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 2,
+      "column_name": "source_outbox_event_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 3,
+      "column_name": "source_snapshot_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 4,
+      "column_name": "activity_runtime_run_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 5,
+      "column_name": "role_runtime_session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 6,
+      "column_name": "inventory_version_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 7,
+      "column_name": "projection_target",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 8,
+      "column_name": "job_status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'queued'::text"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 9,
+      "column_name": "projection_summary_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 10,
+      "column_name": "metadata_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 11,
+      "column_name": "error_message",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 12,
+      "column_name": "blocks_handoff",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 13,
+      "column_name": "blocks_export",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 14,
+      "column_name": "blocks_parallel_production",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 15,
+      "column_name": "blocks_diagnosis",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 16,
+      "column_name": "blocks_mba_projection",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 17,
+      "column_name": "summary_ready_for_control_plane",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 18,
+      "column_name": "control_plane_observable",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 19,
+      "column_name": "handoff_allowed",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 20,
+      "column_name": "projected_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 21,
+      "column_name": "writes_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 22,
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "ordinal_position": 23,
+      "column_name": "completed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 1,
+      "column_name": "boundary_check_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 2,
+      "column_name": "activity_runtime_run_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 3,
+      "column_name": "role_runtime_session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 4,
+      "column_name": "inventory_version_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 5,
+      "column_name": "target_artifact_type",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 6,
+      "column_name": "source_object_ref",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 7,
+      "column_name": "boundary_status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'blocked'::text"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 8,
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 9,
+      "column_name": "metadata_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 10,
+      "column_name": "blocks_handoff",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 11,
+      "column_name": "blocks_export",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 12,
+      "column_name": "blocks_parallel_production",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 13,
+      "column_name": "blocks_diagnosis",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 14,
+      "column_name": "blocks_mba_projection",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 15,
+      "column_name": "summary_ready_for_control_plane",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 16,
+      "column_name": "control_plane_observable",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 17,
+      "column_name": "handoff_allowed",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 18,
+      "column_name": "projected_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 19,
+      "column_name": "writes_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "ordinal_position": 20,
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 1,
+      "column_name": "handoff_patch_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 2,
+      "column_name": "activity_runtime_run_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 3,
+      "column_name": "role_runtime_session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 4,
+      "column_name": "runtime_object_binding_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 5,
+      "column_name": "inventory_version_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 6,
+      "column_name": "payload_type",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 7,
+      "column_name": "consumer_scope",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 8,
+      "column_name": "patch_status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 9,
+      "column_name": "not_export_final",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 10,
+      "column_name": "checksum",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 11,
+      "column_name": "patch_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 12,
+      "column_name": "metadata_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 13,
+      "column_name": "blocks_handoff",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 14,
+      "column_name": "blocks_export",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 15,
+      "column_name": "blocks_parallel_production",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 16,
+      "column_name": "blocks_diagnosis",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 17,
+      "column_name": "blocks_mba_projection",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 18,
+      "column_name": "summary_ready_for_control_plane",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 19,
+      "column_name": "control_plane_observable",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 20,
+      "column_name": "handoff_allowed",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 21,
+      "column_name": "projected_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 22,
+      "column_name": "writes_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 23,
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "ordinal_position": 24,
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 1,
+      "column_name": "no_go_result_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 2,
+      "column_name": "activity_runtime_run_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 3,
+      "column_name": "role_runtime_session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 4,
+      "column_name": "inventory_version_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 5,
+      "column_name": "trigger_ref",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 6,
+      "column_name": "no_go_rule_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 7,
+      "column_name": "evaluation_status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'created'::text"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 8,
+      "column_name": "evaluation_result",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 9,
+      "column_name": "blocked_action",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 10,
+      "column_name": "evidence_refs",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'[]'::jsonb"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 11,
+      "column_name": "metadata_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 12,
+      "column_name": "blocks_handoff",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 13,
+      "column_name": "blocks_export",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 14,
+      "column_name": "blocks_parallel_production",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 15,
+      "column_name": "blocks_diagnosis",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 16,
+      "column_name": "blocks_mba_projection",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 17,
+      "column_name": "summary_ready_for_control_plane",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 18,
+      "column_name": "control_plane_observable",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 19,
+      "column_name": "handoff_allowed",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 20,
+      "column_name": "projected_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 21,
+      "column_name": "writes_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 22,
+      "column_name": "evaluated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "ordinal_position": 23,
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 1,
+      "column_name": "no_go_status_snapshot_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 2,
+      "column_name": "activity_runtime_run_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 3,
+      "column_name": "role_runtime_session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 4,
+      "column_name": "no_go_scope",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 5,
+      "column_name": "no_go_status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'clear'::text"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 6,
+      "column_name": "mba_projection_blocked",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 7,
+      "column_name": "parallel_production_blocked",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 8,
+      "column_name": "diagnosis_blocked",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 9,
+      "column_name": "export_blocked",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 10,
+      "column_name": "blocks_handoff",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 11,
+      "column_name": "blocks_export",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 12,
+      "column_name": "blocks_parallel_production",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 13,
+      "column_name": "blocks_diagnosis",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 14,
+      "column_name": "blocks_mba_projection",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 15,
+      "column_name": "summary_ready_for_control_plane",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 16,
+      "column_name": "control_plane_observable",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 17,
+      "column_name": "handoff_allowed",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 18,
+      "column_name": "projected_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 19,
+      "column_name": "writes_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 20,
+      "column_name": "snapshot_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 21,
+      "column_name": "metadata_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "ordinal_position": 22,
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 1,
+      "column_name": "review_control_event_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 2,
+      "column_name": "activity_runtime_run_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 3,
+      "column_name": "role_runtime_session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 4,
+      "column_name": "runtime_object_binding_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 5,
+      "column_name": "object_materialization_event_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 6,
+      "column_name": "review_scope",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 7,
+      "column_name": "review_reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 8,
+      "column_name": "review_status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'pending'::text"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 9,
+      "column_name": "reviewer_authority",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'membrane_review_control'::text"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 10,
+      "column_name": "blocks_handoff",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 11,
+      "column_name": "event_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 12,
+      "column_name": "metadata_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 13,
+      "column_name": "summary_ready_for_control_plane",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 14,
+      "column_name": "control_plane_observable",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 15,
+      "column_name": "handoff_allowed",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 16,
+      "column_name": "projected_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 17,
+      "column_name": "writes_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 18,
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "review_control_event",
+      "ordinal_position": 19,
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 1,
+      "column_name": "probe_result_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 2,
+      "column_name": "activity_runtime_run_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 3,
+      "column_name": "role_runtime_session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 4,
+      "column_name": "probe_type",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 5,
+      "column_name": "target_table",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 6,
+      "column_name": "expected_result",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 7,
+      "column_name": "actual_result",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 8,
+      "column_name": "pass_fail",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 9,
+      "column_name": "metadata_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 10,
+      "column_name": "blocks_handoff",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 11,
+      "column_name": "blocks_export",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 12,
+      "column_name": "blocks_parallel_production",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 13,
+      "column_name": "blocks_diagnosis",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 14,
+      "column_name": "blocks_mba_projection",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 15,
+      "column_name": "summary_ready_for_control_plane",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 16,
+      "column_name": "control_plane_observable",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 17,
+      "column_name": "projected_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 18,
+      "column_name": "writes_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "ordinal_position": 19,
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 1,
+      "column_name": "outbox_event_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 2,
+      "column_name": "activity_runtime_run_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 3,
+      "column_name": "role_runtime_session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 4,
+      "column_name": "runtime_object_binding_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 5,
+      "column_name": "object_materialization_event_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 6,
+      "column_name": "inventory_version_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 7,
+      "column_name": "event_type",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 8,
+      "column_name": "aggregate_type",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 9,
+      "column_name": "aggregate_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 10,
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 11,
+      "column_name": "payload_summary_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 12,
+      "column_name": "event_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 13,
+      "column_name": "payload_hash",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 14,
+      "column_name": "projection_state",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'pending'::text"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 15,
+      "column_name": "retry_count",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 16,
+      "column_name": "blocks_handoff",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 17,
+      "column_name": "blocks_export",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 18,
+      "column_name": "blocks_parallel_production",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 19,
+      "column_name": "blocks_diagnosis",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 20,
+      "column_name": "blocks_mba_projection",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 21,
+      "column_name": "summary_ready_for_control_plane",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 22,
+      "column_name": "control_plane_observable",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 23,
+      "column_name": "handoff_allowed",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 24,
+      "column_name": "projected_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 25,
+      "column_name": "writes_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 26,
+      "column_name": "metadata_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 27,
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "ordinal_position": 28,
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 1,
+      "column_name": "snapshot_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 2,
+      "column_name": "activity_runtime_run_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 3,
+      "column_name": "role_runtime_session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 4,
+      "column_name": "runtime_object_binding_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 5,
+      "column_name": "object_materialization_event_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 6,
+      "column_name": "inventory_version_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 7,
+      "column_name": "snapshot_kind",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 8,
+      "column_name": "snapshot_status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'captured'::text"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 9,
+      "column_name": "state_summary_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 10,
+      "column_name": "snapshot_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 11,
+      "column_name": "source_event_ids",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'[]'::jsonb"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 12,
+      "column_name": "snapshot_hash",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 13,
+      "column_name": "captured_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 14,
+      "column_name": "blocks_handoff",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 15,
+      "column_name": "blocks_export",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 16,
+      "column_name": "blocks_parallel_production",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 17,
+      "column_name": "blocks_diagnosis",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 18,
+      "column_name": "blocks_mba_projection",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 19,
+      "column_name": "summary_ready_for_control_plane",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 20,
+      "column_name": "control_plane_observable",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 21,
+      "column_name": "handoff_allowed",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 22,
+      "column_name": "projected_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 23,
+      "column_name": "writes_to_mba",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 24,
+      "column_name": "metadata_json",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "ordinal_position": 25,
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    }
+  ],
+  "constraints": [],
+  "indexes": [
+    {
+      "table_name": "control_plane_projection_job",
+      "indexname": "control_plane_projection_job_pkey",
+      "indexdef": "CREATE UNIQUE INDEX control_plane_projection_job_pkey ON public.control_plane_projection_job USING btree (projection_job_id)"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "indexname": "control_plane_projection_job_run_idx",
+      "indexdef": "CREATE INDEX control_plane_projection_job_run_idx ON public.control_plane_projection_job USING btree (activity_runtime_run_id, job_status, created_at)"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "indexname": "control_plane_projection_job_session_idx",
+      "indexdef": "CREATE INDEX control_plane_projection_job_session_idx ON public.control_plane_projection_job USING btree (role_runtime_session_id, created_at)"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "indexname": "export_boundary_check_pkey",
+      "indexdef": "CREATE UNIQUE INDEX export_boundary_check_pkey ON public.export_boundary_check USING btree (boundary_check_id)"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "indexname": "export_boundary_check_run_idx",
+      "indexdef": "CREATE INDEX export_boundary_check_run_idx ON public.export_boundary_check USING btree (activity_runtime_run_id, boundary_status, created_at)"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "indexname": "handoff_patch_record_pkey",
+      "indexdef": "CREATE UNIQUE INDEX handoff_patch_record_pkey ON public.handoff_patch_record USING btree (handoff_patch_id)"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "indexname": "handoff_patch_record_run_idx",
+      "indexdef": "CREATE INDEX handoff_patch_record_run_idx ON public.handoff_patch_record USING btree (activity_runtime_run_id, patch_status, created_at)"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "indexname": "no_go_evaluation_result_pkey",
+      "indexdef": "CREATE UNIQUE INDEX no_go_evaluation_result_pkey ON public.no_go_evaluation_result USING btree (no_go_result_id)"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "indexname": "no_go_evaluation_result_run_idx",
+      "indexdef": "CREATE INDEX no_go_evaluation_result_run_idx ON public.no_go_evaluation_result USING btree (activity_runtime_run_id, evaluation_status, created_at)"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "indexname": "no_go_status_snapshot_pkey",
+      "indexdef": "CREATE UNIQUE INDEX no_go_status_snapshot_pkey ON public.no_go_status_snapshot USING btree (no_go_status_snapshot_id)"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "indexname": "no_go_status_snapshot_run_idx",
+      "indexdef": "CREATE INDEX no_go_status_snapshot_run_idx ON public.no_go_status_snapshot USING btree (activity_runtime_run_id, no_go_status, created_at)"
+    },
+    {
+      "table_name": "review_control_event",
+      "indexname": "review_control_event_pkey",
+      "indexdef": "CREATE UNIQUE INDEX review_control_event_pkey ON public.review_control_event USING btree (review_control_event_id)"
+    },
+    {
+      "table_name": "review_control_event",
+      "indexname": "review_control_event_run_idx",
+      "indexdef": "CREATE INDEX review_control_event_run_idx ON public.review_control_event USING btree (activity_runtime_run_id, review_status, created_at)"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "indexname": "rls_probe_result_pkey",
+      "indexdef": "CREATE UNIQUE INDEX rls_probe_result_pkey ON public.rls_probe_result USING btree (probe_result_id)"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "indexname": "rls_probe_result_target_idx",
+      "indexdef": "CREATE INDEX rls_probe_result_target_idx ON public.rls_probe_result USING btree (target_table, pass_fail, created_at)"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "indexname": "runtime_event_outbox_inventory_idx",
+      "indexdef": "CREATE INDEX runtime_event_outbox_inventory_idx ON public.runtime_event_outbox USING btree (inventory_version_id, projection_state)"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "indexname": "runtime_event_outbox_pkey",
+      "indexdef": "CREATE UNIQUE INDEX runtime_event_outbox_pkey ON public.runtime_event_outbox USING btree (outbox_event_id)"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "indexname": "runtime_event_outbox_run_idx",
+      "indexdef": "CREATE INDEX runtime_event_outbox_run_idx ON public.runtime_event_outbox USING btree (activity_runtime_run_id, projection_state, created_at)"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "indexname": "runtime_event_outbox_session_idx",
+      "indexdef": "CREATE INDEX runtime_event_outbox_session_idx ON public.runtime_event_outbox USING btree (role_runtime_session_id, created_at)"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "indexname": "runtime_state_snapshot_pkey",
+      "indexdef": "CREATE UNIQUE INDEX runtime_state_snapshot_pkey ON public.runtime_state_snapshot USING btree (snapshot_id)"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "indexname": "runtime_state_snapshot_run_idx",
+      "indexdef": "CREATE INDEX runtime_state_snapshot_run_idx ON public.runtime_state_snapshot USING btree (activity_runtime_run_id, snapshot_status, created_at)"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "indexname": "runtime_state_snapshot_session_idx",
+      "indexdef": "CREATE INDEX runtime_state_snapshot_session_idx ON public.runtime_state_snapshot USING btree (role_runtime_session_id, created_at)"
+    }
+  ],
+  "policies": [
+    {
+      "table_name": "control_plane_projection_job",
+      "policyname": "membrane_owner_modify_control_plane_projection_job",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = control_plane_projection_job.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = control_plane_projection_job.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = control_plane_projection_job.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = control_plane_projection_job.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))"
+    },
+    {
+      "table_name": "control_plane_projection_job",
+      "policyname": "membrane_owner_select_control_plane_projection_job",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = control_plane_projection_job.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = control_plane_projection_job.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": null
+    },
+    {
+      "table_name": "export_boundary_check",
+      "policyname": "membrane_owner_modify_export_boundary_check",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = export_boundary_check.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = export_boundary_check.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = export_boundary_check.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = export_boundary_check.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))"
+    },
+    {
+      "table_name": "export_boundary_check",
+      "policyname": "membrane_owner_select_export_boundary_check",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = export_boundary_check.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = export_boundary_check.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": null
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "policyname": "membrane_owner_modify_handoff_patch_record",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = handoff_patch_record.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = handoff_patch_record.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = handoff_patch_record.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = handoff_patch_record.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))"
+    },
+    {
+      "table_name": "handoff_patch_record",
+      "policyname": "membrane_owner_select_handoff_patch_record",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = handoff_patch_record.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = handoff_patch_record.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": null
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "policyname": "membrane_owner_modify_no_go_evaluation_result",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = no_go_evaluation_result.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = no_go_evaluation_result.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = no_go_evaluation_result.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = no_go_evaluation_result.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))"
+    },
+    {
+      "table_name": "no_go_evaluation_result",
+      "policyname": "membrane_owner_select_no_go_evaluation_result",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = no_go_evaluation_result.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = no_go_evaluation_result.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": null
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "policyname": "membrane_owner_modify_no_go_status_snapshot",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = no_go_status_snapshot.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = no_go_status_snapshot.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = no_go_status_snapshot.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = no_go_status_snapshot.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))"
+    },
+    {
+      "table_name": "no_go_status_snapshot",
+      "policyname": "membrane_owner_select_no_go_status_snapshot",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = no_go_status_snapshot.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = no_go_status_snapshot.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": null
+    },
+    {
+      "table_name": "review_control_event",
+      "policyname": "membrane_owner_modify_review_control_event",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = review_control_event.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = review_control_event.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = review_control_event.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = review_control_event.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))"
+    },
+    {
+      "table_name": "review_control_event",
+      "policyname": "membrane_owner_select_review_control_event",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = review_control_event.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = review_control_event.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": null
+    },
+    {
+      "table_name": "rls_probe_result",
+      "policyname": "membrane_owner_modify_rls_probe_result",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = rls_probe_result.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = rls_probe_result.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = rls_probe_result.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = rls_probe_result.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))"
+    },
+    {
+      "table_name": "rls_probe_result",
+      "policyname": "membrane_owner_select_rls_probe_result",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = rls_probe_result.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = rls_probe_result.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": null
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "policyname": "membrane_owner_modify_runtime_event_outbox",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = runtime_event_outbox.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = runtime_event_outbox.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = runtime_event_outbox.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = runtime_event_outbox.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))"
+    },
+    {
+      "table_name": "runtime_event_outbox",
+      "policyname": "membrane_owner_select_runtime_event_outbox",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = runtime_event_outbox.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = runtime_event_outbox.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": null
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "policyname": "membrane_owner_modify_runtime_state_snapshot",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = runtime_state_snapshot.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = runtime_state_snapshot.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = runtime_state_snapshot.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = runtime_state_snapshot.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))"
+    },
+    {
+      "table_name": "runtime_state_snapshot",
+      "policyname": "membrane_owner_select_runtime_state_snapshot",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM (activity_runtime_run ar\n     JOIN role_runtime_session r ON ((r.role_runtime_session_id = ar.role_runtime_session_id)))\n  WHERE ((ar.activity_runtime_run_id = runtime_state_snapshot.activity_runtime_run_id) AND (r.owner_auth_user_id = auth.uid())))) OR (EXISTS ( SELECT 1\n   FROM role_runtime_session r\n  WHERE ((r.role_runtime_session_id = runtime_state_snapshot.role_runtime_session_id) AND (r.owner_auth_user_id = auth.uid())))))",
+      "with_check": null
+    }
+  ],
+  "pre_counts": {
+    "runtime_event_outbox": 0,
+    "runtime_state_snapshot": 0,
+    "control_plane_projection_job": 0,
+    "no_go_evaluation_result": 0,
+    "export_boundary_check": 0,
+    "rls_probe_result": 0,
+    "handoff_patch_record": 0,
+    "review_control_event": 0,
+    "no_go_status_snapshot": 0
+  },
+  "f5_smoke_rows": [
+    {
+      "runtime_object_binding_id": "ba8b55a2-bfca-4d6e-81a3-66de76f54e42",
+      "inventory_version_id": "eve-object-inventory-v0.6",
+      "object_key": "EVE-OBJ-005",
+      "activity_runtime_run_id": "a5382e2c-030f-4899-bead-8985833825ab",
+      "role_runtime_session_id": "13fdbec5-b649-4fd7-be05-3708f40fabe7",
+      "sesion_id": "a1111111-0000-4000-8000-000000000005",
+      "scene_id": null,
+      "source_table": "canonical_variable_record",
+      "source_record_id": "97187670-3d9b-46c3-b49f-fcbacabc68d2",
+      "binding_status": "materialized",
+      "scene_binding_status": "unresolved_not_required_yet",
+      "projected_to_mba": false,
+      "binding_metadata_json": {
+        "smoke_id": "045R2FR-f5-pre-membrane-smoke",
+        "fabrication": false,
+        "instruction": "045-R2F-R",
+        "source_table": "canonical_variable_record",
+        "target_object": "SceneCanonicalRecord",
+        "source_record_id": "97187670-3d9b-46c3-b49f-fcbacabc68d2",
+        "no_scene_id_required": true,
+        "scene_binding_status": "runtime_scene_pair_not_yet_co_present"
+      },
+      "object_materialization_event_id": "b1e06467-3dee-48ad-ba27-bd8a51e78dd5",
+      "event_hash": "7baa907a7a9c73f9d5fc3b80827beb15add51126a742d53358dc6f1d9dc2143d",
+      "materialization_status": "recorded",
+      "event_projected_to_mba": false
+    },
+    {
+      "runtime_object_binding_id": "bb4d5d30-43aa-4815-9561-b4556cf63304",
+      "inventory_version_id": "eve-object-inventory-v0.6",
+      "object_key": "EVE-OBJ-017",
+      "activity_runtime_run_id": "a5382e2c-030f-4899-bead-8985833825ab",
+      "role_runtime_session_id": "13fdbec5-b649-4fd7-be05-3708f40fabe7",
+      "sesion_id": "a1111111-0000-4000-8000-000000000005",
+      "scene_id": null,
+      "source_table": "evidence_item",
+      "source_record_id": "a2e6f381-21e5-4e65-8792-c1c12a0ec9a3",
+      "binding_status": "materialized",
+      "scene_binding_status": "unresolved_not_required_yet",
+      "projected_to_mba": false,
+      "binding_metadata_json": {
+        "smoke_id": "045R2FR-f5-pre-membrane-smoke",
+        "fabrication": false,
+        "instruction": "045-R2F-R",
+        "source_table": "evidence_item",
+        "target_object": "EvidenceBundle",
+        "source_record_id": "a2e6f381-21e5-4e65-8792-c1c12a0ec9a3",
+        "no_scene_id_required": true,
+        "scene_binding_status": "runtime_scene_pair_not_yet_co_present"
+      },
+      "object_materialization_event_id": "30bafeff-316a-4f89-aba9-b68de06346bd",
+      "event_hash": "8d76966e3210ac578f25e4227e4710545efc6f827547c1ee73868f8439a5553a",
+      "materialization_status": "recorded",
+      "event_projected_to_mba": false
+    },
+    {
+      "runtime_object_binding_id": "31c2d8af-6e2a-4993-8ca5-14422afdeda3",
+      "inventory_version_id": "eve-object-inventory-v0.6",
+      "object_key": "EVE-OBJ-019",
+      "activity_runtime_run_id": "b527acd3-ba13-4ccc-914a-6943f9e01149",
+      "role_runtime_session_id": "895b5f1f-b419-400b-a04c-62966111b6c6",
+      "sesion_id": "a0440000-0000-4000-8000-786069019922",
+      "scene_id": null,
+      "source_table": "readiness_decision_record",
+      "source_record_id": "82e17f9c-d2ed-4469-b25e-604cb47a7e62",
+      "binding_status": "materialized",
+      "scene_binding_status": "unresolved_not_required_yet",
+      "projected_to_mba": false,
+      "binding_metadata_json": {
+        "smoke_id": "045R2FR-f5-pre-membrane-smoke",
+        "fabrication": false,
+        "instruction": "045-R2F-R",
+        "source_table": "readiness_decision_record",
+        "target_object": "ReadinessDecision",
+        "source_record_id": "82e17f9c-d2ed-4469-b25e-604cb47a7e62",
+        "no_scene_id_required": true,
+        "scene_binding_status": "runtime_scene_pair_not_yet_co_present"
+      },
+      "object_materialization_event_id": "497d6fee-608b-4cba-8c9c-0f0a0448ed30",
+      "event_hash": "1104ca05ec4c394d52a38d8bbc41585c50b5d0d63987a7b2940a9c2cabf70933",
+      "materialization_status": "recorded",
+      "event_projected_to_mba": false
+    },
+    {
+      "runtime_object_binding_id": "0da90adc-3d4b-41c0-881d-6c8aafe54a16",
+      "inventory_version_id": "eve-object-inventory-v0.6",
+      "object_key": "EVE-OBJ-020",
+      "activity_runtime_run_id": "f780634e-9e16-4ef2-af19-11502e1d9b71",
+      "role_runtime_session_id": "2d2d5c59-9b66-478c-afe3-2022845bc4a0",
+      "sesion_id": "f56c6219-92b2-485e-b5e8-5ec6894333d4",
+      "scene_id": null,
+      "source_table": "readiness_gap_record",
+      "source_record_id": "ad394226-8915-4fef-892d-dc06a1dbf206",
+      "binding_status": "materialized",
+      "scene_binding_status": "unresolved_not_required_yet",
+      "projected_to_mba": false,
+      "binding_metadata_json": {
+        "smoke_id": "045R2FR-f5-pre-membrane-smoke",
+        "fabrication": false,
+        "instruction": "045-R2F-R",
+        "source_table": "readiness_gap_record",
+        "target_object": "GapObject",
+        "source_record_id": "ad394226-8915-4fef-892d-dc06a1dbf206",
+        "no_scene_id_required": true,
+        "scene_binding_status": "runtime_scene_pair_not_yet_co_present"
+      },
+      "object_materialization_event_id": "82267430-f995-4ce2-a246-a3c390210ccd",
+      "event_hash": "6bb1c0dee13b15054c8755fc81d11c5a31fad6fa3d408e2f4c7552094296f6f7",
+      "materialization_status": "recorded",
+      "event_projected_to_mba": false
+    }
+  ]
+}

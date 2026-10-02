@@ -1,0 +1,903 @@
+/**
+ * B0 · Cómo ocurre — approved void freeze (BUILD 3.13).
+ * Source: deliverables/design/eve-b0-como-ocurre-void-v1.html
+ * Continuación frecuencia in-place (BUILD 1.3) — misma estructura triangular.
+ */
+
+.screen {
+  position: relative;
+  width: min(1440px, 100%);
+  min-height: calc(
+    clamp(280px, 32vh, 360px) + clamp(480px, 52vh, 580px) +
+      clamp(64px, 6vh, 88px)
+  );
+  margin: 0 auto;
+  padding-bottom: clamp(64px, 6vh, 88px);
+  background: var(--eve-sheet, #fafbfc);
+  color: var(--eve-ink, #12141a);
+  font-family: var(--font-eve-mono, "IBM Plex Mono", "Consolas", monospace);
+  -webkit-font-smoothing: antialiased;
+  scroll-margin-top: 0;
+}
+
+.build {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  z-index: 4;
+  margin: 0;
+  color: var(--eve-mist, #9aa1ab);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.field {
+  position: absolute;
+  top: clamp(200px, 24vh, 280px);
+  left: clamp(24px, 5vw, 72px);
+  right: clamp(24px, 5vw, 72px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(180px, 24vw, 360px);
+  align-items: start;
+  min-height: clamp(480px, 52vh, 580px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 900ms ease,
+    visibility 900ms ease;
+}
+
+.fieldVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fieldMaterializingMemory {
+  opacity: 1;
+  visibility: visible;
+  transition: none;
+}
+
+.column {
+  min-width: 0;
+  max-width: 16ch;
+}
+
+.columnLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  justify-self: start;
+}
+
+.columnRight {
+  justify-self: end;
+  text-align: right;
+}
+
+.introCorner {
+  position: absolute;
+  top: 12px;
+  left: clamp(24px, 5vw, 72px);
+  right: clamp(24px, 5vw, 72px);
+  z-index: 3;
+  max-width: 46ch;
+  font-family: inherit;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 700ms ease,
+    visibility 700ms ease;
+}
+
+.introCornerActive {
+  opacity: 1;
+  visibility: visible;
+}
+
+.stageIntroLead {
+  margin: 0 0 18px;
+  color: #7a8190;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.55;
+}
+
+.stageIntroAsk {
+  min-height: 1.6em;
+  margin: 0;
+  color: #7a8190;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
+}
+
+.signal {
+  position: absolute;
+  top: clamp(320px, 36vh, 420px);
+  left: 50%;
+  z-index: 2;
+  width: min(260px, 24vw);
+  min-height: 0;
+  font-family: inherit;
+  text-align: center;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.signalInteractive,
+.signalEditingNarrative {
+  pointer-events: auto;
+}
+
+.signalNarrative {
+  width: min(420px, 38vw);
+  max-width: 52ch;
+}
+
+.stagePanel {
+  display: none;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+.stagePanelActive {
+  display: block;
+  opacity: 1;
+}
+
+.stageExamplesTitle {
+  margin: 0 0 14px;
+  color: color-mix(in srgb, var(--eve-mist, #9aa1ab) 80%, transparent);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.stageExamplesList {
+  max-height: min(42vh, 360px);
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+  text-align: left;
+}
+
+.stageExamplesList li {
+  margin: 0 0 10px;
+  color: var(--eve-mist, #9aa1ab);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+}
+
+.stageExamplesList li::before {
+  content: "• ";
+}
+
+.stageNarrativeText {
+  margin: 0;
+  color: #7a8190;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.55;
+  text-align: left;
+  outline: none;
+}
+
+.stageNarrativeTextEditing {
+  min-height: 4.5em;
+  color: var(--eve-ink, #12141a);
+  cursor: text;
+}
+
+.qBlock {
+  width: 100%;
+  max-width: 16ch;
+}
+
+.columnRight .qBlock {
+  margin-left: auto;
+}
+
+.qHead {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.columnRight .qHead {
+  flex-direction: row-reverse;
+}
+
+.qLabel {
+  flex: 1;
+  margin: 0;
+  color: var(--eve-ink, #12141a);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  white-space: normal;
+}
+
+.memUnit {
+  display: inline;
+  opacity: 0;
+}
+
+.memUnitIn {
+  opacity: 1;
+  transition: opacity 520ms ease;
+}
+
+.qPlus {
+  flex-shrink: 0;
+  margin-top: -1px;
+  padding: 0 2px;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist, #9aa1ab);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    color 220ms ease,
+    opacity 400ms ease;
+}
+
+.qPlusReady {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.qPlusOpen,
+.qPlus:hover {
+  color: var(--eve-ink, #12141a);
+}
+
+.qField {
+  position: relative;
+  min-height: 3.6em;
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 1px solid color-mix(in srgb, var(--eve-line, #d8dce2) 72%, transparent);
+}
+
+.qFieldExample {
+  position: absolute;
+  top: 14px;
+  right: 0;
+  left: 0;
+  margin: 0;
+  color: var(--eve-mist, #9aa1ab);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  text-align: inherit;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 480ms ease;
+}
+
+.columnRight .qFieldExample {
+  text-align: right;
+}
+
+.qFieldExampleHidden {
+  opacity: 0;
+}
+
+.qFieldPromptCursor {
+  position: absolute;
+  top: calc(14px + 0.12em);
+  left: 0;
+  z-index: 2;
+  display: block;
+  width: 1.5px;
+  height: 1em;
+  background: var(--eve-ink, #12141a);
+  pointer-events: none;
+  animation: b0ComoOcurreBlink 900ms step-end infinite;
+}
+
+.columnRight .qFieldPromptCursor {
+  left: auto;
+  right: 0;
+}
+
+.qValue {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  min-height: 3em;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-ink, #12141a);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  text-align: inherit;
+  outline: none;
+  transition: color 220ms ease;
+}
+
+.columnRight .qValue {
+  text-align: right;
+}
+
+.qValueEditing {
+  cursor: text;
+}
+
+.sceneToggle {
+  display: block;
+  width: 100%;
+  margin: 28px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist, #9aa1ab);
+  font-family: inherit;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.45;
+  text-align: right;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    color 220ms ease,
+    opacity 400ms ease;
+}
+
+.sceneToggleReady {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sceneToggleActive,
+.sceneToggleSave,
+.sceneToggle:hover {
+  color: var(--eve-ink, #12141a);
+}
+
+.sceneToggle:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.sceneConfirm {
+  display: block;
+  width: 100%;
+  max-width: 22ch;
+  margin: 28px 0 0 auto;
+  text-align: right;
+}
+
+.sceneConfirmPrompt {
+  margin: 0;
+  color: var(--eve-mist, #9aa1ab);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.55;
+  text-transform: none;
+}
+
+.sceneConfirmActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.sceneConfirmButton {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist, #9aa1ab);
+  font-family: inherit;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 220ms ease;
+}
+
+.sceneConfirmYes {
+  color: var(--eve-ink, #12141a);
+}
+
+.sceneConfirmButton:hover {
+  color: var(--eve-ink, #12141a);
+}
+
+.fieldSceneVoid > .columnLeft,
+.fieldSceneVoid > .columnRight .qBlock {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 780ms ease,
+    visibility 780ms ease;
+}
+
+.fieldSceneVoid > .columnRight .sceneToggle,
+.fieldSceneVoid > .columnRight .sceneConfirm {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Fases in-place (frecuencia / inicio-cierre): misma geometría, encima; escena detrás */
+.frequencyOverlay,
+.boundariesOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(180px, 24vw, 360px);
+  align-items: start;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 280ms ease,
+    visibility 280ms ease;
+}
+
+.frequencyOverlayActive,
+.boundariesOverlayActive {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.boundaryClarify {
+  margin-top: 28px;
+  max-width: 16ch;
+  text-align: right;
+}
+
+.boundaryClarifyLead {
+  margin: 0 0 10px;
+  color: var(--eve-ink, #12141a);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.boundaryClarifyLanding {
+  margin: 0 0 10px;
+  color: var(--eve-mist-deep, #7a8190);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.boundaryClarifyExample {
+  margin: 0 0 14px;
+  color: var(--eve-mist, #9aa1ab);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.boundaryClarifyPrompt {
+  margin: 0;
+  color: var(--eve-ink, #12141a);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+}
+
+.freqBlock {
+  width: 100%;
+  max-width: 16ch;
+}
+
+.optList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.columnRight .optList {
+  align-items: flex-end;
+}
+
+.opt {
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist, #9aa1ab);
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  text-align: inherit;
+  cursor: pointer;
+  transition:
+    color 280ms ease,
+    font-weight 180ms ease;
+}
+
+.opt:hover:not(:disabled) {
+  color: var(--eve-ink, #12141a);
+}
+
+.optActive {
+  color: var(--eve-ink, #12141a);
+  font-weight: 700;
+}
+
+.opt:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.freeSlot {
+  display: none;
+  margin-top: 18px;
+}
+
+.freeSlotOpen {
+  display: block;
+}
+
+.openAnswerField {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 3.6em;
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 1px solid color-mix(in srgb, var(--eve-line, #d8dce2) 72%, transparent);
+}
+
+.columnRight .openAnswerField {
+  text-align: right;
+}
+
+.openAnswerPrompt {
+  position: absolute;
+  top: calc(14px + 0.12em);
+  left: 0;
+  z-index: 2;
+  display: block;
+  width: 1.5px;
+  height: 1em;
+  background: var(--eve-ink, #12141a);
+  pointer-events: none;
+  animation: b0ComoOcurreBlink 900ms step-end infinite;
+}
+
+.columnRight .openAnswerPrompt {
+  left: auto;
+  right: 0;
+}
+
+.openAnswerValue {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  min-height: 3.2em;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-ink, #12141a);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.55;
+  text-align: inherit;
+  white-space: pre-wrap;
+  word-break: break-word;
+  outline: none;
+  cursor: text;
+}
+
+.columnRight .openAnswerValue {
+  text-align: right;
+}
+
+.openAnswerValue:focus {
+  color: var(--eve-ink, #12141a);
+}
+
+.openAnswerValue[contenteditable="false"] {
+  cursor: default;
+  opacity: 0.72;
+}
+
+/* Legacy free-value used by frecuencia “Otro” slots */
+.freqFreeValue {
+  display: block;
+  width: 100%;
+  min-height: 2.8em;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-ink, #12141a);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  text-align: inherit;
+  white-space: pre-wrap;
+  word-break: break-word;
+  outline: none;
+  cursor: text;
+}
+
+.freqFreeValueEmpty::before {
+  color: var(--eve-mist, #9aa1ab);
+  content: attr(data-placeholder);
+  pointer-events: none;
+}
+
+.freqClosureHint {
+  margin: 12px 0 0;
+  color: var(--eve-mist, #9aa1ab);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  text-align: right;
+  text-transform: uppercase;
+  opacity: 0;
+}
+
+.freqClosureHintVisible {
+  opacity: 1;
+}
+
+.phaseArrow {
+  position: absolute;
+  top: clamp(168px, 20vh, 248px);
+  left: clamp(24px, 5vw, 72px);
+  z-index: 5;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist, #9aa1ab);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    color 220ms ease,
+    opacity 280ms ease;
+}
+
+.phaseArrowVisible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.phaseArrow:hover {
+  color: var(--eve-ink, #12141a);
+}
+
+.screenSceneVoid .introCorner {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 780ms ease,
+    visibility 780ms ease;
+}
+
+.cursor {
+  display: inline-block;
+  width: 1px;
+  height: 0.95em;
+  margin-left: 1px;
+  background: currentColor;
+  vertical-align: text-bottom;
+  animation: b0ComoOcurreBlink 900ms step-end infinite;
+}
+
+@keyframes b0ComoOcurreBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.opsNotify {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 20;
+  max-width: 48ch;
+  margin: 0;
+  color: var(--eve-mist, #9aa1ab);
+  font-family: var(--font-eve-mono, "IBM Plex Mono", "Consolas", monospace);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+
+.opsNotifyVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.replay {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 20;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist, #9aa1ab);
+  font-family: var(--font-eve-mono, "IBM Plex Mono", "Consolas", monospace);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    color 200ms ease,
+    opacity 400ms ease;
+}
+
+.replayVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.replay:hover {
+  color: var(--eve-ink, #12141a);
+}
+
+@media (max-width: 900px) {
+  .screen {
+    min-height: auto;
+    padding: 72px 24px 120px;
+  }
+
+  .field,
+  .signal {
+    position: static;
+    width: auto;
+    margin: 0 0 40px;
+    transform: none;
+  }
+
+  .field {
+    display: block;
+    min-height: 0;
+  }
+
+  .columnRight {
+    margin-top: 48px;
+    text-align: left;
+  }
+
+  .columnRight .qBlock {
+    margin-left: 0;
+  }
+
+  .columnRight .qHead {
+    flex-direction: row;
+  }
+
+  .columnRight .qValue,
+  .columnRight .qFieldExample,
+  .sceneToggle,
+  .sceneConfirm,
+  .sceneConfirmPrompt,
+  .sceneConfirmActions {
+    text-align: left;
+  }
+
+  .sceneConfirm {
+    margin-left: 0;
+    max-width: none;
+  }
+
+  .sceneConfirmActions {
+    align-items: flex-start;
+  }
+
+  .signal {
+    max-width: 42ch;
+    margin: 32px auto;
+  }
+
+  .signalNarrative {
+    width: auto;
+    max-width: 52ch;
+  }
+
+  .introCorner {
+    position: static;
+    max-width: none;
+    margin: 0 0 24px;
+  }
+
+  .frequencyOverlay {
+    position: relative;
+    inset: auto;
+    margin-top: 48px;
+  }
+
+  .phaseArrow {
+    position: static;
+    margin: 0 0 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field,
+  .stagePanel,
+  .introCorner,
+  .cursor,
+  .qFieldPromptCursor,
+  .openAnswerPrompt {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .memUnit,
+  .memUnitIn {
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}

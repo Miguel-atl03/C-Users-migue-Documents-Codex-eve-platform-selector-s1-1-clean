@@ -1,0 +1,122 @@
+{
+  "instruction": "045-R1",
+  "artifact": "runtime-40-20-gaby-current-question-flow-045R1",
+  "audit_mode": "read_only_checkout",
+  "flow_status": "legacy_scene_questionnaire_connected",
+  "question_source": {
+    "component": "SceneQuestionnaireRunner",
+    "source": "runtimeQuestionCatalog from src/runtime/capa1-runtime-manifest",
+    "evidence": [
+      "src/components/SceneQuestionnaireRunner.tsx:11-19",
+      "src/components/SceneQuestionnaireRunner.tsx:42",
+      "src/components/SceneQuestionnaireRunner.tsx:281-291"
+    ],
+    "runtime_40_20_catalog": "not_proven"
+  },
+  "flow": [
+    {
+      "step": 1,
+      "name": "participant_context",
+      "caller": "src/app/page.tsx",
+      "backend": "GET /api/participant/context",
+      "evidence": [
+        "src/app/page.tsx:600-640",
+        "src/app/api/participant/context/route.ts:9-14"
+      ],
+      "state_transition": "authenticated operative user gets ready context"
+    },
+    {
+      "step": 2,
+      "name": "workmap_finalize",
+      "caller": "src/app/page.tsx",
+      "backend": "POST /api/participant/workmap/finalize",
+      "evidence": [
+        "src/app/page.tsx:1025-1075",
+        "src/app/api/participant/workmap/finalize/route.ts:386-527"
+      ],
+      "state_transition": "creates or reads role_runtime_session and activity_runtime_run, then returns intake_significado"
+    },
+    {
+      "step": 3,
+      "name": "significado_b0",
+      "caller": "src/app/page.tsx",
+      "backend": "POST /api/significado/block0",
+      "evidence": [
+        "src/app/page.tsx:1868-1903"
+      ],
+      "state_transition": "B0 confirmed; UI message says Runtime 40/20 remains in execution for next interaction"
+    },
+    {
+      "step": 4,
+      "name": "legacy_scene_bootstrap",
+      "caller": "src/app/page.tsx",
+      "backend": "POST /api/scenes/bootstrap",
+      "service": "bootstrapScenesFromLegacyActivities",
+      "tables": [
+        "actividades",
+        "activity_structural_scores",
+        "scene_registry"
+      ],
+      "evidence": [
+        "src/app/page.tsx:845-859",
+        "src/app/api/scenes/bootstrap/route.ts:38-48",
+        "src/services/scene-repository.ts:64-143"
+      ],
+      "state_transition": "scene_registry_ready"
+    },
+    {
+      "step": 5,
+      "name": "question_render",
+      "caller": "SceneQuestionnaireRunner",
+      "backend": null,
+      "evidence": [
+        "src/app/page.tsx:2364-2375",
+        "src/components/SceneQuestionnaireRunner.tsx:281-291",
+        "src/components/SceneQuestionnaireRunner.tsx:354-373"
+      ],
+      "state_transition": "questions rendered client-side from compiled manifest"
+    },
+    {
+      "step": 6,
+      "name": "scene_answer_submit",
+      "caller": "src/app/page.tsx",
+      "backend": "POST /api/scenes/answers",
+      "service": "saveSceneQuestionAnswers",
+      "tables": [
+        "scene_question_answers",
+        "scene_answer_provenance"
+      ],
+      "evidence": [
+        "src/app/page.tsx:1977-2009",
+        "src/app/api/scenes/answers/route.ts:17-70",
+        "src/services/scene-repository.ts:170-274"
+      ],
+      "state_transition": "scene_answers_saved then derive/preclassify/consistency/canonicalize"
+    },
+    {
+      "step": 7,
+      "name": "legacy_questionnaire_submit_for_micro_clarification",
+      "caller": "src/app/page.tsx",
+      "backend": "POST /api/questionnaire/submit",
+      "tables": [
+        "respuestas_estructuradas",
+        "sesiones_llenado",
+        "metricas_por_capa"
+      ],
+      "evidence": [
+        "src/app/page.tsx:2047-2095",
+        "src/app/api/questionnaire/submit/route.ts:55-144"
+      ],
+      "state_transition": "FULL_V03/mission rows persisted only for that path"
+    }
+  ],
+  "runtime_40_20_gap": {
+    "current_live_flow_uses_runtime_40_20_catalog": false,
+    "current_live_flow_uses_client_bff_answer": false,
+    "client_bff_answer_references_from_ui": 0,
+    "material_evidence": [
+      "rg found only page.tsx call to /api/eve/runtime-40-20/client-bff/experience-event",
+      "src/app/page.tsx:744-763"
+    ]
+  }
+}

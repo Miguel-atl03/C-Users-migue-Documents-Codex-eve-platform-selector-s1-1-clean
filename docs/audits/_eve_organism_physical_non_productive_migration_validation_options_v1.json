@@ -1,0 +1,70 @@
+{
+  "options_total": 4,
+  "selected_option_id": "OPTION_A",
+  "options": [
+    {
+      "id": "OPTION_A",
+      "name": "DESIGN_PHYSICAL_NON_PRODUCTIVE_MIGRATION_VALIDATION_PLAN_V1",
+      "allowed_now": true,
+      "requires_db_connection_now": false,
+      "requires_supabase_connection_now": false,
+      "requires_migration_execution_now": false,
+      "requires_sql_modification": false,
+      "preserves_observer_created_false": true,
+      "preserves_source_connected_false": true,
+      "preserves_real_table_read_false": true,
+      "resolves_physical_validation_gap": "partial",
+      "blocks_observer_creation_until_resolved": true,
+      "risk_level": "low",
+      "reason": "The validation plan can be designed now without executing migration, connecting DB/Supabase, modifying SQL, or creating observer."
+    },
+    {
+      "id": "OPTION_B",
+      "name": "EXECUTE_STATIC_SQL_VALIDATION_ONLY_AND_KEEP_PHYSICAL_VALIDATION_OPEN_V1",
+      "allowed_now": true,
+      "requires_db_connection_now": false,
+      "requires_supabase_connection_now": false,
+      "requires_migration_execution_now": false,
+      "requires_sql_modification": false,
+      "preserves_observer_created_false": true,
+      "preserves_source_connected_false": true,
+      "preserves_real_table_read_false": true,
+      "resolves_physical_validation_gap": "none",
+      "blocks_observer_creation_until_resolved": true,
+      "risk_level": "medium",
+      "reason": "Static validation can help, but it does not resolve the physical non-productive validation gap."
+    },
+    {
+      "id": "OPTION_C",
+      "name": "HOLD_UNTIL_NON_PRODUCTIVE_DB_ENVIRONMENT_AVAILABLE_V1",
+      "allowed_now": true,
+      "requires_db_connection_now": false,
+      "requires_supabase_connection_now": false,
+      "requires_migration_execution_now": false,
+      "requires_sql_modification": false,
+      "preserves_observer_created_false": true,
+      "preserves_source_connected_false": true,
+      "preserves_real_table_read_false": true,
+      "resolves_physical_validation_gap": "none",
+      "blocks_observer_creation_until_resolved": true,
+      "risk_level": "medium",
+      "reason": "Holding is safe but stops progress on a verifiable future validation plan."
+    },
+    {
+      "id": "OPTION_D",
+      "name": "FORMAL_RISK_OWNER_WAIVER_DECISION_PATH_V1",
+      "allowed_now": false,
+      "requires_db_connection_now": false,
+      "requires_supabase_connection_now": false,
+      "requires_migration_execution_now": false,
+      "requires_sql_modification": false,
+      "preserves_observer_created_false": true,
+      "preserves_source_connected_false": true,
+      "preserves_real_table_read_false": true,
+      "resolves_physical_validation_gap": "partial",
+      "blocks_observer_creation_until_resolved": true,
+      "risk_level": "high",
+      "reason": "A waiver path could bypass physical validation only with explicit risk ownership, but no such waiver is approved now."
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "dictamen": "GATE_3_RESTRICTED_INTERNAL_SUPERVISED_ACTIVATION_PLAN_READY",
+  "gate": "Gate 3",
+  "activation_type": "restricted_internal_supervised",
+  "gate2_status": "practically_closed_with_residual_risk",
+  "gate2_carry_forward_risk": {
+    "risk_id": "G2-RISK-001",
+    "description": "No real non-productive shadow events were observed because the safe shadow target was not provisioned.",
+    "status": "open"
+  },
+  "selected_route": {
+    "route_name": "LOCAL_CONTROLLED_INTERNAL_MBA_ACTIVATION_ROUTE",
+    "input_source": "Headcount activity captured in local Significado evidence and reconstructed as an offline observed signal.",
+    "execution_action": "Run a focused Gate 3 local replay using runShadowE2EReplay from src/services/eve-organism-shadow-e2e-adapter.ts, with the headcount operational input mapped as candidate_generation; validate with node --test tests/regression/eve-organism-shadow-e2e-adapter.test.ts as the existing no-cableado harness.",
+    "expected_candidate_output": "Draft candidate output with evidence trace, source trace, No-Go status and G2-RISK-001 carry-forward.",
+    "human_review_required": true,
+    "human_review_type": "S3*",
+    "rollback_or_degrade": "If candidate output, No-Go or S3* marker is missing, record the RUN as degraded/blocked and do not mark Gate 3 as passed."
+  },
+  "operational_input": {
+    "activity_description": "Reviso las desviaciones de headcount contra el presupuesto aprobado por unidad de negocio, comparo variaciones relevantes, identifico causas probables y dejo una alerta temprana documentada para que Finanzas y People puedan decidir acciones correctivas.",
+    "start_condition": "Inicio cuando recibo el corte actualizado de headcount y presupuesto aprobado por unidad de negocio.",
+    "end_condition": "Cierre cuando queda documentada una alerta temprana con desviacion, causa probable y accion sugerida para revision.",
+    "rule_or_standard": "contra el presupuesto aprobado por unidad de negocio",
+    "frequency": "Mensualmente, durante el cierre financiero y cuando se actualiza el forecast de headcount.",
+    "typical_context": "Cuando Finanzas o People detectan variaciones relevantes entre el headcount real, el presupuesto aprobado y el forecast vigente.",
+    "primary_actor_scope": "Analista financiero responsable de seguimiento de headcount por unidad de negocio."
+  },
+  "capabilities_to_activate": {
+    "controlled_internal_capture": true,
+    "operational_normalization": true,
+    "candidate_output_draft": true,
+    "human_s3_review_required": true,
+    "no_go_check": true,
+    "rollback_or_degrade": true
+  },
+  "forbidden": {
+    "irreversible_writes": true,
+    "registry_final": true,
+    "export_final": true,
+    "diagnosis_final": true,
+    "parallel_production_real": true,
+    "client_pilot": true,
+    "fase9_started": true,
+    "gate4_started": true,
+    "gate5_started": true
+  },
+  "run_acceptance_criteria": {
+    "candidate_output_created": true,
+    "s3_review_required_marker_present": true,
+    "no_go_passed": true,
+    "side_effects_false": true,
+    "g2_risk_not_hidden": true
+  },
+  "side_effects": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "writes_attempted": false,
+    "write_count": 0,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "runtime_mutated": false,
+    "object_inventory_mutated": false,
+    "mba_written": false,
+    "parallel_production_real_started": false,
+    "gate4_started": false,
+    "gate5_started": false,
+    "fase9_started": false
+  },
+  "run_instruction_ready": true,
+  "next_step": "RUN_GATE_3_RESTRICTED_INTERNAL_SUPERVISED_ACTIVATION_V1"
+}

@@ -1,0 +1,167 @@
+{
+  "chipId": "EVE-00-METHOD-KERNEL",
+  "auditId": "CHIP-RECTOR-EVE-00-METHOD-KERNEL-OVERLAP-AUDIT-V1_1",
+  "dictamen": "METHOD_KERNEL_PACKAGE_INCONSISTENT",
+  "packageFilesFound": [
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.docx",
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.md",
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.manifest.json",
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.ts"
+  ],
+  "packageFilesMissing": [],
+  "identityConsistency": {
+    "jsonChipId": "EVE-00-METHOD-KERNEL",
+    "manifestPackageId": "EVE_00_Method_Kernel_Chip_v0_2",
+    "chipName": "00_method_kernel",
+    "stage": "00_method_kernel",
+    "version": "0.2.0",
+    "generatedAt": "2026-06-17T21:22:03Z",
+    "purpose": "Kernel metodologico MMABP para validar conformance y consistencia de PM, MoC, PF y OLC antes de cualquier diagnostico, salida estructural o consumo runtime.",
+    "status": "partial_match"
+  },
+  "ruleCountConsistency": {
+    "jsonRuleIndexCount": 76,
+    "jsonRuleIndexLength": 76,
+    "jsonModuleRuleTotal": 76,
+    "mdModuleRuleTotal": 76,
+    "manifestRuleCount": 76,
+    "status": "total_count_matches_but_module_distribution_mismatch"
+  },
+  "moduleCountConsistency": {
+    "json": {
+      "fundamentals_mmabp_rules": 8,
+      "pm_rules": 10,
+      "moc_rules": 10,
+      "pf_rules": 16,
+      "olc_rules": 17,
+      "consistency_rules": 15
+    },
+    "md": {
+      "fundamentals_mmabp_rules": 8,
+      "pm_rules": 10,
+      "moc_rules": 10,
+      "pf_rules": 16,
+      "olc_rules": 17,
+      "consistency_rules": 15
+    },
+    "manifest": {
+      "fundamentals_mmabp_rules": 8,
+      "pm_rules": 12,
+      "moc_rules": 13,
+      "pf_rules": 16,
+      "olc_rules": 12,
+      "consistency_rules": 15
+    },
+    "status": "CHIP_INTERNAL_RULE_COUNT_MISMATCH"
+  },
+  "allowedStatesConsistency": {
+    "mdAllowedStates": [
+      "ready",
+      "ready_with_flags",
+      "blocked_by_missing_evidence",
+      "blocked_by_contradiction",
+      "manual_review_required",
+      "reentry_required"
+    ],
+    "jsonRuntimeBoundaryAllowedStates": [
+      "ready",
+      "ready_with_flags",
+      "blocked_by_missing_evidence",
+      "blocked_by_contradiction",
+      "manual_review_required",
+      "reentry_required"
+    ],
+    "jsonReadinessStates": [
+      "ready",
+      "ready_with_flags",
+      "blocked_by_missing_evidence",
+      "blocked_by_contradiction",
+      "blocked_by_missing_canonical_route",
+      "manual_review_required",
+      "reentry_required"
+    ],
+    "tsEveGateState": [
+      "ready",
+      "ready_with_flags",
+      "blocked_by_missing_evidence",
+      "blocked_by_contradiction",
+      "manual_review_required",
+      "reentry_required"
+    ],
+    "status": "CHIP_INTERNAL_STATE_MISMATCH"
+  },
+  "sourcePolicyConsistency": {
+    "D1": {
+      "declared": "D1 - Fundamentals of Business Architecture Modeling.pdf",
+      "existsInRepo": true,
+      "path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/sources/Fundamentals of Business Architecture Modeling.pdf",
+      "readInThisTask": true,
+      "sourceRefsLocated": true
+    },
+    "D4": {
+      "declared": "D4 - EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "existsInRepo": true,
+      "path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "role": "boundary_only"
+    },
+    "D5": {
+      "declared": "D5 - Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "existsInRepo": false,
+      "nearMatchFound": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "status": "BOUNDARY_SOURCE_MISSING_D5_DOCX"
+    },
+    "excludedSources": [
+      "D2",
+      "D3",
+      "D6",
+      "D7",
+      "D8",
+      "assistant_internal_documents"
+    ],
+    "pathologyHintsNonNullCount": 0,
+    "status": "D1_found_D5_docx_unresolved"
+  },
+  "ruleDiffs": [
+    {
+      "diffType": "module_count_mismatch",
+      "module": "pm_rules",
+      "json": 10,
+      "md": 10,
+      "manifest": 12
+    },
+    {
+      "diffType": "module_count_mismatch",
+      "module": "moc_rules",
+      "json": 10,
+      "md": 10,
+      "manifest": 13
+    },
+    {
+      "diffType": "module_count_mismatch",
+      "module": "olc_rules",
+      "json": 17,
+      "md": 17,
+      "manifest": 12
+    },
+    {
+      "diffType": "allowed_state_mismatch",
+      "state": "blocked_by_missing_canonical_route",
+      "presentIn": [
+        "json.readiness_states",
+        "ts.exportedObject.readiness_states"
+      ],
+      "missingFrom": [
+        "md.allowed_states",
+        "json.runtime_boundary.allowed_states",
+        "ts.EveGateState"
+      ]
+    }
+  ],
+  "internalInconsistencies": [
+    "CHIP_INTERNAL_RULE_COUNT_MISMATCH",
+    "CHIP_INTERNAL_STATE_MISMATCH",
+    "BOUNDARY_SOURCE_MISSING_D5_DOCX",
+    "TS_CANDIDATE_SHAPE_RISK"
+  ]
+}

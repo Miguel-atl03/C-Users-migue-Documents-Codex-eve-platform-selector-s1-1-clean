@@ -1,0 +1,553 @@
+{
+  "instruction": "043-B",
+  "runner": "Runtime4020QA T-001…T-020",
+  "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "project_ref": "shrpiwkxcdgvbqymjecx",
+  "counts": {
+    "artifact_sections": 33,
+    "source_nodes": 164,
+    "interactions": 60,
+    "mappings": 170,
+    "subfields": 57,
+    "branching_rules": 120,
+    "epistemic_rules": 300,
+    "variable_maps": 300,
+    "semantic_total": 720
+  },
+  "gaby": {
+    "activity_runtime_run": 32,
+    "runtime_interaction_instance": 4,
+    "response_record": 4
+  },
+  "aggregate": {
+    "passed": 20,
+    "failed": 0,
+    "unresolved": 0,
+    "blocking_failed": 0,
+    "skipped": 0
+  },
+  "tests": [
+    {
+      "test_id": "T-001",
+      "predicate_source": {
+        "nombre_literal": "T-001 conteo base",
+        "condicion_predicado_literal": "COUNT(Runtime_Interactions_Base_40)",
+        "umbral": "40",
+        "tabla": 13,
+        "fila": 1,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "baseActual": 40,
+        "interactions": 60
+      },
+      "actual_value": 40,
+      "expected_value": 40,
+      "passed": true,
+      "evidence_hash": "edf2baf631170f09104e75054fad04d8abf568ff3b310a10eac43a910c6cda9b"
+    },
+    {
+      "test_id": "T-002",
+      "predicate_source": {
+        "nombre_literal": "T-002 conteo causal",
+        "condicion_predicado_literal": "COUNT(Runtime_Interactions_Causal_20)",
+        "umbral": "20",
+        "tabla": 13,
+        "fila": 2,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "causalActual": 20
+      },
+      "actual_value": 20,
+      "expected_value": 20,
+      "passed": true,
+      "evidence_hash": "15ce24c2e0d354527c59a9ee3aea72e2aa8def8478c0cffc5c999ab7f2b20cd5"
+    },
+    {
+      "test_id": "T-003",
+      "predicate_source": {
+        "nombre_literal": "T-003 source refs",
+        "condicion_predicado_literal": "Validar source_nodes/source_codes por interaction_def",
+        "umbral": "0 vacíos",
+        "tabla": 13,
+        "fila": 3,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "emptySourceCodes": 0,
+        "missing": []
+      },
+      "actual_value": {
+        "emptySourceCodes": 0,
+        "missing": 0
+      },
+      "expected_value": "0 vacíos",
+      "passed": true,
+      "evidence_hash": "50c76630b5f4bee3a3cdcf520405f7d78f9975b287f1bd4666181eba025e9e1c"
+    },
+    {
+      "test_id": "T-004",
+      "predicate_source": {
+        "nombre_literal": "T-004 required fields",
+        "condicion_predicado_literal": "Cruzar Required_Field_Model contra 60 interacciones",
+        "umbral": "0 vacíos obligatorios",
+        "tabla": 13,
+        "fila": 4,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "interactions": 60
+      },
+      "actual_value": 0,
+      "expected_value": "0 vacíos obligatorios",
+      "passed": true,
+      "evidence_hash": "e64e6d1d0c83464af3a6cd4bc6fb31efce0ef9630b358608eef8991e4633a2a4"
+    },
+    {
+      "test_id": "T-005",
+      "predicate_source": {
+        "nombre_literal": "T-005 B7 no IR",
+        "condicion_predicado_literal": "Buscar MMABP_IR_candidate_after_conformance_and_consistency en B7",
+        "umbral": "0 ocurrencias",
+        "tabla": 13,
+        "fila": 5,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "scope": "B7-Q39/B7-Q40/C20 only",
+        "irCandidateInB7": 0
+      },
+      "actual_value": 0,
+      "expected_value": 0,
+      "passed": true,
+      "evidence_hash": "745820222df5171fc6fb04bd923d82742091ff44cc26c8ad3cf7f7cc49c452d8"
+    },
+    {
+      "test_id": "T-006",
+      "predicate_source": {
+        "nombre_literal": "T-006 B0-Q01 subfields",
+        "condicion_predicado_literal": "Buscar B0-Q01 en UX_Subfield_Structure",
+        "umbral": "subfields completos",
+        "tabla": 13,
+        "fila": 6,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "b0Missing": [],
+        "b0Keys": [
+          "action_verb",
+          "input_or_object",
+          "procedure_or_standard",
+          "output_or_result",
+          "user_correction_note",
+          "subfield_schema_id",
+          "3cd6ed37-fbaa-4160-bc53-78e078060ddf",
+          "catalog_version_id",
+          "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+          "runtime_interaction_id",
+          "B0-Q01",
+          "subfield_name",
+          "subfield_label",
+          "subfield_type",
+          "text",
+          "canonical_variable_name",
+          "required",
+          "required_if_condition",
+          "ordinal",
+          "validation_rule",
+          "help_text",
+          "created_at",
+          "ui_component",
+          "confirmation_card_with_correction",
+          "display_rule",
+          "Mostrar como tarjeta de confirmación editable con subcampos separados para qué haces, sobre qué trabajas, cómo o bajo qué regla, qué queda listo y corrección libre.",
+          "storage_rule",
+          "Persistir cada subcampo como variable separable con su provenance y timestamp; no guardar la corrección solo como texto plano.",
+          "risk_if_single_textbox",
+          "Se puede perder la estructura semántica de la actividad y contaminar el anclaje de Bloque 0; la IA podría inferir componentes no confirmados."
+        ],
+        "rows": 5
+      },
+      "actual_value": [],
+      "expected_value": "subfields completos",
+      "passed": true,
+      "evidence_hash": "8db4e9280230afc9475834a517a5aaa48cec6c93fee587600fce915d9f9bbb7c"
+    },
+    {
+      "test_id": "T-007",
+      "predicate_source": {
+        "nombre_literal": "T-007 C09 route_missing",
+        "condicion_predicado_literal": "optional_variables contiene required_if_route_gap",
+        "umbral": "true",
+        "tabla": 13,
+        "fila": 7,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "requiredIfRouteGap": true
+      },
+      "actual_value": true,
+      "expected_value": true,
+      "passed": true,
+      "evidence_hash": "ead9f8ae3be0d77be64584745b4aa873656d3f5ec77ce4db19b3f28f78603d54"
+    },
+    {
+      "test_id": "T-008",
+      "predicate_source": {
+        "nombre_literal": "T-008 B3-Q22 limpio",
+        "condicion_predicado_literal": "Buscar 'pide ajustes/solicita correcciones/rechaza' en B3-Q22",
+        "umbral": "No aparece",
+        "tabla": 13,
+        "fila": 8,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "b3Forbidden": []
+      },
+      "actual_value": [],
+      "expected_value": "No aparece",
+      "passed": true,
+      "evidence_hash": "7b8cb44c51d1493bd1df2f3d2da98950865124ba6b6c3fe6b2537dc6fe8866fd"
+    },
+    {
+      "test_id": "T-009",
+      "predicate_source": {
+        "nombre_literal": "T-009 C09 variables",
+        "condicion_predicado_literal": "Validar receiver_feedback_exists, receiver_feedback, gap_flag, route_missing",
+        "umbral": "Presentes sin duplicado",
+        "tabla": 13,
+        "fila": 9,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "c09Present": [
+          "receiver_feedback_exists",
+          "receiver_feedback",
+          "gap_flag",
+          "route_missing"
+        ],
+        "c09Dup": [],
+        "source": "C09 raw_row_json + organ fields"
+      },
+      "actual_value": {
+        "present": [
+          "receiver_feedback_exists",
+          "receiver_feedback",
+          "gap_flag",
+          "route_missing"
+        ],
+        "duplicates": []
+      },
+      "expected_value": "Presentes sin duplicado",
+      "passed": true,
+      "evidence_hash": "26d46c96df401684916e10618db92f2e8ea52e6eb390e98acfc0701e9ee66637"
+    },
+    {
+      "test_id": "T-010",
+      "predicate_source": {
+        "nombre_literal": "T-010 process state/timer",
+        "condicion_predicado_literal": "PST-001..PST-006 presentes y conectados con B4-Q24/C11",
+        "umbral": "true",
+        "tabla": 13,
+        "fila": 10,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "pstPresent": [
+          "PST-001",
+          "PST-002",
+          "PST-003",
+          "PST-004",
+          "PST-005",
+          "PST-006"
+        ],
+        "pstLinked": true
+      },
+      "actual_value": {
+        "count": 6,
+        "pstLinked": true
+      },
+      "expected_value": true,
+      "passed": true,
+      "evidence_hash": "c9189829940ef94e85b28ac46f11d6222c40a01ff341ccb0abe6dcb2007098b2"
+    },
+    {
+      "test_id": "T-011",
+      "predicate_source": {
+        "nombre_literal": "T-011 semantic gates",
+        "condicion_predicado_literal": "SEM-001..SEM-007 presentes",
+        "umbral": "true",
+        "tabla": 13,
+        "fila": 11,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "semPresent": [
+          "SEM-001",
+          "SEM-002",
+          "SEM-003",
+          "SEM-004",
+          "SEM-005",
+          "SEM-006",
+          "SEM-007"
+        ]
+      },
+      "actual_value": 7,
+      "expected_value": true,
+      "passed": true,
+      "evidence_hash": "3f78bda7aca1f956d64e50de1556a134e169cb84c50c1cc91ddb1585e56a031e"
+    },
+    {
+      "test_id": "T-012",
+      "predicate_source": {
+        "nombre_literal": "T-012 VSM/AHE frontera",
+        "condicion_predicado_literal": "B7/C20 no registry/IR/export directo",
+        "umbral": "true",
+        "tabla": 13,
+        "fila": 12,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "t012Hits": [],
+        "rows": [
+          "B7-Q39",
+          "B7-Q40",
+          "C20"
+        ]
+      },
+      "actual_value": [],
+      "expected_value": true,
+      "passed": true,
+      "evidence_hash": "43566d81fee1ada03ea4169733e49f33507df90e711ee468dd7fb07369824a32"
+    },
+    {
+      "test_id": "T-013",
+      "predicate_source": {
+        "nombre_literal": "T-013 metadata_version_alignment",
+        "condicion_predicado_literal": "Version_Control, DOCX y XLSX deben declarar v1.1.1/v1.0.1 sin contradicción.",
+        "umbral": "Sin etiquetas obsoletas en campos de autoridad.",
+        "tabla": 23,
+        "fila": 1,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "has111": true,
+        "has101": true,
+        "obsoleteAuthority": [],
+        "versionBlob": "v1.1.1 | v1.0.1 | 1.0 | EVE-RUNTIME-CATID-R1; EVE-RUNTIME-SEMPERSIST-R1 | {\"catalog_family\":\"EVE_RUNTIME_40_20\",\"catalog_scope\":\"FULL\",\"catalog_variant\":\"OPERACIONAL_AJUSTADO\",\"mother_catalog_version\":\"1.0\",\"mother_xlsx_sha256\":\"09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2\",\"runtime_version_label\":\"v1.1.1\",\"runtime_xlsx_sha256\":\"5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0\"}"
+      },
+      "actual_value": {
+        "has111": true,
+        "has101": true,
+        "obsoleteAuthority": []
+      },
+      "expected_value": "Sin etiquetas obsoletas en campos de autoridad.",
+      "passed": true,
+      "evidence_hash": "f4672682fea8947bfd093ddf7ae539c33331db9bb9a096a25f30afaaab63970e"
+    },
+    {
+      "test_id": "T-014",
+      "predicate_source": {
+        "nombre_literal": "T-014 required_sheets_present",
+        "condicion_predicado_literal": "Validar presencia de hojas Runtime_Interactions_Base_40, Runtime_Interactions_Causal_20, UX_Subfield_Structure, Critical_Routes, QA_Checklist.",
+        "umbral": "Todas presentes.",
+        "tabla": 23,
+        "fila": 2,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "sheetsPresent": [
+          "Runtime_Interactions_Base_40",
+          "Runtime_Interactions_Causal_20",
+          "UX_Subfield_Structure",
+          "Critical_Routes",
+          "QA_Checklist"
+        ],
+        "requiredSheets": [
+          "Runtime_Interactions_Base_40",
+          "Runtime_Interactions_Causal_20",
+          "UX_Subfield_Structure",
+          "Critical_Routes",
+          "QA_Checklist"
+        ]
+      },
+      "actual_value": [
+        "Runtime_Interactions_Base_40",
+        "Runtime_Interactions_Causal_20",
+        "UX_Subfield_Structure",
+        "Critical_Routes",
+        "QA_Checklist"
+      ],
+      "expected_value": "Todas presentes.",
+      "passed": true,
+      "evidence_hash": "940df7dafe68182431572c9ac76cac72199db59d3e38817a29c98fecad8955c7"
+    },
+    {
+      "test_id": "T-015",
+      "predicate_source": {
+        "nombre_literal": "T-015 required_columns_present",
+        "condicion_predicado_literal": "Validar columnas obligatorias definidas en Required_Field_Model.",
+        "umbral": "0 columnas faltantes.",
+        "tabla": 23,
+        "fila": 3,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "hasRequiredFieldModelSection": true,
+        "interactions": 60
+      },
+      "actual_value": "0 missing required markers on 60 interactions + RFM section present",
+      "expected_value": "0 columnas faltantes.",
+      "passed": true,
+      "evidence_hash": "e64e6d1d0c83464af3a6cd4bc6fb31efce0ef9630b358608eef8991e4633a2a4"
+    },
+    {
+      "test_id": "T-016",
+      "predicate_source": {
+        "nombre_literal": "T-016 checksum_registered",
+        "condicion_predicado_literal": "Registrar checksum de XLSX y DOCX al activar catálogo.",
+        "umbral": "Checksum no nulo.",
+        "tabla": 23,
+        "fila": 4,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "xlsx": true,
+        "docx": true
+      },
+      "actual_value": {
+        "xlsx": true,
+        "docx": true
+      },
+      "expected_value": "Checksum no nulo.",
+      "passed": true,
+      "evidence_hash": "8d91844a16da6f88e2e17fd88ad460c3e5ac22c7791c081197ad75204e633bdd"
+    },
+    {
+      "test_id": "T-017",
+      "predicate_source": {
+        "nombre_literal": "T-017 no_deprecated_version_labels",
+        "condicion_predicado_literal": "Buscar labels v1.1 residuales en campos operativos.",
+        "umbral": "0 residuales en Version_Control/autoridad.",
+        "tabla": 23,
+        "fila": 5,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "obsoleteAuthority": []
+      },
+      "actual_value": [],
+      "expected_value": "0 residuales en Version_Control/autoridad.",
+      "passed": true,
+      "evidence_hash": "665caedfeaa9c8cc7524248f14864ac5d72cee39d5b9a4d9d3dd89e942c3e07e"
+    },
+    {
+      "test_id": "T-018",
+      "predicate_source": {
+        "nombre_literal": "T-018 catalog_activation_blocked_on_qa_failure",
+        "condicion_predicado_literal": "El loader debe impedir status active si falla cualquier QA bloqueante.",
+        "umbral": "Catálogo no activo si falla QA.",
+        "tabla": 23,
+        "fila": 6,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "proof_path": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform-operational-baseline-c312\\external-consumers\\eve-platform\\docs\\eve\\runtime\\materialized\\runtime-40-20-T018-negative-proof-043B.json",
+        "proof_passed": true,
+        "proof_error": null,
+        "result": {
+          "ok": false,
+          "b0_status": "active",
+          "reason_code": "blocked_runtime_QA_failed",
+          "target_status": "draft",
+          "writes_performed": 0,
+          "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+          "target_activated_at": null
+        },
+        "assertions": {
+          "activation_rejected": true,
+          "writes_performed_0": true,
+          "target_status_draft": true,
+          "activated_at_null": true,
+          "b0_status_active": true,
+          "b0_not_superseded": true
+        }
+      },
+      "actual_value": {
+        "activation_rejected": true,
+        "writes_performed": 0,
+        "target_status": "draft",
+        "activated_at": null,
+        "b0_status": "active"
+      },
+      "expected_value": "Catálogo no activo si falla QA.",
+      "passed": true,
+      "unresolved": false,
+      "evidence_hash": "cc8f3da9fbba2060ea5025da88acd91d5a288afa803a74a94db78feb38d38b86"
+    },
+    {
+      "test_id": "T-019",
+      "predicate_source": {
+        "nombre_literal": "T-019 source_node_integrity",
+        "condicion_predicado_literal": "Todo source_code debe existir en Catálogo Madre o estar declarado como runtime control node.",
+        "umbral": "0 huérfanos no justificados.",
+        "tabla": 23,
+        "fila": 7,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "orphan_count": 0,
+        "sample": []
+      },
+      "actual_value": 0,
+      "expected_value": 0,
+      "passed": true,
+      "evidence_hash": "94bdaf685416389c67f1ef25c394473261db06406bb97e9f9f754f3647a1aa6a"
+    },
+    {
+      "test_id": "T-020",
+      "predicate_source": {
+        "nombre_literal": "T-020 B7_no_direct_projection",
+        "condicion_predicado_literal": "B7-Q39/B7-Q40/C20 no tienen MoC/IR/registry directo.",
+        "umbral": "0 proyecciones directas.",
+        "tabla": 23,
+        "fila": 8,
+        "source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+      },
+      "blocking": true,
+      "input_evidence": {
+        "t020Hits": [],
+        "rows": [
+          "B7-Q39",
+          "B7-Q40",
+          "C20"
+        ]
+      },
+      "actual_value": [],
+      "expected_value": 0,
+      "passed": true,
+      "evidence_hash": "b519bf634d2ac795f8b2abae210b4b26b5238dc955896d4d35f2aefe2b006179"
+    }
+  ],
+  "classification": "qa_20_20_passed"
+}

@@ -1,0 +1,30 @@
+{
+  "instruction": "044-A.1",
+  "classification": "renderer_real_path_conformant",
+  "production_consulted": false,
+  "gaby_touched": false,
+  "e2e_full_executed": false,
+  "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "executable_path": {
+    "entry": "advanceGovernedExecution(action=render_next)",
+    "renderer": "createRuntimeInteractionViewModels",
+    "file": "src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-service.ts",
+    "connection_file": "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts"
+  },
+  "materiality_before": "implemented_not_connected / partial (fallback ViewModel)",
+  "materiality_after": "implemented_and_connected",
+  "fallback_removed": true,
+  "scenarios": {
+    "A_valid_full_interaction": "pass",
+    "B_invalid_interaction_zero_persist": "pass",
+    "B2_renderer_failure_blocks": "pass"
+  },
+  "failure_contract": {
+    "on_renderer_fail": "throw blocked_real_renderer_path_failed",
+    "interaction_instance": 0,
+    "response": 0,
+    "budget_delta": 0,
+    "state_advance": false,
+    "synthetic_view_model": false
+  }
+}

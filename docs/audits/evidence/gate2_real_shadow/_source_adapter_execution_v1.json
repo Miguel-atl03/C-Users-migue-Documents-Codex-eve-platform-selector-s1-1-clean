@@ -1,0 +1,78 @@
+{
+  "dictamen": "GATE_2_REAL_SHADOW_SOURCE_ADAPTER_BLOCKED_BY_ENVIRONMENT_NOT_AVAILABLE",
+  "gate": "Gate 2 real-shadow",
+  "exercise": "source_adapter_execution",
+  "mode": "read_only_non_productive",
+  "ui_significado_frontier_closed": true,
+  "bridge_reader": {
+    "found": true,
+    "file_or_module": "src/services/eve-organism-gate2-real-shadow-bridge-reader.ts"
+  },
+  "real_source_adapter": {
+    "found": true,
+    "file_or_module": "src/services/eve-organism-bridge-reader-real-source-adapter.ts",
+    "local_in_memory_adapter_found": true,
+    "shadow_only_outbox_events_adapter_found": true
+  },
+  "environment": {
+    "real_shadow_environment_available": false,
+    "requires_env_file": true,
+    "env_file_read": false,
+    "required_env_names_without_values": [
+      "separate_read_only_shadow_source_credentials",
+      "non_productive_shadow_only_outbox_events_source",
+      "safe_shadow_mirror_or_outbox",
+      "append_only_or_read_replica_shadow_source"
+    ],
+    "missing_safe_environment_fields": [
+      "safe_shadow_mirror_or_outbox",
+      "separate_read_only_credentials",
+      "source_connected",
+      "real_table_read_path",
+      "verifiable_write_count_guard"
+    ],
+    "can_execute_without_secrets": false
+  },
+  "local_regression": {
+    "executed": true,
+    "command": "node --test tests/regression/eve-organism-bridge-reader-real-source-adapter-local-e2e.test.ts",
+    "passed": true,
+    "tests_passed": 36,
+    "tests_failed": 0
+  },
+  "real_shadow_execution": {
+    "attempted": false,
+    "executed": false,
+    "blocked_reason": "No safe non-productive real-shadow environment or connected read-only adapter is available without .env/secrets/DB/Supabase. Current adapter contract is localInMemoryRecordsOnly=true, sourceConnected=false and realTableRead=false.",
+    "events_read_count": null,
+    "event_ids_sanitized": [],
+    "tenant_metadata_present": null,
+    "correlation_id_present": null,
+    "idempotency_key_present": null,
+    "provenance_present": null,
+    "official_outcome_present": null,
+    "shadow_outcome_present": null
+  },
+  "side_effects": {
+    "writes_attempted": false,
+    "write_count": 0,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "runtime_mutated": false,
+    "object_inventory_mutated": false,
+    "mba_written": false,
+    "parallel_production_real_started": false
+  },
+  "safety": {
+    "secret_values_exposed": false,
+    "db_productive_connected": false,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false
+  },
+  "next_step": "RESOLVE_GATE_2_REAL_SHADOW_ENVIRONMENT_OR_SAFE_READ_ONLY_SOURCE_V1"
+}

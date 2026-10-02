@@ -1,0 +1,80 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING3_PRODUCTION_DATA_BOUNDARY_POLICY",
+  "generated_at": "2026-07-09T06:30:00.000Z",
+  "authorization_ref": "ring3-authorization-controlled-production-supervised-rollback-ready-20260709",
+  "ring": 3,
+  "ring_name": "controlled_production_supervised_rollback_ready",
+  "production_data_allowed_only_after_execution_authorization": true,
+  "data_scope_must_be_explicit": true,
+  "tenant_isolation_required": true,
+  "case_isolation_required": true,
+  "rls_required": true,
+  "audit_trail_required": true,
+  "rollback_required": true,
+  "abort_required": true,
+  "no_unscoped_data_access": true,
+  "no_service_role_in_client": true,
+  "data_boundary_model": {
+    "scoped_production_data_only": true,
+    "tenant_boundary_enforced": true,
+    "case_boundary_enforced": true,
+    "run_boundary_enforced": true,
+    "consent_or_authorization_trace_required": true,
+    "synthetic_data_ring2_precedent": true,
+    "real_external_client_data_requires_execution_authorization": true
+  },
+  "boundary_requirements": [
+    {
+      "id": "R3-DB-01",
+      "requirement": "production_data_scope_explicitly_documented",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-DB-02",
+      "requirement": "tenant_isolation_enforced_via_rls",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-DB-03",
+      "requirement": "case_isolation_enforced",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-DB-04",
+      "requirement": "audit_trail_for_all_production_data_access",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-DB-05",
+      "requirement": "no_unscoped_cross_tenant_access",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-DB-06",
+      "requirement": "no_service_role_exposed_to_client",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-DB-07",
+      "requirement": "rollback_restores_data_boundary_baseline",
+      "mandatory_for_ring3": true
+    },
+    {
+      "id": "R3-DB-08",
+      "requirement": "abort_honors_data_boundary_and_blocks_continuation",
+      "mandatory_for_ring3": true
+    }
+  ],
+  "ring2_baseline": {
+    "ring2_data_consent_boundary_policy_ref": "docs/production-activation/ring2_data_consent_boundary_policy.json",
+    "ring2_pilot_consent_record_ref": "docs/production-activation/ring2_pilot_consent_record.json",
+    "synthetic_business_data_used_in_ring2": true,
+    "real_external_client_data_used_in_ring2": false
+  },
+  "mba_constraints": {
+    "b3_c09_evidence_route_required": true,
+    "b7_no_diagnosis_ir_registry_export": true,
+    "no_causal_jump_capture_to_diagnosis": true,
+    "outputs_as_object_state": true
+  }
+}

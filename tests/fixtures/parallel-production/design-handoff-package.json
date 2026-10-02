@@ -1,0 +1,53 @@
+{
+  "handoff_package_id": "CLIENTE_001_DESIGN_HANDOFF_V1",
+  "handoff_package_type": "parallel_production_design_handoff_package",
+  "handoff_version": "1.0.0",
+  "created_at": "2026-05-22T00:00:00.000Z",
+  "client_id": "CLIENTE_001",
+  "artifact_refs": {
+    "mmabp_design_source_bundle_id": "MMABPDSB_001",
+    "client_mmabp_structural_facts_id": "CLIENTE_001_MMABP_FACTS_V1",
+    "quadrant_registry_package_id": "CLIENTE_001_QUADRANT_REGISTRIES_V1",
+    "mmabp_ir_package_id": "CLIENTE_001_MMABP_IR_V1"
+  },
+  "handoff_readiness": {
+    "status": "ready_for_design_area_with_gaps",
+    "summary": "Paquete listo para area de diseno con gaps explicitos antes de exportacion final."
+  },
+  "handoff_gaps": [
+    {
+      "gap_id": "HANDOFF_GAP_001",
+      "gap_type": "missing_timer_event",
+      "description": "PF/Process State requiere timer antes de preparar export package.",
+      "source_artifact": "mmabp_ir_package",
+      "source_gap_ids": ["PF_IR_GAP_001"]
+    },
+    {
+      "gap_id": "HANDOFF_GAP_002",
+      "gap_type": "missing_moc_projection",
+      "description": "MoC requiere facts de clase, atributos u operaciones antes de PlantUML estable.",
+      "source_artifact": "mmabp_ir_package",
+      "source_gap_ids": ["MOC_IR_GAP_001"]
+    }
+  ],
+  "receiving_area_contract": {
+    "may_generate_diagram_code": true,
+    "must_preserve_source_refs": true,
+    "must_not_invent_semantics": true,
+    "must_not_diagnose": true,
+    "allowed_next_outputs": [
+      "bpmn_xml_candidate",
+      "plantuml_candidate",
+      "xmi_optional_candidate",
+      "export_blocked_report"
+    ]
+  },
+  "boundaries": {
+    "not_core_runtime_change": true,
+    "not_capa2_handoff_replacement": true,
+    "not_export_package": true,
+    "not_diagnostic": true,
+    "not_monetization": true,
+    "not_final_narrative": true
+  }
+}

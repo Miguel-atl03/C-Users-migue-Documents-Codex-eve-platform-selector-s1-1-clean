@@ -1,0 +1,185 @@
+{
+  "dictamen": "LOCAL_UI_ACTIVITY_1_NEXT_REQUIRED_SECTION_CONTRACT_READY",
+  "base_commit": "a65a0e39d2770588c42e799c17e6a13b78144c94",
+  "official_screen": "Significado de tu trabajo",
+  "base_transition": "LOCAL_UI_ACTIVITY_1_CLOSURE_CONFIRMATION_EXECUTED_PASSED",
+  "exercise_part": "part_1_next_required_section_contract",
+  "route_used": "/dev/e2e-block0",
+  "ui_started": true,
+  "initial_condition_reached": true,
+  "initial_condition": {
+    "official_screen": "Significado de tu trabajo",
+    "activity_label": "Actividad 1 de 8",
+    "progress_before": "2/4 secciones listas para revisar",
+    "b0_q02_ready": true,
+    "input_transduction_confirmed": true,
+    "output_transduction_confirmed": true,
+    "continue_button_enabled": false,
+    "visible_errors": [],
+    "loading_state": false
+  },
+  "visible_sections": [
+    {
+      "section_id": "B0-Q01",
+      "section_label": "Confirmar actividad",
+      "status": "pending",
+      "visible_fields": [
+        {
+          "field_id": "B0-Q01.action_verb",
+          "label": "Que haces",
+          "filled": true,
+          "observed_value": "Analizo"
+        },
+        {
+          "field_id": "B0-Q01.input_or_object",
+          "label": "Sobre que trabajas",
+          "filled": true,
+          "observed_value": "desviaciones de headcount contra presupuesto por unidad de negocio"
+        },
+        {
+          "field_id": "B0-Q01.procedure_or_standard",
+          "label": "Como o bajo que regla",
+          "filled": false,
+          "observed_value": ""
+        },
+        {
+          "field_id": "B0-Q01.output_or_result",
+          "label": "Que queda listo",
+          "filled": true,
+          "observed_value": "alertas tempranas"
+        }
+      ]
+    },
+    {
+      "section_id": "B0-Q02",
+      "section_label": "Descripcion operativa de tu actividad",
+      "status": "ready"
+    },
+    {
+      "section_id": "B0-Q03",
+      "section_label": "Frecuencia y contexto en el que la actividad se presenta",
+      "status": "pending",
+      "visible_fields": [
+        {
+          "field_id": "B0-Q03.frequency_base",
+          "label": "Con que frecuencia ocurre",
+          "filled": false,
+          "observed_value": ""
+        },
+        {
+          "field_id": "B0-Q03.typical_context",
+          "label": "En que situacion suele darse",
+          "filled": false,
+          "observed_value": ""
+        },
+        {
+          "field_id": "B0-Q03.primary_actor_scope",
+          "label": "Sobre quien recae directamente",
+          "filled": false,
+          "observed_value": ""
+        }
+      ]
+    },
+    {
+      "section_id": "B0-Q04",
+      "section_label": "Inicio y cierre",
+      "status": "ready",
+      "visible_markers": [
+        "INICIO DE LA ACTIVIDAD / LISTO / Quiero corregirlo",
+        "CIERRE Y ENTREGA / LISTO / Quiero corregirlo"
+      ]
+    }
+  ],
+  "next_required_section": {
+    "section_id": "B0-Q01",
+    "section_label": "Confirmar actividad",
+    "reason": "Es la primera seccion visible y canonica que sigue incompleta; el subcampo B0-Q01.procedure_or_standard esta vacio.",
+    "blocking_fields": [
+      {
+        "field_id": "B0-Q01.procedure_or_standard",
+        "label": "Como o bajo que regla",
+        "observed_value": ""
+      }
+    ],
+    "other_pending_sections": [
+      "B0-Q03"
+    ]
+  },
+  "primary_transition_selected": {
+    "transition_id": "fill_b0_q01_procedure_or_standard",
+    "action_type": "fill_field",
+    "target_section_id": "B0-Q01",
+    "target_field_id": "B0-Q01.procedure_or_standard",
+    "target_visible_label": "Como o bajo que regla",
+    "authorized_input_text": "contra el presupuesto aprobado por unidad de negocio",
+    "authorized_input_basis": "Texto derivado de la descripcion operativa ya autorizada en B0-Q02.",
+    "action_executed_in_this_observation": false
+  },
+  "causal_contract": {
+    "initial_state": {
+      "progress": "2/4 secciones listas para revisar",
+      "b0_q01_ready": false,
+      "b0_q02_ready": true,
+      "b0_q03_ready": false,
+      "b0_q04_ready": true,
+      "continue_button_enabled": false
+    },
+    "user_action_to_execute_next": "Fill B0-Q01.procedure_or_standard with the authorized local/demo text.",
+    "expected_event": {
+      "event_type": "local_state_update",
+      "endpoint_expected": null,
+      "supabase_expected": false
+    },
+    "expected_resulting_state": {
+      "progress_after": "3/4 secciones listas para revisar",
+      "b0_q01_ready_after": true,
+      "b0_q03_still_pending": true,
+      "continue_button_enabled_after": false,
+      "visible_errors_after": [],
+      "loading_state_after": false
+    }
+  },
+  "technical_trace": {
+    "progress_logic": "src/features/significado/significado-copy.ts::formatBlock0QuestionProgress",
+    "prepared_question_logic": "src/components/significado/SignificadoDeTuTrabajo.tsx::isQuestionPrepared",
+    "canonical_section_source": "src/features/significado/runtime-block0-canonical.ts",
+    "canonical_subfields": {
+      "B0-Q01": [
+        "action_verb",
+        "input_or_object",
+        "procedure_or_standard",
+        "output_or_result",
+        "user_correction_note"
+      ],
+      "B0-Q03": [
+        "frequency_base",
+        "typical_context",
+        "primary_actor_scope"
+      ]
+    },
+    "official_reference_files": [
+      "docs/audits/CLOSEOUT_SIGNIFICADO_UI_VISUAL_FINAL_FROZEN_V1_0.md",
+      "docs/audits/AUDIT_SIGNIFICADO_UI_OPERATIONAL_FREEZE_V1.md",
+      "tests/regression/significado-de-trabajo-slice.test.ts"
+    ]
+  },
+  "contract_ready_for_execution": true,
+  "safety": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "real_table_read": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "ui_action_executed": false
+  },
+  "next_step": "RUN_LOCAL_UI_ACTIVITY_1_NEXT_REQUIRED_SECTION_EXECUTION_V1"
+}

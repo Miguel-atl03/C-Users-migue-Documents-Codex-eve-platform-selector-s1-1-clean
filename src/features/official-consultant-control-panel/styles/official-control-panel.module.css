@@ -1,0 +1,4693 @@
+/* Official Control Panel ? Unit 1 EVE visual language.
+
+   Tokens aligned with work-map-intake / ClientShell patterns.
+
+   Architecture from canonical ?5 preserved; no second theme. */
+
+
+
+/* ?? EVE tokens ?? */
+
+.shell {
+
+  --eve-bg-outer: #f5f5f5;
+
+  --eve-surface: #ffffff;
+
+  --eve-sidebar-bg: #dedede;
+
+  --eve-text-primary: #272a32;
+
+  --eve-text-secondary: #6f7280;
+
+  --eve-text-muted: #6b7280;
+
+  --eve-border-soft: rgba(61, 61, 71, 0.14);
+
+  --eve-border-standard: #e5e7eb;
+
+  --eve-accent: #4d4d4d;
+
+  --eve-accent-dark: #2f333a;
+
+  --eve-accent-hover: #3d3d3d;
+
+  --eve-focus-ring: rgba(77, 77, 77, 0.12);
+
+  --eve-radius-shell: 14px;
+
+  --eve-radius-card: 12px;
+
+  --eve-radius-control: 8px;
+
+  --eve-radius-pill: 999px;
+
+  --eve-shadow-shell: 0 10px 35px rgba(16, 24, 40, 0.08);
+
+  --eve-shadow-card: 0 1px 4px rgba(15, 23, 42, 0.06),
+
+    0 4px 12px rgba(15, 23, 42, 0.04);
+
+
+
+  box-sizing: border-box;
+
+  min-height: 100vh;
+
+  background: var(--eve-bg-outer);
+
+  color: var(--eve-text-primary);
+
+}
+
+.monitoringXyRow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 900px) {
+  .monitoringXyRow {
+    display: grid;
+    grid-template-columns: minmax(7.5rem, 13%) minmax(0, 1fr) minmax(16rem, 18%);
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .matrix.matrixWithoutRail {
+    grid-template-columns: minmax(0, 1fr) minmax(7.5rem, 13%);
+  }
+
+  .matrix.matrixWithoutAttention {
+    grid-template-columns: minmax(7.5rem, 13%) minmax(0, 1fr);
+  }
+
+  .matrix.matrixWithoutRail.matrixWithoutAttention {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .monitoringXyRow {
+    grid-template-columns: minmax(8.5rem, 9.75rem) minmax(0, 1fr) minmax(17rem, 18%);
+  }
+
+  .matrix.matrixWithoutRail {
+    grid-template-columns: minmax(0, 1fr) minmax(8.5rem, 9.75rem);
+  }
+
+  .matrix.matrixWithoutAttention {
+    grid-template-columns: minmax(8.5rem, 9.75rem) minmax(0, 1fr);
+  }
+
+  .matrix.matrixWithoutRail.matrixWithoutAttention {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.workmapProgressPanel {
+  border: 1px solid var(--eve-border-standard);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.workmapProgressHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--eve-border-standard);
+  padding-bottom: 12px;
+}
+
+.workmapProgressEyebrow {
+  margin: 0 0 4px;
+  color: var(--eve-text-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.workmapProgressActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.workmapStatusPill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--eve-border-standard);
+  background: #f7f7f2;
+  padding: 4px 10px;
+  color: var(--eve-text-strong);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.workmapProgressGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0 0;
+}
+
+.workmapProgressGrid div {
+  min-width: 0;
+}
+
+.workmapProgressGrid dt {
+  color: var(--eve-text-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.workmapProgressGrid dd {
+  margin: 3px 0 0;
+  color: var(--eve-text-strong);
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.workmapProgressColumns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.6fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.workmapProgressSubhead {
+  margin: 0 0 8px;
+  color: var(--eve-text-strong);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.workmapActivityList,
+.workmapGapList {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.workmapActivityList li,
+.workmapGapList li {
+  color: var(--eve-text-strong);
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.workmapActivityList small {
+  display: block;
+  margin-top: 2px;
+  color: var(--eve-text-muted);
+  font-size: 0.74rem;
+}
+
+@media (max-width: 900px) {
+  .workmapProgressHeader,
+  .workmapProgressColumns {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .workmapProgressGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .workmapProgressActions {
+    justify-content: flex-start;
+  }
+}
+
+
+
+.appShell {
+
+  display: flex;
+
+  flex-direction: column;
+
+  margin: 16px;
+
+  min-height: calc(100vh - 32px);
+
+  overflow: hidden;
+
+  border-radius: var(--eve-radius-shell);
+
+  background: var(--eve-surface);
+
+  color: var(--eve-text-primary);
+
+  box-shadow: var(--eve-shadow-shell);
+
+}
+
+
+
+.mainColumn {
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+  min-height: 0;
+
+  flex: 1;
+
+  background: var(--eve-surface);
+
+  color: var(--eve-text-primary);
+
+  padding: 0 20px 16px;
+
+  gap: 12px;
+
+}
+
+
+
+@media (min-width: 640px) {
+
+  .mainColumn {
+
+    padding: 0 24px 20px;
+
+  }
+
+}
+
+
+
+/* ?? Compact header ?? */
+
+.brandStrip {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 10px 8px;
+
+  border-bottom: 1px solid var(--eve-border-standard);
+
+}
+
+
+
+.brandSlogan {
+
+  margin: 0;
+
+  color: var(--eve-text-secondary);
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  line-height: 1.4;
+
+  letter-spacing: 0.22em;
+
+  text-align: right;
+
+  text-transform: uppercase;
+
+}
+
+
+
+.panelHeader {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid var(--eve-border-standard);
+
+}
+
+
+
+.panelTitle {
+
+  margin: 0;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  line-height: 1.3;
+
+  letter-spacing: -0.01em;
+
+  color: var(--eve-text-primary);
+
+}
+
+.contextSelector {
+  margin-top: 8px;
+}
+
+.contextSelectorGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  align-items: end;
+}
+
+.contextSelectorField {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 58px;
+}
+
+.contextSelectorLabel {
+  color: var(--eve-text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.contextSearchInput,
+.contextSelect,
+.contextComboboxInput {
+  width: 100%;
+  min-height: 36px;
+  box-sizing: border-box;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: var(--eve-surface);
+  color: var(--eve-text-primary);
+  font: inherit;
+  font-size: 11px;
+}
+
+.contextSearchInput {
+  padding: 6px 9px;
+}
+
+.contextSelect {
+  padding: 6px 28px 6px 9px;
+}
+
+.contextCombobox {
+  position: relative;
+  min-width: 0;
+}
+
+.contextComboboxInput {
+  padding: 6px 52px 6px 9px;
+}
+
+.contextComboboxActions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding-right: 8px;
+  pointer-events: none;
+}
+
+.contextComboboxClear {
+  pointer-events: auto;
+  min-width: 22px;
+  min-height: 22px;
+  border: 0;
+  border-radius: var(--eve-radius-control);
+  background: transparent;
+  color: var(--eve-text-muted);
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.contextComboboxChevron {
+  color: var(--eve-text-muted);
+  font-size: 9px;
+}
+
+.contextComboboxList {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 4px 0;
+  max-height: 220px;
+  overflow: auto;
+  list-style: none;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: var(--eve-surface);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.contextComboboxOption,
+.contextComboboxEmpty {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--eve-text-primary);
+}
+
+.contextComboboxOption {
+  cursor: pointer;
+}
+
+.contextComboboxOptionActive,
+.contextComboboxOptionSelected {
+  background: #f3f7f5;
+}
+
+.contextComboboxEmpty {
+  color: var(--eve-text-muted);
+}
+
+.contextSearchInput:focus-visible,
+.contextSelect:focus-visible,
+.contextComboboxInput:focus-visible,
+.contextComboboxClear:focus-visible,
+.contextRetryButton:focus-visible {
+  outline: 2px solid var(--eve-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--eve-focus-ring);
+}
+
+.contextSelect:disabled,
+.contextComboboxInput:disabled {
+  cursor: not-allowed;
+  background: #f7f7f7;
+  color: var(--eve-text-muted);
+}
+
+.contextStateMessage,
+.contextStateError {
+  min-height: 18px;
+  margin: 6px 0 0;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.contextStateMessage {
+  color: var(--eve-text-secondary);
+}
+
+.contextStateError {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8a3a2d;
+}
+
+.contextRetryButton {
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: var(--eve-surface);
+  color: var(--eve-text-primary);
+  padding: 4px 8px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.manualActionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+@media (max-width: 760px) {
+  .contextSelectorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contextSelectorField {
+    min-height: 0;
+  }
+}
+
+
+
+.panelHeaderMain {
+
+  flex: 1;
+
+  min-width: 0;
+
+}
+
+
+
+.panelContextGrid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+
+  gap: 6px 14px;
+
+  margin: 6px 0 0;
+
+  padding: 0;
+
+}
+
+
+
+.panelContextField {
+
+  margin: 0;
+
+  min-width: 0;
+
+}
+
+
+
+.panelContextLabel {
+
+  margin: 0;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-text-muted);
+
+}
+
+
+
+.panelContextValue {
+
+  margin: 2px 0 0;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.panelContext {
+
+  margin: 4px 0 0;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.panelContextItem + .panelContextItem::before {
+
+  content: " ? ";
+
+  color: var(--eve-text-muted);
+
+}
+
+
+
+.roleBadge {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 4px 10px;
+
+  border: 1px solid var(--eve-border-soft);
+
+  border-radius: var(--eve-radius-pill);
+
+  background: #fafafa;
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  color: var(--eve-accent);
+
+}
+
+
+
+/* ?? KPI strip ?? */
+
+.kpiStrip {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  overflow-x: visible;
+
+  gap: 0;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: var(--eve-surface);
+
+  max-width: 100%;
+
+  box-sizing: border-box;
+
+}
+
+
+
+.kpiItem {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+
+  flex: 1 1 20%;
+
+  min-width: 8.5rem;
+
+  max-width: 100%;
+
+  padding: 10px 14px;
+
+  box-sizing: border-box;
+
+}
+
+
+
+.kpiItem + .kpiItem {
+
+  border-left: 1px solid var(--eve-border-standard);
+
+}
+
+
+
+.kpiLabel {
+
+  margin: 0;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.03em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-text-secondary);
+
+  white-space: normal;
+
+  overflow-wrap: anywhere;
+
+}
+
+
+
+.kpiValue {
+
+  margin: 0;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  color: var(--eve-text-muted);
+
+  overflow-wrap: anywhere;
+
+}
+
+
+
+.kpiValueEmpty {
+
+  color: #a3a3a3;
+
+}
+
+
+
+/* ?? Mode + subview bar ?? */
+
+.modeBar {
+
+  display: flex;
+
+  flex-direction: row;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: 12px;
+
+  width: 100%;
+
+  max-width: 100%;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+
+}
+
+
+
+.modeGroup,
+
+.subviewGroup {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 0;
+
+  max-width: 100%;
+
+}
+
+
+
+.modeGroup {
+
+  flex-shrink: 1;
+
+}
+
+
+
+.modeBarDivider {
+
+  width: 1px;
+
+  align-self: stretch;
+
+  min-height: 28px;
+
+  background: var(--eve-border-standard);
+
+  flex-shrink: 0;
+
+}
+
+
+
+.subviewGroup {
+
+  margin-left: auto;
+
+  justify-content: flex-end;
+
+}
+
+
+
+.modeGroupLabel {
+
+  margin: 0;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-text-secondary);
+
+  min-width: 0;
+
+}
+
+
+
+.chipButton,
+
+.secondaryButton,
+
+.retryButton {
+
+  appearance: none;
+
+  border: 1px solid var(--eve-border-standard);
+
+  background: var(--eve-surface);
+
+  color: var(--eve-text-primary);
+
+  border-radius: var(--eve-radius-pill);
+
+  padding: 6px 14px;
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  line-height: 1.35;
+
+  font-family: inherit;
+
+  white-space: nowrap;
+
+}
+
+
+
+.chipButton:focus-visible,
+
+.secondaryButton:focus-visible,
+
+.retryButton:focus-visible,
+
+.processChip:focus-visible,
+
+.alertAction:focus-visible {
+
+  outline: none;
+
+  box-shadow: 0 0 0 3px var(--eve-focus-ring);
+
+}
+
+
+
+.chipButton[aria-selected="true"],
+
+.processChip[aria-selected="true"] {
+
+  border-color: var(--eve-accent);
+
+  background: #f5f5f5;
+
+  color: var(--eve-accent);
+
+  font-weight: 600;
+
+}
+
+
+
+.chipButton:disabled,
+
+.processChip:disabled {
+
+  cursor: not-allowed;
+
+  background: #fafafa;
+
+  border-color: var(--eve-border-standard);
+
+  color: #9ca0aa;
+
+}
+
+
+
+.chipBadge {
+
+  margin-left: 6px;
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+/* ?? Core status band (proceso principal) ?? */
+
+.coreBand {
+
+  display: flex;
+
+  flex-wrap: nowrap;
+
+  align-items: center;
+
+  gap: 10px;
+
+  overflow-x: auto;
+
+  padding: 10px 14px;
+
+  border-radius: var(--eve-radius-control);
+
+  background: var(--eve-accent-dark);
+
+  color: rgba(255, 255, 255, 0.92);
+
+  -webkit-overflow-scrolling: touch;
+
+  scrollbar-width: thin;
+
+}
+
+
+
+.coreBandBadge {
+
+  flex-shrink: 0;
+
+  padding: 3px 10px;
+
+  border-radius: var(--eve-radius-pill);
+
+  background: rgba(255, 255, 255, 0.14);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+
+}
+
+
+
+.coreBandChip {
+
+  flex-shrink: 0;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 4px 10px;
+
+  border-radius: var(--eve-radius-pill);
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  font-size: 11px;
+
+  line-height: 1.35;
+
+  white-space: nowrap;
+
+}
+
+
+
+.coreBandChipLabel {
+
+  color: #ffffff;
+
+  font-weight: 500;
+
+}
+
+
+
+.coreBandChipValue {
+
+  font-weight: 600;
+
+}
+
+
+
+/* ?? Process axis X (empty container) ?? */
+
+.processAxisRegion {
+
+  display: flex;
+
+  align-items: center;
+
+  min-height: 2.25rem;
+
+  padding: 6px 10px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: var(--eve-surface);
+
+}
+
+
+
+.processAxisEmpty {
+
+  margin: 0;
+
+  font-size: 11px;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.processAxis {
+
+  display: flex;
+
+  flex-wrap: nowrap;
+
+  gap: 6px;
+
+  overflow-x: auto;
+
+  padding: 2px 0 4px;
+
+  -webkit-overflow-scrolling: touch;
+
+  scrollbar-width: thin;
+
+}
+
+
+
+.processChip {
+
+  appearance: none;
+
+  flex-shrink: 0;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  background: var(--eve-surface);
+
+  color: var(--eve-text-primary);
+
+  border-radius: var(--eve-radius-pill);
+
+  padding: 5px 12px;
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  line-height: 1.3;
+
+}
+
+
+
+.processChipVisual {
+
+  flex-shrink: 0;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  background: var(--eve-surface);
+
+  color: var(--eve-text-secondary);
+
+  border-radius: var(--eve-radius-pill);
+
+  padding: 5px 12px;
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  font-family: inherit;
+
+  line-height: 1.3;
+
+}
+
+
+
+.manualBadge {
+
+  padding: 1px 5px;
+
+  border-radius: var(--eve-radius-pill);
+
+  background: #f5f5f5;
+
+  border: 1px solid var(--eve-border-soft);
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.03em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+/* ?? Support process axis (rector ?7 Eje X) ?? */
+
+.supportProcessAxis {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: var(--eve-surface);
+
+}
+
+
+
+.supportProcessAxisHeader {
+
+  display: flex;
+
+  align-items: baseline;
+
+  justify-content: space-between;
+
+  gap: 8px;
+
+}
+
+
+
+.supportProcessAxisTitle {
+
+  margin: 0;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.02em;
+
+  color: var(--eve-text-primary);
+
+}
+
+
+
+.supportProcessAxisState {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: 8px;
+
+}
+
+
+
+.supportProcessAxisTrack {
+
+  display: block;
+
+  overflow-x: auto;
+
+  overflow-y: hidden;
+
+  padding: 2px 0 6px;
+
+  -webkit-overflow-scrolling: touch;
+
+  scrollbar-width: thin;
+
+}
+
+
+
+.supportProcessAxisTrackInner {
+
+  display: flex;
+
+  flex-wrap: nowrap;
+
+  align-items: stretch;
+
+  gap: 8px;
+
+  width: max-content;
+
+  min-height: 44px;
+
+}
+
+
+
+.supportProcessItemWrap {
+
+  position: relative;
+
+  flex-shrink: 0;
+
+}
+
+
+
+.supportProcessChip {
+
+  appearance: none;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  max-width: 280px;
+
+  min-height: 44px;
+
+  height: 44px;
+
+  padding: 6px 10px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: var(--eve-surface);
+
+  color: var(--eve-text-primary);
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  line-height: 1.3;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  white-space: nowrap;
+
+}
+
+
+
+.supportProcessChip:focus-visible {
+
+  outline: 2px solid var(--eve-accent, #1f4e79);
+
+  outline-offset: 2px;
+
+}
+
+
+
+.supportProcessChipSelected {
+
+  border-color: var(--eve-accent, #1f4e79);
+
+  box-shadow: inset 0 0 0 1px var(--eve-accent, #1f4e79);
+
+  background: rgba(31, 78, 121, 0.06);
+
+}
+
+
+
+.supportProcessStatusDot {
+
+  flex-shrink: 0;
+
+  width: 8px;
+
+  height: 8px;
+
+  border-radius: 50%;
+
+  border: 1px solid var(--eve-border-standard);
+
+}
+
+
+
+.supportProcessStatusDotNeutral {
+
+  background: transparent;
+
+}
+
+
+
+.supportProcessStatusDotKnown {
+
+  background: var(--eve-text-secondary);
+
+}
+
+
+
+.supportProcessCode {
+
+  flex-shrink: 0;
+
+  font-weight: 700;
+
+  letter-spacing: 0.02em;
+
+}
+
+
+
+.supportProcessLabel {
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.supportProcessModeBadge,
+
+.supportProcessModeBadgeMixed {
+
+  flex-shrink: 0;
+
+  padding: 1px 5px;
+
+  border-radius: var(--eve-radius-pill);
+
+  border: 1px solid var(--eve-border-soft);
+
+  background: #f5f5f5;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.supportProcessModeBadgeMixed {
+
+  text-transform: none;
+
+  font-weight: 600;
+
+}
+
+
+
+.supportProcessAttention {
+
+  flex-shrink: 0;
+
+  min-width: 1.25rem;
+
+  padding: 1px 5px;
+
+  border-radius: var(--eve-radius-pill);
+
+  border: 1px solid var(--eve-border-soft);
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  text-align: center;
+
+}
+
+
+
+.supportProcessTooltip {
+
+  display: none;
+
+  position: absolute;
+
+  z-index: 20;
+
+  left: 0;
+
+  top: calc(100% + 4px);
+
+  width: min(320px, 80vw);
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: var(--eve-surface);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+}
+
+
+
+.supportProcessItemWrap:hover .supportProcessTooltip,
+
+.supportProcessItemWrap:focus-within .supportProcessTooltip {
+
+  display: block;
+
+}
+
+
+
+.supportProcessTooltipRow {
+
+  display: grid;
+
+  grid-template-columns: 9.5rem 1fr;
+
+  gap: 6px;
+
+  margin: 0 0 6px;
+
+  font-size: 11px;
+
+  line-height: 1.35;
+
+}
+
+
+
+.supportProcessTooltipRow:last-child {
+
+  margin-bottom: 0;
+
+}
+
+
+
+.supportProcessTooltipKey {
+
+  font-weight: 600;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.supportProcessSummary {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  min-width: 0;
+
+}
+
+
+
+.supportProcessSummaryCollapsed {
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-card);
+
+  background: var(--eve-surface);
+
+  box-shadow: var(--eve-shadow-card);
+
+  padding: 14px 16px;
+
+}
+
+
+
+.supportProcessSummaryCollapsed .supportProcessSummaryTitle {
+
+  margin: 0;
+
+}
+
+.supportProcessSummaryToggle {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  width: 100%;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--eve-text-primary);
+
+  cursor: pointer;
+
+  font: inherit;
+
+  padding: 0;
+
+  text-align: left;
+
+}
+
+.supportProcessSummaryToggle:focus-visible {
+
+  outline: 1px solid var(--eve-border-strong);
+
+  outline-offset: 2px;
+
+}
+
+.supportProcessSummaryContent {
+
+  display: grid;
+
+  gap: 12px;
+
+}
+
+
+
+.supportProcessSummaryTitle {
+
+  margin: 0;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+}
+
+
+
+.supportProcessSummaryMessage {
+
+  margin: 0;
+
+  font-size: 10px;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.supportProcessSummaryList {
+
+  margin: 0;
+
+  display: grid;
+
+  gap: 10px;
+
+}
+
+
+
+.supportProcessSummaryRow {
+
+  display: grid;
+
+  gap: 2px;
+
+  margin: 0;
+
+  font-size: 10px;
+
+}
+
+
+
+.supportProcessSummaryRow dt {
+
+  margin: 0;
+
+  font-weight: 600;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.supportProcessSummaryRow dd {
+
+  margin: 0;
+
+  font-size: 10px;
+
+  color: var(--eve-text-primary);
+
+}
+
+
+
+.supportProcessRetry {
+
+  appearance: none;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: var(--eve-surface);
+
+  padding: 4px 10px;
+
+  font-size: 11px;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+}
+
+
+
+@media (max-width: 900px) {
+
+  .supportProcessLabel {
+
+    max-width: 120px;
+
+  }
+
+
+
+  .supportProcessSummaryRow {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+
+  .supportProcessTooltipRow {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
+
+
+
+/* ?? Three-column matrix ?? */
+
+.matrix {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  min-height: 16rem;
+
+  flex: 1;
+
+}
+
+
+
+@media (min-width: 900px) {
+
+  .matrix {
+
+    display: grid;
+
+    grid-template-columns: minmax(7.5rem, 13%) minmax(0, 1fr) minmax(7.5rem, 13%);
+
+    align-items: stretch;
+
+    gap: 10px;
+
+  }
+
+}
+
+
+
+@media (min-width: 1100px) {
+
+  .matrix {
+
+    grid-template-columns: minmax(8.5rem, 9.75rem) minmax(0, 1fr) minmax(8.5rem, 9.75rem);
+
+  }
+
+}
+
+
+
+
+
+/* Experience mode ��15?17: no Y rail; workspace + Attention (2 columns). */
+
+.matrixExperience {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  min-height: 16rem;
+
+  flex: 1;
+
+}
+
+
+
+@media (min-width: 900px) {
+
+  .matrixExperience {
+
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) minmax(7.5rem, 13%);
+
+    align-items: stretch;
+
+    gap: 10px;
+
+  }
+
+}
+
+
+
+@media (min-width: 1100px) {
+
+  .matrixExperience {
+
+    grid-template-columns: minmax(0, 1fr) minmax(8.5rem, 9.75rem);
+
+  }
+
+}
+
+
+
+/* ?? Rail Y milestones ?? */
+
+.railY {
+
+  display: flex;
+
+  flex-direction: column;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-card);
+
+  background: var(--eve-surface);
+
+  box-shadow: var(--eve-shadow-card);
+
+  padding: 10px 8px;
+
+  min-height: 10rem;
+
+  min-width: 0;
+
+}
+
+
+
+.railYTitle {
+
+  margin: 0 0 10px;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.milestoneContextNote {
+
+  margin: 0 0 8px;
+
+  font-size: 10px;
+
+  line-height: 1.4;
+
+  color: var(--eve-text-secondary);
+
+}
+
+.milestoneItemButton {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  gap: 5px;
+  margin: 0;
+  padding: 4px 3px;
+  border: 1px solid transparent;
+  border-radius: var(--eve-radius-control);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.milestoneItemButton:hover,
+.milestoneItemButton:focus-visible {
+  border-color: var(--eve-border-standard);
+  background: #f8f8f8;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--eve-focus-ring);
+}
+
+.milestoneItemSelected {
+  border-color: var(--eve-accent);
+  background: #f3f3f3;
+}
+
+.milestoneItemBody {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+.milestoneItemCode {
+  color: var(--eve-text-secondary);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+}
+
+.milestoneItemLabel {
+  color: var(--eve-text-primary);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+.milestoneItemMeta {
+  color: var(--eve-text-secondary);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.milestoneIncompleteBadge,
+.milestoneCompleteWaitBadge {
+  display: inline-block;
+  width: fit-content;
+  margin-top: 2px;
+  padding: 1px 6px;
+  border-radius: var(--eve-radius-pill);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.milestoneIncompleteBadge {
+  border: 1px solid #b45309;
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.milestoneCompleteWaitBadge {
+  border: 1px solid #64748b;
+  background: #f8fafc;
+  color: #334155;
+}
+
+.milestoneIncompleteNote {
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #9a3412;
+}
+
+.milestoneDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.milestoneDetailList {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.milestoneDetailRow {
+  display: grid;
+  gap: 2px;
+}
+
+.milestoneDetailRow dt {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--eve-text-secondary);
+}
+
+.milestoneDetailRow dd {
+  margin: 0;
+  font-size: 10px;
+  color: var(--eve-text-primary);
+}
+
+.milestoneList {
+
+  list-style: none;
+
+  margin: 0;
+
+  padding: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+
+}
+
+
+
+.milestoneItem {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 6px;
+
+  font-size: 10px;
+
+  line-height: 1.35;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.milestoneItemCurrent {
+
+  color: var(--eve-text-primary);
+
+  font-weight: 600;
+
+}
+
+
+
+.milestoneItemCompleted {
+
+  color: var(--eve-accent);
+
+}
+
+
+
+.milestoneIndicator {
+
+  flex-shrink: 0;
+
+  width: 8px;
+
+  height: 8px;
+
+  margin-top: 2px;
+
+  border-radius: var(--eve-radius-pill);
+
+  border: 1.5px solid var(--eve-border-standard);
+
+  background: transparent;
+
+}
+
+
+
+.milestoneIndicatorCompleted {
+
+  border-color: var(--eve-accent);
+
+  background: var(--eve-accent);
+
+}
+
+
+
+.milestoneIndicatorCurrent {
+
+  border-color: var(--eve-accent);
+
+  background: transparent;
+
+  box-shadow: inset 0 0 0 2px var(--eve-accent);
+
+}
+
+
+
+.milestoneAlternatives {
+
+  margin-top: 12px;
+
+  padding-top: 10px;
+
+  border-top: 1px dashed var(--eve-border-standard);
+
+}
+
+
+
+.milestoneAlternativesLabel {
+
+  margin: 0 0 6px;
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-text-muted);
+
+}
+
+
+
+/* ?? Workspace central ?? */
+
+.workspace {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-card);
+
+  background: var(--eve-surface);
+
+  box-shadow: var(--eve-shadow-card);
+
+  padding: 14px 16px;
+
+  min-width: 0;
+
+  /* Cuerpo estándar = tama?o de .xyIntersectionMessage */
+  --eve-panel-text: 11px;
+  --eve-panel-text-sm: 10px;
+  --eve-panel-text-xs: 9px;
+  font-size: var(--eve-panel-text);
+  line-height: 1.45;
+
+}
+
+.workspaceMonitoringFlat {
+
+  gap: 16px;
+
+  border: 0;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  box-shadow: none;
+
+  padding: 0;
+
+}
+
+
+
+.workspaceTitle {
+
+  margin: 0;
+
+  font-size: var(--eve-panel-text);
+
+  font-weight: 600;
+
+  color: var(--eve-text-primary);
+
+}
+
+
+
+.workspaceSummary {
+
+  margin: 0;
+
+  font-size: var(--eve-panel-text-sm);
+
+  line-height: 1.45;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.workspaceEmptyState {
+
+  margin-top: 4px;
+
+  padding: 12px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: #fafafa;
+
+}
+
+
+
+.workspaceEmptyTitle {
+
+  margin: 0 0 6px;
+
+  font-size: var(--eve-panel-text);
+
+  font-weight: 600;
+
+  color: var(--eve-text-primary);
+
+}
+
+
+
+.workspaceEmptyMessage {
+
+  margin: 0;
+
+  font-size: var(--eve-panel-text-sm);
+
+  line-height: 1.45;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.userList {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-top: 4px;
+
+}
+
+
+
+.userRow {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: #fafafa;
+
+}
+
+
+
+.userRowSkeleton {
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: #fafafa;
+
+}
+
+
+
+.userRowMain {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+  min-width: 0;
+
+  flex: 1;
+
+}
+
+
+
+.detailButton {
+
+  appearance: none;
+
+  border: 1px solid var(--eve-border-soft);
+
+  background: var(--eve-surface);
+
+  color: var(--eve-accent);
+
+  border-radius: var(--eve-radius-control);
+
+  padding: 5px 10px;
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  white-space: nowrap;
+
+}
+
+
+
+.detailButton:disabled {
+
+  cursor: not-allowed;
+
+  color: #9ca0aa;
+
+  background: #fafafa;
+
+  border-color: var(--eve-border-standard);
+
+}
+
+
+
+.detailButton:focus-visible {
+
+  outline: none;
+
+  box-shadow: 0 0 0 3px var(--eve-focus-ring);
+
+}
+
+
+
+/* ?? Atenci?n y Gobernanza (contextual drawer) ?? */
+
+.contextDrawer {
+
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-card);
+
+  background: var(--eve-surface);
+
+  box-shadow: var(--eve-shadow-card);
+
+  min-width: 0;
+
+  min-height: 10rem;
+
+}
+
+
+
+.contextDrawerCollapsed {
+
+  padding: 10px 8px;
+
+  align-items: stretch;
+
+  justify-content: flex-start;
+
+  text-align: left;
+
+  overflow: hidden;
+
+}
+
+
+
+.contextDrawerExpanded {
+
+  padding: 10px 8px;
+
+  z-index: 3;
+
+}
+
+
+
+/* Collapsed Attention rail: same horizontal title pattern as Hitos Core (.railYTitle). */
+.contextDrawerCollapsedRail {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.contextDrawerCollapsedRail .railYTitle {
+  margin: 0 0 10px;
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  transform: none;
+  white-space: normal;
+}
+
+.contextDrawerCollapsedLabel {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--eve-text-secondary);
+}
+
+.contextDrawerCollapsedToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: 2rem;
+  padding: 8px 6px;
+  overflow: visible;
+  flex-shrink: 0;
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  transform: none;
+  white-space: normal;
+  text-align: center;
+}
+
+
+
+.contextDrawerHeader {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 8px;
+
+  margin-bottom: 10px;
+
+}
+
+
+
+.contextDrawerToggle {
+
+  appearance: none;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: #fafafa;
+
+  color: var(--eve-text-primary);
+
+  font-size: 10px;
+
+  font-weight: 500;
+
+  line-height: 1.3;
+
+  padding: 6px 8px;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  text-align: center;
+
+}
+
+
+
+.contextDrawerToggle:focus-visible {
+
+  outline: none;
+
+  box-shadow: 0 0 0 3px var(--eve-focus-ring);
+
+}
+
+
+
+.contextDrawerBody {
+
+  flex: 1;
+
+}
+
+
+
+.contextDrawerScrim {
+
+  position: fixed;
+
+  inset: 0;
+
+  border: 0;
+
+  background: rgba(16, 24, 40, 0.28);
+
+  z-index: 2;
+
+  cursor: pointer;
+
+}
+
+
+
+@media (max-width: 899px) {
+
+  .contextDrawerExpanded {
+
+    position: fixed;
+
+    top: auto;
+
+    right: 12px;
+
+    bottom: 12px;
+
+    left: 12px;
+
+    max-height: 45vh;
+
+    box-shadow: 0 16px 40px rgba(16, 24, 40, 0.18);
+
+  }
+
+}
+
+
+
+.attentionPanel {
+
+  display: flex;
+
+  flex-direction: column;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-card);
+
+  background: var(--eve-surface);
+
+  box-shadow: var(--eve-shadow-card);
+
+  padding: 10px 8px;
+
+  min-height: 10rem;
+
+  min-width: 0;
+
+}
+
+
+
+.attentionTitle {
+
+  margin: 0 0 10px;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.attentionEmptyState {
+
+  flex: 1;
+
+  padding: 10px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: #fafafa;
+
+}
+
+
+
+.attentionEmptyTitle {
+
+  margin: 0 0 6px;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  color: var(--eve-text-primary);
+
+}
+
+
+
+.attentionEmptyMessage {
+
+  margin: 0;
+
+  font-size: 10px;
+
+  line-height: 1.45;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.alertList {
+
+  list-style: none;
+
+  margin: 0;
+
+  padding: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  flex: 1;
+
+}
+
+
+
+.alertRow {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 6px;
+
+  padding: 6px 8px;
+
+  border: 1px solid var(--eve-border-standard);
+
+  border-radius: var(--eve-radius-control);
+
+  background: #fafafa;
+
+  font-size: 10px;
+
+  line-height: 1.35;
+
+}
+
+
+
+.alertSeverity {
+
+  flex-shrink: 0;
+
+  width: 6px;
+
+  height: 6px;
+
+  margin-top: 5px;
+
+  border-radius: var(--eve-radius-pill);
+
+  background: var(--eve-text-muted);
+
+}
+
+
+
+.alertSeverityWarning {
+
+  background: #d97706;
+
+}
+
+
+
+.alertSeverityInfo {
+
+  background: var(--eve-accent);
+
+}
+
+
+
+.alertLabel {
+
+  flex: 1;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.alertValueSkeleton {
+
+  display: block;
+
+  width: 60%;
+
+  height: 10px;
+
+  margin-top: 4px;
+
+  border-radius: 4px;
+
+  background: #e5e7eb;
+
+}
+
+
+
+.attentionActions {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-top: 10px;
+
+  padding-top: 10px;
+
+  border-top: 1px solid var(--eve-border-standard);
+
+}
+
+
+
+.alertAction {
+
+  appearance: none;
+
+  border: 1px solid var(--eve-border-standard);
+
+  background: var(--eve-surface);
+
+  color: var(--eve-text-primary);
+
+  border-radius: var(--eve-radius-control);
+
+  padding: 4px 8px;
+
+  font-size: 9px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+}
+
+
+
+.alertAction:disabled {
+
+  cursor: not-allowed;
+
+  color: #9ca0aa;
+
+  background: #fafafa;
+
+  border-color: var(--eve-border-standard);
+
+}
+
+
+
+/* ?? Footer t?cnico ?? */
+
+.statusBar {
+
+  margin-top: auto;
+
+  border-top: 1px solid var(--eve-border-standard);
+
+  padding-top: 10px;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px 16px;
+
+  font-size: 10px;
+
+  color: var(--eve-text-secondary);
+
+}
+
+
+
+.statusBarItem strong {
+
+  color: var(--eve-text-primary);
+
+  font-weight: 600;
+
+}
+
+
+
+/* ?? Loading / error / skeleton ?? */
+
+.skeletonBlock {
+
+  height: 12px;
+
+  border-radius: 4px;
+
+  background: #e5e7eb;
+
+  animation: pulse 1.5s ease-in-out infinite;
+
+}
+
+
+
+.skeletonTall {
+
+  height: 48px;
+
+}
+
+
+
+.skeletonMedium {
+
+  height: 28px;
+
+}
+
+
+
+@keyframes pulse {
+
+  0%,
+
+  100% {
+
+    opacity: 1;
+
+  }
+
+  50% {
+
+    opacity: 0.5;
+
+  }
+
+}
+
+
+
+.statePanel {
+
+  border: 1px solid var(--eve-border-standard);
+
+  background: var(--eve-surface);
+
+  border-radius: var(--eve-radius-card);
+
+  padding: 20px;
+
+  max-width: 36rem;
+
+  box-shadow: var(--eve-shadow-card);
+
+}
+
+
+
+.statePanel h2 {
+
+  margin: 0 0 8px;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+}
+
+
+
+.statePanel p {
+
+  margin: 0 0 12px;
+
+  color: var(--eve-text-secondary);
+
+  font-size: 10px;
+
+}
+
+
+
+.srOnly {
+
+  position: absolute;
+
+  width: 1px;
+
+  height: 1px;
+
+  padding: 0;
+
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+
+  border: 0;
+
+}
+
+
+
+/* -- R2B Personas participantes / perfiles -- */
+
+.monitoringStack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.monitoringOverview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(13rem, 32%);
+  align-items: start;
+  gap: 16px;
+}
+
+.monitoringMilestoneOverview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px 0;
+  --eve-panel-text: 10px;
+  --eve-panel-text-sm: 10px;
+  --eve-panel-text-xs: 9px;
+}
+
+.monitoringMilestoneOverview .workspaceTitle {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--eve-text-primary);
+}
+
+.monitoringMilestoneOverview .supportProcessSummaryTitle {
+  font-size: 10px;
+  line-height: 1.25;
+}
+
+.monitoringMilestoneOverview .milestoneDetailList {
+  gap: 10px;
+}
+
+.monitoringMilestoneOverview .milestoneDetailRow dt,
+.monitoringMilestoneOverview .milestoneDetailRow dd {
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+@media (max-width: 900px) {
+  .monitoringOverview {
+    grid-template-columns: 1fr;
+  }
+}
+
+.participantsPanel {
+  margin-top: 0;
+  padding: 12px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-card);
+  background: var(--eve-surface);
+  box-shadow: var(--eve-shadow-card);
+}
+
+.participantsPanelTitle {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--eve-text-secondary);
+}
+
+.monitoringDepthHint {
+  margin: 0 0 10px;
+  font-size: 10px;
+  color: var(--eve-text-secondary);
+}
+
+.monitoringUsersScroll {
+  overflow-x: auto;
+  margin-bottom: 12px;
+}
+
+.monitoringUsersTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.monitoringUsersTable th,
+.monitoringUsersTable td {
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--eve-border-soft);
+  vertical-align: top;
+}
+
+.monitoringUsersTable th {
+  font-weight: 600;
+  color: var(--eve-text-secondary);
+  white-space: nowrap;
+}
+
+.userIndicatorMatrixScroll {
+  overflow-x: auto;
+  margin-bottom: 12px;
+  background: transparent;
+}
+
+.userIndicatorMatrixTable {
+  width: 100%;
+  min-width: calc(286px + (20 * 96px));
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.userIndicatorMatrixTable th,
+.userIndicatorMatrixTable td {
+  padding: 5px 4px;
+  text-align: center;
+  border-bottom: 0;
+  vertical-align: middle;
+  background: transparent;
+}
+
+.userIndicatorMatrixMetricCol {
+  width: 230px;
+}
+
+.userIndicatorMatrixTotalCol {
+  width: 56px;
+}
+
+.userIndicatorMatrixUserCol {
+  width: 96px;
+}
+
+.userIndicatorMatrixMetric {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  width: 230px;
+  text-align: left !important;
+  font-weight: 700;
+  color: var(--eve-text-secondary);
+  box-shadow: none;
+}
+
+.userIndicatorMatrixTotal {
+  position: sticky;
+  left: 230px;
+  z-index: 2;
+  width: 56px;
+  font-weight: 700;
+  color: var(--eve-text-primary);
+  box-shadow: none;
+}
+
+.userIndicatorMatrixNameCell {
+  min-width: 0;
+}
+
+.userIndicatorMatrixName {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  font: inherit;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--eve-text-primary);
+  text-align: center;
+  text-decoration: none;
+}
+
+.userIndicatorMatrixName span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userIndicatorMatrixName[aria-current="true"] {
+  color: var(--eve-accent);
+}
+
+.userIndicatorMatrixValue {
+  font-weight: 700;
+  color: var(--eve-text-primary);
+  white-space: nowrap;
+}
+
+.userIndicatorStatusDot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+.userIndicatorStatusDotPositive {
+  background: #2f8f46;
+}
+
+.userIndicatorStatusDotNegative {
+  background: #c83a32;
+}
+
+.monitoringUserRowSelected {
+  background: #f3f3f3;
+}
+
+.monitoringUserSelect {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--eve-text-primary);
+  text-align: left;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.monitoringUserSelect:focus-visible {
+  outline: 2px solid var(--eve-accent);
+  outline-offset: 2px;
+}
+
+.monitoringRoleMeta {
+  margin: 8px 0 0;
+  display: grid;
+  gap: 4px;
+  font-size: 10px;
+  text-align: left;
+}
+
+.monitoringRoleMeta div {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 6px;
+}
+
+.monitoringRoleMeta dt {
+  margin: 0;
+  color: var(--eve-text-secondary);
+  font-weight: 600;
+}
+
+.monitoringRoleMeta dd {
+  margin: 0;
+  color: var(--eve-text-primary);
+}
+
+.monitoringActivitiesPanel {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: #fafafa;
+}
+
+.monitoringActivitiesTitle {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--eve-text-primary);
+}
+
+.monitoringActivitiesScroll {
+  max-height: min(720px, calc(2.2rem + (4.85rem * 10)));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.monitoringActivitiesScroll .monitoringUsersTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #fafafa;
+}
+
+.monitoringSessionSelectWrap {
+  display: grid;
+  gap: 4px;
+  margin: 0 0 10px;
+  max-width: 20rem;
+}
+
+.monitoringSessionLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--eve-text-secondary);
+}
+
+.monitoringSessionSelect {
+  font-size: 11px;
+  padding: 4px 8px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: #fff;
+}
+
+.activitySelectionPanel {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: #fafafa;
+}
+
+.activitySelectionTitle {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--eve-text-primary);
+}
+
+.activitySelectionGroup {
+  margin-top: 10px;
+}
+
+.activitySelectionGroupTitle {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--eve-text-secondary);
+}
+
+.activityConformanceOverlay {
+  inset: 0;
+  position: fixed;
+  z-index: 1200;
+}
+
+.activityConformanceBackdrop {
+  background: rgba(17, 24, 39, 0.38);
+  border: 0;
+  cursor: pointer;
+  height: 100%;
+  inset: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.activityConformanceDrawer {
+  background: #fff;
+  border-left: 1px solid var(--eve-border-standard);
+  box-shadow: -18px 0 36px rgba(15, 23, 42, 0.22);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 980px;
+  min-width: 560px;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: min(68vw, 980px);
+  z-index: 1201;
+}
+
+.activityConformanceDrawer:focus {
+  outline: none;
+}
+
+.activityConformanceDrawerHeader {
+  align-items: flex-start;
+  background: #fff;
+  border-bottom: 1px solid var(--eve-border-standard);
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.activityConformanceDrawerBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 28px;
+}
+
+.workspaceSubnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 10px;
+}
+
+.workspaceSubnavButton {
+  background: #fff;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  color: var(--eve-text-secondary);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 7px;
+}
+
+.workspaceSubnavButton[aria-selected="true"] {
+  background: var(--eve-surface-raised, #f3f4f6);
+  border-color: var(--eve-text-secondary);
+  color: var(--eve-text-primary);
+}
+
+.workspaceSubnavButton:focus-visible,
+.workspaceSubnavButton:hover {
+  border-color: var(--eve-text-secondary);
+  color: var(--eve-text-primary);
+}
+
+.activitySelectionList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+
+.activitySelectionItem,
+.activitySelectionItemStatic {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  width: 100%;
+  text-align: left;
+  padding: 6px 8px;
+  border: 1px solid var(--eve-border-soft, #e5e7eb);
+  border-radius: var(--eve-radius-control);
+  background: #fff;
+  font: inherit;
+  color: inherit;
+}
+
+.activitySelectionItem {
+  cursor: pointer;
+}
+
+.activitySelectionItemSelected {
+  outline: 2px solid var(--eve-accent, #1d4ed8);
+  outline-offset: -2px;
+}
+
+.activitySelectionLabel {
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.activitySelectionMeta {
+  font-size: 10px;
+  color: var(--eve-text-secondary);
+}
+
+.runtimeRunSummary {
+  margin: 0 0 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.runtimeRunSummary > div {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.runtimeRunSummary dt {
+  margin: 0;
+  color: var(--eve-text-secondary);
+  font-weight: 600;
+}
+
+.runtimeRunSummary dd {
+  margin: 0;
+}
+
+.activityRuntimePanel {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: #fafafa;
+}
+
+.activityRuntimeTitle {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--eve-text-primary);
+}
+
+.activityRuntimeBlocksHeading {
+  margin: 12px 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--eve-text-primary);
+}
+
+.activityRuntimeBlocksGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr));
+  gap: 8px;
+}
+
+.activityRuntimeBlockCard {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: var(--eve-surface);
+}
+
+.activityRuntimeBlockCard[aria-disabled="true"] {
+  opacity: 0.92;
+}
+
+.activityRuntimeBlockHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.activityRuntimeBlockCode {
+  font-size: 11px;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.activityRuntimeCriticalBadge {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-pill);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--eve-text-secondary);
+  background: #f3f4f6;
+}
+
+.activityRuntimeBlockLabel {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--eve-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.activityRuntimeBlockMeta {
+  margin: 4px 0 0;
+  display: grid;
+  gap: 2px;
+}
+
+.activityRuntimeBlockMeta > div {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 4px;
+  font-size: 10px;
+}
+
+.activityRuntimeBlockMeta dt {
+  margin: 0;
+  color: var(--eve-text-secondary);
+  font-weight: 600;
+}
+
+.activityRuntimeBlockMeta dd {
+  margin: 0;
+  color: var(--eve-text-primary);
+}
+
+@media (max-width: 899px) {
+  .activityConformanceDrawer {
+    min-width: 0;
+    width: 100vw;
+  }
+
+  .activityConformanceDrawerHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .activityRuntimeBlocksGrid {
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  }
+
+  .runtimeRunSummary > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .activityRuntimeBlocksGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.participantsPartialNote {
+  margin: 0 0 10px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--eve-text-secondary);
+}
+
+.participantList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.participantItem {
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: var(--eve-surface);
+}
+
+.participantToggle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+
+.participantToggle:focus-visible {
+  outline: 2px solid var(--eve-focus, #1d4ed8);
+  outline-offset: 2px;
+}
+
+.participantLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.participantKind {
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--eve-text-secondary);
+}
+
+.participantName {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--eve-text-primary);
+}
+
+.participantMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: var(--eve-text-secondary);
+}
+
+.participantAssignment {
+  font-weight: 500;
+  color: var(--eve-text-primary);
+}
+
+.participantChevron {
+  font-size: 11px;
+}
+
+.participantProfilesRegion {
+  border-top: 1px solid var(--eve-border-standard);
+  padding: 8px 12px 10px;
+}
+
+.participantProfilesStatus,
+.participantProfilesEmpty {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--eve-text-secondary);
+}
+
+.participantProfilesEmptyTitle {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--eve-text-primary);
+}
+
+.profileList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.profileItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: 100%;
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: #fafafa;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+
+.profileItem:focus-visible {
+  outline: 2px solid var(--eve-focus, #1d4ed8);
+  outline-offset: 2px;
+}
+
+.profileItemSelected {
+  border-color: var(--eve-text-primary);
+  background: #f3f4f6;
+  box-shadow: inset 3px 0 0 var(--eve-text-primary);
+}
+
+.profileKind {
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--eve-text-secondary);
+}
+
+.profileName {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--eve-text-primary);
+}
+
+.profileStatus {
+  font-size: 11px;
+  color: var(--eve-text-secondary);
+}
+
+.profileReviewHint {
+  font-weight: 600;
+  color: var(--eve-text-primary);
+}
+
+.participantDetail {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: #fafafa;
+}
+
+.participantDetailTitle {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--eve-text-primary);
+}
+
+.participantDetailList {
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.participantDetailList div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 40%) 1fr;
+  gap: 8px;
+  font-size: 10px;
+}
+
+.participantDetailList dt {
+  margin: 0;
+  color: var(--eve-text-secondary);
+}
+
+.participantDetailList dd {
+  margin: 0;
+  color: var(--eve-text-primary);
+}
+
+.participantRetry {
+  margin-top: 10px;
+  padding: 6px 10px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: var(--eve-surface);
+  cursor: pointer;
+  font-size: 11px;
+}
+
+@media (max-width: 899px) {
+  .participantToggle {
+    flex-direction: column;
+  }
+
+  .participantDetailList div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+/* ?? Rector ?9 X/Y intersection + matrix ?? */
+
+.xyIntersectionPanel {
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-card);
+  background: var(--eve-surface);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.xyIntersectionMessage {
+  margin: 10px 0 0;
+  font-size: 10px;
+  line-height: 1.45;
+  color: var(--eve-text-primary);
+}
+
+.xyRelationBadge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: var(--eve-radius-pill);
+  border: 1px solid var(--eve-border-standard);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.xyMatrixSection {
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-card);
+  background: var(--eve-surface);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.monitoringXyRow .xyMatrixSection {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.monitoringXyRow .xyMatrixScroll {
+  flex: 1;
+}
+
+.xyMatrixNote {
+  margin: 0 0 10px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--eve-text-secondary);
+}
+
+.xyMatrixScroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.xyMatrixTable {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.xyMatrixTable th,
+.xyMatrixTable td {
+  border: 1px solid var(--eve-border-standard);
+  padding: 6px 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.xyMatrixTable th[scope="row"] {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: var(--eve-surface);
+  z-index: 1;
+  min-width: 11rem;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+.xyMatrixTable thead th {
+  position: sticky;
+  top: 0;
+  background: #f8f8f8;
+  font-weight: 600;
+}
+
+.xyMatrixRowLabel {
+  display: block;
+  font-weight: 600;
+}
+
+.xyMatrixBorderBadge {
+  display: block;
+  margin-top: 2px;
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--eve-text-secondary);
+}
+
+.xyMatrixBorderRow th,
+.xyMatrixBorderRow td {
+  background: #fafafa;
+}
+
+.xyMatrixRowSelected th,
+.xyMatrixRowSelected td {
+  background: #f3f3f3;
+}
+
+.xyMatrixColSelected {
+  background: #f3f3f3;
+}
+
+.xyMatrixCellSelected {
+  outline: 2px solid var(--eve-accent);
+  outline-offset: -2px;
+  font-weight: 700;
+  background: #ebebeb;
+}
+
+.xyMatrixLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 10px;
+  color: var(--eve-text-secondary);
+}
+
+.railY {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.milestoneItemButton {
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+/* P12-B Runtime matrices Base 40 / Causal 20 */
+.runtimeMatrixPanel {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+  background: #fff;
+}
+
+.runtimeMatrixTabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.runtimeMatrixTab,
+.runtimeMatrixTabSelected {
+  border: 1px solid var(--eve-border-standard);
+  background: #f7f7f2;
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: var(--eve-radius-control);
+  cursor: pointer;
+}
+
+.runtimeMatrixTabSelected {
+  background: #ebebeb;
+  font-weight: 600;
+}
+
+.runtimeMatrixFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+
+.runtimeMatrixFilters label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.runtimeMatrixFilters select,
+.runtimeMatrixFilters input {
+  min-width: 160px;
+  font-size: 11px;
+  padding: 4px 8px;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+}
+
+.runtimeMatrixScroll {
+  overflow: auto;
+  max-height: 420px;
+  border: 1px solid var(--eve-border-standard);
+}
+
+.runtimeMatrixTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.runtimeMatrixTable th,
+.runtimeMatrixTable td {
+  border-bottom: 1px solid var(--eve-border-standard);
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.runtimeMatrixTable th {
+  position: sticky;
+  top: 0;
+  background: #f4f4f0;
+  z-index: 1;
+}
+
+.runtimeMatrixRowSelected {
+  background: #ebebeb;
+}
+
+.runtimeMatrixRowSelect {
+  border: none;
+  background: transparent;
+  color: var(--eve-text-primary);
+  font-size: 11px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.runtimeMatrixCount {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--eve-text-secondary);
+}
+
+.runtimeGateFooter {
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  border: 1px solid var(--eve-border-standard);
+  background: #fafafa;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.runtimeEvidenceDrawer {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--eve-border-standard);
+  background: #f7f7f2;
+}
+
+.runtimeEvidenceDrawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.runtimeEvidenceDrawerHeader h5 {
+  margin: 0;
+  font-size: 11px;
+}
+
+.runtimeMatrixDetailList {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.runtimeMatrixDetailList dt {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--eve-text-secondary);
+}
+
+.runtimeMatrixDetailList dd {
+  margin: 2px 0 0;
+  font-size: 11px;
+}
+
+.runtimeMatrixDualCell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 18rem;
+}
+
+.runtimeMatrixDualRule,
+.runtimeMatrixDualFact {
+  display: block;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.runtimeMatrixDualRule {
+  color: #5c5c5c;
+}
+
+.runtimeMatrixDualFact {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+/* P12 Entrega C ? footer operativo y señales de control */
+.runtimeAdvanceFooter {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid #d4d4d4;
+  background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%);
+}
+
+.runtimeAdvanceFooterTitle {
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5c5c5c;
+}
+
+.runtimeAdvanceFooterValue {
+  margin: 0.25rem 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.runtimeAdvanceFooterMessage {
+  margin: 0.35rem 0 0;
+  font-size: 10px;
+  color: #5c5c5c;
+}
+
+.runtimeControlBadges {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.runtimeControlBadges li {
+  font-size: 9px;
+  line-height: 1.2;
+  padding: 0.15rem 0.35rem;
+  border: 1px solid #c8c8c8;
+  background: #fff;
+  color: #333;
+}
+
+.attentionControlState {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.attentionControlGroupTitle {
+  margin: 0 0 0.25rem;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.attentionControlList {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 10px;
+}
+
+/* ?13 Manual process tracking (Seguimiento) */
+.manualWorkPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.manualWorkTitle {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.manualWorkIntro {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.45;
+  color: #4a4a4a;
+}
+
+.manualProcessGroup {
+  border: 1px solid #d4d4d0;
+  background: #fff;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.manualProcessHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.manualProcessCode {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.manualProcessLabel {
+  margin: 0;
+  font-size: 10px;
+  color: #555;
+}
+
+.manualWorkEmpty,
+.manualWorkPartial,
+.manualWorkError {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.manualWorkPartial {
+  color: #7a5b00;
+}
+
+.manualWorkError {
+  border: 1px solid #d4a5a5;
+  background: #fbf2f2;
+  padding: 0.75rem;
+}
+
+/* R3 — screen-state notices (non-technical) */
+.panelNotice {
+  margin: 0 0 0.75rem;
+  font-size: 10px;
+  line-height: 1.45;
+  color: var(--eve-text-secondary, #555);
+}
+
+.panelNoticeMeta {
+  color: var(--eve-text-muted, #777);
+}
+
+.panelNoticePartial {
+  margin: 0 0 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #d9c48a;
+  background: #fbf7eb;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+}
+
+.panelNoticeStale {
+  margin: 0 0 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #c9a06c;
+  background: #faf4ec;
+  font-size: 10px;
+  line-height: 1.45;
+  color: #5c3d12;
+}
+
+.panelSectionSkeleton {
+  min-height: 4rem;
+  padding: 0.75rem 0;
+}
+
+.manualWorkItem {
+  border-top: 1px solid #e6e6e0;
+  padding-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.manualWorkFacts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.5rem 0.75rem;
+  margin: 0;
+}
+
+.manualWorkFact dt {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #666;
+}
+
+.manualWorkFact dd {
+  margin: 0.1rem 0 0;
+  font-size: 10px;
+}
+
+.manualOverdueAlert {
+  border: 1px solid #c9893a;
+  background: #fff7ed;
+  padding: 0.65rem 0.75rem;
+}
+
+.manualOverdueTitle {
+  margin: 0 0 0.35rem;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.manualOverdueDetails {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 10px;
+}
+
+.manualActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.manualActionButton {
+  font-size: 10px;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid #c8c8c8;
+  background: #f3f3f0;
+  color: #777;
+  cursor: not-allowed;
+}
+
+.manualActionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.manualActionControl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 16rem;
+}
+
+.manualActionReason {
+  font-size: 0.8rem;
+  color: #5c5c5c;
+}
+
+.manualTimelineTitle {
+  margin: 0 0 0.35rem;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.manualTimelineList {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.manualAttentionActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.manualAttentionActions button {
+  font-size: 9px;
+  padding: 0.25rem 0.45rem;
+  border: 1px solid #c8c8c8;
+  background: #f3f3f0;
+  color: #777;
+  cursor: not-allowed;
+}
+
+/* ??15?17 Experience governance */
+.experienceMode {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.experienceTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.experienceMatrixWrap {
+  overflow-x: auto;
+}
+
+.experienceMatrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+
+.experienceMatrix th,
+.experienceMatrix td {
+  border: 1px solid var(--eve-border-standard);
+  padding: 0.35rem 0.4rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.experienceSupportList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.experienceSupportItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: flex-start;
+  border: 1px solid var(--eve-border-soft);
+  border-radius: var(--eve-radius-control);
+  padding: 0.65rem 0.75rem;
+}
+
+.experienceHealthGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.65rem;
+}
+
+.experienceHealthCard {
+  border: 1px solid var(--eve-border-soft);
+  border-radius: var(--eve-radius-control);
+  padding: 0.65rem;
+}
+
+.experienceActionDrawer {
+  margin-top: 0.75rem;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-card);
+  padding: 0.75rem;
+  background: var(--eve-surface);
+}
+
+.experienceField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.55rem;
+  font-size: 10px;
+}
+
+.experienceField input,
+.experienceField select {
+  padding: 0.35rem 0.45rem;
+  border: 1px solid var(--eve-border-standard);
+  border-radius: var(--eve-radius-control);
+}
+
+.attentionAlertActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+/* R3 — mobile viewport 390×844: no global horizontal overflow */
+@media (max-width: 430px) {
+  .shell {
+    overflow-x: clip;
+    max-width: 100vw;
+  }
+
+  .appShell {
+    margin: 8px;
+    width: calc(100% - 16px);
+    max-width: calc(100% - 16px);
+    box-sizing: border-box;
+    min-height: calc(100vh - 16px);
+  }
+
+  .kpiStrip {
+    flex-wrap: wrap;
+    overflow-x: hidden;
+  }
+
+  .kpiItem {
+    flex: 1 1 calc(50% - 1px);
+    min-width: min(100%, 9rem);
+    border-left: 0;
+  }
+
+  .kpiItem + .kpiItem {
+    border-left: 0;
+    border-top: 1px solid var(--eve-border-standard);
+  }
+
+  .kpiItem:nth-child(-n + 2) {
+    border-top: 0;
+  }
+
+  .modeBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modeBarDivider {
+    width: 100%;
+    min-height: 1px;
+    height: 1px;
+  }
+
+  .modeGroup,
+  .subviewGroup {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+
+  .chipButton,
+  .secondaryButton,
+  .retryButton {
+    white-space: normal;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .contextSelectorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .panelNoticePartial,
+  .panelNoticeStale,
+  .panelNotice {
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+  }
+
+  .contextDrawer,
+  .attentionPanel {
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .contextDrawerCollapsed {
+    overflow: visible;
+  }
+
+  .contextDrawerCollapsedRail {
+    overflow: visible;
+  }
+
+  .contextDrawerCollapsedToggle {
+    overflow: visible;
+  }
+
+  /* Collapsed Attention rail stays horizontal (parity with Hitos Core). */
+  .contextDrawerCollapsedRail .railYTitle,
+  .contextDrawerCollapsedToggle {
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    transform: none !important;
+    white-space: normal !important;
+  }
+
+  .supportProcessStrip,
+  .processTabs,
+  .axisTabs {
+    max-width: 100%;
+  }
+}
+

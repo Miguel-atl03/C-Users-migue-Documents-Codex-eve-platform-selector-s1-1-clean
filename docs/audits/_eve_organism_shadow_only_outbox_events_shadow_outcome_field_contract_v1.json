@@ -1,0 +1,53 @@
+{
+  "field_contract_id": "SHADOW_ONLY_OUTBOX_EVENTS_SHADOW_OUTCOME_FIELD_CONTRACT_V1",
+  "field_name": "shadow_outcome",
+  "type_recommendation": "jsonb",
+  "semantic_definition": "Exact non-productive shadow evaluation outcome used for comparison against official_outcome.",
+  "minimal_structured_contract": {
+    "status": "equal|divergent|missing|blocked|not_comparable",
+    "decision": "string",
+    "reason": "string",
+    "evaluated_at": "timestamp",
+    "producer": "EVE_SHADOW_NON_PRODUCTIVE",
+    "schema_version": "1.0",
+    "evidence_refs": [],
+    "no_go_flags": []
+  },
+  "required_metadata_fields": [
+    "shadow_outcome_provenance",
+    "shadow_outcome_schema_version",
+    "shadow_outcome_generated_at",
+    "shadow_outcome_producer",
+    "shadow_outcome_checksum"
+  ],
+  "optional_recommended_fields": [
+    "shadow_outcome_evidence_refs",
+    "shadow_outcome_no_go_flags",
+    "shadow_outcome_readiness",
+    "shadow_outcome_source_ref"
+  ],
+  "prohibited_sources": [
+    "official_outcome",
+    "payload",
+    "registry",
+    "export",
+    "diagnosis",
+    "UI cliente",
+    "Gate 3",
+    "Fase 9",
+    "runtime productivo"
+  ],
+  "allowed_producer": "EVE_SHADOW_NON_PRODUCTIVE",
+  "checksum_required": true,
+  "provenance_required": true,
+  "schema_version_required": true,
+  "generated_at_required": true,
+  "comparable_record_rule": "shadow_outcome must be non-null when official_outcome exists and the record is declared comparable.",
+  "mapping_to_bridge_reader": {
+    "source_field": "shadow_only_outbox_events.shadow_outcome",
+    "target_field": "ShadowOnlyOutboxEventRecord.shadowOutcome",
+    "future_mapping_quality": "direct_after_future_migration",
+    "current_mapping_quality": "not_found",
+    "adapter_implementation_unblocked_now": false
+  }
+}

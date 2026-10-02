@@ -1,0 +1,63 @@
+{
+  "instruction": "045-R3A-R",
+  "date": "2026-08-10",
+  "classification": "blocked_staging_app_deployment_boundary",
+  "backend_staging_classification": "gaby_runtime_full_frontdoor_conformant_backend_staging",
+  "staging_project_ref": "shrpiwkxcdgvbqymjecx",
+  "active_catalog": {
+    "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+    "status": "active"
+  },
+  "new_real_role_session": {
+    "role_runtime_session_id": "567203ea-77b9-4b76-af63-88abdea908b2",
+    "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+    "bound_to_active_catalog": true,
+    "catalog_selected_server_side": true,
+    "catalog_selection_rule": "single_active_catalog",
+    "real_frontdoor": true,
+    "synthetic_case_token": false
+  },
+  "new_real_run": {
+    "created_by_workmap_finalize": false,
+    "catalog_version_id": null,
+    "blocker": "application/front-door deployment was not available from this chat; no UI/app roundtrip claimed"
+  },
+  "historical_B0_runs_modified": 0,
+  "b0_run_count_before": 8,
+  "b0_run_count_after": 8,
+  "full_run_count_before": 30,
+  "full_run_count_after": 30,
+  "tests": {
+    "focal": "PASS node tests/regression/consultant-control-panel/runtime-40-20-gaby-full-frontdoor-045R3AR.test.mjs",
+    "typecheck": "PASS npm.cmd run typecheck",
+    "build": "PASS npm run build",
+    "lint_focal": "PASS npx eslint delta files",
+    "diff_check": "PASS with CRLF warning only"
+  },
+  "security": {
+    "staging_consulted": "yes",
+    "staging_writes": "RPC function redeployed; one controlled role_runtime_session created through governed RPC",
+    "production_consulted": "no",
+    "remote_writes": "staging only",
+    "catalog_activated": "no",
+    "B0_modified": "no",
+    "B1_modified": "no",
+    "Gaby_modified": "no",
+    "commit_created": "no"
+  },
+  "remaining_blockers": [
+    "blocked_staging_app_deployment_boundary",
+    "blocked_gaby_renderer_frontdoor",
+    "blocked_gaby_opaque_binding",
+    "blocked_client_bff_security",
+    "blocked_gaby_runtime_answer_adapter"
+  ],
+  "delta_files": [
+    "src/app/api/participant/workmap/finalize/route.ts",
+    "supabase/migrations/20260810153000_eve_runtime_40_20_gaby_full_frontdoor_catalog_binding_045R3AR.sql",
+    "docs/eve/runtime/materialized/runtime-40-20-R3AR-catalog-binding-rollback.sql",
+    "docs/eve/runtime/materialized/runtime-40-20-R3AR-catalog-binding-verify.sql",
+    "tests/regression/consultant-control-panel/runtime-40-20-gaby-full-frontdoor-045R3AR.test.mjs"
+  ],
+  "scope": "real renderer frontdoor blocked until app route deployment"
+}

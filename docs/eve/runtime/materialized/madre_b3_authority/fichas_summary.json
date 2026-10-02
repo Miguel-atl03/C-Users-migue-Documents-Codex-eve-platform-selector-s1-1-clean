@@ -1,0 +1,173 @@
+[
+  {
+    "code": "3.1",
+    "label": "Qué entregas",
+    "type": "free_text",
+    "vis": "Siempre visible al iniciar el bloque.",
+    "depends": "N/A",
+    "generated": "N/A",
+    "q": "¿Qué es exactamente lo que entregas o pones a disposición de otro al terminar?"
+  },
+  {
+    "code": "3.2",
+    "label": "Receptor inmediato",
+    "type": "single_choice",
+    "vis": "Siempre visible después de 3.1.",
+    "depends": "N/A",
+    "generated": "N/A",
+    "q": "¿Quién es la persona, equipo o sistema que recibe directamente lo que entregas?"
+  },
+  {
+    "code": "3.3",
+    "label": "Tipo de receptor",
+    "type": "single_choice",
+    "vis": "Siempre visible después de 3.2.",
+    "depends": "N/A",
+    "generated": "N/A",
+    "q": "¿Cuál es la naturaleza del receptor?"
+  },
+  {
+    "code": "3.4",
+    "label": "Dependencia del receptor",
+    "type": "single_choice",
+    "vis": "Siempre visible.",
+    "depends": "3.2 y 3.3 como contexto",
+    "generated": "N/A",
+    "q": "Si el receptor no recibe esto a tiempo, ¿qué pasa normalmente con su trabajo?"
+  },
+  {
+    "code": "3.5",
+    "label": "Siguiente paso del receptor",
+    "type": "free_text",
+    "vis": "Siempre visible.",
+    "depends": "3.1 y 3.2 como contexto",
+    "generated": "N/A",
+    "q": "¿Qué hace el receptor con lo que le entregas? ¿Cuál es su siguiente paso?"
+  },
+  {
+    "code": "3.6",
+    "label": "Receptores secundarios",
+    "type": "multi_choice",
+    "vis": "Siempre visible.",
+    "depends": "N/A",
+    "generated": "N/A",
+    "q": "¿Hay otros actores que también reciben o necesitan acceso a lo que entregas?"
+  },
+  {
+    "code": "3.7",
+    "label": "Criterios de calidad",
+    "type": "multi_choice",
+    "vis": "Siempre visible.",
+    "depends": "3.1 y 3.2 como contexto",
+    "generated": "N/A",
+    "q": "¿Qué criterios o estándares debe cumplir lo que entregas para que el receptor esté satisfe"
+  },
+  {
+    "code": "3.8",
+    "label": "Mecanismo de entrega",
+    "type": "single_choice",
+    "vis": "Siempre visible.",
+    "depends": "N/A",
+    "generated": "N/A",
+    "q": "¿Cómo entregas lo que haces? ¿Por qué medio?"
+  },
+  {
+    "code": "3.9",
+    "label": "Frecuencia de entrega",
+    "type": "single_choice",
+    "vis": "Siempre visible.",
+    "depends": "N/A",
+    "generated": "N/A",
+    "q": "¿Con qué frecuencia entregas esto?"
+  },
+  {
+    "code": "3.10",
+    "label": "Fallas de entrega",
+    "type": "single_choice",
+    "vis": "Siempre visible.",
+    "depends": "N/A",
+    "generated": "N/A",
+    "q": "¿Hay momentos en que lo que entregas no cumple lo esperado o no llega al receptor?"
+  },
+  {
+    "code": "3.11",
+    "label": "Tipo de problema",
+    "type": "single_choice",
+    "vis": "Solo visible si 3.10 indica falla.",
+    "depends": "3.10 indica falla",
+    "generated": "N/A",
+    "q": "Si respondiste \"Sí\" en la pregunta anterior, ¿cuál es el problema típico?"
+  },
+  {
+    "code": "3.12",
+    "label": "Impacto de la falla",
+    "type": "free_text",
+    "vis": "Solo visible si 3.10 indica falla.",
+    "depends": "3.10 indica falla",
+    "generated": "N/A",
+    "q": "Cuando esto ocurre, ¿cuál es el impacto en el receptor? ¿Qué tiene que hacer para compensa"
+  },
+  {
+    "code": "3.13",
+    "label": "Aceptación del receptor",
+    "type": "single_choice",
+    "vis": "Siempre visible.",
+    "depends": "N/A",
+    "generated": "N/A",
+    "q": "En general, cuando entregas esto, ¿el receptor lo acepta, pide ajustes menores, solicita c"
+  },
+  {
+    "code": "3.13a",
+    "label": "Aviso operativo del receptor",
+    "type": "free_text",
+    "vis": "Visible si 3.10 indica que la entrega falla, llega incompleta, llega tarde, llega duplicada, no cumple criterios, genera corrección o requiere compensación del receptor. También visible si 3.13 contiene una señal de rechazo/devolución/corrección que no puede quedar absorbida por receiver_satisfaction.",
+    "depends": "3.10; 3.13 cuando la aceptación declarada contiene rechazo, devolución o corrección visible",
+    "generated": "N/A",
+    "q": "Cuando lo que entregas llega incompleto, duplicado, tarde, con error o no coincide con lo "
+  },
+  {
+    "code": "3.14",
+    "label": "Cambios recientes",
+    "type": "single_choice",
+    "vis": "Siempre visible al cierre del bloque.",
+    "depends": "N/A",
+    "generated": "N/A",
+    "q": "¿Ha cambiado algo recientemente en cómo entregas, a quién entregas o qué criterios se espe"
+  },
+  {
+    "code": "3.A",
+    "label": "Aclarar receptor inmediato",
+    "type": "clarification",
+    "vis": "Solo por flag.",
+    "depends": "Flag en 3.2 o contradicción con 3.3/3.6",
+    "generated": "Se genera desde respuestas previas",
+    "q": "Mencionaste un receptor inmediato, pero todavía no queda claro quién recibe primero ni qui"
+  },
+  {
+    "code": "3.B",
+    "label": "Aclarar calidad esperada",
+    "type": "clarification",
+    "vis": "Solo por flag.",
+    "depends": "Flag en 3.7 o inconsistencia con 3.13",
+    "generated": "Se genera desde respuestas previas",
+    "q": "Los criterios de calidad todavía se oyen muy generales. ¿Qué tendría que faltar o salir ma"
+  },
+  {
+    "code": "3.C",
+    "label": "Aclarar compensación del receptor",
+    "type": "clarification",
+    "vis": "Solo por flag.",
+    "depends": "Flag en 3.10–3.12",
+    "generated": "Se genera desde respuestas previas",
+    "q": "Ya sabemos que la entrega falla a veces, pero todavía no se entiende bien qué se rompe ni "
+  },
+  {
+    "code": "3.D",
+    "label": "Aclarar aviso del receptor",
+    "type": "free_text",
+    "vis": "Visible si 3.10 indica falla de entrega y 3.13a está vacía, genérica o responde solo satisfacción/insatisfacción sin indicar si el receptor avisa, devuelve, corrige, bloquea, recontacta o pide cambio.",
+    "depends": "3.13a",
+    "generated": "receiver_feedback_gap_flag",
+    "q": "¿El receptor solo queda insatisfecho o además avisa, rechaza, devuelve, corrige, pide camb"
+  }
+]

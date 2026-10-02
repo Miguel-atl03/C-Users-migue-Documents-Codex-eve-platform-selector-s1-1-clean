@@ -1,0 +1,578 @@
+{
+  "version": "FULL_V03",
+  "source": "Herramienta de recopilacion de actividades EVE FULL - V03",
+  "blocks": [
+    {
+      "id": "block_1",
+      "name": "Contexto Organizacional",
+      "purpose": "Identificar sistema en foco, recursion y canal de verdad.",
+      "questions": [
+        {
+          "code": "1.1",
+          "text": "Selecciona un verbo y describe tu actividad",
+          "fieldType": "guided_short_text",
+          "required": true,
+          "architecturalPurpose": "PM/MoC: operacion transformadora sobre objeto de negocio.",
+          "options": []
+        },
+        {
+          "code": "1.2",
+          "text": "A que mision de la empresa aporta esta actividad especifica?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "Mapeo funcional de mision y cadena de valor.",
+          "options": [
+            { "value": "1", "label": "Conseguir clientes o vender" },
+            { "value": "2", "label": "Crear, fabricar o armar lo que vendemos" },
+            { "value": "3", "label": "Entregar al cliente o hacer que funcione" },
+            { "value": "4", "label": "Cobrar, pagar o cuidar el dinero" },
+            { "value": "5", "label": "Contratar, capacitar o cuidar al personal" },
+            { "value": "6", "label": "Comprar insumos o mantener las herramientas" },
+            { "value": "7", "label": "Revisar que las cosas se hagan bien o sin riesgos" },
+            { "value": "8", "label": "Investigar, inventar o mejorar para el futuro" },
+            { "value": "9", "label": "Dirigir, poner metas o dar la cara por la empresa" }
+          ]
+        },
+        {
+          "code": "1.3",
+          "text": "Cuando haces esta actividad, cual es tu rol o el proposito final?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "VSM: clasifica S1, S2, S3, S3* o S4.",
+          "options": [
+            { "value": "1", "label": "El que ejecuta el trabajo final" },
+            { "value": "2", "label": "El que revisa o aprueba el trabajo de otros" },
+            { "value": "3", "label": "El que coordina para que varios no choquen" },
+            { "value": "4", "label": "Monitorear o medir si algo funciona como deberia" },
+            { "value": "5", "label": "El que disena como se hara en el futuro" }
+          ]
+        },
+        {
+          "code": "1.4",
+          "text": "A quien acudes cuando hay un problema grave que no puedes resolver?",
+          "fieldType": "guided_short_text",
+          "required": true,
+          "architecturalPurpose": "VSM: canal algedonico real.",
+          "options": []
+        },
+        {
+          "code": "1.5",
+          "text": "Como se entera tu jefe de que hiciste bien este trabajo?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "VSM: canal S3* de verdad operativa.",
+          "options": [
+            { "value": "1", "label": "Revisa el sistema o reporte oficial" },
+            { "value": "2", "label": "Le pregunta al cliente o a otra area" },
+            { "value": "3", "label": "Revisa mi trabajo fisicamente o se para en mi lugar" },
+            { "value": "4", "label": "No se entera a menos que yo le avise" }
+          ]
+        },
+        {
+          "code": "1.6",
+          "text": "Que tan diferente es lo que realmente haces comparado con el manual o procedimiento oficial?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "VSM: brecha S3 formal vs S1 real.",
+          "options": [
+            { "value": "1", "label": "Lo sigo al pie de la letra, paso a paso" },
+            { "value": "2", "label": "Hago algunos ajustes menores para que sea mas rapido" },
+            { "value": "3", "label": "Hago las cosas muy diferente porque el manual esta desactualizado o no sirve" },
+            { "value": "4", "label": "No hay manual o procedimiento oficial para esto" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block_2",
+      "name": "Ontologia y Causalidad",
+      "purpose": "Extraer objeto, atributos, estados y relaciones MoC/OLC.",
+      "questions": [
+        { "code": "2.1", "text": "Que documento o cosa fisica es el resultado de tu trabajo?", "fieldType": "guided_short_text", "required": true, "architecturalPurpose": "MoC: objeto de negocio.", "options": [] },
+        { "code": "2.2", "text": "Cual es el dato o informacion mas importante que debe contener esta cosa o documento para que sea valida?", "fieldType": "guided_short_text", "required": true, "architecturalPurpose": "MoC: atributo critico de validez.", "options": [] },
+        { "code": "2.3", "text": "En que estado recibes esa cosa o documento?", "fieldType": "guided_short_text", "required": true, "architecturalPurpose": "OLC: estado inicial.", "options": [] },
+        {
+          "code": "2.4",
+          "text": "Si esta cosa o documento viene mal desde el principio o tu no puedes terminarla por un error, en que estado la devuelves o la dejas?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "PF/OLC: rama de excepcion XOR.",
+          "options": [
+            { "value": "1", "label": "La devuelvo para que la arregle" },
+            { "value": "2", "label": "Queda en estado Rechazada / No Aprobada" },
+            { "value": "3", "label": "Queda en estado Pendiente de Revision" },
+            { "value": "4", "label": "La destruyo o descarto" },
+            { "value": "5", "label": "Nunca falla" }
+          ]
+        },
+        { "code": "2.5", "text": "Si la recibes correctamente, en que estado lo entregas al terminar?", "fieldType": "guided_short_text", "required": true, "architecturalPurpose": "OLC: estado final.", "options": [] },
+        {
+          "code": "2.6",
+          "text": "Una vez que terminas con esta cosa, que pasa con ella a largo plazo?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "OLC: destino terminal.",
+          "options": [
+            { "value": "1", "label": "Se archiva" },
+            { "value": "2", "label": "Se destruye" },
+            { "value": "3", "label": "Llega al cliente final" },
+            { "value": "4", "label": "Insumo para otro proceso" }
+          ]
+        },
+        {
+          "code": "2.7",
+          "text": "Haces esto uno por uno, o juntas varias para hacerlos en lote?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "OLC: multiplicidad y batching.",
+          "options": [
+            { "value": "1", "label": "Uno por uno, segun van llegando" },
+            { "value": "2", "label": "En lote por eficiencia" },
+            { "value": "3", "label": "En lote por obligacion del sistema" }
+          ]
+        },
+        { "code": "2.8", "text": "Quien es la persona o area que toma esta cosa inmediatamente despues de ti para seguir trabajando con ella?", "fieldType": "guided_short_text", "required": true, "architecturalPurpose": "PF: receptor inmediato.", "options": [] },
+        {
+          "code": "2.9",
+          "text": "Necesitas algo previo para empezar o lo que haces despues se usa dentro de algo mas grande?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "MoC/PF: dependencia o agregacion.",
+          "options": [
+            { "value": "1", "label": "No, lo hago de inicio a fin sin depender de nada mas" },
+            { "value": "2", "label": "Si, necesito que alguien me entregue algo antes para poder empezar" },
+            { "value": "3", "label": "Lo que hago despues se usa dentro de algo mas grande" },
+            { "value": "4", "label": "Ambas cosas" },
+            { "value": "5", "label": "No estoy seguro" }
+          ]
+        },
+        { "code": "2.10", "text": "De que depende o a que pertenece?", "fieldType": "guided_short_text", "required": false, "architecturalPurpose": "MoC: agregacion o dependencia explicita.", "options": [] },
+        {
+          "code": "2.11",
+          "text": "Cuando trabajas con esta cosa, tiene varias partes dentro o niveles que tengas que considerar?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "MoC: complejidad interna.",
+          "options": [
+            { "value": "1", "label": "No, es algo simple, no tiene partes internas" },
+            { "value": "2", "label": "Si, tiene varias partes iguales o repetidas" },
+            { "value": "3", "label": "Si, tiene diferentes partes o niveles" },
+            { "value": "4", "label": "Si, es una mezcla de ambas" },
+            { "value": "5", "label": "No estoy seguro" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block_3",
+      "name": "Intencionalidad y Flujo",
+      "purpose": "Extraer triggers, esperas, coordinacion, impacto y retrabajo.",
+      "questions": [
+        { "code": "3.1", "text": "Que tiene que pasar para que tu inicies esta actividad?", "fieldType": "guided_short_text", "required": true, "architecturalPurpose": "PM/PF: evento disparador.", "options": [] },
+        {
+          "code": "3.2",
+          "text": "Una vez que inicias, hay algo que te obligue a detenerte y esperar a que otra persona o sistema haga su parte?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "PF: sincronizacion y espera.",
+          "options": [
+            { "value": "1", "label": "Espero aprobacion de mi jefe o de otra area" },
+            { "value": "2", "label": "Espero informacion o documento de otra area" },
+            { "value": "3", "label": "Espero que se complete un paso anterior en otro sistema" },
+            { "value": "4", "label": "Espero que el cliente o proveedor externo me de algo" },
+            { "value": "5", "label": "No, puedo terminar sin esperar a nadie" }
+          ]
+        },
+        { "code": "3.3", "text": "Quien o que proceso esta esperando que termines esto?", "fieldType": "guided_short_text", "required": true, "architecturalPurpose": "PM/PF: receptor de salida.", "options": [] },
+        {
+          "code": "3.4",
+          "text": "Si dejaras de hacer esta actividad hoy y nadie te cubriera, quien seria el primero en quejarse o notar que falta algo?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "PM: criticidad de proceso y deteccion zombi.",
+          "options": [
+            { "value": "1", "label": "Mi jefe directo" },
+            { "value": "2", "label": "Un companero de otra area" },
+            { "value": "3", "label": "El cliente final" },
+            { "value": "4", "label": "Un proveedor externo" },
+            { "value": "5", "label": "Nadie se daria cuenta de inmediato" }
+          ]
+        },
+        {
+          "code": "3.5",
+          "text": "Para coordinarte con otras areas en esta actividad, que usas principalmente?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "VSM S2: mecanismo de coordinacion.",
+          "options": [
+            { "value": "1", "label": "Usamos el sistema oficial y todos lo actualizan a tiempo" },
+            { "value": "2", "label": "Correos, WhatsApp o llamadas para avisarnos" },
+            { "value": "3", "label": "Juntas regulares para revisar avances" },
+            { "value": "4", "label": "Llevo mi propio control porque el oficial no sirve, es lento o nadie lo usa bien" },
+            { "value": "5", "label": "No hay coordinacion clara" }
+          ]
+        },
+        {
+          "code": "3.6",
+          "text": "Que tan seguido se descoordina esta actividad con otras areas?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "VSM S2: variedad residual.",
+          "options": [
+            { "value": "1", "label": "Casi nunca, todo fluye" },
+            { "value": "2", "label": "Ocasionalmente, pero se resuelve facil" },
+            { "value": "3", "label": "Frecuentemente hay retrasos o choques" },
+            { "value": "4", "label": "Siempre hay problemas entre areas" },
+            { "value": "5", "label": "No depende de otras areas" }
+          ]
+        },
+        { "code": "3.7", "text": "Tiempo invertido en horas", "fieldType": "number", "required": true, "architecturalPurpose": "Carga transaccional.", "options": [] },
+        {
+          "code": "3.8",
+          "text": "Frecuencia",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "Carga transaccional.",
+          "options": [
+            { "value": "1", "label": "Diaria" },
+            { "value": "2", "label": "Semanal" },
+            { "value": "3", "label": "Mensual" },
+            { "value": "4", "label": "Anual" },
+            { "value": "5", "label": "Esporadica" }
+          ]
+        },
+        {
+          "code": "3.9",
+          "text": "Cuanto impacta cuando esta actividad se retrasa o sale mal?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "Impacto y perdida estructural.",
+          "options": [
+            { "value": "1", "label": "Casi nada, no afecta mucho" },
+            { "value": "2", "label": "Se pierden algunos minutos u horas" },
+            { "value": "3", "label": "Se pierde un dia o retrasa a otras areas" },
+            { "value": "4", "label": "Afecta directamente dinero o al cliente" },
+            { "value": "5", "label": "No estoy seguro, pero se que impacta bastante" }
+          ]
+        },
+        { "code": "3.10", "text": "Si puedes estimar: cuanto tiempo o dinero se pierde?", "fieldType": "guided_short_text", "required": false, "architecturalPurpose": "Cuantificacion de perdida.", "options": [] },
+        {
+          "code": "3.11",
+          "text": "Que tan seguido tienes que repetir, corregir o rehacer este trabajo?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "PF/OLC: retrabajo y violacion causal.",
+          "options": [
+            { "value": "1", "label": "Nunca, sale bien a la primera" },
+            { "value": "2", "label": "A veces, pero es algo menor" },
+            { "value": "3", "label": "Frecuentemente tengo que corregir cosas" },
+            { "value": "4", "label": "Muchas veces tengo que rehacer gran parte" },
+            { "value": "5", "label": "Casi siempre hay que repetir o arreglar" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block_4",
+      "name": "Cibernetica y Friccion Humana",
+      "purpose": "Capturar compensaciones, escalamiento, S3*, S4 y sacrificios.",
+      "questions": [
+        {
+          "code": "4.1",
+          "text": "La ultima vez que esta actividad se retraso o salio mal, como lo resolviste?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "VSM/AHE: compensacion ante falla.",
+          "options": [
+            { "value": "1", "label": "Me quede horas extra para sacarlo, pasa esporadicamente" },
+            { "value": "2", "label": "Me quede horas extra para sacarlo, ocurre con frecuencia" },
+            { "value": "3", "label": "Pedi un favor personal a alguien de otra area" },
+            { "value": "4", "label": "Me salte un paso del procedimiento oficial" },
+            { "value": "5", "label": "Espere a que mi jefe me dijera que hacer" },
+            { "value": "6", "label": "Nunca ha salido mal / No aplica" }
+          ]
+        },
+        { "code": "4.2", "text": "Para poder hacer esta actividad a tiempo, que informacion o insumo casi siempre tienes que andar persiguiendo?", "fieldType": "guided_short_text", "required": false, "architecturalPurpose": "PF: cuello de botella.", "options": [] },
+        {
+          "code": "4.3",
+          "text": "Si pudieras cambiar una sola cosa de como se hace esto hoy, que cambiarias?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "AHE intrapersonal y recurso faltante.",
+          "options": [
+            { "value": "1", "label": "Que no me pidan tantas firmas o aprobaciones" },
+            { "value": "2", "label": "Que me den la informacion completa desde el principio" },
+            { "value": "3", "label": "Que las herramientas o sistemas no fallen tanto" },
+            { "value": "4", "label": "Que me expliquen bien para que sirve esto" },
+            { "value": "5", "label": "Esta perfecto como esta" }
+          ]
+        },
+        {
+          "code": "4.4",
+          "text": "Cuando te exigen que saques este trabajo mas rapido o con mejor calidad, que es lo que mas te falta para lograrlo?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "VSM: resource bargain.",
+          "options": [
+            { "value": "1", "label": "Mas manos, personal o tiempo" },
+            { "value": "2", "label": "Mejor equipo, computadora, maquinaria o software" },
+            { "value": "3", "label": "Presupuesto o dinero autorizado" },
+            { "value": "4", "label": "Autoridad para decidir sin preguntar" },
+            { "value": "5", "label": "Informacion clara sobre lo que quieren" }
+          ]
+        },
+        {
+          "code": "4.5",
+          "text": "En el ultimo mes, cuantas veces tuviste que detener lo que estabas haciendo para resolver una urgencia o problema no planeado en esta actividad?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "VSM: colapso S3/S4.",
+          "options": [
+            { "value": "1", "label": "Todos los dias" },
+            { "value": "2", "label": "Varias veces a la semana" },
+            { "value": "3", "label": "Un par de veces al mes" },
+            { "value": "4", "label": "Casi nunca, todo fluye segun el plan" }
+          ]
+        },
+        {
+          "code": "4.6",
+          "text": "Esas urgencias o bomberazos que te caen de sorpresa, de donde vienen casi siempre?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "Origen de perturbacion estructural.",
+          "options": [
+            { "value": "1", "label": "De Ventas o Comercial" },
+            { "value": "2", "label": "De Direccion o Gerencia" },
+            { "value": "3", "label": "De otra area operativa" },
+            { "value": "4", "label": "Del cliente directamente" }
+          ]
+        },
+        {
+          "code": "4.7",
+          "text": "Cuando hay demasiada presion y no puedes cumplir con todo, que es lo primero que sacrificas o dejas para despues?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "S5 real bajo presion.",
+          "options": [
+            { "value": "1", "label": "La calidad, por orden directa" },
+            { "value": "2", "label": "La calidad, para llegar a la meta" },
+            { "value": "3", "label": "El tiempo de entrega" },
+            { "value": "4", "label": "El procedimiento oficial" },
+            { "value": "5", "label": "Mi tiempo personal" }
+          ]
+        },
+        {
+          "code": "4.8",
+          "text": "Si cometes un error en esta actividad y lo arreglas tu mismo antes de entregarlo, se lo reportas a tu jefe?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "S3*: visibilidad del error corregido.",
+          "options": [
+            { "value": "1", "label": "Si, siempre le aviso" },
+            { "value": "2", "label": "Solo si el error costo dinero o mucho tiempo" },
+            { "value": "3", "label": "No, si ya lo arregle no tiene caso preocuparlo" },
+            { "value": "4", "label": "No, porque si le digo me regana aunque ya este resuelto" }
+          ]
+        },
+        {
+          "code": "4.9",
+          "text": "Cuando esta actividad no funciona bien o tiene problemas, que pasa si lo comentas o lo haces visible?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "S3*/canal algedonico.",
+          "options": [
+            { "value": "1", "label": "Se revisa y normalmente se corrige" },
+            { "value": "2", "label": "Se comenta, pero no cambia nada" },
+            { "value": "3", "label": "Se minimiza o se ignora" },
+            { "value": "4", "label": "Se cuestiona a quien lo menciona" },
+            { "value": "5", "label": "Puede traer problemas decirlo" }
+          ]
+        },
+        {
+          "code": "4.10",
+          "text": "En el ultimo ano, que cambio externo ha afectado esta actividad y como se ha adaptado la empresa?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "S4: respuesta a entorno.",
+          "options": [
+            { "value": "1", "label": "Nos adaptamos rapido con nuevas herramientas o reglas" },
+            { "value": "2", "label": "Lo notamos, pero seguimos haciendo las cosas igual" },
+            { "value": "3", "label": "Nos pego fuerte y estamos improvisando para sobrevivir" },
+            { "value": "4", "label": "Ningun cambio externo afecta esta actividad" }
+          ]
+        },
+        {
+          "code": "4.11",
+          "text": "Cuando surge una idea para mejorar esta actividad, que suele pasar?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "Homeostato S3/S4.",
+          "options": [
+            { "value": "1", "label": "Se prueba rapido en pequeno" },
+            { "value": "2", "label": "Se analiza, pero tarda mucho en implementarse" },
+            { "value": "3", "label": "Se rechaza porque no es prioridad" },
+            { "value": "4", "label": "Se pierde o nadie le da seguimiento" },
+            { "value": "5", "label": "No surgen ideas nuevas" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block_5",
+      "name": "Trascendencia y Resolucion de Problemas",
+      "purpose": "Medir curiosidad, empatia, imaginacion, poder, identidad y KPIs.",
+      "questions": [
+        {
+          "code": "5.1",
+          "text": "Si pudieras ver detras de la cortina de esta actividad, que dato o informacion te ayudaria a hacer tu trabajo con mucha mas seguridad?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "AHE intrapersonal: curiosidad.",
+          "options": [
+            { "value": "1", "label": "Saber exactamente para que usa el cliente o la otra area lo que yo le entrego" },
+            { "value": "2", "label": "Saber como se calculan las metas o tiempos que me exigen" },
+            { "value": "3", "label": "Saber que paso antes de que el trabajo llegara a mis manos" },
+            { "value": "4", "label": "Nada, con lo que se es suficiente para operar" }
+          ]
+        },
+        {
+          "code": "5.2",
+          "text": "Cuando entregas este trabajo terminado, que precaucion tomas para que la persona que lo recibe no tenga problemas?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "AHE interpersonal: empatia en handoff.",
+          "options": [
+            { "value": "1", "label": "Lo reviso dos veces pensando en lo que el otro necesita" },
+            { "value": "2", "label": "Le aviso personalmente o le dejo una nota si algo va raro" },
+            { "value": "3", "label": "Solo me aseguro de cumplir mi parte del checklist" },
+            { "value": "4", "label": "Lo entrego y ya es problema del siguiente" }
+          ]
+        },
+        {
+          "code": "5.3",
+          "text": "Cuando esta actividad se complica o sale algo nuevo que no esta en el manual, que haces para sacarla adelante?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "AHE intrapersonal: imaginacion.",
+          "options": [
+            { "value": "1", "label": "Invento una solucion rapida o atajo con lo que tengo a la mano" },
+            { "value": "2", "label": "Busco en internet o pregunto a colegas como lo resolvieron" },
+            { "value": "3", "label": "Detengo el trabajo y pido instrucciones a mi jefe" },
+            { "value": "4", "label": "Aplico la regla estrictamente" }
+          ]
+        },
+        {
+          "code": "5.4",
+          "text": "Cuando otra area o persona no te entrega lo que necesitas a tiempo, cuanto tiempo y energia se te va en perseguirlos o protegerte?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "AHE interpersonal: persecucion/CYA.",
+          "options": [
+            { "value": "1", "label": "Casi nada, el sistema oficial avisa donde esta el cuello de botella" },
+            { "value": "2", "label": "Pierdo un rato mandando recordatorios amables" },
+            { "value": "3", "label": "Se me va gran parte del dia armando cadenas de correos con copia a jefes" },
+            { "value": "4", "label": "Ya ni los persigo, detengo mi trabajo y espero a que explote" }
+          ]
+        },
+        {
+          "code": "5.5",
+          "text": "Si tuvieras el poder de eliminar una sola cosa de esta actividad porque no aporta valor real, que quitarias?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "S4: entropia visible.",
+          "options": [
+            { "value": "1", "label": "Un reporte o formato que nadie lee" },
+            { "value": "2", "label": "Una firma o autorizacion redundante" },
+            { "value": "3", "label": "Una reunion de seguimiento innecesaria" },
+            { "value": "4", "label": "Un paso del proceso que hacemos por costumbre" },
+            { "value": "5", "label": "Nada, todo es estrictamente necesario" },
+            { "value": "6", "label": "Aprobar o revisar cosas que se que nadie mas revisa o que no cambian nada" }
+          ]
+        },
+        {
+          "code": "5.6",
+          "text": "Pensando en los sistemas, formatos o herramientas oficiales que la empresa te obliga a usar para esta actividad, cual frase describe mejor tu realidad?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "AHE organizacional: materialidad tecnologica.",
+          "options": [
+            { "value": "1", "label": "Uso el sistema al 100%, me ayuda a hacer mi trabajo mas rapido y mejor" },
+            { "value": "2", "label": "Lo uso porque es obligatorio, pero siento que solo aprovecho el 10%" },
+            { "value": "3", "label": "Hago el trabajo por fuera y luego solo alimento el sistema" },
+            { "value": "4", "label": "No uso ningun sistema oficial, todo lo hacemos a mano o como podemos" }
+          ]
+        },
+        {
+          "code": "5.7",
+          "text": "En esta actividad, cuando existe un acuerdo economico asociado y percibes que no se respeta o puede no respetarse, como actuas?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "AHE organizacional: poder economico.",
+          "options": [
+            { "value": "1", "label": "Lo acepto, es lo que hay" },
+            { "value": "2", "label": "Compenso bajando mi esfuerzo o tomando ventajas informales" },
+            { "value": "3", "label": "Lo hablo con mis companeros, pero no con el dueno" },
+            { "value": "4", "label": "Lo confronto o pido claridad directamente" },
+            { "value": "5", "label": "Busco otra opcion de trabajo donde se respeten los acuerdos" },
+            { "value": "6", "label": "Propongo mecanismos claros" },
+            { "value": "7", "label": "No aplica" }
+          ]
+        },
+        {
+          "code": "5.8",
+          "text": "Aunque esta actividad genere dinero o resultados, que es lo que la empresa nunca deberia pedirte que sacrifiques?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "S5: limite no negociable.",
+          "options": [
+            { "value": "1", "label": "La seguridad fisica o mental mia y de mis companeros" },
+            { "value": "2", "label": "La calidad del producto o servicio que recibe el cliente" },
+            { "value": "3", "label": "La honestidad en los reportes o numeros" },
+            { "value": "4", "label": "Mi tiempo de descanso o vida personal" },
+            { "value": "5", "label": "El respeto a leyes o normativas externas" }
+          ]
+        },
+        {
+          "code": "5.9",
+          "text": "En la realidad, cuando esto pasa, que ocurre normalmente?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "S5: brecha identidad-practica.",
+          "options": [
+            { "value": "1", "label": "Se detiene la actividad, aunque haya perdida" },
+            { "value": "2", "label": "Se discute, pero a veces se permite" },
+            { "value": "3", "label": "Se permite si ayuda a cumplir metas" },
+            { "value": "4", "label": "Es comun, nadie lo cuestiona" },
+            { "value": "5", "label": "Depende del jefe o situacion" }
+          ]
+        },
+        {
+          "code": "5.10",
+          "text": "Si pudieras cambiar la forma en que tu jefe o la empresa mide si hiciste un buen trabajo en esta actividad, que preferirias que midieran?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "AHE organizacional: definicion de valor.",
+          "options": [
+            { "value": "1", "label": "Que midan si el cliente interno o externo quedo satisfecho" },
+            { "value": "2", "label": "Que midan la calidad de lo que entrego" },
+            { "value": "3", "label": "Que midan mi esfuerzo y horas dedicadas" },
+            { "value": "4", "label": "Estoy de acuerdo con como me miden actualmente" }
+          ]
+        },
+        {
+          "code": "5.11",
+          "text": "Pensando en las metas o indicadores por los que te miden a ti y a las otras areas, alguna vez sientes que estan compitiendo en lugar de colaborar?",
+          "fieldType": "select",
+          "required": true,
+          "architecturalPurpose": "AHE/VSM: competencia causal y colapso S2.",
+          "options": [
+            { "value": "1", "label": "No, todos remamos para el mismo lado" },
+            { "value": "2", "label": "A veces, cada area cuida su propio indicador" },
+            { "value": "3", "label": "Si, muy seguido tengo que pelear con otra area para cumplir mi meta" },
+            { "value": "4", "label": "Totalmente, parece que nos pusieron metas contrarias a proposito" }
+          ]
+        }
+      ]
+    }
+  ]
+}

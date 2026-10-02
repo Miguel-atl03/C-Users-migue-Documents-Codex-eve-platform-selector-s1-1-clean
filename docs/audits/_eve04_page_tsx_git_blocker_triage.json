@@ -1,0 +1,80 @@
+{
+  "dictamen": "PAGE_TSX_BLOCKER_CONFIRMED_EXTERNAL",
+  "auditedPath": "external-consumers/eve-platform/src/app/page.tsx",
+  "isExternalToEve04": true,
+  "blocksPromotion": true,
+  "shadowEve04Valid": true,
+  "promotionAllowed": false,
+  "classification": {
+    "EVE04": false,
+    "Significado": true,
+    "WorkMap": true,
+    "flowState": true,
+    "questionnaire_main": true,
+    "intake_significado": true,
+    "page_shell": true,
+    "auth_session_restore": true,
+    "UI_general": true,
+    "other": [
+      "front-door/client shell",
+      "primary activity selection",
+      "pre-runtime context bundle",
+      "demo/commercial session handling"
+    ]
+  },
+  "eve04ReferenceChecks": {
+    "EVE_04_Runtime_Catalog": false,
+    "EVE_04_Runtime_Catalog_v0_1_1_candidate": false,
+    "B6-Q38": false,
+    "B6_6_8": false,
+    "trench_phrase": false,
+    "shadow_runtime_catalog": false,
+    "productive_registry": false,
+    "productive_runtime_manifest": false
+  },
+  "commands": [
+    {
+      "command": "pwd",
+      "exitCode": 0,
+      "result": "Executed from git root C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone"
+    },
+    {
+      "command": "git status --short",
+      "exitCode": 0,
+      "result": "Tracked product diff includes external-consumers/eve-platform/src/app/page.tsx"
+    },
+    {
+      "command": "git diff --name-only",
+      "exitCode": 0,
+      "result": "Confirmed external-consumers/eve-platform/src/app/page.tsx in tracked diff"
+    },
+    {
+      "command": "git diff -- external-consumers/eve-platform/src/app/page.tsx",
+      "exitCode": 0,
+      "result": "Diff reviewed and classified as Significado/WorkMap/page shell/auth/session restore/UI general, not EVE04"
+    },
+    {
+      "command": "git log --oneline -5",
+      "exitCode": 0,
+      "result": "Recent commits reviewed for workspace context"
+    },
+    {
+      "command": "node --test external-consumers/eve-platform/tests/regression/eve-04-runtime-catalog-shadow-qa-compare.test.ts",
+      "exitCode": 1,
+      "result": "FAIL 1/6 due to forbidden tracked product path src/app/page.tsx"
+    },
+    {
+      "command": "node --test external-consumers/eve-platform/tests/regression/eve-04-runtime-catalog-shadow-service.test.ts",
+      "exitCode": 1,
+      "result": "FAIL 3/10: cwd root path assumptions for service file/import checks and forbidden diff allowlist failure"
+    }
+  ],
+  "recommendation": "HUMAN_CLEAN_WORKTREE_REQUIRED",
+  "noContamination": {
+    "codeModified": false,
+    "chipsModified": false,
+    "runtimeProductiveModified": false,
+    "eve04Promoted": false,
+    "resetStashCommitCheckout": false
+  }
+}

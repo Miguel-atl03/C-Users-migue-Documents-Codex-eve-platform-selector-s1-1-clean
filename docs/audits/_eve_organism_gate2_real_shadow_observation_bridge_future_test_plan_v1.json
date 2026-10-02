@@ -1,0 +1,81 @@
+{
+  "test_plan_id": "EVE_ORGANISM_GATE2_REAL_SHADOW_OBSERVATION_BRIDGE_FUTURE_TEST_PLAN_V1",
+  "mode": "IMPLEMENTATION_DESIGN_ONLY",
+  "categories": [
+    {
+      "category": "contract_validation",
+      "tests": [
+        "rejects missing tenant_id",
+        "rejects missing session_id",
+        "rejects missing activity_id",
+        "rejects missing provenance",
+        "rejects missing sourceTrace",
+        "rejects missing correlationId",
+        "rejects missing idempotencyKey",
+        "rejects missing officialOutcome",
+        "rejects unknown redaction_status",
+        "rejects overcollection risk"
+      ]
+    },
+    {
+      "category": "dedupe_replay",
+      "tests": [
+        "same idempotencyKey returns same divergence reference",
+        "no duplicate candidate",
+        "replay reproducible",
+        "replay poisoning blocked"
+      ]
+    },
+    {
+      "category": "no_write",
+      "tests": [
+        "product write attempt blocked",
+        "registry write attempt blocked",
+        "export attempt blocked",
+        "diagnosis final attempt blocked",
+        "Supabase write client import blocked",
+        "service_role boundary bypass blocked"
+      ]
+    },
+    {
+      "category": "comparator",
+      "tests": [
+        "officialOutcome and shadowOutcome remain separate",
+        "divergence generated when mismatch",
+        "no divergence when aligned but still report traceability",
+        "stale official outcome blocked",
+        "hidden divergence blocked"
+      ]
+    },
+    {
+      "category": "governance",
+      "tests": [
+        "S3* review required for divergence severity threshold",
+        "EVE-08 records but does not execute operation",
+        "S3* does not become operator",
+        "audit tampering blocked"
+      ]
+    },
+    {
+      "category": "algedonic",
+      "tests": [
+        "tenant leak triggers quarantine",
+        "latency collapse triggers degrade",
+        "write adapter triggers quarantine",
+        "missing provenance blocks event",
+        "cross-tenant contamination triggers algedonic alert"
+      ]
+    },
+    {
+      "category": "vsm",
+      "tests": [
+        "S1 observed, not controlled by EVE",
+        "S2 stabilizes transit",
+        "S3 enforces observe/compare only",
+        "S3* audits, does not operate",
+        "S4 records learning candidates only",
+        "S5 preserves shadow-not-authority identity"
+      ]
+    }
+  ]
+}

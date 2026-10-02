@@ -1,0 +1,333 @@
+{
+  "audit_id": "EVE_ORGANISM_REPLAY_ONLY_GATE2_BLOCKER_EXIT_MATRIX_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "REPLAY_ONLY_GATE2_CONTINUATION_PLAN_READY",
+  "blocker_exit_matrix": [
+    {
+      "blocker_id": "ROB-001",
+      "blocker_title": "No safe real entrypoint",
+      "severity": "critical",
+      "related_exit_conditions": [
+        "ROEC-001",
+        "ROEC-002",
+        "ROEC-003",
+        "ROEC-004",
+        "ROEC-006",
+        "ROEC-008",
+        "ROEC-009",
+        "ROEC-010",
+        "ROEC-011",
+        "ROEC-014",
+        "ROEC-015",
+        "ROEC-016"
+      ],
+      "evidence_missing": "ROEC-001: Real tenantId is present in a safe observed signal. | ROEC-002: Real organizationId is present in a safe observed signal. | ROEC-003: Real sessionId is present in a safe observed signal. | ROEC-004: Real activityId is present in a safe observed signal. | ROEC-006: Real provenance includes stable source identity/path/locator. | ROEC-008: Real idempotencyKey is present or safely derived read-only. | ROEC-009: Real correlationId is present or safely derived read-only. | ROEC-010: Real officialFlowRef exists without executing or mutating official flow. | ROEC-011: Observer does not import, mount, hook or mutate UI/app/components/pages. | ROEC-014: No insert/update/delete/query execution with write authority. | ROEC-015: No Supabase dependency, or fully proven read-only boundary. | ROEC-016: No productive runtime state mutation.",
+      "allowed_next_action": "Collect documentary proof only; do not implement or connect observer. Use REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1 if field proof is needed.",
+      "forbidden_next_action": "real observer adapter, UI hook, WorkMap hook, Significado hook, runtime connector, DB observer, Supabase read, registry/export candidate real",
+      "repeat_preflight_when": "Repeat real observation preflight only after all related exit conditions have acceptable real evidence and the blocker is marked closed."
+    },
+    {
+      "blocker_id": "ROB-002",
+      "blocker_title": "Tenant/session/activity incomplete",
+      "severity": "high",
+      "related_exit_conditions": [
+        "ROEC-001",
+        "ROEC-002",
+        "ROEC-003",
+        "ROEC-004",
+        "ROEC-005"
+      ],
+      "evidence_missing": "ROEC-001: Real tenantId is present in a safe observed signal. | ROEC-002: Real organizationId is present in a safe observed signal. | ROEC-003: Real sessionId is present in a safe observed signal. | ROEC-004: Real activityId is present in a safe observed signal. | ROEC-005: Real actorId or userId is present without leaking personal data.",
+      "allowed_next_action": "Collect documentary proof only; do not implement or connect observer. Use REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1 if field proof is needed.",
+      "forbidden_next_action": "using synthetic fixture tenant/session/activity as real observation evidence",
+      "repeat_preflight_when": "Repeat real observation preflight only after all related exit conditions have acceptable real evidence and the blocker is marked closed."
+    },
+    {
+      "blocker_id": "ROB-003",
+      "blocker_title": "Provenance/sourceTrace incomplete",
+      "severity": "high",
+      "related_exit_conditions": [
+        "ROEC-006",
+        "ROEC-007"
+      ],
+      "evidence_missing": "ROEC-006: Real provenance includes stable source identity/path/locator. | ROEC-007: Candidate signals preserve sourceTrace from real non-mutating evidence.",
+      "allowed_next_action": "Collect documentary proof only; do not implement or connect observer. Use REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1 if field proof is needed.",
+      "forbidden_next_action": "treating fixture-only sourceTrace as real production trace",
+      "repeat_preflight_when": "Repeat real observation preflight only after all related exit conditions have acceptable real evidence and the blocker is marked closed."
+    },
+    {
+      "blocker_id": "ROB-004",
+      "blocker_title": "Idempotency/correlation incomplete",
+      "severity": "high",
+      "related_exit_conditions": [
+        "ROEC-008",
+        "ROEC-009"
+      ],
+      "evidence_missing": "ROEC-008: Real idempotencyKey is present or safely derived read-only. | ROEC-009: Real correlationId is present or safely derived read-only.",
+      "allowed_next_action": "Collect documentary proof only; do not implement or connect observer. Use REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1 if field proof is needed.",
+      "forbidden_next_action": "creating correlation/idempotency values in production state for observation",
+      "repeat_preflight_when": "Repeat real observation preflight only after all related exit conditions have acceptable real evidence and the blocker is marked closed."
+    },
+    {
+      "blocker_id": "ROB-005",
+      "blocker_title": "officialFlowRef missing",
+      "severity": "high",
+      "related_exit_conditions": [
+        "ROEC-010"
+      ],
+      "evidence_missing": "ROEC-010: Real officialFlowRef exists without executing or mutating official flow.",
+      "allowed_next_action": "Collect documentary proof only; do not implement or connect observer. Use REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1 if field proof is needed.",
+      "forbidden_next_action": "running official flow or generating export/registry output to manufacture officialFlowRef",
+      "repeat_preflight_when": "Repeat real observation preflight only after all related exit conditions have acceptable real evidence and the blocker is marked closed."
+    },
+    {
+      "blocker_id": "ROB-006",
+      "blocker_title": "UI/WorkMap/Significado touch risk",
+      "severity": "critical",
+      "related_exit_conditions": [
+        "ROEC-011",
+        "ROEC-012",
+        "ROEC-013"
+      ],
+      "evidence_missing": "ROEC-011: Observer does not import, mount, hook or mutate UI/app/components/pages. | ROEC-012: Observer does not write or mutate WorkMap state or files. | ROEC-013: Observer does not write or mutate Significado state or files.",
+      "allowed_next_action": "Collect documentary proof only; do not implement or connect observer. Use REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1 if field proof is needed.",
+      "forbidden_next_action": "UI hook, WorkMap hook, Significado hook, app/API wiring, product observer wiring",
+      "repeat_preflight_when": "Repeat real observation preflight only after all related exit conditions have acceptable real evidence and the blocker is marked closed."
+    },
+    {
+      "blocker_id": "ROB-007",
+      "blocker_title": "Supabase/DB boundary not proven",
+      "severity": "critical",
+      "related_exit_conditions": [
+        "ROEC-014",
+        "ROEC-015",
+        "ROEC-018"
+      ],
+      "evidence_missing": "ROEC-014: No insert/update/delete/query execution with write authority. | ROEC-015: No Supabase dependency, or fully proven read-only boundary. | ROEC-018: If DB read ever appears, RLS/auth/tenant isolation must be proven before preflight retry.",
+      "allowed_next_action": "Collect documentary proof only; do not implement or connect observer. Use REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1 if field proof is needed.",
+      "forbidden_next_action": "DB observer, Supabase read, SQL execution, migrations, RLS-affecting changes",
+      "repeat_preflight_when": "Repeat real observation preflight only after all related exit conditions have acceptable real evidence and the blocker is marked closed."
+    },
+    {
+      "blocker_id": "ROB-008",
+      "blocker_title": "Synthetic fixture fields cannot become real evidence",
+      "severity": "high",
+      "related_exit_conditions": [
+        "ROEC-001",
+        "ROEC-002",
+        "ROEC-003",
+        "ROEC-004",
+        "ROEC-005",
+        "ROEC-006",
+        "ROEC-007",
+        "ROEC-008",
+        "ROEC-009",
+        "ROEC-010"
+      ],
+      "evidence_missing": "ROEC-001: Real tenantId is present in a safe observed signal. | ROEC-002: Real organizationId is present in a safe observed signal. | ROEC-003: Real sessionId is present in a safe observed signal. | ROEC-004: Real activityId is present in a safe observed signal. | ROEC-005: Real actorId or userId is present without leaking personal data. | ROEC-006: Real provenance includes stable source identity/path/locator. | ROEC-007: Candidate signals preserve sourceTrace from real non-mutating evidence. | ROEC-008: Real idempotencyKey is present or safely derived read-only. | ROEC-009: Real correlationId is present or safely derived read-only. | ROEC-010: Real officialFlowRef exists without executing or mutating official flow.",
+      "allowed_next_action": "Collect documentary proof only; do not implement or connect observer. Use REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1 if field proof is needed.",
+      "forbidden_next_action": "promoting fixture-only tenant/session/activity/provenance/correlation/officialFlowRef as real evidence",
+      "repeat_preflight_when": "Repeat real observation preflight only after all related exit conditions have acceptable real evidence and the blocker is marked closed."
+    },
+    {
+      "blocker_id": "ROB-009",
+      "blocker_title": "Real observer design not allowed yet",
+      "severity": "high",
+      "related_exit_conditions": [
+        "ROEC-001",
+        "ROEC-002",
+        "ROEC-003",
+        "ROEC-004",
+        "ROEC-006",
+        "ROEC-008",
+        "ROEC-009",
+        "ROEC-010",
+        "ROEC-011",
+        "ROEC-012",
+        "ROEC-013",
+        "ROEC-014",
+        "ROEC-015",
+        "ROEC-016",
+        "ROEC-017"
+      ],
+      "evidence_missing": "ROEC-001: Real tenantId is present in a safe observed signal. | ROEC-002: Real organizationId is present in a safe observed signal. | ROEC-003: Real sessionId is present in a safe observed signal. | ROEC-004: Real activityId is present in a safe observed signal. | ROEC-006: Real provenance includes stable source identity/path/locator. | ROEC-008: Real idempotencyKey is present or safely derived read-only. | ROEC-009: Real correlationId is present or safely derived read-only. | ROEC-010: Real officialFlowRef exists without executing or mutating official flow. | ROEC-011: Observer does not import, mount, hook or mutate UI/app/components/pages. | ROEC-012: Observer does not write or mutate WorkMap state or files. | ROEC-013: Observer does not write or mutate Significado state or files. | ROEC-014: No insert/update/delete/query execution with write authority. | ROEC-015: No Supabase dependency, or fully proven read-only boundary. | ROEC-016: No productive runtime state mutation. | ROEC-017: No registry write, final export, or diagnosis enablement.",
+      "allowed_next_action": "Collect documentary proof only; do not implement or connect observer. Use REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1 if field proof is needed.",
+      "forbidden_next_action": "src/types/eve-organism-real-observation.ts, real observation adapter, real observer tests until explicitly allowed by a future preflight",
+      "repeat_preflight_when": "Repeat real observation preflight only after all related exit conditions have acceptable real evidence and the blocker is marked closed."
+    },
+    {
+      "blocker_id": "ROB-010",
+      "blocker_title": "Replay-only lane remains the authorized Gate 2 path",
+      "severity": "medium",
+      "related_exit_conditions": [],
+      "evidence_missing": "No exit condition can be closed by replay-only work; this blocker remains policy enforcement for the current lane.",
+      "allowed_next_action": "Continue replay-only Gate 2 work: fixtures, offline adapter checks, audits/preflights, and documentary design.",
+      "forbidden_next_action": "productive shadow activation, runtime connector, registry/export candidate real, diagnosis enablement",
+      "repeat_preflight_when": "Repeat only after blockers ROB-001 through ROB-009 are closed or formally downgraded by a later audit."
+    }
+  ],
+  "exit_condition_checklist": [
+    {
+      "condition_id": "EC-001",
+      "source_condition_id": "ROEC-001",
+      "title": "tenantId real",
+      "current_status": "open",
+      "evidence_required": "Real tenantId is present in a safe observed signal.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-002",
+      "source_condition_id": "ROEC-002",
+      "title": "organizationId real",
+      "current_status": "open",
+      "evidence_required": "Real organizationId is present in a safe observed signal.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-003",
+      "source_condition_id": "ROEC-003",
+      "title": "sessionId real",
+      "current_status": "open",
+      "evidence_required": "Real sessionId is present in a safe observed signal.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-004",
+      "source_condition_id": "ROEC-004",
+      "title": "activityId real",
+      "current_status": "open",
+      "evidence_required": "Real activityId is present in a safe observed signal.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-005",
+      "source_condition_id": "ROEC-005",
+      "title": "actorId/userId real",
+      "current_status": "open",
+      "evidence_required": "Real actorId or userId is present without leaking personal data.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-006",
+      "source_condition_id": "ROEC-006",
+      "title": "provenance real",
+      "current_status": "open",
+      "evidence_required": "Real provenance includes stable source identity/path/locator.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-007",
+      "source_condition_id": "ROEC-007",
+      "title": "sourceTrace real if candidates",
+      "current_status": "open",
+      "evidence_required": "Candidate signals preserve sourceTrace from real non-mutating evidence.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-008",
+      "source_condition_id": "ROEC-008",
+      "title": "idempotencyKey real",
+      "current_status": "open",
+      "evidence_required": "Real idempotencyKey is present or safely derived read-only.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-009",
+      "source_condition_id": "ROEC-009",
+      "title": "correlationId real",
+      "current_status": "open",
+      "evidence_required": "Real correlationId is present or safely derived read-only.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-010",
+      "source_condition_id": "ROEC-010",
+      "title": "officialFlowRef real",
+      "current_status": "open",
+      "evidence_required": "Real officialFlowRef exists without executing or mutating official flow.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-011",
+      "source_condition_id": "ROEC-011",
+      "title": "proof no UI touch",
+      "current_status": "open",
+      "evidence_required": "Observer does not import, mount, hook or mutate UI/app/components/pages.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-012",
+      "source_condition_id": "ROEC-012",
+      "title": "proof no WorkMap mutation",
+      "current_status": "open",
+      "evidence_required": "Observer does not write or mutate WorkMap state or files.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-013",
+      "source_condition_id": "ROEC-013",
+      "title": "proof no Significado mutation",
+      "current_status": "open",
+      "evidence_required": "Observer does not write or mutate Significado state or files.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-014",
+      "source_condition_id": "ROEC-014",
+      "title": "proof no DB write",
+      "current_status": "open",
+      "evidence_required": "No insert/update/delete/query execution with write authority.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-015",
+      "source_condition_id": "ROEC-015",
+      "title": "proof no Supabase requirement or controlled read boundary",
+      "current_status": "open",
+      "evidence_required": "No Supabase dependency, or fully proven read-only boundary.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-016",
+      "source_condition_id": "ROEC-016",
+      "title": "proof no runtime mutation",
+      "current_status": "open",
+      "evidence_required": "No productive runtime state mutation.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-017",
+      "source_condition_id": "ROEC-017",
+      "title": "proof no registry/export/diagnosis",
+      "current_status": "open",
+      "evidence_required": "No registry write, final export, or diagnosis enablement.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    },
+    {
+      "condition_id": "EC-018",
+      "source_condition_id": "ROEC-018",
+      "title": "proof RLS/auth/tenant isolation if DB/read boundary appears",
+      "current_status": "open",
+      "evidence_required": "If DB read ever appears, RLS/auth/tenant isolation must be proven before preflight retry.",
+      "acceptable_artifact_type": "Documentary proof in docs/audits with evidence path, locator, source boundary and no-cableado attestation; later preflight must explicitly accept it.",
+      "unacceptable_substitute": "Synthetic fixture field, inferred value, runtime observation, UI hook, WorkMap/Significado mutation, DB/Supabase access, registry/export output, or undocumented assumption."
+    }
+  ]
+}

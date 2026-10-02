@@ -1,0 +1,12 @@
+{
+  "authority_matrix_id": "EVE_ORGANISM_GATE2_REAL_SHADOW_BRIDGE_READER_AUTHORITY_MATRIX_V1",
+  "roles_total": 6,
+  "roles": [
+    { "role": "shadow_bridge_reader", "may": ["read shadow_only_outbox_events"], "may_not": ["insert/update/delete outbox", "write product", "write registry", "export", "diagnosis", "authorize Gate 3"], "service_role_allowed": false, "product_write_allowed": false, "registry_write_allowed": false, "export_allowed": false, "diagnosis_allowed": false, "gate3_authority": false },
+    { "role": "shadow_evaluation_runner", "may": ["run shadow evaluation"], "may_not": ["product write", "registry write", "export", "final diagnosis", "Gate 3"], "service_role_allowed": false, "product_write_allowed": false, "registry_write_allowed": false, "export_allowed": false, "diagnosis_allowed": false, "gate3_authority": false },
+    { "role": "divergence_report_builder", "may": ["create shadowDivergenceReport in future shadow-only artifact store"], "may_not": ["publish client output", "registry", "export", "final diagnosis"], "service_role_allowed": false, "product_write_allowed": false, "registry_write_allowed": false, "export_allowed": false, "diagnosis_allowed": false, "gate3_authority": false },
+    { "role": "s3_star_reviewer", "may": ["review divergences"], "may_not": ["mutate outbox", "operate official flow", "approve itself"], "service_role_allowed": false, "product_write_allowed": false, "registry_write_allowed": false, "export_allowed": false, "diagnosis_allowed": false, "gate3_authority": false },
+    { "role": "eve08_governance", "may": ["audit", "block", "require review", "quarantine"], "may_not": ["operate the flow it audits", "generate final diagnosis", "write registry/export"], "service_role_allowed": false, "product_write_allowed": false, "registry_write_allowed": false, "export_allowed": false, "diagnosis_allowed": false, "gate3_authority": false },
+    { "role": "algedonic_guard", "may": ["raise alert", "degrade/quarantine bridge capability"], "may_not": ["mutate product", "publish output", "authorize Gate 3"], "service_role_allowed": false, "product_write_allowed": false, "registry_write_allowed": false, "export_allowed": false, "diagnosis_allowed": false, "gate3_authority": false }
+  ]
+}

@@ -1,0 +1,2701 @@
+
+Documento madre canónicoBloque 2. Transformación
+
+Capa 1 v2.1 de EVE
+Diseño detallado para continuación acoplable posterior al Bloque 1, conexión con Codex, catálogo operativo, reglas de despliegue UI, persistencia, derivaciones y transducción posterior.
+Versión del documento: 0.2 de trabajo | Rediseño controlado B2-UX-EVID-001 | Base oficial: Bloque_2_Documento_Madre_Capa1_v2_1_EVE(1).docx | Conserva C1-INSTR-V3-R9-001 y los 26 códigos canónicos.
+Alcance: desarrollo exhaustivo del Bloque 2 como pieza canónica autónoma, pero diseñada explícitamente para pegarse a continuación del Bloque 1 ya aprobado, sin ruptura de formato, nomenclatura ni lógica documental.
+Criterio rector: este documento no sintetiza. Explicita arquitectura, preguntas, lógica de despliegue, variables, proveniencia epistemológica, tablas destino, consistencias, aclaraciones y salida técnica del bloque.
+
+Ficha de cambio controlado C1-INSTR-V3-R9-001
+Código de cambio: C1-INSTR-V3-R9-001
+Nombre del cambio: Corrección controlada de instrumentación canónica para transformation_exception_exists y receiver_feedback.
+Tipo de cambio: Corrección documental de instrumentación canónica en Capa 1.0.
+Estado: Aprobado para incorporación documental.
+Alcance del cambio: Este cambio ajusta la forma en que Capa 1.0 captura, deriva y transporta dos variables estructurales necesarias para el expediente canónico, el evidence_bundle_for_transduction y el mmabp_design_source_bundle: transformation_exception_exists y receiver_feedback.
+Motivo del cambio: Durante una prueba real con el caso New Hometown Restaurant — flujo de orden delivery, se detectó que existía evidencia textual suficiente sobre excepciones de transformación y feedback operativo del receptor, pero esa evidencia no cerraba correctamente las variables canónicas requeridas. Como resultado, Capa 1.0 core pudo quedar en ready_with_flags, mientras el mmabp_design_source_bundle quedó bloqueado por contradicción aparente.
+Problema identificado en V3: La variable transformation_exception_exists no estaba cerrando desde su ruta canónica correcta en Bloque 2. La evidencia de fallas de transformación existía, por ejemplo duplicados, cancelaciones tardías, cambios no registrados u órdenes que no se consolidan correctamente, pero el booleano no se derivaba de forma robusta. La ruta correcta debe ser: pregunta 2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description si aplica.
+Problema identificado en R9: La variable receiver_feedback no estaba separada de receiver_satisfaction en Bloque 3. La evidencia de aviso, corrección, rechazo, devolución, recontacto o actualización por parte del receptor podía quedar absorbida en satisfacción del receptor, perdiendo su valor estructural como feedback operativo. La ruta correcta debe ser: falla de entrega en 3.10 → satisfacción/aceptación del receptor en 3.13 → feedback operativo del receptor en 3.13a → receiver_feedback_exists → receiver_feedback.
+Principio rector: La corrección no relaja gates, no cambia Capa 2.0, no permite diagnóstico temprano, no autoriza generación de diagramas desde evidencia incompleta y no convierte texto libre en hecho estructural sin ruta canónica. La corrección solo repara rutas canónicas de captura y derivación dentro de Capa 1.0 para que la evidencia ya existente pueda cerrarse correctamente como variable estructural.
+Documentos impactados: Bloque 2 — Transformación; Bloque 3 — Salida; Documento Madre / Catálogo de preguntas Capa 1; Diseño estructural Plataforma EVE — Capa 1.0; Diseño estructural Plataforma EVE — Capa 1.0 para Producción Paralela; contratos de salida scene_canonical_record, evidence_bundle_for_transduction y mmabp_design_source_bundle.
+Documentos no impactados funcionalmente: Capa 2.0, Capa 2.5, Capa 3, motor de diagnóstico EVE, monetización y narrativa final.
+Regla de no intervención: Este cambio no modifica el propósito de Capa 1.0 core. Capa 1.0 sigue produciendo expediente estructural canónico, scene_canonical_record, evidence_bundle_for_transduction y readiness hacia Capa 2.0. La producción paralela sigue consumiendo un bundle lateral. La corrección solo asegura que los campos estructurales necesarios se capturen y deriven desde rutas canónicas explícitas.
+Resultado esperado para V3: Después del cambio, Capa 1.0 debe poder cerrar correctamente transformation_exception_exists desde la respuesta canónica de Bloque 2. La ruta documental queda así: 2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description si aplica. Si la respuesta en 2.9 indica cualquier forma de falla, aunque sea rara, transformation_exception_exists debe derivarse como true. Si la respuesta indica que la transformación siempre ocurre correctamente, debe derivarse como false. Si la respuesta está ausente o no es interpretable, debe quedar como unresolved y abrir gap, no asumirse como false.
+Resultado esperado para R9: Después del cambio, Capa 1.0 debe poder separar satisfacción del receptor y feedback operativo del receptor. La ruta documental queda así: 3.10 falla de entrega → 3.13 satisfacción/aceptación del receptor → 3.13a feedback operativo del receptor → receiver_feedback_exists → receiver_feedback. Si el receptor avisa, rechaza, devuelve, corrige, pide cambio, bloquea el siguiente paso, recontacta, actualiza algo o escala el problema, receiver_feedback_exists debe derivarse como true y receiver_feedback debe conservar la evidencia literal. Si el receptor no avisa o no hay señal visible, debe derivarse como false. Si hay falla de entrega pero no se sabe si el receptor emite señal operativa, debe abrirse receiver_feedback_gap_flag.
+Impacto esperado en scene_canonical_record: El expediente canónico debe poder contener transformation_exception_exists, transformation_exception_type, transformation_exception_description, receiver_satisfaction, receiver_feedback_exists y receiver_feedback, preservando evidencia, derivación, confianza, gaps y proveniencia.
+Impacto esperado en evidence_bundle_for_transduction: El dominio transformation_evidence debe incluir transformation_exception_exists, transformation_exception_type, transformation_exception_description y, si aplica, transformation_exception_needs_clarification. El dominio handoff_evidence debe incluir receiver_satisfaction, receiver_feedback_exists, receiver_feedback y, si aplica, receiver_feedback_gap_flag. El dominio flow_evidence puede referenciar receiver_feedback cuando ese feedback active rework, rebote, espera, Process State o proceso de soporte.
+Impacto esperado en mmabp_design_source_bundle: La producción paralela debe recibir las variables ya cerradas o explícitamente marcadas como gap. Si existe evidencia textual de falla de transformación pero transformation_exception_exists queda sin cerrar, debe producirse transformation_exception_route_unresolved. Si existe falla de entrega pero no existe ruta canónica para capturar feedback operativo, debe producirse receiver_feedback_route_missing. La producción paralela no debe inferir estos hechos desde texto libre sin ruta canónica.
+Regla de frontera metodológica: Esta corrección no autoriza a Producción Paralela a inferir hechos desde texto libre sin ruta canónica. Tampoco autoriza a Capa 2.0 a consumir respuestas crudas como diagnóstico. La corrección solo añade o repara rutas canónicas de captura y derivación dentro de Capa 1.0.
+Criterio de aceptación documental: El cambio queda aceptado cuando Bloque 2 documenta explícitamente la derivación de transformation_exception_exists desde transformation_exception_type; Bloque 3 separa receiver_satisfaction de receiver_feedback; el catálogo maestro incorpora la nueva pregunta 3.13a y las variables asociadas; el diseño estructural de Capa 1.0 actualiza el expediente y el bundle de transducción; y el diseño de Producción Paralela actualiza el mmabp_design_source_bundle, sus gaps y sus validaciones funcionales.
+Criterio de no regresión: Un caso como New Hometown Restaurant — flujo de orden delivery, con evidencia textual de duplicados, cancelaciones tardías, cambios no registrados u órdenes no consolidadas, debe cerrar transformation_exception_exists = true si 2.9 indica falla. Un caso con evidencia de que el Chef, repartidor o coordinador avisa, corrige, rechaza, recontacta o actualiza por error de entrega debe cerrar receiver_feedback_exists = true y conservar receiver_feedback. Si estas variables no se cierran, el bloqueo debe clasificarse como falta de ruta canónica o gap de instrumentación, no como contradicción real del caso.
+0. Inicio de acoplamiento con el Bloque 1
+Este bloque comienza exactamente donde termina el Bloque 1. El Bloque 1 deja estabilizado, hasta donde sea posible, el disparador de la escena: de dónde viene la señal, con qué claridad llega, por qué canal, con qué frecuencia y qué excepciones presenta. Sobre esa base, el Bloque 2 deja de preguntar por el arranque y se desplaza al núcleo material de la escena: qué cambia realmente.
+La continuidad de ensamblaje debe leerse así: actividad declarada por el usuario → escena operativa regulada anclada por el Bloque 0 → escena situada sistémicamente por el Bloque 0.5 → escena activada causalmente por el Bloque 1 → escena materialmente reconstruida por el Bloque 2.
+Instrucción de integración documental: este bloque está redactado para copiarse y pegarse inmediatamente después del cierre del Bloque 1, conservando numeración de secciones, estilo y jerarquía. No requiere reescritura introductoria adicional.
+Dependencia mínima heredada del Bloque 1: si la escena no quedó razonablemente clara en su condición de arranque, la lectura de transformación puede contaminarse con supuestos sobre qué llega, cuándo llega o por qué llega. Cuando eso ocurra, la implementación deberá permitir reentrada breve al Bloque 1 sin romper trazabilidad.
+1. Identidad del bloque
+Campo
+ | Contenido
+ | Bloque
+ | 2
+ | Nombre canónico
+ | Transformación
+ | Pregunta madre
+ | ¿Qué cambia realmente en esta escena?
+ | Propósito operativo
+ | Reconstruir la transformación con un relato de trabajo: foco, antes, intervención y después. EVE organiza dimensiones, atributos, magnitud, causalidad, iteraciones, excepciones y cambios ocultos con evidencia y gaps trazables.
+ | Momento del flujo
+ | Después del Bloque 1 (disparador) y antes del Bloque 3 (salida).
+ | Unidad de análisis
+ | Escena operativa regulada ya anclada y ya activada causalmente.
+ | Visible para usuario
+ | Sí: preguntas operativas, ejemplos desplegables y precisiones factuales condicionales; no taxonomía ni combinaciones ontológicas visibles.
+ | Naturaleza del bloque
+ | captura narrativa + proyección sustentada + candidatos separados + validación de consistencia + preparación de métrica para Bloque 5
+ | Relación con PM / PF / MoC / OLC
+ | MoC: clases, atributos y relaciones que cambian. OLC: estados inicial y final, además de cambios válidos o fallidos. PF: tareas de transformación, causalidad e iteraciones. PM: hitos de transformación en el end-to-end.
+ | Relación con Capa 2
+ | Entrega evidencia de cambio, fallos, repeticiones y cambios no registrados, con procedencia y estado de resolución. Ningún candidato del modelo se presenta como hecho ni se usa como diagnóstico.
+ | Huellas estructurales para inferencia VSM posterior
+ | S1: variedad y transformación reportadas; S2: interfaces de coordinación; S3: estándares/capacidad por contrastar; S3*: contraste verificable entre cambio real y declarado. S4 exige evidencia de adaptación/futuro; S5, de identidad/política. El canal algedónico requiere evidencia de dolor/riesgo o escalamiento. Ninguna etiqueta se cierra por este bloque.
+ | Restricción epistemológica
+ | Este bloque no pregunta todavía por impacto al receptor, ni por regulación de recursos, ni por sacrificio humano. Pregunta por transformación. No debe contaminarse con salida, capacidad o compensación.
+ | 
+2. Decisión metodológica central del Bloque 2
+El Bloque 2 mantiene la pregunta «qué cambia», pero no exige que el usuario clasifique primero su trabajo. La captura empieza por un caso que reconoce: con qué trabaja, cómo lo encuentra, qué hace y cómo queda al terminar su parte. La interfaz reduce las distinciones que debe manejar; EVE organiza después la evidencia sin completar lo que no se dijo.
+Objeto, sujeto y acción/proceso siguen siendo dimensiones internas para describir la transformación. No se presentan como un examen de categorías. Un documento y la persona a la que se refiere no son la misma unidad de observación; el ejecutor tampoco es automáticamente el sujeto transformado. La acción que alguien realiza y el trabajo cuya organización cambia se registran por separado. Las combinaciones se sostienen con hechos del caso, no con la presencia de sustantivos o verbos.
+La distinción sigue preparando la ingeniería de variedad de Bloque 5, pero identificar una dimensión no prueba que sea el limitante. Se distinguen tres preguntas internas: qué recibe un cambio, qué factor frena el trabajo y con qué unidad podrá compararse capacidad. El relato y, cuando haga falta, una comparación factual permiten orientar volumen, cantidad de personas atendidas, complejidad o frecuencia. B5 conserva la decisión de métrica y comparabilidad.
+En términos de VSM, esto tiene bastante peso. S1 no solo ejecuta: transforma. Y la clase de transformación —su materialidad, complejidad, repetición, fallas y cambios ocultos— condiciona lo que S3 puede regular, lo que S3* debería auditar, y lo que el canal algedónico termina gritando cuando la transformación no se logra, se logra mal o se logra fuera del procedimiento.
+En términos de subsidiariedad, el bloque también muestra si la operación lidia con variedad absorbible localmente o si la unidad queda forzada a compensar, iterar o reinterpretar sin apoyo suficiente. No lo diagnostica todavía de forma fuerte; apenas deja la huella para que eso pueda leerse después, sin borrar la evidencia original del actor.
+3. Variables canónicas que el bloque debe producir
+Variable canónica
+ | Descripción
+ | Tipo epistemológico
+ | transformation_primary_dimensions
+ | Dimensiones sustentadas por el relato de 2.1/2.5/2.4a/2.6 y sus precisiones; no selección ontológica del usuario.
+ | canonical_derivation; pendiente si solo hay candidato
+ | objeto_tipo
+ | Referente concreto sustentado por el relato o precisado en 2.1a; distinguirlo de sus estados.
+ | canonical_derivation / captura factual
+ | sujeto_tipo
+ | Persona o entidad atendida/cambiada sustentada por el relato; no el ejecutor por defecto.
+ | canonical_derivation / captura factual
+ | accion_tipo
+ | Trabajo o proceso cuya organización/ejecución se ajusta, si el relato lo sustenta. No todo verbo de 2.4a activa esta dimensión.
+ | canonical_derivation / captura factual
+ | dimension_dominante
+ | Dimensión vinculada al limitante reportado con evidencia; no equivalencia automática entre entidad y restricción de capacidad.
+ | canonical_derivation / comparación factual
+ | ranking_dimensiones
+ | Orden derivado únicamente de comparaciones explícitas. Empates y órdenes parciales quedan documentados sin inventar un orden total.
+ | canonical_derivation
+ | atributos_objeto_cambian
+ | Cambios del mismo objeto/caso sustentados por antes/después o precisión 2.2_obj.
+ | canonical_derivation / precisión factual
+ | atributos_sujeto_cambian
+ | Cambios del sujeto atendido sustentados por relato o precisión 2.2_suj; no atributos psicológicos supuestos.
+ | canonical_derivation / precisión factual
+ | atributos_accion_cambian
+ | Cambios del trabajo organizado sustentados por relato o precisión 2.2_acc; no repetir el verbo del ejecutor.
+ | canonical_derivation / precisión factual
+ | transformation_attributes
+ | Consolidación de cambios con referente y procedencia; solo proyecciones sustentadas, sin candidatos no confirmados.
+ | canonical_derivation
+ | transformation_magnitude
+ | Magnitud reportada: Pequeño, Medio, Grande o Radical; no conteo automático de atributos. Desconocida o sin cambio: estado explícito.
+ | captured_user_evidence
+ | transformation_causality_action
+ | Acción directa ejecutada por el actor sobre la entidad transformada.
+ | captured_user_evidence
+ | transformation_causality_trigger
+ | Qué provoca normalmente que el actor haga ese cambio.
+ | captured_user_evidence
+ | transformation_state_initial
+ | Estado o condición inicial antes de la transformación.
+ | captured_user_evidence
+ | transformation_state_final
+ | Estado o condición final después de la transformación.
+ | captured_user_evidence
+ | transformation_iterations
+ | Régimen de iteración: una vez, pocas, muchas, continuo.
+ | captured_user_evidence
+ | transformation_iteration_count
+ | Número típico de ciclos cuando aplica.
+ | captured_user_evidence
+ | transformation_exception_exists
+ | Existencia de fallos en la transformación.
+ | canonical_derivation
+ | transformation_exception_type
+ | Intensidad o frecuencia del fallo.
+ | captured_user_evidence
+ | transformation_exception_description
+ | Descripción concreta de cómo falla la transformación.
+ | captured_user_evidence / clarification
+ | transformation_hidden_changes
+ | Existencia de cambios no oficiales o no esperados.
+ | captured_user_evidence
+ | transformation_hidden_changes_description
+ | Descripción de cambios ocultos y quién los hace.
+ | captured_user_evidence / clarification
+ | scene_transformation_confidence
+ | Suficiencia estructural del expediente con evidencia, gaps y estado de cada proyección; no probabilidad de verdad del modelo.
+ | internal_calculated
+ | scene_transformation_readiness
+ | Preparación para consolidación gobernada por evidencia, rutas canónicas y consumidores afectados.
+ | readiness_marker
+ | transformation_metric_hint
+ | Pista sustentada para B5 sobre volumen, atención, complejidad/frecuencia o mezcla. Pendiente si falta el limitante; nunca selecciona la fórmula final.
+ | canonical_derivation
+ | transformation_contradiction_flag
+ | Flag estructural por contradicciones entre estados, magnitud, iteración y tipo de cambio.
+ | consistency_flag
+ | transformation_focus_literal
+ | Relato breve inicial sobre con qué trabaja o a quién atiende en ese caso. Nueva captura de 2.1.
+ | captured_user_evidence
+ | transformation_model_review
+ | Metadatos por salida: candidato, evidencia, regla, estado, alternativas y gap. Se guarda dentro de estructuras existentes.
+ | governance_metadata
+ | transformation_change_trace
+ | Vínculo por referente entre evidencia del antes, intervención y después; proyecciones de atributos trazables.
+ | canonical_derivation
+ | transformation_delta_status
+ | supported_change / no_observed_change / unknown. Distingue ausencia de cambio de falta de evidencia; no cierra V3.
+ | internal_calculated
+ | transformation_metric_readiness
+ | ready_for_metric_selection / needs_factual_clarification / needs_block5_context. No modifica fórmulas de B5.
+ | readiness_marker
+ | dimension_dominante_AB
+ | Dominancia de la combinación documentada en 2.1_AB_Relacion; se conserva código y trazabilidad.
+ | canonical_derivation / comparación factual
+ | dimension_dominante_AC
+ | Dominancia de la combinación documentada en 2.1_AC_Relacion; se conserva código y trazabilidad.
+ | canonical_derivation / comparación factual
+ | dimension_dominante_BC
+ | Dominancia de la combinación documentada en 2.1_BC_Relacion; se conserva código y trazabilidad.
+ | canonical_derivation / comparación factual
+ | dimension_dominante_ABC
+ | Dominancia de la combinación documentada en 2.1_ABC_Relacion; se conserva código y trazabilidad.
+ | canonical_derivation / comparación factual
+ | 4. Criterios de diseño de las preguntas del Bloque 2
+El bloque captura aquello sobre lo que se trabaja y la intervención del usuario sin confundirlos. Primero admite la descripción operativa; después propone objeto/sujeto/acción como estructura interna. Ningún nombre de categoría ni lista de atributos se impone al usuario para que complete el modelo.
+Los cambios deben conservar granularidad suficiente: estado, monto, validación, relación, fecha u otra propiedad concreta cuando la evidencia la respalde. EVE obtiene esos contrastes del antes/después; si falta una diferencia relevante, formula una precisión factual sobre ese mismo caso. No pregunta una lista completa de propiedades solo porque estén disponibles en un diccionario.
+Magnitud, causalidad, iteraciones, estado inicial, estado final, excepciones y cambios ocultos son atributos ortogonales. Deben capturarse por separado para que la transducción posterior no mezcle niveles.
+El procesamiento interno conserva siete composiciones no vacías: Objeto; Sujeto; Acción; Objeto+Sujeto; Objeto+Acción; Sujeto+Acción; Objeto+Sujeto+Acción. La selección de rama no se deduce por cantidad de palabras ni se convierte en siete recorridos visibles. Si no hay evidencia para una composición, se mantiene pendiente.
+La UX usa lenguaje de actividad y ejemplos de trinchera. Las etiquetas visibles solo pueden repetir referencias literales ya identificadas; sin una referencia inequívoca se usa el fallback_question_text definido o no se abre la comparación. No se introduce {OBJETO}/{SUJETO}/{ACCIÓN} como vocabulario obligatorio ni se inventa un nombre para completar la frase.
+Se preserva la distinción entre ejecución, autorización y verificación. 2.4a captura qué hace la persona; 2.4b captura la señal que la lleva a ese cambio. Ninguna de las dos respuestas clasifica por sí sola un sistema VSM ni transforma a un ejecutor en sujeto afectado.
+Las respuestas preparan B5 mediante evidencia sobre volumen, atención a sujetos, complejidad/frecuencia del trabajo o mezcla, cuando ese factor esté efectivamente reportado. No se introduce personal disponible como sujeto transformado ni se estima capacidad por el número de atributos.
+Siempre que haya fallos, cambios ocultos, estados incompatibles o descripciones excesivamente genéricas, el sistema debe poder disparar aclaraciones posteriores sin sobrescribir la evidencia original.
+5. Catálogo canónico de preguntas del Bloque 2
+A continuación se define el contenido final del Bloque 2. La numeración conserva continuidad con el diseño base y con la lógica del catálogo v2.1, pero aquí se explicita con el nivel de detalle necesario para conectarlo después a JSON operativo, UI, persistencia, Codex y Capa 2.
+Se conservan los 26 nodos: identificación, combinaciones, prioridad, atributos por dimensión, magnitud, causalidad, estados, iteraciones, excepciones, cambios ocultos y aclaraciones. Cambia la forma de obtener el dato: historia operativa primero; proyección sustentada después; precisión factual solo ante una falta real. Los nodos no mostrados siguen documentados y trazados.
+6. Tabla maestra de preguntas
+En coherencia con el formato madre ya aprobado, cada pregunta se documenta con ficha canónica completa. No se reduce a código y texto, porque la lógica de este bloque depende justamente de sus condicionales y combinaciones.
+Código
+ | Pregunta visible
+ | Tipo canónico
+ | Condición de despliegue
+ | 2.1
+ | En un caso normal de esta actividad, ¿con qué trabajas o a quién atiendes?
+ | free_text
+ | Visible al abrir el recorrido, sin opciones Objeto/Sujeto/Acción.
+ | 2.1a
+ | ¿Cómo llamas a eso con lo que estás trabajando?
+ | free_text
+ | Interno por defecto; visible únicamente si falta identificar el referente que la evidencia menciona.
+ | 2.1b
+ | ¿A quién atiendes en el caso que acabas de contar?
+ | free_text
+ | Interno por defecto; visible únicamente si falta identificar el referente que la evidencia menciona.
+ | 2.1c
+ | ¿Qué trabajo estás organizando o ajustando en ese caso?
+ | free_text
+ | Interno por defecto; visible únicamente si falta identificar el referente que la evidencia menciona.
+ | 2.1_AB_Relacion
+ | En esos casos, ¿qué te frena más: sacar los «{referente_A}» o atender a «{referente_B}»?
+ | single_choice
+ | Condicional; una sola comparación pertinente, nunca todas las combinaciones por defecto.
+ | 2.1_AC_Relacion
+ | ¿Qué te frena más: la cantidad de «{referente_A}» o el trabajo que lleva «{referente_C}»?
+ | single_choice
+ | Condicional; una sola comparación pertinente, nunca todas las combinaciones por defecto.
+ | 2.1_BC_Relacion
+ | ¿Qué te frena más: atender a «{referente_B}» o el trabajo que lleva «{referente_C}»?
+ | single_choice
+ | Condicional; una sola comparación pertinente, nunca todas las combinaciones por defecto.
+ | 2.1_ABC_Relacion
+ | En los casos que se atrasan, ¿qué es lo que más te frena?
+ | single_choice
+ | Condicional; una sola comparación pertinente, nunca todas las combinaciones por defecto.
+ | 2.1_ABC_Prioridad
+ | Después de ese primer freno, ¿cuál de los otros dos pesa más?
+ | single_choice
+ | Condicional; no se muestra cuando hay igualdad triple, variación contextual o un primer freno no resuelto.
+ | 2.2_obj
+ | Entre cómo lo encontraste y cómo lo dejaste, ¿qué quedó distinto en «{referencia_literal}»?
+ | free_text
+ | Interno primero; solo sondeo factual si falta una diferencia relevante. No desplegar automáticamente todas las ramas activas.
+ | 2.2_suj
+ | Al terminar tu intervención, ¿qué quedó diferente para «{referencia_literal}»?
+ | free_text
+ | Interno primero; solo sondeo factual si falta una diferencia relevante. No desplegar automáticamente todas las ramas activas.
+ | 2.2_acc
+ | Al terminar, ¿qué quedó organizado o funcionando de otra manera?
+ | free_text
+ | Interno primero; solo sondeo factual si falta una diferencia relevante. No desplegar automáticamente todas las ramas activas.
+ | 2.3
+ | Comparado con cómo estaba al empezar, ¿qué tan distinto queda al terminar?
+ | single_choice
+ | Después del antes/después; reutilización solo si el usuario ya expresó la valoración de forma inequívoca.
+ | 2.4a
+ | ¿Qué haces tú para dejarlo listo?
+ | free_text
+ | Después de 2.5; no es un selector de tipos de transformación.
+ | 2.4b
+ | ¿Qué pasó o qué viste para hacer ese cambio?
+ | free_text
+ | Después de 2.4a; condicional por reutilización factual, no por confianza del modelo.
+ | 2.5
+ | Antes de que empieces, ¿cómo está lo que vas a trabajar o atender?
+ | free_text
+ | Visible después de identificar el foco en 2.1 y antes de describir la intervención en 2.4a; reutilizar solo evidencia explícita del mismo caso.
+ | 2.6
+ | Cuando terminas tu parte, ¿cómo queda?
+ | free_text
+ | Visible después de 2.4a/2.4b, antes de resolver atributos y magnitud; reutilizar solo evidencia explícita del mismo caso.
+ | 2.7
+ | Para dejar listo un mismo caso, ¿normalmente basta con hacerlo una vez o tienes que volver sobre él?
+ | single_choice
+ | Siempre visible.
+ | 2.8
+ | En un mismo caso, ¿cuántas vueltas suelen hacer falta hasta dejarlo listo?
+ | single_choice
+ | Visible solo si 2.7 indica iteración discreta repetida.
+ | 2.9
+ | ¿Hay veces en que ese trabajo no queda como debería?
+ | single_choice
+ | Siempre visible.
+ | 2.10
+ | Cuando eso pasa, ¿qué queda mal o sin terminar?
+ | free_text
+ | Visible solo si transformation_exception_exists = true.
+ | 2.11
+ | ¿Se hace algún cambio que no queda registrado o se hace por fuera de la forma acordada de trabajar?
+ | single_choice
+ | Siempre visible.
+ | 2.12
+ | ¿Qué cambio se hace por fuera de esa forma de trabajar?
+ | free_text
+ | Visible solo si 2.11 = Sí, a veces o Sí, con frecuencia.
+ | 2.A
+ | En un caso que se atrasó, ¿qué te impidió avanzar primero?
+ | free_text
+ | No aparece en flujo base; solo por flags.
+ | 2.B
+ | ¿Qué es lo primero que ves que queda mal o no cambia como debería?
+ | free_text
+ | No aparece en flujo base; solo por flags.
+ | 2.C
+ | ¿Qué cambio puedes señalar y qué sabes de quién lo hizo?
+ | free_text
+ | No aparece en flujo base; solo por flags.
+ | 6.A. Diccionarios internos canónicos para 2.2; no listas de captura
+La relación entity_type → attribute_options se conserva como vocabulario interno de EVE. Las familias dynamic_attribute_enum_by_object, dynamic_attribute_enum_by_subject y dynamic_attribute_enum_by_action sirven para normalizar cambios ya sustentados; no son evidencia ni un formulario que el usuario deba completar. La fuente del atributo es el relato y su contraste, nunca la lista.
+La tabla conserva todas las entradas de la versión base como vocabulario posible, no como atributos obligatorios ni reales en todo caso. No requiere archivos, maestros ni catálogos de la empresa cliente. EVE puede mantener este diccionario versionado sin imponerlo a la captura. Un registro «Cliente» y un cambio en el cliente como persona se distinguen por la evidencia; un atributo inaplicable se deja sin usar.
+entity_type
+ | attribute_options
+ | nota de implementación
+ | Factura
+ | estado; monto; propietario; fecha; información; validación; relación; otro
+ | Base mínima para dynamic_attribute_enum_by_object. Uso interno: no se muestra como lista ni acredita cambios sin evidencia.
+ | Pedido
+ | cantidad; estado; prioridad; fecha; asignación; validación; relación; otro
+ | Base mínima para dynamic_attribute_enum_by_object. Uso interno: no se muestra como lista ni acredita cambios sin evidencia.
+ | Cliente (como objeto: expediente/cuenta/caso)
+ | estado; información; clasificación; relación; validación; propietario; otro
+ | Usar como OBJETO solo cuando se trate el registro o caso del cliente. Uso interno: no se muestra como lista ni acredita cambios sin evidencia.
+ | Proveedor
+ | estado; información; propietario; relación; clasificación; validación; acuerdo; otro
+ | Base mínima para dynamic_attribute_enum_by_subject. Uso interno: no se muestra como lista ni acredita cambios sin evidencia.
+ | Empleado
+ | estado; información; asignación; validación; clasificación; relación; otro
+ | Base mínima para dynamic_attribute_enum_by_subject. Uso interno: no se muestra como lista ni acredita cambios sin evidencia.
+ | Coordinar
+ | frecuencia; complejidad; participantes; duración; resultado; documentación; escalamiento; otro
+ | Base mínima para dynamic_attribute_enum_by_action. Uso interno: no se muestra como lista ni acredita cambios sin evidencia.
+ | Validar
+ | frecuencia; complejidad; criterios; duración; resultado; documentación; escalamiento; otro
+ | Base mínima para dynamic_attribute_enum_by_action. Uso interno: no se muestra como lista ni acredita cambios sin evidencia.
+ | Regla de ampliación: una expresión nueva se conserva literalmente y, si hace falta, se propone como candidata de normalización interna. No se crea un hecho por extender el diccionario. «Propietario» en un registro no autoriza a atribuir propiedad sobre personas; los cambios en participantes, duración, frecuencia o escalamiento de una acción necesitan evidencia específica.
+6.B. Declaración canónica de códigos y dependencias
+Los códigos 2.1_AB_Relacion, 2.1_AC_Relacion, 2.1_BC_Relacion, 2.1_ABC_Relacion, 2.1_ABC_Prioridad, 2.2_obj, 2.2_suj y 2.2_acc quedan declarados en este documento como nomenclatura canónica estable para Bloque 2. Cuando existan versiones anteriores del catálogo con códigos abreviados o combinaciones menos explícitas, este documento madre prevalece. La implementación deberá conservar, si hace falta, un mapa de compatibilidad retroactiva hacia JSON o catálogos previos, pero no debe degradar la claridad de estos códigos nuevos.
+Normalización contractual: depends_on enumera datos y condiciones previas; generated_from identifica fuentes efectivamente reutilizadas o derivadas. La clasificación de 2.1 puede resolverse después de 2.5/2.6: la captura de esos estados depende del referente literal, no de una clasificación cerrada. candidate no equivale a canonical_derivation. Las nuevas filas node_execution_mode, epistemic_gate y reuse_rule explicitan esta diferencia dentro de cada ficha.
+Ficha canónica 2.1
+Campo
+ | Contenido
+ | question_code
+ | 2.1
+ | block_id
+ | 2
+ | canonical_question_text
+ | En un caso normal de esta actividad, ¿con qué trabajas o a quién atiendes?
+ | short_ui_label
+ | Con qué trabajas
+ | help_text
+ | Nómbralo como lo hacen en tu trabajo. Todavía no hace falta explicar todo el proceso.
+ | examples
+ | 1) Yo reviso la factura que llegó con soporte incompleto. Trabajo sobre esa factura y sus comprobantes; no sobre todos los pagos del mes.2) Atiendo al personal de nuevo ingreso para que aprenda a operar la caja. En ese caso estoy trabajando con la persona que se está capacitando.3) Organizo las entregas del turno: junto los pedidos, las rutas y la disponibilidad para que el reparto quede coordinado.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | libre guiada
+ | options
+ | Respuesta abierta. Acción secundaria: No puedo precisarlo todavía.
+ | source_options
+ | N/A; no se requiere catálogo del cliente.
+ | fallback_options
+ | Conservar el literal y marcar el referente pendiente; no imponer una categoría.
+ | allows_free_text
+ | sí
+ | depends_on
+ | Ancla de B0 disponible y contexto de inicio de B1; no requiere clasificación ontológica previa.
+ | free_text_condition
+ | Siempre.
+ | generated_from
+ | La pregunta es fija. El nombre confirmado de la actividad puede mostrarse como contexto, no como respuesta.
+ | user_can_edit_generated
+ | El usuario edita su descripción; el modelo no edita el literal.
+ | required_rule
+ | Captura base del foco de trabajo. Puede reutilizarse evidencia literal inequívoca ya confirmada, según 20.B; no se omite por una predicción del modelo.
+ | visibility_rule
+ | Visible al abrir el recorrido, sin opciones Objeto/Sujeto/Acción.
+ | branching_rule
+ | Guardar transformation_focus_literal y recorrer 2.5 → 2.4a/2.4b → 2.6. La clasificación de 2.1 se resuelve después con esa evidencia y 2.1a/b/c. No disparar tres formularios por detectar sustantivos o verbos. Un nombre ambiguo habilita únicamente el sondeo factual pertinente.
+ | canonical_variable_output
+ | transformation_focus_literal (captura); transformation_primary_dimensions (proyección estructural posterior o pendiente).
+ | provenance_type
+ | captured_user_evidence para el literal; canonical_derivation para dimensiones sustentadas. Candidatos no confirmados: model_candidate.
+ | epistemic_role
+ | captura de foco + estructuración posterior separada
+ | stored_in
+ | scene_question_answers para el literal; scene_block_derivations para dimensiones sustentadas y transformation_model_review; scene_answer_provenance.
+ | used_by
+ | huellas para lectura posterior de MoC, OLC, PF y para inferencia de dimensión dominante y métrica de capacidad de Bloque 5
+ | risk_if_missing
+ | Sin referente reconocible, el antes/después puede mezclar casos distintos. Mantener transformation_entity_missing; no completar con la actividad ideal.
+ | node_execution_mode
+ | narrative_capture_then_evidence_projection
+ | derived_outputs
+ | transformation_primary_dimensions; transformation_entity_missing; scene_transformation_confidence; scene_transformation_readiness.
+ | epistemic_gate
+ | Separar literal, proyección trazable y candidato del modelo. Solo una proyección sin información añadida o una aclaración factual explícita cierra el valor canónico; lo demás permanece pendiente en transformation_model_review. Véase 20.B.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.1a
+Campo
+ | Contenido
+ | question_code
+ | 2.1a
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Cómo llamas a eso con lo que estás trabajando?
+ | short_ui_label
+ | Precisar con qué trabajas
+ | help_text
+ | Usa el nombre concreto: la factura, el pedido, el expediente o el material que acabas de mencionar.
+ | examples
+ | 1) Cuando digo «el pendiente» me refiero a una factura sin comprobante de recepción; no a todo el expediente del proveedor.2) Estoy corrigiendo la cuenta del cliente en el sistema. No cambia el cliente como persona: cambia la información de su registro.3) Es la pieza que sale del horno y que revisamos antes de pasarla al siguiente trabajo; no estoy hablando del informe de inspección.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | aclaración factual breve, si hace falta
+ | options
+ | Texto libre. Acción secundaria: No puedo precisarlo.
+ | source_options
+ | N/A en captura; vocabulario interno EVE solo para normalización posterior.
+ | fallback_options
+ | Conservar el nombre literal; estado unresolved si no puede ubicarse.
+ | allows_free_text
+ | sí
+ | depends_on
+ | Existe relato en 2.1 y/o antes/después. La identidad relevante sigue ambigua; no exige transformation_primary_dimensions cerrada.
+ | free_text_condition
+ | Solo al activar el sondeo factual.
+ | generated_from
+ | Fragmentos de 2.1, 2.5, 2.4a y 2.6 que identifican aquello trabajado; B0 solo aporta contexto confirmado.
+ | user_can_edit_generated
+ | Puede precisar su relato. No se le pide aprobar una etiqueta ontológica.
+ | required_rule
+ | Obligatorio resolver o dejar gap para una dimensión sustentada; no obliga a mostrar una pregunta si el dato ya existe.
+ | visibility_rule
+ | Interno por defecto; visible únicamente si falta identificar el referente que la evidencia menciona.
+ | branching_rule
+ | Si el referente es inequívoco, proyectar sin preguntar. Si faltan datos, abrir solo esta precisión; después reevaluar 2.1 y los estados. Si persiste la duda, conservar unresolved y no abrir ramas por adivinación.
+ | canonical_variable_output
+ | objeto_tipo (proyección del referente o precisión factual; pendiente si no hay soporte).
+ | provenance_type
+ | canonical_derivation en reutilización; captured_user_evidence / clarification para una respuesta explícita. model_candidate no cierra el campo.
+ | epistemic_role
+ | identificación sustentada; no clasificación del usuario
+ | stored_in
+ | scene_block_derivations; scene_answer_provenance; scene_question_answers solo si hubo respuesta visible; precisión contextual también vinculada en scene_clarifications.
+ | used_by
+ | huellas para lectura posterior de MoC, OLC y para construir opciones dinámicas de 2.2_obj
+ | risk_if_missing
+ | Sin identidad suficiente de objeto, no asignar atributos ni estados a un referente supuesto.
+ | node_execution_mode
+ | evidence_projection_or_conditional_factual_probe
+ | derived_outputs
+ | transformation_primary_dimensions; transformation_entity_missing; scene_transformation_readiness.
+ | normalization_rule
+ | Nombrar el documento, registro, material o caso concreto. «Estado» es una condición de algo, no una entidad nueva por sí solo; «Cliente» puede ser un registro únicamente si el relato lo dice.
+ | epistemic_gate
+ | Separar literal, proyección trazable y candidato del modelo. Solo una proyección sin información añadida o una aclaración factual explícita cierra el valor canónico; lo demás permanece pendiente en transformation_model_review. Véase 20.B.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.1b
+Campo
+ | Contenido
+ | question_code
+ | 2.1b
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿A quién atiendes en el caso que acabas de contar?
+ | short_ui_label
+ | Precisar a quién atiendes
+ | help_text
+ | Nombra a quien recibe la atención, no a quien hace el trabajo.
+ | examples
+ | 1) Es la compañera que está aprendiendo a operar la caja. Al terminar la práctica puede hacer el cobro sin que yo le marque cada paso.2) Reviso al proveedor que quiere empezar a surtirnos y verifico si cumple las condiciones para trabajar con nosotros.3) Atiendo al equipo del siguiente turno para que conozca los pendientes que debe tomar; no me refiero al supervisor que da la explicación.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | aclaración factual breve, si hace falta
+ | options
+ | Texto libre. Acción secundaria: No puedo precisarlo.
+ | source_options
+ | N/A en captura; vocabulario interno EVE solo para normalización posterior.
+ | fallback_options
+ | Conservar el nombre literal; estado unresolved si no puede ubicarse.
+ | allows_free_text
+ | sí
+ | depends_on
+ | Existe relato en 2.1 y/o antes/después. La identidad relevante sigue ambigua; no exige transformation_primary_dimensions cerrada.
+ | free_text_condition
+ | Solo al activar el sondeo factual.
+ | generated_from
+ | Fragmentos de 2.1, 2.5 y 2.6 que nombran a quien recibe atención o una condición que cambia; contrastar con la intervención de 2.4a.
+ | user_can_edit_generated
+ | Puede precisar su relato. No se le pide aprobar una etiqueta ontológica.
+ | required_rule
+ | Obligatorio resolver o dejar gap para una dimensión sustentada; no obliga a mostrar una pregunta si el dato ya existe.
+ | visibility_rule
+ | Interno por defecto; visible únicamente si falta identificar el referente que la evidencia menciona.
+ | branching_rule
+ | Si el referente es inequívoco, proyectar sin preguntar. Si faltan datos, abrir solo esta precisión; después reevaluar 2.1 y los estados. Si persiste la duda, conservar unresolved y no abrir ramas por adivinación.
+ | canonical_variable_output
+ | sujeto_tipo (proyección del referente o precisión factual; pendiente si no hay soporte).
+ | provenance_type
+ | canonical_derivation en reutilización; captured_user_evidence / clarification para una respuesta explícita. model_candidate no cierra el campo.
+ | epistemic_role
+ | identificación sustentada; no clasificación del usuario
+ | stored_in
+ | scene_block_derivations; scene_answer_provenance; scene_question_answers solo si hubo respuesta visible; precisión contextual también vinculada en scene_clarifications.
+ | used_by
+ | huellas para lectura posterior de MoC, PF y para la métrica de cantidad de sujetos en Bloque 5
+ | risk_if_missing
+ | Sin identidad suficiente de sujeto, no asignar atributos ni estados a un referente supuesto.
+ | node_execution_mode
+ | evidence_projection_or_conditional_factual_probe
+ | derived_outputs
+ | transformation_primary_dimensions; transformation_entity_missing; scene_transformation_readiness.
+ | normalization_rule
+ | Solo asignar Sujeto si el relato sostiene atención o cambio en la persona/entidad. El ejecutor, el jefe y el personal disponible no se vuelven sujetos transformados por aparecer en la narración.
+ | epistemic_gate
+ | Separar literal, proyección trazable y candidato del modelo. Solo una proyección sin información añadida o una aclaración factual explícita cierra el valor canónico; lo demás permanece pendiente en transformation_model_review. Véase 20.B.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.1c
+Campo
+ | Contenido
+ | question_code
+ | 2.1c
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Qué trabajo estás organizando o ajustando en ese caso?
+ | short_ui_label
+ | Precisar el trabajo que ajustas
+ | help_text
+ | Nombra el trabajo que queda organizado de otra manera, no solo el verbo que usas para hacerlo.
+ | examples
+ | 1) Estoy organizando el reparto del turno: antes hay entregas sin ruta y al terminar cada salida tiene un recorrido y un horario acordado.2) Ajusto la revisión de expedientes para que las validaciones no se pisen; cambia cómo se reparte y se hace esa revisión.3) Coordino la atención de incidencias entre turnos: dejo acordado quién toma cada pendiente y cuándo se vuelve a revisar.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | aclaración factual breve, si hace falta
+ | options
+ | Texto libre. Acción secundaria: No puedo precisarlo.
+ | source_options
+ | N/A en captura; vocabulario interno EVE solo para normalización posterior.
+ | fallback_options
+ | Conservar el nombre literal; estado unresolved si no puede ubicarse.
+ | allows_free_text
+ | sí
+ | depends_on
+ | Existe relato en 2.1 y/o antes/después. La identidad relevante sigue ambigua; no exige transformation_primary_dimensions cerrada.
+ | free_text_condition
+ | Solo al activar el sondeo factual.
+ | generated_from
+ | Fragmentos de 2.1, 2.4a, 2.5 y 2.6 sobre el trabajo organizado o ajustado.
+ | user_can_edit_generated
+ | Puede precisar su relato. No se le pide aprobar una etiqueta ontológica.
+ | required_rule
+ | Obligatorio resolver o dejar gap para una dimensión sustentada; no obliga a mostrar una pregunta si el dato ya existe.
+ | visibility_rule
+ | Interno por defecto; visible únicamente si falta identificar el referente que la evidencia menciona.
+ | branching_rule
+ | Si el referente es inequívoco, proyectar sin preguntar. Si faltan datos, abrir solo esta precisión; después reevaluar 2.1 y los estados. Si persiste la duda, conservar unresolved y no abrir ramas por adivinación.
+ | canonical_variable_output
+ | accion_tipo (proyección del referente o precisión factual; pendiente si no hay soporte).
+ | provenance_type
+ | canonical_derivation en reutilización; captured_user_evidence / clarification para una respuesta explícita. model_candidate no cierra el campo.
+ | epistemic_role
+ | identificación sustentada; no clasificación del usuario
+ | stored_in
+ | scene_block_derivations; scene_answer_provenance; scene_question_answers solo si hubo respuesta visible; precisión contextual también vinculada en scene_clarifications.
+ | used_by
+ | huellas para lectura posterior de PF, S1 y para la métrica de complejidad/frecuencia de acción en Bloque 5
+ | risk_if_missing
+ | Sin identidad suficiente de acción/proceso, no asignar atributos ni estados a un referente supuesto.
+ | node_execution_mode
+ | evidence_projection_or_conditional_factual_probe
+ | derived_outputs
+ | transformation_primary_dimensions; transformation_entity_missing; scene_transformation_readiness.
+ | normalization_rule
+ | Acción como dimensión requiere evidencia sobre el trabajo, coordinación o ejecución que se organiza o cambia. Todo trabajo contiene verbos, pero eso no activa automáticamente Acción. La intervención del ejecutor se guarda aparte en 2.4a.
+ | epistemic_gate
+ | Separar literal, proyección trazable y candidato del modelo. Solo una proyección sin información añadida o una aclaración factual explícita cierra el valor canónico; lo demás permanece pendiente en transformation_model_review. Véase 20.B.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.1_AB_Relacion
+Campo
+ | Contenido
+ | question_code
+ | 2.1_AB_Relacion
+ | block_id
+ | 2
+ | canonical_question_text
+ | En esos casos, ¿qué te frena más: sacar los «{referente_A}» o atender a «{referente_B}»?
+ | short_ui_label
+ | Qué te frena en esos casos
+ | help_text
+ | Compara lo que te pasó en casos reales. Si pesa igual o cambia según el caso, también indícalo.
+ | examples
+ | 1) Reviso solicitudes y atiendo a sus solicitantes. Esta semana se juntaron muchas solicitudes; lo que más me atrasó fue revisar el montón, no las llamadas.2) Los expedientes eran pocos, pero cada solicitante necesitó varias aclaraciones. Lo que me frenó fue atender cada caso con la persona.3) Cuando hay campaña pesa el número de solicitudes; fuera de campaña pesa resolver las dudas de cada solicitante. No tengo una sola respuesta para todos los días.
+ | field_type
+ | single_choice
+ | answer_mode
+ | single_choice
+ | ui_answer_mode_label
+ | selección contextual, solo si hace falta
+ | options
+ | La cantidad de «{referente_A}» / La atención que requiere «{referente_B}» / Las dos cosas pesan igual / Depende del caso / No encuentro un freno claro / No lo sé.
+ | source_options
+ | Opciones EVE con referencias literales del relato; no catálogo del cliente ni nombres de dimensiones visibles.
+ | fallback_options
+ | Depende del caso / No encuentro un freno claro / No lo sé.
+ | allows_free_text
+ | no
+ | depends_on
+ | Después de 2.6; combinación sustentada Objeto + Sujeto; se necesita distinguir el limitante para B5 y no existe evidencia explícita reutilizable. Una hipótesis de combinación no basta.
+ | free_text_condition
+ | N/A.
+ | generated_from
+ | Solo las etiquetas {referente_A/B/C} ya identificadas en el relato. No generar causas, cantidades o comparaciones.
+ | user_can_edit_generated
+ | El usuario responde sobre factores concretos; no edita la taxonomía interna.
+ | required_rule
+ | Cerrar la dominancia o registrar el gap cuando la adaptación de B5 lo requiera. No mostrar por la mera existencia de varias dimensiones.
+ | visibility_rule
+ | Condicional; una sola comparación pertinente, nunca todas las combinaciones por defecto.
+ | branching_rule
+ | Guardar la comparación literal y mapear solo lo explícito. Si depende del caso o no hay freno, preservar esa respuesta. 2.A solo aclara una ambigüedad factual resoluble; no se usa para obligar a elegir. B5 recibe dominancia pendiente cuando corresponda.
+ | canonical_variable_output
+ | dimension_dominante_AB; proyección en dimension_dominante solo con comparación sustentada.
+ | provenance_type
+ | captured_user_evidence / clarification para la comparación; canonical_derivation para el código de dimensión. Reutilización siempre referenciada.
+ | epistemic_role
+ | evidencia del limitante reportado; no prueba causal ni cálculo de capacidad
+ | stored_in
+ | scene_question_answers si se pregunta; scene_answer_provenance; scene_block_derivations.dimension_dominante y transformation_model_review.
+ | used_by
+ | huellas para lectura posterior de complejidad operativa y para adaptación métrica en Bloque 5
+ | risk_if_missing
+ | La presencia de varias dimensiones no permite escoger por sí sola una métrica de capacidad. Conservar el gap para B5, sin asignar predominio por número de menciones.
+ | node_execution_mode
+ | evidence_projection_or_conditional_comparison
+ | derived_outputs
+ | dimension_dominante; transformation_metric_hint; transformation_dominance_ambiguous; transformation_metric_readiness.
+ | normalization_rule
+ | Primera → Objeto; segunda → Sujeto; igualdad explícita → mixto AB. Las otras respuestas no fijan dominancia; quedan registradas con estado unresolved o sin limitante reportado.
+ | epistemic_gate
+ | Una persona que ejecuta o ayuda no es automáticamente el sujeto transformado. Si el freno reportado es dotación, herramientas o autorización, preservar el dato para B5 sin forzarlo a Objeto/Sujeto/Acción.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | dynamic_context_guard
+ | Solo sustituir marcadores con referencias literales inequívocas ya capturadas. Si faltan, no mostrar una comparación inventada; evaluar 2.A como única precisión factual o conservar el gap.
+ | 
+Ficha canónica 2.1_AC_Relacion
+Campo
+ | Contenido
+ | question_code
+ | 2.1_AC_Relacion
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Qué te frena más: la cantidad de «{referente_A}» o el trabajo que lleva «{referente_C}»?
+ | short_ui_label
+ | Cantidad o trabajo por caso
+ | help_text
+ | Compara lo que te pasó en casos reales. Si pesa igual o cambia según el caso, también indícalo.
+ | examples
+ | 1) Las órdenes se trabajan igual, pero llegaron demasiadas juntas. Lo que nos frena es sacar todas, no resolver cada orden por separado.2) Son pocas entregas, pero acordar rutas y horarios con varias restricciones lleva casi todo el trabajo. El número de pedidos no explica ese atasco.3) Hay días de muchos pedidos sencillos y días de dos pedidos muy complicados. El freno cambia según el caso y no lo resolvería eligiendo siempre la misma opción.
+ | field_type
+ | single_choice
+ | answer_mode
+ | single_choice
+ | ui_answer_mode_label
+ | selección contextual, solo si hace falta
+ | options
+ | La cantidad de «{referente_A}» / El trabajo que requiere «{referente_C}» / Las dos cosas pesan igual / Depende del caso / No encuentro un freno claro / No lo sé.
+ | source_options
+ | Opciones EVE con referencias literales del relato; no catálogo del cliente ni nombres de dimensiones visibles.
+ | fallback_options
+ | Depende del caso / No encuentro un freno claro / No lo sé.
+ | allows_free_text
+ | no
+ | depends_on
+ | Después de 2.6; combinación sustentada Objeto + Acción; se necesita distinguir el limitante para B5 y no existe evidencia explícita reutilizable. Una hipótesis de combinación no basta.
+ | free_text_condition
+ | N/A.
+ | generated_from
+ | Solo las etiquetas {referente_A/B/C} ya identificadas en el relato. No generar causas, cantidades o comparaciones.
+ | user_can_edit_generated
+ | El usuario responde sobre factores concretos; no edita la taxonomía interna.
+ | required_rule
+ | Cerrar la dominancia o registrar el gap cuando la adaptación de B5 lo requiera. No mostrar por la mera existencia de varias dimensiones.
+ | visibility_rule
+ | Condicional; una sola comparación pertinente, nunca todas las combinaciones por defecto.
+ | branching_rule
+ | Guardar la comparación literal y mapear solo lo explícito. Si depende del caso o no hay freno, preservar esa respuesta. 2.A solo aclara una ambigüedad factual resoluble; no se usa para obligar a elegir. B5 recibe dominancia pendiente cuando corresponda.
+ | canonical_variable_output
+ | dimension_dominante_AC; proyección en dimension_dominante solo con comparación sustentada.
+ | provenance_type
+ | captured_user_evidence / clarification para la comparación; canonical_derivation para el código de dimensión. Reutilización siempre referenciada.
+ | epistemic_role
+ | evidencia del limitante reportado; no prueba causal ni cálculo de capacidad
+ | stored_in
+ | scene_question_answers si se pregunta; scene_answer_provenance; scene_block_derivations.dimension_dominante y transformation_model_review.
+ | used_by
+ | huellas para lectura posterior de complejidad operativa y para adaptación métrica en Bloque 5
+ | risk_if_missing
+ | La presencia de varias dimensiones no permite escoger por sí sola una métrica de capacidad. Conservar el gap para B5, sin asignar predominio por número de menciones.
+ | node_execution_mode
+ | evidence_projection_or_conditional_comparison
+ | derived_outputs
+ | dimension_dominante; transformation_metric_hint; transformation_dominance_ambiguous; transformation_metric_readiness.
+ | normalization_rule
+ | Primera → Objeto; segunda → Acción; igualdad explícita → mixto AC. No normalizar «depende» como empate ni como predominio de Acción.
+ | epistemic_gate
+ | Una persona que ejecuta o ayuda no es automáticamente el sujeto transformado. Si el freno reportado es dotación, herramientas o autorización, preservar el dato para B5 sin forzarlo a Objeto/Sujeto/Acción.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | dynamic_context_guard
+ | Solo sustituir marcadores con referencias literales inequívocas ya capturadas. Si faltan, no mostrar una comparación inventada; evaluar 2.A como única precisión factual o conservar el gap.
+ | 
+Ficha canónica 2.1_BC_Relacion
+Campo
+ | Contenido
+ | question_code
+ | 2.1_BC_Relacion
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Qué te frena más: atender a «{referente_B}» o el trabajo que lleva «{referente_C}»?
+ | short_ui_label
+ | Atención o trabajo por caso
+ | help_text
+ | Compara lo que te pasó en casos reales. Si pesa igual o cambia según el caso, también indícalo.
+ | examples
+ | 1) La forma de capacitar ya está preparada. Lo que nos toma más es acompañar a cada persona hasta que logra hacer la operación por su cuenta.2) El grupo es pequeño; lo difícil fue organizar la práctica entre turnos sin dejar la operación descubierta.3) Con personal nuevo pesa acompañar a cada quien; con personal experimentado pesa coordinar horarios. Depende de quiénes entran a la práctica.
+ | field_type
+ | single_choice
+ | answer_mode
+ | single_choice
+ | ui_answer_mode_label
+ | selección contextual, solo si hace falta
+ | options
+ | La atención que requiere «{referente_B}» / El trabajo que requiere «{referente_C}» / Las dos cosas pesan igual / Depende del caso / No encuentro un freno claro / No lo sé.
+ | source_options
+ | Opciones EVE con referencias literales del relato; no catálogo del cliente ni nombres de dimensiones visibles.
+ | fallback_options
+ | Depende del caso / No encuentro un freno claro / No lo sé.
+ | allows_free_text
+ | no
+ | depends_on
+ | Después de 2.6; combinación sustentada Sujeto + Acción; se necesita distinguir el limitante para B5 y no existe evidencia explícita reutilizable. Una hipótesis de combinación no basta.
+ | free_text_condition
+ | N/A.
+ | generated_from
+ | Solo las etiquetas {referente_A/B/C} ya identificadas en el relato. No generar causas, cantidades o comparaciones.
+ | user_can_edit_generated
+ | El usuario responde sobre factores concretos; no edita la taxonomía interna.
+ | required_rule
+ | Cerrar la dominancia o registrar el gap cuando la adaptación de B5 lo requiera. No mostrar por la mera existencia de varias dimensiones.
+ | visibility_rule
+ | Condicional; una sola comparación pertinente, nunca todas las combinaciones por defecto.
+ | branching_rule
+ | Guardar la comparación literal y mapear solo lo explícito. Si depende del caso o no hay freno, preservar esa respuesta. 2.A solo aclara una ambigüedad factual resoluble; no se usa para obligar a elegir. B5 recibe dominancia pendiente cuando corresponda.
+ | canonical_variable_output
+ | dimension_dominante_BC; proyección en dimension_dominante solo con comparación sustentada.
+ | provenance_type
+ | captured_user_evidence / clarification para la comparación; canonical_derivation para el código de dimensión. Reutilización siempre referenciada.
+ | epistemic_role
+ | evidencia del limitante reportado; no prueba causal ni cálculo de capacidad
+ | stored_in
+ | scene_question_answers si se pregunta; scene_answer_provenance; scene_block_derivations.dimension_dominante y transformation_model_review.
+ | used_by
+ | huellas para lectura posterior de complejidad operativa y para adaptación métrica en Bloque 5
+ | risk_if_missing
+ | La presencia de varias dimensiones no permite escoger por sí sola una métrica de capacidad. Conservar el gap para B5, sin asignar predominio por número de menciones.
+ | node_execution_mode
+ | evidence_projection_or_conditional_comparison
+ | derived_outputs
+ | dimension_dominante; transformation_metric_hint; transformation_dominance_ambiguous; transformation_metric_readiness.
+ | normalization_rule
+ | Primera → Sujeto; segunda → Acción; igualdad explícita → mixto BC. Sin identificación factual de un freno, no fijar métrica.
+ | epistemic_gate
+ | Una persona que ejecuta o ayuda no es automáticamente el sujeto transformado. Si el freno reportado es dotación, herramientas o autorización, preservar el dato para B5 sin forzarlo a Objeto/Sujeto/Acción.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | dynamic_context_guard
+ | Solo sustituir marcadores con referencias literales inequívocas ya capturadas. Si faltan, no mostrar una comparación inventada; evaluar 2.A como única precisión factual o conservar el gap.
+ | 
+Ficha canónica 2.1_ABC_Relacion
+Campo
+ | Contenido
+ | question_code
+ | 2.1_ABC_Relacion
+ | block_id
+ | 2
+ | canonical_question_text
+ | En los casos que se atrasan, ¿qué es lo que más te frena?
+ | short_ui_label
+ | Qué frena el avance
+ | help_text
+ | Compara lo que te pasó en casos reales. Si pesa igual o cambia según el caso, también indícalo.
+ | examples
+ | 1) Tenemos pedidos, clientes que confirmar y rutas por organizar. En el cierre del turno lo que más nos atrasó fue la cantidad de pedidos acumulados.2) Llegaron pocos pedidos, pero varios clientes cambiaron horario y dirección; resolver con ellos esas condiciones llevó más que preparar las rutas.3) Pedidos y clientes ya estaban claros; el atasco fue cuadrar rutas, horarios y puntos de entrega. Eso fue lo que más tardó en quedar resuelto.
+ | field_type
+ | single_choice
+ | answer_mode
+ | single_choice
+ | ui_answer_mode_label
+ | selección contextual, solo si hace falta
+ | options
+ | La cantidad de «{referente_A}» / La atención que requiere «{referente_B}» / El trabajo que requiere «{referente_C}» / Las tres cosas pesan igual / Depende del caso / No encuentro un freno claro / No lo sé.
+ | source_options
+ | Opciones EVE con referencias literales del relato; no catálogo del cliente ni nombres de dimensiones visibles.
+ | fallback_options
+ | Depende del caso / No encuentro un freno claro / No lo sé.
+ | allows_free_text
+ | no
+ | depends_on
+ | Después de 2.6; combinación sustentada Objeto + Sujeto + Acción; se necesita distinguir el limitante para B5 y no existe evidencia explícita reutilizable. Una hipótesis de combinación no basta.
+ | free_text_condition
+ | N/A.
+ | generated_from
+ | Solo las etiquetas {referente_A/B/C} ya identificadas en el relato. No generar causas, cantidades o comparaciones.
+ | user_can_edit_generated
+ | El usuario responde sobre factores concretos; no edita la taxonomía interna.
+ | required_rule
+ | Cerrar la dominancia o registrar el gap cuando la adaptación de B5 lo requiera. No mostrar por la mera existencia de varias dimensiones.
+ | visibility_rule
+ | Condicional; una sola comparación pertinente, nunca todas las combinaciones por defecto.
+ | branching_rule
+ | Guardar la comparación literal y mapear solo lo explícito. Si depende del caso o no hay freno, preservar esa respuesta. 2.A solo aclara una ambigüedad factual resoluble; no se usa para obligar a elegir. B5 recibe dominancia pendiente cuando corresponda.
+ | canonical_variable_output
+ | dimension_dominante_ABC; proyección en dimension_dominante solo con comparación sustentada.
+ | provenance_type
+ | captured_user_evidence / clarification para la comparación; canonical_derivation para el código de dimensión. Reutilización siempre referenciada.
+ | epistemic_role
+ | evidencia del limitante reportado; no prueba causal ni cálculo de capacidad
+ | stored_in
+ | scene_question_answers si se pregunta; scene_answer_provenance; scene_block_derivations.dimension_dominante y transformation_model_review.
+ | used_by
+ | huellas para lectura posterior de complejidad operativa y para adaptación métrica en Bloque 5
+ | risk_if_missing
+ | La presencia de varias dimensiones no permite escoger por sí sola una métrica de capacidad. Conservar el gap para B5, sin asignar predominio por número de menciones.
+ | node_execution_mode
+ | evidence_projection_or_conditional_comparison
+ | derived_outputs
+ | dimension_dominante; transformation_metric_hint; transformation_dominance_ambiguous; transformation_metric_readiness.
+ | normalization_rule
+ | Opciones 1/2/3 → Objeto/Sujeto/Acción. Igualdad explícita de los tres → mixed_tripartite. «Depende», falta de freno o desconocimiento no producen ranking automático.
+ | epistemic_gate
+ | Una persona que ejecuta o ayuda no es automáticamente el sujeto transformado. Si el freno reportado es dotación, herramientas o autorización, preservar el dato para B5 sin forzarlo a Objeto/Sujeto/Acción.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | dynamic_context_guard
+ | Solo sustituir marcadores con referencias literales inequívocas ya capturadas. Si faltan, no mostrar una comparación inventada; evaluar 2.A como única precisión factual o conservar el gap.
+ | 
+Ficha canónica 2.1_ABC_Prioridad
+Campo
+ | Contenido
+ | question_code
+ | 2.1_ABC_Prioridad
+ | block_id
+ | 2
+ | canonical_question_text
+ | Después de ese primer freno, ¿cuál de los otros dos pesa más?
+ | short_ui_label
+ | Orden de los otros frenos
+ | help_text
+ | Compara los dos que quedan. Si pesan igual o cambian según el caso, no hace falta forzar un orden.
+ | examples
+ | 1) Primero pesa revisar todos los pedidos. Después pesa acordar la entrega con cada cliente, y al final acomodar las rutas.2) La coordinación de rutas es el primer freno. Entre revisar los pedidos y hablar con los clientes no noto una diferencia estable.3) Hoy se juntaron pedidos, ayer faltó respuesta de los clientes. No podría dar un orden que sirva para todos los turnos.
+ | field_type
+ | single_choice
+ | answer_mode
+ | single_choice
+ | ui_answer_mode_label
+ | comparación factual para ordenamiento interno
+ | options
+ | Pesa más «{factor_restante_1}» / Pesa más «{factor_restante_2}» / Pesan igual / Cambia según el caso / No lo sé.
+ | source_options
+ | Dos factores restantes identificados por el relato, después de un primer freno explícito.
+ | fallback_options
+ | Pesan igual / Cambia según el caso / No lo sé.
+ | allows_free_text
+ | no
+ | depends_on
+ | Combinación triple sustentada; primer freno explícito en 2.1_ABC_Relacion; B5 necesita distinguir los dos restantes y no hay evidencia reutilizable.
+ | free_text_condition
+ | N/A.
+ | generated_from
+ | Factores concretos de 2.1_ABC_Relacion y sus referencias a evidencia; nunca lista visible Objeto/Sujeto/Acción.
+ | user_can_edit_generated
+ | Puede corregir la comparación; el ranking se reconstruye con trazabilidad.
+ | required_rule
+ | Solo si es necesario un orden adicional para B5. No exigir ranking total ante empate o falta de información.
+ | visibility_rule
+ | Condicional; no se muestra cuando hay igualdad triple, variación contextual o un primer freno no resuelto.
+ | branching_rule
+ | Derivar un ranking total únicamente si hay primer freno y comparación suficiente de los otros dos. Empates u órdenes parciales se guardan en transformation_model_review; ranking_dimensiones queda null si su consumidor exige un orden total.
+ | canonical_variable_output
+ | ranking_dimensiones (derivación de comparaciones explícitas; no orden inventado).
+ | provenance_type
+ | captured_user_evidence / clarification para comparación; canonical_derivation para ranking_dimensiones.
+ | epistemic_role
+ | ordenamiento sustentado, no ranking por importancia retórica
+ | stored_in
+ | scene_question_answers si se pregunta; scene_answer_provenance; scene_block_derivations.ranking_dimensiones; transformation_model_review.
+ | used_by
+ | huellas para lectura posterior de complejidad y para desempate de métrica dominante
+ | risk_if_missing
+ | Un orden total desconocido no puede suplirse con la secuencia del texto ni con un desempate de IA.
+ | node_execution_mode
+ | conditional_pairwise_comparison
+ | derived_outputs
+ | ranking_dimensiones; transformation_metric_readiness; transformation_dominance_ambiguous.
+ | normalization_rule
+ | Mapear factores a dimensiones solo si el vínculo está sustentado. No convertir «pesan igual» en un orden total. mixed_tripartite no requiere ranking arbitrario.
+ | epistemic_gate
+ | Separar literal, proyección trazable y candidato del modelo. Solo una proyección sin información añadida o una aclaración factual explícita cierra el valor canónico; lo demás permanece pendiente en transformation_model_review. Véase 20.B.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.2_obj
+Campo
+ | Contenido
+ | question_code
+ | 2.2_obj
+ | block_id
+ | 2
+ | canonical_question_text
+ | Entre cómo lo encontraste y cómo lo dejaste, ¿qué quedó distinto en «{referencia_literal}»?
+ | short_ui_label
+ | Qué quedó distinto
+ | help_text
+ | Habla de lo que cambió, no de los pasos que hiciste. Si quedó igual, también dilo.
+ | examples
+ | 1) La factura tenía un importe equivocado. Corregí ese importe; el proveedor, la fecha y el resto de los datos no cambiaron.2) Al pedido le faltaba la dirección completa. Al terminar quedó capturada y revisada; no cambié los productos ni las cantidades.3) La pieza tenía rebaba en el borde y la retiré. El material siguió siendo el mismo; cambió la terminación de ese borde.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | precisión factual, solo si el contraste no basta
+ | options
+ | Texto libre. Puede declarar que no observó cambios o que no puede compararlos.
+ | source_options
+ | N/A en la pregunta. dynamic_attribute_enum_by_object se conserva como diccionario interno EVE, no como lista a contestar.
+ | fallback_options
+ | Ningún cambio observado / No puedo compararlo, conservados como estado y literal.
+ | allows_free_text
+ | sí
+ | depends_on
+ | Antes y después disponibles (2.5/2.6) e identidad referenciada por 2.1a cuando corresponda. La existencia de una dimensión no obliga a mostrar la pregunta.
+ | free_text_condition
+ | Solo al activar la precisión factual.
+ | generated_from
+ | Contraste de citas del mismo referente y caso en 2.5/2.6, con contexto de 2.4a. El ejemplo de ayuda no se usa como evidencia.
+ | user_can_edit_generated
+ | Puede precisar el cambio observado. No se le muestra una lista de atributos para que confirme lo esperado.
+ | required_rule
+ | Resolver el cambio o dejar explícito su estado; no preguntar si el contraste ya contiene el dato inequívoco.
+ | visibility_rule
+ | Interno primero; solo sondeo factual si falta una diferencia relevante. No desplegar automáticamente todas las ramas activas.
+ | branching_rule
+ | Si el antes/después es suficiente, proyectar los atributos con citas. Si no, formular esta pregunta una vez; conservar candidato o gap si persiste la ambigüedad. No activar 2.A para forzar atributos: 2.A conserva su función de limitante.
+ | canonical_variable_output
+ | atributos_objeto_cambian (proyección sustentada); detalle por referente en transformation_change_trace.
+ | provenance_type
+ | canonical_derivation para la proyección; captured_user_evidence / clarification para la precisión; model_candidate queda separado.
+ | epistemic_role
+ | contraste factual y normalización trazable
+ | stored_in
+ | scene_question_answers solo si hubo precisión visible; scene_answer_provenance; scene_block_derivations.transformation_attributes y transformation_change_trace.
+ | used_by
+ | Huellas para MoC, OLC y transformación real; contraste con 2.3 y preparación de contexto. Los ejemplos visibles no son prueba ni rellenan atributos.
+ | risk_if_missing
+ | Sin contraste suficiente, un atributo plausible no puede entrar como cambio ocurrido. Registrar la falta sin completar la taxonomía.
+ | node_execution_mode
+ | evidence_projection_or_conditional_factual_probe
+ | derived_outputs
+ | transformation_attributes; transformation_change_trace; transformation_delta_status; scene_transformation_confidence.
+ | normalization_rule
+ | No trasladar al objeto todos los atributos del diccionario. Identificar únicamente cambios sustentados: dato corregido, validación, cantidad, condición material u otra propiedad descrita.
+ | epistemic_gate
+ | Separar literal, proyección trazable y candidato del modelo. Solo una proyección sin información añadida o una aclaración factual explícita cierra el valor canónico; lo demás permanece pendiente en transformation_model_review. Véase 20.B.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | fallback_question_text
+ | Entre cómo lo encontraste y cómo lo dejaste, ¿qué quedó distinto?
+ | 
+Ficha canónica 2.2_suj
+Campo
+ | Contenido
+ | question_code
+ | 2.2_suj
+ | block_id
+ | 2
+ | canonical_question_text
+ | Al terminar tu intervención, ¿qué quedó diferente para «{referencia_literal}»?
+ | short_ui_label
+ | Qué cambió con la atención
+ | help_text
+ | Cuenta el cambio que viste durante la atención, no un beneficio lejano que solo supones.
+ | examples
+ | 1) La compañera necesitaba ayuda para hacer el cobro. Después de la práctica pudo hacerlo sola; no estoy diciendo que cambió su puesto.2) El proveedor no tenía la verificación terminada. Al cerrar la revisión quedó verificado; los datos de su cuenta no se modificaron.3) El cliente no sabía cómo restablecer el acceso. Al terminar pudo entrar por su cuenta; el cambio fue poder usarlo, no que yo actualizara su ficha.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | precisión factual, solo si el contraste no basta
+ | options
+ | Texto libre. Puede declarar que no observó cambios o que no puede compararlos.
+ | source_options
+ | N/A en la pregunta. dynamic_attribute_enum_by_subject se conserva como diccionario interno EVE, no como lista a contestar.
+ | fallback_options
+ | Ningún cambio observado / No puedo compararlo, conservados como estado y literal.
+ | allows_free_text
+ | sí
+ | depends_on
+ | Antes y después disponibles (2.5/2.6) e identidad referenciada por 2.1b cuando corresponda. La existencia de una dimensión no obliga a mostrar la pregunta.
+ | free_text_condition
+ | Solo al activar la precisión factual.
+ | generated_from
+ | Contraste de citas del mismo referente y caso en 2.5/2.6, con contexto de 2.4a. El ejemplo de ayuda no se usa como evidencia.
+ | user_can_edit_generated
+ | Puede precisar el cambio observado. No se le muestra una lista de atributos para que confirme lo esperado.
+ | required_rule
+ | Resolver el cambio o dejar explícito su estado; no preguntar si el contraste ya contiene el dato inequívoco.
+ | visibility_rule
+ | Interno primero; solo sondeo factual si falta una diferencia relevante. No desplegar automáticamente todas las ramas activas.
+ | branching_rule
+ | Si el antes/después es suficiente, proyectar los atributos con citas. Si no, formular esta pregunta una vez; conservar candidato o gap si persiste la ambigüedad. No activar 2.A para forzar atributos: 2.A conserva su función de limitante.
+ | canonical_variable_output
+ | atributos_sujeto_cambian (proyección sustentada); detalle por referente en transformation_change_trace.
+ | provenance_type
+ | canonical_derivation para la proyección; captured_user_evidence / clarification para la precisión; model_candidate queda separado.
+ | epistemic_role
+ | contraste factual y normalización trazable
+ | stored_in
+ | scene_question_answers solo si hubo precisión visible; scene_answer_provenance; scene_block_derivations.transformation_attributes y transformation_change_trace.
+ | used_by
+ | Huellas para MoC, OLC y transformación real; contraste con 2.3 y preparación de contexto. Los ejemplos visibles no son prueba ni rellenan atributos.
+ | risk_if_missing
+ | Sin contraste suficiente, un atributo plausible no puede entrar como cambio ocurrido. Registrar la falta sin completar la taxonomía.
+ | node_execution_mode
+ | evidence_projection_or_conditional_factual_probe
+ | derived_outputs
+ | transformation_attributes; transformation_change_trace; transformation_delta_status; scene_transformation_confidence.
+ | normalization_rule
+ | Distinguir cambio reportado en persona/entidad de cambio en su registro. No atribuir satisfacción, aprendizaje, motivación o capacidad psicológica sin evidencia concreta.
+ | epistemic_gate
+ | Separar literal, proyección trazable y candidato del modelo. Solo una proyección sin información añadida o una aclaración factual explícita cierra el valor canónico; lo demás permanece pendiente en transformation_model_review. Véase 20.B.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | fallback_question_text
+ | Durante tu atención, ¿qué le cambió a esa persona o equipo?
+ | 
+Ficha canónica 2.2_acc
+Campo
+ | Contenido
+ | question_code
+ | 2.2_acc
+ | block_id
+ | 2
+ | canonical_question_text
+ | Al terminar, ¿qué quedó organizado o funcionando de otra manera?
+ | short_ui_label
+ | Qué cambió en la forma de trabajar
+ | help_text
+ | Cuenta la diferencia concreta en ese trabajo. No necesitas hablar de procesos ni de sus características.
+ | examples
+ | 1) Las entregas estaban sin orden de salida. Al terminar quedaron acomodadas por ruta y horario; el cambio fue cómo se iba a realizar el reparto.2) Dos turnos revisaban el mismo pendiente. Dejé acordado quién toma cada caso y cuándo lo pasa, para que esa revisión ya no se duplique.3) La revisión se hacía con un archivo distinto en cada turno. Dejé una forma común de revisar y registrar el resultado; esa fue la parte que cambié.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | precisión factual, solo si el contraste no basta
+ | options
+ | Texto libre. Puede declarar que no observó cambios o que no puede compararlos.
+ | source_options
+ | N/A en la pregunta. dynamic_attribute_enum_by_action se conserva como diccionario interno EVE, no como lista a contestar.
+ | fallback_options
+ | Ningún cambio observado / No puedo compararlo, conservados como estado y literal.
+ | allows_free_text
+ | sí
+ | depends_on
+ | Antes y después disponibles (2.5/2.6) e identidad referenciada por 2.1c cuando corresponda. La existencia de una dimensión no obliga a mostrar la pregunta.
+ | free_text_condition
+ | Solo al activar la precisión factual.
+ | generated_from
+ | Contraste de citas del mismo referente y caso en 2.5/2.6, con contexto de 2.4a. El ejemplo de ayuda no se usa como evidencia.
+ | user_can_edit_generated
+ | Puede precisar el cambio observado. No se le muestra una lista de atributos para que confirme lo esperado.
+ | required_rule
+ | Resolver el cambio o dejar explícito su estado; no preguntar si el contraste ya contiene el dato inequívoco.
+ | visibility_rule
+ | Interno primero; solo sondeo factual si falta una diferencia relevante. No desplegar automáticamente todas las ramas activas.
+ | branching_rule
+ | Si el antes/después es suficiente, proyectar los atributos con citas. Si no, formular esta pregunta una vez; conservar candidato o gap si persiste la ambigüedad. No activar 2.A para forzar atributos: 2.A conserva su función de limitante.
+ | canonical_variable_output
+ | atributos_accion_cambian (proyección sustentada); detalle por referente en transformation_change_trace.
+ | provenance_type
+ | canonical_derivation para la proyección; captured_user_evidence / clarification para la precisión; model_candidate queda separado.
+ | epistemic_role
+ | contraste factual y normalización trazable
+ | stored_in
+ | scene_question_answers solo si hubo precisión visible; scene_answer_provenance; scene_block_derivations.transformation_attributes y transformation_change_trace.
+ | used_by
+ | Huellas para MoC, OLC y transformación real; contraste con 2.3 y preparación de contexto. Los ejemplos visibles no son prueba ni rellenan atributos.
+ | risk_if_missing
+ | Sin contraste suficiente, un atributo plausible no puede entrar como cambio ocurrido. Registrar la falta sin completar la taxonomía.
+ | node_execution_mode
+ | evidence_projection_or_conditional_factual_probe
+ | derived_outputs
+ | transformation_attributes; transformation_change_trace; transformation_delta_status; scene_transformation_confidence.
+ | normalization_rule
+ | La acción del ejecutor no se confunde con cambio de la acción/proceso. Revisar una factura no prueba que cambió la duración, frecuencia o complejidad de revisar; esas características necesitan evidencia propia.
+ | epistemic_gate
+ | Separar literal, proyección trazable y candidato del modelo. Solo una proyección sin información añadida o una aclaración factual explícita cierra el valor canónico; lo demás permanece pendiente en transformation_model_review. Véase 20.B.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.3
+Campo
+ | Contenido
+ | question_code
+ | 2.3
+ | block_id
+ | 2
+ | canonical_question_text
+ | Comparado con cómo estaba al empezar, ¿qué tan distinto queda al terminar?
+ | short_ui_label
+ | Qué tanto cambia
+ | help_text
+ | Valora el cambio que queda, no el tiempo que tardas ni el esfuerzo que te cuesta.
+ | examples
+ | 1) En esa factura solo corrijo una fecha y todo lo demás sigue igual. Para este caso lo describiría como un cambio pequeño.2) El expediente llega con varios datos y soportes pendientes. Al terminar ya puede usarse para decidir porque quedó completo y revisado.3) La orden ya no seguirá como una compra: después de resolver el caso queda una devolución con otro destino. El cambio no es solo corregir un dato.
+ | field_type
+ | single_choice
+ | answer_mode
+ | single_choice
+ | ui_answer_mode_label
+ | selección del cambio percibido
+ | options
+ | Pequeño / Medio / Grande / Radical. Acciones secundarias: No observé un cambio / No puedo compararlo.
+ | source_options
+ | fixed_enum EVE; las cuatro categorías se conservan. Ejemplos de ayuda, no umbrales automáticos.
+ | fallback_options
+ | No observé un cambio / No puedo compararlo; no se convierten a Pequeño.
+ | allows_free_text
+ | no
+ | depends_on
+ | 2.5 y 2.6 describen el mismo caso. No depende de completar una lista de atributos.
+ | free_text_condition
+ | N/A.
+ | generated_from
+ | Contexto literal del antes/después. No generar ejemplos afirmativos sobre hechos no relatados.
+ | user_can_edit_generated
+ | El usuario elige su valoración; no se precalcula una respuesta por número de atributos.
+ | required_rule
+ | Capturar valoración o límite explícito. No exigir una magnitud inventada.
+ | visibility_rule
+ | Después del antes/después; reutilización solo si el usuario ya expresó la valoración de forma inequívoca.
+ | branching_rule
+ | Guardar la categoría declarada. Si no observa cambio, registrar transformation_delta_status sin inferir fallo. Si no puede comparar, dejar transformation_magnitude pendiente. Un solo atributo puede ser decisivo; no contradecir al usuario mediante un conteo.
+ | canonical_variable_output
+ | transformation_magnitude
+ | provenance_type
+ | captured_user_evidence; no es una medición objetiva de complejidad.
+ | epistemic_role
+ | valoración situada de magnitud
+ | stored_in
+ | scene_question_answers; scene_block_derivations; scene_answer_provenance
+ | used_by
+ | huellas para lectura posterior de complejidad y cadena causal de transformación
+ | risk_if_missing
+ | Si falta, se debilita la modelabilidad de la transformación.
+ | node_execution_mode
+ | contextual_single_choice
+ | derived_outputs
+ | transformation_delta_status; scene_transformation_confidence; scene_transformation_readiness.
+ | normalization_rule
+ | Conservar Pequeño/Medio/Grande/Radical cuando se elijan. Las salidas secundarias tienen value = null y estado explícito en transformation_model_review.
+ | epistemic_gate
+ | Usar el mismo caso y límite de intervención; conservar «no cambia», «no lo sé» o «no aplica» sin convertirlos en una respuesta afirmativa ni inventar un valor.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.4a
+Campo
+ | Contenido
+ | question_code
+ | 2.4a
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Qué haces tú para dejarlo listo?
+ | short_ui_label
+ | Lo que haces tú
+ | help_text
+ | Cuenta tu intervención en ese caso, sin describir lo que hacen otras personas después.
+ | examples
+ | 1) Comparo la factura con la orden y la recepción. Si un dato no coincide, lo corrijo o dejo señalado qué falta antes de enviarla a pago.2) Le muestro a la compañera cómo hacer el cobro y después la acompaño mientras lo intenta; intervengo en lo que todavía no puede resolver sola.3) Reúno los pendientes del turno, acuerdo quién tomará cada uno y dejo registrados los horarios para que no haya dos personas sobre lo mismo.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | libre guiada
+ | options
+ | Texto libre; describir también verificación o mantenimiento sin cambio visible si eso es lo que ocurre.
+ | source_options
+ | N/A en captura. Crear/Revisar/Corregir/Aprobar/Registrar/Enviar/Combinar/Rechazar/Pausar u Otra son vocabulario interno, no lista obligatoria.
+ | fallback_options
+ | Preservar la expresión propia cuando no encaje en una etiqueta interna.
+ | allows_free_text
+ | sí
+ | depends_on
+ | Foco literal de 2.1 y contexto inicial de 2.5, sin exigir taxonomía resuelta.
+ | free_text_condition
+ | Siempre.
+ | generated_from
+ | B0 aporta la actividad confirmada como contexto; no rellenar la intervención a partir del título si faltan hechos.
+ | user_can_edit_generated
+ | El usuario describe o precisa su intervención; no se sustituye por un verbo elegido por IA.
+ | required_rule
+ | Evidencia obligatoria de intervención o indicación de que no interviene. Reutilizar solo una declaración ya suficiente del mismo caso.
+ | visibility_rule
+ | Después de 2.5; no es un selector de tipos de transformación.
+ | branching_rule
+ | Preservar todos los pasos que el usuario relate, sin crear una secuencia adicional. Continuar con 2.4b y 2.6. La normalización de accion_tipo, si aplica, se hace separada en 2.1c.
+ | canonical_variable_output
+ | transformation_causality_action
+ | provenance_type
+ | captured_user_evidence o reutilización referenciada de evidencia confirmada.
+ | epistemic_role
+ | intervención declarada, no demostración causal
+ | stored_in
+ | scene_question_answers; scene_block_derivations; scene_answer_provenance
+ | used_by
+ | huellas para lectura posterior de complejidad y cadena causal de transformación
+ | risk_if_missing
+ | Si falta, se debilita la modelabilidad de la transformación.
+ | node_execution_mode
+ | narrative_capture
+ | derived_outputs
+ | transformation_model_review; transformation_change_trace.
+ | normalization_rule
+ | La existencia de un verbo en esta respuesta no agrega automáticamente Acción a transformation_primary_dimensions.
+ | epistemic_gate
+ | Usar el mismo caso y límite de intervención; conservar «no cambia», «no lo sé» o «no aplica» sin convertirlos en una respuesta afirmativa ni inventar un valor.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.4b
+Campo
+ | Contenido
+ | question_code
+ | 2.4b
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Qué pasó o qué viste para hacer ese cambio?
+ | short_ui_label
+ | La señal para actuar
+ | help_text
+ | Cuenta la señal concreta que te llevó a actuar, no la meta general del área.
+ | examples
+ | 1) La factura llegó a revisión, pero la corrección la hice cuando vi que el importe no coincidía con la orden. Son dos señales distintas.2) Empecé a apoyar a la compañera porque se incorporó al turno; repetí la explicación al ver que el cobro no le salía por sí sola.3) Ya estaba organizando el reparto. Cambié la asignación cuando me avisaron que una ruta no iba a poder salir en el horario acordado.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | libre breve o reutilización explícita
+ | options
+ | Texto libre. Puede indicar que es la misma señal ya descrita en B1, que no hubo cambio o que no lo sabe.
+ | source_options
+ | N/A en captura; se conservan las familias internas solicitud, error, fecha, aprobación, evento, urgencia, estándar, combinación u otro.
+ | fallback_options
+ | Misma señal de B1 solo si el vínculo es explícito; no hubo cambio / no lo sabe quedan trazados.
+ | allows_free_text
+ | sí
+ | depends_on
+ | Intervención de 2.4a y contexto de B1; no exige dimensión resuelta.
+ | free_text_condition
+ | Cuando el dato no esté ya expresado para esta misma intervención.
+ | generated_from
+ | Se puede recuperar una señal de B1 únicamente cuando se refiere explícitamente al mismo cambio; guardar source_ref.
+ | user_can_edit_generated
+ | Puede distinguir o corregir la señal sin modificar silenciosamente B1.
+ | required_rule
+ | Cerrar la causa inmediata reportada o conservar su límite. No volver a preguntar lo mismo si ya está vinculado inequívocamente.
+ | visibility_rule
+ | Después de 2.4a; condicional por reutilización factual, no por confianza del modelo.
+ | branching_rule
+ | Si coincide con B1 con vínculo explícito, reutilizar la evidencia. Si es distinta, conservar ambas: comienzo de actividad y causa del cambio. No declarar contradicción por esa diferencia.
+ | canonical_variable_output
+ | transformation_causality_trigger
+ | provenance_type
+ | captured_user_evidence / referencia a evidencia previa; canonical_derivation solo para proyección sin información añadida.
+ | epistemic_role
+ | señal causal reportada
+ | stored_in
+ | scene_question_answers; scene_block_derivations; scene_answer_provenance
+ | used_by
+ | huellas para lectura posterior de complejidad y cadena causal de transformación
+ | risk_if_missing
+ | Si falta, se debilita la modelabilidad de la transformación.
+ | node_execution_mode
+ | narrative_capture_or_evidence_reuse
+ | derived_outputs
+ | transformation_model_review; scene_transformation_confidence.
+ | normalization_rule
+ | No copiar trigger_source o trigger_channel por coincidencia de vocabulario. Tampoco generar una causa a partir del resultado.
+ | epistemic_gate
+ | Usar el mismo caso y límite de intervención; conservar «no cambia», «no lo sé» o «no aplica» sin convertirlos en una respuesta afirmativa ni inventar un valor.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.5
+Campo
+ | Contenido
+ | question_code
+ | 2.5
+ | block_id
+ | 2
+ | canonical_question_text
+ | Antes de que empieces, ¿cómo está lo que vas a trabajar o atender?
+ | short_ui_label
+ | Cómo está antes
+ | help_text
+ | Describe lo que encuentras en ese momento. Puede venir incompleto, listo para revisar o sin ningún problema.
+ | examples
+ | 1) La factura está capturada, pero falta el comprobante de recepción. Todavía no sé si el importe corresponde a lo que se recibió.2) La compañera conoce la caja, pero todavía necesita que le indiquen cómo registrar una devolución sin cancelar toda la venta.3) Los pendientes del turno están en la lista, pero varios no tienen responsable ni horario acordado.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | libre guiada
+ | options
+ | Texto libre. Puede describir que todavía no existe lo que va a crear o que desconoce su condición inicial; no se completa por inferencia.
+ | source_options
+ | N/A
+ | fallback_options
+ | N/A
+ | allows_free_text
+ | sí
+ | depends_on
+ | Foco de trabajo reconocible en 2.1; no exige 2.1a/b/c ni 2.2 resueltas.
+ | free_text_condition
+ | Siempre
+ | generated_from
+ | N/A
+ | user_can_edit_generated
+ | El usuario puede precisar su relato; EVE conserva cada versión y su origen.
+ | required_rule
+ | Capturar estado/condición reportada o gap explícito. Un estado desconocido no se inventa para completar el modelo.
+ | visibility_rule
+ | Visible después de identificar el foco en 2.1 y antes de describir la intervención en 2.4a; reutilizar solo evidencia explícita del mismo caso.
+ | branching_rule
+ | Después de 2.5 seguir con 2.4a/2.4b; no abrir taxonomías. La ausencia declarada de un objeto antes de crearlo es una condición válida. Si el antes es desconocido, conservarlo sin deducirlo a partir del después.
+ | canonical_variable_output
+ | transformation_state_initial
+ | provenance_type
+ | captured_user_evidence
+ | epistemic_role
+ | captured_user_evidence
+ | stored_in
+ | scene_question_answers; scene_block_derivations; scene_answer_provenance
+ | used_by
+ | huellas para lectura posterior de OLC, PF y consistencia material del cambio
+ | risk_if_missing
+ | Si falta, la transformación queda sin transición de estado y se empobrece el modelado en OLC.
+ | node_execution_mode
+ | narrative_state_capture
+ | derived_outputs
+ | transformation_change_trace; transformation_delta_status; transformation_attributes; scene_transformation_readiness.
+ | normalization_rule
+ | No confundir condición de inicio con trigger ni condición final con entrega, recepción o aceptación de B3. Un mismo estado nominal puede ocultar una verificación; no inventarla.
+ | epistemic_gate
+ | Usar el mismo caso y límite de intervención; conservar «no cambia», «no lo sé» o «no aplica» sin convertirlos en una respuesta afirmativa ni inventar un valor.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.6
+Campo
+ | Contenido
+ | question_code
+ | 2.6
+ | block_id
+ | 2
+ | canonical_question_text
+ | Cuando terminas tu parte, ¿cómo queda?
+ | short_ui_label
+ | Cómo queda después
+ | help_text
+ | Describe cómo queda en ese momento, no lo que otra persona hará después. Si sigue igual, dilo.
+ | examples
+ | 1) La factura queda revisada y con el soporte completo. Todavía no está pagada: eso lo hace Tesorería después.2) La compañera ya hizo una devolución por sí sola y pudo explicar los pasos. No estoy diciendo que ya domina todas las operaciones de caja.3) La máquina sigue funcionando igual que antes. Revisé sus lecturas y dejé el resultado de la revisión registrado; no cambié su ajuste.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | libre guiada
+ | options
+ | Texto libre. Puede declarar ausencia de cambio o desconocimiento; esos estados no se rellenan.
+ | source_options
+ | N/A
+ | fallback_options
+ | N/A
+ | allows_free_text
+ | sí
+ | depends_on
+ | Mismo caso de 2.1/2.5 e intervención de 2.4a; no exige clasificación ni atributos resueltos.
+ | free_text_condition
+ | Siempre
+ | generated_from
+ | N/A
+ | user_can_edit_generated
+ | El usuario puede precisar su relato; EVE conserva cada versión y su origen.
+ | required_rule
+ | Capturar estado/condición reportada o gap explícito. Un estado desconocido no se inventa para completar el modelo.
+ | visibility_rule
+ | Visible después de 2.4a/2.4b, antes de resolver atributos y magnitud; reutilizar solo evidencia explícita del mismo caso.
+ | branching_rule
+ | Después de 2.6 evaluar 2.1a/b/c y 2.2 internamente con referencias al mismo caso. Una condición inicial y final iguales no significan fallo automático ni obligan a inventar un cambio; distinguir verificación sin cambio observado, mantenimiento o comparación insuficiente.
+ | canonical_variable_output
+ | transformation_state_final
+ | provenance_type
+ | captured_user_evidence
+ | epistemic_role
+ | captured_user_evidence
+ | stored_in
+ | scene_question_answers; scene_block_derivations; scene_answer_provenance
+ | used_by
+ | huellas para lectura posterior de OLC, PF y consistencia material del cambio
+ | risk_if_missing
+ | Si falta, la transformación queda sin transición de estado y se empobrece el modelado en OLC.
+ | node_execution_mode
+ | narrative_state_capture
+ | derived_outputs
+ | transformation_change_trace; transformation_delta_status; transformation_attributes; scene_transformation_readiness.
+ | normalization_rule
+ | No confundir condición de inicio con trigger ni condición final con entrega, recepción o aceptación de B3. Un mismo estado nominal puede ocultar una verificación; no inventarla.
+ | epistemic_gate
+ | Usar el mismo caso y límite de intervención; conservar «no cambia», «no lo sé» o «no aplica» sin convertirlos en una respuesta afirmativa ni inventar un valor.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.7
+Campo
+ | Contenido
+ | question_code
+ | 2.7
+ | block_id
+ | 2
+ | canonical_question_text
+ | Para dejar listo un mismo caso, ¿normalmente basta con hacerlo una vez o tienes que volver sobre él?
+ | short_ui_label
+ | Si hay que volver sobre el caso
+ | help_text
+ | Piensa en volver sobre el mismo caso, no en atender varios casos distintos.
+ | examples
+ | 1) Tomo una factura, la reviso y la dejo lista. Después tomo otra factura: son casos distintos, no varias vueltas de la primera.2) El mismo expediente vuelve con correcciones. Lo reviso otra vez y lo regreso si todavía falta algo; cada vuelta es sobre ese expediente.3) En el monitoreo voy ajustando durante todo el turno. No hay un número de vueltas con un cierre claro por caso.
+ | field_type
+ | single_choice
+ | answer_mode
+ | single_choice
+ | ui_answer_mode_label
+ | cerrada
+ | options
+ | Una sola vez / Pocas veces / Muchas veces / Continuo. Acción secundaria: No puedo determinarlo.
+ | source_options
+ | fixed_enum EVE; cuatro valores originales, con salida de desconocimiento separada.
+ | fallback_options
+ | No puedo determinarlo; valor pendiente, nunca Una sola vez por defecto.
+ | allows_free_text
+ | no
+ | depends_on
+ | El mismo caso y su intervención quedaron situados en 2.1/2.4a/2.5/2.6.
+ | free_text_condition
+ | N/A
+ | generated_from
+ | N/A
+ | user_can_edit_generated
+ | N/A
+ | required_rule
+ | Registrar el régimen o su falta de determinación; no confundir recurrencia de actividades con iteración de un caso.
+ | visibility_rule
+ | Siempre visible.
+ | branching_rule
+ | Pocas veces o Muchas veces activan 2.8. Continuo conserva transformation_iteration_count = N/A, no cero. Iterar no prueba que falló; 2.9 se contesta por su propia ruta.
+ | canonical_variable_output
+ | transformation_iterations
+ | provenance_type
+ | captured_user_evidence
+ | epistemic_role
+ | captured_user_evidence
+ | stored_in
+ | scene_question_answers; scene_block_derivations; scene_answer_provenance
+ | used_by
+ | huellas para lectura posterior de loops, S3*, algedónico y transformación real
+ | risk_if_missing
+ | Si falta, se pierde modelabilidad específica del fenómeno reportado.
+ | node_execution_mode
+ | operational_single_choice
+ | derived_outputs
+ | transformation_iteration_count cuando se active 2.8; scene_transformation_confidence.
+ | normalization_rule
+ | Conservar los valores Una sola vez/Pocas veces/Muchas veces/Continuo; desconocimiento queda como null con estado unresolved.
+ | epistemic_gate
+ | Usar el mismo caso y límite de intervención; conservar «no cambia», «no lo sé» o «no aplica» sin convertirlos en una respuesta afirmativa ni inventar un valor.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.8
+Campo
+ | Contenido
+ | question_code
+ | 2.8
+ | block_id
+ | 2
+ | canonical_question_text
+ | En un mismo caso, ¿cuántas vueltas suelen hacer falta hasta dejarlo listo?
+ | short_ui_label
+ | Cuántas vueltas por caso
+ | help_text
+ | Cuenta también la primera vez que lo trabajas. Elige lo que pasa normalmente, no el caso más extremo.
+ | examples
+ | 1) Reviso el expediente, lo devuelvo porque falta un documento y lo reviso cuando vuelve. Para ese caso fueron dos vueltas.2) La misma propuesta pasa cuatro veces por revisión antes de quedar lista; no estoy contando cuatro propuestas diferentes.3) Hay casos que salen a la segunda y otros que necesitan más de diez vueltas. No tengo un rango típico: lo marcaría como variable.
+ | field_type
+ | single_choice
+ | answer_mode
+ | single_choice
+ | ui_answer_mode_label
+ | cerrada
+ | options
+ | 2–3 vueltas / 4–5 vueltas / 6–10 vueltas / Más de 10 vueltas / Variable. Acción secundaria: No lo sé.
+ | source_options
+ | fixed_enum EVE; traducción de pantalla a los rangos canónicos existentes.
+ | fallback_options
+ | No lo sé; no estimar un número.
+ | allows_free_text
+ | no
+ | depends_on
+ | 2.7 = Pocas veces o Muchas veces.
+ | free_text_condition
+ | N/A
+ | generated_from
+ | N/A
+ | user_can_edit_generated
+ | N/A
+ | required_rule
+ | Obligatoria si se activa.
+ | visibility_rule
+ | Visible solo si 2.7 indica iteración discreta repetida.
+ | branching_rule
+ | No abre más preguntas, pero alimenta complejidad del loop y consistencia con excepciones.
+ | canonical_variable_output
+ | transformation_iteration_count
+ | provenance_type
+ | captured_user_evidence
+ | epistemic_role
+ | captured_user_evidence
+ | stored_in
+ | scene_question_answers; scene_block_derivations; scene_answer_provenance
+ | used_by
+ | huellas para lectura posterior de loops, S3*, algedónico y transformación real
+ | risk_if_missing
+ | Si falta, se pierde modelabilidad específica del fenómeno reportado.
+ | normalization_rule
+ | Pantalla 2–3/4–5/6–10/Más de 10 vueltas → valores canónicos 2-3 ciclos / 4-5 ciclos / 6-10 ciclos / Más de 10 ciclos. Variable se conserva; nunca convertir un rango a conteo exacto.
+ | node_execution_mode
+ | conditional_single_choice
+ | derived_outputs
+ | scene_transformation_confidence; transformation_iteration_needs_count si falta el dato aplicable.
+ | epistemic_gate
+ | Usar el mismo caso y límite de intervención; conservar «no cambia», «no lo sé» o «no aplica» sin convertirlos en una respuesta afirmativa ni inventar un valor.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.9
+Campo
+ | Contenido
+ | question_code
+ | 2.9
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Hay veces en que ese trabajo no queda como debería?
+ | short_ui_label
+ | Cuando no queda como debería
+ | help_text
+ | Piensa en lo que te toca dejar listo y no queda bien, aunque pase pocas veces.
+ | examples
+ | 1) La factura debía quedar lista para pago, pero algunas veces sigue con el importe incorrecto aunque ya la dimos por revisada.2) La orden aparece duplicada y se trabajan dos versiones del mismo pedido. Eso no era el resultado que tenía que quedar.3) En los casos que conozco siempre queda como se acordó. No voy a marcar una falla solo porque el sistema la esté preguntando.
+ | field_type
+ | single_choice
+ | answer_mode
+ | single_choice
+ | ui_answer_mode_label
+ | cerrada
+ | options
+ | No, siempre queda como debería / Sí, pero es raro / Sí, pasa con regularidad / Sí, pasa muy seguido. Acción secundaria: No puedo confirmarlo.
+ | source_options
+ | fixed_enum EVE con mapeo cerrado a transformation_exception_type; no interpretación libre.
+ | fallback_options
+ | No puedo confirmarlo / ausencia / respuesta inválida → ruta unresolved; nunca false.
+ | allows_free_text
+ | no
+ | depends_on
+ | Resultado esperado o límite de intervención contextualizado por el relato. No requiere que la ontología ya esté cerrada.
+ | free_text_condition
+ | N/A
+ | generated_from
+ | N/A
+ | user_can_edit_generated
+ | N/A
+ | required_rule
+ | Siempre obligatoria.
+ | visibility_rule
+ | Siempre visible.
+ | branching_rule
+ | Si la respuesta es “No, siempre se transforma correctamente”, deriva transformation_exception_exists = false y no activa 2.10.Si la respuesta es “Sí, a veces falla pero es raro”, “Sí, falla regularmente” o “Sí, falla frecuentemente”, deriva transformation_exception_exists = true y activa 2.10.Si la respuesta está ausente, inválida o no interpretable, deriva transformation_exception_exists = unresolved, marca transformation_exception_route_unresolved y no debe asumirse false.La variable transformation_exception_exists debe derivarse exclusivamente desde transformation_exception_type capturado en 2.9. Ninguna variable auxiliar, incluyendo transformation_failure_frequency si existiera en implementación, debe actuar como fuente canónica primaria.
+ | canonical_variable_output
+ | transformation_exception_type + transformation_exception_exists
+Regla de salida:transformation_exception_type conserva la respuesta literal/categórica de 2.9 como evidencia capturada.transformation_exception_exists se deriva canónicamente desde transformation_exception_type.
+ | provenance_type
+ | captured_user_evidence para transformation_exception_type.canonical_derivation para transformation_exception_exists.
+ | epistemic_role
+ | captured_user_evidence para transformation_exception_type; canonical_derivation para transformation_exception_exists.
+ | stored_in
+ | scene_question_answers para transformation_exception_type.scene_block_derivations para transformation_exception_exists.scene_answer_provenance para ambas variables, conservando la relación 2.9 → transformation_exception_type → transformation_exception_exists.scene_consistency_flags si transformation_exception_exists queda unresolved.
+ | used_by
+ | huellas para lectura posterior de loops, S3*, canal algedónico y transformación real
+ | risk_if_missing
+ | Si falta, se pierde modelabilidad específica del fenómeno reportado.
+ | node_execution_mode
+ | canonical_exception_capture
+ | derived_outputs
+ | transformation_exception_exists, exclusivamente desde transformation_exception_type; transformation_exception_route_unresolved.
+ | option_value_mapping
+ | No, siempre queda como debería → No, siempre se transforma correctamente. Sí, pero es raro → Sí, a veces falla pero es raro. Sí, pasa con regularidad → Sí, falla regularmente. Sí, pasa muy seguido → Sí, falla frecuentemente. La opción de desconocimiento no equivale a ninguna de las cuatro.
+ | epistemic_gate
+ | La selección explícita en 2.9 es obligatoria para cerrar V3. El relato puede motivar que se pregunte, pero nunca reemplaza la respuesta canónica. Se conservan opción visible, valor categórico y regla de mapeo.
+ | reuse_rule
+ | No cerrar 2.9 desde narrativa de otros nodos. Solo reutilizar una selección explícita anterior del propio 2.9, vigente para el mismo caso y versión.
+ | 
+Regla canónica de derivación V3 — transformation_exception_exists
+La tabla siguiente conserva los valores categóricos técnicos de la ruta V3. Los rótulos de pantalla simplificados de 2.9 se traducen exclusivamente mediante option_value_mapping; no se interpreta texto libre.
+La variable transformation_exception_exists se deriva exclusivamente desde transformation_exception_type, capturado en la pregunta 2.9. Esta derivación existe para separar la evidencia categórica del usuario de la variable booleana necesaria para consolidación, transducción y producción paralela MMABP.
+Valor de transformation_exception_type en 2.9
+ | Valor derivado de transformation_exception_exists
+ | Acción
+ | No, siempre se transforma correctamente
+ | false
+ | No activar 2.10.
+ | Sí, a veces falla pero es raro
+ | true
+ | Activar 2.10.
+ | Sí, falla regularmente
+ | true
+ | Activar 2.10.
+ | Sí, falla frecuentemente
+ | true
+ | Activar 2.10.
+ | Ausente, inválido o no interpretable
+ | unresolved
+ | Marcar transformation_exception_route_unresolved.
+ | transformation_exception_exists no debe depender de variables auxiliares, inferencias libres, interpretación posterior del texto, ni de transformation_failure_frequency si esa variable existiera en implementación. Cualquier variable auxiliar debe mapearse hacia transformation_exception_type o tratarse como alias técnico, nunca como fuente canónica primaria.
+Cuando transformation_exception_exists = true, debe existir transformation_exception_description mediante 2.10 o, si la descripción resulta genérica, mediante aclaración 2.B.
+La falta de una descripción suficiente no debe impedir cerrar transformation_exception_exists = true. En ese caso se debe marcar transformation_exception_needs_clarification.
+
+Ficha canónica 2.10
+Campo
+ | Contenido
+ | question_code
+ | 2.10
+ | block_id
+ | 2
+ | canonical_question_text
+ | Cuando eso pasa, ¿qué queda mal o sin terminar?
+ | short_ui_label
+ | Qué queda mal
+ | help_text
+ | Describe algo que puedas señalar: el dato equivocado, lo que falta o el cambio que no quedó guardado.
+ | examples
+ | 1) La orden sigue apareciendo dos veces. Una versión trae la corrección y la otra conserva la dirección anterior.2) El sistema muestra la factura como revisada, pero el comprobante que faltaba sigue sin estar adjunto.3) Damos por terminada la capacitación, pero al hacer el cobro la persona todavía necesita que le indiquen el mismo paso.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | libre guiada
+ | options
+ | N/A
+ | source_options
+ | N/A
+ | fallback_options
+ | N/A
+ | allows_free_text
+ | sí
+ | depends_on
+ | transformation_exception_exists = true.
+ | free_text_condition
+ | Siempre que se active.
+ | generated_from
+ | N/A
+ | user_can_edit_generated
+ | N/A
+ | required_rule
+ | Obligatoria si se activa.
+ | visibility_rule
+ | Visible solo si transformation_exception_exists = true.
+ | branching_rule
+ | Si la respuesta es genérica, tautológica o no identifica el tipo de fallo, puede disparar aclaración 2.B.
+ | canonical_variable_output
+ | transformation_exception_description
+ | provenance_type
+ | captured_user_evidence
+ | epistemic_role
+ | captured_user_evidence
+ | stored_in
+ | scene_question_answers; scene_block_derivations; scene_answer_provenance
+ | used_by
+ | huellas para lectura posterior de loops, S3*, algedónico y transformación real
+ | risk_if_missing
+ | Si falta, se pierde modelabilidad específica del fenómeno reportado.
+ | node_execution_mode
+ | conditional_factual_capture
+ | derived_outputs
+ | transformation_exception_needs_clarification; scene_transformation_readiness.
+ | epistemic_gate
+ | Falta de detalle en 2.10 no revierte transformation_exception_exists = true. Preservar lo capturado y abrir 2.B solo para precisar el síntoma.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.11
+Campo
+ | Contenido
+ | question_code
+ | 2.11
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Se hace algún cambio que no queda registrado o se hace por fuera de la forma acordada de trabajar?
+ | short_ui_label
+ | Cambios fuera de lo acordado
+ | help_text
+ | Habla de cambios concretos en ese trabajo, no de si te parecen buenos o malos.
+ | examples
+ | 1) Para sacar un pedido urgente cambiamos la asignación por teléfono, pero la orden del sistema se queda con la asignación anterior.2) El encargado permite corregir el precio en una hoja aparte. La corrección sí se hace, aunque todavía no aparece en el registro habitual.3) En los casos que atiendo, los ajustes se autorizan y se registran como está acordado. No conozco cambios por fuera de esa forma de trabajar.
+ | field_type
+ | single_choice
+ | answer_mode
+ | single_choice
+ | ui_answer_mode_label
+ | cerrada
+ | options
+ | No, los cambios siguen la forma acordada y quedan registrados / Sí, a veces / Sí, con frecuencia. Acciones secundarias: No hay una forma acordada que pueda usar como referencia / No puedo confirmarlo.
+ | source_options
+ | fixed_enum EVE; redacción neutral para cambios no oficiales o no registrados, sin equipararlos automáticamente a falta de autorización.
+ | fallback_options
+ | Sin referencia formal / No puedo confirmarlo → pendiente o límite de comparación, no Sí automático.
+ | allows_free_text
+ | no
+ | depends_on
+ | El informante conoce el trabajo descrito y, cuando existe, su forma acordada o registro habitual.
+ | free_text_condition
+ | N/A
+ | generated_from
+ | N/A
+ | user_can_edit_generated
+ | N/A
+ | required_rule
+ | Siempre obligatoria.
+ | visibility_rule
+ | Siempre visible.
+ | branching_rule
+ | Si indica cambios por fuera de lo acordado o no registrados, activar 2.12. No convierte por sí solo ese hecho en conducta indebida, sacrificio o patología. Sin referencia formal, conservar el límite sin inventar infracción.
+ | canonical_variable_output
+ | transformation_hidden_changes
+ | provenance_type
+ | captured_user_evidence
+ | epistemic_role
+ | captured_user_evidence
+ | stored_in
+ | scene_question_answers; scene_block_derivations; scene_answer_provenance
+ | used_by
+ | huellas para lectura posterior de loops, S3*, algedónico y transformación real
+ | risk_if_missing
+ | Si falta, se pierde modelabilidad específica del fenómeno reportado.
+ | node_execution_mode
+ | operational_single_choice
+ | derived_outputs
+ | transformation_hidden_changes_description si se activa 2.12; scene_transformation_readiness.
+ | normalization_rule
+ | Conservar la selección y la base de observación; las tres categorías activas son no reportado / ocasional / frecuente. No reutilizar «no autorizado» como sinónimo de «no registrado».
+ | epistemic_gate
+ | Usar el mismo caso y límite de intervención; conservar «no cambia», «no lo sé» o «no aplica» sin convertirlos en una respuesta afirmativa ni inventar un valor.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.12
+Campo
+ | Contenido
+ | question_code
+ | 2.12
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Qué cambio se hace por fuera de esa forma de trabajar?
+ | short_ui_label
+ | El cambio y quién lo hace
+ | help_text
+ | Describe el cambio. Sobre quién lo hace, indica solo lo que realmente sabes.
+ | examples
+ | 1) Ventas cambia la fecha comprometida en su archivo, pero la fecha del pedido no se actualiza en el sistema.2) En el turno de noche corrigen cantidades en una hoja aparte. Sé en qué turno ocurre, pero no sé quién hizo cada ajuste.3) Yo cambio la prioridad de algunas órdenes con autorización del encargado; el cambio se ejecuta, aunque todavía no queda en el registro habitual.
+ | field_type
+ | free_text
+ | answer_mode
+ | free_text
+ | ui_answer_mode_label
+ | libre guiada
+ | options
+ | Dos subcampos progresivos: Cambio concreto (texto); ¿Quién lo hace, hasta donde tú sabes? (texto o No lo sé). No exigir un nombre personal.
+ | source_options
+ | N/A
+ | fallback_options
+ | N/A
+ | allows_free_text
+ | sí
+ | depends_on
+ | 2.11 indica cambios ocultos.
+ | free_text_condition
+ | Siempre que se active; el desconocimiento del responsable se registra, no se completa.
+ | generated_from
+ | 2.11 aporta el contexto de apertura. No generar al responsable a partir del rol del informante.
+ | user_can_edit_generated
+ | N/A
+ | required_rule
+ | Obligatoria si se activa.
+ | visibility_rule
+ | Visible solo si 2.11 = Sí, a veces o Sí, con frecuencia.
+ | branching_rule
+ | Guardar cambio y responsable reportado como componentes separados de la misma respuesta. Si falta el cambio, abrir 2.C; si no se conoce al responsable, conservar el gap y no insistir automáticamente.
+ | canonical_variable_output
+ | transformation_hidden_changes_description
+ | provenance_type
+ | captured_user_evidence
+ | epistemic_role
+ | captured_user_evidence
+ | stored_in
+ | scene_question_answers; scene_block_derivations; scene_answer_provenance
+ | used_by
+ | huellas para lectura posterior de loops, S3*, algedónico y transformación real
+ | risk_if_missing
+ | Si falta, se pierde modelabilidad específica del fenómeno reportado.
+ | node_execution_mode
+ | conditional_capture_with_separable_subfields
+ | derived_outputs
+ | transformation_hidden_change_needs_clarification; scene_transformation_readiness.
+ | epistemic_gate
+ | No identificar responsables por su puesto, área o probabilidad. Un cambio autorizado pero no registrado conserva esa distinción; B6 deberá capturar cualquier compensación por su propia ruta.
+ | reuse_rule
+ | Antes de preguntar, comprobar si el mismo dato ya está expresado para el mismo caso y referente. Reutilizar su evidencia con referencia; no simular una respuesta nueva ni confirmar por silencio.
+ | 
+Ficha canónica 2.A
+Campo
+ | Contenido
+ | question_code
+ | 2.A
+ | block_id
+ | 2
+ | canonical_question_text
+ | En un caso que se atrasó, ¿qué te impidió avanzar primero?
+ | short_ui_label
+ | Precisar qué frena el avance
+ | help_text
+ | Cuenta un caso que recuerdes. No hace falta escoger una categoría.
+ | examples
+ | 1) Tenía todos los datos, pero entraron muchos expedientes juntos y no alcanzaba a revisarlos uno por uno.2) Eran pocos casos, pero cada solicitante pidió aclaraciones distintas; hasta resolverlas no podía avanzar.3) Ese día no había nadie autorizado para liberar el trabajo. No fue el número de casos ni la atención a personas lo que nos detuvo.
+ | field_type
+ | free_text
+ | answer_mode
+ | clarification
+ | ui_answer_mode_label
+ | aclarada
+ | options
+ | N/A
+ | source_options
+ | N/A
+ | fallback_options
+ | N/A
+ | allows_free_text
+ | sí
+ | depends_on
+ | Flag de dominancia pendiente con necesidad de B5; no se activa para forzar atributos ni para desempatar una igualdad legítima.
+ | free_text_condition
+ | Siempre que se active.
+ | generated_from
+ | Solo contexto de respuestas y flags del nodo de origen; pregunta factual neutral, sin presentar una hipótesis como hecho.
+ | user_can_edit_generated
+ | sí, la persona responde la aclaración.
+ | required_rule
+ | Solo si la aclaración es disparada por flag.
+ | visibility_rule
+ | No aparece en flujo base; solo por flags.
+ | branching_rule
+ | Si el relato identifica un factor, preservar la explicación y proyectar solo la dimensión sustentada. Si el factor es dotación, herramienta, autorización u otro recurso, enviarlo como contexto a B5; no convertirlo en Sujeto/Acción por conveniencia.
+ | canonical_variable_output
+ | dimension_dominante_clarificada
+ | provenance_type
+ | clarification
+ | epistemic_role
+ | clarification
+ | stored_in
+ | scene_clarifications; scene_answer_provenance; vínculo a question_code original
+ | used_by
+ | precisión adicional para consistencia, normalización y transducción posterior
+ | risk_if_missing
+ | Si falta cuando era necesaria, queda ambigüedad residual que puede reducir readiness del bloque.
+ | node_execution_mode
+ | conditional_clarification
+ | derived_outputs
+ | scene_transformation_confidence; scene_transformation_readiness; flags vinculados al gap.
+ | epistemic_gate
+ | La aclaración se conserva aparte y no sustituye el relato inicial ni obliga al usuario a adoptar el vocabulario del modelo.
+ | reuse_rule
+ | Un intento de precisión por el mismo gap; si no añade evidencia, conservarlo y no reformular hasta obtener un Sí.
+ | 
+Ficha canónica 2.B
+Campo
+ | Contenido
+ | question_code
+ | 2.B
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Qué es lo primero que ves que queda mal o no cambia como debería?
+ | short_ui_label
+ | Aclarar el fallo
+ | help_text
+ | Describe una señal que puedas reconocer, no solo «falla» o «sale mal».
+ | examples
+ | 1) La orden conserva la dirección vieja aunque ya guardé la corrección; lo noto al volver a abrirla.2) La pieza sigue sin cumplir la medida después del ajuste; la misma lectura queda fuera de lo permitido.3) El expediente aparece aprobado, pero le sigue faltando el documento que era necesario revisar.
+ | field_type
+ | free_text
+ | answer_mode
+ | clarification
+ | ui_answer_mode_label
+ | aclarada
+ | options
+ | N/A
+ | source_options
+ | N/A
+ | fallback_options
+ | N/A
+ | allows_free_text
+ | sí
+ | depends_on
+ | Flag de descripción insuficiente, genérica o confusa en 2.10.
+ | free_text_condition
+ | Siempre que se active.
+ | generated_from
+ | Solo contexto de respuestas y flags del nodo de origen; pregunta factual neutral, sin presentar una hipótesis como hecho.
+ | user_can_edit_generated
+ | sí, la persona responde la aclaración.
+ | required_rule
+ | Solo si la aclaración es disparada por flag.
+ | visibility_rule
+ | No aparece en flujo base; solo por flags.
+ | branching_rule
+ | Vincular a 2.10 sin sobrescribirlo. El detalle no crea ni revierte el booleano: transformation_exception_exists conserva la derivación de 2.9.
+ | canonical_variable_output
+ | transformation_exception_description_clarified
+ | provenance_type
+ | clarification
+ | epistemic_role
+ | clarification
+ | stored_in
+ | scene_clarifications; scene_answer_provenance; vínculo a question_code original
+ | used_by
+ | precisión adicional para consistencia, normalización y transducción posterior
+ | risk_if_missing
+ | Si falta cuando era necesaria, queda ambigüedad residual que puede reducir readiness del bloque.
+ | node_execution_mode
+ | conditional_clarification
+ | derived_outputs
+ | scene_transformation_confidence; scene_transformation_readiness; flags vinculados al gap.
+ | epistemic_gate
+ | La aclaración se conserva aparte y no sustituye el relato inicial ni obliga al usuario a adoptar el vocabulario del modelo.
+ | reuse_rule
+ | Un intento de precisión por el mismo gap; si no añade evidencia, conservarlo y no reformular hasta obtener un Sí.
+ | 
+Ficha canónica 2.C
+Campo
+ | Contenido
+ | question_code
+ | 2.C
+ | block_id
+ | 2
+ | canonical_question_text
+ | ¿Qué cambio puedes señalar y qué sabes de quién lo hizo?
+ | short_ui_label
+ | Aclarar cambio oculto
+ | help_text
+ | Describe lo que viste. Si no sabes quién lo hizo, también puedes decirlo.
+ | examples
+ | 1) El precio cambia en la hoja de Ventas, pero no en el pedido del sistema; eso es lo que puedo señalar.2) Veo corregida la cantidad cuando empieza mi turno. No presencié el ajuste y no sé quién lo hizo.3) El coordinador confirma la entrega por mensaje, pero la orden queda sin esa actualización hasta el día siguiente.
+ | field_type
+ | free_text
+ | answer_mode
+ | clarification
+ | ui_answer_mode_label
+ | aclarada
+ | options
+ | N/A
+ | source_options
+ | N/A
+ | fallback_options
+ | N/A
+ | allows_free_text
+ | sí
+ | depends_on
+ | Flag de cambio oculto sin actor identificable o sin tipo de cambio discernible.
+ | free_text_condition
+ | Siempre que se active.
+ | generated_from
+ | Solo contexto de respuestas y flags del nodo de origen; pregunta factual neutral, sin presentar una hipótesis como hecho.
+ | user_can_edit_generated
+ | sí, la persona responde la aclaración.
+ | required_rule
+ | Solo si la aclaración es disparada por flag.
+ | visibility_rule
+ | No aparece en flujo base; solo por flags.
+ | branching_rule
+ | Aclarar solo el componente faltante de 2.12. Conservar desconocimiento del responsable o del origen; no fabricar autoría ni volver a preguntar si el usuario ya indicó que no sabe.
+ | canonical_variable_output
+ | transformation_hidden_changes_description_clarified
+ | provenance_type
+ | clarification
+ | epistemic_role
+ | clarification
+ | stored_in
+ | scene_clarifications; scene_answer_provenance; vínculo a question_code original
+ | used_by
+ | precisión adicional para consistencia, normalización y transducción posterior
+ | risk_if_missing
+ | Si falta cuando era necesaria, queda ambigüedad residual que puede reducir readiness del bloque.
+ | node_execution_mode
+ | conditional_clarification
+ | derived_outputs
+ | scene_transformation_confidence; scene_transformation_readiness; flags vinculados al gap.
+ | epistemic_gate
+ | La aclaración se conserva aparte y no sustituye el relato inicial ni obliga al usuario a adoptar el vocabulario del modelo.
+ | reuse_rule
+ | Un intento de precisión por el mismo gap; si no añade evidencia, conservarlo y no reformular hasta obtener un Sí.
+ | 
+7. Tipos de respuesta usados en el Bloque 2
+Normalización contractual: field_type define la naturaleza del control UI; answer_mode conserva el enum técnico estable; ui_answer_mode_label ofrece la lectura humana.
+single_choice: una opción cerrada única.
+multi_choice: conserva soporte interno para conjuntos de dimensiones o atributos, pero no se usa como lista ontológica de entrada. Las preguntas de precisión 2.2 se responden con hechos y sus salidas pueden contener varios atributos sustentados.
+ranking: ranking_dimensiones se conserva como resultado interno de comparaciones explícitas. 2.1_ABC_Prioridad solo pregunta por los dos factores restantes si es necesario; un empate no se convierte en un orden total.
+free_text: relato o precisión factual breve, con ejemplos desplegables y sin recorte automático del contenido que el usuario aporte.
+clarification: respuesta abierta activada por ambigüedad, genericidad o contradicción.
+canonical_derivation: proyección o normalización trazable de evidencia que no introduce hechos nuevos. Una interpretación no sustentada permanece como model_candidate, no como variable consolidada.
+internal_calculated / readiness_marker: variables internas que no deben mostrarse al usuario.
+8. Lógica de despliegue UI por pregunta
+2.1 abre con el trabajo concreto de un caso normal. No muestra Objeto/Sujeto/Acción. Luego se recorre el antes (2.5), la intervención (2.4a), su señal específica (2.4b) y el después (2.6), sin exigir clasificación previa.
+2.1a, 2.1b y 2.1c identifican referentes a partir de ese relato. Solo formulan una pregunta factual si falta distinguir algo relevante; no repreguntan identidades ya expresadas. El usuario no necesita conocer las etiquetas internas.
+Las relaciones dobles/triples se evalúan después del relato y solo se preguntan si B5 necesita distinguir un factor limitante no resuelto. Los factores visibles se nombran con expresiones del caso. No pedir un ranking completo por detectar tres dimensiones.
+2.2_obj, 2.2_suj y 2.2_acc se procesan por referente y contraste. Si el antes/después ya contiene el cambio, no se muestran. Si falta un hecho, se pregunta solo por esa diferencia; una sola respuesta puede alimentar varias proyecciones separadas si cada una conserva su evidencia.
+Las listas de atributos de 6.A quedan detrás de la interfaz. No se muestran como casillas para buscar la respuesta que EVE esperaba. El texto libre admite cambios fuera del diccionario, ausencia de cambio o desconocimiento.
+2.3 se apoya en el antes/después, no en contar atributos. Pregunta por la magnitud que el informante reconoce; no convierte esfuerzo, duración ni un cambio de etiqueta en una magnitud objetiva.
+2.4a y 2.4b conservan salidas separadas. La primera describe intervención; la segunda, señal específica para actuar. Se reutiliza evidencia explícita ya disponible del mismo caso; no se sustituye una por otra ni se vuelve a capturar B1 por defecto.
+2.5 y 2.6 admiten condiciones cotidianas, casos nuevos sin objeto previo, verificación sin cambio material y estados no conocidos. Preguntar cómo estaba y cómo queda no debe presuponer una mejora, un éxito ni una diferencia obligatoria.
+2.7 abre la capa de iteraciones. Si la respuesta es Pocas veces o Muchas veces, se activa 2.8. Si la respuesta es Continuo, 2.8 no aparece.
+2.9 pregunta por fallos de transformación. Si existe falla, 2.10 aparece inmediatamente. Si no, se omite.
+2.11 pregunta por cambios ocultos. Si existen, 2.12 aparece inmediatamente. Si no, se omite.
+2.A conserva su función de aclarar el limitante para B5; 2.B precisa el síntoma de fallo y 2.C el cambio no registrado o su autor conocido. Las identidades o atributos pendientes se precisan en sus propios nodos, no ampliando 2.A a una pregunta genérica sobre todo.
+Orden de captura base: 2.1 → 2.5 → 2.4a → 2.4b cuando no esté ya respondida → 2.6 → 2.3 → 2.7 → 2.9 → 2.11. Las proyecciones 2.1a/b/c y 2.2 se ejecutan cuando existe evidencia; 2.8 se abre tras 2.7 si aplica, 2.10 tras 2.9 y 2.12 tras 2.11. Relaciones y prioridad se evalúan al cerrar el relato o ante reentrada de B5.
+Aclaraciones: 2.A, 2.B y 2.C no aparecen en flujo normal; se disparan solo por flags.
+Contrato de implementación: la combinatoria se conserva en los registros, no como carga taxonómica visible. La secuencia de captura no espera a resolver el modelo. Si un gap requiere una nueva intervención, se registra su coste real; ninguna microaclaración es gratuita por llamarla interna. El acoplamiento propuesto a seis tarjetas runtime se especifica en 21.
+9. Lógica secuencial interna del Bloque 2
+2.1 captura el foco literal de un caso y conserva transformation_primary_dimensions como salida posterior de estructuración sustentada.
+2.1a, 2.1b y 2.1c extraen o precisan referentes; no activan una dimensión por mera mención de una persona, un objeto o un verbo.
+Las relaciones 2.1_* usan hechos sobre el limitante reportado. Dominancia y ranking no se deducen de la clase de entidad ni del orden en que se contó la historia.
+2.2 contrasta evidencia del mismo referente y caso; deriva atributos sustentados o solicita una precisión factual. Mantiene candidatos y desconocidos separados.
+2.3 captura magnitud percibida del cambio; no cuenta propiedades ni mide carga de trabajo.
+2.4a y 2.4b separan ejecución directa y causa inmediata del cambio.
+2.5 y 2.6 describen condiciones inicial y final antes de exigir ontología. Un contraste igual o incompleto no produce por sí solo una excepción.
+2.7 y 2.8 hacen visible si la transformación es lineal o iterativa.
+2.9 y 2.10 registran fallos de transformación.
+2.11 y 2.12 registran cambios ocultos o no oficiales.
+Con evidencia suficiente, el motor consolida transformation_attributes, transformation_exception_exists por V3, transformation_metric_hint cuando esté sustentado, scene_transformation_confidence y scene_transformation_readiness. Las salidas pendientes viajan con estado y procedencia; no se rellenan para cerrar el expediente.
+Combinaciones internas simples: Objeto evalúa 2.1a y 2.2_obj; Sujeto evalúa 2.1b y 2.2_suj; Acción evalúa 2.1c y 2.2_acc. Evaluar un nodo no equivale a mostrarlo. La presencia de una sola dimensión no demuestra que ese factor limite la capacidad.
+Objeto + Sujeto: evaluar 2.1a/2.1b y 2.2_obj/2.2_suj; 2.1_AB_Relacion solo compara hechos si B5 lo necesita.
+Objeto + Acción: evaluar 2.1a/2.1c y 2.2_obj/2.2_acc; 2.1_AC_Relacion no convierte cada acción del ejecutor en dimensión transformada.
+Sujeto + Acción: evaluar 2.1b/2.1c y 2.2_suj/2.2_acc; 2.1_BC_Relacion distingue atención al sujeto de complejidad del trabajo, sin confundirlo con dotación.
+Objeto + Sujeto + Acción: evaluar las tres identificaciones y tres contrastes internamente. 2.1_ABC_Relacion solo ante comparación faltante; 2.1_ABC_Prioridad solo si un orden adicional está sustentado y es necesario. No mostrar diez controles por reconocer una combinación triple.
+10. Reglas formales de branching
+Regla
+ | Condición
+ | Acción
+ | B2-R1
+ | Evidencia de objeto concreta o identidad pendiente en el relato
+ | Evaluar 2.1a/2.2_obj internamente. Sondear solo el dato faltante; no exigir selección Objeto.
+ | B2-R2
+ | Evidencia de sujeto atendido/cambiado o identidad pendiente
+ | Evaluar 2.1b/2.2_suj. No activar por mencionar al ejecutor.
+ | B2-R3
+ | Evidencia sobre trabajo organizado/ajustado
+ | Evaluar 2.1c/2.2_acc. No activar solo porque 2.4a contenga un verbo.
+ | B2-R4
+ | Objeto+Sujeto sustentados; limitante relevante para B5 no resuelto
+ | Evaluar 2.1_AB_Relacion; reutilizar comparación explícita o preguntar por factores concretos.
+ | B2-R5
+ | Objeto+Acción sustentados; limitante relevante para B5 no resuelto
+ | Evaluar 2.1_AC_Relacion con etiquetas del relato, no taxonomía.
+ | B2-R6
+ | Sujeto+Acción sustentados; limitante relevante para B5 no resuelto
+ | Evaluar 2.1_BC_Relacion sin confundir atención con dotación disponible.
+ | B2-R7
+ | Combinación triple sustentada; comparación necesaria
+ | Evaluar 2.1_ABC_Relacion. Solo si falta un orden necesario y hay primer freno, 2.1_ABC_Prioridad.
+ | B2-R8
+ | 2.7 = Pocas veces o Muchas veces
+ | Mostrar 2.8.
+ | B2-R9
+ | 2.9 indica falla
+ | Mostrar 2.10 y derivar transformation_exception_exists = true.
+ | B2-R10
+ | 2.11 indica cambios ocultos
+ | Mostrar 2.12.
+ | B2-R11
+ | Comparación de limitantes insuficiente y resoluble con un caso concreto
+ | Activar 2.A una vez. No fuerza ranking, métrica ni atributos.
+ | B2-R12
+ | 2.10 vacía, genérica o no describe síntoma observable
+ | Activar aclaración 2.B.
+ | B2-R13
+ | 2.12 no precisa el cambio o deja una ambigüedad resoluble sobre su origen
+ | Activar 2.C solo por el dato faltante. Desconocimiento declarado de autoría no genera insistencia automática.
+ | B2-R14
+ | Relato antes/después suficiente del mismo caso
+ | Proyectar atributos con citas; no abrir 2.2 visible por obligación taxonómica.
+ | B2-R15
+ | Interpretación plausible sin evidencia suficiente
+ | Guardar candidato en transformation_model_review. No consolidar el valor ni pedir que el usuario elija una ontología.
+ | B2-R16
+ | 2.5/2.6 iguales o no comparables
+ | Registrar no_observed_change o unknown según evidencia. No derivar exception_exists ni falso cambio.
+ | B2-R17
+ | Cambia una respuesta de foco, estado o intervención
+ | Marcar proyecciones dependientes como pendientes de reevaluación; conservar versiones y volver a proyectar solo lo sustentado.
+ | B2-R18
+ | Se agota la precisión útil o el presupuesto de interacción
+ | Conservar gap y reentry_target; no insistir ni contar preguntas visibles como internas.
+ | 11. Separación epistemológica del Bloque 2
+captured_user_evidence: literal de 2.1, relatos de 2.4a/2.4b/2.5/2.6, respuestas de magnitud, iteración, fallo y cambio no registrado, además de las precisiones factuales que efectivamente se formulen. Un nodo ejecutado internamente no tiene una respuesta visible ficticia.
+clarification: 2.A, 2.B y 2.C, cuando el motor necesita mayor precisión sin modificar la respuesta original.
+canonical_derivation: identificación sustentada de dimensiones/referentes, contrastes 2.2, transformation_attributes, normalización de comparaciones/ranking, transformation_metric_hint cuando tenga soporte y transformation_exception_exists por V3. model_candidate se guarda separado hasta contar con respaldo; no constituye evidencia nueva.
+internal_calculated: scene_transformation_confidence.
+readiness_marker: scene_transformation_readiness.
+consistency_flag: transformation_contradiction_flag y otros flags por contradicción entre tipo de entidad, atributos, magnitud, estados, iteraciones, fallos y cambios ocultos.
+Restricción: aquí no se diagnostica aún salida, función VSM definitiva, capacidad, resource bargain ni compensación humana. Se dejan huellas para análisis posterior, pero no se emite juicio fuerte.
+12. Derivaciones internas y normalizaciones permitidas
+transformation_attributes agrupa los cambios sustentados sin borrar referente, dimensión, condición inicial/final ni evidencia origen. Una propiedad común a varias dimensiones no duplica observaciones independientes; cada asignación tiene su propia justificación.
+transformation_exception_exists se deriva exclusivamente desde transformation_exception_type capturado canónicamente en 2.9. 2.10/2.B precisan la descripción; no crean, niegan ni reemplazan el booleano. Se mantiene íntegra la regla V3.
+transformation_metric_hint utiliza la dimensión y el limitante sustentado: volumen cuando se reporta limitación por objetos/casos, cantidad de sujetos atendidos cuando ese sea el factor, complejidad/frecuencia del trabajo cuando haya evidencia, o mezcla explícita. Si el limitante no está resuelto, la pista permanece pendiente. B5 decide la métrica y no recibe números inferidos de este bloque.
+scene_transformation_confidence combina cobertura factual, identidad del caso, concreción de condiciones y trazabilidad de cada proyección. Coherencia entre campos reutilizados no cuenta como evidencia independiente. Candidatos sin soporte, contradicciones reales y gaps disminuyen suficiencia; ni fluidez del relato ni coincidencia con el diccionario aumentan por sí mismas la confianza.
+scene_transformation_readiness distingue completitud de captura y suficiencia para cada consumidor. Una narrativa bien formada no cierra automáticamente MoC, OLC ni la selección de métrica en B5. Los estados y criterios están en 20.D y 23.
+Cuando 2.7 = Continuo, transformation_iteration_count queda como N/A y no cero. Cuando la comparación triple expresa igualdad, dimension_dominante puede conservar mixed_tripartite; ranking_dimensiones no se inventa. La ausencia de un ranking total no vuelve falsa una igualdad legítima.
+Lo que no debe hacerse aquí es inferir todavía impacto al receptor, rol VSM dominante de la escena, brecha de capacidad cerrada o patología humana definitiva. Eso pertenece a bloques posteriores o a capas posteriores.
+13. Lógica de consistencia mínima del bloque
+Chequeo
+ | Condición observada
+ | Flag sugerido
+ | Transformación sin entidad concreta
+ | Falta referente reconocible en el relato o no puede resolverse una identidad necesaria
+ | transformation_entity_missing; precisión factual en el nodo pertinente
+ | Magnitud incompatible con atributos
+ | Hay conflicto factual real en el mismo caso, no simple desacuerdo entre número de atributos y magnitud declarada
+ | transformation_magnitude_inconsistency solo tras revisión; no calcula magnitud
+ | Sin cambio de estado observable
+ | 2.5/2.6 iguales, tautológicos o no comparables
+ | transformation_state_no_delta como aviso; diferenciar no_observed_change de unknown, sin fallo automático
+ | Iteración declarada sin conteo
+ | 2.7 = Pocas/Muchas veces y 2.8 vacía
+ | transformation_iteration_needs_count
+ | Falla sin descripción suficiente
+ | 2.9 indica sí y 2.10 es vacía o genérica
+ | transformation_exception_needs_clarification
+ | Cambio oculto sin actor/cambio
+ | Falta el cambio concreto o no se conoce quién lo hace
+ | transformation_hidden_change_needs_clarification; conservar autoría desconocida
+ | Dimensión dominante ambigua
+ | Falta evidencia del limitante; no aplica al empate explícito por sí solo
+ | transformation_dominance_ambiguous; no forzar ranking
+ | Candidato presentado como hecho
+ | Una salida carece de cita, regla de proyección o precisión factual
+ | model_projection_unsupported
+ | Comparación entre referentes distintos
+ | Antes/después mezclan distinto caso, momento o parte intervenida
+ | transformation_reference_mismatch
+ | Reutilización circular
+ | B0/B1 o varios campos copian el mismo literal y se tratan como corroboraciones independientes
+ | reused_evidence_not_independent
+ | Freno de recursos convertido en sujeto
+ | Se usa al ejecutor o personal disponible como sujeto transformado sin evidencia
+ | capacity_factor_outside_transformed_subject
+ | 14. Aclaraciones canónicas del bloque
+2.A. Aclaración sobre el limitante: solo cuando B5 requiere resolver una comparación todavía ambigua y el informante puede aportar un caso concreto. Si el problema es personal disponible, herramientas o autorización, se conserva como contexto de capacidad sin convertirlo forzosamente en una dimensión transformada.
+2.B. Aclaración sobre falla de transformación: aparece cuando el usuario reconoce que hay fallo, pero la descripción de 2.10 no deja claro el síntoma observable.
+2.C. Aclaración sobre cambio no registrado o fuera de lo acordado: precisa qué cambió y qué sabe el informante de quién lo hizo. No exige identificar responsables desconocidos ni interpreta ausencia de registro como falta de autorización.
+15. Mapeo de almacenamiento y trazabilidad
+Elemento
+ | Destino principal
+ | Observaciones de trazabilidad
+ | Respuestas 2.1–2.12
+ | scene_question_answers
+ | Guardar solo respuestas efectivamente aportadas, con opción, texto literal, timestamp, bloque y código. Si se reutiliza evidencia, referenciarla sin fabricar otra respuesta visible.
+ | Aclaraciones 2.A–2.C
+ | scene_clarifications
+ | No reemplazan evidencia original; se vinculan por question_code origen.
+ | Proveniencia
+ | scene_answer_provenance
+ | Registrar informante, caso, código, origen, citas/rangos de texto, componente normalizado, regla aplicada y estado. Distinguir user, clarification, supported_projection, model_candidate e internal_calculated.
+ | Derivaciones del bloque
+ | scene_block_derivations
+ | Guardar dimension_dominante, ranking_dimensiones, transformation_attributes consolidados, transformation_exception_exists, transformation_metric_hint y demás normalizaciones.La derivación transformation_exception_exists debe conservar referencia explícita a transformation_exception_type y a la pregunta 2.9. Si transformation_exception_exists queda unresolved, debe guardarse el estado unresolved y no omitirse silenciosamente.Agregar transformation_model_review y transformation_change_trace como metadatos. Los candidatos sin respaldo no se exportan como variables cerradas.
+ | Flags de consistencia
+ | scene_consistency_flags
+ | Guardar flags estructurales con regla de disparo y severidad.
+ | Expediente canónico
+ | scene_canonical_records
+ | Consolidar únicamente variables normalizadas y referencias a evidencia.El expediente debe incluir transformation_exception_type, transformation_exception_exists y, cuando aplique, transformation_exception_description. Si transformation_exception_exists queda unresolved, el expediente debe conservar ese estado junto con transformation_exception_route_unresolved.Conservar estado por campo y por consumidor; no completar la ontología para aparentar conformance.
+ | 
+16. Flujo de salida técnica del bloque
+Tablas/estructuras que alimenta: scene_question_answers, scene_answer_provenance, scene_block_derivations, scene_clarifications, scene_consistency_flags y scene_canonical_records.
+Variables canónicas producidas: transformation_primary_dimensions, objeto_tipo, sujeto_tipo, accion_tipo, dimension_dominante, ranking_dimensiones, atributos_objeto_cambian, atributos_sujeto_cambian, atributos_accion_cambian, transformation_attributes, transformation_magnitude, transformation_causality_action, transformation_causality_trigger, transformation_state_initial, transformation_state_final, transformation_iterations, transformation_iteration_count, transformation_exception_exists, transformation_exception_type, transformation_exception_description, transformation_hidden_changes, transformation_hidden_changes_description, transformation_metric_hint. Salidas complementarias de este rediseño: transformation_focus_literal; transformation_model_review; transformation_change_trace; transformation_delta_status; transformation_metric_readiness.
+Flags posibles: transformation_entity_missing, transformation_magnitude_inconsistency, transformation_state_no_delta, transformation_iteration_needs_count, transformation_exception_needs_clarification, transformation_exception_route_unresolved(Se activa cuando 2.9 está ausente, inválida, no interpretable o cuando existe evidencia textual de falla de transformación pero no se logró cerrar transformation_exception_exists desde transformation_exception_type) , transformation_hidden_change_needs_clarification, transformation_dominance_ambiguous, transformation_contradiction_flag. Flags complementarios: model_projection_unsupported; transformation_reference_mismatch; reused_evidence_not_independent; capacity_factor_outside_transformed_subject.
+Gaps posibles: ausencia de referente concreto; identidad ambigua; contraste antes/después insuficiente; atributos candidatos sin respaldo; estados desconocidos o sin cambio observado; iteración sin escala; excepción sin síntoma; ruta V3 no cerrada; cambio no registrado sin origen conocido; limitante no determinado para B5. No todos los gaps bloquean a los mismos consumidores.
+Aclaraciones posibles: 2.A, 2.B y 2.C.
+Uso posterior en Capa 2: nodos sobre cambio, transición de estado, loops, complejidad, fallo de transformación, cambio oculto, brecha entre proceso oficial y real, y preparación de métricas para Bloque 5.
+16.A. Salida técnica compacta canónica
+Se agrega esta tabla compacta para cerrar el contrato del bloque de forma más directamente auditable por UI, testing, JSON operativo y motor de reglas.
+Elemento
+ | Detalle
+ | Variables canónicas producidas
+ | transformation_primary_dimensions, objeto_tipo, sujeto_tipo, accion_tipo, dimension_dominante, ranking_dimensiones, atributos_objeto_cambian, atributos_sujeto_cambian, atributos_accion_cambian, transformation_attributes, transformation_magnitude, transformation_causality_action, transformation_causality_trigger, transformation_state_initial, transformation_state_final, transformation_iterations, transformation_iteration_count, transformation_exception_exists, transformation_exception_type, transformation_exception_description, transformation_hidden_changes, transformation_hidden_changes_description, transformation_metric_hint.Nota de corrección C1-INSTR-V3-R9-001:transformation_exception_type es evidencia capturada desde 2.9.transformation_exception_exists es derivación canónica obligatoria desde transformation_exception_type.transformation_exception_description es evidencia capturada o aclaración desde 2.10 / 2.B.Salidas complementarias de gobernanza y captura: transformation_focus_literal; transformation_model_review; transformation_change_trace; transformation_delta_status; transformation_metric_readiness.
+ | Flags posibles
+ | transformation_entity_missing, transformation_magnitude_inconsistency, transformation_state_no_delta, transformation_iteration_needs_count, transformation_exception_needs_clarification, transformation_hidden_change_needs_clarification, transformation_dominance_ambiguous, transformation_contradiction_flag, transformation_exception_route_unresolved.
+ | Gaps posibles
+ | ausencia de entidad concreta, atributos demasiado genéricos, ausencia de estados distinguibles, iteración sin escala, excepción sin sintomatología, cambio oculto sin actor, ruta canónica de excepción no cerrada. Se distinguen ausencia de cambio observado, evidencia desconocida y candidato sin soporte.
+ | Aclaraciones posibles
+ | 2.A, 2.B y 2.C.
+ | Uso posterior en Capa 2
+ | Transducción de cambio material, transición de estado, complejidad, loops, fallos y transformación oculta; preparación explícita de métrica dominante para Bloque 5.
+ | Restricción epistemológica
+ | El Bloque 2 estructura evidencia de transformación; no diagnostica todavía salida, capacidad, compensación humana ni función VSM cerrada.
+ | 
+17. Relación formal con el Bloque 1 y con los bloques posteriores
+El Bloque 1 entrega el estímulo y las precondiciones del inicio. El Bloque 2 toma esa base y pregunta qué cambia cuando la escena efectivamente entra en operación.
+El Bloque 3 heredará especialmente los estados finales y la naturaleza del objeto/sujeto/acción transformada, porque la salida no puede leerse sin saber qué fue transformado realmente.
+El Bloque 4 releerá 2.7, 2.8, 2.9 y 2.11 para comprender loops, desvíos, rutas no lineales y trabajo oculto en el flujo.
+El Bloque 5 recibe transformation_primary_dimensions, dimensiones dominantes por combinación, ranking_dimensiones y transformation_metric_hint con su estado de resolución. Si la dominancia no está sustentada, no puede consumir una etiqueta candidata como hecho. La reentrada usa las relaciones existentes o 2.A con factores concretos; no vuelve a pedir ontología al usuario.
+El Bloque 6 podrá reusar 2.9, 2.10, 2.11 y 2.12 como precursores de compensación humana, pero todavía sin confundir transformación fallida con sacrificio humano; esa distinción hay que conservarla.
+18. Mapeo preliminar a VSM y canal algedónico
+2.1 y sus preguntas de relación dejan huellas importantes para S1: qué tipo de variedad opera la unidad, dónde está el cuello de botella y qué clase de transformación sostiene localmente.
+2.2 y 2.3 hablan tanto a MoC/OLC como a S3. Los atributos y la magnitud del cambio dejan ver el tipo de control y estándar que sería razonable esperar, aunque todavía no lo evalúan.
+2.4a y 2.4b tocan PF y también VSM. Separar acción ejecutada y causa específica del cambio ayuda a diferenciar operación, regulación y disparo causal sin colapsarlos en una sola etiqueta.
+2.7 y 2.8 son muy valiosos para S1 y S3: los ciclos repetidos insinúan retrabajo, variación estructural y demanda de capacidad adicional.
+2.9 y 2.10 alimentan sobre todo a S3* y al canal algedónico. Cuando la transformación debería ocurrir y no ocurre, o ocurre mal, ahí asoma el dolor real de la operación y la distancia entre lo que el sistema dice y lo que efectivamente cambia.
+2.11 y 2.12 son casi una ventana de auditoría crítica: revelan cambios que sí suceden pero quedan fuera de la oficialidad, muy relevantes para S3* y para lecturas posteriores de AHE cuando la compensación o la opacidad se vuelven crónicas.
+Convención epistemológica: este bloque no produce todavía lectura VSM fuerte ni diagnóstico AHE cerrado. Produce huellas para lectura posterior de S1, S2, S3, S3*, S4, S5 y canal algedónico.
+19. Reglas de aceptación del Bloque 2
+Quedó identificado un foco de trabajo y se conservaron las dimensiones sustentadas o sus estados pendientes; ninguna dimensión se seleccionó por conveniencia del modelo.
+Cada dimensión sustentada tiene referente y evidencia suficientes; los ejecutores, registros y sujetos atendidos no se mezclaron por compartir un nombre.
+Las combinaciones se procesaron internamente y las comparaciones necesarias tienen evidencia o gap; los empates y órdenes parciales no se convirtieron en un ranking artificial.
+Los atributos consolidados corresponden a diferencias explícitas o precisadas, no al contenido del diccionario.
+La magnitud declarada conserva su carácter situado; no se calculó por cantidad de atributos ni se forzó cuando no hubo cambio observable.
+Queda distinguida la acción directa del actor respecto de la causa específica del cambio.
+Quedan descritos estado inicial y estado final de la transformación.
+Queda capturado si la transformación es lineal o iterativa y, cuando aplica, cuántos ciclos típicamente ocurren.
+Quedan registrados fallos de transformación y cambios ocultos cuando existen.
+Las pistas para B5 viajan con estado y evidencia; si no permiten comparar capacidad, la ruta queda pendiente sin alterar fórmulas ni elegir una métrica por intuición.
+
+20. Contrato del rediseño B2-UX-EVID-001
+Este cambio interviene la captura visible, el orden de preguntas y la separación entre evidencia y modelado del Bloque 2. La fuente es el documento adjunto Bloque_2_Documento_Madre_Capa1_v2_1_EVE(1).docx. Se conserva íntegra su ficha C1-INSTR-V3-R9-001 y la regla tabulada V3. Los nuevos controles de esta sección son especificación de diseño de EVE, no hechos observados en la empresa cliente.
+20.A. Qué debe cambiar antes de recibir una respuesta
+La interfaz no empieza con una hipótesis que el informante tenga que confirmar. Empieza con un caso reconocible. No se exige saber qué es un objeto, sujeto, atributo, dimensión o ciclo para contestar. Esto no elimina variedad operativa: reduce las decisiones taxonómicas impuestas al usuario y conserva los detalles de su experiencia.
+Decisión
+ | Regla implementable
+ | Una historia, un caso
+ | Fijar el referente del relato sin exigir una clase. Mostrar el nombre de la actividad ya confirmado como contexto. No volver a pedir toda la descripción de B0.
+ | Una tarea cognitiva a la vez
+ | Foco → antes → intervención/señal → después → magnitud/repetición → fallos/cambios no registrados. En tarjetas compuestas, mostrar subcampos progresivos y persistirlos por separado.
+ | Ayuda breve y ejemplos
+ | El help_text desambigua; los tres ejemplos de cada ficha viven en «Ver ejemplos». No desplegarlos todos por defecto ni usarlos como respuestas prellenadas. No truncar el literal del usuario para ajustarlo al ejemplo.
+ | Preguntas neutrales
+ | No anunciar «tu factura cambia de estado» antes de que eso esté reportado. Preguntar qué quedó distinto. Admitir que una revisión termine sin cambio o que el informante no pueda compararlo.
+ | Sin catálogos del cliente
+ | Los diccionarios de 6.A pertenecen al modelo interno EVE. No se exige un catálogo corporativo ni se lo inventa. Texto libre fuera de la taxonomía permanece como evidencia.
+ | Sin topología impuesta
+ | No exigir que el usuario distinga gateways, loops o relaciones entre clases. Hablar de volver sobre el mismo caso, de qué quedó listo y de lo que no resultó. La topología posterior necesita referencias y condiciones.
+ | Identificación, demanda y recursos
+ | Persona atendida no equivale a persona ejecutora. Documento/caso no equivale a su estado. Volumen, atención, complejidad y disponibilidad de recursos no son sinónimos; el vínculo se sustenta antes de orientar B5.
+ | Se corrige expresamente la mezcla del texto fuente entre sujeto transformado y personal disponible en los ejemplos de dominancia. El número de cocineros, vendedores o repartidores puede ser información de capacidad, pero no convierte a esas personas en sujetos transformados. Asimismo, un estado nominal y un verbo de tarea no bastan para crear entidades adicionales. Estos son ajustes dentro del foco ontológico del rediseño, no una reescritura de Bloque 5.
+20.B. Frontera entre dato, proyección y candidato
+Estado por salida
+ | Requisito
+ | Uso permitido
+ | captured_user_evidence
+ | El informante lo escribió, seleccionó o precisó en un nodo visible; conservar texto y contexto.
+ | Evidencia de lo que reportó esa persona, no verdad total de la organización.
+ | supported_projection
+ | Una regla explícita proyecta evidencia existente sin añadir contenido. Tiene citas y referente inequívocos.
+ | Puede poblar el valor canónico como canonical_derivation con su evidencia fuente.
+ | user_clarified
+ | Una pregunta factual neutral agregó el dato que faltaba; conservar original y aclaración.
+ | Puede resolver el campo según lo aclarado; no reescribir retrospectivamente la primera respuesta.
+ | candidate
+ | La estructura es plausible pero exige interpretación no establecida por el relato.
+ | Guardar solo candidate_value y alternativas en transformation_model_review. canonical_value permanece null.
+ | unresolved
+ | No hay evidencia suficiente, la respuesta no permite discriminar o persiste un conflicto.
+ | Conservar gap y destino de reentrada. Nunca usar un default para cerrar.
+ | rejected
+ | Una hipótesis de estructura fue descartada por evidencia posterior o aclaración.
+ | Mantener el rastro de descarte; no vuelve a proponerse sin un dato nuevo.
+ | not_applicable
+ | La dimensión/campo no corresponde al caso según evidencia suficiente.
+ | No preguntar por llenar la ficha. No confundir este estado con campo omitido o unknown.
+ | captured_user_evidence es la procedencia de un reporte, no una certificación de verdad. supported_projection describe un transporte o normalización con justificación suficiente; candidate describe lo que el modelo cree que podría ser. La palabra canonical_derivation nunca se usa para esconder una conjetura.
+La regla práctica de reutilización exige mismo caso, mismo referente, mismo momento o tramo de intervención y dato explícito. Puede reutilizarse «el importe cambió de 100 a 120» para identificar el atributo importe; no puede agregarse «la factura quedó aprobada». Una frase copiada a varios campos sigue siendo una sola fuente. Coincidir con B0 o B1 no acredita independencia si todos los campos nacen del mismo relato.
+Si el modelo necesita escoger entre dos interpretaciones, la siguiente pregunta debe buscar el hecho que las separa. No se pregunta «¿entonces era un sujeto?» ni «¿confirmas que hubo un cambio de estado?». Se pregunta, por ejemplo, «¿qué quedó diferente?» o «¿a qué registro te refieres?». Si la persona no sabe, el campo no se cierra.
+Las cuatro salidas de 2.9 conservan el valor categórico técnico de la tabla V3 mediante option_value_mapping. La redacción de pantalla y la categoría se guardan por separado. El mapeo no interpreta prosa libre: solo traduce una selección explícita a uno de los cuatro valores ya definidos. Así se conserva exactamente 2.9 → transformation_exception_type → transformation_exception_exists.
+20.C. Dependencias sin círculos ni preguntas que se validan a sí mismas
+El flujo se divide en dos pasadas. La captura no espera a tener el modelo listo; el modelo espera a tener evidencia. 2.1 puede tener foco literal capturado y dimensiones aún pendientes. Por eso 2.5 y 2.6 dependen del foco, no de una taxonomía resuelta. Después del contraste se evalúan identidades, atributos y combinaciones, sin volver al principio para que el usuario conteste lo mismo.
+Paso
+ | Entrada
+ | Salida / condición
+ | 1. Capturar
+ | 2.1; contexto confirmado de B0/B1.
+ | Foco literal sin inventar sujeto, objeto o acción dominante.
+ | 2. Describir
+ | 2.5 → 2.4a → 2.4b si falta → 2.6.
+ | Relato del mismo caso y su intervención; antes/después preservados.
+ | 3. Proyectar
+ | Citas inequívocas del relato.
+ | 2.1a/b/c y 2.2_* se resuelven cuando hay soporte. Candidatos no abren cascadas de preguntas.
+ | 4. Precisar
+ | Un gap factual que afecta una salida requerida.
+ | Una pregunta neutral del nodo correspondiente. Si no añade evidencia, conservar gap; no volver a preguntar con otra redacción para obtener aceptación.
+ | 5. Caracterizar
+ | 2.3 y 2.7, más 2.8 si corresponde.
+ | Magnitud reportada y vueltas del mismo caso, sin inferir fallo ni capacidad.
+ | 6. Cerrar rutas específicas
+ | 2.9/2.10/2.B y 2.11/2.12/2.C.
+ | V3 cerrada o unresolved; cambio no registrado y autoría conocida o desconocida.
+ | 7. Preparar B5
+ | Evidencia de factores que frenan el trabajo.
+ | Relación aplicable/2.A solo si hace falta. Ranking total solo cuando esté sustentado.
+ | Una edición del usuario invalida únicamente las proyecciones que dependen del fragmento modificado. Se conservan la versión anterior, el motivo y la nueva referencia. Si cambia el referente o el periodo, se revisan antes/después y cualquier hint de métrica relacionado; no se descartan sin motivo las respuestas independientes de fallos o cambios no registrados.
+20.D. Resolución, confianza y límites de salida
+Marcador
+ | Valores / interpretación
+ | transformation_delta_status
+ | supported_change: cambio sustentado; no_observed_change: el informante declara que no observó cambio; unknown: no hay contraste suficiente. No genera el booleano V3.
+ | scene_transformation_confidence
+ | Lectura cualitativa de suficiencia, con reasoning por campo. No se introduce un puntaje numérico sin calibración. Fluidez, extensión o coincidencia con ejemplos no equivalen a confianza factual.
+ | scene_transformation_readiness
+ | ready: requisitos aplicables sustentados y rutas cerradas; ready_with_flags: quedan gaps no bloqueantes explícitos; needs_clarification: falta una precisión todavía resoluble; blocked_by_missing_evidence: falta un mínimo requerido; blocked_by_missing_canonical_route: hay señal textual, pero no se cerró la ruta obligatoria. Estados de diseño de B2, sin modificar enums de otros bloques.
+ | transformation_metric_readiness
+ | ready_for_metric_selection: B5 dispone de un hint sustentado; needs_factual_clarification: falta una comparación factual; needs_block5_context: la decisión requiere naturaleza, unidad, recursos o periodo que B5 todavía debe capturar.
+ | Evidencia vs. consumidor
+ | B3 puede recibir condiciones finales sustentadas aunque una métrica de B5 esté pendiente. MoC/OLC no completan un modelo que requiere datos ausentes. El estado global no borra bloqueos específicos.
+ | No se relajan los gates de la corrección C1-INSTR-V3-R9-001. Si 2.9 reporta fallo, el booleano es true aunque 2.10 no tenga suficiente detalle. El expediente conserva transformation_exception_needs_clarification y el consumidor afectado decide su bloqueo. Si falta la selección canónica de 2.9, la existencia es unresolved incluso cuando la narrativa parezca describir una falla.
+21. Recorrido visible y acoplamiento propuesto al Runtime 40+20
+Este entregable modifica el Documento Madre B2. No cambia los archivos Runtime ni certifica una UI desplegada. La tabla siguiente es el contrato de propagación propuesto para conservar seis interacciones base de B2 y cuatro causales, con los mismos identificadores runtime conocidos. Debe promoverse en un trabajo posterior de Madre → catálogos → arquitectura runtime → QA.
+ID
+ | Historia visible
+ | Nodos / trabajo interno
+ | Control
+ | B2-Q12
+ | Con qué trabajas
+ | 2.1 captura foco; 2.1a/b/c como resolución interna o precisión factual de identidad.
+ | No mostrar Objeto/Sujeto/Acción. No rellenar referentes desde un catálogo supuesto.
+ | B2-Q13
+ | Cómo está antes
+ | 2.5.
+ | No sustituir el antes por la señal de inicio de B1.
+ | B2-Q14
+ | Qué haces y qué te lleva a hacerlo
+ | 2.4a y 2.4b, como dos subcampos progresivos y separables.
+ | No repetir B0/B1 si el dato ya está explícito; no fusionar intervención y señal.
+ | B2-Q15
+ | Cómo queda al terminar
+ | 2.6; 2.2_obj/suj/acc como contraste interno y precisión puntual si hace falta.
+ | No pedir propiedades. Mantener evidencia por referente; no forzar un cambio.
+ | B2-Q16
+ | Qué tanto cambia y si vuelves sobre el caso
+ | 2.3 y 2.7, subcampos progresivos.
+ | Esfuerzo no es magnitud; varios casos no son varias vueltas de uno.
+ | B2-Q17
+ | Cuando no queda como debería
+ | 2.9 y 2.11, dos decisiones separadas.
+ | No auto-contestar V3 desde el relato; cambios no registrados no prueban fallo.
+ | C04
+ | Comparación factual del limitante
+ | Relación AB/AC/BC/ABC que aplique, prioridad solo si necesaria, 2.A si corresponde.
+ | No preguntar todas las ramas; no convertir dotación en sujeto.
+ | C05
+ | Qué queda mal
+ | 2.10 y 2.B si la precisión aporta un hecho.
+ | Preservar V3 true cuando falte detalle.
+ | C06
+ | Cambio por fuera de lo acordado
+ | 2.12 y 2.C si hace falta.
+ | No forzar autoría desconocida.
+ | C07
+ | Cuántas vueltas
+ | 2.8 cuando 2.7 sea Pocas veces o Muchas veces.
+ | Continuo no activa conteo discreto; N/A no es cero.
+ | El orden lógico de las causas es contextual: C07 se despliega junto a 2.7 cuando corresponde; C05 junto a 2.9; C06 junto a 2.11. Los identificadores no obligan a mostrar una causal antes de tener su condición. C04 se evalúa después del relato o desde la reentrada gobernada de B5.
+Una tarjeta compuesta no convierte cinco preguntas en una sola tarea cognitiva. El presupuesto 40+20 limita interacciones, pero la UI debe medir también subcampos, tiempo y aclaraciones efectivamente mostradas. Un nodo resuelto internamente consume cero respuesta nueva; un sondeo visible consume trabajo real y se registra como tal. Si se agota el presupuesto autorizado, el dato viaja como gap o reentrada, no como inferencia automática.
+El formato de ayuda es uniforme: pregunta visible breve, un help_text para desambiguar y tres ejemplos opcionales. Los ejemplos de atributos y de dominancia son de ayuda, no candidatos que la IA pueda introducir como hechos del caso. La evaluación de carga cognitiva en usuarios aún debe realizarse; reducir taxonomía visible no permite afirmar por sí solo una reducción medida de abandono.
+22. Combinaciones, limitantes y enlace con Bloque 5
+La variedad ontológica queda en el modelo. La demanda operativa se pregunta en lenguaje de trabajo solo cuando no se conoce. Se conservan los códigos y las variables de las siete composiciones del documento base.
+Composición sustentada
+ | Rutas internas conservadas
+ | Regla
+ | Objeto
+ | 2.1a + 2.2_obj
+ | Sin relación combinada; un objeto identificado no prueba limitación por volumen.
+ | Sujeto
+ | 2.1b + 2.2_suj
+ | Sin relación combinada; la entidad atendida no se confunde con personal disponible.
+ | Acción
+ | 2.1c + 2.2_acc
+ | Sin relación combinada; un verbo presente no demuestra predominio temporal.
+ | Objeto + Sujeto
+ | AB + 2.1a/b + 2.2_obj/suj
+ | Comparar factores reportados solo si B5 lo requiere.
+ | Objeto + Acción
+ | AC + 2.1a/c + 2.2_obj/acc
+ | Distinguir cantidad de casos de lo que requiere cada ejecución.
+ | Sujeto + Acción
+ | BC + 2.1b/c + 2.2_suj/acc
+ | Distinguir atención a las personas/entidades del trabajo de organización o ejecución.
+ | Objeto + Sujeto + Acción
+ | ABC + 2.1a/b/c + tres 2.2; prioridad condicional
+ | No generar ranking por orden de mención. Igualdad explícita permite mixed_tripartite.
+ | AB, AC, BC y ABC en esta tabla son abreviaturas de los códigos completos 2.1_AB_Relacion, 2.1_AC_Relacion, 2.1_BC_Relacion y 2.1_ABC_Relacion, respectivamente. No son códigos nuevos ni sustituyen los identificadores canónicos.
+La categoría principal y la métrica responden preguntas distintas. Una factura puede exigir trabajo breve por lote o análisis largo por caso. Atender clientes puede medirse por cantidad de atenciones, tiempo por interacción o ambos, según la naturaleza y la unidad que B5 confirme. La mera presencia de Objeto/Sujeto/Acción no autoriza a escoger una de esas métricas.
+Evidencia disponible
+ | Qué viaja a B5
+ | Qué no se concluye
+ | Se nombran pedidos, sin explicar qué frena
+ | Dimensión sustentada y hint pendiente.
+ | Que cantidad de pedidos sea el cuello de botella.
+ | Se reporta que el volumen de casos acumulados frena
+ | Comparación y hint de volumen con referencia.
+ | Capacidad nominal, real o brecha numérica.
+ | Cada atención demanda trabajo diferente
+ | Evidencia de diversidad de atención y contexto para 5.0.
+ | Que haya escasez de personal ni que Sujeto siempre se mida en cantidad.
+ | El freno es falta de autorización o herramienta
+ | Relato de contexto; needs_block5_context.
+ | Que el autorizador sea Sujeto transformado o una función VSM cerrada.
+ | Dos factores pesan igual
+ | Empate sustentado y combinación; no orden total inventado.
+ | Que uno domine para simplificar el cálculo.
+ | El freno cambia por tipo de caso
+ | Contextos separados y evidencia; una métrica global queda por resolver.
+ | Un promedio, reparto o factor fijo no reportado.
+ | No se modifican 5.0, 5.0_auto, 5.1, 5.2 ni 5.3 en este entregable. Antes de propagar el cambio, sus consumidores deben comprobar estado de resolución, identidad del referente y unidad de comparación. Un consumidor que espere una dimensión siempre cerrada debe rechazar el candidato pendiente y usar reentrada, no promoverlo por default.
+Bloques 0 y 1 siguen aportando ancla y estímulo, no la transformación reconstruida por anticipado. Bloque 3 verifica la entrega y su receptor; el después de B2 no los sustituye. Bloque 4 confirma flujo, condiciones y retornos; mencionar «varias vueltas» no dibuja un loop sin sus condiciones. Bloque 6 captura compensación por su ruta; fallo o cambio informal no prueban sacrificio. Bloque 7 recibe huellas con estatus, no una ontología aparente que deba convertir en diagnóstico.
+Las referencias a S1, S2, S3, S3*, S4, S5 y canal algedónico se mantienen como destinos de lectura posterior. S3 no se confunde con observación/auditoría S3*. Repetición, error o cambio reciente no prueban por sí solos falla de coordinación, adaptación futura, identidad ni una señal de escalamiento. La subsidiariedad permite precisión local y apoyo ascendente, sin exigir a cada informante que resuelva toda la arquitectura.
+23. Persistencia, trazabilidad y contrato para consolidación
+No se introduce ninguna tabla externa ni un catálogo que el cliente tenga que aportar. Las estructuras nuevas son objetos de control dentro de scene_block_derivations y sus referencias a scene_answer_provenance. Los 26 códigos y los nombres de salida del documento base se conservan. Cambia el origen epistemológico de las salidas que ahora se proyectan, por lo que no deben exportarse como si el usuario hubiera seleccionado una taxonomía.
+Objeto
+ | Campos mínimos
+ | Regla
+ | transformation_model_review
+ | variable_name; canonical_value; candidate_value; status; evidence_refs; rule_id; unresolved_reason; alternatives; source_version.
+ | Un candidate_value no rellena canonical_value. status describe el campo, no la calidad personal del informante.
+ | transformation_change_trace
+ | referent_ref; case_ref; initial_evidence_ref; intervention_evidence_ref; final_evidence_ref; changed_property_literal; canonical_property; projection_status.
+ | Enlaza el mismo caso y referente. No inventa transiciones intermedias. Puede haber varios referentes sin convertirlos en una sola entidad.
+ | evidence_refs
+ | question_code; answer_ref; literal_quote o rango; informant_ref; source_version.
+ | Una referencia identifica evidencia ya capturada. No crea un supuesto sistema de IDs del cliente.
+ | Estado de aplicabilidad
+ | applicable / not_applicable / unresolved, dentro del control de cada salida.
+ | null con unresolved no equivale a lista vacía. Una lista vacía solo expresa ausencia declarada/sustentada, no olvido de captura.
+ | Transporte de conocimiento
+ | Conservar si el informante observó, conoce por su trabajo, estima o no puede confirmar cuando lo explicita.
+ | No deducir certeza por tono ni credibilidad por jerarquía. Aceptación de UI no verifica la organización completa.
+ | Versionado de proyecciones
+ | Origen, regla y versión de la respuesta que cambió; valor anterior y nuevo.
+ | Al corregirse el literal, reevaluar dependencias. No borrar el historial de evidencia ni mostrar candidato obsoleto como consolidado.
+ | Las variables objeto_tipo, sujeto_tipo y accion_tipo siguen representando la identificación principal de su dimensión. Cuando el relato incluye varios referentes, el detalle vive en transformation_change_trace y transformation_model_review; no se cambia silenciosamente el tipo del campo original a una colección incompatible. Si no se puede escoger un principal sustentado, se conserva null y la pluralidad de candidatos hasta precisar el foco.
+El relato de 2.1 se almacena en transformation_focus_literal. La salida transformation_primary_dimensions se resuelve por evidencia de cambio o atención, no por una selección del usuario. En los nodos internos sin intervención visible, scene_question_answers no recibe una respuesta ficticia. Una precisión posterior mantiene su question_code y se vincula al hecho que completó, sin suplantar la respuesta anterior.
+23.A. Ejemplo técnico ilustrativo, no expediente completo
+Este ejemplo muestra únicamente el transporte de un cambio observado y una excepción canónica. Los textos representan un caso ilustrativo; no son datos de un cliente ni una plantilla que deba rellenarse con lo que EVE espera.
+{
+  "source_evidence": {
+    "2.1": "Trabajo sobre una factura.",
+    "2.5": "La factura tiene registrado un importe de 100.",
+    "2.4a": "Comparo contra la orden y corrijo el importe.",
+    "2.4b": "La orden indica 120, no 100.",
+    "2.6": "La misma factura queda con importe de 120. No cambio la fecha.",
+    "2.9": {
+      "visible_selection": "Sí, pero es raro",
+      "canonical_category": "Sí, a veces falla pero es raro"
+    },
+    "2.10": "A veces el importe corregido no queda guardado y al abrirla sigue en 100."
+  },
+  "canonical_projection": {
+    "transformation_primary_dimensions": [
+      "Objeto"
+    ],
+    "objeto_tipo": "Factura",
+    "atributos_objeto_cambian": [
+      "monto"
+    ],
+    "transformation_exception_type": "Sí, a veces falla pero es raro",
+    "transformation_exception_exists": true,
+    "dimension_dominante": null,
+    "transformation_metric_hint": null
+  },
+  "projection_control": {
+    "atributos_objeto_cambian": {
+      "status": "supported_projection",
+      "evidence_refs": [
+        "2.5",
+        "2.4a",
+        "2.6"
+      ],
+      "rule_id": "importe_antes_despues_mismo_referente",
+      "exclusions": [
+        "fecha",
+        "aprobacion",
+        "pago"
+      ]
+    },
+    "dimension_dominante": {
+      "status": "unresolved",
+      "reason": "Identificar una factura no demuestra que el volumen limite el trabajo."
+    }
+  },
+  "transformation_metric_readiness": "needs_block5_context"
+}
+El monto está sustentado por el contraste literal. La fecha se excluye porque el informante dijo que no la cambió. Aprobación y pago no se agregan por plausibilidad. La dominancia queda abierta: no se mide capacidad con solo reconocer una factura. El booleano de excepción es true por la selección de 2.9, no por la lectura libre de 2.10.
+23.B. Rutas que conservan su autoridad
+Ruta
+ | Autoridad que se mantiene
+ | Control añadido
+ | V3: transformación fallida
+ | 2.9 → transformation_exception_type → transformation_exception_exists → 2.10/2.B si aplica.
+ | No cerrar desde el relato. True no se revierte por descripción incompleta.
+ | B3: salida y feedback
+ | El estado final B2 no sustituye receptor, aceptación ni receiver_feedback en 3.13a.
+ | B2 solo entrega evidencia de condición final con referente.
+ | B4: flujo
+ | Las vueltas, desvíos y cambios no registrados aportan pistas, no un PF/OLC ya cerrado.
+ | No crear gateway, loop o transición sin las condiciones que debe capturar esa ruta.
+ | B5: capacidad
+ | Dimensión, comparación y hint sustentados; B5 mantiene selección de métrica y comparabilidad.
+ | Si el hint es candidato, no usarlo como input cerrado. Conservar reentrada por relación o 2.A.
+ | B6: compensación
+ | Se comparten precursores de fallo y cambio fuera de lo acordado.
+ | No adjudicar sacrificio humano ni workaround a partir de una repetición.
+ | B7 / Capa 2 / Producción Paralela
+ | Consolidación solo con evidencia, procedencia, estado y gates originales.
+ | No diagnosticar, no exportar desde texto crudo ni promover candidate a StructuralFactRecord por este rediseño.
+ | 24. Pruebas de aceptación y no regresión
+Las siguientes son pruebas funcionales requeridas para la implementación. Este Word no ejecuta la plataforma. La validación documental de códigos, campos, preservación y reglas V3 se realiza por separado en la nota de control del entregable.
+ID
+ | Caso
+ | Resultado exigido
+ | B2-QA-01
+ | Factura con importe inicial/final explícitos.
+ | 2.2_obj proyecta monto con citas; no pregunta toda la lista de atributos.
+ | B2-QA-02
+ | «Reviso clientes» sin explicar qué cambia.
+ | No decidir si es cuenta, expediente o persona. Precisar un hecho o conservar unresolved.
+ | B2-QA-03
+ | Relato menciona factura, cliente y analista.
+ | No activar combinación triple por tres sustantivos; el analista puede ser solo ejecutor.
+ | B2-QA-04
+ | Relato contiene verbo revisar.
+ | No activar Acción como dimensión automáticamente. Conservar intervención en 2.4a.
+ | B2-QA-05
+ | Antes/después iguales tras una verificación.
+ | Registrar no_observed_change si corresponde. No fabricar diferencia ni cerrar V3=false.
+ | B2-QA-06
+ | Antes desconocido, después conocido.
+ | Conservar unknown en contraste; no inventar un estado inicial inverso.
+ | B2-QA-07
+ | Se crea algo que no existía al inicio.
+ | Registrar ausencia inicial declarada; no exigir un objeto previo ficticio.
+ | B2-QA-08
+ | Dimensión combinada con empate explícito.
+ | Preservar empate. No forzar ranking ni métrica única.
+ | B2-QA-09
+ | Triple con primer freno y empate en los otros dos.
+ | Guardar orden parcial en control; ranking total null cuando el contrato lo exija.
+ | B2-QA-10
+ | Freno reportado = falta de personal autorizado.
+ | Transportar contexto a B5; no etiquetar al personal como sujeto transformado.
+ | B2-QA-11
+ | Muchos casos diferentes realizados una vez cada uno.
+ | No inferir ciclos de un mismo caso.
+ | B2-QA-12
+ | 2.7=Continuo.
+ | No desplegar 2.8; conteo N/A, nunca cero.
+ | B2-QA-13
+ | 2.9=Sí, pero es raro; 2.10 vacía.
+ | Categoría técnica rara → exists=true; flag de descripción; no revertir a unresolved.
+ | B2-QA-14
+ | Narrativa describe error; falta respuesta 2.9.
+ | exists=unresolved y route_unresolved; no cerrar la ruta desde prosa.
+ | B2-QA-15
+ | 2.9=No puedo confirmarlo.
+ | No mapear a false; conservar respuesta desconocida y ruta pendiente.
+ | B2-QA-16
+ | Cambio autorizado pero no registrado.
+ | Capturar el cambio y su condición; no afirmar ausencia de autorización.
+ | B2-QA-17
+ | Cambio no registrado con autor desconocido.
+ | Conservar dato y desconocimiento; no adjudicarlo por rol o área.
+ | B2-QA-18
+ | B0 y B2 repiten el mismo literal.
+ | Reutilización trazada; no contar dos corroboraciones independientes.
+ | B2-QA-19
+ | Dos personas describen distinta frontera del caso.
+ | Preservar perspectivas; verificar referente/periodo antes de declarar contradicción.
+ | B2-QA-20
+ | Usuario cambia el resultado final.
+ | Reevaluar únicamente proyecciones dependientes; conservar las respuestas no afectadas.
+ | B2-QA-21
+ | Todos los atributos del diccionario parecen plausibles.
+ | Solo valores con soporte; ningún atributo se activa por presencia en la taxonomía.
+ | B2-QA-22
+ | Se agota el presupuesto con dominancia pendiente.
+ | B5 recibe gap/reentrada; no se elige una dimensión por facilidad de implementación.
+ | Criterio de UX: ningún usuario necesita aprender Objeto/Sujeto/Acción, atributos, dominancia ni topología para contestar. Los ejemplos se pueden consultar, no aparecen como una pared de texto. Las preguntas secundarias buscan un dato faltante, no demostrar que EVE acertó. Criterio de estructura: todos los campos canónicos siguen teniendo una fuente, un estado o un gap; menos pantallas no significa menos trazabilidad.
+25. Matriz de alcance del cambio y control de preservación
+Elemento del documento fuente
+ | Tratamiento
+ | Motivo
+ | Ficha C1-INSTR-V3-R9-001
+ | Conservada íntegramente.
+ | Protege la instrumentación de excepción y el enlace de feedback con B3.
+ | Regla tabulada V3 y sus párrafos
+ | Conservados íntegramente; se agrega correspondencia entre rótulo visible y valor técnico en 2.9.
+ | La simplificación de lenguaje no cambia el booleano ni su fuente.
+ | 26 códigos canónicos
+ | Se mantienen sin renumeración; todas las fichas siguen completas.
+ | Cambia captura/modelado, no la identidad del catálogo.
+ | Textos, controles y ayudas de fichas
+ | Reescritos dentro del rediseño; tres ejemplos por ficha y reglas de ejecución.
+ | El usuario narra la operación en lugar de completar una taxonomía.
+ | Variables y procedencia
+ | Nombres originales conservados; origen ajustado cuando ahora hay proyección. Metadatos nuevos identificados.
+ | Evitar que una clasificación interna parezca respuesta directa.
+ | UI, secuencia y branching
+ | Actualizados en el cuerpo, no solo en un anexo.
+ | Evitar el ciclo de exigir ontología antes de capturar evidencia.
+ | Dominancia y preparación B5
+ | Se conserva la información requerida; se distinguen entidad, limitante y recursos.
+ | No convertir un relato de recursos escasos en transformación de sujetos.
+ | Persistencia, salida y aceptación
+ | Actualizadas con estados, evidencias, límites y escenarios de prueba.
+ | Conservar conformance y no cerrar rutas a partir de candidatos.
+ | Otros archivos y bloques
+ | No modificados en esta entrega.
+ | La propagación al catálogo madre y al runtime requiere una actualización posterior coordinada.
+ | La diferencia de páginas no se usa como prueba de preservación. El control compara párrafos, celdas, códigos y salidas con el original. Los cambios de contenido se circunscriben al rediseño de captura, modelado y dependencias expresamente intervenidas. La fuente adjunta permanece intacta; el resultado de verificación documental se presenta a continuación.
+25.A. Verificación documental del entregable
+Se contrastó el documento con Bloque_2_Documento_Madre_Capa1_v2_1_EVE(1).docx. Se conservan los 26 códigos, su orden de identificación y todos los campos originales de sus fichas; se añadieron campos de ejemplos, ejecución, reutilización y control epistemológico donde corresponden. La nueva secuencia visible no renumera los nodos.
+La ficha completa C1-INSTR-V3-R9-001, la tabla de decisión V3 y sus reglas de true/false/unresolved se preservan literalmente. El cambio de redacción visible en 2.9 conserva una correspondencia explícita con los valores técnicos originales. Los nombres de salida del bloque se mantienen; su procedencia cambia solo en las proyecciones que ahora resuelve EVE.
+Se verificó que cada ficha dispone de tres ejemplos y que el texto de cada pregunta en la tabla maestra coincide con su ficha. No se modificaron otros Documentos Madre, libros de catálogo, arquitectura runtime ni datos de clientes. Las pruebas funcionales de la sección 24 son requisitos para la implementación posterior; no se presentan como pruebas ejecutadas sobre la plataforma.

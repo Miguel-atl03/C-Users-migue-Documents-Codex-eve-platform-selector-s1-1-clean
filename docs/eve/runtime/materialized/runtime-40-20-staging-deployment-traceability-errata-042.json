@@ -1,0 +1,89 @@
+{
+  "instruction": "Codex 042",
+  "scope": "041 traceability correction only",
+  "policy": "No se crean TR-ID. La evidencia historica 041 no se reescribe; esta errata corrige el conformance vigente usando exclusivamente IDs existentes de la matriz y los crosswalks 039-B/040-B.",
+  "matrix_sha256": "1936369a01dcf46d8453d48788685055234b3ce2daf0ffa179a204f4076950e5",
+  "crosswalk_sources": [
+    "docs/eve/runtime/materialized/runtime-40-20-staging-boundary-traceability-039B.json",
+    "docs/eve/runtime/materialized/runtime-40-20-mapping-contract-authority-040B.json",
+    "docs/eve/runtime/materialized/runtime-40-20-traceability-errata-040B.json",
+    "docs/eve/runtime/materialized/runtime-40-20-trace-control-031.json"
+  ],
+  "corrections": [
+    {
+      "incorrect_identifier": "TR-041-STAGING-BOUNDARY-DEPLOY",
+      "governed_element": "Manifest y secuencia de despliegue staging 041",
+      "applicable_existing_trace_ids": ["TR-001", "TR-015", "TR-016", "TR-017", "TR-033", "TR-035", "TR-037"],
+      "rector_source": "Crosswalk 039-B, componente Plan de despliegue 039; matriz TR-033, TR-035 y TR-037",
+      "material_evidence": "runtime-40-20-staging-deployment-manifest-041.json; snapshots pre/post 041",
+      "correction": "Tratar TR-041-* como etiqueta documental invalida; gobernar el despliegue con Version_Control, QA/activacion, diccionarios y gobierno del Catalogo Madre."
+    },
+    {
+      "incorrect_identifier": "TR-041-ORGANS-DEPLOY",
+      "governed_element": "Tres organos semanticos",
+      "applicable_existing_trace_ids": ["TR-005", "TR-006", "TR-008", "TR-009", "TR-016"],
+      "rector_source": "Crosswalk 039-B, componentes Contrato y SQL 037 y migracion candidata de organos semanticos 039",
+      "material_evidence": "20260805220000_eve_runtime_40_20_semantic_organs_final_041.sql; runtime-40-20-staging-postdeployment-snapshot-041.json",
+      "correction": "Sustituir el identificador inventado por los controles existentes de subfields, politica epistemica, variables, branching y diccionarios."
+    },
+    {
+      "incorrect_identifier": "TR-041-RPC-040D-DEPLOY",
+      "governed_element": "RPC gobernado 040-D",
+      "applicable_existing_trace_ids": ["TR-001", "TR-005", "TR-007", "TR-015", "TR-016", "TR-033", "TR-036"],
+      "rector_source": "Crosswalk 039-B, componente RPC candidato public.eve_runtime_40_20_load_catalog_draft(jsonb); matriz TR-033 y TR-036",
+      "material_evidence": "20260805221000_eve_runtime_40_20_governed_draft_load_rpc_final_041.sql; verificacion de grants y funcion 041",
+      "correction": "Sustituir el identificador inventado por los controles existentes de version, subfields, mappings, QA/activacion y diccionarios."
+    },
+    {
+      "incorrect_identifier": "TR-041-MIG-SANITATION",
+      "governed_element": "Saneo de candidatos historicos",
+      "applicable_existing_trace_ids": [],
+      "nearest_partial_anchors_not_equivalent": ["TR-025", "TR-036"],
+      "rector_source": "No existe TR-ID dedicado en la matriz ni en los crosswalks cerrados 039-B/040-B",
+      "material_evidence": "runtime-40-20-historical-migration-candidate-sanitation-041.json; historical-deployment-candidates/",
+      "correction": "Retirar el identificador inventado y registrar el saneo como higiene operativa sin atribuirle TR-ID rector.",
+      "mapping_status": "unresolved"
+    },
+    {
+      "incorrect_identifier": "TR-041-CONTRACT-040A",
+      "governed_element": "Contrato de las seis tablas core y verificacion read-only",
+      "applicable_existing_trace_ids": ["TR-027", "TR-028", "TR-029", "TR-035", "TR-037"],
+      "rector_source": "Matriz/trace-control 031 y errata 040-B para source_node_ref, mappings, subfields, esquema global y contratos read-only",
+      "material_evidence": "runtime-40-20-staging-core-contract-040A.json; runtime-40-20-staging-predeployment-snapshot-041.json",
+      "correction": "Sustituir el identificador inventado por los destinos tecnicos y controles de contrato ya existentes."
+    },
+    {
+      "incorrect_identifier": "TR-041-B0-ZERO-DELTA",
+      "governed_element": "Inmutabilidad de B0",
+      "applicable_existing_trace_ids": ["TR-026"],
+      "rector_source": "Matriz/trace-control 031, TR-026 B0 canonico conectado",
+      "material_evidence": "Checksum y conteos B0 pre/post 041",
+      "correction": "Usar TR-026 y su prohibicion expresa de recrear, reseedear o modificar historia."
+    },
+    {
+      "incorrect_identifier": "TR-041-GABY-ZERO-DELTA",
+      "governed_element": "No continuacion de Gaby despues de B0",
+      "applicable_existing_trace_ids": [],
+      "nearest_partial_anchors_not_equivalent": ["TR-026"],
+      "rector_source": "No existe TR-ID dedicado para Gaby; 039-B solo la declara fuera de alcance y TR-026 cubre parcialmente B0",
+      "material_evidence": "activity_runtime_run e interaction_instance sin delta en snapshots 041",
+      "correction": "Retirar el identificador inventado y conservar la prohibicion como control de alcance 039-B sin atribuirle TR-ID rector.",
+      "mapping_status": "unresolved"
+    },
+    {
+      "incorrect_identifier": "TR-041-NO-CATALOG-LOAD",
+      "governed_element": "Catalogo completo no cargado ni activado durante 041",
+      "applicable_existing_trace_ids": ["TR-001", "TR-015", "TR-031"],
+      "rector_source": "Matriz/trace-control 031: Version_Control, QA Checklist y Gate de activacion",
+      "material_evidence": "runtime-40-20-staging-postdeployment-snapshot-041.json; runtime_catalog_version nueva = 0",
+      "correction": "Expresar la prohibicion de carga/activacion mediante controles existentes de version, QA y activacion."
+    }
+  ],
+  "incorrect_identifiers_found": 8,
+  "incorrect_identifiers_unmapped": 2,
+  "unmapped_identifiers": ["TR-041-MIG-SANITATION", "TR-041-GABY-ZERO-DELTA"],
+  "new_trace_ids_created": 0,
+  "historical_evidence_rewritten": false,
+  "live_conformance_updated": true,
+  "gate_result": "blocked_041_traceability_not_closed"
+}

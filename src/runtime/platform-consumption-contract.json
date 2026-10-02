@@ -1,0 +1,126 @@
+{
+  "contract_id": "platform-consumption-contract.capa-1.v2.1",
+  "version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "compatibility": {
+    "canonical_version": "CAPA1_V2_1",
+    "expected_platform_runtime_version": "CAPA1_V2_1_RUNTIME_CONSUMER",
+    "compatibility_mode": "strict_manifest_consumer",
+    "fail_when_contract_changes": true
+  },
+  "required_manifest_fields": {
+    "metadata": [
+      "canonical_version",
+      "manifest_version",
+      "build_timestamp",
+      "source_commit",
+      "workspace_state",
+      "source_tree_hash",
+      "build_inputs_hash",
+      "compatibility_mode",
+      "expected_platform_runtime_version",
+      "content_hash"
+    ],
+    "block": [
+      "block_id",
+      "name",
+      "purpose",
+      "questions",
+      "gate"
+    ],
+    "question": [
+      "question_code",
+      "block_id",
+      "field_type",
+      "answer_mode",
+      "short_ui_label",
+      "help_text",
+      "allows_free_text",
+      "branching_rule",
+      "depends_on",
+      "canonical_variable_output",
+      "provenance_type",
+      "not_diagnostic"
+    ]
+  },
+  "renderer_must_consume": [
+    "field_type",
+    "answer_mode",
+    "options",
+    "allows_free_text",
+    "free_text_condition",
+    "help_text",
+    "short_ui_label"
+  ],
+  "branching_engine_must_consume": [
+    "question_code",
+    "depends_on",
+    "branching_rule",
+    "generated_from",
+    "internalOnly"
+  ],
+  "persistence_must_keep_separate": [
+    "original_answer",
+    "clarification_answer",
+    "consolidated_value",
+    "provenance_chain",
+    "readiness",
+    "confidence",
+    "flags",
+    "bundles"
+  ],
+  "required_bundles": [
+    "compensation_bundle",
+    "ahe_observation_bundle",
+    "evidence_bundle_for_transduction"
+  ],
+  "non_collapsing_invariants": [
+    "bundle != readiness",
+    "readiness != confidence",
+    "confidence != clasificacion",
+    "evidence_bundle_for_transduction != Capa 2",
+    "consolidated_output != Capa 2"
+  ],
+  "block_7": {
+    "required_question_codes": [
+      "7.0",
+      "7.0a",
+      "7.1",
+      "7.2",
+      "7.3",
+      "7.3a",
+      "7.4"
+    ],
+    "max_microconfirmations_per_scene": 3,
+    "confidence_score_scale": {
+      "min": 0,
+      "max": 100
+    },
+    "preclassification_readiness_states": [
+      "ready_for_transduction",
+      "needs_micro_confirmation",
+      "needs_support_reentry",
+      "needs_manual_review",
+      "insufficient_evidence"
+    ],
+    "separates_preclassification_readiness_from_confidence": true,
+    "forbids_confidence_as_classification": true
+  },
+  "persistence_shapes": {
+    "answer_record": [
+      "original_answer_id",
+      "clarification_answer_id",
+      "consolidated_value",
+      "provenance_chain",
+      "question_code"
+    ],
+    "bundle_record": [
+      "bundle_type",
+      "source_question_codes",
+      "source_answer_ids",
+      "canonical_variables",
+      "payload",
+      "not_diagnostic"
+    ]
+  }
+}

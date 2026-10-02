@@ -1,0 +1,70 @@
+{
+  "instruction": "043-B",
+  "capability": {
+    "constant": "ACTIVATE_RUNTIME_CATALOG",
+    "id": "activate_runtime_catalog",
+    "resource": "runtime_catalog",
+    "action": "activate"
+  },
+  "rpc": "eve_runtime_40_20_activate_catalog",
+  "service": "activateRuntime4020Catalog",
+  "security": {
+    "capability_ids": [
+      "activate_runtime_catalog",
+      "load_runtime_catalog_draft"
+    ],
+    "rpc_grantees": [
+      {
+        "grantee": "postgres",
+        "privilege_type": "EXECUTE"
+      },
+      {
+        "grantee": "service_role",
+        "privilege_type": "EXECUTE"
+      }
+    ],
+    "execute_grantees": [
+      "postgres",
+      "service_role"
+    ],
+    "anonymous_rejected": true,
+    "authenticated_rejected": true,
+    "service_role_has_execute": true,
+    "sponsor_style_rejected": true,
+    "consultant_without_capability_rejected": true,
+    "authorized_actor_allowed_probe": true
+  },
+  "preflight": {
+    "ok": true,
+    "drift": [],
+    "full": {
+      "status": "draft",
+      "activated_at": null,
+      "source_xlsx_checksum": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+      "source_docx_checksum": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8"
+    },
+    "b0": {
+      "status": "active"
+    },
+    "counts": {
+      "subfields": 57,
+      "source_nodes": 164,
+      "variable_maps": 300,
+      "semantic_total": 720,
+      "branching_rules": 120,
+      "epistemic_rules": 300,
+      "catalog_versions": 1,
+      "artifact_sections": 33,
+      "interaction_mappings": 170,
+      "interaction_definitions": 60
+    },
+    "one_active_index": true,
+    "gaby": {
+      "activity_runtime_run": 32,
+      "runtime_interaction_instance": 4,
+      "response_record": 4
+    },
+    "content_9_of_9": true
+  },
+  "transition": "draft->frozen->active with B0 active->superseded"
+}

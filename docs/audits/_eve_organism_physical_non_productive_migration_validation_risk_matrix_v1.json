@@ -1,0 +1,37 @@
+{
+  "risk_matrix_id": "PHYSICAL_NON_PRODUCTIVE_MIGRATION_VALIDATION_DECISION_RISK_MATRIX_V1",
+  "risks": [
+    {
+      "option_id": "OPTION_A",
+      "risk_level": "low",
+      "risk_description": "Design-only work could be mistaken for execution authority.",
+      "mitigation": "Declare execution, DB/Supabase connection, SQL modification, and observer creation as false until a later explicit execution plan is approved.",
+      "allowed_now": true,
+      "blocks_next_step": false
+    },
+    {
+      "option_id": "OPTION_B",
+      "risk_level": "medium",
+      "risk_description": "Static validation may be misread as sufficient physical validation.",
+      "mitigation": "Keep physical validation gap open and block observer creation.",
+      "allowed_now": true,
+      "blocks_next_step": true
+    },
+    {
+      "option_id": "OPTION_C",
+      "risk_level": "medium",
+      "risk_description": "Holding avoids authority risk but delays a concrete validation plan.",
+      "mitigation": "Use only if a validation plan cannot be designed safely.",
+      "allowed_now": true,
+      "blocks_next_step": true
+    },
+    {
+      "option_id": "OPTION_D",
+      "risk_level": "high",
+      "risk_description": "Waiver could permit observer progress without physical validation.",
+      "mitigation": "Require explicit waiver, risk owner, and separate approval before any creation path.",
+      "allowed_now": false,
+      "blocks_next_step": true
+    }
+  ]
+}

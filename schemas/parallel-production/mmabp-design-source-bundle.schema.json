@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/parallel-production/mmabp-design-source-bundle.schema.json",
+  "title": "EVE Capa 1 Parallel Production MMABP Design Source Bundle",
+  "type": "object",
+  "required": [
+    "bundle_id",
+    "bundle_type",
+    "bundle_version",
+    "source_core",
+    "client_context",
+    "source_scenes",
+    "literal_evidence",
+    "canonical_derivations",
+    "quadrant_candidates",
+    "design_source_readiness",
+    "boundaries"
+  ],
+  "properties": {
+    "bundle_type": {
+      "const": "mmabp_design_source_bundle"
+    },
+    "bundle_version": {
+      "const": "1.0.0"
+    },
+    "source_core": {
+      "type": "object",
+      "required": [
+        "canonical_version",
+        "manifest_version",
+        "manifest_content_hash",
+        "source_contract_id"
+      ],
+      "properties": {
+        "canonical_version": {
+          "const": "CAPA1_V2_1"
+        },
+        "manifest_version": {
+          "type": "string"
+        },
+        "manifest_content_hash": {
+          "type": "string",
+          "minLength": 16
+        },
+        "source_contract_id": {
+          "const": "platform-consumption-contract.capa-1.v2.1"
+        }
+      }
+    },
+    "client_context": {
+      "type": "object",
+      "required": [
+        "client_id",
+        "analysis_unit",
+        "capture_scope"
+      ]
+    },
+    "source_scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "scene_id",
+          "scene_readiness",
+          "source_user_role",
+          "confidence_score",
+          "scene_canonical_record_ref"
+        ]
+      }
+    },
+    "literal_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "evidence_id",
+          "scene_id",
+          "block_origin",
+          "question_origin",
+          "literal_value",
+          "provenance_type"
+        ]
+      }
+    },
+    "canonical_derivations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "derivation_id",
+          "scene_id",
+          "canonical_variable",
+          "value",
+          "source_evidence_ids"
+        ]
+      }
+    },
+    "quadrant_candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "candidate_type",
+          "canonical_label",
+          "quadrant_targets",
+          "source_scene_ids",
+          "source_evidence_ids",
+          "confidence",
+          "projection_status"
+        ]
+      }
+    },
+    "design_source_readiness": {
+      "type": "object",
+      "required": [
+        "status",
+        "confidence_summary"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "ready_for_design_handoff",
+            "ready_with_gaps",
+            "partial_design_source",
+            "blocked_by_missing_evidence",
+            "blocked_by_contradiction",
+            "manual_review_required",
+            "blocked_by_missing_canonical_route",
+            "blocked_by_true_contradiction",
+            "ready_with_design_gaps"
+          ]
+        }
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "does_not_replace_evidence_bundle_for_transduction",
+        "does_not_modify_capa2_readiness",
+        "not_diagnostic",
+        "not_monetization",
+        "not_final_narrative"
+      ],
+      "properties": {
+        "does_not_replace_evidence_bundle_for_transduction": {
+          "const": true
+        },
+        "does_not_modify_capa2_readiness": {
+          "const": true
+        },
+        "not_diagnostic": {
+          "const": true
+        },
+        "not_monetization": {
+          "const": true
+        },
+        "not_final_narrative": {
+          "const": true
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

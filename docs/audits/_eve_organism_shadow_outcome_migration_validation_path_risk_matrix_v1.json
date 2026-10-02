@@ -1,0 +1,29 @@
+{
+  "risk_matrix_id": "SHADOW_OUTCOME_MIGRATION_VALIDATION_PATH_RISK_MATRIX_V1",
+  "risks": [
+    {
+      "option_id": "OPTION_A",
+      "risk_level": "medium",
+      "risk_description": "Dry-run/no-op could be safe only with a verified non-productive target, but no migration-specific target was verified in this decision.",
+      "mitigation": "Keep dry-run/no-op as a later explicit approval path with target evidence.",
+      "allowed_now": false,
+      "blocks_next_step": false
+    },
+    {
+      "option_id": "OPTION_B",
+      "risk_level": "low",
+      "risk_description": "Adapter work may proceed without proving the physical DB column exists, as long as it remains local/in-memory and disconnected.",
+      "mitigation": "Keep source_connected false and require shadowOutcome in local records; do not claim physical schema validation.",
+      "allowed_now": true,
+      "blocks_next_step": false
+    },
+    {
+      "option_id": "OPTION_C",
+      "risk_level": "medium",
+      "risk_description": "Full block prevents premature DB assumptions but delays adapter progress that does not require DB application.",
+      "mitigation": "Use only if future adapter scope requires applied schema or real source connection.",
+      "allowed_now": false,
+      "blocks_next_step": true
+    }
+  ]
+}

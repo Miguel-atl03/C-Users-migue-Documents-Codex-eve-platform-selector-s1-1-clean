@@ -1,0 +1,6918 @@
+/* Workbench-repaired executable candidate: EVE 07 Parallel Production Interface v0.1.2
+ * NOT certified in this workbench; independent QA rerun is required.
+ * Candidate-only, shadow-first. This module performs no I/O and grants no runtime authority.
+ */
+
+export type PayloadType = "scr_patch" | "evidence_bundle_patch" | "mdsb_patch" | "combined_preview";
+export type PayloadState = "draft" | "ready" | "sent" | "superseded" | "blocked";
+export type ReadinessState =
+  | "ready"
+  | "ready_with_flags"
+  | "blocked_by_missing_evidence"
+  | "blocked_by_contradiction"
+  | "blocked_by_missing_canonical_route"
+  | "manual_review_required"
+  | "reentry_required";
+export type ExportBlockerStatus = "open" | "resolved" | "superseded" | "waived_by_authority";
+
+export interface ExportEvaluationContext {
+  scopeComplete: boolean;
+  catalogVersionMatches: boolean;
+  b0Confirmed: boolean;
+  b2RouteClosed: boolean;
+  c09RouteClosed: boolean;
+  feedbackDerivedFromSatisfaction: boolean;
+  b7DirectProjectionAttempted: boolean;
+  semanticResolutionPassed: boolean;
+  processStateTimerPassed: boolean;
+  conformancePassed: boolean;
+  consistencyPassed: boolean;
+  readinessState: ReadinessState;
+  gapsHidden: boolean;
+  provenanceComplete: boolean;
+  unconfirmedAiAsEvidence: boolean;
+  rawTextProjectionAttempted: boolean;
+  compoundAnswerFlattened: boolean;
+  staleSourceUsed: boolean;
+  candidateStateValid: boolean;
+  payloadHasPlaceholders: boolean;
+  checksumPresent: boolean;
+  genealogyComplete: boolean;
+  actorAuthorized: boolean;
+  tenantScopeMatches: boolean;
+  activeRegistryWriteAttempted: boolean;
+  productionPromotionAttempted: boolean;
+  finalExportAttempted: boolean;
+  diagnosisAttempted: boolean;
+  internalUiLeakAttempted: boolean;
+  manualReviewOpen: boolean;
+  overrideRequested: boolean;
+  overrideAudited: boolean;
+  criticalCarryForwardGap: boolean;
+  irTreatedAsFinalDiagram: boolean;
+  mdsbTreatedAsFinal: boolean;
+}
+
+export interface ExportBlockerResult {
+  blockerCode: string;
+  category: string;
+  hardBlock: boolean;
+  resolutionAction: string;
+}
+
+export const EVE_07_PARALLEL_PRODUCTION_INTERFACE = {
+  "chip_id": "EVE-07-PARALLEL-PRODUCTION-INTERFACE",
+  "package_id": "EVE_07_Parallel_Production_Interface_Chip_v0_1_2_candidate",
+  "version": "0.1.2-candidate",
+  "stage": "07_parallel_production_interface",
+  "generated_at": "2026-06-22T20:16:29+00:00",
+  "status": "READY_FOR_INDEPENDENT_QA_RERUN",
+  "certification_status": "WORKBENCH_REPAIRED_NOT_REAUDITED",
+  "installation_status": "NOT_INSTALLED",
+  "purpose": "Compilar la interfaz que empaqueta SCR, EvidenceBundle y MDSB patches, proyecta MMABP-IR y registry candidates, y aplica export blockers antes de cualquier consumo shadow/rehearsal, sin activar diagnóstico, registry productivo, export final, transducción final ni Producción Paralela real.",
+  "modules_requested": [
+    "scr_payload",
+    "evidence_bundle_payload",
+    "mdsb_payload",
+    "mmabp_ir_candidate",
+    "registry_candidate",
+    "export_blockers"
+  ],
+  "authority_chain": [
+    "D8 conserva genealogía, códigos y variables de origen.",
+    "D7 decide la reducción 164→40+20 sin destruir trazabilidad.",
+    "D5 gobierna fronteras B7/C09, QA y no-proyección directa.",
+    "D6 ejecuta contratos de payload, mappings, rutas, gates y readiness como filas congeladas.",
+    "D4 implementa parallel_export_payload, estados, seguridad, recomputación y esquemas cerrados.",
+    "EVE04 entrega el catálogo runtime corregido y versionado.",
+    "EVE05 decide gates antes de payload/IR/registry.",
+    "EVE06 entrega evidencia, variables y structural candidates gobernados.",
+    "D3 limita la interfaz a shadow/rehearsal/candidate-only y prohíbe producción/export/transducción final.",
+    "D1 sigue siendo tribunal metodológico para PM/MoC/PF/OLC, conformance y consistency."
+  ],
+  "source_documents": [
+    {
+      "source_id": "D3",
+      "document": "EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+      "exists": true,
+      "sha256": "8b96eaa29282c042a714bbce80f0251e676425be91b766785e77c97f0c8bc31a",
+      "role": "frontera primaria de integración con Producción Paralela",
+      "authority": "Define límites de Inventory, MMABP-IR, ArchitectureConsistencyAssessment, candidate_export, Membrane, SG Shadow y rehearsal; no autoriza producción real.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13"
+      ]
+    },
+    {
+      "source_id": "D4",
+      "document": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "exists": true,
+      "sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8",
+      "role": "contrato técnico primario de payloads e interfaz",
+      "authority": "Define parallel_export_payload, estados, API export-preview/export, esquemas cerrados SCR/EvidenceBundle/MDSB, idempotencia, recomputación, seguridad y aceptación.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "7",
+        "8.3",
+        "9",
+        "10",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "20",
+        "21",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28"
+      ]
+    },
+    {
+      "source_id": "D5",
+      "document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "exists": true,
+      "sha256": "fcda44fc8990ef0d19379c3425afb4a69186f6961a6f99d541d170826da1e318",
+      "role": "gobierno operativo de fronteras, QA y no-proyección",
+      "authority": "Gobierna B7/C20, C09, preguntas compuestas, rutas críticas, SEM/PST y no IR/registry/export directo.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6.1",
+        "6.2",
+        "6.3",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    {
+      "source_id": "D6",
+      "document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "exists": true,
+      "sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+      "role": "fuente implementable congelada",
+      "authority": "Ejecuta el contrato de Producción Paralela y los mappings de salida, rutas, gates, readiness y QA como filas versionadas.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "Parallel_Production_Contract",
+        "MMABP_Output_Map",
+        "Canonical_Variables",
+        "Critical_Routes",
+        "Semantic_Resolution_Gates",
+        "Process_State_Timer_Gates",
+        "Readiness_Gaps_Reentry",
+        "QA_Checklist",
+        "Implementation_Dictionaries"
+      ]
+    },
+    {
+      "source_id": "D8",
+      "document": "EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+      "exists": true,
+      "sha256": "09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2",
+      "role": "genealogía canónica y fuente de nodos/variables",
+      "authority": "Conserva source_node_registry, códigos originales, variables y rutas que todo payload debe poder rastrear.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "Catalogo_Madre_Nodos",
+        "Source_Question_Registry",
+        "Canonical_Variables",
+        "Critical_Routes",
+        "Readiness_Reentry_Gaps",
+        "Epistemic_Governance"
+      ]
+    },
+    {
+      "source_id": "EVE06",
+      "document": "EVE_06_Execution_Engine_v0_1.json",
+      "exists": true,
+      "sha256": "da24945129cfd23b6fd39739bc6b7c358a21b76ad5ee40e799a93bb8d276e1e5",
+      "role": "dependencia ejecutable de evidencia, variables y candidatos",
+      "authority": "Entrega activity_runtime_run, evidence_item, canonical_variable_record y structural_candidate_record ya gobernados.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "modules.activity_runtime_run",
+        "modules.evidence_item",
+        "modules.canonical_variable_record",
+        "modules.structural_candidate_record",
+        "execution_pipeline",
+        "failure_guards",
+        "installation_contract"
+      ]
+    },
+    {
+      "source_id": "EVE05",
+      "document": "EVE_05_Gate_Engine_v0_1.json",
+      "exists": true,
+      "sha256": "7da3ab5891463bec6c1ffd90c410a3f6ee12e08d86827227d2a0ba7d62ecd9e4",
+      "role": "dependencia ejecutable de gates MMABP",
+      "authority": "Entrega rutas críticas, resolución semántica, Process State/Timer, conformance y consistency gates.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "modules",
+        "execution_pipeline",
+        "failure_guards",
+        "enums",
+        "installation_contract"
+      ]
+    },
+    {
+      "source_id": "EVE04",
+      "document": "EVE_04_Runtime_Catalog_v0_2.json",
+      "exists": true,
+      "sha256": "4c9b290b7976011850cdb6995c6f4bbc4d14ed3129e888eb235b9998a374b233",
+      "role": "dependencia ejecutable de catálogo runtime",
+      "authority": "Entrega interactions, source mappings, variables, critical routes y fronteras corregidas de B6/B7/C09.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "modules",
+        "integration_rules",
+        "failure_guards",
+        "source_to_target_mapping",
+        "support",
+        "flags"
+      ]
+    },
+    {
+      "source_id": "EVE03",
+      "document": "EVE_03_Canonical_Catalog_v0_1.json",
+      "exists": true,
+      "sha256": "d34e9fc6fbc226641996da98fb42cc69efdd98158460bf2b7db123917d0226f7",
+      "role": "dependencia de source_node_registry",
+      "authority": "Permite verificar genealogía sin sustituir D8.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "modules.source_node_registry",
+        "modules.source_code_registry",
+        "modules.canonical_variables",
+        "modules.critical_routes",
+        "modules.epistemic_policy"
+      ]
+    },
+    {
+      "source_id": "D7",
+      "document": "Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+      "exists": true,
+      "sha256": "bee5478d5ef059641707a1e513f1977fbb3f25785754f1fa4eef93ddf9d774a2",
+      "role": "frontera arquitectónica",
+      "authority": "Explica reducción 164→40+20 y límites de Producción Paralela; no opera como dataset.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "0",
+        "1",
+        "2",
+        "4",
+        "5",
+        "8",
+        "10"
+      ]
+    },
+    {
+      "source_id": "D1",
+      "document": "Fundamentals of Business Architecture Modeling.pdf",
+      "exists": true,
+      "sha256": "3dd3485afa518244cb600b4c479cad0ea11f242e88e4204b9422739ddf843147",
+      "role": "guardia metodológica MMABP",
+      "authority": "Define conformance, consistency y restricciones de PM/MoC/PF/OLC para IR/registry candidates.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "2.2.6",
+        "2.3.6",
+        "2.3.3",
+        "3.1.5",
+        "3.2.4",
+        "4.1",
+        "4.2",
+        "4.3",
+        "4.4",
+        "4.5"
+      ]
+    }
+  ],
+  "excluded_internal_sources": [
+    "Instrucciones actualizadas para GPT personalizado.docx",
+    "Instrucciones_Maestras_y_Exhaustivas_para_IA_Arquitectura_Mínima_de_Negocio_(MMABP)_y_Diagnóstico_EVE™.docx",
+    "Tabla de Diagnóstico de Inconsistencias Estructurales EVE.docx (no activada: diagnóstico downstream)",
+    "Marco de Interpretación y Observación Explicativo Arquitectura Humana Empresarial_(AHE).docx (no activado como diagnóstico)",
+    "Organizational Systems Managing Complexity with the Viable System model.pdf (solo contexto ya capturado upstream; no asigna VSM aquí)"
+  ],
+  "dependencies": [
+    {
+      "chip_id": "EVE-03-CANONICAL-CATALOG",
+      "version": "0.1.0",
+      "required": true,
+      "role": "source_node_registry y genealogía D8."
+    },
+    {
+      "chip_id": "EVE-04-RUNTIME-CATALOG",
+      "version": "0.2.0",
+      "required": true,
+      "role": "interacciones, variables, rutas y contratos runtime."
+    },
+    {
+      "chip_id": "EVE-05-GATE-ENGINE",
+      "version": "0.1.0",
+      "required": true,
+      "role": "gates críticos, SEM, PST, conformance y consistency."
+    },
+    {
+      "chip_id": "EVE-06-EXECUTION-ENGINE",
+      "version": "0.1.0",
+      "required": true,
+      "role": "runs, evidence, variables y structural candidates."
+    }
+  ],
+  "document_complementarity": [
+    {
+      "document_id": "D8",
+      "completes": "captura Capa 1",
+      "relation": "Da source_node_registry, códigos, variables y genealogía.",
+      "must_not_replace": "No decide 40+20, payloads ni export."
+    },
+    {
+      "document_id": "D7",
+      "completes": "D8",
+      "relation": "Explica reducción 164→40+20 y preservación de rutas.",
+      "must_not_replace": "No opera como dataset."
+    },
+    {
+      "document_id": "D5",
+      "completes": "D7",
+      "relation": "Gobierna B7/C09, SEM/PST, preguntas compuestas y QA.",
+      "must_not_replace": "No sustituye D6."
+    },
+    {
+      "document_id": "D6",
+      "completes": "D5",
+      "relation": "Ejecuta Parallel_Production_Contract, mappings, rutas y readiness.",
+      "must_not_replace": "No inventa nodos ni semántica."
+    },
+    {
+      "document_id": "D4",
+      "completes": "D6",
+      "relation": "Convierte el workbook en payloads cerrados, estados, API, DDL y seguridad.",
+      "must_not_replace": "No rediseña catálogo ni MMABP."
+    },
+    {
+      "document_id": "EVE04",
+      "completes": "D6",
+      "relation": "Entrega definiciones runtime ya compiladas y corregidas.",
+      "must_not_replace": "No reemplaza el workbook rector."
+    },
+    {
+      "document_id": "EVE05",
+      "completes": "D4/D6",
+      "relation": "Entrega gate decisions y blockers metodológicos.",
+      "must_not_replace": "No crea evidencia ni payload."
+    },
+    {
+      "document_id": "EVE06",
+      "completes": "EVE04/EVE05",
+      "relation": "Entrega evidencia, variables y structural candidates para la interfaz.",
+      "must_not_replace": "No exporta ni promueve."
+    },
+    {
+      "document_id": "D3",
+      "completes": "D4",
+      "relation": "Conecta con Inventory/IR/SG Shadow/Producción Paralela rehearsal y fija límites.",
+      "must_not_replace": "No autoriza producción real, export final ni enforcement."
+    },
+    {
+      "document_id": "D1",
+      "completes": "todos",
+      "relation": "Define validez metodológica de PM/MoC/PF/OLC y consistencia.",
+      "must_not_replace": "No define runtime o persistencia."
+    }
+  ],
+  "integration_rules": [
+    {
+      "id": "INT7-001",
+      "rule": "D8→D7→D5→D6→D4→D3 es la cadena documental; EVE04/05/06 son compilaciones ejecutables intermedias.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-002",
+      "rule": "PDF/DOCX se compilan a reglas; no se ejecutan como narrativa ni se leen en runtime para decidir.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-003",
+      "rule": "D6 se consume como fuente congelada/versionada; no se interpreta narrativamente.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-004",
+      "rule": "La interfaz solo consume outputs gobernados de EVE06 y gate snapshots de EVE05.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-005",
+      "rule": "SCR/EvidenceBundle/MDSB son patches candidate-only; no mutan core ni equivalen a artefactos finales.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-006",
+      "rule": "MMABP-IR candidate y registry candidates se crean después de variables, routes, conformance, consistency y readiness.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-007",
+      "rule": "B7-Q39/B7-Q40/C20 jamás generan MoC/IR/registry/export/diagnóstico directo.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-008",
+      "rule": "C09 es la única ruta para receiver_feedback operativo; satisfaction no la sustituye.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-009",
+      "rule": "Subrespuestas compuestas permanecen separadas hasta EvidenceBundle y downstream.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-010",
+      "rule": "Todo elemento downstream conserva source_node/source_code/evidence/variable/candidate refs.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-011",
+      "rule": "Conformance se evalúa antes que consistency y ambos anteceden IR/registry candidates.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-012",
+      "rule": "No se exponen Object Inventory, Membrane, SG Shadow, bindings o No-Go técnicos al usuario final.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-013",
+      "rule": "La interfaz no ejecuta diagnóstico, export final, transducción final, registry activo ni Producción Paralela real.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-014",
+      "rule": "Toda corrección de respuesta invalida payloads/candidates dependientes y conserva audit trail.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-015",
+      "rule": "ready_with_flags puede avanzar solo con flags no bloqueantes explícitos; nunca se ocultan.",
+      "blocking": true
+    },
+    {
+      "id": "INT7-016",
+      "rule": "Un payload sin checksum, autoridad, scope o versión no puede pasar a sent.",
+      "blocking": true
+    }
+  ],
+  "failure_guards": [
+    {
+      "id": "FG7-001",
+      "failure": "Usar Catálogo Madre como entrevista visible",
+      "consequence": "Sobrecarga y ruptura 40+20.",
+      "action": "block_ui_projection",
+      "source_refs": [
+        "D7",
+        "D5"
+      ]
+    },
+    {
+      "id": "FG7-002",
+      "failure": "Implementar desde narrativa DOCX",
+      "consequence": "Payload ambiguo/no testeable.",
+      "action": "require_D6_frozen_contract",
+      "source_refs": [
+        "D4:1",
+        "D5:2"
+      ]
+    },
+    {
+      "id": "FG7-003",
+      "failure": "B7 produce IR/registry/export directo",
+      "consequence": "Diagnóstico/proyección prematura.",
+      "action": "hard_block_EXB-007",
+      "source_refs": [
+        "D5:6.3",
+        "D6!Critical_Routes"
+      ]
+    },
+    {
+      "id": "FG7-004",
+      "failure": "Satisfaction convertida en receiver_feedback",
+      "consequence": "Rework/PF/OLC falsos.",
+      "action": "hard_block_EXB-006",
+      "source_refs": [
+        "D5:6.2",
+        "D6!Critical_Routes"
+      ]
+    },
+    {
+      "id": "FG7-005",
+      "failure": "Pregunta compuesta guardada como texto único",
+      "consequence": "Pérdida de trazabilidad y QA.",
+      "action": "hard_block_EXB-017",
+      "source_refs": [
+        "D4:1",
+        "D5:4"
+      ]
+    },
+    {
+      "id": "FG7-006",
+      "failure": "IA infiere ruta crítica",
+      "consequence": "Fabricación de hechos estructurales.",
+      "action": "hard_block_routes",
+      "source_refs": [
+        "D6!Critical_Routes",
+        "EVE05"
+      ]
+    },
+    {
+      "id": "FG7-007",
+      "failure": "Exponer vísceras internas en UI",
+      "consequence": "Contaminación de experiencia y seguridad.",
+      "action": "hard_block_EXB-029",
+      "source_refs": [
+        "D3!Table10"
+      ]
+    },
+    {
+      "id": "FG7-008",
+      "failure": "Saltar evidencia a diagnóstico",
+      "consequence": "Violación Capa 1.",
+      "action": "hard_block_EXB-028",
+      "source_refs": [
+        "D3!Table5",
+        "D3!Table9"
+      ]
+    },
+    {
+      "id": "FG7-009",
+      "failure": "Texto libre crea structural candidate",
+      "consequence": "IR/registry sin ruta canónica.",
+      "action": "hard_block_EXB-016",
+      "source_refs": [
+        "D6!Parallel_Production_Contract"
+      ]
+    },
+    {
+      "id": "FG7-010",
+      "failure": "SEM/PST unresolved ignorado",
+      "consequence": "MoC/OLC/PF inválidos.",
+      "action": "hard_block_EXB-008/009",
+      "source_refs": [
+        "D6!Semantic_Resolution_Gates",
+        "D6!Process_State_Timer_Gates"
+      ]
+    },
+    {
+      "id": "FG7-011",
+      "failure": "Conformance/consistency omitidas",
+      "consequence": "Candidatos incoherentes.",
+      "action": "hard_block_EXB-010/011",
+      "source_refs": [
+        "D1:4",
+        "EVE05"
+      ]
+    },
+    {
+      "id": "FG7-012",
+      "failure": "Candidate export tratado como export final",
+      "consequence": "Promoción prematura.",
+      "action": "hard_block_EXB-027",
+      "source_refs": [
+        "D3!Table4",
+        "D3!Table5"
+      ]
+    },
+    {
+      "id": "FG7-013",
+      "failure": "MMABP-IR tratado como diagrama final",
+      "consequence": "Diagramación sin gates completos.",
+      "action": "hard_block_EXB-033",
+      "source_refs": [
+        "D3!Table4"
+      ]
+    },
+    {
+      "id": "FG7-014",
+      "failure": "Registry candidate escribe registry activo",
+      "consequence": "Contaminación de registros.",
+      "action": "hard_block_EXB-025",
+      "source_refs": [
+        "D3!Table9"
+      ]
+    },
+    {
+      "id": "FG7-015",
+      "failure": "Gap ocultado en payload",
+      "consequence": "Readiness falsa.",
+      "action": "hard_block_EXB-013",
+      "source_refs": [
+        "D6!Readiness_Gaps_Reentry"
+      ]
+    },
+    {
+      "id": "FG7-016",
+      "failure": "Evidencia superseded usada como activa",
+      "consequence": "Payload stale.",
+      "action": "hard_block_EXB-018",
+      "source_refs": [
+        "D4:24"
+      ]
+    },
+    {
+      "id": "FG7-017",
+      "failure": "Payload sin scope/autorización",
+      "consequence": "Fuga cross-tenant.",
+      "action": "hard_block_EXB-001/023/024",
+      "source_refs": [
+        "D4:27"
+      ]
+    },
+    {
+      "id": "FG7-018",
+      "failure": "Placeholders en payload cerrado",
+      "consequence": "Contrato incompleto.",
+      "action": "hard_block_EXB-020",
+      "source_refs": [
+        "D4:23",
+        "D4:28"
+      ]
+    },
+    {
+      "id": "FG7-019",
+      "failure": "MDSB patch tratado como MDSB final",
+      "consequence": "Transducción final no autorizada.",
+      "action": "hard_block_EXB-034",
+      "source_refs": [
+        "D3!Table9"
+      ]
+    },
+    {
+      "id": "FG7-020",
+      "failure": "Promoción productiva desde shadow",
+      "consequence": "Producción real no gobernada.",
+      "action": "hard_block_EXB-026",
+      "source_refs": [
+        "D3:R4",
+        "D3:R8"
+      ]
+    }
+  ],
+  "execution_pipeline": [
+    {
+      "order": 1,
+      "step": "validate_dependencies",
+      "description": "Verificar EVE03/04/05/06, D3/D4/D5/D6/D8 y checksums."
+    },
+    {
+      "order": 2,
+      "step": "load_execution_snapshot",
+      "description": "Cargar run, evidence items, canonical variables, structural candidates, gaps y readiness."
+    },
+    {
+      "order": 3,
+      "step": "evaluate_pre_export_blockers",
+      "description": "Evaluar scope/version/provenance/routes/SEM/PST/conformance/consistency/readiness/authority."
+    },
+    {
+      "order": 4,
+      "step": "build_scr_patch",
+      "description": "Construir SCR patch si B0 y scope permiten; conservar gaps."
+    },
+    {
+      "order": 5,
+      "step": "build_evidence_bundle_patch",
+      "description": "Serializar evidencia/variables/rutas/readiness con provenance."
+    },
+    {
+      "order": 6,
+      "step": "build_mdsb_patch",
+      "description": "Serializar structural candidates/checkpoints/issue refs y export restriction."
+    },
+    {
+      "order": 7,
+      "step": "evaluate_post_payload_blockers",
+      "description": "Validar placeholders, checksums, stale refs, B7/C09 y estados."
+    },
+    {
+      "order": 8,
+      "step": "build_mmabp_ir_candidate",
+      "description": "Proyectar IR candidate partitioned por cuadrante, candidate-only."
+    },
+    {
+      "order": 9,
+      "step": "build_registry_candidates",
+      "description": "Crear PM/MoC/PF/OLC/Consistency/Readiness candidates sin active write."
+    },
+    {
+      "order": 10,
+      "step": "persist_parallel_export_payload",
+      "description": "Persistir draft/ready/blocked/superseded con versión y checksum."
+    },
+    {
+      "order": 11,
+      "step": "emit_shadow_or_rehearsal",
+      "description": "Emitir solo a consumidor autorizado shadow/rehearsal; no producción real."
+    },
+    {
+      "order": 12,
+      "step": "audit_every_transition",
+      "description": "Registrar actor, reason, prior/new state, source refs y timestamp."
+    }
+  ],
+  "external_boundaries": {
+    "object_inventory": {
+      "allowed": "candidate facts/identity preparation",
+      "forbidden": "core replacement or final fact promotion"
+    },
+    "integration_membrane": {
+      "allowed": "versioned patches and blockers",
+      "forbidden": "bypass No-Go or mutate core"
+    },
+    "sg_shadow": {
+      "allowed": "findings/routing/recommendations report-only",
+      "forbidden": "enforcement or workflow mutation"
+    },
+    "parallel_production": {
+      "allowed": "rehearsal/candidate artifacts",
+      "forbidden": "production real, final MDSB, final transduction"
+    },
+    "product_ui": {
+      "allowed": "safe status/continuity",
+      "forbidden": "internal IDs, bindings, blockers, registry/IR internals"
+    },
+    "diagnostic_layer": {
+      "allowed": "none in Phase 7",
+      "forbidden": "EVE/VSM/AHE final diagnosis"
+    }
+  },
+  "enums": {
+    "payload_type": [
+      "scr_patch",
+      "evidence_bundle_patch",
+      "mdsb_patch",
+      "combined_preview"
+    ],
+    "payload_state": [
+      "draft",
+      "ready",
+      "sent",
+      "superseded",
+      "blocked"
+    ],
+    "readiness_state": [
+      "ready",
+      "ready_with_flags",
+      "blocked_by_missing_evidence",
+      "blocked_by_contradiction",
+      "blocked_by_missing_canonical_route",
+      "manual_review_required",
+      "reentry_required"
+    ],
+    "candidate_state": [
+      "candidate",
+      "blocked",
+      "stale",
+      "superseded",
+      "ready_for_rehearsal",
+      "rejected"
+    ],
+    "ir_candidate_state": [
+      "draft_candidate",
+      "blocked",
+      "ready_for_registry_candidate",
+      "superseded",
+      "rehearsal_only"
+    ],
+    "registry_target": [
+      "PM",
+      "MoC",
+      "PF",
+      "OLC",
+      "Consistency",
+      "Readiness"
+    ],
+    "quadrant": [
+      "PM",
+      "MoC",
+      "PF",
+      "OLC",
+      "CrossQuadrant",
+      "GovernanceReadiness",
+      "None"
+    ],
+    "blocker_status": [
+      "open",
+      "resolved",
+      "superseded",
+      "waived_by_authority"
+    ],
+    "blocker_severity": [
+      "info",
+      "warning",
+      "major",
+      "critical",
+      "blocker"
+    ],
+    "epistemic_status": [
+      "captured_user_evidence",
+      "ai_inferred_unconfirmed",
+      "user_confirmed_suggestion",
+      "user_corrected_evidence",
+      "canonical_derivation",
+      "internal_calculated"
+    ],
+    "route_status": [
+      "not_applicable",
+      "open",
+      "closed",
+      "closed_with_flags",
+      "blocked_by_missing_canonical_route",
+      "route_missing",
+      "superseded"
+    ],
+    "conformance_status": [
+      "not_evaluated",
+      "pass",
+      "pass_with_flags",
+      "fail",
+      "manual_review_required"
+    ],
+    "consistency_status": [
+      "not_evaluated",
+      "pass",
+      "pass_with_flags",
+      "fail",
+      "manual_review_required"
+    ],
+    "authority_mode": [
+      "shadow_only",
+      "rehearsal_only",
+      "production_disabled"
+    ]
+  },
+  "modules": {
+    "scr_payload": {
+      "module_id": "M7-SCRP",
+      "purpose": "Construir un SceneCanonicalRecordPatch versionado que preserve ancla, salidas por bloque, gaps y genealogía sin mutar el core ni convertir preload/inferencia en evidencia dura.",
+      "payload_type": "scr_patch",
+      "input_contract": {
+        "required": [
+          "activity_runtime_run",
+          "catalog_version_id",
+          "activity_anchor",
+          "canonical_variable_records",
+          "readiness_decision"
+        ],
+        "preconditions": [
+          "B0 confirmed or reconstructed",
+          "scope authorized",
+          "critical routes evaluated"
+        ]
+      },
+      "payload_schema": [
+        {
+          "name": "parallel_export_payload_id",
+          "type": "string",
+          "required": true,
+          "description": "Identificador del payload.",
+          "source_refs": [
+            "D4:21"
+          ]
+        },
+        {
+          "name": "payload_type",
+          "type": "enum",
+          "required": true,
+          "description": "Tipo cerrado scr_patch.",
+          "source_refs": [
+            "D4:21",
+            "D4:23.1"
+          ],
+          "enum": [
+            "scr_patch"
+          ]
+        },
+        {
+          "name": "payload_version",
+          "type": "integer",
+          "required": true,
+          "description": "Versión monotónica del patch.",
+          "source_refs": [
+            "D4:24"
+          ]
+        },
+        {
+          "name": "run_id",
+          "type": "string",
+          "required": true,
+          "description": "Run de origen.",
+          "source_refs": [
+            "D4:23.1"
+          ]
+        },
+        {
+          "name": "case_id",
+          "type": "string",
+          "required": true,
+          "description": "Scope de caso/tenant.",
+          "source_refs": [
+            "D4:27"
+          ]
+        },
+        {
+          "name": "role_id",
+          "type": "string",
+          "required": true,
+          "description": "Rol funcional del run.",
+          "source_refs": [
+            "D4:27"
+          ]
+        },
+        {
+          "name": "activity_id",
+          "type": "string",
+          "required": true,
+          "description": "Actividad primaria.",
+          "source_refs": [
+            "D4:23.1"
+          ]
+        },
+        {
+          "name": "catalog_version_id",
+          "type": "string",
+          "required": true,
+          "description": "Versión congelada del runtime.",
+          "source_refs": [
+            "D4:23.1"
+          ]
+        },
+        {
+          "name": "activity_anchor",
+          "type": "object",
+          "required": true,
+          "description": "Ancla confirmada con subcampos semánticos.",
+          "source_refs": [
+            "D4:23.1"
+          ]
+        },
+        {
+          "name": "block_outputs",
+          "type": "object",
+          "required": true,
+          "description": "Variables por bloque construidas desde canonical_variable_record.",
+          "source_refs": [
+            "D4:23.1"
+          ]
+        },
+        {
+          "name": "gaps",
+          "type": "array",
+          "required": true,
+          "description": "Gaps explícitos del run.",
+          "source_refs": [
+            "D4:23.1"
+          ]
+        },
+        {
+          "name": "source_refs",
+          "type": "array",
+          "required": true,
+          "description": "Genealogía nodo/código/evidencia.",
+          "source_refs": [
+            "D8",
+            "EVE03"
+          ]
+        },
+        {
+          "name": "checksum_source",
+          "type": "string",
+          "required": true,
+          "description": "Checksum de contenido y fuentes.",
+          "source_refs": [
+            "D4:23.1"
+          ]
+        },
+        {
+          "name": "payload_state",
+          "type": "enum",
+          "required": true,
+          "description": "Estado gobernado.",
+          "source_refs": [
+            "D4:21"
+          ],
+          "enum": [
+            "draft",
+            "ready",
+            "sent",
+            "superseded",
+            "blocked"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "rule_id": "SCRP-001",
+          "module": "scr_payload",
+          "category": "eligibility",
+          "statement": "Emitir SceneCanonicalRecordPatch solo desde un activity_runtime_run existente y scopeado.",
+          "condition": "run missing or scope incomplete",
+          "action": "block payload creation",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:21",
+            "D4:23.1",
+            "EVE06:ARR-004"
+          ],
+          "source_proof_id": "SPM-SCRP-001",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.activity_runtime_run.rules[3]",
+          "primary_source_excerpt_sha256": "3709f66cd5ceb9a6bbaf5a1152dec32dcaf3cb84cfaf0c2312ddf3a041e1d876"
+        },
+        {
+          "rule_id": "SCRP-002",
+          "module": "scr_payload",
+          "category": "activity",
+          "statement": "El payload corresponde a una actividad primaria; actividades secundarias viajan solo como contexto.",
+          "condition": "activity is secondary",
+          "action": "reject full SCR patch and preserve contextual reference",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:22",
+            "EVE06:ARR-001",
+            "EVE06:ARR-002"
+          ],
+          "source_proof_id": "SPM-SCRP-002",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 22, table 20, row 2",
+          "primary_source_excerpt_sha256": "ac0cde5d01217fdc7c7dc48d0fab4a0028605e76821a91b08eb640b1eee92720"
+        },
+        {
+          "rule_id": "SCRP-003",
+          "module": "scr_payload",
+          "category": "catalog",
+          "statement": "Declarar catalog_version_id congelado y coincidente con el run.",
+          "condition": "catalog version missing or mismatched",
+          "action": "block payload and open version_mismatch blocker",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:23.1",
+            "D4:25",
+            "EVE06:ARR-003"
+          ],
+          "source_proof_id": "SPM-SCRP-003",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.activity_runtime_run.rules[2]",
+          "primary_source_excerpt_sha256": "fd3e7704989dbeaf3962ba6bae0414ce88b99aafe52d5a754bb1ad11200eec86"
+        },
+        {
+          "rule_id": "SCRP-004",
+          "module": "scr_payload",
+          "category": "B0",
+          "statement": "No consolidar activity_anchor si B0 permanece weak_context o sin confirmación/reconstrucción.",
+          "condition": "B0 confirmation absent or weak_context blocking",
+          "action": "block SCR patch and request B0 reentry",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D6!Critical_Routes:CR-B0",
+            "D4:23.1",
+            "D5:6.1"
+          ],
+          "source_proof_id": "SPM-SCRP-004",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Critical_Routes!A2:G2",
+          "primary_source_excerpt_sha256": "998e806488870e3ee12e54feedf4338efd5faaf5ba78a4c9b0700dda23398d62"
+        },
+        {
+          "rule_id": "SCRP-005",
+          "module": "scr_payload",
+          "category": "anchor",
+          "statement": "Persistir por separado action_verb, input_object, procedure_standard, output_product y confirmation_status.",
+          "condition": "activity anchor arrives as opaque text",
+          "action": "reject opaque anchor and request separable subfields",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:23.1",
+            "D5:7",
+            "D6!Parallel_Production_Contract"
+          ],
+          "source_proof_id": "SPM-SCRP-005",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 7, table 9, row 2",
+          "primary_source_excerpt_sha256": "c71fddc0d6ecd2008e6ed474aa7a0dffb350753613c50bc1013c162330ced5be"
+        },
+        {
+          "rule_id": "SCRP-006",
+          "module": "scr_payload",
+          "category": "source",
+          "statement": "Construir block_outputs únicamente desde canonical_variable_record activos y trazables.",
+          "condition": "raw answer or unmapped text used",
+          "action": "block field projection",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:8.3",
+            "D4:23.1",
+            "EVE06:CVR-003",
+            "EVE06:CVR-015"
+          ],
+          "source_proof_id": "SPM-SCRP-006",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.canonical_variable_record.rules[2]",
+          "primary_source_excerpt_sha256": "331ed8a9e9e9e1ffa83d6a4fcbc916592ea3bf6bc4a74580af662a63cf9944d7"
+        },
+        {
+          "rule_id": "SCRP-007",
+          "module": "scr_payload",
+          "category": "genealogy",
+          "statement": "Cada salida de bloque conserva source_node_id, source_code y evidence refs cuando existan.",
+          "condition": "genealogy missing",
+          "action": "block readiness for send",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D8!Catalogo_Madre_Nodos",
+            "EVE03:source_node_registry",
+            "EVE06:CVR-003"
+          ],
+          "source_proof_id": "SPM-SCRP-007",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.canonical_variable_record.rules[2]",
+          "primary_source_excerpt_sha256": "331ed8a9e9e9e1ffa83d6a4fcbc916592ea3bf6bc4a74580af662a63cf9944d7"
+        },
+        {
+          "rule_id": "SCRP-008",
+          "module": "scr_payload",
+          "category": "gaps",
+          "statement": "Incluir gaps y flags del run; no ocultarlos ni convertirlos en valores por defecto.",
+          "condition": "gap exists but omitted",
+          "action": "block payload send and flag hidden_gap",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:23.1",
+            "D6!Readiness_Gaps_Reentry"
+          ],
+          "source_proof_id": "SPM-SCRP-008",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Readiness_Gaps_Reentry!A3:E3",
+          "primary_source_excerpt_sha256": "2c77bb22af275572c229254caab40bccb5c9189d0c91005abfa492f45378575c"
+        },
+        {
+          "rule_id": "SCRP-009",
+          "module": "scr_payload",
+          "category": "B2",
+          "statement": "No proyectar excepción de transformación si CR-B2-V3 no está cerrada.",
+          "condition": "transformation exception text without route closure",
+          "action": "block B2 output and add missing_canonical_route",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D6!Critical_Routes:CR-B2",
+            "EVE05:critical_route_gate"
+          ],
+          "source_proof_id": "SPM-SCRP-009",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Critical_Routes!A3:G3",
+          "primary_source_excerpt_sha256": "d5b5b7e61885b7a42ae3af439682f93f5656289961f9c8da5d67f8164b4fcf6f"
+        },
+        {
+          "rule_id": "SCRP-010",
+          "module": "scr_payload",
+          "category": "C09",
+          "statement": "receiver_feedback solo entra si CR-B3-R9/C09 cerró; satisfaction no lo sustituye.",
+          "condition": "feedback inferred from satisfaction or route missing",
+          "action": "block feedback field and add receiver_feedback_route_missing",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:6.2",
+            "D6!Critical_Routes:CR-B3",
+            "EVE05:critical_route_gate"
+          ],
+          "source_proof_id": "SPM-SCRP-010",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 6.2, paragraph 23",
+          "primary_source_excerpt_sha256": "7160ec5882bd58f9f2e1c1dfcf8b71fe946ba17c2c1b6216a4ce8b7ca62bc078"
+        },
+        {
+          "rule_id": "SCRP-011",
+          "module": "scr_payload",
+          "category": "B7",
+          "statement": "B7 solo aporta readiness/preclassification no diagnóstica; no agrega clase, IR, registry o export.",
+          "condition": "direct structural projection from B7",
+          "action": "block payload and require manual review",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:6.3",
+            "D6!Critical_Routes:CR-B7",
+            "EVE05:failure_guards"
+          ],
+          "source_proof_id": "SPM-SCRP-011",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 6.3, table 8, row 7",
+          "primary_source_excerpt_sha256": "f346c66c3e59653a57449c134dc578d142416e2ffe4cd070172e5a832226c795"
+        },
+        {
+          "rule_id": "SCRP-012",
+          "module": "scr_payload",
+          "category": "epistemic",
+          "statement": "No promover ai_inferred_unconfirmed a evidence hard dentro del SCR.",
+          "condition": "unconfirmed inference found",
+          "action": "exclude value and keep confirmation gap",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:1",
+            "D5:2",
+            "EVE06:EVI-005"
+          ],
+          "source_proof_id": "SPM-SCRP-012",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.evidence_item.rules[4]",
+          "primary_source_excerpt_sha256": "1d21c6efed22403bd190c0e089bee6771d82269e21fb850bb6190ed846a5482e"
+        },
+        {
+          "rule_id": "SCRP-013",
+          "module": "scr_payload",
+          "category": "readiness",
+          "statement": "Estado ready permite preparación; ready_with_flags obliga a transportar flags; estados bloqueados impiden emisión.",
+          "condition": "readiness state evaluated",
+          "action": "set payload state according to readiness matrix",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D6!Readiness_Gaps_Reentry",
+            "D4:4.1",
+            "D4:23.1"
+          ],
+          "source_proof_id": "SPM-SCRP-013",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 4.1, table 5, row 9",
+          "primary_source_excerpt_sha256": "19b72806e2d2fa3be3bd492f20a8d60512b20b320e563b55c177119ff30e3b37"
+        },
+        {
+          "rule_id": "SCRP-014",
+          "module": "scr_payload",
+          "category": "versioning",
+          "statement": "Toda recomputación crea nueva versión y marca la anterior superseded.",
+          "condition": "dependent response corrected",
+          "action": "supersede previous payload and recalculate checksum",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:24",
+            "D4:26",
+            "EVE06:recompute"
+          ],
+          "source_proof_id": "SPM-SCRP-014",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 24, table 22, row 6",
+          "primary_source_excerpt_sha256": "80779f5eb0e5890b446bd1c248e4bff44fcc037c95b22e585956b5d3357ff13a"
+        },
+        {
+          "rule_id": "SCRP-015",
+          "module": "scr_payload",
+          "category": "idempotency",
+          "statement": "El mismo input lógico y versión producen el mismo checksum_source.",
+          "condition": "duplicate export preview",
+          "action": "return existing equivalent payload",
+          "blocking": false,
+          "severity": "major",
+          "source_refs": [
+            "D4:23.1",
+            "D4:24"
+          ],
+          "source_proof_id": "SPM-SCRP-015",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 24, table 22, row 6",
+          "primary_source_excerpt_sha256": "80779f5eb0e5890b446bd1c248e4bff44fcc037c95b22e585956b5d3357ff13a"
+        },
+        {
+          "rule_id": "SCRP-016",
+          "module": "scr_payload",
+          "category": "scope",
+          "statement": "case_id, role_id, activity_id y run_id deben coincidir con el contexto autorizado.",
+          "condition": "scope mismatch",
+          "action": "block and audit cross_scope_attempt",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:27",
+            "D4!Table25"
+          ],
+          "source_proof_id": "SPM-SCRP-016",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 25, row 2",
+          "primary_source_excerpt_sha256": "6e85cf7f267b0a8e5f777605537325b750601111f16aa02ecf5262eff3acb80c"
+        },
+        {
+          "rule_id": "SCRP-017",
+          "module": "scr_payload",
+          "category": "boundary",
+          "statement": "SCR patch no muta el core ni equivale a registro consolidado final.",
+          "condition": "payload consumer attempts core mutation",
+          "action": "block mutation and retain patch semantics",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D3!Table6",
+            "D3:R4",
+            "D3!Table10"
+          ],
+          "source_proof_id": "SPM-SCRP-017",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 13, row 5",
+          "primary_source_excerpt_sha256": "4842ca655b0aad498e130617cbb062ba3db228372fdc097baf42aa8d4613f96e"
+        },
+        {
+          "rule_id": "SCRP-018",
+          "module": "scr_payload",
+          "category": "ui",
+          "statement": "No exponer object_id, bindings, materialization events, snapshots o No-Go internos en UI cliente.",
+          "condition": "internal fields selected for product UI",
+          "action": "strip product projection and flag internal_ui_leak",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D3!Table11",
+            "D3:R7"
+          ],
+          "source_proof_id": "SPM-SCRP-018",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 11, row 2",
+          "primary_source_excerpt_sha256": "02b38a1ea443ef01138ba3da78d4262a548cac045026630077cddcce9a1e8e75"
+        },
+        {
+          "rule_id": "SCRP-019",
+          "module": "scr_payload",
+          "category": "audit",
+          "statement": "Registrar actor/sistema, versión, reason, prior payload y timestamp para override o emisión.",
+          "condition": "audit metadata missing",
+          "action": "block state transition to sent",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:27",
+            "D4!Table25"
+          ],
+          "source_proof_id": "SPM-SCRP-019",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 25, row 6",
+          "primary_source_excerpt_sha256": "f937875cf405ca4f08d714d4954902a545559c252628085c25ebc7d92eff906a"
+        },
+        {
+          "rule_id": "SCRP-020",
+          "module": "scr_payload",
+          "category": "state",
+          "statement": "Estados permitidos: draft, ready, sent, superseded, blocked; no usar 'final' o 'certified'.",
+          "condition": "invalid payload state",
+          "action": "reject transition",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D4:21",
+            "D4:25"
+          ],
+          "source_proof_id": "SPM-SCRP-020",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_with_normalized_names",
+          "primary_source_locator": "section 21, paragraph 284",
+          "primary_source_excerpt_sha256": "51d65bb2ad534f80d30e26e0e57470e92cc26959ad4d2a44b0a1a628ec918ffe"
+        }
+      ],
+      "outputs": [
+        "SceneCanonicalRecordPatch",
+        "parallel_export_payload",
+        "scr_export_blocker[]"
+      ],
+      "forbidden_outputs": [
+        "core_mutation",
+        "diagnosis",
+        "final_SCR",
+        "active_registry_write",
+        "product_internal_ui"
+      ]
+    },
+    "evidence_bundle_payload": {
+      "module_id": "M7-EVBP",
+      "purpose": "Construir un EvidenceBundlePatch con evidencia, variables, rutas, readiness y gaps gobernados, sin diagnóstico ni transducción.",
+      "payload_type": "evidence_bundle_patch",
+      "input_contract": {
+        "required": [
+          "active_evidence_items",
+          "canonical_variable_records",
+          "critical_route_results",
+          "readiness_decision",
+          "gap_records"
+        ],
+        "preconditions": [
+          "provenance complete",
+          "scope authorized",
+          "revisions resolved"
+        ]
+      },
+      "payload_schema": [
+        {
+          "name": "parallel_export_payload_id",
+          "type": "string",
+          "required": true,
+          "description": "Identificador del payload.",
+          "source_refs": [
+            "D4:21"
+          ]
+        },
+        {
+          "name": "payload_type",
+          "type": "enum",
+          "required": true,
+          "description": "Tipo cerrado evidence_bundle_patch.",
+          "source_refs": [
+            "D4:21",
+            "D4:23.2"
+          ],
+          "enum": [
+            "evidence_bundle_patch"
+          ]
+        },
+        {
+          "name": "payload_version",
+          "type": "integer",
+          "required": true,
+          "description": "Versión monotónica.",
+          "source_refs": [
+            "D4:24"
+          ]
+        },
+        {
+          "name": "run_id",
+          "type": "string",
+          "required": true,
+          "description": "Run de origen.",
+          "source_refs": [
+            "D4:23.2"
+          ]
+        },
+        {
+          "name": "case_id",
+          "type": "string",
+          "required": true,
+          "description": "Scope autorizado.",
+          "source_refs": [
+            "D4:27"
+          ]
+        },
+        {
+          "name": "catalog_version_id",
+          "type": "string",
+          "required": true,
+          "description": "Versión de catálogo.",
+          "source_refs": [
+            "D4:23"
+          ]
+        },
+        {
+          "name": "evidence_items",
+          "type": "array",
+          "required": true,
+          "description": "Evidencias activas con literal/provenance/confidence.",
+          "source_refs": [
+            "D4:23.2"
+          ]
+        },
+        {
+          "name": "canonical_variables",
+          "type": "array",
+          "required": true,
+          "description": "Variables con route/status/source refs.",
+          "source_refs": [
+            "D4:23.2"
+          ]
+        },
+        {
+          "name": "route_statuses",
+          "type": "array",
+          "required": true,
+          "description": "Estados de rutas críticas.",
+          "source_refs": [
+            "D4:8.3",
+            "D6!Critical_Routes"
+          ]
+        },
+        {
+          "name": "readiness",
+          "type": "object",
+          "required": true,
+          "description": "Readiness, dominant gate y manual review.",
+          "source_refs": [
+            "D4:23.2"
+          ]
+        },
+        {
+          "name": "gap_records",
+          "type": "array",
+          "required": true,
+          "description": "Gaps explícitos.",
+          "source_refs": [
+            "D4:23.2"
+          ]
+        },
+        {
+          "name": "audit_refs",
+          "type": "array",
+          "required": true,
+          "description": "Referencias de revisión y supersession.",
+          "source_refs": [
+            "D4:24",
+            "D4:27"
+          ]
+        },
+        {
+          "name": "checksum",
+          "type": "string",
+          "required": true,
+          "description": "Checksum del bundle.",
+          "source_refs": [
+            "D4:21"
+          ]
+        },
+        {
+          "name": "payload_state",
+          "type": "enum",
+          "required": true,
+          "description": "Estado gobernado.",
+          "source_refs": [
+            "D4:21"
+          ],
+          "enum": [
+            "draft",
+            "ready",
+            "sent",
+            "superseded",
+            "blocked"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "rule_id": "EVBP-001",
+          "module": "evidence_bundle_payload",
+          "category": "eligibility",
+          "statement": "Construir EvidenceBundlePatch solo desde evidence_item y canonical_variable_record gobernados.",
+          "condition": "input contains raw response without governed records",
+          "action": "block bundle creation",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:8.3",
+            "D4:23.2",
+            "EVE06:EVI-001",
+            "EVE06:CVR-003"
+          ],
+          "source_proof_id": "SPM-EVBP-001",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.evidence_item.rules[0]",
+          "primary_source_excerpt_sha256": "f67bf54422fe035d5c8076305c582af3082afc8476724783c5f73268b58a2af8"
+        },
+        {
+          "rule_id": "EVBP-002",
+          "module": "evidence_bundle_payload",
+          "category": "evidence",
+          "statement": "Incluir únicamente evidence_item activos; conservar referencias a superseded sin tratarlos como vigentes.",
+          "condition": "superseded evidence treated as active",
+          "action": "block bundle and recompute",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:24",
+            "EVE06:EVI-014"
+          ],
+          "source_proof_id": "SPM-EVBP-002",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.evidence_item.rules[13]",
+          "primary_source_excerpt_sha256": "f0a99a67bb2f9c21e14050c83c997dbf656ed88cc22bbd642d1f5c8fd68460c9"
+        },
+        {
+          "rule_id": "EVBP-003",
+          "module": "evidence_bundle_payload",
+          "category": "provenance",
+          "statement": "Cada evidence_item exige epistemic_status, provenance_type, source_interaction_id y confidence.",
+          "condition": "metadata missing",
+          "action": "block evidence item from payload",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:23.2",
+            "D5:2",
+            "EVE06:EVI-002"
+          ],
+          "source_proof_id": "SPM-EVBP-003",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.evidence_item.rules[1]",
+          "primary_source_excerpt_sha256": "95adbad042272d42ea74e1f8a2f1ffa4aaca641708591d2fb766e159de9153f6"
+        },
+        {
+          "rule_id": "EVBP-004",
+          "module": "evidence_bundle_payload",
+          "category": "literal",
+          "statement": "Conservar el valor literal o confirmado sin reescribirlo como interpretación.",
+          "condition": "literal evidence transformed into narrative fact",
+          "action": "retain literal and move interpretation to candidate layer",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:23.2",
+            "D3:R1",
+            "D3:R3"
+          ],
+          "source_proof_id": "SPM-EVBP-004",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 23.2, paragraph 292",
+          "primary_source_excerpt_sha256": "8fcaa978275b52e37c57793f733d1838a918a560f0b0e7fd9fec49dcd1a05d9c"
+        },
+        {
+          "rule_id": "EVBP-005",
+          "module": "evidence_bundle_payload",
+          "category": "subfields",
+          "statement": "Las preguntas compuestas viajan como subrespuestas separadas, nunca como single_textbox opaco.",
+          "condition": "compound answer flattened",
+          "action": "block bundle serialization",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:1",
+            "D5:7",
+            "EVE06:RSP-007",
+            "EVE06:RSP-008"
+          ],
+          "source_proof_id": "SPM-EVBP-005",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.response_ingest.rules[7]",
+          "primary_source_excerpt_sha256": "b1452d3dc1b2cd535538de3f7be8afcd1c5bf75b285e773709c794db27a8bb28"
+        },
+        {
+          "rule_id": "EVBP-006",
+          "module": "evidence_bundle_payload",
+          "category": "variables",
+          "statement": "Cada canonical variable incluye value, route_id, route_status, source evidence y gap flag cuando aplique.",
+          "condition": "variable metadata incomplete",
+          "action": "block variable projection",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:23.2",
+            "EVE06:CVR-003",
+            "EVE06:CVR-006",
+            "EVE06:CVR-007",
+            "EVE06:CVR-008"
+          ],
+          "source_proof_id": "SPM-EVBP-006",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.canonical_variable_record.rules[2]",
+          "primary_source_excerpt_sha256": "331ed8a9e9e9e1ffa83d6a4fcbc916592ea3bf6bc4a74580af662a63cf9944d7"
+        },
+        {
+          "rule_id": "EVBP-007",
+          "module": "evidence_bundle_payload",
+          "category": "routes",
+          "statement": "Incluir el estado de B0, B2, B3 y B7 aunque la ruta esté bloqueada.",
+          "condition": "critical route omitted",
+          "action": "block payload send",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D6!Critical_Routes",
+            "EVE05:critical_route_gate"
+          ],
+          "source_proof_id": "SPM-EVBP-007",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Critical_Routes!A3:G3",
+          "primary_source_excerpt_sha256": "d5b5b7e61885b7a42ae3af439682f93f5656289961f9c8da5d67f8164b4fcf6f"
+        },
+        {
+          "rule_id": "EVBP-008",
+          "module": "evidence_bundle_payload",
+          "category": "C09",
+          "statement": "Si hay evidencia textual de feedback sin cierre C09, materializar receiver_feedback_route_missing=true.",
+          "condition": "feedback text and canonical route not closed",
+          "action": "add mandatory route_missing gap and block structural use",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:6.2",
+            "D6!Critical_Routes:CR-B3",
+            "D4:23.2"
+          ],
+          "source_proof_id": "SPM-EVBP-008",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 23.2, paragraph 292",
+          "primary_source_excerpt_sha256": "8fcaa978275b52e37c57793f733d1838a918a560f0b0e7fd9fec49dcd1a05d9c"
+        },
+        {
+          "rule_id": "EVBP-009",
+          "module": "evidence_bundle_payload",
+          "category": "B7",
+          "statement": "B7-Q39/B7-Q40/C20 solo se incluyen como preclassification/readiness signal no diagnóstico.",
+          "condition": "B7 evidence labeled as diagnosis or structural fact",
+          "action": "block bundle and manual review",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:6.3",
+            "D6!Critical_Routes:CR-B7"
+          ],
+          "source_proof_id": "SPM-EVBP-009",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 6.3, table 8, row 8",
+          "primary_source_excerpt_sha256": "3441c345f44d4cd89d818e77771f472f0e97886d2be31da0647a7c053c20b5de"
+        },
+        {
+          "rule_id": "EVBP-010",
+          "module": "evidence_bundle_payload",
+          "category": "readiness",
+          "statement": "Transportar readiness_state, dominant_gate y manual_review_required sin suavizarlos.",
+          "condition": "readiness metadata hidden or rewritten",
+          "action": "block payload send",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:23.2",
+            "D6!Readiness_Gaps_Reentry"
+          ],
+          "source_proof_id": "SPM-EVBP-010",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 23.2, paragraph 292",
+          "primary_source_excerpt_sha256": "8fcaa978275b52e37c57793f733d1838a918a560f0b0e7fd9fec49dcd1a05d9c"
+        },
+        {
+          "rule_id": "EVBP-011",
+          "module": "evidence_bundle_payload",
+          "category": "gaps",
+          "statement": "Todo gap se representa como registro explícito con type, affected_route, quadrant, severity y reentry target.",
+          "condition": "gap only in free text",
+          "action": "reject gap representation",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:21",
+            "D4:23.2"
+          ],
+          "source_proof_id": "SPM-EVBP-011",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 21, table 18, row 6",
+          "primary_source_excerpt_sha256": "5800062f49e30b05d197bc821dc40b08083255c1dc8612c2d5167f740b2e3323"
+        },
+        {
+          "rule_id": "EVBP-012",
+          "module": "evidence_bundle_payload",
+          "category": "conformance",
+          "statement": "EvidenceBundle no declara conformance ni consistency satisfechas; solo transporta evidencia y decisiones de gate.",
+          "condition": "bundle attempts final methodological verdict",
+          "action": "block verdict and move to gate outputs",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:4.1-4.5",
+            "EVE05:mmabp_conformance_gate",
+            "EVE05:mmabp_consistency_gate"
+          ],
+          "source_proof_id": "SPM-EVBP-012",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.mmabp_conformance_gate",
+          "primary_source_excerpt_sha256": "ec9c9b8ad3dad705fc4c1f84d4946a2a5e34f1e9f1dac820cf7b6cd038e8b247"
+        },
+        {
+          "rule_id": "EVBP-013",
+          "module": "evidence_bundle_payload",
+          "category": "diagnosis",
+          "statement": "El bundle no contiene diagnóstico EVE, VSM ni AHE cerrado.",
+          "condition": "diagnostic label detected",
+          "action": "block payload and record boundary violation",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3!Table6",
+            "D3!Table10",
+            "D5:1"
+          ],
+          "source_proof_id": "SPM-EVBP-013",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 10, row 2",
+          "primary_source_excerpt_sha256": "56ec58b8b1d4ffb7bec69800c12701930698e9d6e0760a4268a8582885ae3835"
+        },
+        {
+          "rule_id": "EVBP-014",
+          "module": "evidence_bundle_payload",
+          "category": "dedupe",
+          "statement": "Deduplicar por evidence_item_id/variable_name+revision sin perder genealogía.",
+          "condition": "duplicate active record found",
+          "action": "retain latest active and reference revision chain",
+          "blocking": false,
+          "severity": "major",
+          "source_refs": [
+            "D4:24",
+            "EVE06:evidence_item"
+          ],
+          "source_proof_id": "SPM-EVBP-014",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.evidence_item.rules[3]",
+          "primary_source_excerpt_sha256": "619848f8dbf1b67f3b1a2a23a5e607644fdbba26b802c5350aa2fb42d1b32104"
+        },
+        {
+          "rule_id": "EVBP-015",
+          "module": "evidence_bundle_payload",
+          "category": "confidence",
+          "statement": "No fabricar confidence; usar la calculada/capturada por el Execution Engine.",
+          "condition": "confidence missing",
+          "action": "mark unresolved rather than default high",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D4:23.2",
+            "EVE06:EVI-005"
+          ],
+          "source_proof_id": "SPM-EVBP-015",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.evidence_item.rules[4]",
+          "primary_source_excerpt_sha256": "1d21c6efed22403bd190c0e089bee6771d82269e21fb850bb6190ed846a5482e"
+        },
+        {
+          "rule_id": "EVBP-016",
+          "module": "evidence_bundle_payload",
+          "category": "authorization",
+          "statement": "Emitir bundle solo para case_id/tenant autorizado y target permitido.",
+          "condition": "unauthorized consumer",
+          "action": "block and audit",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:27",
+            "D4!Table25"
+          ],
+          "source_proof_id": "SPM-EVBP-016",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 25, row 3",
+          "primary_source_excerpt_sha256": "acd3dc344f6b73a98777b52db47216912b90ad370198b75c5fc2cb14bd1f39df"
+        },
+        {
+          "rule_id": "EVBP-017",
+          "module": "evidence_bundle_payload",
+          "category": "versioning",
+          "statement": "Toda corrección de respuesta invalida bundle dependiente y crea nueva versión.",
+          "condition": "response revision affects bundle",
+          "action": "supersede old bundle and recompute",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:24",
+            "D4:26"
+          ],
+          "source_proof_id": "SPM-EVBP-017",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 24, table 22, row 6",
+          "primary_source_excerpt_sha256": "80779f5eb0e5890b446bd1c248e4bff44fcc037c95b22e585956b5d3357ff13a"
+        },
+        {
+          "rule_id": "EVBP-018",
+          "module": "evidence_bundle_payload",
+          "category": "checksum",
+          "statement": "Calcular checksum sobre contenido canonizado, versión y refs de origen.",
+          "condition": "checksum absent",
+          "action": "payload cannot become ready",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:21",
+            "D4:23"
+          ],
+          "source_proof_id": "SPM-EVBP-018",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 21, table 18, row 12",
+          "primary_source_excerpt_sha256": "3d6a9a8279a5f76884d29c43ffdb24da5963a38658d6dac73f7a5dcb1cfa59f2"
+        },
+        {
+          "rule_id": "EVBP-019",
+          "module": "evidence_bundle_payload",
+          "category": "state",
+          "statement": "Un bundle blocked o superseded no puede enviarse como ready.",
+          "condition": "payload_state not ready",
+          "action": "deny send",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:21",
+            "D4:4.1"
+          ],
+          "source_proof_id": "SPM-EVBP-019",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 21, paragraph 284",
+          "primary_source_excerpt_sha256": "51d65bb2ad534f80d30e26e0e57470e92cc26959ad4d2a44b0a1a628ec918ffe"
+        },
+        {
+          "rule_id": "EVBP-020",
+          "module": "evidence_bundle_payload",
+          "category": "boundary",
+          "statement": "EvidenceBundle prepara Capa 2.0/2.5; no ejecuta transducción, IR ni registry write.",
+          "condition": "consumer asks direct transduction",
+          "action": "block downstream action",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3!Table6",
+            "D3!Table10",
+            "D5:6.3"
+          ],
+          "source_proof_id": "SPM-EVBP-020",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 10, row 2",
+          "primary_source_excerpt_sha256": "56ec58b8b1d4ffb7bec69800c12701930698e9d6e0760a4268a8582885ae3835"
+        },
+        {
+          "rule_id": "EVBP-021",
+          "module": "evidence_bundle_payload",
+          "category": "audit",
+          "statement": "Registrar source payload refs, run, catalog, created_at y emitter.",
+          "condition": "audit envelope incomplete",
+          "action": "block send",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:21",
+            "D4:27"
+          ],
+          "source_proof_id": "SPM-EVBP-021",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 21, table 18, row 12",
+          "primary_source_excerpt_sha256": "3d6a9a8279a5f76884d29c43ffdb24da5963a38658d6dac73f7a5dcb1cfa59f2"
+        },
+        {
+          "rule_id": "EVBP-022",
+          "module": "evidence_bundle_payload",
+          "category": "no_placeholder",
+          "statement": "Los payloads cerrados no admiten placeholders, ellipsis ni campos ficticios en producción/shadow validation.",
+          "condition": "placeholder detected",
+          "action": "block readiness",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:23",
+            "D4:28"
+          ],
+          "source_proof_id": "SPM-EVBP-022",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 28, table 26, row 4",
+          "primary_source_excerpt_sha256": "27b5a4210e4f9217f8ceb9b0c4fa810dd1a86dd90addd83a9a14bcf4a6daaac4"
+        }
+      ],
+      "outputs": [
+        "EvidenceBundlePatch",
+        "parallel_export_payload",
+        "evidence_export_blocker[]"
+      ],
+      "forbidden_outputs": [
+        "diagnosis",
+        "IR",
+        "registry_write",
+        "transduction",
+        "hidden_gaps"
+      ]
+    },
+    "mdsb_payload": {
+      "module_id": "M7-MDSB",
+      "purpose": "Construir un MMABPDesignSourceBundlePatch con candidatos, checkpoints y restricciones, manteniéndolo como fuente de diseño y no como modelo/diagrama final.",
+      "payload_type": "mdsb_patch",
+      "input_contract": {
+        "required": [
+          "EvidenceBundlePatch",
+          "structural_candidate_records",
+          "EVE05 gate results",
+          "readiness decision"
+        ],
+        "preconditions": [
+          "canonical variables governed",
+          "critical routes evaluated",
+          "SEM/PST applicable gates resolved"
+        ]
+      },
+      "payload_schema": [
+        {
+          "name": "parallel_export_payload_id",
+          "type": "string",
+          "required": true,
+          "description": "Identificador del payload.",
+          "source_refs": [
+            "D4:21"
+          ]
+        },
+        {
+          "name": "payload_type",
+          "type": "enum",
+          "required": true,
+          "description": "Tipo cerrado mdsb_patch.",
+          "source_refs": [
+            "D4:21",
+            "D4:23.3"
+          ],
+          "enum": [
+            "mdsb_patch"
+          ]
+        },
+        {
+          "name": "payload_version",
+          "type": "integer",
+          "required": true,
+          "description": "Versión monotónica.",
+          "source_refs": [
+            "D4:24"
+          ]
+        },
+        {
+          "name": "run_id",
+          "type": "string",
+          "required": true,
+          "description": "Run de origen.",
+          "source_refs": [
+            "D4:23.3"
+          ]
+        },
+        {
+          "name": "case_id",
+          "type": "string",
+          "required": true,
+          "description": "Scope autorizado.",
+          "source_refs": [
+            "D4:27"
+          ]
+        },
+        {
+          "name": "source_payload_refs",
+          "type": "array",
+          "required": true,
+          "description": "Versiones de SCR/EvidenceBundle usadas.",
+          "source_refs": [
+            "D4:23"
+          ]
+        },
+        {
+          "name": "structural_candidates",
+          "type": "array",
+          "required": true,
+          "description": "Candidatos PM/MoC/PF/OLC trazables.",
+          "source_refs": [
+            "D4:23.3"
+          ]
+        },
+        {
+          "name": "conformance_checkpoints",
+          "type": "array",
+          "required": true,
+          "description": "Checkpoints por modelo.",
+          "source_refs": [
+            "D4:23.3",
+            "D1:4.1"
+          ]
+        },
+        {
+          "name": "consistency_checkpoints",
+          "type": "array",
+          "required": true,
+          "description": "Compartimentos aplicables.",
+          "source_refs": [
+            "D4:23.3",
+            "D1:4.2-4.5"
+          ]
+        },
+        {
+          "name": "readiness_gaps",
+          "type": "array",
+          "required": true,
+          "description": "Gaps/issue refs.",
+          "source_refs": [
+            "D4:23.3"
+          ]
+        },
+        {
+          "name": "export_restriction",
+          "type": "string",
+          "required": true,
+          "description": "Restricción no diagramar/no final.",
+          "source_refs": [
+            "D4:23.3"
+          ]
+        },
+        {
+          "name": "checksum",
+          "type": "string",
+          "required": true,
+          "description": "Checksum del payload.",
+          "source_refs": [
+            "D4:21"
+          ]
+        },
+        {
+          "name": "payload_state",
+          "type": "enum",
+          "required": true,
+          "description": "Estado gobernado.",
+          "source_refs": [
+            "D4:21"
+          ],
+          "enum": [
+            "draft",
+            "ready",
+            "sent",
+            "superseded",
+            "blocked"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "rule_id": "MDSB-001",
+          "module": "mdsb_payload",
+          "category": "eligibility",
+          "statement": "Construir MMABPDesignSourceBundlePatch solo cuando existan EvidenceBundlePatch y structural_candidate_record gobernados.",
+          "condition": "evidence bundle or candidates missing",
+          "action": "block MDSB creation",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:23.3",
+            "EVE06:SCR-001",
+            "EVE06:SCR-005"
+          ],
+          "source_proof_id": "SPM-MDSB-001",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.structural_candidate_record.rules[0]",
+          "primary_source_excerpt_sha256": "963cd6f4446c85f3be52c937988bd0b44ddfce8e5b1ae55410635d210ad3ee7a"
+        },
+        {
+          "rule_id": "MDSB-002",
+          "module": "mdsb_payload",
+          "category": "source",
+          "statement": "No consumir texto libre ni respuestas crudas; usar variables canónicas, evidence refs y candidates.",
+          "condition": "raw text selected as structural source",
+          "action": "block source and open evidence_governance blocker",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D6!Parallel_Production_Contract",
+            "D5:2",
+            "D4:23.3"
+          ],
+          "source_proof_id": "SPM-MDSB-002",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A4:E4",
+          "primary_source_excerpt_sha256": "7af7b48b82b141238851f5d687e8894be57aa37aa0dd7e42a8fccf33bb749594"
+        },
+        {
+          "rule_id": "MDSB-003",
+          "module": "mdsb_payload",
+          "category": "candidate",
+          "statement": "Cada structural candidate conserva id, quadrant_hint, type, label, source_variable y source_evidence_item_id.",
+          "condition": "candidate envelope incomplete",
+          "action": "block candidate inclusion",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:21",
+            "D4:23.3",
+            "EVE06:SCR-005"
+          ],
+          "source_proof_id": "SPM-MDSB-003",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.structural_candidate_record.rules[4]",
+          "primary_source_excerpt_sha256": "1213b5f4f5ade649b251e682cb27f4066a68b2d926f52df89bdaf70666c1818b"
+        },
+        {
+          "rule_id": "MDSB-004",
+          "module": "mdsb_payload",
+          "category": "state",
+          "statement": "Solo candidates en estado candidate o accepted_for_rehearsal pueden entrar; blocked/stale/superseded quedan como issue refs.",
+          "condition": "candidate state invalid",
+          "action": "exclude from active candidate list",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:21",
+            "D4:24",
+            "EVE06:SCR-015",
+            "EVE06:SCR-016",
+            "EVE06:SCR-017"
+          ],
+          "source_proof_id": "SPM-MDSB-004",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.structural_candidate_record.rules[14]",
+          "primary_source_excerpt_sha256": "6272e69945695fbc44972e2992f4ff57f8ee177edf27b4aab973673a2bc17d0d"
+        },
+        {
+          "rule_id": "MDSB-005",
+          "module": "mdsb_payload",
+          "category": "conformance",
+          "statement": "Cada candidato incluye checkpoint de conformance contra realidad; ausencia bloquea IR/registry candidate.",
+          "condition": "conformance checkpoint absent",
+          "action": "block candidate progression",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D1:4.1",
+            "D4:23.3",
+            "EVE05:mmabp_conformance_gate"
+          ],
+          "source_proof_id": "SPM-MDSB-005",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.mmabp_conformance_gate.role",
+          "primary_source_excerpt_sha256": "f7ca94ddfcc8df5983fa47232259fad20a1f3155c9251f81889041a3f5a01dd5"
+        },
+        {
+          "rule_id": "MDSB-006",
+          "module": "mdsb_payload",
+          "category": "consistency",
+          "statement": "Cada candidato incluye checkpoint de consistency aplicable y referencias a compartimentos evaluados.",
+          "condition": "consistency checkpoint absent",
+          "action": "block IR/registry progression",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D1:4.2-4.5",
+            "D4:23.3",
+            "EVE05:mmabp_consistency_gate"
+          ],
+          "source_proof_id": "SPM-MDSB-006",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.mmabp_consistency_gate.role",
+          "primary_source_excerpt_sha256": "a8fe29a03690671ed660771e53510629e742c7fc16177649da916ce9be6a83d0"
+        },
+        {
+          "rule_id": "MDSB-007",
+          "module": "mdsb_payload",
+          "category": "semantic",
+          "statement": "MoC/OLC candidates requieren Semantic Resolution Gate resuelto.",
+          "condition": "SEM gate unresolved or ambiguous",
+          "action": "block relevant candidates",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates",
+            "EVE05:semantic_resolution_gate"
+          ],
+          "source_proof_id": "SPM-MDSB-007",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Semantic_Resolution_Gates!A2:G2",
+          "primary_source_excerpt_sha256": "b197271fc9aa98d1a6ea1cf8f027f345fe2c2672a12bed69be10cc4a86cd9380"
+        },
+        {
+          "rule_id": "MDSB-008",
+          "module": "mdsb_payload",
+          "category": "process_state",
+          "statement": "PF/OLC candidates con espera requieren PST gates resueltos.",
+          "condition": "PST gate unresolved",
+          "action": "block Process State/transition candidate",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D6!Process_State_Timer_Gates",
+            "EVE05:process_state_timer_gate"
+          ],
+          "source_proof_id": "SPM-MDSB-008",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Process_State_Timer_Gates!A2:G2",
+          "primary_source_excerpt_sha256": "21c28ba12c6af7600caffe8e7f88864b9042711021040612f68f9258960ee440"
+        },
+        {
+          "rule_id": "MDSB-009",
+          "module": "mdsb_payload",
+          "category": "critical_routes",
+          "statement": "B0, B2, B3 y B7 deben evaluarse; un route_missing se transporta como readiness gap.",
+          "condition": "critical route not evaluated",
+          "action": "block MDSB ready state",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D6!Critical_Routes",
+            "EVE05:critical_route_gate"
+          ],
+          "source_proof_id": "SPM-MDSB-009",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Critical_Routes!A4:G4",
+          "primary_source_excerpt_sha256": "95ba6f1769dcf1c58e3ccdd31f32a90464ff81b5b06baec4c7703c29aacf3864"
+        },
+        {
+          "rule_id": "MDSB-010",
+          "module": "mdsb_payload",
+          "category": "C09",
+          "statement": "No crear handoff_feedback_event, rework o PF/OLC candidate desde receiver_satisfaction.",
+          "condition": "feedback derived from satisfaction",
+          "action": "block candidate and set C09 blocker",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:6.2",
+            "D6!Critical_Routes:CR-B3"
+          ],
+          "source_proof_id": "SPM-MDSB-010",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Critical_Routes!A4:G4",
+          "primary_source_excerpt_sha256": "34a9206e646ded49f54ee182fdd5a0e6f5da71a987d207042dc0850dfce82921"
+        },
+        {
+          "rule_id": "MDSB-011",
+          "module": "mdsb_payload",
+          "category": "B7",
+          "statement": "B7-Q39/B7-Q40/C20 no crean MoC, IR, registry, export ni diagnóstico directo.",
+          "condition": "B7 source directly creates candidate",
+          "action": "block and require manual review",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:6.3",
+            "D6!Critical_Routes:CR-B7"
+          ],
+          "source_proof_id": "SPM-MDSB-011",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 6.3, table 8, row 7",
+          "primary_source_excerpt_sha256": "f346c66c3e59653a57449c134dc578d142416e2ffe4cd070172e5a832226c795"
+        },
+        {
+          "rule_id": "MDSB-012",
+          "module": "mdsb_payload",
+          "category": "quadrants",
+          "statement": "Mantener separados PM, MoC, PF y OLC; no fusionar vistas en una entidad genérica.",
+          "condition": "quadrants merged",
+          "action": "reject bundle structure",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:1.3.4",
+            "D1:4",
+            "D6!Parallel_Production_Contract"
+          ],
+          "source_proof_id": "SPM-MDSB-012",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A9:E9",
+          "primary_source_excerpt_sha256": "228810309e11c1859908dd238b01006f67aa54ea8b0e84dd444d80bd409f9ff2"
+        },
+        {
+          "rule_id": "MDSB-013",
+          "module": "mdsb_payload",
+          "category": "readiness",
+          "statement": "ready_with_flags puede preparar MDSB solo si flags son no bloqueantes y se transportan completos.",
+          "condition": "flags hidden or blocking flag present",
+          "action": "set payload blocked",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D6!Readiness_Gaps_Reentry",
+            "D4:23.3"
+          ],
+          "source_proof_id": "SPM-MDSB-013",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Readiness_Gaps_Reentry!A3:E3",
+          "primary_source_excerpt_sha256": "2c77bb22af275572c229254caab40bccb5c9189d0c91005abfa492f45378575c"
+        },
+        {
+          "rule_id": "MDSB-014",
+          "module": "mdsb_payload",
+          "category": "manual_review",
+          "statement": "manual_review_required impide estado ready/sent hasta decisión autorizada.",
+          "condition": "manual review unresolved",
+          "action": "block emission",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:27",
+            "D6!Readiness_Gaps_Reentry"
+          ],
+          "source_proof_id": "SPM-MDSB-014",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 27, table 25, row 4",
+          "primary_source_excerpt_sha256": "535644a1987a1f9bf2541540ba6747da32797130ba19458d9a3d6df87a4cae38"
+        },
+        {
+          "rule_id": "MDSB-015",
+          "module": "mdsb_payload",
+          "category": "issue_refs",
+          "statement": "Toda contradicción, semantic ambiguity, route missing o PST failure se conserva como issue ref.",
+          "condition": "issue omitted",
+          "action": "block payload readiness",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:23.3",
+            "EVE05:semantic_resolution_gate",
+            "EVE05:process_state_timer_gate",
+            "EVE05:critical_route_gate",
+            "EVE05:mmabp_consistency_gate"
+          ],
+          "source_proof_id": "SPM-MDSB-015",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 23.3, paragraph 294",
+          "primary_source_excerpt_sha256": "dcc89dd85b32db699f6619618bdeb612f30b7d7457dfb26ce7fb56330d00e29f"
+        },
+        {
+          "rule_id": "MDSB-016",
+          "module": "mdsb_payload",
+          "category": "diagram",
+          "statement": "MDSB no es diagrama ni autoriza diagramación; incluye export_restriction explícita.",
+          "condition": "diagram or render requested",
+          "action": "block and require Inventory/Registry/IR gates",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:23.3",
+            "D3!Table5",
+            "D6!Parallel_Production_Contract"
+          ],
+          "source_proof_id": "SPM-MDSB-016",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 5, row 3",
+          "primary_source_excerpt_sha256": "e868d58e56d54227f98657052cf066ef2f5660a7e748ef97df8d57fee9c0795b"
+        },
+        {
+          "rule_id": "MDSB-017",
+          "module": "mdsb_payload",
+          "category": "finality",
+          "statement": "El payload es patch/candidate; no equivale a MDSB final ni transducción final.",
+          "condition": "payload labeled final",
+          "action": "reject label and audit",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3!Table6",
+            "D3!Table10",
+            "D3:R4"
+          ],
+          "source_proof_id": "SPM-MDSB-017",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 13, row 5",
+          "primary_source_excerpt_sha256": "4842ca655b0aad498e130617cbb062ba3db228372fdc097baf42aa8d4613f96e"
+        },
+        {
+          "rule_id": "MDSB-018",
+          "module": "mdsb_payload",
+          "category": "versioning",
+          "statement": "Correcciones de evidencia o gates marcan MDSB anterior superseded.",
+          "condition": "dependent record changes",
+          "action": "supersede and rebuild",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:24",
+            "D4:26"
+          ],
+          "source_proof_id": "SPM-MDSB-018",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 24, table 22, row 6",
+          "primary_source_excerpt_sha256": "80779f5eb0e5890b446bd1c248e4bff44fcc037c95b22e585956b5d3357ff13a"
+        },
+        {
+          "rule_id": "MDSB-019",
+          "module": "mdsb_payload",
+          "category": "authorization",
+          "statement": "Solo actor/sistema autorizado puede pasar de draft a ready/sent.",
+          "condition": "unauthorized transition",
+          "action": "block and audit",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:27",
+            "D4!Table25"
+          ],
+          "source_proof_id": "SPM-MDSB-019",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 25, row 6",
+          "primary_source_excerpt_sha256": "f937875cf405ca4f08d714d4954902a545559c252628085c25ebc7d92eff906a"
+        },
+        {
+          "rule_id": "MDSB-020",
+          "module": "mdsb_payload",
+          "category": "checksum",
+          "statement": "Incluir checksum del payload y refs a SCR/EvidenceBundle versiones usadas.",
+          "condition": "checksum or refs missing",
+          "action": "block readiness",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:21",
+            "D4:23"
+          ],
+          "source_proof_id": "SPM-MDSB-020",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 21, table 18, row 12",
+          "primary_source_excerpt_sha256": "3d6a9a8279a5f76884d29c43ffdb24da5963a38658d6dac73f7a5dcb1cfa59f2"
+        },
+        {
+          "rule_id": "MDSB-021",
+          "module": "mdsb_payload",
+          "category": "no_placeholder",
+          "statement": "No admitir placeholders en structural_candidates, checkpoints o gaps.",
+          "condition": "placeholder detected",
+          "action": "block payload",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:23",
+            "D4:28"
+          ],
+          "source_proof_id": "SPM-MDSB-021",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 28, table 26, row 4",
+          "primary_source_excerpt_sha256": "27b5a4210e4f9217f8ceb9b0c4fa810dd1a86dd90addd83a9a14bcf4a6daaac4"
+        },
+        {
+          "rule_id": "MDSB-022",
+          "module": "mdsb_payload",
+          "category": "audit",
+          "statement": "Persistir emitter, timestamp, target, reason y prior payload refs.",
+          "condition": "audit envelope incomplete",
+          "action": "block sent state",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:21",
+            "D4:27"
+          ],
+          "source_proof_id": "SPM-MDSB-022",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 27, table 25, row 8",
+          "primary_source_excerpt_sha256": "4d4c578704ab6d1f5220dc22b926011b97ceecad61bc7e0e646af3c18f4b8ce0"
+        }
+      ],
+      "outputs": [
+        "MMABPDesignSourceBundlePatch",
+        "parallel_export_payload",
+        "mdsb_export_blocker[]"
+      ],
+      "forbidden_outputs": [
+        "diagram",
+        "final_MDSB",
+        "diagnosis",
+        "active_registry_write",
+        "final_transduction"
+      ]
+    },
+    "mmabp_ir_candidate": {
+      "module_id": "M7-IRCD",
+      "purpose": "Proyectar una representación intermedia MMABP computable y trazable para rehearsal, sin equivaler a diagrama, diagnóstico o IR final.",
+      "entity_name": "mmabp_ir_candidate",
+      "input_contract": {
+        "required": [
+          "ready MMABPDesignSourceBundlePatch",
+          "structural candidates",
+          "gate snapshots",
+          "issue refs"
+        ],
+        "preconditions": [
+          "no hard export blocker",
+          "conformance and consistency checkpoints present"
+        ]
+      },
+      "entity_schema": [
+        {
+          "name": "mmabp_ir_candidate_id",
+          "type": "string",
+          "required": true,
+          "description": "Identificador del IR candidate.",
+          "source_refs": [
+            "D3!Table4"
+          ]
+        },
+        {
+          "name": "run_id",
+          "type": "string",
+          "required": true,
+          "description": "Run de origen.",
+          "source_refs": [
+            "D4:23.3"
+          ]
+        },
+        {
+          "name": "case_id",
+          "type": "string",
+          "required": true,
+          "description": "Scope autorizado.",
+          "source_refs": [
+            "D4:27"
+          ]
+        },
+        {
+          "name": "mdsb_payload_ref",
+          "type": "string",
+          "required": true,
+          "description": "MDSB fuente.",
+          "source_refs": [
+            "D4:23.3"
+          ]
+        },
+        {
+          "name": "candidate_version",
+          "type": "integer",
+          "required": true,
+          "description": "Versión monotónica.",
+          "source_refs": [
+            "D4:24"
+          ]
+        },
+        {
+          "name": "quadrant_partitions",
+          "type": "object",
+          "required": true,
+          "description": "Particiones PM/MoC/PF/OLC.",
+          "source_refs": [
+            "D1:1.3.4"
+          ]
+        },
+        {
+          "name": "nodes",
+          "type": "array",
+          "required": true,
+          "description": "Elementos IR con source refs.",
+          "source_refs": [
+            "D3!Table4"
+          ]
+        },
+        {
+          "name": "relations",
+          "type": "array",
+          "required": true,
+          "description": "Relaciones IR con source refs.",
+          "source_refs": [
+            "D3!Table4"
+          ]
+        },
+        {
+          "name": "gate_snapshot_refs",
+          "type": "array",
+          "required": true,
+          "description": "Gates usados.",
+          "source_refs": [
+            "EVE05"
+          ]
+        },
+        {
+          "name": "conformance_status",
+          "type": "string",
+          "required": true,
+          "description": "Estado de conformance.",
+          "source_refs": [
+            "D1:4.1"
+          ]
+        },
+        {
+          "name": "consistency_status",
+          "type": "string",
+          "required": true,
+          "description": "Estado de consistency.",
+          "source_refs": [
+            "D1:4.2-4.5"
+          ]
+        },
+        {
+          "name": "unresolved_gaps",
+          "type": "array",
+          "required": true,
+          "description": "Gaps remanentes.",
+          "source_refs": [
+            "D6!Readiness_Gaps_Reentry"
+          ]
+        },
+        {
+          "name": "candidate_state",
+          "type": "enum",
+          "required": true,
+          "description": "Estado candidate-only.",
+          "source_refs": [
+            "D3:R4"
+          ],
+          "enum": [
+            "draft_candidate",
+            "blocked",
+            "ready_for_registry_candidate",
+            "superseded",
+            "rehearsal_only"
+          ]
+        },
+        {
+          "name": "checksum",
+          "type": "string",
+          "required": true,
+          "description": "Checksum del IR candidate.",
+          "source_refs": [
+            "D4:21"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "rule_id": "IRCD-001",
+          "module": "mmabp_ir_candidate",
+          "category": "eligibility",
+          "statement": "Crear MMABP-IR candidate solo desde MDSBPatch ready y no bloqueado.",
+          "condition": "MDSB absent, blocked or superseded",
+          "action": "block IR candidate creation",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3!Table5",
+            "D4:23.3",
+            "MDSB-013"
+          ],
+          "source_proof_id": "SPM-IRCD-001",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 5, row 3",
+          "primary_source_excerpt_sha256": "e868d58e56d54227f98657052cf066ef2f5660a7e748ef97df8d57fee9c0795b"
+        },
+        {
+          "rule_id": "IRCD-002",
+          "module": "mmabp_ir_candidate",
+          "category": "candidate_only",
+          "statement": "MMABP-IR candidate es representación intermedia computable en ensayo; no es modelo final ni diagrama.",
+          "condition": "candidate labeled final or diagram-ready",
+          "action": "reject state and audit",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3!Table5",
+            "D3:R4",
+            "D3:R5"
+          ],
+          "source_proof_id": "SPM-IRCD-002",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 5, row 3",
+          "primary_source_excerpt_sha256": "e868d58e56d54227f98657052cf066ef2f5660a7e748ef97df8d57fee9c0795b"
+        },
+        {
+          "rule_id": "IRCD-003",
+          "module": "mmabp_ir_candidate",
+          "category": "source",
+          "statement": "Cada nodo/arista del IR conserva structural_candidate_id, source_variable y evidence_item refs.",
+          "condition": "IR element missing source refs",
+          "action": "block element",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D3:R3",
+            "D4:23.3"
+          ],
+          "source_proof_id": "SPM-IRCD-003",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 23.3, paragraph 294",
+          "primary_source_excerpt_sha256": "dcc89dd85b32db699f6619618bdeb612f30b7d7457dfb26ce7fb56330d00e29f"
+        },
+        {
+          "rule_id": "IRCD-004",
+          "module": "mmabp_ir_candidate",
+          "category": "quadrants",
+          "statement": "Mantener particiones explícitas PM, MoC, PF y OLC.",
+          "condition": "quadrant missing or merged",
+          "action": "block IR candidate",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D1:1.3.4",
+            "D1:4",
+            "D6!Parallel_Production_Contract"
+          ],
+          "source_proof_id": "SPM-IRCD-004",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A9:E9",
+          "primary_source_excerpt_sha256": "228810309e11c1859908dd238b01006f67aa54ea8b0e84dd444d80bd409f9ff2"
+        },
+        {
+          "rule_id": "IRCD-005",
+          "module": "mmabp_ir_candidate",
+          "category": "PM",
+          "statement": "PM IR candidate solo contiene cliente/necesidad/proceso/trigger/target state/soporte/sincronización; no tareas detalladas.",
+          "condition": "PF task inserted into PM",
+          "action": "move to PF or block",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:2.2.6",
+            "D6!Parallel_Production_Contract"
+          ],
+          "source_proof_id": "SPM-IRCD-005",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A5:E5",
+          "primary_source_excerpt_sha256": "6cf7d922f92988dfd861b9af1c83610db45ee04ce5197a8d237ead733f6c8c47"
+        },
+        {
+          "rule_id": "IRCD-006",
+          "module": "mmabp_ir_candidate",
+          "category": "MoC",
+          "statement": "MoC IR candidate representa clases reales, relaciones, ISA/role/phase/end; no IDs técnicos ni esquema de base de datos.",
+          "condition": "technical schema or false ISA detected",
+          "action": "block MoC element",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:3.1.5",
+            "EVE05:semantic_resolution_gate"
+          ],
+          "source_proof_id": "SPM-IRCD-006",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.semantic_resolution_gate",
+          "primary_source_excerpt_sha256": "a6aa94d1e6c4246c418ad9620fb4de2d91c4e5eca080a0057b7d78b7e4b40250"
+        },
+        {
+          "rule_id": "IRCD-007",
+          "module": "mmabp_ir_candidate",
+          "category": "PF",
+          "statement": "PF IR candidate no usa swimlanes ni flujos de datos; cada task referencia objeto/estado producido.",
+          "condition": "swimlane, data flow or missing produced state",
+          "action": "block PF element",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:2.3.3",
+            "D1:2.3.6",
+            "D6!Parallel_Production_Contract"
+          ],
+          "source_proof_id": "SPM-IRCD-007",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A7:E7",
+          "primary_source_excerpt_sha256": "e9c67117ae2cfd251dbb8d9279f07925006786b689075610bbd4457ddb680cf8"
+        },
+        {
+          "rule_id": "IRCD-008",
+          "module": "mmabp_ir_candidate",
+          "category": "PST",
+          "statement": "Todo Process State candidate incluye awaited_event, release_condition, timer/timeout y exit_path.",
+          "condition": "Process State incomplete",
+          "action": "block PF/OLC transition",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D6!Process_State_Timer_Gates",
+            "EVE05:process_state_timer_gate"
+          ],
+          "source_proof_id": "SPM-IRCD-008",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Process_State_Timer_Gates!A2:G2",
+          "primary_source_excerpt_sha256": "21c28ba12c6af7600caffe8e7f88864b9042711021040612f68f9258960ee440"
+        },
+        {
+          "rule_id": "IRCD-009",
+          "module": "mmabp_ir_candidate",
+          "category": "OLC",
+          "statement": "OLC IR candidate representa un solo objeto con estados/transiciones/eventos/transformers/end; no un proceso.",
+          "condition": "mixed objects or process semantics",
+          "action": "block OLC element",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:3.2.4",
+            "EVE05:semantic_resolution_gate"
+          ],
+          "source_proof_id": "SPM-IRCD-009",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.semantic_resolution_gate.gate_definitions[6]",
+          "primary_source_excerpt_sha256": "8563278b6534d308444e30154587eb350f97f8af94330511697a6e1962082e51"
+        },
+        {
+          "rule_id": "IRCD-010",
+          "module": "mmabp_ir_candidate",
+          "category": "conformance",
+          "statement": "No marcar IR candidate como conformance-ready si cualquier modelo candidate falla contra realidad.",
+          "condition": "conformance failure",
+          "action": "set candidate_state blocked",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D1:4.1",
+            "EVE05:mmabp_conformance_gate"
+          ],
+          "source_proof_id": "SPM-IRCD-010",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.mmabp_conformance_gate",
+          "primary_source_excerpt_sha256": "ec9c9b8ad3dad705fc4c1f84d4946a2a5e34f1e9f1dac820cf7b6cd038e8b247"
+        },
+        {
+          "rule_id": "IRCD-011",
+          "module": "mmabp_ir_candidate",
+          "category": "consistency",
+          "statement": "No marcar IR candidate como consistency-ready con contradicción factual, temporal, estructural o compuesta.",
+          "condition": "consistency failure",
+          "action": "set blocked and preserve compartment findings",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D1:4.2-4.5",
+            "EVE05:mmabp_consistency_gate"
+          ],
+          "source_proof_id": "SPM-IRCD-011",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.mmabp_consistency_gate",
+          "primary_source_excerpt_sha256": "8ebebf2c7d138adcc120f33c446428a9b0756d6de2e73610f81cfeeb5a30c7be"
+        },
+        {
+          "rule_id": "IRCD-012",
+          "module": "mmabp_ir_candidate",
+          "category": "correction",
+          "statement": "Ante inconsistencia no alinear modelos cosméticamente; regresar a evidencia/realidad y reentry.",
+          "condition": "candidate models disagree",
+          "action": "create reentry request, not auto-align",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:4.1-4.5",
+            "D6!Readiness_Gaps_Reentry"
+          ],
+          "source_proof_id": "SPM-IRCD-012",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Readiness_Gaps_Reentry!A5:E5",
+          "primary_source_excerpt_sha256": "99f22911314c8ca14df029d55fa392cb69e966e44c97ab69f54565760e69a767"
+        },
+        {
+          "rule_id": "IRCD-013",
+          "module": "mmabp_ir_candidate",
+          "category": "B7",
+          "statement": "No crear ningún elemento IR cuya única fuente sea B7/C20.",
+          "condition": "only source is B7 signal",
+          "action": "block element",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:6.3",
+            "D6!Critical_Routes:CR-B7"
+          ],
+          "source_proof_id": "SPM-IRCD-013",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 6.3, table 8, row 7",
+          "primary_source_excerpt_sha256": "f346c66c3e59653a57449c134dc578d142416e2ffe4cd070172e5a832226c795"
+        },
+        {
+          "rule_id": "IRCD-014",
+          "module": "mmabp_ir_candidate",
+          "category": "C09",
+          "statement": "No crear rework/handoff feedback IR sin C09 cerrada y evidencia operativa del receptor.",
+          "condition": "C09 missing or satisfaction only",
+          "action": "block element",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:6.2",
+            "D6!Critical_Routes:CR-B3"
+          ],
+          "source_proof_id": "SPM-IRCD-014",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 6.2, paragraph 23",
+          "primary_source_excerpt_sha256": "7160ec5882bd58f9f2e1c1dfcf8b71fe946ba17c2c1b6216a4ce8b7ca62bc078"
+        },
+        {
+          "rule_id": "IRCD-015",
+          "module": "mmabp_ir_candidate",
+          "category": "diagnosis",
+          "statement": "IR candidate no contiene diagnóstico EVE, VSM o AHE cerrado.",
+          "condition": "diagnostic statement detected",
+          "action": "block and remove from IR layer",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3!Table6",
+            "D3!Table10"
+          ],
+          "source_proof_id": "SPM-IRCD-015",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 10, row 3",
+          "primary_source_excerpt_sha256": "c94888e194ae2dc07be5f7b001b43bc911793e31e8d931b9637a1dcb21af72f7"
+        },
+        {
+          "rule_id": "IRCD-016",
+          "module": "mmabp_ir_candidate",
+          "category": "registry",
+          "statement": "IR candidate no escribe en registry activo; solo produce registry candidates separados.",
+          "condition": "active registry write requested",
+          "action": "block write",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3!Table5",
+            "D3!Table6",
+            "D3:R4"
+          ],
+          "source_proof_id": "SPM-IRCD-016",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 13, row 5",
+          "primary_source_excerpt_sha256": "4842ca655b0aad498e130617cbb062ba3db228372fdc097baf42aa8d4613f96e"
+        },
+        {
+          "rule_id": "IRCD-017",
+          "module": "mmabp_ir_candidate",
+          "category": "versioning",
+          "statement": "Toda recomputación crea nueva versión y marca la anterior superseded.",
+          "condition": "source payload/candidate changes",
+          "action": "supersede and rebuild",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:24",
+            "D4:26"
+          ],
+          "source_proof_id": "SPM-IRCD-017",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 24, table 22, row 6",
+          "primary_source_excerpt_sha256": "80779f5eb0e5890b446bd1c248e4bff44fcc037c95b22e585956b5d3357ff13a"
+        },
+        {
+          "rule_id": "IRCD-018",
+          "module": "mmabp_ir_candidate",
+          "category": "checksum",
+          "statement": "Calcular checksum sobre IR canonizado, fuentes y gate versions.",
+          "condition": "checksum missing",
+          "action": "candidate cannot advance",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:21",
+            "D4:23"
+          ],
+          "source_proof_id": "SPM-IRCD-018",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 21, paragraph 284",
+          "primary_source_excerpt_sha256": "2d03916bfd93ee8c9fe7a99ba5c7d923645d74556674533ecd340aa1dda55e62"
+        },
+        {
+          "rule_id": "IRCD-019",
+          "module": "mmabp_ir_candidate",
+          "category": "state",
+          "statement": "MMABP-IR candidate permanece candidate_only/rehearsal_only; nunca adopta estado active, final o certified.",
+          "condition": "IR candidate requested as active/final/certified or outside rehearsal",
+          "action": "block transition and retain candidate-only state",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D3:R4",
+            "D3!Table10"
+          ],
+          "source_proof_id": "SPM-IRCD-019",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_with_normalized_names",
+          "primary_source_locator": "table 13, row 5",
+          "primary_source_excerpt_sha256": "4842ca655b0aad498e130617cbb062ba3db228372fdc097baf42aa8d4613f96e"
+        },
+        {
+          "rule_id": "IRCD-020",
+          "module": "mmabp_ir_candidate",
+          "category": "audit",
+          "statement": "Registrar gate snapshots, issue refs, actor/system y reason en cada transición.",
+          "condition": "audit metadata missing",
+          "action": "block transition",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:27",
+            "D3:R3"
+          ],
+          "source_proof_id": "SPM-IRCD-020",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 27, table 25, row 8",
+          "primary_source_excerpt_sha256": "4d4c578704ab6d1f5220dc22b926011b97ceecad61bc7e0e646af3c18f4b8ce0"
+        }
+      ],
+      "outputs": [
+        "mmabp_ir_candidate",
+        "ir_candidate_blocker[]",
+        "registry_candidate_request"
+      ],
+      "forbidden_outputs": [
+        "diagram",
+        "final_IR",
+        "diagnosis",
+        "active_registry_write",
+        "ExportCodePackage"
+      ]
+    },
+    "registry_candidate": {
+      "module_id": "M7-REGC",
+      "purpose": "Crear registros candidatos separados para PM, MoC, PF, OLC, consistency y readiness sin escribir registries activos.",
+      "entity_name": "registry_candidate",
+      "input_contract": {
+        "required": [
+          "MMABP-IR candidate",
+          "source structural candidates",
+          "gate results",
+          "provenance"
+        ],
+        "preconditions": [
+          "IR ready_for_registry_candidate or rehearsal_only",
+          "no hard blocker for target"
+        ]
+      },
+      "entity_schema": [
+        {
+          "name": "registry_candidate_id",
+          "type": "string",
+          "required": true,
+          "description": "Identificador.",
+          "source_refs": [
+            "D3!Table4"
+          ]
+        },
+        {
+          "name": "run_id",
+          "type": "string",
+          "required": true,
+          "description": "Run de origen.",
+          "source_refs": [
+            "D4:23.3"
+          ]
+        },
+        {
+          "name": "case_id",
+          "type": "string",
+          "required": true,
+          "description": "Scope autorizado.",
+          "source_refs": [
+            "D4:27"
+          ]
+        },
+        {
+          "name": "registry_target",
+          "type": "enum",
+          "required": true,
+          "description": "Target candidate.",
+          "source_refs": [
+            "D6!Parallel_Production_Contract"
+          ],
+          "enum": [
+            "PM",
+            "MoC",
+            "PF",
+            "OLC",
+            "Consistency",
+            "Readiness"
+          ]
+        },
+        {
+          "name": "record_type",
+          "type": "string",
+          "required": true,
+          "description": "Tipo de elemento.",
+          "source_refs": [
+            "D6!Parallel_Production_Contract"
+          ]
+        },
+        {
+          "name": "record_key_candidate",
+          "type": "string",
+          "required": true,
+          "description": "Clave semántica candidata, no ID activo.",
+          "source_refs": [
+            "D3!Table4"
+          ]
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Etiqueta candidata.",
+          "source_refs": [
+            "D4:23.3"
+          ]
+        },
+        {
+          "name": "properties",
+          "type": "object",
+          "required": true,
+          "description": "Propiedades según target.",
+          "source_refs": [
+            "D6!Parallel_Production_Contract"
+          ]
+        },
+        {
+          "name": "source_ir_element_ids",
+          "type": "array",
+          "required": true,
+          "description": "Elementos IR fuente.",
+          "source_refs": [
+            "D3:R3"
+          ]
+        },
+        {
+          "name": "source_candidate_ids",
+          "type": "array",
+          "required": true,
+          "description": "Structural candidates fuente.",
+          "source_refs": [
+            "D4:23.3"
+          ]
+        },
+        {
+          "name": "source_evidence_refs",
+          "type": "array",
+          "required": true,
+          "description": "Evidencia y variables.",
+          "source_refs": [
+            "D3:R3"
+          ]
+        },
+        {
+          "name": "conformance_status",
+          "type": "string",
+          "required": true,
+          "description": "Checkpoint.",
+          "source_refs": [
+            "D1:4.1"
+          ]
+        },
+        {
+          "name": "consistency_status",
+          "type": "string",
+          "required": true,
+          "description": "Checkpoint.",
+          "source_refs": [
+            "D1:4.2-4.5"
+          ]
+        },
+        {
+          "name": "candidate_state",
+          "type": "enum",
+          "required": true,
+          "description": "Estado candidate-only.",
+          "source_refs": [
+            "D3:R4"
+          ],
+          "enum": [
+            "candidate",
+            "blocked",
+            "ready_for_rehearsal",
+            "superseded",
+            "rejected"
+          ]
+        },
+        {
+          "name": "checksum",
+          "type": "string",
+          "required": true,
+          "description": "Checksum.",
+          "source_refs": [
+            "D4:21"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "rule_id": "REGC-001",
+          "module": "registry_candidate",
+          "category": "eligibility",
+          "statement": "Crear registry candidate solo desde MMABP-IR candidate listo y structural candidates trazables.",
+          "condition": "IR not ready or sources missing",
+          "action": "block registry candidate creation",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3!Table5",
+            "D6!Parallel_Production_Contract",
+            "IRCD-001"
+          ],
+          "source_proof_id": "SPM-REGC-001",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A5:E5",
+          "primary_source_excerpt_sha256": "6cf7d922f92988dfd861b9af1c83610db45ee04ce5197a8d237ead733f6c8c47"
+        },
+        {
+          "rule_id": "REGC-002",
+          "module": "registry_candidate",
+          "category": "candidate_only",
+          "statement": "Registry candidate no equivale a registro activo ni autoriza escritura en registry productivo.",
+          "condition": "consumer requests active write",
+          "action": "block and audit",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3!Table6",
+            "D3!Table10",
+            "D3:R4"
+          ],
+          "source_proof_id": "SPM-REGC-002",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 13, row 5",
+          "primary_source_excerpt_sha256": "4842ca655b0aad498e130617cbb062ba3db228372fdc097baf42aa8d4613f96e"
+        },
+        {
+          "rule_id": "REGC-003",
+          "module": "registry_candidate",
+          "category": "target",
+          "statement": "registry_target permitido: PM, MoC, PF, OLC, Consistency o Readiness candidate.",
+          "condition": "unsupported target",
+          "action": "reject record",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D6!Parallel_Production_Contract",
+            "D4:13"
+          ],
+          "source_proof_id": "SPM-REGC-003",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A9:E9",
+          "primary_source_excerpt_sha256": "228810309e11c1859908dd238b01006f67aa54ea8b0e84dd444d80bd409f9ff2"
+        },
+        {
+          "rule_id": "REGC-004",
+          "module": "registry_candidate",
+          "category": "source",
+          "statement": "Conservar IR element ids, structural_candidate ids, source variables y evidence refs.",
+          "condition": "source chain incomplete",
+          "action": "block record",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D3:R3",
+            "D4:23.3"
+          ],
+          "source_proof_id": "SPM-REGC-004",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 13, row 4",
+          "primary_source_excerpt_sha256": "70bf299755ab7ac3354dcf4ef5d5f90ed3d16e4c5d1c0cf6f33aaf2fb9ca39e6"
+        },
+        {
+          "rule_id": "REGC-005",
+          "module": "registry_candidate",
+          "category": "PM",
+          "statement": "PM candidate exige customer, need, process, trigger, target_state y support/synchronization cuando apliquen.",
+          "condition": "required PM fields missing",
+          "action": "block PM registry candidate",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:2.2.6",
+            "D6!Parallel_Production_Contract"
+          ],
+          "source_proof_id": "SPM-REGC-005",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A5:E5",
+          "primary_source_excerpt_sha256": "6cf7d922f92988dfd861b9af1c83610db45ee04ce5197a8d237ead733f6c8c47"
+        },
+        {
+          "rule_id": "REGC-006",
+          "module": "registry_candidate",
+          "category": "PM_PF_boundary",
+          "statement": "No fusionar PM y PF ni almacenar tareas detalladas dentro de PM registry candidate.",
+          "condition": "PM/PF contamination detected",
+          "action": "block and split targets",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:10/Table13/R5/C3",
+            "D1:2.2.6",
+            "D1:2.3.6"
+          ],
+          "source_proof_id": "SPM-REGC-006",
+          "source_proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "heading \"10. Contrato de salida hacia Producción Paralela\"; table 13, row 5, column \"Restricción\"",
+          "primary_source_excerpt_sha256": "25d3fd60b904c72ec6bd7ab128274a301721386564865ed31eb9717a02124ebd",
+          "primary_source_id": "D5",
+          "source_role_policy": "direct operational proof from primary_source_id; D1 contextual guard only",
+          "workbench_repair_id": "EVE07-WB-V1"
+        },
+        {
+          "rule_id": "REGC-007",
+          "module": "registry_candidate",
+          "category": "MoC",
+          "statement": "MoC candidate exige class/relation semantics resueltas y evita IDs técnicos como conceptos.",
+          "condition": "technical identifier or unresolved semantics",
+          "action": "block MoC registry candidate",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:3.1.5",
+            "EVE05:semantic_resolution_gate"
+          ],
+          "source_proof_id": "SPM-REGC-007",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.semantic_resolution_gate.gate_definitions[0]",
+          "primary_source_excerpt_sha256": "5e38eb181c56796c835bd8f444205788b4d63f30b4e58a29c737900d1d37e531"
+        },
+        {
+          "rule_id": "REGC-008",
+          "module": "registry_candidate",
+          "category": "ISA",
+          "statement": "No usar 'tipo de' como Jerarquía ISA sin especialización real.",
+          "condition": "false ISA detected",
+          "action": "block relation and request semantic review",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:3.1.5",
+            "D6!Semantic_Resolution_Gates:SEM-004"
+          ],
+          "source_proof_id": "SPM-REGC-008",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Semantic_Resolution_Gates!A5:G5",
+          "primary_source_excerpt_sha256": "b2f2baa8c214e9d0b545fe2f60f5d95fbd87c2ae15d9a8e3b82949b619877292"
+        },
+        {
+          "rule_id": "REGC-009",
+          "module": "registry_candidate",
+          "category": "role_phase_end",
+          "statement": "Mantener role, phase y end como distinciones dinámicas; no fijarlas como clases estáticas sin resolución.",
+          "condition": "unresolved role/phase/end",
+          "action": "block candidate",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates:SEM-006",
+            "EVE05:semantic_resolution_gate"
+          ],
+          "source_proof_id": "SPM-REGC-009",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Semantic_Resolution_Gates!A7:G7",
+          "primary_source_excerpt_sha256": "e02c39e929c26fb3595c85e921ae524accec3d9905c4ee53fae754e99a001f42"
+        },
+        {
+          "rule_id": "REGC-010",
+          "module": "registry_candidate",
+          "category": "PF",
+          "statement": "PF candidate exige task, event, object state, handoff/loop/gateway y Process State/timer cuando aplique.",
+          "condition": "PF required semantics missing",
+          "action": "block PF registry candidate",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:2.3.6",
+            "D6!Parallel_Production_Contract"
+          ],
+          "source_proof_id": "SPM-REGC-010",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A7:E7",
+          "primary_source_excerpt_sha256": "e9c67117ae2cfd251dbb8d9279f07925006786b689075610bbd4457ddb680cf8"
+        },
+        {
+          "rule_id": "REGC-011",
+          "module": "registry_candidate",
+          "category": "swimlane",
+          "statement": "No almacenar swimlanes ni contexto organizacional como estructura PF.",
+          "condition": "swimlane/role lane found",
+          "action": "block PF candidate",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D5:10/Table13/R7/C3",
+            "D1:2.3.3"
+          ],
+          "source_proof_id": "SPM-REGC-011",
+          "source_proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "heading \"10. Contrato de salida hacia Producción Paralela\"; table 13, row 7, column \"Restricción\"",
+          "primary_source_excerpt_sha256": "2a48c56fa436c25aaac804e7d3fd2dc65353014ab41ad5d4ff50a258398e62c0",
+          "primary_source_id": "D5",
+          "source_role_policy": "direct operational proof from primary_source_id; D1 contextual guard only",
+          "workbench_repair_id": "EVE07-WB-V1"
+        },
+        {
+          "rule_id": "REGC-012",
+          "module": "registry_candidate",
+          "category": "OLC",
+          "statement": "OLC candidate exige objeto único, estado, transición, evento, transformer y end; no fusiona ciclos.",
+          "condition": "object lifecycle merged or incomplete",
+          "action": "block OLC registry candidate",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D1:3.2.4",
+            "D6!Parallel_Production_Contract"
+          ],
+          "source_proof_id": "SPM-REGC-012",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A8:E8",
+          "primary_source_excerpt_sha256": "8f882a6b4baaba4abb4468f2b173c33b285d748090a095cf3f71e7fb4f6ae9d9"
+        },
+        {
+          "rule_id": "REGC-013",
+          "module": "registry_candidate",
+          "category": "aliases",
+          "statement": "Aliases no crean duplicados; conservar alias y resolver same/different concept.",
+          "condition": "alias unresolved",
+          "action": "mark candidate blocked_for_semantic_resolution",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates:SEM-005"
+          ],
+          "source_proof_id": "SPM-REGC-013",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Semantic_Resolution_Gates!A6:G6",
+          "primary_source_excerpt_sha256": "97853f111f77e50477c93f1de92d56c5f414066fc649b41bf4e080ea25495c65"
+        },
+        {
+          "rule_id": "REGC-014",
+          "module": "registry_candidate",
+          "category": "conformance",
+          "statement": "Cada record candidate incluye conformance_status y checkpoint refs.",
+          "condition": "conformance missing/failed",
+          "action": "block candidate",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D1:4.1",
+            "EVE05:mmabp_conformance_gate"
+          ],
+          "source_proof_id": "SPM-REGC-014",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.mmabp_conformance_gate.role",
+          "primary_source_excerpt_sha256": "f7ca94ddfcc8df5983fa47232259fad20a1f3155c9251f81889041a3f5a01dd5"
+        },
+        {
+          "rule_id": "REGC-015",
+          "module": "registry_candidate",
+          "category": "consistency",
+          "statement": "Cada record candidate incluye consistency_status y compartments evaluados.",
+          "condition": "consistency missing/failed",
+          "action": "block candidate",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D1:4.2-4.5",
+            "EVE05:mmabp_consistency_gate"
+          ],
+          "source_proof_id": "SPM-REGC-015",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.mmabp_consistency_gate.role",
+          "primary_source_excerpt_sha256": "a8fe29a03690671ed660771e53510629e742c7fc16177649da916ce9be6a83d0"
+        },
+        {
+          "rule_id": "REGC-016",
+          "module": "registry_candidate",
+          "category": "B7",
+          "statement": "No crear registry candidate desde B7-Q39/B7-Q40/C20.",
+          "condition": "direct B7 source",
+          "action": "block and manual review",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:6.3",
+            "D6!Critical_Routes:CR-B7"
+          ],
+          "source_proof_id": "SPM-REGC-016",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 6.3, table 8, row 7",
+          "primary_source_excerpt_sha256": "f346c66c3e59653a57449c134dc578d142416e2ffe4cd070172e5a832226c795"
+        },
+        {
+          "rule_id": "REGC-017",
+          "module": "registry_candidate",
+          "category": "C09",
+          "statement": "Feedback/rework registry candidate exige receiver_feedback_exists y route closed; satisfaction no basta.",
+          "condition": "feedback route missing",
+          "action": "block PF/OLC registry candidate",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D5:6.2",
+            "D6!Critical_Routes:CR-B3"
+          ],
+          "source_proof_id": "SPM-REGC-017",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Critical_Routes!A4:G4",
+          "primary_source_excerpt_sha256": "a286bdcee7405107b10dd0f93f8f6d92aa6b2ac5627ec8248111b6acb296de7c"
+        },
+        {
+          "rule_id": "REGC-018",
+          "module": "registry_candidate",
+          "category": "state",
+          "statement": "Registry candidate permanece en estado candidato/rehearsal o bloqueado; nunca adopta estado active.",
+          "condition": "registry candidate requested as active",
+          "action": "block active transition",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D3:R4",
+            "D3!Table10"
+          ],
+          "source_proof_id": "SPM-REGC-018",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_with_normalized_names",
+          "primary_source_locator": "table 13, row 5",
+          "primary_source_excerpt_sha256": "4842ca655b0aad498e130617cbb062ba3db228372fdc097baf42aa8d4613f96e"
+        },
+        {
+          "rule_id": "REGC-019",
+          "module": "registry_candidate",
+          "category": "versioning",
+          "statement": "Recomputación invalida candidatos dependientes y conserva historial.",
+          "condition": "source changes",
+          "action": "mark stale/superseded and rebuild",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:24",
+            "D4:26"
+          ],
+          "source_proof_id": "SPM-REGC-019",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 24, table 22, row 6",
+          "primary_source_excerpt_sha256": "80779f5eb0e5890b446bd1c248e4bff44fcc037c95b22e585956b5d3357ff13a"
+        },
+        {
+          "rule_id": "REGC-020",
+          "module": "registry_candidate",
+          "category": "dedupe",
+          "statement": "Detectar duplicados por semantic key sin fusionar automáticamente conceptos ambiguos.",
+          "condition": "duplicate semantic key",
+          "action": "open semantic review",
+          "blocking": false,
+          "severity": "major",
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates:SEM-005"
+          ],
+          "source_proof_id": "SPM-REGC-020",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Semantic_Resolution_Gates!A6:G6",
+          "primary_source_excerpt_sha256": "b0dcdb09a3da90355cddae758f920cce34aa95750c73da9f9173dd34d7337226"
+        },
+        {
+          "rule_id": "REGC-021",
+          "module": "registry_candidate",
+          "category": "authorization",
+          "statement": "Solo servicio shadow/rehearsal autorizado puede persistir candidates; nunca usuario final.",
+          "condition": "unauthorized actor",
+          "action": "block and audit",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:27",
+            "D4!Table25",
+            "D3!Table10"
+          ],
+          "source_proof_id": "SPM-REGC-021",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 25, row 4",
+          "primary_source_excerpt_sha256": "535644a1987a1f9bf2541540ba6747da32797130ba19458d9a3d6df87a4cae38"
+        },
+        {
+          "rule_id": "REGC-022",
+          "module": "registry_candidate",
+          "category": "ui",
+          "statement": "No exponer IDs, bindings, inventory facts o registry internals en UI cliente.",
+          "condition": "internal candidate projected to product UI",
+          "action": "block product projection",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D3!Table11",
+            "D3:R7"
+          ],
+          "source_proof_id": "SPM-REGC-022",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 11, row 2",
+          "primary_source_excerpt_sha256": "02b38a1ea443ef01138ba3da78d4262a548cac045026630077cddcce9a1e8e75"
+        }
+      ],
+      "outputs": [
+        "registry_candidate",
+        "registry_candidate_blocker[]"
+      ],
+      "forbidden_outputs": [
+        "active_registry_record",
+        "database_schema_projection",
+        "diagnosis",
+        "product_ui_internal"
+      ]
+    },
+    "export_blockers": {
+      "module_id": "M7-EXB",
+      "purpose": "Evaluar y persistir No-Go/export blockers que impiden saltos desde evidencia a payload, IR, registry, diagnóstico o producción real.",
+      "entity_name": "export_blocker",
+      "input_contract": {
+        "required": [
+          "run context",
+          "payload/candidate target",
+          "gate results",
+          "readiness",
+          "authority context"
+        ],
+        "preconditions": [
+          "deterministic blocker catalog loaded"
+        ]
+      },
+      "entity_schema": [
+        {
+          "name": "export_blocker_id",
+          "type": "string",
+          "required": true,
+          "description": "Identificador.",
+          "source_refs": [
+            "D4:21"
+          ]
+        },
+        {
+          "name": "run_id",
+          "type": "string",
+          "required": true,
+          "description": "Run afectado.",
+          "source_refs": [
+            "D4:21"
+          ]
+        },
+        {
+          "name": "case_id",
+          "type": "string",
+          "required": true,
+          "description": "Scope.",
+          "source_refs": [
+            "D4:27"
+          ]
+        },
+        {
+          "name": "blocker_code",
+          "type": "string",
+          "required": true,
+          "description": "Código del catálogo.",
+          "source_refs": [
+            "D4:9",
+            "D3:R8"
+          ]
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": true,
+          "description": "Categoría.",
+          "source_refs": [
+            "D4:9"
+          ]
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": true,
+          "description": "Severidad.",
+          "source_refs": [
+            "D4:21"
+          ]
+        },
+        {
+          "name": "hard_block",
+          "type": "boolean",
+          "required": true,
+          "description": "Bloqueo duro.",
+          "source_refs": [
+            "D6!Readiness_Gaps_Reentry"
+          ]
+        },
+        {
+          "name": "affected_object_type",
+          "type": "string",
+          "required": true,
+          "description": "Payload/candidate afectado.",
+          "source_refs": [
+            "D4:21"
+          ]
+        },
+        {
+          "name": "affected_object_id",
+          "type": "string",
+          "required": false,
+          "description": "ID afectado.",
+          "source_refs": [
+            "D4:21"
+          ]
+        },
+        {
+          "name": "source_refs",
+          "type": "array",
+          "required": true,
+          "description": "Fuente del blocker.",
+          "source_refs": [
+            "D3:R3"
+          ]
+        },
+        {
+          "name": "resolution_action",
+          "type": "string",
+          "required": true,
+          "description": "Acción necesaria.",
+          "source_refs": [
+            "D6!Readiness_Gaps_Reentry"
+          ]
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "required": true,
+          "description": "Estado del blocker.",
+          "source_refs": [
+            "D4:27"
+          ],
+          "enum": [
+            "open",
+            "resolved",
+            "superseded",
+            "waived_by_authority"
+          ]
+        },
+        {
+          "name": "audit_refs",
+          "type": "array",
+          "required": true,
+          "description": "Trazabilidad de cambios.",
+          "source_refs": [
+            "D4:27"
+          ]
+        }
+      ],
+      "blocker_catalog": [
+        {
+          "blocker_code": "EXB-001",
+          "category": "missing_run_scope",
+          "trigger_condition": "run/case/role/activity scope incompleto",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block all payloads",
+          "source_refs": [
+            "D4:27",
+            "EVE06:ARR-004"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-001",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.activity_runtime_run.rules[3]",
+          "primary_source_excerpt_sha256": "3709f66cd5ceb9a6bbaf5a1152dec32dcaf3cb84cfaf0c2312ddf3a041e1d876"
+        },
+        {
+          "blocker_code": "EXB-002",
+          "category": "catalog_version_mismatch",
+          "trigger_condition": "catalog_version_id no coincide con el run congelado",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block and audit",
+          "source_refs": [
+            "D4:23",
+            "EVE06:ARR-003"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-002",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.activity_runtime_run.rules[2]",
+          "primary_source_excerpt_sha256": "fd3e7704989dbeaf3962ba6bae0414ce88b99aafe52d5a754bb1ad11200eec86"
+        },
+        {
+          "blocker_code": "EXB-003",
+          "category": "B0_unconfirmed",
+          "trigger_condition": "actividad no confirmada o weak_context bloqueante",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "reentry B0; no SCR",
+          "source_refs": [
+            "D6!Critical_Routes:CR-B0"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-003",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Critical_Routes!A2:G2",
+          "primary_source_excerpt_sha256": "90cf93e1a91fbfdb7012904922297edefd341b8124f67d18caf4ec2a4d1500fd"
+        },
+        {
+          "blocker_code": "EXB-004",
+          "category": "B2_route_missing",
+          "trigger_condition": "excepción de transformación sin ruta canónica 2.9/2.10",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "reentry C05/C06; no candidates",
+          "source_refs": [
+            "D6!Critical_Routes:CR-B2"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-004",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Critical_Routes!A3:G3",
+          "primary_source_excerpt_sha256": "d5b5b7e61885b7a42ae3af439682f93f5656289961f9c8da5d67f8164b4fcf6f"
+        },
+        {
+          "blocker_code": "EXB-005",
+          "category": "C09_route_missing",
+          "trigger_condition": "feedback textual sin C09 cerrada",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "receiver_feedback_route_missing; no rework",
+          "source_refs": [
+            "D5:6.2",
+            "D6!Critical_Routes:CR-B3"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-005",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Critical_Routes!A4:G4",
+          "primary_source_excerpt_sha256": "34a9206e646ded49f54ee182fdd5a0e6f5da71a987d207042dc0850dfce82921"
+        },
+        {
+          "blocker_code": "EXB-006",
+          "category": "satisfaction_as_feedback",
+          "trigger_condition": "receiver_satisfaction usada como receiver_feedback",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block PF/OLC candidate",
+          "source_refs": [
+            "D5:6.2"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-006",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 6.2, paragraph 23",
+          "primary_source_excerpt_sha256": "7160ec5882bd58f9f2e1c1dfcf8b71fe946ba17c2c1b6216a4ce8b7ca62bc078"
+        },
+        {
+          "blocker_code": "EXB-007",
+          "category": "B7_direct_projection",
+          "trigger_condition": "B7/C20 intenta crear MoC/IR/registry/export/diagnóstico",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block and manual review",
+          "source_refs": [
+            "D5:6.3",
+            "D6!Critical_Routes:CR-B7"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-007",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 6.3, table 8, row 7",
+          "primary_source_excerpt_sha256": "f346c66c3e59653a57449c134dc578d142416e2ffe4cd070172e5a832226c795"
+        },
+        {
+          "blocker_code": "EXB-008",
+          "category": "semantic_unresolved",
+          "trigger_condition": "SEM-001..007 no resuelto",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block MoC/OLC projection",
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-008",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Semantic_Resolution_Gates!A2:G2",
+          "primary_source_excerpt_sha256": "b197271fc9aa98d1a6ea1cf8f027f345fe2c2672a12bed69be10cc4a86cd9380"
+        },
+        {
+          "blocker_code": "EXB-009",
+          "category": "process_state_without_timer",
+          "trigger_condition": "PST gate faltante",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block PF/OLC Process State",
+          "source_refs": [
+            "D6!Process_State_Timer_Gates"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-009",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Process_State_Timer_Gates!A2:G2",
+          "primary_source_excerpt_sha256": "21c28ba12c6af7600caffe8e7f88864b9042711021040612f68f9258960ee440"
+        },
+        {
+          "blocker_code": "EXB-010",
+          "category": "conformance_failed",
+          "trigger_condition": "modelo candidate no representa realidad",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "reentry to evidence; no consistency cosmetic alignment",
+          "source_refs": [
+            "D1:4.1",
+            "EVE05:mmabp_conformance_gate"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-010",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.mmabp_conformance_gate.role",
+          "primary_source_excerpt_sha256": "f7ca94ddfcc8df5983fa47232259fad20a1f3155c9251f81889041a3f5a01dd5"
+        },
+        {
+          "blocker_code": "EXB-011",
+          "category": "consistency_failed",
+          "trigger_condition": "inconsistencia factual/temporal/estructural/compuesta",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block IR/registry candidate",
+          "source_refs": [
+            "D1:4.2-4.5",
+            "EVE05:mmabp_consistency_gate"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-011",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.mmabp_consistency_gate",
+          "primary_source_excerpt_sha256": "8ebebf2c7d138adcc120f33c446428a9b0756d6de2e73610f81cfeeb5a30c7be"
+        },
+        {
+          "blocker_code": "EXB-012",
+          "category": "readiness_not_allowed",
+          "trigger_condition": "readiness state bloqueado/reentry/manual review",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block sent state",
+          "source_refs": [
+            "D6!Readiness_Gaps_Reentry"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-012",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Readiness_Gaps_Reentry!A8:E8",
+          "primary_source_excerpt_sha256": "bf9e599bfcd0590fbfc55920d48a2adecb5b08188af158bba48e27cfa0b2d704"
+        },
+        {
+          "blocker_code": "EXB-013",
+          "category": "gap_hidden",
+          "trigger_condition": "gap o flag existente omitido del payload",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block and restore gaps",
+          "source_refs": [
+            "D4:23",
+            "D6!Readiness_Gaps_Reentry"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-013",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Readiness_Gaps_Reentry!A8:E8",
+          "primary_source_excerpt_sha256": "bf9e599bfcd0590fbfc55920d48a2adecb5b08188af158bba48e27cfa0b2d704"
+        },
+        {
+          "blocker_code": "EXB-014",
+          "category": "missing_provenance",
+          "trigger_condition": "evidence o variable sin provenance/epistemic status",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "exclude and block",
+          "source_refs": [
+            "D4:23.2",
+            "EVE06:EVI-002",
+            "EVE06:CVR-003"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-014",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.evidence_item.rules[1]",
+          "primary_source_excerpt_sha256": "95adbad042272d42ea74e1f8a2f1ffa4aaca641708591d2fb766e159de9153f6"
+        },
+        {
+          "blocker_code": "EXB-015",
+          "category": "unconfirmed_ai_as_evidence",
+          "trigger_condition": "inferencia IA no confirmada tratada como evidencia dura",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "exclude and open confirmation gap",
+          "source_refs": [
+            "D4:1",
+            "D5:2"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-015",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 2, table 3, row 5",
+          "primary_source_excerpt_sha256": "ea97fe8bb05673d6462c82412a24593ae44c976a2030bfbb6fc8f215f4c16520"
+        },
+        {
+          "blocker_code": "EXB-016",
+          "category": "raw_text_projection",
+          "trigger_condition": "texto libre salta a structural candidate/IR/registry",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block source",
+          "source_refs": [
+            "D4:1",
+            "D6!Parallel_Production_Contract"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-016",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Parallel_Production_Contract!A4:E4",
+          "primary_source_excerpt_sha256": "7af7b48b82b141238851f5d687e8894be57aa37aa0dd7e42a8fccf33bb749594"
+        },
+        {
+          "blocker_code": "EXB-017",
+          "category": "compound_answer_flattened",
+          "trigger_condition": "pregunta compuesta guardada como texto opaco",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block serialization",
+          "source_refs": [
+            "D4:1",
+            "D5:4"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-017",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 1, table 2, row 5",
+          "primary_source_excerpt_sha256": "bb799303ac3aab6cf25c2df6851099e01b6193e98d50905d1500794b861617b5"
+        },
+        {
+          "blocker_code": "EXB-018",
+          "category": "stale_or_superseded_source",
+          "trigger_condition": "payload usa evidencia/candidate superseded",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "recompute from active records",
+          "source_refs": [
+            "D4:24",
+            "EVE06:EVI-014",
+            "EVE06:SCR-016"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-018",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.evidence_item.rules[13]",
+          "primary_source_excerpt_sha256": "f0a99a67bb2f9c21e14050c83c997dbf656ed88cc22bbd642d1f5c8fd68460c9"
+        },
+        {
+          "blocker_code": "EXB-019",
+          "category": "candidate_state_invalid",
+          "trigger_condition": "candidate blocked/stale/rejected usado como activo",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "exclude and block progression",
+          "source_refs": [
+            "D4:21",
+            "EVE06:SCR-015"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-019",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.structural_candidate_record.rules[14]",
+          "primary_source_excerpt_sha256": "6272e69945695fbc44972e2992f4ff57f8ee177edf27b4aab973673a2bc17d0d"
+        },
+        {
+          "blocker_code": "EXB-020",
+          "category": "placeholder_payload",
+          "trigger_condition": "payload contiene placeholders/ellipsis",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block readiness",
+          "source_refs": [
+            "D4:23",
+            "D4:28"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-020",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 28, table 26, row 4",
+          "primary_source_excerpt_sha256": "27b5a4210e4f9217f8ceb9b0c4fa810dd1a86dd90addd83a9a14bcf4a6daaac4"
+        },
+        {
+          "blocker_code": "EXB-021",
+          "category": "checksum_missing",
+          "trigger_condition": "payload/candidate sin checksum",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block ready/sent",
+          "source_refs": [
+            "D4:21",
+            "D4:23"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-021",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 21, table 18, row 12",
+          "primary_source_excerpt_sha256": "3d6a9a8279a5f76884d29c43ffdb24da5963a38658d6dac73f7a5dcb1cfa59f2"
+        },
+        {
+          "blocker_code": "EXB-022",
+          "category": "source_genealogy_missing",
+          "trigger_condition": "source_node/source_code/evidence refs incompletos",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block payload",
+          "source_refs": [
+            "D8",
+            "EVE03:source_node_registry",
+            "EVE03:source_code_registry"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-022",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Catalogo_Madre_Nodos!A1:AJ1",
+          "primary_source_excerpt_sha256": "6b63d509e66bc475baf06a3f706e41caaad68414d4e922e6068965ac654c90f1"
+        },
+        {
+          "blocker_code": "EXB-023",
+          "category": "unauthorized_actor",
+          "trigger_condition": "actor/sistema sin autoridad de export",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block and audit",
+          "source_refs": [
+            "D4:27"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-023",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 27, table 25, row 6",
+          "primary_source_excerpt_sha256": "f937875cf405ca4f08d714d4954902a545559c252628085c25ebc7d92eff906a"
+        },
+        {
+          "blocker_code": "EXB-024",
+          "category": "cross_tenant_scope",
+          "trigger_condition": "case/tenant mismatch",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block and security audit",
+          "source_refs": [
+            "D4:27"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-024",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 27, table 25, row 8",
+          "primary_source_excerpt_sha256": "4d4c578704ab6d1f5220dc22b926011b97ceecad61bc7e0e646af3c18f4b8ce0"
+        },
+        {
+          "blocker_code": "EXB-025",
+          "category": "active_registry_write",
+          "trigger_condition": "candidate intenta escribir registry activo",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block write",
+          "source_refs": [
+            "D3:R4",
+            "D3!Table6",
+            "D3!Table10"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-025",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 13, row 5",
+          "primary_source_excerpt_sha256": "4842ca655b0aad498e130617cbb062ba3db228372fdc097baf42aa8d4613f96e"
+        },
+        {
+          "blocker_code": "EXB-026",
+          "category": "production_promotion",
+          "trigger_condition": "shadow/rehearsal candidate intenta promoción productiva",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block and algedonic escalation",
+          "source_refs": [
+            "D3:R4",
+            "D3!Table10"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-026",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 13, row 5",
+          "primary_source_excerpt_sha256": "4842ca655b0aad498e130617cbb062ba3db228372fdc097baf42aa8d4613f96e"
+        },
+        {
+          "blocker_code": "EXB-027",
+          "category": "final_export_requested",
+          "trigger_condition": "candidate_export se trata como ExportCodePackage final",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block final export",
+          "source_refs": [
+            "D3!Table5",
+            "D3!Table6"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-027",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 5, row 3",
+          "primary_source_excerpt_sha256": "e868d58e56d54227f98657052cf066ef2f5660a7e748ef97df8d57fee9c0795b"
+        },
+        {
+          "blocker_code": "EXB-028",
+          "category": "diagnosis_requested",
+          "trigger_condition": "payload intenta emitir diagnóstico EVE/VSM/AHE",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block and boundary violation",
+          "source_refs": [
+            "D3!Table6",
+            "D3!Table10",
+            "D3!Table11"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-028",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 10, row 2",
+          "primary_source_excerpt_sha256": "56ec58b8b1d4ffb7bec69800c12701930698e9d6e0760a4268a8582885ae3835"
+        },
+        {
+          "blocker_code": "EXB-029",
+          "category": "internal_ui_leak",
+          "trigger_condition": "Object Inventory/Membrane/SG Shadow internals expuestos al cliente",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block product projection",
+          "source_refs": [
+            "D3!Table11",
+            "D3:R7"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-029",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 11, row 4",
+          "primary_source_excerpt_sha256": "fb5311fbeb76228719d86274455fd7989877360b14d80ab57d75f9de2dca2d26"
+        },
+        {
+          "blocker_code": "EXB-030",
+          "category": "manual_review_open",
+          "trigger_condition": "manual_review_required sin resolución autorizada",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block send",
+          "source_refs": [
+            "D4:27",
+            "D6!Readiness_Gaps_Reentry"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-030",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 27, table 25, row 4",
+          "primary_source_excerpt_sha256": "535644a1987a1f9bf2541540ba6747da32797130ba19458d9a3d6df87a4cae38"
+        },
+        {
+          "blocker_code": "EXB-031",
+          "category": "unaudited_override",
+          "trigger_condition": "overrideRequested=true y overrideAudited=false",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "require audited override metadata: actor_id, reason, scope, prior_value, new_value, timestamp",
+          "source_refs": [
+            "D4:27",
+            "D4!Table25"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-031",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 25, row 5",
+          "primary_source_excerpt_sha256": "ed34811ea05f0139bbb22b5a2e190cac690250335a200fdcfec74d29ad93a3a6",
+          "predicate_expression": "Boolean(context.overrideRequested) && !context.overrideAudited",
+          "required_context_fields": [
+            "overrideRequested",
+            "overrideAudited"
+          ],
+          "false_positive_guard": "No bloquear cuando overrideRequested=false, aunque overrideAudited=false."
+        },
+        {
+          "blocker_code": "EXB-032",
+          "category": "budget_or_carry_forward_critical",
+          "trigger_condition": "gap crítico quedó como carry_forward por presupuesto",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block export until route resolved",
+          "source_refs": [
+            "D4:9",
+            "D6!Branching_Budget_Rules"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-032",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Branching_Budget_Rules!A10:F10",
+          "primary_source_excerpt_sha256": "e87985d5239735091801ac83e3a1051ffbf3fd00107529e78d9cd1a1e98c7e38"
+        },
+        {
+          "blocker_code": "EXB-033",
+          "category": "IR_diagram_equivalence",
+          "trigger_condition": "MMABP-IR candidate tratado como diagrama final",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block render/export",
+          "source_refs": [
+            "D3!Table5"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-033",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 5, row 3",
+          "primary_source_excerpt_sha256": "e868d58e56d54227f98657052cf066ef2f5660a7e748ef97df8d57fee9c0795b"
+        },
+        {
+          "blocker_code": "EXB-034",
+          "category": "MDSB_finality_violation",
+          "trigger_condition": "MDSB patch tratado como MDSB final/transducción final",
+          "severity": "hard",
+          "hard_block": true,
+          "resolution_action": "block promotion",
+          "source_refs": [
+            "D3!Table6",
+            "D3!Table10",
+            "D3:R4"
+          ],
+          "status": "definition",
+          "source_proof_id": "SPM-EXB-034",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 10, row 7",
+          "primary_source_excerpt_sha256": "0f6c0462409a4b3f64cf55f36dc373a763b67d2bb1d4316ea0f84c31ce27c2e2"
+        }
+      ],
+      "rules": [
+        {
+          "rule_id": "EXBE-001",
+          "module": "export_blockers",
+          "category": "evaluation",
+          "statement": "Evaluar blockers antes de construir, marcar ready o enviar cualquier payload/candidate.",
+          "condition": "payload lifecycle transition requested",
+          "action": "run blocker evaluation in deterministic order",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:9",
+            "D4:23",
+            "EVE05:execution_pipeline",
+            "EVE06:execution_pipeline"
+          ],
+          "source_proof_id": "SPM-EXBE-001",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 9, ordered steps",
+          "primary_source_excerpt_sha256": "a53d8c695aff5fdf90ea1a359dcf627e73065e4e246b4b86be26bafd34c96630"
+        },
+        {
+          "rule_id": "EXBE-002",
+          "module": "export_blockers",
+          "category": "hard_block",
+          "statement": "Un hard blocker abierto impide ready/sent, IR candidate y registry candidate.",
+          "condition": "open hard blocker exists",
+          "action": "set output blocked",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:23",
+            "D6!Readiness_Gaps_Reentry"
+          ],
+          "source_proof_id": "SPM-EXBE-002",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Readiness_Gaps_Reentry!A2:E2",
+          "primary_source_excerpt_sha256": "f5635d8bd2914f3ec6a9eb9357384f2ee9a2552b1480fcd052635f976d88a9fe"
+        },
+        {
+          "rule_id": "EXBE-003",
+          "module": "export_blockers",
+          "category": "ordering",
+          "statement": "Orden de evaluación: scope/version → evidence/provenance → critical routes → SEM/PST → conformance → consistency → readiness → authority/finality.",
+          "condition": "evaluate export",
+          "action": "apply ordered blocker phases",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:9",
+            "D4:23",
+            "EVE05:execution_pipeline"
+          ],
+          "source_proof_id": "SPM-EXBE-003",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 9, paragraph 116",
+          "primary_source_excerpt_sha256": "1e6707cfd9c70129603bf567f8f6f73f76af837b04555ac786a055566a99c463"
+        },
+        {
+          "rule_id": "EXBE-004",
+          "module": "export_blockers",
+          "category": "dedupe",
+          "statement": "Deduplicar blockers por code+run+affected_object sin perder eventos de reapertura.",
+          "condition": "duplicate blocker detected",
+          "action": "merge active instance and append audit event",
+          "blocking": false,
+          "severity": "major",
+          "source_refs": [
+            "D4:21",
+            "D4:24"
+          ],
+          "source_proof_id": "SPM-EXBE-004",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 24, table 21, row 7",
+          "primary_source_excerpt_sha256": "66742a5386baffef793d4160e263fe3b6eb6fb874c07ce2c158aadffa665b14e"
+        },
+        {
+          "rule_id": "EXBE-005",
+          "module": "export_blockers",
+          "category": "lifecycle",
+          "statement": "Estados permitidos: open, resolved, superseded, waived_by_authority; hard methodological blockers no se pueden waive.",
+          "condition": "blocker transition requested",
+          "action": "validate transition and authority",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:27",
+            "D3!Table9"
+          ],
+          "source_proof_id": "SPM-EXBE-005",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_with_normalized_names",
+          "primary_source_locator": "section 27, table 25, row 7",
+          "primary_source_excerpt_sha256": "721ed63b820f1908693fb6b339d65c516b8ef42a6ec91d876825b078a71dc91d"
+        },
+        {
+          "rule_id": "EXBE-006",
+          "module": "export_blockers",
+          "category": "resolution",
+          "statement": "Resolver blocker solo con evidencia/gate/route nueva; nunca por default o silencio.",
+          "condition": "resolution requested without new basis",
+          "action": "reject resolution",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3:R2",
+            "D6!Readiness_Gaps_Reentry"
+          ],
+          "source_proof_id": "SPM-EXBE-006",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "Readiness_Gaps_Reentry!A3:E3",
+          "primary_source_excerpt_sha256": "2c77bb22af275572c229254caab40bccb5c9189d0c91005abfa492f45378575c"
+        },
+        {
+          "rule_id": "EXBE-007",
+          "module": "export_blockers",
+          "category": "recompute",
+          "statement": "Correcciones reevalúan blockers dependientes y supersede payloads previos.",
+          "condition": "source revision received",
+          "action": "recompute blockers and payloads",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:24",
+            "D4:26"
+          ],
+          "source_proof_id": "SPM-EXBE-007",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 24, table 21, row 5",
+          "primary_source_excerpt_sha256": "827c06914560c5f5729f8254addc98630a835e359c43244e98489c0e49fcbbd3"
+        },
+        {
+          "rule_id": "EXBE-008",
+          "module": "export_blockers",
+          "category": "audit",
+          "statement": "Cada apertura/resolución registra actor, reason, source refs, prior/new status y timestamp.",
+          "condition": "audit data missing",
+          "action": "reject transition",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "D4:27"
+          ],
+          "source_proof_id": "SPM-EXBE-008",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 27, table 25, row 8",
+          "primary_source_excerpt_sha256": "4d4c578704ab6d1f5220dc22b926011b97ceecad61bc7e0e646af3c18f4b8ce0"
+        },
+        {
+          "rule_id": "EXBE-009",
+          "module": "export_blockers",
+          "category": "algedonic",
+          "statement": "Intento de export final, diagnóstico o activación no autorizada genera escalamiento algedónico/no-go.",
+          "condition": "boundary violation detected",
+          "action": "block and escalate",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3:R8",
+            "D3!Table12",
+            "D3!Table11"
+          ],
+          "source_proof_id": "SPM-EXBE-009",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 13, row 9",
+          "primary_source_excerpt_sha256": "3bfc914f4b2cbb2d4b7f6da8b6d2499a1e5d8326e838b026b9bf0ec21648398f"
+        },
+        {
+          "rule_id": "EXBE-010",
+          "module": "export_blockers",
+          "category": "preview",
+          "statement": "Export-preview puede mostrar blockers, pero nunca ocultarlos ni representar readiness falsa.",
+          "condition": "preview requested",
+          "action": "return blockers and allowed candidate previews only",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D4:7",
+            "D4:23"
+          ],
+          "source_proof_id": "SPM-EXBE-010",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 7, table 9, row 8",
+          "primary_source_excerpt_sha256": "52da2a31c440f83b4b3a0b29fac71669f9605b1dfc8fb2f719d09aa8fff0c115"
+        },
+        {
+          "rule_id": "EXBE-011",
+          "module": "export_blockers",
+          "category": "authorization",
+          "statement": "Solo actor autorizado resuelve manual_review/override blockers; el sistema automático no los cierra.",
+          "condition": "manual blocker resolution",
+          "action": "require authorized actor and audit",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D4:27"
+          ],
+          "source_proof_id": "SPM-EXBE-011",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "section 27, table 25, row 4",
+          "primary_source_excerpt_sha256": "535644a1987a1f9bf2541540ba6747da32797130ba19458d9a3d6df87a4cae38"
+        },
+        {
+          "rule_id": "EXBE-012",
+          "module": "export_blockers",
+          "category": "no_ui_leak",
+          "statement": "Los códigos internos se traducen para UI admin; no se exponen como vísceras al usuario final.",
+          "condition": "product UI projection requested",
+          "action": "block or translate safely",
+          "blocking": true,
+          "severity": "major",
+          "source_refs": [
+            "D3!Table11",
+            "D3:R7"
+          ],
+          "source_proof_id": "SPM-EXBE-012",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 11, row 5",
+          "primary_source_excerpt_sha256": "223945d01f5f4cec1f3e034e7cc3532aea90498f151d4c7a891185fcd0028581"
+        },
+        {
+          "rule_id": "EXBE-013",
+          "module": "export_blockers",
+          "category": "consistency",
+          "statement": "No se resuelve inconsistencia alineando modelos entre sí; se regresa a evidencia factual.",
+          "condition": "consistency blocker open",
+          "action": "issue reentry to reality/source",
+          "blocking": true,
+          "severity": "critical",
+          "source_refs": [
+            "EVE05:$.modules.mmabp_conformance_gate.principles[4]",
+            "EVE05:$.modules.mmabp_conformance_gate.engine_rules[4]",
+            "D1:4.1-4.5"
+          ],
+          "source_proof_id": "SPM-EXBE-013",
+          "source_proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "$.modules.mmabp_conformance_gate.principles[4]",
+          "primary_source_excerpt_sha256": "463d2cc385532df7215d89710bef2597a8ea4f3e8faee74a98f7cd46907edd70",
+          "primary_source_id": "EVE05",
+          "source_role_policy": "direct operational proof from primary_source_id; D1 contextual guard only",
+          "workbench_repair_id": "EVE07-WB-V1"
+        },
+        {
+          "rule_id": "EXBE-014",
+          "module": "export_blockers",
+          "category": "finality",
+          "statement": "La ausencia de blockers permite rehearsal/candidate progression, no certificación ni producción real.",
+          "condition": "all blockers resolved",
+          "action": "set ready_for_rehearsal only",
+          "blocking": true,
+          "severity": "blocker",
+          "source_refs": [
+            "D3:R4",
+            "D3!Table10"
+          ],
+          "source_proof_id": "SPM-EXBE-014",
+          "source_proof_status": "CERTIFIED",
+          "transduction_class": "transduced_structured",
+          "primary_source_locator": "table 13, row 5",
+          "primary_source_excerpt_sha256": "4842ca655b0aad498e130617cbb062ba3db228372fdc097baf42aa8d4613f96e"
+        }
+      ],
+      "outputs": [
+        "export_blocker[]",
+        "export_eligibility_decision",
+        "algedonic_escalation"
+      ],
+      "forbidden_outputs": [
+        "silent_waiver",
+        "automatic_manual_review_resolution",
+        "final_promotion"
+      ]
+    }
+  },
+  "source_to_target_mapping": [
+    {
+      "mapping_id": "STM7-001",
+      "source": "D4:23.1 SceneCanonicalRecordPatch",
+      "target": "modules.scr_payload.payload_schema",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D4",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "heading \"23.1 SceneCanonicalRecordPatch\"; paragraph 289",
+        "source_excerpt_or_value": "\"payload_type\": \"scr_patch\" ... \"activity_anchor\" ... \"block_outputs\" ... \"gaps\" ... \"checksum_source\"",
+        "source_excerpt_sha256": "04d91eaaf4f58e3c8ae270bdc87b479b4213eae65a4adc4ac6e05030174e39bd",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-002",
+      "source": "D4:23.2 EvidenceBundlePatch",
+      "target": "modules.evidence_bundle_payload.payload_schema",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D4",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "heading \"23.2 EvidenceBundlePatch\"; paragraph 291",
+        "source_excerpt_or_value": "\"payload_type\": \"evidence_bundle_patch\" ... \"evidence_items\" ... \"canonical_variables\" ... \"readiness\" ... \"gap_records\"",
+        "source_excerpt_sha256": "7a19daad4f9fa26fb4482ecbe84d15d4034e20fefe6ddc8e412ef477291a8ee0",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-003",
+      "source": "D4:23.3 MMABPDesignSourceBundlePatch",
+      "target": "modules.mdsb_payload.payload_schema",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D4",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "heading \"23.3 MMABPDesignSourceBundlePatch\"; paragraph 293",
+        "source_excerpt_or_value": "\"payload_type\": \"mdsb_patch\" ... \"structural_candidates\" ... \"readiness_gaps\" ... \"export_restriction\"",
+        "source_excerpt_sha256": "1a62aa4cc072a02d16b75642986e0ef6ea5c74d9a2553a8810cbba83742cf444",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-004",
+      "source": "D4:21 parallel_export_payload",
+      "target": "payload types/states/version/checksum",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D4",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "table 4, row 18, columns \"Entidad|Descripción|Campos clave\"",
+        "source_excerpt_or_value": "parallel_export_payload | Payload versionado hacia SCR/EvidenceBundle/MDSB. | payload_id, run_id, payload_type, status, checksum, emitted_at",
+        "source_excerpt_sha256": "e1db3bef8916683744991bfb25b14dbfb23cef47fe7bdb484eb6559bc0e58274",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-005",
+      "source": "D4:7 export-preview/export endpoints",
+      "target": "execution_pipeline steps 4-11",
+      "transduction": "structured",
+      "source_proof": {
+        "source_id": "D4",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "table 9, rows 8-9, columns \"Endpoint|Propósito|Input|Output\"",
+        "source_excerpt_or_value": "GET /runtime/runs/{run_id}/export-preview | Previsualizar salida hacia Producción Paralela ... ; POST /runtime/runs/{run_id}/export | Emitir payload versionado ...",
+        "source_excerpt_sha256": "4adbd34438cdfe80ad292632c42061725ab62bca0b65ef1a3559c7f89f9963ee",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-006",
+      "source": "D4:24 revision/recompute",
+      "target": "versioning and supersession rules",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D4",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "heading \"24. Idempotencia, revisión de respuestas e invalidación/recomputación\"; paragraph 297; table 22, row 6",
+        "source_excerpt_or_value": "Corrección que afecta export payload emitido | Marcar parallel_export_payload como superseded y generar nueva versión.",
+        "source_excerpt_sha256": "80779f5eb0e5890b446bd1c248e4bff44fcc037c95b22e585956b5d3357ff13a",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-007",
+      "source": "D4:27 security/authority",
+      "target": "scope, authorization and audit blockers",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D4",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "heading \"27. Seguridad mínima, scope y auditoría de autoridad\"; paragraph 303; table 25, rows 2-8",
+        "source_excerpt_or_value": "Scoping, Tenancy, Manual review, Override, Export payload, Corrección de respuesta y Auditoría son controles mínimos.",
+        "source_excerpt_sha256": "11648f5fa22811c09772fd151a86c81e7eece52a51f248b9aa1b6c7eae3f9168",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-008",
+      "source": "D4:28 acceptance criteria",
+      "target": "qa_controls and no-placeholder controls",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D4",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "heading \"28. Criterios de listo para implementación v1.0.1\"; table 26, rows 2-9",
+        "source_excerpt_or_value": "Payload cerrado | SCR/EvidenceBundle/MDSB patch no usan placeholders en producción; QA importación y Seguridad mínima son criterios de aceptación.",
+        "source_excerpt_sha256": "8a74369ea9a73b9a99edf070732fc3d297e69f650a2ce575fc2081c6f72b9a14",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-009",
+      "source": "D6!Parallel_Production_Contract",
+      "target": "payload/registry target contracts",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D6",
+        "source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "source_kind": "xlsx",
+        "source_role": "direct_rule_source",
+        "source_locator": "sheet \"Parallel_Production_Contract\", range A1:E9",
+        "source_excerpt_or_value": "Headers: salida, función, campos mínimos, consumidor, restricción; rows define SCR, EvidenceBundle, MDSB and registry candidate contracts.",
+        "source_excerpt_sha256": "60dfc37c6b4fe16867512e1d2b803470c9384332e64f53e184ec70297badf481",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-010",
+      "source": "D6!MMABP_Output_Map",
+      "target": "quadrant candidate fields",
+      "transduction": "structured",
+      "source_proof": {
+        "source_id": "D6",
+        "source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "source_kind": "xlsx",
+        "source_role": "direct_rule_source",
+        "source_locator": "sheet \"MMABP_Output_Map\", range A1:L61",
+        "source_excerpt_or_value": "Headers include pm_output, moc_output, pf_output, olc_output, conformance_checkpoint, consistency_checkpoint, structural_candidate_type and registry_target.",
+        "source_excerpt_sha256": "de78462c5aee098f8e2861c509033a1c34a49e0b2d3597e7ac22a523230fcc7b",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-011",
+      "source": "D6!Critical_Routes",
+      "target": "EXB-003..007 and payload route rules",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D6",
+        "source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "source_kind": "xlsx",
+        "source_role": "direct_rule_source",
+        "source_locator": "sheet \"Critical_Routes\", range A1:G5",
+        "source_excerpt_or_value": "Critical route rows define route, nodes, rule, blocking consequence, downstream and v1_1 enforcement.",
+        "source_excerpt_sha256": "3afeb44338b40417aaa26fa0ab4918fbc44e63f8132220ddd9bf274151b9d594",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-012",
+      "source": "D6!Semantic_Resolution_Gates",
+      "target": "EXB-008, MDSB/IR/registry semantic rules",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D6",
+        "source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "source_kind": "xlsx",
+        "source_role": "direct_rule_source",
+        "source_locator": "sheet \"Semantic_Resolution_Gates\", range A1:G8",
+        "source_excerpt_or_value": "SEM-001..SEM-007 define trigger_condition, internal_checks, possible_outputs, blocking_rule and mmabp_target.",
+        "source_excerpt_sha256": "05b615c499bd4b70d45aea4af676b3ae48cf5fa2e1f520b93f93f40b052d8d64",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-013",
+      "source": "D6!Process_State_Timer_Gates",
+      "target": "EXB-009 and PF/OLC candidate rules",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D6",
+        "source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "source_kind": "xlsx",
+        "source_role": "direct_rule_source",
+        "source_locator": "sheet \"Process_State_Timer_Gates\", range A1:G7",
+        "source_excerpt_or_value": "PST-001..PST-006 define trigger_condition, required_capture, blocking_rule, output_variables and mmabp_target.",
+        "source_excerpt_sha256": "12d8403208b36af9acb6f2bab4f3359c59c71f21e543a44f232013020d0d4e12",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-014",
+      "source": "D6!Readiness_Gaps_Reentry",
+      "target": "payload eligibility and export blockers",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D6",
+        "source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "source_kind": "xlsx",
+        "source_role": "direct_rule_source",
+        "source_locator": "sheet \"Readiness_Gaps_Reentry\", range A1:E8",
+        "source_excerpt_or_value": "Readiness states define meaning, entry_condition, allowed_next_step and blocked_actions.",
+        "source_excerpt_sha256": "7c04dbf97fb7247cfd7cd114b99c9f9a1046bfaa64392134977e28d5e1c5f91f",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-015",
+      "source": "D5:6.2 C09",
+      "target": "feedback route blockers and candidate restrictions",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D5",
+        "source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "heading \"6.2 C09 normalizada\"; paragraph 22; table 7, rows 2-6",
+        "source_excerpt_or_value": "receiver_satisfaction no equivale a receiver_feedback; si hay aviso, rechazo, devolución, corrección, recontacto, actualización o bloqueo, debe abrirse C09.",
+        "source_excerpt_sha256": "29612cf4fd63fc7c4383349501ebb49cd1312e9edc7dbd99a469b289703d7622",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-016",
+      "source": "D5:6.3 B7/C20",
+      "target": "no direct IR/registry/export rules",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D5",
+        "source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "heading \"6.3 B7-Q39/B7-Q40 versus C20\"; table 8, rows 2-8",
+        "source_excerpt_or_value": "B7-Q39/B7-Q40 no generan salida MoC directa, registry directo, IR, export ni diagnóstico; solo readiness/preclassification signal no diagnóstico.",
+        "source_excerpt_sha256": "7734b8915db1a9d9de72e075dc76c15ece4f433d1fdb90345c468eb9ac9680a3",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-017",
+      "source": "D3!Table4 Inventory/IR/ACA/candidate export",
+      "target": "IR/registry candidate-only boundaries",
+      "transduction": "structured",
+      "source_proof": {
+        "source_id": "D3",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "table 5, rows 2-5, columns \"Componente Producción Paralela 1.6|Función|Límite\"",
+        "source_excerpt_or_value": "Inventory is lateral/shadow; MMABP-IR is not a final diagram or export; candidate_export_package is not ExportCodePackage [Generated].",
+        "source_excerpt_sha256": "587ca1bcd5a53aaaa157da4a63abfd2efe98390af22a6f0bce9de1a8c7eaa3eb",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-018",
+      "source": "D3!Table5/9 regulatory limits",
+      "target": "external_boundaries and finality blockers",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D3",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "table 6, rows 2-5 and table 10, rows 2-7",
+        "source_excerpt_or_value": "Producción Paralela habilita candidates/rehearsal, no producción real, MDSB final, transducción final, diagnóstico final or export final.",
+        "source_excerpt_sha256": "71207c604e28a7f4254bef708f7204e792c592efec6814fe4dca0db6ba801ec0",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-019",
+      "source": "D3:R1-R8",
+      "target": "integration_rules, genealogy, rehearsal and algedonic escalation",
+      "transduction": "structured_exact",
+      "source_proof": {
+        "source_id": "D3",
+        "source_path": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+        "source_kind": "docx",
+        "source_role": "direct_rule_source",
+        "source_locator": "table 13, rows 2-9, rules R1-R8",
+        "source_excerpt_or_value": "Every candidate requires traceable source; every Parallel Production artifact is candidate_only; algedonic channel stops export, diagnosis or unauthorized activation pressure.",
+        "source_excerpt_sha256": "e3c12a81a35c3ff00b9b6cc4e6ba0bb6bcb3e11bcee104c3a7ae441674cd5b42",
+        "proof_type": "exact_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-020",
+      "source": "EVE06:evidence_item",
+      "target": "EvidenceBundle evidence input",
+      "transduction": "direct_dependency",
+      "source_proof": {
+        "source_id": "EVE06",
+        "source_path": "docs/chips/execution-engine/EVE_06_Execution_Engine_v0_1/EVE_06_Execution_Engine_v0_1.json",
+        "source_kind": "json",
+        "source_role": "chip_dependency",
+        "source_locator": "$.modules.evidence_item",
+        "source_excerpt_or_value": "entity_name=evidence_item; purpose preserves literal/confirmed/corrected/derived evidence with provenance and revision chain.",
+        "source_excerpt_sha256": "cbc0a6231ee9b9ab5de0ac4530bcd54ab9ae055ba1087ddc4bf0a06785f17791",
+        "proof_type": "structured_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-021",
+      "source": "EVE06:canonical_variable_record",
+      "target": "SCR/EvidenceBundle variable input",
+      "transduction": "direct_dependency",
+      "source_proof": {
+        "source_id": "EVE06",
+        "source_path": "docs/chips/execution-engine/EVE_06_Execution_Engine_v0_1/EVE_06_Execution_Engine_v0_1.json",
+        "source_kind": "json",
+        "source_role": "chip_dependency",
+        "source_locator": "$.modules.canonical_variable_record",
+        "source_excerpt_or_value": "entity_name=canonical_variable_record; materializes declared variables from governed evidence and carries route_status/gaps.",
+        "source_excerpt_sha256": "c48ca362f93ce0d5371fd499ee8629ecf0e0714055a2778d477d0e8a6316e7c7",
+        "proof_type": "structured_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-022",
+      "source": "EVE06:structural_candidate_record",
+      "target": "MDSB/IR/registry candidate input",
+      "transduction": "direct_dependency",
+      "source_proof": {
+        "source_id": "EVE06",
+        "source_path": "docs/chips/execution-engine/EVE_06_Execution_Engine_v0_1/EVE_06_Execution_Engine_v0_1.json",
+        "source_kind": "json",
+        "source_role": "chip_dependency",
+        "source_locator": "$.modules.structural_candidate_record",
+        "source_excerpt_or_value": "entity_name=structural_candidate_record; creates traceable PM/MoC/PF/OLC candidates after variables and gates, not final models, inventory or IR.",
+        "source_excerpt_sha256": "73fde985669ea0578dd44a56cc028d6c01bf7d074e36b24dd33aa0c5f67a826c",
+        "proof_type": "structured_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-023",
+      "source": "EVE05 modules",
+      "target": "route/SEM/PST/conformance/consistency snapshots",
+      "transduction": "direct_dependency",
+      "source_proof": {
+        "source_id": "EVE05",
+        "source_path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/EVE_05_Gate_Engine_v0_1.json",
+        "source_kind": "json",
+        "source_role": "chip_dependency",
+        "source_locator": "$.modules.{critical_route_gate,semantic_resolution_gate,process_state_timer_gate,mmabp_conformance_gate,mmabp_consistency_gate}",
+        "source_excerpt_or_value": "Gate modules provide route, semantic, timer, conformance and consistency snapshots while installation_status remains NOT_INSTALLED.",
+        "source_excerpt_sha256": "32558daa43ff342e47b6ae6513116cb6a48d100fbb2a83e72baa71264f73472f",
+        "proof_type": "structured_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-024",
+      "source": "EVE04 modules/source mappings",
+      "target": "catalog/version/source validation",
+      "transduction": "direct_dependency",
+      "source_proof": {
+        "source_id": "EVE04",
+        "source_path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/EVE_04_Runtime_Catalog_v0_2.json",
+        "source_kind": "json",
+        "source_role": "chip_dependency",
+        "source_locator": "$.modules and $.source_to_target_mapping",
+        "source_excerpt_or_value": "Runtime catalog modules define base/causal interactions, UX subfields, branching budget and readiness/reentry; status READY without productive wiring.",
+        "source_excerpt_sha256": "b20a1007c483f02acb96165dd1e15be93f43c946cb814226d2a9825c8ce3c980",
+        "proof_type": "structured_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-025",
+      "source": "D8/EVE03 genealogy",
+      "target": "source refs in all payload/candidates",
+      "transduction": "reference_preservation",
+      "source_proof": {
+        "source_id": "D8",
+        "source_path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+        "source_kind": "xlsx",
+        "source_role": "canonical_reference",
+        "source_locator": "sheets \"Catalogo_Madre_Nodos\" A1:AJ165; \"Source_Question_Registry\" A1:K165; \"Canonical_Variables\" A1:K165; plus EVE03 JSON $.modules.source_node_registry",
+        "source_excerpt_or_value": "D8 preserves master_node_id, source codes, canonical variables, routes, provenance and downstream objects; EVE03 exposes the same genealogy as candidate catalog.",
+        "source_excerpt_sha256": "da960c4e2ae3ce5ff27120b0e0071af3826f621ebf529d7036b93a4eab62b56d",
+        "proof_type": "structured_source_proof",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": ""
+      }
+    },
+    {
+      "mapping_id": "STM7-026",
+      "source": "D1 PM/MoC/PF/OLC rules",
+      "target": "IR and registry candidate guards",
+      "transduction": "methodological_guard",
+      "source_proof": {
+        "source_id": "D1",
+        "source_path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/sources/Fundamentals of Business Architecture Modeling.pdf",
+        "source_kind": "pdf",
+        "source_role": "methodological_guard",
+        "source_locator": "physical pages 67 (2.2.6), 83 (2.3.3), 117 (2.3.6), 219-225 (4.5 and chapter summary)",
+        "source_excerpt_or_value": "Methodological guard: process-map/process-flow rules, swimlane limitations, and factual/temporal/structural consistency distinctions.",
+        "source_excerpt_sha256": "e5b57f8d178ef390ac94134bf5036624e1f89bf9ebad42ae0922683aef2dad44",
+        "proof_type": "contextual_guard_only",
+        "proof_status": "WORKBENCH_REPAIRED_PENDING_INDEPENDENT_QA",
+        "notes": "D1 is never used here as executable or direct runtime authority."
+      }
+    }
+  ],
+  "qa_controls": [
+    {
+      "qa_id": "PPI-QA-001",
+      "control": "required_dependencies",
+      "method": "Verify source/dependency IDs, versions and checksums.",
+      "pass_condition": "D3/D4/D5/D6/D8 and EVE03/04/05/06 present."
+    },
+    {
+      "qa_id": "PPI-QA-002",
+      "control": "module_count",
+      "method": "Count requested modules.",
+      "pass_condition": "Exactly 6."
+    },
+    {
+      "qa_id": "PPI-QA-003",
+      "control": "atomic_rules",
+      "method": "Count module rules + blocker definitions.",
+      "pass_condition": "All rules have source_refs."
+    },
+    {
+      "qa_id": "PPI-QA-004",
+      "control": "scr_closed_schema",
+      "method": "Validate required SCR fields.",
+      "pass_condition": "No missing required field."
+    },
+    {
+      "qa_id": "PPI-QA-005",
+      "control": "evidence_closed_schema",
+      "method": "Validate EvidenceBundle fields.",
+      "pass_condition": "Evidence/provenance/routes/readiness/gaps present."
+    },
+    {
+      "qa_id": "PPI-QA-006",
+      "control": "mdsb_closed_schema",
+      "method": "Validate MDSB fields.",
+      "pass_condition": "Candidates/checkpoints/gaps/export restriction present."
+    },
+    {
+      "qa_id": "PPI-QA-007",
+      "control": "no_placeholders",
+      "method": "Search payload examples/contracts for placeholder markers.",
+      "pass_condition": "0 placeholders in executable schema."
+    },
+    {
+      "qa_id": "PPI-QA-008",
+      "control": "B0_guard",
+      "method": "Attempt SCR with unconfirmed B0.",
+      "pass_condition": "Blocked."
+    },
+    {
+      "qa_id": "PPI-QA-009",
+      "control": "B2_guard",
+      "method": "Attempt candidate from transformation text without route.",
+      "pass_condition": "Blocked."
+    },
+    {
+      "qa_id": "PPI-QA-010",
+      "control": "C09_guard",
+      "method": "Attempt feedback from satisfaction.",
+      "pass_condition": "Blocked + receiver_feedback_route_missing."
+    },
+    {
+      "qa_id": "PPI-QA-011",
+      "control": "B7_guard",
+      "method": "Attempt direct IR/registry/export from B7.",
+      "pass_condition": "Blocked."
+    },
+    {
+      "qa_id": "PPI-QA-012",
+      "control": "SEM_guard",
+      "method": "Attempt MoC/OLC candidate with unresolved SEM.",
+      "pass_condition": "Blocked."
+    },
+    {
+      "qa_id": "PPI-QA-013",
+      "control": "PST_guard",
+      "method": "Attempt Process State without timer/exit.",
+      "pass_condition": "Blocked."
+    },
+    {
+      "qa_id": "PPI-QA-014",
+      "control": "conformance_first",
+      "method": "Attempt consistency/IR before conformance.",
+      "pass_condition": "Blocked."
+    },
+    {
+      "qa_id": "PPI-QA-015",
+      "control": "consistency_compartments",
+      "method": "Validate factual/temporal/structural/composite status refs.",
+      "pass_condition": "Applicable compartments represented."
+    },
+    {
+      "qa_id": "PPI-QA-016",
+      "control": "compound_subfields",
+      "method": "Ensure EvidenceBundle preserves separable subfields.",
+      "pass_condition": "No opaque flattening."
+    },
+    {
+      "qa_id": "PPI-QA-017",
+      "control": "provenance",
+      "method": "Scan evidence/variables/candidates.",
+      "pass_condition": "100% provenance and source refs."
+    },
+    {
+      "qa_id": "PPI-QA-018",
+      "control": "supersession",
+      "method": "Revise a source response.",
+      "pass_condition": "Old payload/candidates superseded; new version built."
+    },
+    {
+      "qa_id": "PPI-QA-019",
+      "control": "checksum",
+      "method": "Validate deterministic checksum.",
+      "pass_condition": "All ready/sent outputs have checksum."
+    },
+    {
+      "qa_id": "PPI-QA-020",
+      "control": "scope_tenancy",
+      "method": "Cross-case access attempt.",
+      "pass_condition": "Blocked and audited."
+    },
+    {
+      "qa_id": "PPI-QA-021",
+      "control": "authority",
+      "method": "Unauthorized send/override attempt.",
+      "pass_condition": "Blocked and audited."
+    },
+    {
+      "qa_id": "PPI-QA-022",
+      "control": "candidate_only",
+      "method": "Search for active/final/production states.",
+      "pass_condition": "0 unauthorized states."
+    },
+    {
+      "qa_id": "PPI-QA-023",
+      "control": "no_diagnosis",
+      "method": "Search executable outputs for diagnostic emission.",
+      "pass_condition": "0 diagnostic outputs."
+    },
+    {
+      "qa_id": "PPI-QA-024",
+      "control": "no_registry_write",
+      "method": "Attempt active registry mutation.",
+      "pass_condition": "Blocked."
+    },
+    {
+      "qa_id": "PPI-QA-025",
+      "control": "no_final_export",
+      "method": "Attempt ExportCodePackage/final MDSB.",
+      "pass_condition": "Blocked + algedonic escalation."
+    },
+    {
+      "qa_id": "PPI-QA-026",
+      "control": "no_internal_ui_leak",
+      "method": "Project payload to product UI.",
+      "pass_condition": "Internal IDs/objects blocked."
+    },
+    {
+      "qa_id": "PPI-QA-027",
+      "control": "typescript_compile",
+      "method": "tsc --noEmit strict.",
+      "pass_condition": "Exit 0."
+    },
+    {
+      "qa_id": "PPI-QA-028",
+      "control": "typescript_smoke",
+      "method": "Run pure blocker evaluation fixtures.",
+      "pass_condition": "Expected blockers/eligibility."
+    },
+    {
+      "qa_id": "PPI-QA-029",
+      "control": "docx_render",
+      "method": "Render all pages and inspect.",
+      "pass_condition": "No clipping/overflow."
+    },
+    {
+      "qa_id": "PPI-QA-030",
+      "control": "source_immutability",
+      "method": "Hash sources before/after build.",
+      "pass_condition": "No source mutation."
+    },
+    {
+      "qa_id": "PPI-QA-031",
+      "control": "source_proof_matrix_completeness",
+      "method": "Count proof rows and unresolved refs.",
+      "pass_condition": "154 rows; 154 certified; 0 unresolved."
+    },
+    {
+      "qa_id": "PPI-QA-032",
+      "control": "source_ref_semantic_correction",
+      "method": "Verify controlled corrections from v0.1 audit.",
+      "pass_condition": "59 corrections documented; no stale incorrect ref."
+    },
+    {
+      "qa_id": "PPI-QA-033",
+      "control": "exb031_no_false_positive",
+      "method": "Evaluate no-override, unaudited-override and audited-override vectors.",
+      "pass_condition": "Only unaudited requested override is blocked."
+    },
+    {
+      "qa_id": "PPI-QA-034",
+      "control": "dictamen_negation",
+      "method": "Search final dictamen in JSON/TS/MD/DOCX/manifest.",
+      "pass_condition": "Contains sin registry activo, sin export final, sin transducción final."
+    },
+    {
+      "qa_id": "PPI-QA-035",
+      "control": "artifact_equivalence",
+      "method": "Compare canonical rule IDs/counts and version across JSON/TS/MD/DOCX.",
+      "pass_condition": "All generated artifacts represent same 154 rules and 34 blockers."
+    },
+    {
+      "qa_id": "PPI-QA-036",
+      "control": "manifest_self_registration",
+      "method": "Verify manifest entry and deterministic self-hash policy.",
+      "pass_condition": "Manifest listed in artifacts with canonical self-hash policy."
+    },
+    {
+      "qa_id": "PPI-QA-037",
+      "control": "framework_compliance",
+      "method": "Evaluate 20 framework controls.",
+      "pass_condition": "20/20 PASS."
+    },
+    {
+      "qa_id": "PPI-QA-038",
+      "control": "source_files_immutable",
+      "method": "Recompute 11 source SHA256 values.",
+      "pass_condition": "11/11 match declared hashes."
+    }
+  ],
+  "counts": {
+    "modules": 6,
+    "scr_payload_rules": 20,
+    "evidence_bundle_payload_rules": 22,
+    "mdsb_payload_rules": 22,
+    "mmabp_ir_candidate_rules": 20,
+    "registry_candidate_rules": 22,
+    "export_blocker_engine_rules": 14,
+    "export_blocker_definitions": 34,
+    "atomic_rules": 154,
+    "failure_guards": 20,
+    "integration_rules": 16,
+    "source_documents": 11,
+    "source_to_target_mappings": 26,
+    "qa_controls": 38,
+    "payload_types": 4,
+    "registry_targets": 6,
+    "source_ref_corrections": 59,
+    "source_proof_rows": 154,
+    "source_proof_unresolved": 0,
+    "certification_framework_controls": 20
+  },
+  "installation_contract": {
+    "recommended_repo_path": "docs/chips/parallel-production-interface/EVE_07_Parallel_Production_Interface_v0_1_2_candidate/",
+    "required_dependency_versions": {
+      "EVE-03-CANONICAL-CATALOG": "0.1.0",
+      "EVE-04-RUNTIME-CATALOG": "0.2.0",
+      "EVE-05-GATE-ENGINE": "0.1.0",
+      "EVE-06-EXECUTION-ENGINE": "0.1.0"
+    },
+    "activation_mode": "shadow_first_after_repo_intake",
+    "active_runtime_authority": false,
+    "product_wiring": false,
+    "database_migrations_applied": false,
+    "registry_write": false,
+    "diagnosis_enabled": false,
+    "final_export_enabled": false,
+    "final_transduction_enabled": false,
+    "parallel_production_enabled": false,
+    "shadow_rehearsal_enabled": false
+  },
+  "dictamen": "WORKBENCH_REPAIRED_READY_FOR_INDEPENDENT_QA_RERUN; exact source proof roles, source-to-target locator precision and certification claims repaired; candidate-only, not installed, without runtime authority, registry write, final export, final transduction or real Parallel Production.",
+  "activation_status": "SHADOW_ONLY",
+  "certification_scope": {
+    "status": "NOT_CERTIFIED_IN_WORKBENCH",
+    "workbench_prepared": [
+      "154 source proof units retained; 3 D1-primary proof gaps repaired with direct operational sources",
+      "26 source-to-target mappings enriched with exact locators",
+      "D8 long-path access note converted to a controlled technical locator",
+      "16 previous self-certification claims downgraded and prepared for independent verification",
+      "EXB-031 predicate and no-cableado boundaries preserved"
+    ],
+    "requires_independent_qa": [
+      "record/rule/source QA rerun",
+      "acceptance of 3 repaired proof units",
+      "acceptance of 26 exact mapping locators",
+      "independent verification of package status and artifact checks"
+    ],
+    "not_certified": [
+      "source fidelity",
+      "artifact equivalence",
+      "shadow integration",
+      "product installation",
+      "active registry writes",
+      "production export",
+      "final transduction",
+      "real Parallel Production execution",
+      "end-to-end platform wiring"
+    ]
+  },
+  "source_ref_corrections": [
+    {
+      "rule_id": "EVBP-001",
+      "old_refs": [
+        "D4:8.3",
+        "D4:23.2",
+        "EVE06:evidence_item",
+        "EVE06:canonical_variable_record"
+      ],
+      "new_refs": [
+        "D4:8.3",
+        "D4:23.2",
+        "EVE06:EVI-001",
+        "EVE06:CVR-003"
+      ],
+      "reason": "Usa reglas exactas de creación de evidencia y genealogía variable."
+    },
+    {
+      "rule_id": "EVBP-005",
+      "old_refs": [
+        "D4:1",
+        "D5:4",
+        "EVE06:RSP-009"
+      ],
+      "new_refs": [
+        "D4:1",
+        "D5:7",
+        "EVE06:RSP-007",
+        "EVE06:RSP-008"
+      ],
+      "reason": "Corrige referencia a persistencia separada y prohibición de textbox opaco."
+    },
+    {
+      "rule_id": "EVBP-006",
+      "old_refs": [
+        "D4:23.2",
+        "EVE06:canonical_variable_record"
+      ],
+      "new_refs": [
+        "D4:23.2",
+        "EVE06:CVR-003",
+        "EVE06:CVR-006",
+        "EVE06:CVR-007",
+        "EVE06:CVR-008"
+      ],
+      "reason": "Ancla source refs, route status/id y gap flag en reglas exactas."
+    },
+    {
+      "rule_id": "EVBP-012",
+      "old_refs": [
+        "D1:4.1-4.5",
+        "EVE05"
+      ],
+      "new_refs": [
+        "D1:4.1-4.5",
+        "EVE05:mmabp_conformance_gate",
+        "EVE05:mmabp_consistency_gate"
+      ],
+      "reason": "Reemplaza fuente genérica por gates exactos."
+    },
+    {
+      "rule_id": "EVBP-013",
+      "old_refs": [
+        "D3!Table5",
+        "D3!Table9",
+        "D5:1"
+      ],
+      "new_refs": [
+        "D3!Table6",
+        "D3!Table10",
+        "D5:1"
+      ],
+      "reason": "Usa fronteras explícitas de no diagnóstico."
+    },
+    {
+      "rule_id": "EVBP-015",
+      "old_refs": [
+        "D4:23.2",
+        "EVE06:EVI-008"
+      ],
+      "new_refs": [
+        "D4:23.2",
+        "EVE06:EVI-005"
+      ],
+      "reason": "Corrige EVI-008 por regla de confidence/inferencia."
+    },
+    {
+      "rule_id": "EVBP-016",
+      "old_refs": [
+        "D4:27",
+        "D4!Table24"
+      ],
+      "new_refs": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "reason": "Corrige Table24 por scope/tenancy/authority."
+    },
+    {
+      "rule_id": "EVBP-020",
+      "old_refs": [
+        "D3!Table5",
+        "D3!Table9",
+        "D5:6.3"
+      ],
+      "new_refs": [
+        "D3!Table6",
+        "D3!Table10",
+        "D5:6.3"
+      ],
+      "reason": "Usa límites explícitos de Capa 1/Producción Paralela."
+    },
+    {
+      "rule_id": "EXB-001",
+      "old_refs": [
+        "D4:27",
+        "EVE06"
+      ],
+      "new_refs": [
+        "D4:27",
+        "EVE06:ARR-004"
+      ],
+      "reason": "Usa regla exacta de scope."
+    },
+    {
+      "rule_id": "EXB-002",
+      "old_refs": [
+        "D4:23",
+        "EVE06"
+      ],
+      "new_refs": [
+        "D4:23",
+        "EVE06:ARR-003"
+      ],
+      "reason": "Usa regla exacta de versión de catálogo."
+    },
+    {
+      "rule_id": "EXB-010",
+      "old_refs": [
+        "D1:4.1",
+        "EVE05"
+      ],
+      "new_refs": [
+        "D1:4.1",
+        "EVE05:mmabp_conformance_gate"
+      ],
+      "reason": "Reemplaza EVE05 genérico por conformance gate."
+    },
+    {
+      "rule_id": "EXB-011",
+      "old_refs": [
+        "D1:4.2-4.5",
+        "EVE05"
+      ],
+      "new_refs": [
+        "D1:4.2-4.5",
+        "EVE05:mmabp_consistency_gate"
+      ],
+      "reason": "Reemplaza EVE05 genérico por consistency gate."
+    },
+    {
+      "rule_id": "EXB-014",
+      "old_refs": [
+        "D4:23.2",
+        "EVE06"
+      ],
+      "new_refs": [
+        "D4:23.2",
+        "EVE06:EVI-002",
+        "EVE06:CVR-003"
+      ],
+      "reason": "Ancla provenance/epistemic status en reglas exactas."
+    },
+    {
+      "rule_id": "EXB-018",
+      "old_refs": [
+        "D4:24",
+        "EVE06"
+      ],
+      "new_refs": [
+        "D4:24",
+        "EVE06:EVI-014",
+        "EVE06:SCR-016"
+      ],
+      "reason": "Usa reglas exactas de superseded/stale."
+    },
+    {
+      "rule_id": "EXB-019",
+      "old_refs": [
+        "D4:21",
+        "EVE06"
+      ],
+      "new_refs": [
+        "D4:21",
+        "EVE06:SCR-015"
+      ],
+      "reason": "Usa regla exacta de candidate state."
+    },
+    {
+      "rule_id": "EXB-022",
+      "old_refs": [
+        "D8",
+        "EVE03"
+      ],
+      "new_refs": [
+        "D8",
+        "EVE03:source_node_registry",
+        "EVE03:source_code_registry"
+      ],
+      "reason": "Genealogía exacta, no JSON genérico."
+    },
+    {
+      "rule_id": "EXB-025",
+      "old_refs": [
+        "D3!Table4",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3:R4",
+        "D3!Table6",
+        "D3!Table10"
+      ],
+      "reason": "Corrige tabla y prueba no registry activo."
+    },
+    {
+      "rule_id": "EXB-026",
+      "old_refs": [
+        "D3:R4",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "reason": "Usa candidate-only y límite de promoción."
+    },
+    {
+      "rule_id": "EXB-027",
+      "old_refs": [
+        "D3!Table4",
+        "D3!Table5"
+      ],
+      "new_refs": [
+        "D3!Table5",
+        "D3!Table6"
+      ],
+      "reason": "Corrige tabla a candidate_export_package y límite export final."
+    },
+    {
+      "rule_id": "EXB-028",
+      "old_refs": [
+        "D3!Table5",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3!Table6",
+        "D3!Table10",
+        "D3!Table11"
+      ],
+      "reason": "Prueba explícita de no diagnóstico."
+    },
+    {
+      "rule_id": "EXB-029",
+      "old_refs": [
+        "D3!Table10"
+      ],
+      "new_refs": [
+        "D3!Table11",
+        "D3:R7"
+      ],
+      "reason": "Corrige tabla de UI."
+    },
+    {
+      "rule_id": "EXB-031",
+      "old_refs": [
+        "D4:27"
+      ],
+      "new_refs": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "reason": "Añade fila exacta de control de override."
+    },
+    {
+      "rule_id": "EXB-033",
+      "old_refs": [
+        "D3!Table4"
+      ],
+      "new_refs": [
+        "D3!Table5"
+      ],
+      "reason": "Corrige tabla a MMABP-IR no diagrama final."
+    },
+    {
+      "rule_id": "EXB-034",
+      "old_refs": [
+        "D3!Table5",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3!Table6",
+        "D3!Table10",
+        "D3:R4"
+      ],
+      "reason": "MDSB patch candidate no final."
+    },
+    {
+      "rule_id": "EXBE-001",
+      "old_refs": [
+        "D4:9",
+        "D4:23",
+        "EVE05",
+        "EVE06"
+      ],
+      "new_refs": [
+        "D4:9",
+        "D4:23",
+        "EVE05:execution_pipeline",
+        "EVE06:execution_pipeline"
+      ],
+      "reason": "Sustituye fuentes genéricas por pipelines ejecutables."
+    },
+    {
+      "rule_id": "EXBE-009",
+      "old_refs": [
+        "D3:R8",
+        "D3!Table11"
+      ],
+      "new_refs": [
+        "D3:R8",
+        "D3!Table12",
+        "D3!Table11"
+      ],
+      "reason": "Añade canal algedónico explícito y límites UI/export."
+    },
+    {
+      "rule_id": "EXBE-012",
+      "old_refs": [
+        "D3!Table10",
+        "D3:R7"
+      ],
+      "new_refs": [
+        "D3!Table11",
+        "D3:R7"
+      ],
+      "reason": "Corrige tabla UI."
+    },
+    {
+      "rule_id": "EXBE-014",
+      "old_refs": [
+        "D3:R4",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "reason": "Candidate progression no equivale a producción/certificación."
+    },
+    {
+      "rule_id": "IRCD-001",
+      "old_refs": [
+        "D3!Table4",
+        "D4:23.3",
+        "MDSB-013"
+      ],
+      "new_refs": [
+        "D3!Table5",
+        "D4:23.3",
+        "MDSB-013"
+      ],
+      "reason": "Corrige tabla a componente MMABP-IR."
+    },
+    {
+      "rule_id": "IRCD-002",
+      "old_refs": [
+        "D3!Table4",
+        "D3:R4",
+        "D3:R5"
+      ],
+      "new_refs": [
+        "D3!Table5",
+        "D3:R4",
+        "D3:R5"
+      ],
+      "reason": "Corrige tabla a definición/límite MMABP-IR."
+    },
+    {
+      "rule_id": "IRCD-007",
+      "old_refs": [
+        "D1:2.3.6",
+        "D6!Parallel_Production_Contract"
+      ],
+      "new_refs": [
+        "D1:2.3.3",
+        "D1:2.3.6",
+        "D6!Parallel_Production_Contract"
+      ],
+      "reason": "Añade sección exacta que advierte contra swim lanes y conserva regla task/object state."
+    },
+    {
+      "rule_id": "IRCD-015",
+      "old_refs": [
+        "D3!Table5",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3!Table6",
+        "D3!Table10"
+      ],
+      "reason": "Usa fronteras explícitas de no diagnóstico."
+    },
+    {
+      "rule_id": "IRCD-016",
+      "old_refs": [
+        "D3!Table4",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3!Table5",
+        "D3!Table6",
+        "D3:R4"
+      ],
+      "reason": "IR candidate no equivale a registry activo."
+    },
+    {
+      "rule_id": "IRCD-019",
+      "old_refs": [
+        "D3:R4",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "reason": "Estados candidate/rehearsal sustentados en candidate-only y límites.",
+      "rule_text_change": {
+        "reason": "Elimina lista de estados no declarada literalmente y conserva frontera candidate-only probada."
+      }
+    },
+    {
+      "rule_id": "MDSB-001",
+      "old_refs": [
+        "D4:23.3",
+        "EVE06:structural_candidate_record"
+      ],
+      "new_refs": [
+        "D4:23.3",
+        "EVE06:SCR-001",
+        "EVE06:SCR-005"
+      ],
+      "reason": "Reemplaza módulo genérico por reglas exactas de candidate creation/genealogy."
+    },
+    {
+      "rule_id": "MDSB-003",
+      "old_refs": [
+        "D4:21",
+        "D4:23.3",
+        "EVE06:structural_candidate_record"
+      ],
+      "new_refs": [
+        "D4:21",
+        "D4:23.3",
+        "EVE06:SCR-005"
+      ],
+      "reason": "Usa regla exacta de source_variable/evidence."
+    },
+    {
+      "rule_id": "MDSB-004",
+      "old_refs": [
+        "D4:21",
+        "D4:24",
+        "EVE06:structural_candidate_record"
+      ],
+      "new_refs": [
+        "D4:21",
+        "D4:24",
+        "EVE06:SCR-015",
+        "EVE06:SCR-016",
+        "EVE06:SCR-017"
+      ],
+      "reason": "Ancla estados/revisión/supersede en reglas exactas."
+    },
+    {
+      "rule_id": "MDSB-015",
+      "old_refs": [
+        "D4:23.3",
+        "EVE05:failure_guards"
+      ],
+      "new_refs": [
+        "D4:23.3",
+        "EVE05:semantic_resolution_gate",
+        "EVE05:process_state_timer_gate",
+        "EVE05:critical_route_gate",
+        "EVE05:mmabp_consistency_gate"
+      ],
+      "reason": "Descompone issue refs por gate exacto."
+    },
+    {
+      "rule_id": "MDSB-016",
+      "old_refs": [
+        "D4:23.3",
+        "D3!Table4",
+        "D6!Parallel_Production_Contract"
+      ],
+      "new_refs": [
+        "D4:23.3",
+        "D3!Table5",
+        "D6!Parallel_Production_Contract"
+      ],
+      "reason": "Corrige tabla a componente MMABP-IR/MDSB candidate."
+    },
+    {
+      "rule_id": "MDSB-017",
+      "old_refs": [
+        "D3!Table5",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3!Table6",
+        "D3!Table10",
+        "D3:R4"
+      ],
+      "reason": "Usa límites de candidate-only/no MDSB final."
+    },
+    {
+      "rule_id": "MDSB-019",
+      "old_refs": [
+        "D4:27",
+        "D4!Table24"
+      ],
+      "new_refs": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "reason": "Corrige Table24 por authority."
+    },
+    {
+      "rule_id": "REGC-001",
+      "old_refs": [
+        "D3!Table4",
+        "D6!Parallel_Production_Contract",
+        "IRCD-001"
+      ],
+      "new_refs": [
+        "D3!Table5",
+        "D6!Parallel_Production_Contract",
+        "IRCD-001"
+      ],
+      "reason": "Corrige tabla a MMABP-IR y contrato de registry candidates."
+    },
+    {
+      "rule_id": "REGC-002",
+      "old_refs": [
+        "D3!Table4",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3!Table6",
+        "D3!Table10",
+        "D3:R4"
+      ],
+      "reason": "Usa límite explícito candidate-only/no active registry."
+    },
+    {
+      "rule_id": "REGC-003",
+      "old_refs": [
+        "D6!Parallel_Production_Contract",
+        "D4:12"
+      ],
+      "new_refs": [
+        "D6!Parallel_Production_Contract",
+        "D4:13"
+      ],
+      "reason": "Elimina sección 12 no relacionada; usa contrato de salida."
+    },
+    {
+      "rule_id": "REGC-011",
+      "old_refs": [
+        "D1:2.3.6"
+      ],
+      "new_refs": [
+        "D1:2.3.3"
+      ],
+      "reason": "Corrige referencia al apartado específico sobre swim lanes/contexto organizacional."
+    },
+    {
+      "rule_id": "REGC-018",
+      "old_refs": [
+        "D3!Table4",
+        "D3:R4"
+      ],
+      "new_refs": [
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "reason": "Estados candidate/rehearsal, no active.",
+      "rule_text_change": {
+        "reason": "Elimina enumeración no probada y conserva prohibición de estado active."
+      }
+    },
+    {
+      "rule_id": "REGC-021",
+      "old_refs": [
+        "D4:27",
+        "D3!Table10"
+      ],
+      "new_refs": [
+        "D4:27",
+        "D4!Table25",
+        "D3!Table10"
+      ],
+      "reason": "Autoridad y persistencia shadow/rehearsal."
+    },
+    {
+      "rule_id": "REGC-022",
+      "old_refs": [
+        "D3!Table10",
+        "D3:R7"
+      ],
+      "new_refs": [
+        "D3!Table11",
+        "D3:R7"
+      ],
+      "reason": "Corrige límite UI a tabla Debe/No debe."
+    },
+    {
+      "rule_id": "SCRP-001",
+      "old_refs": [
+        "D4:21",
+        "D4:23.1",
+        "EVE06:activity_runtime_run"
+      ],
+      "new_refs": [
+        "D4:21",
+        "D4:23.1",
+        "EVE06:ARR-004"
+      ],
+      "reason": "Reemplaza referencia de módulo por regla exacta de scope."
+    },
+    {
+      "rule_id": "SCRP-003",
+      "old_refs": [
+        "D4:23.1",
+        "D4:25",
+        "EVE06:ARR-004"
+      ],
+      "new_refs": [
+        "D4:23.1",
+        "D4:25",
+        "EVE06:ARR-003"
+      ],
+      "reason": "Corrige ARR-004 (scope) por ARR-003 (catalog_version_id)."
+    },
+    {
+      "rule_id": "SCRP-005",
+      "old_refs": [
+        "D4:23.1",
+        "D5:4",
+        "D6!Parallel_Production_Contract"
+      ],
+      "new_refs": [
+        "D4:23.1",
+        "D5:7",
+        "D6!Parallel_Production_Contract"
+      ],
+      "reason": "Corrige referencia a política de preguntas compuestas y persistencia separada."
+    },
+    {
+      "rule_id": "SCRP-006",
+      "old_refs": [
+        "D4:8.3",
+        "D4:23.1",
+        "EVE06:canonical_variable_record"
+      ],
+      "new_refs": [
+        "D4:8.3",
+        "D4:23.1",
+        "EVE06:CVR-003",
+        "EVE06:CVR-015"
+      ],
+      "reason": "Ancla trazabilidad y versionado de canonical variables en reglas exactas."
+    },
+    {
+      "rule_id": "SCRP-007",
+      "old_refs": [
+        "D8!Catalogo_Madre_Nodos",
+        "EVE03",
+        "EVE06:CVR-003"
+      ],
+      "new_refs": [
+        "D8!Catalogo_Madre_Nodos",
+        "EVE03:source_node_registry",
+        "EVE06:CVR-003"
+      ],
+      "reason": "Resuelve genealogía contra módulo exacto EVE03."
+    },
+    {
+      "rule_id": "SCRP-012",
+      "old_refs": [
+        "D4:1",
+        "D5:2",
+        "EVE06:evidence_item"
+      ],
+      "new_refs": [
+        "D4:1",
+        "D5:2",
+        "EVE06:EVI-005"
+      ],
+      "reason": "Usa regla exacta que impide convertir inferencia no confirmada en evidencia."
+    },
+    {
+      "rule_id": "SCRP-016",
+      "old_refs": [
+        "D4:27",
+        "D4!Table24"
+      ],
+      "new_refs": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "reason": "Corrige Table24 (QA de catálogo) por Table25 (scope/authority)."
+    },
+    {
+      "rule_id": "SCRP-017",
+      "old_refs": [
+        "D3!Table4",
+        "D3!Table5",
+        "D3!Table9"
+      ],
+      "new_refs": [
+        "D3!Table6",
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "reason": "Sustituye tabla de rutas por límites regulatorios/candidate-only."
+    },
+    {
+      "rule_id": "SCRP-018",
+      "old_refs": [
+        "D3!Table10",
+        "D3:R7"
+      ],
+      "new_refs": [
+        "D3!Table11",
+        "D3:R7"
+      ],
+      "reason": "Corrige límite UI a tabla Debe/No debe."
+    },
+    {
+      "rule_id": "SCRP-019",
+      "old_refs": [
+        "D4:27",
+        "D4!Table24"
+      ],
+      "new_refs": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "reason": "Corrige Table24 por control de override/authority."
+    },
+    {
+      "rule_id": "SCRP-020",
+      "old_refs": [
+        "D4:21",
+        "D4:23.1"
+      ],
+      "new_refs": [
+        "D4:21",
+        "D4:25"
+      ],
+      "reason": "Estados se prueban contra DDL/enums, no contra ejemplo SCR."
+    }
+  ],
+  "source_proof_contract": {
+    "matrix_artifact": "EVE_07_Parallel_Production_Interface_v0_1_2_candidate.source_proof_matrix.json",
+    "required_rule_count": 154,
+    "verified_rule_count": 154,
+    "unresolved_rule_count": 0,
+    "required_fields": [
+      "rule_id",
+      "primary_proof_ref",
+      "source_document",
+      "source_locator",
+      "source_excerpt",
+      "source_unit_sha256",
+      "transduction_class",
+      "reviewer_status"
+    ],
+    "allowed_transduction_classes": [
+      "transduced_exact",
+      "transduced_structured",
+      "transduced_with_normalized_names",
+      "editorial_context_only",
+      "superseded_with_reference",
+      "intentionally_excluded_with_approval",
+      "pending_transduction"
+    ],
+    "certification_rule": "Every source proof and mapping locator must be independently verified before certification.",
+    "matrix_sha256": "5fb79c18dcea67e33ff277837006f9d34fbe1b7469014a9c83a0d51e700a4a21",
+    "matrix_size_bytes": 502013,
+    "classification_counts": {
+      "transduced_exact": 28,
+      "transduced_structured": 122,
+      "transduced_with_normalized_names": 4
+    },
+    "previous_independent_qa_accepted_count": 151,
+    "workbench_repaired_rule_count": 3,
+    "workbench_proof_ready_count": 154,
+    "independent_qa_required": true
+  },
+  "audit_history": [
+    {
+      "audit_id": "AUDIT-EVE07-V0.1",
+      "result": "NOT_CERTIFIED_READY_WITH_BLOCKING_GAPS",
+      "findings": [
+        "missing exact source-proof matrix",
+        "EXB-031 over-block",
+        "ambiguous dictamen",
+        "manifest not self-registered"
+      ]
+    },
+    {
+      "audit_id": "AUDIT-EVE07-V0.1.2-CANDIDATE",
+      "result": "CERTIFIED_SOURCE_FIDELITY_AND_EXECUTABLE_ARTIFACT",
+      "remediations": [
+        "154-row exact source-proof matrix",
+        "57 controlled source-reference/text corrections",
+        "EXB-031 predicate corrected",
+        "dictamen corrected",
+        "manifest self-registration policy",
+        "expanded QA and framework compliance"
+      ]
+    },
+    {
+      "audit_id": "EVE07-WORKBENCH-CONTENT-REPAIR-V1",
+      "timestamp": "2026-06-22T20:16:29+00:00",
+      "result": "WORKBENCH_REPAIRED_READY_FOR_INDEPENDENT_QA_RERUN",
+      "repairs": [
+        "REGC-006 direct proof moved from D1 to D5 exact table cell",
+        "REGC-011 direct proof moved from D1 to D5; D1 retained as contextual guard with physical page locator",
+        "EXBE-013 direct proof moved from D1 to EVE05 exact JSON pointer; D1 retained as contextual guard",
+        "26 source-to-target mapping locators made exact",
+        "D8 path-long note controlled",
+        "premature certification claims downgraded"
+      ]
+    }
+  ],
+  "export_blocker_test_vectors": [
+    {
+      "test_id": "EXB031-NO-OVERRIDE",
+      "description": "Contexto normal sin override no debe disparar EXB-031.",
+      "context_patch": {
+        "overrideRequested": false,
+        "overrideAudited": false
+      },
+      "expected_blocker_present": false
+    },
+    {
+      "test_id": "EXB031-UNAUDITED-OVERRIDE",
+      "description": "Override solicitado sin auditoría debe disparar EXB-031.",
+      "context_patch": {
+        "overrideRequested": true,
+        "overrideAudited": false
+      },
+      "expected_blocker_present": true
+    },
+    {
+      "test_id": "EXB031-AUDITED-OVERRIDE",
+      "description": "Override solicitado y auditado no debe disparar EXB-031.",
+      "context_patch": {
+        "overrideRequested": true,
+        "overrideAudited": true
+      },
+      "expected_blocker_present": false
+    },
+    {
+      "test_id": "B7-DIRECT-PROJECTION-BLOCK",
+      "description": "Intento de proyección directa B7 debe disparar EXB-007.",
+      "context_patch": {
+        "b7DirectProjectionAttempted": true
+      },
+      "expected_blocker": "EXB-007"
+    },
+    {
+      "test_id": "C09-ROUTE-MISSING-BLOCK",
+      "description": "Feedback sin cierre C09 debe disparar EXB-005.",
+      "context_patch": {
+        "c09RouteClosed": false
+      },
+      "expected_blocker": "EXB-005"
+    },
+    {
+      "test_id": "SATISFACTION-NOT-FEEDBACK",
+      "description": "Derivar feedback desde satisfaction debe disparar EXB-006.",
+      "context_patch": {
+        "feedbackDerivedFromSatisfaction": true
+      },
+      "expected_blocker": "EXB-006"
+    }
+  ],
+  "framework_compliance_matrix": [
+    {
+      "control_id": "FW-001",
+      "criterion": "Separación de conocimiento",
+      "result": "PASS",
+      "evidence_refs": [
+        "authority_chain",
+        "external_boundaries"
+      ],
+      "verification": "Fundamento MMABP, gobierno runtime e interfaz de Producción Paralela permanecen diferenciados."
+    },
+    {
+      "control_id": "FW-002",
+      "criterion": "Jerarquía documental",
+      "result": "PASS",
+      "evidence_refs": [
+        "authority_chain",
+        "document_complementarity"
+      ],
+      "verification": "D1 manda método; D8 genealogía; D7 reducción; D5 gobierno; D6 ejecución; D4 implementación; D3 integración."
+    },
+    {
+      "control_id": "FW-003",
+      "criterion": "Transformación, no acumulación",
+      "result": "PASS",
+      "evidence_refs": [
+        "integration_rules"
+      ],
+      "verification": "PDF/DOCX se transducen a reglas; XLSX opera como fuente congelada."
+    },
+    {
+      "control_id": "FW-004",
+      "criterion": "Módulos Fase 7 completos",
+      "result": "PASS",
+      "evidence_refs": [
+        "modules_requested"
+      ],
+      "verification": "SCR, EvidenceBundle, MDSB, IR candidate, registry candidate y blockers presentes."
+    },
+    {
+      "control_id": "FW-005",
+      "criterion": "Cadena evidencia→variables→gates→candidates",
+      "result": "PASS",
+      "evidence_refs": [
+        "execution_pipeline"
+      ],
+      "verification": "La interfaz exige registros gobernados y checkpoints antes de payload/candidate."
+    },
+    {
+      "control_id": "FW-006",
+      "criterion": "No entrevista Catálogo Madre",
+      "result": "PASS",
+      "evidence_refs": [
+        "failure_guards:FG-001"
+      ],
+      "verification": "La UI/runtime no usa D8 como entrevista visible."
+    },
+    {
+      "control_id": "FW-007",
+      "criterion": "No implementación desde narrativa",
+      "result": "PASS",
+      "evidence_refs": [
+        "integration_rules",
+        "failure_guards:FG-002"
+      ],
+      "verification": "D6 XLSX conserva autoridad ejecutable."
+    },
+    {
+      "control_id": "FW-008",
+      "criterion": "B7/C20 blindado",
+      "result": "PASS",
+      "evidence_refs": [
+        "SCRP-011",
+        "MDSB-011",
+        "IRCD-013",
+        "REGC-016",
+        "EXB-007"
+      ],
+      "verification": "No produce MoC/IR/registry/export/diagnóstico directo."
+    },
+    {
+      "control_id": "FW-009",
+      "criterion": "C09 blindado",
+      "result": "PASS",
+      "evidence_refs": [
+        "SCRP-010",
+        "EVBP-008",
+        "MDSB-010",
+        "EXB-005",
+        "EXB-006"
+      ],
+      "verification": "Satisfaction no sustituye feedback y route_missing bloquea."
+    },
+    {
+      "control_id": "FW-010",
+      "criterion": "Subrespuestas separadas",
+      "result": "PASS",
+      "evidence_refs": [
+        "EVBP-005",
+        "EXB-017"
+      ],
+      "verification": "Preguntas compuestas no se aplanan."
+    },
+    {
+      "control_id": "FW-011",
+      "criterion": "Rutas críticas no inferidas",
+      "result": "PASS",
+      "evidence_refs": [
+        "EVBP-007",
+        "MDSB-009",
+        "EXB-003",
+        "EXB-004",
+        "EXB-005",
+        "EXB-007"
+      ],
+      "verification": "B0/B2/B3/B7 se evalúan y gaps se transportan."
+    },
+    {
+      "control_id": "FW-012",
+      "criterion": "UI sin vísceras",
+      "result": "PASS",
+      "evidence_refs": [
+        "SCRP-018",
+        "REGC-022",
+        "EXB-029"
+      ],
+      "verification": "Object Inventory/Membrane/SG Shadow no se exponen al cliente."
+    },
+    {
+      "control_id": "FW-013",
+      "criterion": "Sin salto evidencia→diagnóstico",
+      "result": "PASS",
+      "evidence_refs": [
+        "EVBP-013",
+        "IRCD-015",
+        "EXB-028"
+      ],
+      "verification": "Payloads/candidates no contienen diagnóstico final."
+    },
+    {
+      "control_id": "FW-014",
+      "criterion": "MMABP antes que diagnóstico",
+      "result": "PASS",
+      "evidence_refs": [
+        "MDSB-005",
+        "MDSB-006",
+        "IRCD-010",
+        "IRCD-011"
+      ],
+      "verification": "Conformance precede consistency; candidates no conformantes no avanzan."
+    },
+    {
+      "control_id": "FW-015",
+      "criterion": "Candidate-only",
+      "result": "PASS",
+      "evidence_refs": [
+        "MDSB-017",
+        "IRCD-019",
+        "REGC-018",
+        "EXBE-014"
+      ],
+      "verification": "IR/registry/export permanecen candidate/rehearsal."
+    },
+    {
+      "control_id": "FW-016",
+      "criterion": "Sin registry activo",
+      "result": "PASS",
+      "evidence_refs": [
+        "IRCD-016",
+        "REGC-002",
+        "EXB-025"
+      ],
+      "verification": "Todo intento de escritura activa se bloquea."
+    },
+    {
+      "control_id": "FW-017",
+      "criterion": "Sin export final",
+      "result": "PASS",
+      "evidence_refs": [
+        "EXB-027",
+        "external_boundaries"
+      ],
+      "verification": "candidate_export no equivale a ExportCodePackage final."
+    },
+    {
+      "control_id": "FW-018",
+      "criterion": "Sin Producción Paralela real",
+      "result": "PASS",
+      "evidence_refs": [
+        "external_boundaries",
+        "installation_contract"
+      ],
+      "verification": "La interfaz solo prepara shadow/rehearsal."
+    },
+    {
+      "control_id": "FW-019",
+      "criterion": "Source proof exacta",
+      "result": "PASS",
+      "evidence_refs": [
+        "source_proof_contract"
+      ],
+      "verification": "154/154 reglas y blockers poseen unidad fuente verificable."
+    },
+    {
+      "control_id": "FW-020",
+      "criterion": "Override sin falso positivo",
+      "result": "PASS",
+      "evidence_refs": [
+        "EXB-031",
+        "export_blocker_test_vectors"
+      ],
+      "verification": "EXB-031 solo bloquea cuando override fue solicitado y no auditado."
+    }
+  ],
+  "d8_path_control": {
+    "canonical_repo_path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+    "sha256": "09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2",
+    "normal_windows_path_may_fail": true,
+    "approved_read_methods": [
+      "windows_extended_path",
+      "node_fs",
+      "temporary_subst_for_diagnostic_reading"
+    ],
+    "content_source_changed": false,
+    "locator_status": "CONTROLLED_TECHNICAL_NOTE_NOT_CONTENT_GAP"
+  },
+  "source_role_policy": {
+    "direct_source_contract_sources": [
+      "D3",
+      "D4",
+      "D5",
+      "D6",
+      "D8",
+      "EVE06",
+      "EVE05",
+      "EVE04"
+    ],
+    "contextual_dependency_sources": [
+      "EVE03",
+      "D7"
+    ],
+    "methodological_guard_only": [
+      "D1"
+    ],
+    "D1_direct_proof_allowed": false,
+    "D1_rule_usage_policy": "D1 may contextualize MMABP boundaries; direct operational proof must come from an operational source or independently verified exact PDF text.",
+    "workbench_repaired_rules": [
+      "REGC-006",
+      "REGC-011",
+      "EXBE-013"
+    ]
+  },
+  "workbench_repair": {
+    "repair_id": "EVE07-WORKBENCH-CONTENT-REPAIR-V1",
+    "performed_at": "2026-06-22T20:16:29+00:00",
+    "trigger_dictamen": "PARALLEL_PRODUCTION_INTERFACE_RECORD_RULE_QA_UNSATISFACTORY_RETURN_TO_WORKBENCH",
+    "before": {
+      "accepted": 417,
+      "pending_source_proof": 3,
+      "pending_locator_precision": 27,
+      "certification_claim_unverified": 16,
+      "materialDifference": true
+    },
+    "prepared_after": {
+      "source_proof_candidates_ready": 3,
+      "mapping_locators_ready": 26,
+      "d8_path_note_controlled": 1,
+      "certification_claims_downgraded": 16,
+      "pending_source_proof_in_workbench_registry": 0,
+      "pending_locator_precision_in_workbench_registry": 0,
+      "certification_claim_unverified_replaced_by_non_certifying_status": 16,
+      "independent_qa_required": true
+    },
+    "semantic_meaning_changed": false,
+    "runtime_flags_changed": false,
+    "registry_flags_changed": false,
+    "export_flags_changed": false,
+    "no_cableado_preserved": true,
+    "authorized_next_state": "INDEPENDENT_RECORD_RULE_SOURCE_QA_RERUN"
+  },
+  "certification_claim_policy": {
+    "previous_internal_certification_claims": "SUPERSEDED_AS_NON_CERTIFYING_INPUT",
+    "certification_report_is_final_proof": false,
+    "source_proof_matrix_is_final_proof": false,
+    "shadow_harness_is_final_proof": false,
+    "independent_qa_required": true
+  }
+} as const;
+
+type ExportBlockerDefinition =
+  (typeof EVE_07_PARALLEL_PRODUCTION_INTERFACE.modules.export_blockers.blocker_catalog)[number];
+
+const BLOCKER_BY_CODE: ReadonlyMap<string, ExportBlockerDefinition> = new Map(
+  EVE_07_PARALLEL_PRODUCTION_INTERFACE.modules.export_blockers.blocker_catalog.map(
+    (item): [string, ExportBlockerDefinition] => [item.blocker_code, item],
+  ),
+);
+
+const BLOCKER_PREDICATES: ReadonlyArray<readonly [string, (ctx: ExportEvaluationContext) => boolean]> = [
+  ["EXB-001", (c) => !c.scopeComplete],
+  ["EXB-002", (c) => !c.catalogVersionMatches],
+  ["EXB-003", (c) => !c.b0Confirmed],
+  ["EXB-004", (c) => !c.b2RouteClosed],
+  ["EXB-005", (c) => !c.c09RouteClosed],
+  ["EXB-006", (c) => c.feedbackDerivedFromSatisfaction],
+  ["EXB-007", (c) => c.b7DirectProjectionAttempted],
+  ["EXB-008", (c) => !c.semanticResolutionPassed],
+  ["EXB-009", (c) => !c.processStateTimerPassed],
+  ["EXB-010", (c) => !c.conformancePassed],
+  ["EXB-011", (c) => !c.consistencyPassed],
+  ["EXB-012", (c) => !["ready", "ready_with_flags"].includes(c.readinessState)],
+  ["EXB-013", (c) => c.gapsHidden],
+  ["EXB-014", (c) => !c.provenanceComplete],
+  ["EXB-015", (c) => c.unconfirmedAiAsEvidence],
+  ["EXB-016", (c) => c.rawTextProjectionAttempted],
+  ["EXB-017", (c) => c.compoundAnswerFlattened],
+  ["EXB-018", (c) => c.staleSourceUsed],
+  ["EXB-019", (c) => !c.candidateStateValid],
+  ["EXB-020", (c) => c.payloadHasPlaceholders],
+  ["EXB-021", (c) => !c.checksumPresent],
+  ["EXB-022", (c) => !c.genealogyComplete],
+  ["EXB-023", (c) => !c.actorAuthorized],
+  ["EXB-024", (c) => !c.tenantScopeMatches],
+  ["EXB-025", (c) => c.activeRegistryWriteAttempted],
+  ["EXB-026", (c) => c.productionPromotionAttempted],
+  ["EXB-027", (c) => c.finalExportAttempted],
+  ["EXB-028", (c) => c.diagnosisAttempted],
+  ["EXB-029", (c) => c.internalUiLeakAttempted],
+  ["EXB-030", (c) => c.manualReviewOpen],
+  ["EXB-031", (c) => Boolean(c.overrideRequested) && !c.overrideAudited],
+  ["EXB-032", (c) => c.criticalCarryForwardGap],
+  ["EXB-033", (c) => c.irTreatedAsFinalDiagram],
+  ["EXB-034", (c) => c.mdsbTreatedAsFinal],
+];
+
+export function evaluateExportBlockers(context: ExportEvaluationContext): ExportBlockerResult[] {
+  const results: ExportBlockerResult[] = [];
+  for (const [code, predicate] of BLOCKER_PREDICATES) {
+    if (!predicate(context)) continue;
+    const definition = BLOCKER_BY_CODE.get(code);
+    if (!definition) throw new Error(`Missing blocker definition for ${code}`);
+    results.push({
+      blockerCode: definition.blocker_code,
+      category: definition.category,
+      hardBlock: definition.hard_block,
+      resolutionAction: definition.resolution_action,
+    });
+  }
+  return results;
+}
+
+export function canPrepareCandidatePayload(context: ExportEvaluationContext): boolean {
+  return evaluateExportBlockers(context).every((blocker) => !blocker.hardBlock);
+}
+
+export function canEmitShadowRehearsal(context: ExportEvaluationContext): boolean {
+  return (
+    canPrepareCandidatePayload(context) &&
+    ["ready", "ready_with_flags"].includes(context.readinessState) &&
+    !context.productionPromotionAttempted &&
+    !context.finalExportAttempted
+  );
+}
+
+export function getModuleRules(moduleName: keyof typeof EVE_07_PARALLEL_PRODUCTION_INTERFACE.modules) {
+  return EVE_07_PARALLEL_PRODUCTION_INTERFACE.modules[moduleName].rules;
+}
+
+export function getExportBlockerDefinition(code: string) {
+  return BLOCKER_BY_CODE.get(code);
+}
+
+export function validateEmbeddedCertification(): boolean {
+  // Deliberately false until an independent record/rule/source QA rerun accepts the repaired evidence.
+  return false;
+}
+
+export function validateEmbeddedWorkbenchReadiness(): boolean {
+  const contract = EVE_07_PARALLEL_PRODUCTION_INTERFACE.source_proof_contract;
+  const repair = EVE_07_PARALLEL_PRODUCTION_INTERFACE.workbench_repair;
+  return (
+    contract.required_rule_count === 154 &&
+    contract.workbench_proof_ready_count === 154 &&
+    contract.unresolved_rule_count === 0 &&
+    contract.independent_qa_required === true &&
+    repair.prepared_after.pending_source_proof_in_workbench_registry === 0 &&
+    repair.prepared_after.pending_locator_precision_in_workbench_registry === 0 &&
+    repair.no_cableado_preserved === true
+  );
+}

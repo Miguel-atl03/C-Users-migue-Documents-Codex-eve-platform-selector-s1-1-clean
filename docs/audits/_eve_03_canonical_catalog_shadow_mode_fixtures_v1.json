@@ -1,0 +1,116 @@
+{
+  "fixtureSetId": "EVE-03-CANONICAL-CATALOG-SHADOW-MODE-FIXTURES-V1",
+  "mode": "canonical_catalog_shadow",
+  "fixtures": [
+    {
+      "fixtureId": "resolve_existing_node",
+      "inputSummary": {"queryType": "resolve_node", "nodeId": "B0_0_0"},
+      "expectedReadinessState": "catalog_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "source_node",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D8.Catalogo_Madre_Nodos"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "resolve_missing_node",
+      "inputSummary": {"queryType": "resolve_node", "nodeId": "B9_missing_node"},
+      "expectedReadinessState": "catalog_lookup_not_found",
+      "expectedResolved": false,
+      "expectedEntityKind": null,
+      "expectedGapFlags": ["NODE_ID_NOT_FOUND"],
+      "expectedRuleIdsOrSourceTrace": ["D8.Catalogo_Madre_Nodos"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "resolve_existing_canonical_variable",
+      "inputSummary": {"queryType": "resolve_canonical_variable", "variableId": "CV::activity_anchor_confidence"},
+      "expectedReadinessState": "catalog_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "canonical_variable",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D8.Variables_Canonicas_Source", "D8.Canonical_Variables"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "referenced_canonical_variable_not_defined",
+      "inputSummary": {"queryType": "detect_catalog_gap", "variableId": "CV::referenced_not_defined_sample"},
+      "expectedReadinessState": "catalog_gap_detected",
+      "expectedResolved": false,
+      "expectedEntityKind": "canonical_variable_gap",
+      "expectedGapFlags": ["CANONICAL_VARIABLES_REFERENCED_NOT_DEFINED"],
+      "expectedRuleIdsOrSourceTrace": ["D8.Canonical_Variables", "QA.FLAG-01"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "validate_node_variable_map_valid",
+      "inputSummary": {"queryType": "validate_node_variable_map", "nodeId": "B0_0_0"},
+      "expectedReadinessState": "catalog_reference_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "node_variable_mapping",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D8.Canonical_Variables", "node_variable_map.json"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "validate_node_variable_map_missing_variable",
+      "inputSummary": {"queryType": "validate_node_variable_map", "nodeId": "B0_0_0", "variableId": "CV::missing_variable"},
+      "expectedReadinessState": "catalog_reference_missing",
+      "expectedResolved": false,
+      "expectedEntityKind": "node_variable_mapping_gap",
+      "expectedGapFlags": ["VARIABLE_ID_NOT_FOUND"],
+      "expectedRuleIdsOrSourceTrace": ["node_variable_map.json", "canonical_variables.json"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "validate_existing_critical_route",
+      "inputSummary": {"queryType": "validate_critical_route", "routeId": "CR-B0-WorkMapIntake-semantic-entry"},
+      "expectedReadinessState": "critical_route_found",
+      "expectedResolved": true,
+      "expectedEntityKind": "critical_route",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D8.Critical_Routes", "D6.Critical_Routes", "D5.boundary"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "validate_missing_critical_route",
+      "inputSummary": {"queryType": "validate_critical_route", "routeId": "CR-MISSING"},
+      "expectedReadinessState": "critical_route_missing",
+      "expectedResolved": false,
+      "expectedEntityKind": null,
+      "expectedGapFlags": ["CRITICAL_ROUTE_NOT_FOUND"],
+      "expectedRuleIdsOrSourceTrace": ["critical_routes.json"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "epistemic_policy_allows_confirmed_evidence",
+      "inputSummary": {"queryType": "validate_epistemic_policy", "policyId": "confirmed_evidence_allowed", "evidenceRefs": ["D8"]},
+      "expectedReadinessState": "epistemic_policy_allows",
+      "expectedResolved": true,
+      "expectedEntityKind": "epistemic_policy",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D8.Epistemic_Governance", "D6.Epistemic_Policy"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "epistemic_policy_blocks_unconfirmed_ai_as_hard_evidence",
+      "inputSummary": {"queryType": "validate_epistemic_policy", "policyId": "unconfirmed_ai_hard_evidence", "evidenceRefs": []},
+      "expectedReadinessState": "epistemic_policy_blocks",
+      "expectedResolved": false,
+      "expectedEntityKind": "epistemic_policy_block",
+      "expectedGapFlags": ["INFERENCE_FORBIDDEN_BY_EPISTEMIC_POLICY"],
+      "expectedRuleIdsOrSourceTrace": ["D8.Epistemic_Governance", "D5.governance_boundary"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "vsm_guard_lookup",
+      "inputSummary": {"queryType": "validate_vsm_guard", "requestedOutputType": "candidate_signal_only"},
+      "expectedReadinessState": "catalog_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "vsm_prep_guard",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D8.VSM_AHE_Prep", "VSM1.methodological_guard"],
+      "expectedSafetyFlags": "all_false"
+    }
+  ]
+}

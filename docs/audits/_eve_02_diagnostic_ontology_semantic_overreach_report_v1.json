@@ -1,0 +1,86 @@
+{
+  "auditId": "EVE-02-DIAGNOSTIC-ONTOLOGY-45-RULE-SOURCE-PROOF-MATRIX-V1",
+  "dictamen": "DIAGNOSTIC_ONTOLOGY_CONTENT_QA_READY_WITH_GAPS",
+  "overreachDetected": false,
+  "materialOverreachDetected": false,
+  "diagnosticBoundaryBroken": false,
+  "inventedPathologyDetected": false,
+  "rawTextExportAllowed": false,
+  "registryExportProductionRealAllowed": false,
+  "d2MisusedForMmabpRules": false,
+  "d4d5UsedToRelaxD1": false,
+  "underSpecificationDetected": true,
+  "underSpecifications": [
+    {
+      "gapId": "FUNCTIONAL_INPUT_CONTRACT_NAMES_NOT_EXPLICIT",
+      "severity": "minor_gap",
+      "affectedRules": ["EVE02-R019", "EVE02-R020", "EVE02-R022", "EVE02-R023"],
+      "finding": "The package semantically requires models, inconsistency class, conformance status and consistency status through evidence rules, but does not expose a separate input_contract section with the exact requested names.",
+      "packageCorrectionRequiredBeforeStaticTests": false,
+      "recommendedCorrectionLater": "Add explicit input_contract fields in a later package correction task: inconsistency_compartment, involved_models, conformance_status, consistency_status, evidence_refs and source_trace."
+    }
+  ],
+  "criticalRulesReviewed": [
+    {
+      "ruleId": "EVE02-R001",
+      "result": "ok",
+      "notes": "D2 is correctly used as primary pathology mapping authority."
+    },
+    {
+      "ruleId": "EVE02-R002",
+      "result": "ok",
+      "notes": "D1/EVE-00 correctly gate conformance and consistency before pathology mapping."
+    },
+    {
+      "ruleId": "EVE02-R003",
+      "result": "ok",
+      "notes": "No final diagnosis, IR, registry, export, monetization or transduction."
+    },
+    {
+      "ruleId": "EVE02-R005",
+      "result": "ok",
+      "notes": "No pathology from text alone."
+    },
+    {
+      "ruleId": "EVE02-R025",
+      "result": "ok",
+      "notes": "Primary candidate is conservative and preserves all candidates when multiple compartments fire."
+    },
+    {
+      "ruleId": "EVE02-R026",
+      "result": "ok",
+      "notes": "Systemic total requires all four views and cascade evidence."
+    },
+    {
+      "ruleId": "EVE02-R027",
+      "result": "ok",
+      "notes": "Tortura Causal and Violación Causal remain distinct."
+    },
+    {
+      "ruleId": "EVE02-R028",
+      "result": "ok",
+      "notes": "Falsa Elección is limited to alternatives/gateway mismatch."
+    },
+    {
+      "ruleId": "EVE02-R030",
+      "result": "ok",
+      "notes": "Aliases do not increase canonical pathology count."
+    },
+    {
+      "ruleId": "EVE02-R036",
+      "result": "ok",
+      "notes": "B7/C20 remain non-diagnostic."
+    },
+    {
+      "ruleId": "EVE02-R039",
+      "result": "ok",
+      "notes": "UI does not expose pathology labels."
+    },
+    {
+      "ruleId": "EVE02-R040",
+      "result": "ok",
+      "notes": "Downstream receives governed candidates, not raw text."
+    }
+  ],
+  "noGoSignals": []
+}

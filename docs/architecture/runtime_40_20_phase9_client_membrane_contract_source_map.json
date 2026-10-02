@@ -1,0 +1,148 @@
+{
+  "source_map": [
+    {
+      "contract_or_type": "RuntimeClientBFFContractCandidate",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "6. Arquitectura de implementacion",
+      "source_element": "UI Cliente -> BFF Cliente / Composition Root -> Runtime 40/20 Orchestrator",
+      "extracted_for_platform_use": "BFF composes safe client contracts and prevents direct UI access to runtime internals.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientVisibleState",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "5.4 OLC - Estados minimos a respetar",
+      "source_element": "ClientVisibleStatus and activity_runtime_run state boundary",
+      "extracted_for_platform_use": "Create external client-safe visible state labels without creating new unauthorized runtime states.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientMembraneCardKind",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "Significado de tu trabajo / UI Cliente",
+      "source_element": "B0-Q01 confirmation_card_with_correction, InteractionViewModel, compound_card, causal_probe_card, microconfirmation, review_gap_card",
+      "extracted_for_platform_use": "Restrict client cards to safe visible interaction contracts.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientHiddenInternalSurface",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "4. Que es y que no es Fase 9 / Gate 5",
+      "source_element": "No exposure of VSM, MMABP, Object Inventory, Membrane, SG, chips, logs, registry, IR, diagnosis, or Produccion Paralela real",
+      "extracted_for_platform_use": "Define internal surfaces that client UI/BFF must not expose.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientScopeRef",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "Runtime security / authority minimum",
+      "source_element": "Scoping by case_id, role_id, activity_id, run_id",
+      "extracted_for_platform_use": "Require minimum client/runtime scoping for BFF candidates.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "validateClientScope",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "7. Arbol operativo de implementacion Fase 9 / Gate 5",
+      "source_element": "F9.4 Auth / tenant / scope validates case_id, role_id, activity_id, run_id",
+      "extracted_for_platform_use": "Block missing case, role, activity, or run scope.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "validateNoInternalSurfaceExposure",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "Runtime core components / Runtime data model / Runtime state machines / Runtime gates criticos",
+      "source_element": "Runtime tables, interaction instances, canonical variables, evidence, branching, budgets, gates, SEM/PST, readiness and audit internals",
+      "extracted_for_platform_use": "Prevent internal runtime surfaces from crossing the client membrane.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "validateGateGreaterThanChip",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "Sistema de Inteligencia Operativa y Gobernanza Cognitiva",
+      "source_element": "Capa de Gates Regulatorias Duras, Capa de Chips Cognitivos EVE, Gate > Chip",
+      "extracted_for_platform_use": "Block direct chip invocation and gate bypass attempts.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "validateNoDiagnosisExportRegistry",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "2. Dictamen sistemico; 4. Que es y que no es Fase 9 / Gate 5",
+      "source_element": "No diagnosis final, no export final, no registry, no IR, no Produccion Paralela real",
+      "extracted_for_platform_use": "Create no diagnosis/export/registry/IR boundary for client membrane candidates.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "buildPhase9AClientMembraneLocalResult",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "7. Arbol operativo de implementacion Fase 9 / Gate 5",
+      "source_element": "F9.1 through F9.16 as local evidence material, test or blocker; no real activation by itself",
+      "extracted_for_platform_use": "Build a Phase 9-A local candidate result with real activation boundaries fixed to false.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientBFFContractCandidate",
+      "source_document": "WorkMap / PrimaryActivitySelectionPolicy",
+      "source_section": "Primary activity selection and runtime scoping",
+      "source_element": "role_runtime_session controls up to 8 primary activities; each selected primary activity creates activity_runtime_run",
+      "extracted_for_platform_use": "Preserve role_runtime_session_ref and activity_runtime_run_ref in client scope without opening secondary runs by default.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientMembraneAuditCandidate",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "Sistema Regulatorio Implementado / Soft Governance & Security Control",
+      "source_element": "runtime_audit_trail report-only, readiness_decision_record feeds No-Go/review, manual_review_required requires authorized actor, override requires audit trail",
+      "extracted_for_platform_use": "Create local audit candidates only; runtime_audit_trail real remains false.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimePhase9AClientMembraneLocalResult",
+      "source_document": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "source_section": "Runtime core components, data model, state machines, payload contracts, QA and security authority minimum",
+      "source_element": "role_runtime_session, activity_runtime_run, interaction instance, response, evidence, variables, gates, readiness, payload and audit boundaries",
+      "extracted_for_platform_use": "Represent F9-A as local candidate contract without endpoint, Supabase, SQL, Runtime real, export or Produccion Paralela.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientVisibleStateContractCandidate",
+      "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "source_section": "Runtime_Interactions_Base_40, Runtime_Interactions_Causal_20, UX_Subfield_Structure, Epistemic_Policy, Critical_Routes",
+      "source_element": "40+20 interactions, subfields, epistemic policy, critical routes and QA checklist",
+      "extracted_for_platform_use": "Expose only card/view-model candidates and safe client states; do not expose catalog internals.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientInternalSurfaceGuardCandidate",
+      "source_document": "EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+      "source_section": "Catalogo_Madre_Nodos, Canonical_Variables, Critical_Routes, VSM_AHE_Prep",
+      "source_element": "genealogy, canonical variables, routes, VSM/AHE prep without diagnosis",
+      "extracted_for_platform_use": "Treat canonical and VSM/AHE internals as hidden surfaces behind the membrane.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientMembraneSourceTrace",
+      "source_document": "MMABP_Minimal_Business_Architecture_EVE_v1_1_B3_B7_alineado",
+      "source_section": "MMABP PM/MoC/PF/OLC, B3/B7, timers and conformance-before-consistency",
+      "source_element": "MMABP separation and source trace requirement",
+      "extracted_for_platform_use": "Require explicit source trace for every local candidate contract.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    }
+  ]
+}

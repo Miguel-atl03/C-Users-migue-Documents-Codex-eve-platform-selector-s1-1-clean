@@ -1,0 +1,2890 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <!--
+      EVE · Bloque 2 · Transformación · composición "LA PIEZA" · v1
+      HTML de diseño aislado (no reemplaza eve-shell-bloques-v1.html).
+
+      Idea de UI
+        Bloque 2 pregunta "¿Qué cambia realmente en esta escena?". La respuesta es una cosa,
+        una persona/entidad o una acción: LA PIEZA. La hoja la trata como un plano técnico:
+          · la pieza vive al centro, sobre una COTA (línea de medida con remates);
+          · empieza como "LO PRINCIPAL" (susurro) y toma el nombre que da el usuario (2.1a/b/c);
+          · cada tramo del bloque anota una relación con la pieza mediante líneas de referencia:
+              principal  tres estaciones sobre la cota (objeto · sujeto · acción) → nombrar;
+                         cada respuesta se inscribe en la cota, en la sección de su opción
+              limita     la pieza muestra qué dimensión domina / el orden
+              atributos  propiedades que cambian; quedan anotadas bajo la pieza
+              acto       acción directa · qué la provoca
+              estados    la cota se lee ANTES ←→ DESPUÉS (solo aquí)
+              magnitud   la cota se convierte en escala: pequeño · medio · grande · radical
+              sombra     la cota se vuelve discontinua (línea oculta del dibujo técnico)        La memoria operativa pasa a ser el RÓTULO del plano (abajo a la izquierda).
+
+      Runtime: Arquitectura_Runtime_40_20_EVE_MMABP_B0_02_07_08_Controlado.docx
+        B2-Q12 2.1 · 2.1a · 2.1b · 2.1c        C04 2.1_*_Relacion · 2.1_ABC_Prioridad · 2.A
+        B2-Q13 2.2_obj · 2.2_suj · 2.2_acc     C05 2.10 · 2.B
+        B2-Q14 2.4a · 2.4b                     C06 2.12 · 2.C
+        B2-Q15 2.5 · 2.6                       C07 2.8
+        B2-Q16 2.3 · 2.7
+        B2-Q17 2.9 · 2.11
+      Madre: Bloque_2_Documento_Madre_Capa1_v2_1_EVE.docx
+
+      Parámetros: ?band=principal|limita|atributos|acto|estados|magnitud|sombra
+                  ?activity=2 (sin compuerta "Abre +")  ?codes=0  ?memory=<texto>
+    -->
+    <title>EVE — Bloque 2 · La pieza · v1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #9aa1ab;
+        --eve-mist-deep: #7a8190;
+        --eve-line: #d8dce2;
+        --font-mono: "IBM Plex Mono", "Consolas", monospace;
+        --pad-x: clamp(24px, 5vw, 72px);
+        --stage-h: clamp(600px, 66vh, 720px);
+        --cota-y: 40%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-mono);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      @keyframes eve-fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes eve-caret {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .build {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 30;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .screen {
+        position: relative;
+        display: flow-root;
+        width: 100%;
+        max-width: 1440px;
+        min-height: 100svh;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+      }
+
+      /* Shell */
+      .shell-nav {
+        position: absolute;
+        top: 14px;
+        left: 20px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .phase-arrow {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 200ms ease;
+      }
+
+      .phase-arrow:hover {
+        color: var(--eve-ink);
+      }
+
+      .block-marks {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .block-mark {
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        line-height: 1;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 200ms ease;
+      }
+
+      .block-mark:hover,
+      .block-mark.is-current {
+        color: var(--eve-ink);
+      }
+
+      .kicker-band {
+        position: absolute;
+        top: clamp(48px, 8vh, 88px);
+        left: 50%;
+        z-index: 6;
+        width: min(540px, 52vw);
+        text-align: center;
+        transform: translateX(-50%);
+      }
+
+      .block-meta {
+        margin: 0 0 12px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .kicker {
+        margin: 0;
+        color: var(--eve-ink);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        line-height: 1.55;
+        text-transform: uppercase;
+      }
+
+      .madre-help {
+        max-height: 0;
+        margin: 0;
+        overflow: hidden;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        opacity: 0;
+        transition:
+          opacity 380ms ease,
+          max-height 380ms ease,
+          margin 280ms ease;
+      }
+
+      .madre-help.is-open {
+        max-height: 420px;
+        margin-top: 16px;
+        opacity: 1;
+      }
+
+      .madre-help p {
+        margin: 0 0 6px;
+      }
+
+      /* Stage: el plano */
+      .stage {
+        position: relative;
+        height: var(--stage-h);
+        margin: clamp(230px, 27vh, 300px) var(--pad-x) 0;
+      }
+
+      /* La cota: línea de medida con remates */
+      .cota {
+        position: absolute;
+        top: var(--cota-y);
+        left: 0;
+        right: 0;
+        z-index: 1;
+        height: 1px;
+        background: var(--eve-line);
+      }
+
+      .cota::before,
+      .cota::after {
+        content: "";
+        position: absolute;
+        top: -6px;
+        width: 1px;
+        height: 13px;
+        background: var(--eve-mist);
+      }
+
+      .cota::before {
+        left: 0;
+      }
+
+      .cota::after {
+        right: 0;
+      }
+
+      .stage.is-shadow .cota {
+        background: repeating-linear-gradient(
+          90deg,
+          var(--eve-mist) 0 5px,
+          transparent 5px 11px
+        );
+      }
+
+      .cota-end {
+        position: absolute;
+        bottom: 16px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        opacity: 0;
+        transition: opacity 500ms ease;
+      }
+
+      .cota-end.is-left {
+        left: 0;
+      }
+
+      .cota-end.is-right {
+        right: 0;
+      }
+
+      .stage.is-states .cota-end {
+        opacity: 1;
+      }
+
+      .station-tick {
+        position: absolute;
+        top: calc(var(--cota-y) - 10px);
+        z-index: 2;
+        width: 1px;
+        height: 21px;
+        background: var(--eve-line);
+        opacity: 0;
+        transition:
+          opacity 400ms ease,
+          background 300ms ease;
+      }
+
+      .stage.band-principal .station-tick {
+        opacity: 1;
+      }
+
+      .station-tick.is-on {
+        background: var(--eve-ink);
+      }
+
+      .station-tick[data-col="1"] {
+        left: 0;
+      }
+
+      .station-tick[data-col="2"] {
+        left: 37%;
+      }
+
+      .station-tick[data-col="3"] {
+        right: 0;
+      }
+
+      /* La pieza */
+      .pieza {
+        position: absolute;
+        top: calc(var(--cota-y) - 20px);
+        left: 50%;
+        z-index: 3;
+        transform: translateX(-50%);
+        transition:
+          top 600ms ease,
+          opacity 500ms ease;
+      }
+
+      .pieza-row {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        height: 40px;
+        padding: 0 26px;
+        background: var(--eve-sheet);
+        white-space: nowrap;
+      }
+
+      .pieza-part {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .pieza-dim {
+        position: absolute;
+        bottom: calc(100% + 8px);
+        left: 0;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .stage.band-principal .pieza-dim {
+        display: none;
+      }
+
+      .pieza-name {
+        color: var(--eve-ink);
+        font-size: clamp(20px, 2vw, 28px);
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        line-height: 1;
+        text-transform: uppercase;
+        transition: color 300ms ease;
+      }
+
+      .pieza-name.is-placeholder {
+        color: var(--eve-mist);
+        font-weight: 400;
+      }
+
+      .pieza.is-dense .pieza-name {
+        font-size: clamp(14px, 1.3vw, 19px);
+      }
+
+      .pieza-part.is-recessive .pieza-name {
+        color: var(--eve-mist);
+      }
+
+      .pieza-sep {
+        color: var(--eve-mist);
+        font-size: 12px;
+      }
+
+      .pieza-note {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        margin: 0;
+        color: var(--eve-mist-deep);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        transform: translateX(-50%);
+      }
+
+      .stage.is-scale .pieza {
+        top: calc(var(--cota-y) - 128px);
+      }
+
+      .stage.is-shadow .pieza-name,
+      .stage.is-shadow .pieza-note {
+        color: var(--eve-mist);
+      }
+
+      .stage.is-shadow .pieza-dim,
+      .stage.is-shadow .pieza-sep {
+        color: var(--eve-line);
+      }
+
+      /* Tramos e islas */
+      .band {
+        position: absolute;
+        inset: 0;
+        z-index: 4;
+        display: none;
+      }
+
+      .band.is-active {
+        display: block;
+        animation: eve-fade 600ms ease both;
+      }
+
+      .isle {
+        position: absolute;
+      }
+
+      .isle.top {
+        top: 0;
+      }
+
+      .isle.up {
+        bottom: calc(100% - var(--cota-y) + 64px);
+      }
+
+      .isle.down {
+        top: calc(var(--cota-y) + 64px);
+      }
+
+      .isle.down.far {
+        top: calc(var(--cota-y) + 124px);
+      }
+
+      .isle.l {
+        left: 0;
+      }
+
+      .isle.c2 {
+        left: 37%;
+      }
+
+      .isle.r {
+        right: 0;
+        text-align: right;
+      }
+
+      /* Líneas de referencia: unen cada isla con la cota */
+      .isle.up::before,
+      .isle.down::before {
+        content: "";
+        position: absolute;
+        width: 1px;
+        background: var(--eve-line);
+      }
+
+      .isle.up::before {
+        top: calc(100% + 8px);
+        height: 48px;
+      }
+
+      .isle.down::before {
+        bottom: calc(100% + 8px);
+        height: 48px;
+      }
+
+      .isle.down.far::before {
+        height: 108px;
+      }
+
+      .isle.l::before,
+      .isle.c2::before {
+        left: 0;
+      }
+
+      .isle.r::before {
+        right: 0;
+      }
+
+      .w-26 {
+        width: min(360px, 26%);
+      }
+
+      .w-34 {
+        width: min(440px, 34%);
+      }
+
+      .w-40 {
+        width: min(520px, 40%);
+      }
+
+      .w-44 {
+        width: min(580px, 44%);
+      }
+
+      /* Pregunta / opciones (gramática del shell) */
+      .q-block + .q-block,
+      .q-block + .clarify-slot,
+      .clarify-slot + .q-block {
+        margin-top: 36px;
+      }
+
+      .q-code {
+        margin: 0 0 8px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .hide-codes .q-code {
+        display: none;
+      }
+
+      .q-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .isle.r .q-head {
+        flex-direction: row-reverse;
+      }
+
+      .q-label {
+        flex: 1;
+        min-width: 0;
+        margin: 0;
+        color: var(--eve-ink);
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+
+      .help-plus {
+        flex: 0 0 auto;
+        margin: 1px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1;
+        cursor: pointer;
+        transition:
+          color 240ms ease,
+          opacity 240ms ease;
+      }
+
+      .help-plus.is-seen {
+        color: var(--eve-mist);
+      }
+
+      .help-plus:hover,
+      .help-plus.is-open {
+        color: var(--eve-ink);
+      }
+
+      .gate-hint {
+        max-height: 0;
+        margin: 8px 0 0;
+        overflow: hidden;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        line-height: 1.4;
+        text-transform: uppercase;
+        opacity: 0;
+        transition:
+          opacity 240ms ease,
+          max-height 240ms ease,
+          color 240ms ease;
+      }
+
+      .gate-hint.is-visible {
+        max-height: 3em;
+        opacity: 1;
+      }
+
+      .gate-hint.is-flash {
+        color: var(--eve-ink);
+      }
+
+      .q-whisper {
+        margin: 10px 0 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .opt-list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .opt-list.is-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+      }
+
+      .isle.r .opt-list {
+        align-items: flex-end;
+      }
+
+      .isle.r .opt-list.is-row {
+        justify-content: flex-end;
+      }
+
+      .opt {
+        margin: 0;
+        padding: 2px 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        line-height: 1.4;
+        text-align: inherit;
+        cursor: pointer;
+        transition:
+          color 280ms ease,
+          font-weight 180ms ease;
+      }
+
+      .opt:hover {
+        color: var(--eve-ink);
+      }
+
+      .opt.is-active {
+        color: var(--eve-ink);
+        font-weight: 700;
+      }
+
+      /* 2.1 · la pregunta baja hasta sus opciones; las opciones se leen como elegibles */
+      .isle.up.q21-isle {
+        bottom: calc(100% - var(--cota-y) + 112px);
+      }
+
+      .isle.up.q21-isle::before {
+        display: none;
+      }
+
+      .q21-mode {
+        margin-top: 12px;
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .station {
+        color: var(--eve-mist-deep);
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        text-underline-offset: 6px;
+        transition:
+          color 280ms ease,
+          text-decoration-color 280ms ease;
+      }
+
+      .station:hover {
+        color: var(--eve-ink);
+        text-decoration-color: var(--eve-line);
+      }
+
+      .station.is-active {
+        text-decoration-color: transparent;
+      }
+
+      .stage.band-principal .pieza {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      /* 2.1 · cada respuesta se inscribe en la cota, en la sección de su opción */
+      .pieza-cols {
+        display: none;
+      }
+
+      .stage.band-principal .pieza-cols {
+        display: block;
+      }
+
+      .pieza-col {
+        position: absolute;
+        top: calc(var(--cota-y) - 20px);
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        height: 40px;
+        margin: 0;
+        padding: 0 14px;
+        overflow: hidden;
+        background: var(--eve-sheet);
+        white-space: nowrap;
+      }
+
+      .pieza-col[hidden] {
+        display: none;
+      }
+
+      .pieza-col .pieza-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: clamp(16px, 1.7vw, 24px);
+      }
+
+      .pieza-col[data-dim="objeto"] {
+        left: 12px;
+        max-width: calc(37% - 24px);
+      }
+
+      .pieza-col[data-dim="sujeto"] {
+        left: calc(37% + 12px);
+        max-width: 34%;
+      }
+
+      .pieza-col[data-dim="accion"] {
+        right: 12px;
+        justify-content: flex-end;
+        max-width: 26%;
+      }
+
+      .opt-list.is-locked,
+      .station-isle.is-locked,
+      .scale.is-locked {
+        opacity: 0.38;
+        pointer-events: none;
+      }
+
+      .opt-list.is-committed .opt:not(.is-active) {
+        display: none;
+      }
+
+      /* 2.1a/b/c · la respuesta ya se lee en la cota: abajo solo queda ← */
+      .opt-list.is-committed:is([data-choice="2.1a"], [data-choice="2.1b"], [data-choice="2.1c"]) .opt {
+        display: none;
+      }
+
+      .opt-list.is-committed:is([data-choice="2.1a"], [data-choice="2.1b"], [data-choice="2.1c"]) + .choice-back {
+        margin-top: 0;
+      }
+
+      .rank-mark {
+        margin-right: 6px;
+        color: var(--eve-ink);
+        font-weight: 700;
+      }
+
+      .choice-back {
+        display: none;
+        margin: 12px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 11px;
+        line-height: 1;
+        cursor: pointer;
+        opacity: 0.72;
+      }
+
+      .choice-back.is-visible {
+        display: block;
+      }
+
+      .isle.r .choice-back {
+        margin-left: auto;
+      }
+
+      .choice-back:hover {
+        color: var(--eve-ink);
+        opacity: 1;
+      }
+
+      .spec-label {
+        margin: 18px 0 0;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .answer-field {
+        margin-top: 30px;
+      }
+
+      .answer-field.is-followup {
+        margin-top: 12px;
+      }
+
+      .answer-field.is-locked {
+        opacity: 0.38;
+        pointer-events: none;
+      }
+
+      .q-value {
+        display: block;
+        width: 100%;
+        min-height: 3.2em;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.55;
+        text-align: inherit;
+        white-space: pre-wrap;
+        word-break: break-word;
+        outline: none;
+        caret-color: var(--eve-ink);
+        cursor: text;
+      }
+
+      .q-value.is-empty[contenteditable="true"]:not(:focus)::before {
+        content: "";
+        display: inline-block;
+        width: 1.5px;
+        height: 1.05em;
+        background: var(--eve-ink);
+        vertical-align: -0.18em;
+        animation: eve-caret 1s step-end infinite;
+      }
+
+      .followup,
+      .clarify-slot {
+        display: none;
+      }
+
+      .followup.is-open,
+      .clarify-slot.is-open {
+        display: block;
+      }
+
+      .trench {
+        margin: 0 0 18px;
+      }
+
+      .trench-lead {
+        margin: 0 0 10px;
+        color: var(--eve-ink);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .trench-landing {
+        margin: 0 0 10px;
+        color: var(--eve-mist-deep);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .trench-example {
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      /* Escala de magnitud inscrita en la cota */
+      .scale {
+        position: absolute;
+        top: var(--cota-y);
+        left: 0;
+        right: 0;
+        z-index: 3;
+        height: 0;
+      }
+
+      .scale-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--eve-ink);
+        transition: width 500ms ease;
+      }
+
+      .scale-mark {
+        position: absolute;
+        top: -9px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        margin: 0;
+        padding: 0 8px;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        transform: translateX(-50%);
+        cursor: pointer;
+      }
+
+      .scale-tick {
+        width: 1px;
+        height: 19px;
+        background: var(--eve-mist);
+        transition:
+          background 300ms ease,
+          transform 300ms ease;
+      }
+
+      .scale-label {
+        color: var(--eve-mist);
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        transition: color 280ms ease;
+      }
+
+      .scale-mark:hover .scale-label {
+        color: var(--eve-ink);
+      }
+
+      .scale-mark.is-active .scale-tick {
+        background: var(--eve-ink);
+        transform: scaleY(1.6);
+      }
+
+      .scale-mark.is-active .scale-label {
+        color: var(--eve-ink);
+        font-weight: 700;
+      }
+
+      /* Pie del plano: rótulo + acción */
+      .sheet-foot {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 48px;
+        margin: 48px var(--pad-x) 0;
+        padding-bottom: 88px;
+      }
+
+      .rotulo {
+        max-width: 46ch;
+        padding-top: 10px;
+        border-top: 1px solid var(--eve-line);
+      }
+
+      .rotulo-meta {
+        display: block;
+        margin: 0 0 8px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .rotulo-text {
+        margin: 0;
+        color: var(--eve-mist-deep);
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.6;
+      }
+
+      .closure {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+      }
+
+      .scene-toggle {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 220ms ease;
+      }
+
+      .scene-toggle.is-ready {
+        color: var(--eve-ink);
+        text-decoration: underline;
+        text-underline-offset: 6px;
+      }
+
+      .scene-toggle:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      .closure-hint,
+      .saved-mark {
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 7px;
+        letter-spacing: 0.12em;
+        text-align: right;
+        text-transform: uppercase;
+      }
+
+      .ops-notify {
+        position: fixed;
+        bottom: 24px;
+        left: 24px;
+        z-index: 20;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0;
+        transition: opacity 400ms ease;
+      }
+
+      .ops-notify.is-visible {
+        opacity: 1;
+      }
+
+      .replay {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 20;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 900px) {
+        .stage {
+          height: auto;
+          margin-top: 240px;
+        }
+
+        .cota,
+        .station-tick,
+        .stage.band-principal .pieza-cols,
+        .isle::before {
+          display: none;
+        }
+
+        .pieza,
+        .stage.is-scale .pieza {
+          position: static;
+          margin: 0 0 40px;
+          transform: none;
+        }
+
+        .pieza-row {
+          justify-content: center;
+          flex-wrap: wrap;
+          height: auto;
+          row-gap: 22px;
+        }
+
+        .pieza-note {
+          position: static;
+          margin-top: 12px;
+          text-align: center;
+          transform: none;
+          white-space: normal;
+        }
+
+        .band.is-active {
+          position: static;
+          display: flex;
+          flex-direction: column;
+          gap: 44px;
+        }
+
+        .isle {
+          position: static;
+          width: 100% !important;
+          text-align: left !important;
+        }
+
+        .isle.r .q-head {
+          flex-direction: row;
+        }
+
+        .isle.r .opt-list,
+        .isle.r .opt-list.is-row {
+          align-items: flex-start;
+          justify-content: flex-start;
+        }
+
+        .scale {
+          position: relative;
+          top: 0;
+          height: 64px;
+        }
+
+        .sheet-foot {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="build" id="build"></p>
+
+    <main class="screen" id="screen">
+      <nav class="shell-nav" aria-label="Navegación del levantamiento">
+        <button class="phase-arrow" id="nav-back" type="button" aria-label="Tramo anterior">←</button>
+        <div class="block-marks">
+          <a class="block-mark" href="eve-shell-bloques-v1?band=actividad">Bloque 0</a>
+          <a class="block-mark" href="eve-shell-bloques-v1?band=beneficio">Bloque 0.5</a>
+          <a class="block-mark" href="eve-shell-bloques-v1?band=origen">Bloque 1</a>
+          <span class="block-mark is-current" aria-current="step">Bloque 2</span>
+        </div>
+      </nav>
+
+      <header class="kicker-band">
+        <p class="block-meta">Transformación · ¿Qué cambia realmente en esta escena?</p>
+        <p class="kicker" id="kicker"></p>
+        <div class="madre-help" id="madre-help" aria-live="polite"></div>
+      </header>
+
+      <section class="stage band-principal" id="stage" aria-label="Plano de la pieza">
+        <div class="cota" aria-hidden="true">
+          <span class="cota-end is-left">Antes</span>
+          <span class="cota-end is-right">Después</span>
+        </div>
+        <span class="station-tick" data-col="1" data-dim="objeto" aria-hidden="true"></span>
+        <span class="station-tick" data-col="2" data-dim="sujeto" aria-hidden="true"></span>
+        <span class="station-tick" data-col="3" data-dim="accion" aria-hidden="true"></span>
+
+        <div class="pieza-cols" aria-live="polite">
+          <p class="pieza-col" data-dim="objeto" hidden><span class="pieza-name"></span></p>
+          <p class="pieza-col" data-dim="sujeto" hidden><span class="pieza-name"></span></p>
+          <p class="pieza-col" data-dim="accion" hidden><span class="pieza-name"></span></p>
+        </div>
+
+        <div class="pieza" id="pieza" aria-live="polite">
+          <div class="pieza-row" id="pieza-row"></div>
+          <p class="pieza-note" id="pieza-note"></p>
+        </div>
+
+        <!-- B2-Q12 · 2.1 · 2.1a · 2.1b · 2.1c -->
+        <div class="band" data-band="principal">
+          <div class="isle up l w-44 q21-isle">
+            <article class="q-block">
+              <p class="q-code">2.1 · Qué cambia</p>
+              <div class="q-head">
+                <p class="q-label">¿Qué es lo principal que creas, cambias o afectas con esta actividad?</p>
+                <button class="help-plus" type="button" data-field="2.1" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.1">Abre + antes de responder</p>
+              <p class="q-whisper q21-mode">Puedes elegir una, dos o tres.</p>
+            </article>
+          </div>
+
+          <div class="isle up l w-26 station-isle" data-station-isle>
+            <button class="opt station" type="button" data-station="objeto" role="checkbox" aria-checked="false">Un OBJETO (cosa)</button>
+          </div>
+          <div class="isle up c2 w-26 station-isle" data-station-isle>
+            <button class="opt station" type="button" data-station="sujeto" role="checkbox" aria-checked="false">Un SUJETO (persona/entidad)</button>
+          </div>
+          <div class="isle up r w-26 station-isle" data-station-isle>
+            <button class="opt station" type="button" data-station="accion" role="checkbox" aria-checked="false">Una ACCIÓN/PROCESO</button>
+          </div>
+
+          <div class="isle down l w-26" id="isle-21a" hidden>
+            <article class="q-block">
+              <p class="q-code">2.1a · Objeto principal</p>
+              <div class="q-head">
+                <p class="q-label">¿Cuál es ese objeto?</p>
+                <button class="help-plus" type="button" data-field="2.1a" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.1a">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-choice="2.1a" role="radiogroup" aria-label="Objeto principal"></div>
+              <button class="choice-back" type="button" data-back-for="2.1a" aria-label="Ver todas las opciones">←</button>
+              <div class="followup" data-follow-for="2.1a">
+                <p class="spec-label">¿Cuál?</p>
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.1a" role="textbox" aria-label="Especificar objeto"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="isle down c2 w-26" id="isle-21b" hidden>
+            <article class="q-block">
+              <p class="q-code">2.1b · Sujeto principal</p>
+              <div class="q-head">
+                <p class="q-label">¿Cuál es ese sujeto?</p>
+                <button class="help-plus" type="button" data-field="2.1b" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.1b">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-choice="2.1b" role="radiogroup" aria-label="Sujeto principal"></div>
+              <button class="choice-back" type="button" data-back-for="2.1b" aria-label="Ver todas las opciones">←</button>
+              <div class="followup" data-follow-for="2.1b">
+                <p class="spec-label">¿Cuál?</p>
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.1b" role="textbox" aria-label="Especificar sujeto"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="isle down r w-26" id="isle-21c" hidden>
+            <article class="q-block">
+              <p class="q-code">2.1c · Acción principal</p>
+              <div class="q-head">
+                <p class="q-label">¿Cuál es la acción principal?</p>
+                <button class="help-plus" type="button" data-field="2.1c" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.1c">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-choice="2.1c" role="radiogroup" aria-label="Acción principal"></div>
+              <button class="choice-back" type="button" data-back-for="2.1c" aria-label="Ver todas las opciones">←</button>
+              <div class="followup" data-follow-for="2.1c">
+                <p class="spec-label">¿Cuál?</p>
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.1c" role="textbox" aria-label="Especificar acción"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- C04 · 2.1_*_Relacion · 2.1_ABC_Prioridad · 2.A -->
+        <div class="band" data-band="limita">
+          <div class="isle down l w-40">
+            <article class="q-block" id="q-rel">
+              <p class="q-code" id="rel-code"></p>
+              <div class="q-head">
+                <p class="q-label" id="rel-label"></p>
+                <button class="help-plus" type="button" id="rel-help" data-field="" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" id="rel-gate" data-gate-for="">Abre + antes de responder</p>
+              <div class="opt-list is-row" id="rel-list" data-choice="" role="radiogroup" aria-label="Qué limita más"></div>
+              <button class="choice-back" type="button" id="rel-back" data-back-for="" aria-label="Ver todas las opciones">←</button>
+            </article>
+            <div class="clarify-slot" id="slot-2A">
+              <article class="q-block">
+                <div class="trench" id="trench-2A"></div>
+                <p class="q-code">2.A · Aclarar qué domina</p>
+                <div class="q-head">
+                  <p class="q-label">¿Dirías que el problema principal está en el objeto, en el sujeto, en la acción o en una combinación concreta?</p>
+                  <button class="help-plus" type="button" data-field="2.A" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="2.A">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.A" role="textbox" aria-label="Qué domina"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="isle down r w-34" id="isle-rank" hidden>
+            <article class="q-block">
+              <p class="q-code">2.1_ABC_Prioridad · Ranking de dimensiones</p>
+              <div class="q-head">
+                <p class="q-label">Si tuvieras que ordenarlos por importancia, ¿cuál va primero?</p>
+                <button class="help-plus" type="button" data-field="2.1_ABC_Prioridad" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.1_ABC_Prioridad">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-rank="2.1_ABC_Prioridad" role="group" aria-label="Orden de importancia"></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- B2-Q13 · 2.2_obj · 2.2_suj · 2.2_acc -->
+        <div class="band" data-band="atributos">
+          <div class="isle down l w-40" id="isle-22obj" data-attr-dim="objeto" hidden>
+            <article class="q-block">
+              <p class="q-code">2.2_obj · Atributos del objeto</p>
+              <div class="q-head">
+                <p class="q-label" id="label-22obj"></p>
+                <button class="help-plus" type="button" data-field="2.2_obj" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.2_obj">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-multi="2.2_obj" role="group" aria-label="Atributos del objeto"></div>
+              <div class="followup" data-follow-for="2.2_obj">
+                <p class="spec-label">¿Cuál?</p>
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.2_obj" role="textbox" aria-label="Otro atributo del objeto"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="isle down r w-40" id="isle-22suj" data-attr-dim="sujeto" hidden>
+            <article class="q-block">
+              <p class="q-code">2.2_suj · Atributos del sujeto</p>
+              <div class="q-head">
+                <p class="q-label" id="label-22suj"></p>
+                <button class="help-plus" type="button" data-field="2.2_suj" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.2_suj">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-multi="2.2_suj" role="group" aria-label="Atributos del sujeto"></div>
+              <div class="followup" data-follow-for="2.2_suj">
+                <p class="spec-label">¿Cuál?</p>
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.2_suj" role="textbox" aria-label="Otro atributo del sujeto"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="isle up l w-40" id="isle-22acc" data-attr-dim="accion" hidden>
+            <article class="q-block">
+              <p class="q-code">2.2_acc · Características de la acción</p>
+              <div class="q-head">
+                <p class="q-label" id="label-22acc"></p>
+                <button class="help-plus" type="button" data-field="2.2_acc" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.2_acc">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-multi="2.2_acc" role="group" aria-label="Características de la acción"></div>
+              <div class="followup" data-follow-for="2.2_acc">
+                <p class="spec-label">¿Cuál?</p>
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.2_acc" role="textbox" aria-label="Otra característica de la acción"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- B2-Q14 · 2.4a · 2.4b -->
+        <div class="band" data-band="acto">
+          <div class="isle down l w-40">
+            <article class="q-block">
+              <p class="q-code">2.4a · Acción directa</p>
+              <div class="q-head">
+                <p class="q-label">¿Qué acción o cambio haces tú directamente sobre lo principal?</p>
+                <button class="help-plus" type="button" data-field="2.4a" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.4a">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-choice="2.4a" role="radiogroup" aria-label="Acción directa"></div>
+              <button class="choice-back" type="button" data-back-for="2.4a" aria-label="Ver todas las opciones">←</button>
+              <div class="followup" data-follow-for="2.4a">
+                <p class="spec-label">¿Cuál?</p>
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.4a" role="textbox" aria-label="Otra acción directa"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="isle down r w-40">
+            <article class="q-block">
+              <p class="q-code">2.4b · Qué lo provoca</p>
+              <div class="q-head">
+                <p class="q-label">¿Qué es lo que normalmente provoca que hagas ese cambio?</p>
+                <button class="help-plus" type="button" data-field="2.4b" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.4b">Abre + antes de responder</p>
+              <div class="opt-list" data-choice="2.4b" role="radiogroup" aria-label="Qué lo provoca"></div>
+              <button class="choice-back" type="button" data-back-for="2.4b" aria-label="Ver todas las opciones">←</button>
+              <div class="followup" data-follow-for="2.4b">
+                <p class="spec-label">¿Cuál?</p>
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.4b" role="textbox" aria-label="Otra causa"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- B2-Q15 · 2.5 · 2.6 -->
+        <div class="band" data-band="estados">
+          <div class="isle down l w-34">
+            <article class="q-block">
+              <p class="q-code">2.5 · Estado inicial</p>
+              <div class="q-head">
+                <p class="q-label">Justo antes de que comience esta actividad, ¿en qué estado o condición se encuentra lo principal?</p>
+                <button class="help-plus" type="button" data-field="2.5" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.5">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.5" role="textbox" aria-label="Estado inicial"></div>
+              </div>
+            </article>
+          </div>
+          <div class="isle down r w-34">
+            <article class="q-block">
+              <p class="q-code">2.6 · Estado final</p>
+              <div class="q-head">
+                <p class="q-label">Después de que termina esta actividad, ¿en qué estado o condición queda lo principal?</p>
+                <button class="help-plus" type="button" data-field="2.6" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.6">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.6" role="textbox" aria-label="Estado final"></div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- B2-Q16 · 2.3 · 2.7 · C07 2.8 -->
+        <div class="band" data-band="magnitud">
+          <div class="isle top l w-34">
+            <article class="q-block">
+              <p class="q-code">2.3 · Magnitud del cambio</p>
+              <div class="q-head">
+                <p class="q-label">Cuando haces esta actividad, ¿qué tanto cambia lo principal con respecto a cómo llegó?</p>
+                <button class="help-plus" type="button" data-field="2.3" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.3">Abre + antes de responder</p>
+              <p class="q-whisper" id="scale-context"></p>
+            </article>
+          </div>
+          <div class="scale" id="scale" role="radiogroup" aria-label="Magnitud del cambio">
+            <span class="scale-fill" id="scale-fill"></span>
+          </div>
+          <div class="isle down far l w-40">
+            <article class="q-block">
+              <p class="q-code">2.7 · Ciclos de cambio</p>
+              <div class="q-head">
+                <p class="q-label">¿Lo principal se transforma una sola vez o hay múltiples ciclos de transformación?</p>
+                <button class="help-plus" type="button" data-field="2.7" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.7">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-choice="2.7" role="radiogroup" aria-label="Ciclos de cambio"></div>
+              <button class="choice-back" type="button" data-back-for="2.7" aria-label="Ver todas las opciones">←</button>
+            </article>
+          </div>
+          <div class="isle down far r w-34" id="isle-28" hidden>
+            <article class="q-block">
+              <p class="q-code">2.8 · Cuántos ciclos</p>
+              <div class="q-head">
+                <p class="q-label">Si respondiste 'Pocas veces' o 'Muchas veces', ¿cuántos ciclos típicamente ocurren?</p>
+                <button class="help-plus" type="button" data-field="2.8" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.8">Abre + antes de responder</p>
+              <div class="opt-list is-row" data-choice="2.8" role="radiogroup" aria-label="Cuántos ciclos"></div>
+              <button class="choice-back" type="button" data-back-for="2.8" aria-label="Ver todas las opciones">←</button>
+            </article>
+          </div>
+        </div>
+
+        <!-- B2-Q17 · 2.9 · 2.11 · C05 2.10/2.B · C06 2.12/2.C -->
+        <div class="band" data-band="sombra">
+          <div class="isle down l w-40">
+            <article class="q-block">
+              <p class="q-code">2.9 · Fallos de transformación</p>
+              <div class="q-head">
+                <p class="q-label">¿Hay momentos en que no se transforma aunque debería, o se transforma de forma incorrecta?</p>
+                <button class="help-plus" type="button" data-field="2.9" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.9">Abre + antes de responder</p>
+              <div class="opt-list" data-choice="2.9" role="radiogroup" aria-label="Fallos de transformación"></div>
+              <button class="choice-back" type="button" data-back-for="2.9" aria-label="Ver todas las opciones">←</button>
+            </article>
+            <article class="q-block" id="q-210" hidden>
+              <p class="q-code">2.10 · Cómo falla</p>
+              <div class="q-head">
+                <p class="q-label">Si respondiste 'Sí' en la pregunta anterior, ¿cómo falla la transformación? ¿Qué ocurre exactamente?</p>
+                <button class="help-plus" type="button" data-field="2.10" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.10">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.10" role="textbox" aria-label="Cómo falla"></div>
+              </div>
+            </article>
+            <div class="clarify-slot" id="slot-2B">
+              <article class="q-block">
+                <div class="trench" id="trench-2B"></div>
+                <p class="q-code">2.B · Aclarar el fallo</p>
+                <div class="q-head">
+                  <p class="q-label">¿Qué es lo primero que ves que sale mal o no cambia cómo debería?</p>
+                  <button class="help-plus" type="button" data-field="2.B" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="2.B">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.B" role="textbox" aria-label="Primer síntoma del fallo"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="isle down r w-40">
+            <article class="q-block">
+              <p class="q-code">2.11 · Cambios ocultos</p>
+              <div class="q-head">
+                <p class="q-label">¿Hay cambios que ocurren en lo principal pero que no son oficiales o esperados?</p>
+                <button class="help-plus" type="button" data-field="2.11" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.11">Abre + antes de responder</p>
+              <div class="opt-list" data-choice="2.11" role="radiogroup" aria-label="Cambios ocultos"></div>
+              <button class="choice-back" type="button" data-back-for="2.11" aria-label="Ver todas las opciones">←</button>
+            </article>
+            <article class="q-block" id="q-212" hidden>
+              <p class="q-code">2.12 · Qué cambios y quién</p>
+              <div class="q-head">
+                <p class="q-label">Si respondiste 'Sí', ¿cuáles son esos cambios no oficiales y quién los hace?</p>
+                <button class="help-plus" type="button" data-field="2.12" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="2.12">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="2.12" role="textbox" aria-label="Qué cambios y quién"></div>
+              </div>
+            </article>
+            <div class="clarify-slot" id="slot-2C">
+              <article class="q-block">
+                <div class="trench" id="trench-2C"></div>
+                <p class="q-code">2.C · Aclarar cambio oculto</p>
+                <div class="q-head">
+                  <p class="q-label">¿Qué cambia fuera del procedimiento normal y desde dónde ocurre?</p>
+                  <button class="help-plus" type="button" data-field="2.C" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="2.C">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="2.C" role="textbox" aria-label="Cambio oculto y desde dónde"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="sheet-foot">
+        <div class="rotulo">
+          <span class="rotulo-meta">Escena · Memoria operativa</span>
+          <p class="rotulo-text" id="memory"></p>
+        </div>
+        <div class="closure">
+          <p class="closure-hint" id="closure-hint"></p>
+          <button class="scene-toggle" id="advance" type="button">Continuar</button>
+          <p class="saved-mark" id="saved-mark" hidden>Bloque 2 guardado</p>
+        </div>
+      </footer>
+    </main>
+
+    <p class="ops-notify" id="ops-notify" role="status" aria-live="polite"></p>
+    <button class="replay" id="replay" type="button">Reiniciar</button>
+
+    <script>
+      const BUILD = "B2 1.4";
+      const DRAFT_KEY = "eve-b2-pieza-draft-v1";
+      const SAVE_KEY = "eve-b2-pieza-v1";
+      const SHELL_URL = "eve-shell-bloques-v1";
+
+      const params = new URLSearchParams(window.location.search);
+      const HELP_GATE_ENABLED = (Number.parseInt(params.get("activity") || "1", 10) || 1) === 1;
+      const SHOW_CODES = params.get("codes") !== "0";
+      const START_BAND = params.get("band");
+      const MEMORY_OVERRIDE = (params.get("memory") || "").trim();      const FIXTURE_MEMORY =
+        "Atiendo las guardias y eventos comerciales mediante la recepción del visitante, preguntas sobre su necesidad, demostración de productos y registro de sus datos de contacto, para generar un Contacto Comercial calificado o una Venta de Exhibición atendida.";
+
+      /* Madre B2 · help_text literal por ficha */
+      const HELP = {
+        "2.1":
+          "Piensa en aquello que realmente sale distinto después de que haces esta actividad. Puede ser una cosa concreta como una factura o un pedido; puede ser una persona o entidad como un cliente o proveedor; o puede ser la propia acción/proceso si lo que cambia de verdad es coordinar, validar, revisar o comunicar. Puedes elegir una, dos o tres dimensiones.",
+        "2.1a":
+          "Lo concreto que cambia en tu actividad. Cuando terminas, ¿qué cosa es diferente? Nota: Si cambias el registro del cliente (su cuenta, expediente), es \"Cliente\". Si cambió de un estado a otro (de \"pendiente\" a \"completado\"), es “Estado”. Si no está en la lista, elige \"Otro\".",
+        "2.1b":
+          "Nombra la persona, entidad o unidad que realmente cambia o es afectada de forma central por esta actividad. Nota: usa SUJETO cuando lo relevante en esta actividad sea la persona o entidad misma.",
+        "2.1c":
+          "Nombra el verbo o proceso que realmente se ejecuta como núcleo de la transformación. Ejemplos: coordinar, validar, comunicar, preparar, revisar, autorizar. Si no aparece en la lista, elige Otro y escríbelo.",
+        "2.1_AB_Relacion":
+          "Qué te limita más en la práctica: el volumen del objeto o la cantidad/gestión del sujeto. Ejemplo ¿Te limita la cantidad de pedidos que llegan o la cantidad de personal que tienes? ¿Te limita el número de facturas a emitir o el número de vendedores disponibles? ¿Te limita la cantidad de paquetes o la cantidad de repartidores?",
+        "2.1_AC_Relacion":
+          "Ayuda a distinguir si el problema central es que hay muchos objetos o que la acción misma es compleja.",
+        "2.1_BC_Relacion":
+          "Ayuda a distinguir si limita más la cantidad/diversidad de sujetos o la complejidad de la acción.",
+        "2.1_ABC_Relacion":
+          "Tienes tres cosas: lo que haces (acción), lo que procesas (objeto) y quién lo hace (sujeto). ¿Cuál te detiene más? Ejemplo: Acción: Preparar platos, Objeto: 50 pedidos diarios, Sujeto: 3 cocineros",
+        "2.1_ABC_Prioridad":
+          "Ordena objeto, sujeto y acción según su peso real en esta escena. Sirve para saber qué domina más.",
+        "2.2_obj":
+          "Selecciona las propiedades que sí cambian en ese objeto. Ejemplo para factura: estado, monto, propietario, fecha, información, validación, relación.",
+        "2.2_suj":
+          "Selecciona las propiedades que sí cambian en ese sujeto. Ejemplo para proveedor: estado, información, propietario, relación, clasificación, validación, acuerdo.",
+        "2.2_acc":
+          "Selecciona qué características de la acción cambian realmente. Ejemplo para coordinar: frecuencia, complejidad, participantes, duración, resultado, documentación, escalamiento. Compara cómo estaba esa acción antes de que hicieras tu actividad y cómo queda después; no se trata de lo que varía de una vez a otra.",
+        "2.3":
+          "Selecciona pequeño si cambia solo un atributo. Ejemplo: Cambias el estado de una factura de \"pendiente\" a \"pagada\".\nMedio si cambian varios. Ejemplo: Una solicitud pasa de \"recibida\" a \"aprobada\" Y se asigna responsable Y se establece fecha límite.\nGrande si cambian muchos. Ejemplo: Un proyecto pasa de \"propuesta\" a \"activo\" Y se asigna equipo Y presupuesto Y cronograma Y recursos Y prioridad.\nRadical si cambia la naturaleza de lo principal. Ejemplo: Una orden de compra se convierte en devolución (de \"a recibir\" a \"a devolver\") o Un cliente se convierte en proveedor (cambia su rol fundamental en el sistema)",
+        "2.4a":
+          "Preguntamos por tu acción directa sobre lo que estas trabajando. Ejemplo: Crear una nueva factura en el Sistema, Revisar un documento antes de enviarlo, Corregir datos incorrectos en un registro.",
+        "2.4b": "Qué provoca específicamente que hagas este cambio sobre lo principal",
+        "2.5":
+          "Describe cómo llega lo principal justo antes de tu intervención. Ejemplos: pedido recibido sin validar, factura sin aprobar, proveedor sin verificar. Evita respuestas genéricas como 'normal' o 'pendiente' sin contexto.",
+        "2.6":
+          "Describe cómo queda lo principal después de la actividad. Ejemplos: pedido validado y asignado, factura aprobada, proveedor activo y verificado.",
+        "2.7":
+          "Piensa si la transformación ocurre una sola vez o si suele haber revisiones, rechazos, correcciones, reenvíos o rondas repetidas. Ejemplo: se revisa, se corrige y se revisa otra vez.",
+        "2.8":
+          "Elige el rango que mejor represente la cantidad típica de ciclos. No buscamos precisión matemática absoluta, sino una escala comparable entre escenas.",
+        "2.9":
+          "Piensa en momentos en que lo principal debería cambiar y no cambia, o cambia mal. Queremos saber por la existencia del fallos.",
+        "2.10":
+          "Describe el síntoma concreto del fallo. Ejemplos: el sistema no registra el cambio, queda en estado incorrecto, vuelve atrás, alguien corrige después, sale incompleto. Evita respuestas vagas como 'falla' o 'sale mal'.",
+        "2.11":
+          "Piensa en cambios que sí ocurren pero quedan fuera del procedimiento formal, de la autorización esperada o del registro normal. Ejemplos: alguien cambia el precio sin autorización, actualiza el estado sin documentarlo o modifica datos por fuera del flujo.",
+        "2.12":
+          "Describe el cambio no oficial y, si puedes, quién lo hace o desde dónde ocurre. Ejemplos: ventas cambia el precio; otra área actualiza el estado; alguien corrige datos por fuera del sistema. Evita respuestas donde solo diga 'pasa' sin actor ni cambio identificable.",
+        "2.A":
+          "Ejemplo: Tengo pocos cocineros Y llegan muchos pedidos, pero el verdadero problema es que no hay coordinación entre ellos.",
+        "2.B":
+          "Guíate por el síntoma observable. Lo que ves que no funciona. Ejemplo: El pedido llega sin la información del cliente, el documento queda en estado 'pendiente' cuando debería estar 'aprobado, el proceso se detiene y nadie sabe por qué.",
+        "2.C":
+          "Ejemplo: El coordinador de entregas anota cambios en Excel en lugar de registrarlos en el sistema porque el sistema no refleja cambios de última hora.",
+      };
+
+      /* Madre B2 · options literales */
+      const OPTIONS = {
+        "2.1": [
+          { id: "objeto", label: "Un OBJETO (cosa)" },
+          { id: "sujeto", label: "Un SUJETO (persona/entidad)" },
+          { id: "accion", label: "Una ACCIÓN/PROCESO" },
+        ],
+        "2.1a": [
+          { id: "factura", label: "Factura" },
+          { id: "pedido", label: "Pedido" },
+          { id: "documento", label: "Documento" },
+          { id: "inventario", label: "Inventario" },
+          { id: "cliente", label: "Cliente" },
+          { id: "producto", label: "Producto" },
+          { id: "estado", label: "Estado" },
+          { id: "otro", label: "Otro" },
+        ],
+        "2.1b": [
+          { id: "cliente", label: "Cliente" },
+          { id: "proveedor", label: "Proveedor" },
+          { id: "empleado", label: "Empleado" },
+          { id: "departamento", label: "Departamento" },
+          { id: "gerencia", label: "Gerencia" },
+          { id: "otro", label: "Otro" },
+        ],
+        "2.1c": [
+          { id: "coordinar", label: "Coordinar" },
+          { id: "validar", label: "Validar" },
+          { id: "comunicar", label: "Comunicar" },
+          { id: "preparar", label: "Preparar" },
+          { id: "revisar", label: "Revisar" },
+          { id: "autorizar", label: "Autorizar" },
+          { id: "otro", label: "Otro" },
+        ],
+        "2.1_AB_Relacion": [
+          { id: "objeto_limita", label: "El OBJETO limita" },
+          { id: "sujeto_limita", label: "El SUJETO limita" },
+          { id: "ambos_igual", label: "Ambos limitan igual" },
+        ],
+        "2.1_AC_Relacion": [
+          { id: "objeto_limita", label: "El OBJETO limita" },
+          { id: "accion_limita", label: "La ACCIÓN limita" },
+          { id: "ambos_igual", label: "Ambos limitan igual" },
+        ],
+        "2.1_BC_Relacion": [
+          { id: "sujeto_limita", label: "El SUJETO limita" },
+          { id: "accion_limita", label: "La ACCIÓN limita" },
+          { id: "ambos_igual", label: "Ambos limitan igual" },
+        ],
+        "2.1_ABC_Relacion": [
+          { id: "objeto", label: "El OBJETO" },
+          { id: "sujeto", label: "El SUJETO" },
+          { id: "accion", label: "La ACCIÓN" },
+          { id: "tres_igual", label: "Los tres limitan igual" },
+        ],
+        "2.1_ABC_Prioridad": [
+          { id: "objeto", label: "Objeto" },
+          { id: "sujeto", label: "Sujeto" },
+          { id: "accion", label: "Acción" },
+        ],
+        "2.2_obj": [],
+        "2.2_suj": [],
+        "2.2_acc": [],
+        "2.3": [
+          { id: "pequeno", label: "Pequeño" },
+          { id: "medio", label: "Medio" },
+          { id: "grande", label: "Grande" },
+          { id: "radical", label: "Radical" },
+        ],
+        "2.4a": [
+          { id: "crear", label: "Crear" },
+          { id: "revisar", label: "Revisar" },
+          { id: "corregir", label: "Corregir" },
+          { id: "aprobar", label: "Aprobar" },
+          { id: "registrar", label: "Registrar" },
+          { id: "enviar", label: "Enviar" },
+          { id: "combinar", label: "Combinar" },
+          { id: "rechazar", label: "Rechazar" },
+          { id: "pausar", label: "Pausar o suspender" },
+          { id: "otra", label: "Otra" },
+        ],
+        "2.4b": [
+          { id: "solicitud", label: "Una solicitud o instrucción" },
+          { id: "error", label: "Un error detectado" },
+          { id: "fecha_plazo", label: "Una fecha o plazo" },
+          { id: "aprobacion", label: "Una aprobación recibida" },
+          { id: "evento_otro_objeto", label: "Un evento o cambio en otro objeto" },
+          { id: "urgencia", label: "Una urgencia o prioridad" },
+          { id: "estandar", label: "Un estándar o política" },
+          { id: "combinacion", label: "Una combinación de los anteriores" },
+          { id: "otro", label: "Otro" },
+        ],
+        "2.7": [
+          { id: "una_vez", label: "Una sola vez" },
+          { id: "pocas", label: "Pocas veces" },
+          { id: "muchas", label: "Muchas veces" },
+          { id: "continuo", label: "Continuo" },
+        ],
+        "2.8": [
+          { id: "2_3", label: "2-3 ciclos" },
+          { id: "4_5", label: "4-5 ciclos" },
+          { id: "6_10", label: "6-10 ciclos" },
+          { id: "mas_10", label: "Más de 10 ciclos" },
+          { id: "variable", label: "Variable" },
+        ],
+        "2.9": [
+          { id: "no_siempre_ok", label: "No, siempre se transforma correctamente" },
+          { id: "si_raro", label: "Sí, a veces falla pero es raro" },
+          { id: "si_regular", label: "Sí, falla regularmente" },
+          { id: "si_frecuente", label: "Sí, falla frecuentemente" },
+        ],
+        "2.11": [
+          { id: "no_oficial", label: "No, todo lo que ocurre es oficial" },
+          { id: "si_a_veces", label: "Sí, a veces ocurren cambios no autorizados" },
+          { id: "si_frecuente", label: "Sí, ocurren frecuentemente" },
+        ],
+      };
+
+      const REL_LABEL = {
+        "2.1_AB_Relacion": "¿Cuál de estos dos es el limitante principal?",
+        "2.1_AC_Relacion": "¿La acción es el cuello de botella o el objeto?",
+        "2.1_BC_Relacion": "¿Qué limita más tu capacidad?",
+        "2.1_ABC_Relacion": "En esta actividad, ¿cuál de estos tres es el obstáculo principal?",
+      };
+      const REL_SHORT = {
+        "2.1_AB_Relacion": "Qué limita más",
+        "2.1_AC_Relacion": "Objeto o acción",
+        "2.1_BC_Relacion": "Sujeto o acción",
+        "2.1_ABC_Relacion": "Obstáculo principal",
+      };
+
+      /* Madre §6.A · entity_type → attribute_options */
+      const ATTR_LABEL = {
+        estado: "Estado",
+        monto: "Monto",
+        propietario: "Propietario",
+        fecha: "Fecha",
+        informacion: "Información",
+        validacion: "Validación",
+        relacion: "Relación",
+        cantidad: "Cantidad",
+        prioridad: "Prioridad",
+        asignacion: "Asignación",
+        clasificacion: "Clasificación",
+        acuerdo: "Acuerdo",
+        frecuencia: "Frecuencia",
+        complejidad: "Complejidad",
+        participantes: "Participantes",
+        duracion: "Duración",
+        resultado: "Resultado",
+        documentacion: "Documentación",
+        escalamiento: "Escalamiento",
+        criterios: "Criterios",
+        otro: "Otro",
+      };
+      const ATTR_CATALOG = {
+        obj: {
+          factura: ["estado", "monto", "propietario", "fecha", "informacion", "validacion", "relacion", "otro"],
+          pedido: ["cantidad", "estado", "prioridad", "fecha", "asignacion", "validacion", "relacion", "otro"],
+          cliente: ["estado", "informacion", "clasificacion", "relacion", "validacion", "propietario", "otro"],
+          _default: ["estado", "informacion", "propietario", "fecha", "validacion", "relacion", "otro"],
+        },
+        suj: {
+          proveedor: ["estado", "informacion", "propietario", "relacion", "clasificacion", "validacion", "acuerdo", "otro"],
+          empleado: ["estado", "informacion", "asignacion", "validacion", "clasificacion", "relacion", "otro"],
+          cliente: ["estado", "informacion", "clasificacion", "relacion", "validacion", "propietario", "otro"],
+          _default: ["estado", "informacion", "relacion", "clasificacion", "validacion", "otro"],
+        },
+        acc: {
+          coordinar: ["frecuencia", "complejidad", "participantes", "duracion", "resultado", "documentacion", "escalamiento", "otro"],
+          validar: ["frecuencia", "complejidad", "criterios", "duracion", "resultado", "documentacion", "escalamiento", "otro"],
+          _default: ["frecuencia", "complejidad", "participantes", "duracion", "resultado", "documentacion", "otro"],
+        },
+      };
+
+      const DIM_ORDER = ["objeto", "sujeto", "accion"];
+      const DIM_FIELD = { objeto: "2.1a", sujeto: "2.1b", accion: "2.1c" };
+      const DIM_ATTR = { objeto: "2.2_obj", sujeto: "2.2_suj", accion: "2.2_acc" };
+      const DIM_KIND = { objeto: "obj", sujeto: "suj", accion: "acc" };
+      const DIM_WORD = { objeto: "Objeto", sujeto: "Sujeto", accion: "Acción" };
+      const ATTR_SLOTS = [
+        ["down", "l"],
+        ["down", "r"],
+        ["up", "l"],
+      ];
+
+      const CANONICAL_OUTPUT = {
+        "2.1": "transformation_primary_dimensions",
+        "2.1a": "objeto_tipo",
+        "2.1b": "sujeto_tipo",
+        "2.1c": "accion_tipo",
+        "2.1_AB_Relacion": "dimension_dominante_AB",
+        "2.1_AC_Relacion": "dimension_dominante_AC",
+        "2.1_BC_Relacion": "dimension_dominante_BC",
+        "2.1_ABC_Relacion": "dimension_dominante_ABC",
+        "2.1_ABC_Prioridad": "ranking_dimensiones",
+        "2.2_obj": "atributos_objeto_cambian",
+        "2.2_suj": "atributos_sujeto_cambian",
+        "2.2_acc": "atributos_accion_cambian",
+        "2.3": "transformation_magnitude",
+        "2.4a": "transformation_causality_action",
+        "2.4b": "transformation_causality_trigger",
+        "2.5": "transformation_state_initial",
+        "2.6": "transformation_state_final",
+        "2.7": "transformation_iterations",
+        "2.8": "transformation_iteration_count",
+        "2.9": "transformation_exception_type",
+        "2.10": "transformation_exception_description",
+        "2.11": "transformation_hidden_changes",
+        "2.12": "transformation_hidden_changes_description",
+        "2.A": "dimension_dominante_clarificada",
+        "2.B": "transformation_exception_description_clarified",
+        "2.C": "transformation_hidden_changes_description_clarified",
+      };
+
+      const BANDS = [
+        { id: "principal", title: "Qué cambia", runtime: "B2-Q12" },
+        { id: "limita", title: "Qué limita más", runtime: "C04", when: () => dims().length > 1 },
+        { id: "atributos", title: "Qué propiedades cambian", runtime: "B2-Q13" },
+        { id: "acto", title: "Acción directa · Qué lo provoca", runtime: "B2-Q14" },
+        { id: "estados", title: "Estado inicial · Estado final", runtime: "B2-Q15" },
+        { id: "magnitud", title: "Magnitud del cambio · Ciclos de cambio", runtime: "B2-Q16 · C07" },
+        { id: "sombra", title: "Fallos de transformación · Cambios ocultos", runtime: "B2-Q17 · C05 · C06" },
+      ];
+      const SCALE_X = { pequeno: 12.5, medio: 37.5, grande: 62.5, radical: 87.5 };
+
+      /* ---------- estado ---------- */
+
+      function blankState() {
+        return {
+          band: "principal",
+          multi: { "2.1": [], "2.2_obj": [], "2.2_suj": [], "2.2_acc": [] },
+          choice: {},
+          text: {},
+          rank: [],
+          open: { "2.A": false, "2.B": false, "2.C": false },
+          helpSeen: {},
+          expanded: {},
+          saved: false,
+        };
+      }
+
+      function loadDraft() {
+        try {
+          const raw = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null");
+          if (!raw || typeof raw !== "object") return null;
+          const base = blankState();
+          return {
+            ...base,
+            ...raw,
+            multi: { ...base.multi, ...(raw.multi || {}) },
+            open: { ...base.open, ...(raw.open || {}) },
+          };
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function saveDraft() {
+        try {
+          localStorage.setItem(DRAFT_KEY, JSON.stringify(state));
+        } catch (_) {
+          /* best-effort */
+        }
+      }
+
+      let state = loadDraft() || blankState();
+      let helpOpen = null;
+
+      function loadMemory() {
+        if (MEMORY_OVERRIDE) return MEMORY_OVERRIDE;
+        try {
+          const b0 = JSON.parse(localStorage.getItem("eve-shell-b0-v1") || "null");
+          const confirmed = b0?.answers?.find((a) => a.code === "0.1")?.activity_name_user_confirmed;
+          if (confirmed) return confirmed;
+        } catch (_) {
+          /* fixture */
+        }
+        return FIXTURE_MEMORY;
+      }
+      const MEMORY = loadMemory();
+
+      /* ---------- utilidades ---------- */
+
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+      function txt(field) {
+        return (state.text[field] || "").trim();
+      }
+
+      function normalize(text) {
+        return (text || "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9\s]/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      function meaningfulWords(text) {
+        return normalize(text)
+          .split(" ")
+          .filter((w) => w.length > 2);
+      }
+
+      function short(text, max = 60) {
+        const clean = (text || "").trim().replace(/\s+/g, " ");
+        return clean.length > max ? `${clean.slice(0, max - 1).trim()}…` : clean;
+      }
+
+      function joinList(items) {
+        if (items.length <= 1) return items.join("");
+        return `${items.slice(0, -1).join(", ")} y ${items[items.length - 1]}`;
+      }
+
+      function labelOf(field, id) {
+        return OPTIONS[field]?.find((o) => o.id === id)?.label || "";
+      }
+
+      /* ---------- lógica del bloque (Madre B2 §8–§13) ---------- */
+
+      function dims() {
+        return DIM_ORDER.filter((id) => state.multi["2.1"].includes(id));
+      }
+
+      function hasDim(id) {
+        return dims().includes(id);
+      }
+
+      function relField() {
+        const d = dims();
+        if (d.length === 3) return "2.1_ABC_Relacion";
+        if (d.length !== 2) return "";
+        if (hasDim("objeto") && hasDim("sujeto")) return "2.1_AB_Relacion";
+        if (hasDim("objeto") && hasDim("accion")) return "2.1_AC_Relacion";
+        return "2.1_BC_Relacion";
+      }
+
+      function relChoice() {
+        const f = relField();
+        return f ? state.choice[f] || "" : "";
+      }
+
+      /* B2-R11 · §13: "ambos/todos" sin ranking. En triple, el ranking desambigua. */
+      function needs2A() {
+        return dims().length === 2 && relChoice() === "ambos_igual";
+      }
+
+      function dominantDim() {
+        const v = relChoice();
+        if (v === "objeto_limita" || v === "objeto") return "objeto";
+        if (v === "sujeto_limita" || v === "sujeto") return "sujeto";
+        if (v === "accion_limita" || v === "accion") return "accion";
+        if (v === "ambos_igual") return "mixed_bipartite";
+        if (v === "tres_igual") return "mixed_tripartite";
+        if (dims().length === 1) return dims()[0];
+        return null;
+      }
+
+      function namedEntity(field) {
+        const c = state.choice[field];
+        if (!c) return "";
+        if (c === "otro" || c === "otra") return txt(field);
+        return labelOf(field, c);
+      }
+
+      function attrOptions(dim) {
+        const kind = DIM_KIND[dim];
+        const entity = state.choice[DIM_FIELD[dim]];
+        const table = ATTR_CATALOG[kind];
+        const ids = (entity && entity !== "otro" && table[entity]) || table._default;
+        return ids.map((id) => ({ id, label: ATTR_LABEL[id] || id }));
+      }
+
+      function attrLabels(dim) {
+        const field = DIM_ATTR[dim];
+        return (state.multi[field] || []).map((id) =>
+          id === "otro" ? txt(field) || "Otro" : ATTR_LABEL[id] || id,
+        );
+      }
+
+      function allAttrLabels() {
+        return dims().flatMap((d) => attrLabels(d));
+      }
+
+      function pieceName() {
+        const names = dims()
+          .map((d) => namedEntity(DIM_FIELD[d]))
+          .filter(Boolean);
+        return names.length ? joinList(names) : "lo principal";
+      }
+
+      function discreteCycles() {
+        return state.choice["2.7"] === "pocas" || state.choice["2.7"] === "muchas";
+      }
+
+      function transformFails() {
+        return ["si_raro", "si_regular", "si_frecuente"].includes(state.choice["2.9"]);
+      }
+
+      function hiddenChanges() {
+        return state.choice["2.11"] === "si_a_veces" || state.choice["2.11"] === "si_frecuente";
+      }
+
+      /* B2-R12: 2.10 vacía, genérica o sin síntoma observable */
+      function genericTransformText(text) {
+        const raw = (text || "").trim();
+        if (!raw) return true;
+        if (/^(normal|pendiente|ok|bien|falla|sale mal|pasa|cambia|nada|igual|a veces)$/.test(normalize(raw))) {
+          return true;
+        }
+        return meaningfulWords(raw).length < 3;
+      }
+
+      /* B2-R13: 2.12 no identifica cambio ni actor */
+      function genericHiddenText(text) {
+        const raw = (text || "").trim();
+        if (!raw) return true;
+        if (/^(pasa|ocurre|a veces|alguien|cambia|no oficial)$/.test(normalize(raw))) return true;
+        const hasActor =
+          /\b(quien|ventas|area|equipo|yo|jefe|jefa|sistema|coordinador|coordinadora|gerente|gerencia|supervisor|supervisora|cliente|proveedor|ellos|compras|almacen|finanzas|operaciones|vendedor|vendedores|asesor|asesores)\b/.test(
+            normalize(raw),
+          );
+        return !(hasActor && meaningfulWords(raw).length >= 3);
+      }
+
+      function statesNoDelta() {
+        const a = normalize(txt("2.5"));
+        const b = normalize(txt("2.6"));
+        return Boolean(a) && a === b;
+      }
+
+      function choiceNeedsSpec(field) {
+        const c = state.choice[field];
+        if (["2.1a", "2.1b", "2.1c", "2.4b"].includes(field)) return c === "otro";
+        if (field === "2.4a") return c === "otra";
+        return false;
+      }
+
+      function multiNeedsSpec(field) {
+        return field.startsWith("2.2_") && (state.multi[field] || []).includes("otro");
+      }
+
+      function choiceAnswered(field) {
+        return Boolean(state.choice[field]) && (!choiceNeedsSpec(field) || Boolean(txt(field)));
+      }
+
+      function multiAnswered(field) {
+        return (state.multi[field] || []).length > 0 && (!multiNeedsSpec(field) || Boolean(txt(field)));
+      }
+
+      function bandComplete(id) {
+        switch (id) {
+          case "principal":
+            return dims().length > 0 && dims().every((d) => choiceAnswered(DIM_FIELD[d]));
+          case "limita":
+            return (
+              Boolean(relChoice()) &&
+              (dims().length < 3 || state.rank.length === 3) &&
+              (!state.open["2.A"] || Boolean(txt("2.A")))
+            );
+          case "atributos":
+            return dims().every((d) => multiAnswered(DIM_ATTR[d]));
+          case "acto":
+            return choiceAnswered("2.4a") && choiceAnswered("2.4b");
+          case "estados":
+            return Boolean(txt("2.5")) && Boolean(txt("2.6"));
+          case "magnitud":
+            return (
+              Boolean(state.choice["2.3"]) &&
+              Boolean(state.choice["2.7"]) &&
+              (!discreteCycles() || Boolean(state.choice["2.8"]))
+            );
+          case "sombra":
+            return (
+              Boolean(state.choice["2.9"]) &&
+              Boolean(state.choice["2.11"]) &&
+              (!transformFails() || Boolean(txt("2.10"))) &&
+              (!hiddenChanges() || Boolean(txt("2.12"))) &&
+              (!state.open["2.B"] || Boolean(txt("2.B"))) &&
+              (!state.open["2.C"] || Boolean(txt("2.C")))
+            );
+          default:
+            return false;
+        }
+      }
+
+      function visibleBands() {
+        return BANDS.filter((b) => !b.when || b.when());
+      }
+
+      function canAnswer(field) {
+        return !HELP_GATE_ENABLED || Boolean(state.helpSeen[field]);
+      }
+
+      function prune() {
+        DIM_ORDER.forEach((d) => {
+          if (hasDim(d)) return;
+          delete state.choice[DIM_FIELD[d]];
+          delete state.text[DIM_FIELD[d]];
+          state.multi[DIM_ATTR[d]] = [];
+          delete state.text[DIM_ATTR[d]];
+        });
+        const current = relField();
+        Object.keys(REL_LABEL).forEach((f) => {
+          if (f !== current) delete state.choice[f];
+        });
+        if (dims().length < 3) state.rank = [];
+        if (!needs2A()) {
+          state.open["2.A"] = false;
+          delete state.text["2.A"];
+        }
+        if (!visibleBands().some((b) => b.id === state.band)) state.band = "principal";
+      }
+
+      function pruneAttrs(dim) {
+        const field = DIM_ATTR[dim];
+        const allowed = new Set(attrOptions(dim).map((o) => o.id));
+        state.multi[field] = (state.multi[field] || []).filter((id) => allowed.has(id));
+      }
+
+      /* ---------- interacción ---------- */
+
+      function flashGate(field) {
+        $$(`.gate-hint[data-gate-for="${field}"]`).forEach((el) => {
+          el.classList.add("is-flash");
+          setTimeout(() => el.classList.remove("is-flash"), 700);
+        });
+      }
+
+      function toggleHelp(field) {
+        if (!field) return;
+        helpOpen = helpOpen === field ? null : field;
+        state.helpSeen[field] = true;
+        saveDraft();
+        refresh();
+      }
+
+      function choose(field, id) {
+        if (!canAnswer(field)) return flashGate(field);
+        state.choice[field] = id;
+        state.expanded[field] = false;
+        if (field === "2.1a") pruneAttrs("objeto");
+        if (field === "2.1b") pruneAttrs("sujeto");
+        if (field === "2.1c") pruneAttrs("accion");
+        if (field === relField() && !needs2A()) {
+          state.open["2.A"] = false;
+        }
+        if (field === "2.7" && !discreteCycles()) delete state.choice["2.8"];
+        if (field === "2.9" && !transformFails()) state.open["2.B"] = false;
+        if (field === "2.11" && !hiddenChanges()) state.open["2.C"] = false;
+        state.saved = false;
+        saveDraft();
+        refresh();
+      }
+
+      function toggleMulti(field, id) {
+        if (!canAnswer(field)) return flashGate(field);
+        const list = state.multi[field] || [];
+        state.multi[field] = list.includes(id) ? list.filter((x) => x !== id) : list.concat(id);
+        if (field === "2.1") prune();
+        state.saved = false;
+        saveDraft();
+        refresh();
+      }
+
+      function toggleRank(id) {
+        const field = "2.1_ABC_Prioridad";
+        if (!canAnswer(field)) return flashGate(field);
+        state.rank = state.rank.includes(id) ? state.rank.filter((x) => x !== id) : state.rank.concat(id);
+        state.saved = false;
+        saveDraft();
+        refresh();
+      }
+
+      function goTo(bandId) {
+        state.band = bandId;
+        helpOpen = null;
+        saveDraft();
+        refresh();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function advance() {
+        const band = state.band;
+        if (!bandComplete(band)) return;
+
+        if (band === "limita" && needs2A() && !state.open["2.A"]) {
+          state.open["2.A"] = true;
+          saveDraft();
+          refresh();
+          focusAnswer("2.A");
+          return;
+        }
+
+        if (band === "sombra") {
+          let opened = "";
+          if (transformFails() && genericTransformText(txt("2.10")) && !state.open["2.B"]) {
+            state.open["2.B"] = true;
+            opened = opened || "2.B";
+          }
+          if (hiddenChanges() && genericHiddenText(txt("2.12")) && !state.open["2.C"]) {
+            state.open["2.C"] = true;
+            opened = opened || "2.C";
+          }
+          if (opened) {
+            saveDraft();
+            refresh();
+            focusAnswer(opened);
+            return;
+          }
+          return saveBlock();
+        }
+
+        const order = visibleBands();
+        const next = order[order.findIndex((b) => b.id === band) + 1];
+        if (next) goTo(next.id);
+      }
+
+      function back() {
+        const order = visibleBands();
+        const idx = order.findIndex((b) => b.id === state.band);
+        if (idx > 0) return goTo(order[idx - 1].id);
+        window.location.href = `${SHELL_URL}?band=antes`;
+      }
+
+      function focusAnswer(field) {
+        const el = $(`[data-answer="${field}"]`);
+        if (el && el.isContentEditable) setTimeout(() => el.focus(), 60);
+      }
+
+      function notify(message) {
+        const el = $("#ops-notify");
+        el.textContent = message;
+        el.classList.add("is-visible");
+        clearTimeout(notify.timer);
+        notify.timer = setTimeout(() => el.classList.remove("is-visible"), 3200);
+      }
+
+      /* ---------- trincheras (comentario → aterrizaje → ejemplo → pregunta) ---------- */
+
+      function renderTrench(id, lead, landing, example) {
+        const el = document.getElementById(id);
+        el.replaceChildren();
+        [
+          ["trench-lead", lead],
+          ["trench-landing", landing],
+          ["trench-example", example],
+        ].forEach(([cls, text]) => {
+          const p = document.createElement("p");
+          p.className = cls;
+          p.textContent = text;
+          el.appendChild(p);
+        });
+      }
+
+      function renderTrenches() {
+        if (state.open["2.A"]) {
+          const name = (d) => namedEntity(DIM_FIELD[d]) || DIM_WORD[d].toLowerCase();
+          const limitPhrase = (d) =>
+            d === "objeto"
+              ? `con ${name(d)} te atores porque llegan demasiados`
+              : d === "sujeto"
+                ? `con ${name(d)} te atores porque no alcanzan o cambian mucho`
+                : `${name(d)} te frene porque cuesta mucho o toma demasiado tiempo`;
+          const [first, second] = dims();
+          renderTrench(
+            "trench-2A",
+            "Nos está saliendo cruzada esta mezcla.",
+            `A lo que me refiero es: marcaste que ${joinList(dims().map(name))} limitan igual, y así todavía no se ve cuál es el que de verdad te frena.`,
+            `Por ejemplo: puede que ${limitPhrase(first)}, o que ${limitPhrase(second)}; casi siempre uno de los dos marca el ritmo.`,
+          );
+        }
+        if (state.open["2.B"]) {
+          const before = short(txt("2.5"), 40);
+          const after = short(txt("2.6"), 40);
+          const head = namedEntity(DIM_FIELD[dims()[0]]) || "lo principal";
+          renderTrench(
+            "trench-2B",
+            "Nos falta una precisión sobre cómo falla.",
+            `A lo que me refiero es: con “${short(txt("2.10"), 50)}” todavía no se ve qué es lo que sale mal en ${pieceName()}.`,
+            before && after
+              ? `Por ejemplo: que ${head} se quede en “${before}” cuando ya debería estar en “${after}”, que el sistema no registre el cambio, o que alguien lo tenga que corregir después.`
+              : `Por ejemplo: que ${head} se quede como llegó, que el sistema no registre el cambio, o que alguien lo tenga que corregir después.`,
+          );
+        }
+        if (state.open["2.C"]) {
+          const attr = allAttrLabels()[0];
+          renderTrench(
+            "trench-2C",
+            "Nos falta una precisión sobre el cambio que no es oficial.",
+            `A lo que me refiero es: con “${short(txt("2.12"), 50)}” no queda claro qué cambia en ${pieceName()} ni quién lo hace.`,
+            `Por ejemplo: “alguien de otra área cambia ${attr ? `${attr.toLowerCase()} de` : "algo de"} ${pieceName()} por fuera del sistema”, o “se anota en Excel en lugar de registrarlo”.`,
+          );
+        }
+      }
+
+      /* ---------- render ---------- */
+
+      function makeOpt(option, role) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "opt";
+        btn.textContent = option.label;
+        btn.dataset.id = option.id;
+        if (role) btn.setAttribute("role", role);
+        return btn;
+      }
+
+      function mountList(container, field, options, role) {
+        const sig = `${field}|${options.map((o) => o.id).join(",")}`;
+        if (container.dataset.sig === sig) return;
+        container.dataset.sig = sig;
+        container.replaceChildren(...options.map((o) => makeOpt(o, role)));
+      }
+
+      function renderPieza() {
+        const row = $("#pieza-row");
+        const pieza = $("#pieza");
+        row.replaceChildren();
+        const d = dims();
+        const dom = state.band === "limita" ? dominantDim() : null;
+        let chars = 0;
+
+        if (!d.length) {
+          const part = document.createElement("span");
+          part.className = "pieza-part";
+          const name = document.createElement("span");
+          name.className = "pieza-name is-placeholder";
+          name.textContent = "Lo principal";
+          part.appendChild(name);
+          row.appendChild(part);
+          chars = 12;
+        }
+
+        d.forEach((dim, i) => {
+          if (i > 0) {
+            const sep = document.createElement("span");
+            sep.className = "pieza-sep";
+            sep.textContent = "·";
+            row.appendChild(sep);
+          }
+          const part = document.createElement("span");
+          part.className = "pieza-part";
+          if (DIM_ORDER.includes(dom) && dom !== dim) part.classList.add("is-recessive");
+
+          const label = document.createElement("span");
+          label.className = "pieza-dim";
+          const rankPos = state.rank.indexOf(dim);
+          label.textContent = `${rankPos >= 0 ? `${rankPos + 1} · ` : ""}${DIM_WORD[dim]}`;
+
+          const name = document.createElement("span");
+          const given = namedEntity(DIM_FIELD[dim]);
+          name.className = `pieza-name${given ? "" : " is-placeholder"}`;
+          name.textContent = given || DIM_WORD[dim];
+          chars += (given || DIM_WORD[dim]).length + 3;
+
+          part.append(label, name);
+          row.appendChild(part);
+        });
+
+        pieza.classList.toggle("is-dense", chars > 22);
+
+        const bandIdx = BANDS.findIndex((b) => b.id === state.band);
+        const attrsIdx = BANDS.findIndex((b) => b.id === "atributos");
+        const attrs = allAttrLabels();
+        $("#pieza-note").textContent =
+          bandIdx >= attrsIdx && attrs.length ? `Cambia · ${attrs.join(" · ")}` : "";
+
+        $$(".station-tick").forEach((tick) => tick.classList.toggle("is-on", hasDim(tick.dataset.dim)));
+
+        $$(".pieza-col").forEach((col) => {
+          const given = hasDim(col.dataset.dim) ? namedEntity(DIM_FIELD[col.dataset.dim]) : "";
+          col.hidden = !given;
+          col.querySelector(".pieza-name").textContent = given || "";
+          col.title = given || "";
+        });
+      }
+
+      function renderPrincipal() {
+        $$("[data-station]").forEach((btn) => {
+          const on = hasDim(btn.dataset.station);
+          btn.classList.toggle("is-active", on);
+          btn.setAttribute("aria-checked", on ? "true" : "false");
+        });
+        $$("[data-station-isle]").forEach((isle) => isle.classList.toggle("is-locked", !canAnswer("2.1")));
+        $("#isle-21a").hidden = !hasDim("objeto");
+        $("#isle-21b").hidden = !hasDim("sujeto");
+        $("#isle-21c").hidden = !hasDim("accion");
+      }
+
+      function renderRelation() {
+        const f = relField();
+        if (!f) return;
+        $("#rel-code").textContent = `${f} · ${REL_SHORT[f]}`;
+        $("#rel-label").textContent = REL_LABEL[f];
+        $("#rel-help").dataset.field = f;
+        $("#rel-gate").dataset.gateFor = f;
+        $("#rel-back").dataset.backFor = f;
+        const list = $("#rel-list");
+        list.dataset.choice = f;
+        mountList(list, f, OPTIONS[f], "radio");
+        $("#q-rel").hidden = state.open["2.A"];
+        $("#slot-2A").classList.toggle("is-open", state.open["2.A"]);
+
+        const rankIsle = $("#isle-rank");
+        rankIsle.hidden = dims().length !== 3;
+        const rankList = $('[data-rank="2.1_ABC_Prioridad"]');
+        mountList(rankList, "2.1_ABC_Prioridad", OPTIONS["2.1_ABC_Prioridad"]);
+        $$(".opt", rankList).forEach((btn) => {
+          const pos = state.rank.indexOf(btn.dataset.id);
+          btn.classList.toggle("is-active", pos >= 0);
+          btn.setAttribute("aria-pressed", pos >= 0 ? "true" : "false");
+          btn.replaceChildren();
+          if (pos >= 0) {
+            const mark = document.createElement("span");
+            mark.className = "rank-mark";
+            mark.textContent = String(pos + 1);
+            btn.appendChild(mark);
+          }
+          btn.appendChild(document.createTextNode(labelOf("2.1_ABC_Prioridad", btn.dataset.id)));
+        });
+        $$(".opt", rankList).forEach((btn) => (btn.closest(".opt-list").classList.toggle("is-locked", !canAnswer("2.1_ABC_Prioridad"))));
+      }
+
+      function renderAttrs() {
+        let slot = 0;
+        DIM_ORDER.forEach((dim) => {
+          const field = DIM_ATTR[dim];
+          const isle = $(`[data-attr-dim="${dim}"]`);
+          const active = hasDim(dim);
+          isle.hidden = !active;
+          if (!active) return;
+          const [v, h] = ATTR_SLOTS[slot++];
+          isle.classList.remove("up", "down", "l", "r");
+          isle.classList.add(v, h);
+          const name = namedEntity(DIM_FIELD[dim]) || DIM_WORD[dim].toLowerCase();
+          const label = $(`#label-${field.replace(".", "").replace("_", "")}`);
+          if (label) {
+            label.textContent =
+              dim === "accion"
+                ? `De la acción ${name}, ¿cuáles de estas características cambian?`
+                : `De ese ${name}, ¿cuáles de estas propiedades o características cambian?`;
+          }
+          OPTIONS[field] = attrOptions(dim);
+          mountList($(`[data-multi="${field}"]`), field, OPTIONS[field]);
+        });
+      }
+
+      function renderScale() {
+        const scale = $("#scale");
+        if (!scale.querySelector(".scale-mark")) {
+          OPTIONS["2.3"].forEach((option) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "scale-mark";
+            btn.dataset.id = option.id;
+            btn.setAttribute("role", "radio");
+            btn.style.left = `${SCALE_X[option.id]}%`;
+            const tick = document.createElement("span");
+            tick.className = "scale-tick";
+            const label = document.createElement("span");
+            label.className = "scale-label";
+            label.textContent = option.label;
+            btn.append(tick, label);
+            scale.appendChild(btn);
+          });
+        }
+        const v = state.choice["2.3"];
+        $$(".scale-mark", scale).forEach((btn) => {
+          const on = btn.dataset.id === v;
+          btn.classList.toggle("is-active", on);
+          btn.setAttribute("aria-checked", on ? "true" : "false");
+        });
+        scale.classList.toggle("is-locked", !canAnswer("2.3"));
+        $("#scale-fill").style.width = v ? `${SCALE_X[v]}%` : "0";
+
+        const attrs = allAttrLabels();
+        $("#scale-context").textContent = attrs.length
+          ? `En ${pieceName()} marcaste ${attrs.length} ${attrs.length === 1 ? "propiedad que cambia" : "propiedades que cambian"}: ${joinList(attrs.map((a) => a.toLowerCase()))}.`
+          : "";
+      }
+
+      function renderConditionals() {
+        $("#isle-28").hidden = !discreteCycles();
+        $("#q-210").hidden = !transformFails() || state.open["2.B"];
+        $("#slot-2B").classList.toggle("is-open", transformFails() && state.open["2.B"]);
+        $("#q-212").hidden = !hiddenChanges() || state.open["2.C"];
+        $("#slot-2C").classList.toggle("is-open", hiddenChanges() && state.open["2.C"]);
+      }
+
+      function renderControls() {
+        $$("[data-choice]").forEach((list) => {
+          const field = list.dataset.choice;
+          if (!field) return;
+          const v = state.choice[field];
+          $$(".opt", list).forEach((btn) => {
+            const on = btn.dataset.id === v;
+            btn.classList.toggle("is-active", on);
+            btn.setAttribute("aria-checked", on ? "true" : "false");
+          });
+          const committed = Boolean(v) && !state.expanded[field] && !choiceNeedsSpec(field);
+          list.classList.toggle("is-committed", committed);
+          list.classList.toggle("is-locked", !canAnswer(field));
+          const backBtn = $(`.choice-back[data-back-for="${field}"]`);
+          if (backBtn) backBtn.classList.toggle("is-visible", committed);
+        });
+
+        $$("[data-multi]").forEach((list) => {
+          const field = list.dataset.multi;
+          const selected = state.multi[field] || [];
+          $$(".opt", list).forEach((btn) => {
+            const on = selected.includes(btn.dataset.id);
+            btn.classList.toggle("is-active", on);
+            btn.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+          list.classList.toggle("is-locked", !canAnswer(field));
+        });
+
+        $$("[data-follow-for]").forEach((el) => {
+          const f = el.dataset.followFor;
+          el.classList.toggle("is-open", choiceNeedsSpec(f) || multiNeedsSpec(f));
+        });
+
+        $$(".gate-hint").forEach((el) => {
+          const f = el.dataset.gateFor;
+          el.classList.toggle("is-visible", Boolean(f) && !canAnswer(f));
+        });
+
+        $$(".help-plus").forEach((btn) => {
+          const f = btn.dataset.field;
+          btn.classList.toggle("is-open", Boolean(f) && helpOpen === f);
+          btn.classList.toggle("is-seen", Boolean(f) && Boolean(state.helpSeen[f]) && helpOpen !== f);
+          btn.setAttribute("aria-expanded", helpOpen === f ? "true" : "false");
+        });
+
+        $$("[data-answer]").forEach((el) => {
+          const f = el.dataset.answer;
+          const allowed = canAnswer(f);
+          el.setAttribute("contenteditable", allowed ? "true" : "false");
+          el.closest(".answer-field")?.classList.toggle("is-locked", !allowed);
+          el.classList.toggle("is-empty", !txt(f) && !el.textContent.trim());
+        });
+      }
+
+      function renderHelp() {
+        const box = $("#madre-help");
+        box.replaceChildren();
+        const text = helpOpen ? HELP[helpOpen] : "";
+        if (text) {
+          text.split("\n").forEach((line) => {
+            const p = document.createElement("p");
+            p.textContent = line;
+            box.appendChild(p);
+          });
+        }
+        box.classList.toggle("is-open", Boolean(text));
+      }
+
+      function renderClosure() {
+        const order = visibleBands();
+        const isLast = order[order.length - 1].id === state.band;
+        const ready = bandComplete(state.band);
+        const btn = $("#advance");
+        btn.textContent = isLast ? "Guardar Bloque 2" : "Continuar";
+        btn.disabled = !ready;
+        btn.classList.toggle("is-ready", ready);
+        const pendingClarification =
+          (state.band === "limita" && state.open["2.A"] && !txt("2.A")) ||
+          (state.band === "sombra" &&
+            ((state.open["2.B"] && !txt("2.B")) || (state.open["2.C"] && !txt("2.C"))));
+        $("#closure-hint").textContent = pendingClarification
+          ? "Nos falta una precisión antes de seguir"
+          : "";
+        $("#saved-mark").hidden = !(isLast && state.saved);
+      }
+
+      function refresh() {
+        const meta = BANDS.find((b) => b.id === state.band) || BANDS[0];
+        $$(".band").forEach((el) => el.classList.toggle("is-active", el.dataset.band === meta.id));
+        const stage = $("#stage");
+        stage.className = `stage band-${meta.id}`;
+        stage.classList.toggle("is-states", meta.id === "estados");
+        stage.classList.toggle("is-scale", meta.id === "magnitud");
+        stage.classList.toggle("is-shadow", meta.id === "sombra");
+
+        $("#kicker").textContent = meta.title;
+        $("#build").textContent = `Build ${BUILD} · La pieza · ${meta.runtime}`;
+        document.body.classList.toggle("hide-codes", !SHOW_CODES);
+
+        renderHelp();
+        renderPieza();
+        renderPrincipal();
+        renderRelation();
+        renderAttrs();
+        renderScale();
+        renderConditionals();
+        renderTrenches();
+        renderControls();
+        renderClosure();
+      }
+
+      /* ---------- payload (Madre §15–§16) ---------- */
+
+      function entry(code, value, provenance, extra = {}) {
+        return { code, value, provenance, canonical_variable_output: CANONICAL_OUTPUT[code], ...extra };
+      }
+
+      function specValue(field) {
+        const c = state.choice[field];
+        if ((c === "otro" || c === "otra") && txt(field)) return txt(field);
+        return labelOf(field, c) || null;
+      }
+
+      function payload() {
+        const rt = (id) => ({ runtime_id: id });
+        const answers = [entry("2.1", dims().map((d) => labelOf("2.1", d)), "captured_user_evidence", rt("B2-Q12"))];
+        dims().forEach((d) => answers.push(entry(DIM_FIELD[d], specValue(DIM_FIELD[d]), "captured_user_evidence", rt("B2-Q12"))));
+        dims().forEach((d) => {
+          const field = DIM_ATTR[d];
+          const ids = state.multi[field] || [];
+          answers.push(
+            entry(field, ids.map((id) => ATTR_LABEL[id] || id), "captured_user_evidence", {
+              ...rt("B2-Q13"),
+              generated_from: `${DIM_FIELD[d]} · ${namedEntity(DIM_FIELD[d]) || "_default"}`,
+              ...(ids.includes("otro") ? { specification: txt(field) } : {}),
+            }),
+          );
+        });
+        answers.push(entry("2.4a", specValue("2.4a"), "captured_user_evidence", rt("B2-Q14")));
+        answers.push(entry("2.4b", specValue("2.4b"), "captured_user_evidence", rt("B2-Q14")));
+        answers.push(entry("2.5", txt("2.5") || null, "captured_user_evidence", rt("B2-Q15")));
+        answers.push(entry("2.6", txt("2.6") || null, "captured_user_evidence", rt("B2-Q15")));
+        answers.push(entry("2.3", labelOf("2.3", state.choice["2.3"]) || null, "captured_user_evidence", rt("B2-Q16")));
+        answers.push(entry("2.7", labelOf("2.7", state.choice["2.7"]) || null, "captured_user_evidence", rt("B2-Q16")));
+        if (discreteCycles()) {
+          answers.push(entry("2.8", labelOf("2.8", state.choice["2.8"]) || null, "captured_user_evidence", rt("C07")));
+        }
+        answers.push(entry("2.9", labelOf("2.9", state.choice["2.9"]) || null, "captured_user_evidence", rt("B2-Q17")));
+        if (transformFails()) answers.push(entry("2.10", txt("2.10") || null, "captured_user_evidence", rt("C05")));
+        answers.push(entry("2.11", labelOf("2.11", state.choice["2.11"]) || null, "captured_user_evidence", rt("B2-Q17")));
+        if (hiddenChanges()) answers.push(entry("2.12", txt("2.12") || null, "captured_user_evidence", rt("C06")));
+
+        const relation = relField();
+        if (relation) {
+          answers.push(entry(relation, labelOf(relation, relChoice()) || null, "captured_user_evidence", rt("C04")));
+          if (dims().length === 3) {
+            answers.push(
+              entry("2.1_ABC_Prioridad", state.rank.map((id) => labelOf("2.1_ABC_Prioridad", id)), "captured_user_evidence", rt("C04")),
+            );
+          }
+        }
+
+        const clarifications = [];
+        const clarify = (code, runtimeId, origin) =>
+          clarifications.push({
+            code,
+            runtime_id: runtimeId,
+            provenance: "clarification",
+            origin_codes: origin,
+            canonical_variable_output: CANONICAL_OUTPUT[code],
+            value: txt(code) || null,
+          });
+        if (state.open["2.A"]) clarify("2.A", "C04", ["2.1", relation]);
+        if (state.open["2.B"] && transformFails()) clarify("2.B", "C05", ["2.9", "2.10"]);
+        if (state.open["2.C"] && hiddenChanges()) clarify("2.C", "C06", ["2.11", "2.12"]);
+
+        const attributes = {
+          objeto: hasDim("objeto") ? state.multi["2.2_obj"] : [],
+          sujeto: hasDim("sujeto") ? state.multi["2.2_suj"] : [],
+          accion: hasDim("accion") ? state.multi["2.2_acc"] : [],
+        };
+        const concreteAttrs = [...attributes.objeto, ...attributes.sujeto, ...attributes.accion].filter((id) => id !== "otro");
+        const dominant = dominantDim();
+        const metricHint =
+          dominant === "objeto"
+            ? "volumen"
+            : dominant === "sujeto"
+              ? "cantidad"
+              : dominant === "accion"
+                ? "complejidad/frecuencia"
+                : dominant
+                  ? "mezcla"
+                  : null;
+
+        const flags = {
+          transformation_entity_missing: dims().some((d) => !choiceAnswered(DIM_FIELD[d])),
+          transformation_magnitude_inconsistency:
+            (state.choice["2.3"] === "radical" && concreteAttrs.length <= 1) ||
+            (state.choice["2.3"] === "pequeno" && concreteAttrs.length >= 4),
+          transformation_state_no_delta: statesNoDelta(),
+          transformation_iteration_needs_count: discreteCycles() && !state.choice["2.8"],
+          transformation_exception_needs_clarification:
+            transformFails() && genericTransformText(txt("2.10")) && (!state.open["2.B"] || genericTransformText(txt("2.B"))),
+          transformation_exception_route_unresolved: !state.choice["2.9"],
+          transformation_hidden_change_needs_clarification:
+            hiddenChanges() && genericHiddenText(txt("2.12")) && (!state.open["2.C"] || genericHiddenText(txt("2.C"))),
+          transformation_dominance_ambiguous: needs2A() && !txt("2.A"),
+        };
+
+        const gaps = [];
+        if (flags.transformation_entity_missing) gaps.push("ausencia de entidad concreta");
+        if (dims().some((d) => !(state.multi[DIM_ATTR[d]] || []).some((id) => id !== "otro"))) {
+          gaps.push("atributos demasiado genéricos");
+        }
+        if (flags.transformation_state_no_delta) gaps.push("ausencia de estados distinguibles");
+        if (flags.transformation_iteration_needs_count) gaps.push("iteración sin escala");
+        if (flags.transformation_exception_needs_clarification) gaps.push("excepción sin sintomatología");
+        if (flags.transformation_exception_route_unresolved) gaps.push("ruta canónica de excepción no cerrada");
+        if (flags.transformation_hidden_change_needs_clarification) gaps.push("cambio oculto sin actor");
+
+        const issues = Object.values(flags).filter(Boolean).length;
+        const runtime = ["B2-Q12", "B2-Q13", "B2-Q14", "B2-Q15", "B2-Q16", "B2-Q17"];
+        if (dims().length > 1) runtime.push("C04");
+        if (transformFails()) runtime.push("C05");
+        if (hiddenChanges()) runtime.push("C06");
+        if (discreteCycles()) runtime.push("C07");
+
+        return {
+          block_id: "2",
+          build: BUILD,
+          composition: "la_pieza",
+          saved_at: new Date().toISOString(),
+          scene_memory: MEMORY,
+          runtime_interactions: runtime,
+          answers,
+          clarifications,
+          derivations: {
+            transformation_primary_dimensions: dims(),
+            dimension_dominante: dominant,
+            ranking_dimensiones: state.rank.slice(),
+            transformation_attributes: attributes,
+            transformation_exception_type: state.choice["2.9"] || null,
+            transformation_exception_exists: state.choice["2.9"] ? transformFails() : "unresolved",
+            transformation_hidden_changes: hiddenChanges(),
+            transformation_iteration_count:
+              state.choice["2.7"] === "continuo" ? "N/A" : labelOf("2.8", state.choice["2.8"]) || null,
+            transformation_metric_hint: metricHint,
+          },
+          flags,
+          gaps,
+          scene_transformation_confidence: issues === 0 ? "Alta" : issues <= 2 ? "Media" : "Baja",
+          scene_transformation_readiness:
+            visibleBands().every((b) => bandComplete(b.id)) &&
+            !flags.transformation_entity_missing &&
+            !flags.transformation_dominance_ambiguous,
+        };
+      }
+
+      function saveBlock() {
+        const data = payload();
+        try {
+          localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+        } catch (_) {
+          /* best-effort */
+        }
+        state.saved = true;
+        helpOpen = null;
+        saveDraft();
+        refresh();
+        notify("Bloque 2 guardado");
+        console.info("[Bloque 2 · La pieza]", data);
+      }
+
+      /* ---------- arranque ---------- */
+
+      function init() {
+        ["2.1a", "2.1b", "2.1c", "2.4a", "2.4b", "2.7", "2.8", "2.9", "2.11"].forEach((field) => {
+          const list = $(`[data-choice="${field}"]`);
+          if (list) mountList(list, field, OPTIONS[field], "radio");
+        });
+
+        $$("[data-answer]").forEach((el) => {
+          const f = el.dataset.answer;
+          if (state.text[f]) el.textContent = state.text[f];
+          el.addEventListener("input", () => {
+            state.text[f] = el.innerText.replace(/\u00a0/g, " ");
+            el.classList.toggle("is-empty", !el.textContent.trim());
+            state.saved = false;
+            saveDraft();
+            renderPieza();
+            renderScale();
+            renderControls();
+            renderClosure();
+          });
+        });
+
+        document.addEventListener("click", (event) => {
+          const t = event.target;
+          const help = t.closest(".help-plus");
+          if (help) return toggleHelp(help.dataset.field);
+          const station = t.closest("[data-station]");
+          if (station) return toggleMulti("2.1", station.dataset.station);
+          const backBtn = t.closest(".choice-back");
+          if (backBtn) {
+            state.expanded[backBtn.dataset.backFor] = true;
+            return refresh();
+          }
+          const mark = t.closest(".scale-mark");
+          if (mark) return choose("2.3", mark.dataset.id);
+          const opt = t.closest(".opt");
+          if (opt) {
+            const single = opt.closest("[data-choice]");
+            if (single && single.dataset.choice) return choose(single.dataset.choice, opt.dataset.id);
+            const multi = opt.closest("[data-multi]");
+            if (multi) return toggleMulti(multi.dataset.multi, opt.dataset.id);
+            const rank = opt.closest("[data-rank]");
+            if (rank) return toggleRank(opt.dataset.id);
+          }
+        });
+
+        $("#advance").addEventListener("click", advance);
+        $("#nav-back").addEventListener("click", back);
+        $("#replay").addEventListener("click", () => {
+          localStorage.removeItem(DRAFT_KEY);
+          localStorage.removeItem(SAVE_KEY);
+          window.location.href = window.location.pathname;
+        });
+
+        $("#memory").textContent = MEMORY;
+        if (START_BAND && BANDS.some((b) => b.id === START_BAND)) state.band = START_BAND;
+        if (!visibleBands().some((b) => b.id === state.band)) state.band = "principal";
+        refresh();
+      }
+
+      init();
+    </script>
+  </body>
+</html>

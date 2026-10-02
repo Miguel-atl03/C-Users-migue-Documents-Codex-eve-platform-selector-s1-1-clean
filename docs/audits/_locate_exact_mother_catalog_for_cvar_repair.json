@@ -1,0 +1,110 @@
+{
+  "dictamen": "EXACT_MOTHER_CATALOG_LOCATED",
+  "recommended_copy": {
+    "full_path": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform\\docs\\chips\\canonical-catalog\\EVE_03_Canonical_Catalog_v0_1\\sources\\EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+    "relative_path": "external-consumers/eve-platform/docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+    "platform_relative_path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+    "file_size": 225608,
+    "last_modified": "2026-06-03T06:29:47.441Z",
+    "sha256": "09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2",
+    "tracked_or_untracked": "untracked",
+    "used_by_chip": [
+      "EVE_03_Canonical_Catalog_v0_1",
+      "EVE_04_Runtime_Catalog_v0_1",
+      "EVE_04_Runtime_Catalog_v0_1_1_candidate"
+    ],
+    "appears_in_manifest": true,
+    "appears_as_source_path": true,
+    "likely_authoritative": true,
+    "reason": "Es la unica copia XLSX exacta encontrada en el repo con ese nombre y esta colocada en la carpeta sources del chip EVE03. EVE03 la declara como D8 y primary_canonical_source; EVE04 active/candidate y auditorias CVAR/CCOV la referencian como Catálogo Madre."
+  },
+  "copies_found": [
+    {
+      "full_path": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform\\docs\\chips\\canonical-catalog\\EVE_03_Canonical_Catalog_v0_1\\sources\\EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+      "relative_path": "external-consumers/eve-platform/docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+      "file_size": 225608,
+      "last_modified": "2026-06-03T06:29:47.441Z",
+      "tracked_or_untracked": "untracked",
+      "used_by_chip": true,
+      "appears_in_manifest": true,
+      "appears_as_source_path": true,
+      "likely_authoritative": true,
+      "reason": "Cumple los criterios 1-4: referenciada por EVE03, ubicada bajo sources de EVE03, usada por EVE03/EVE04/auditorias, y no es incoming/backup/export aislado."
+    }
+  ],
+  "related_non_candidate_files": {
+    "note": "Se encontraron extractos txt, fixtures y documentos Capa1 historicos, pero no son la copia XLSX exacta solicitada para reparacion CVAR-001.",
+    "examples": [
+      "evidence/source-extraction/tramo2/Bloque_1_Documento_Madre_Capa1_v2_1_EVE.extracted.txt",
+      "evidence/source-extraction/tramo5/Bloque_6_Documento_Madre_Capa1_v2_1_EVE_rev4_reconstruido.extracted.txt",
+      "external-consumers/eve-platform/fixtures/Diseno_Formal_Capa1_v2_1_Unificado_question_rows.json",
+      "external-consumers/eve-platform/src/rules/question-catalog-v2-1.json"
+    ]
+  },
+  "references": [
+    {
+      "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/EVE_03_Canonical_Catalog_v0_1.md",
+      "line": 18,
+      "use": "Declara D8 como primary_canonical_source para nodos, codigos originales, variables fuente, rutas criticas, gobernanza epistemologica, mappings MMABP y preparacion VSM/AHE."
+    },
+    {
+      "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/EVE_03_Canonical_Catalog_v0_1.manifest.json",
+      "lines": [38, 39, 42, 49],
+      "use": "Declara D8, titulo del XLSX, physical_path y unidad Catalogo_Madre_Nodos."
+    },
+    {
+      "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/03_canonical_catalog/source_documents.json",
+      "lines": [3, 4, 7, 14],
+      "use": "Registra D8 como source document y sus unidades fuente."
+    },
+    {
+      "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/03_canonical_catalog/source_target_map.json",
+      "lines": [3, 4, 96, 104, 120],
+      "use": "Mapea D8 a modulos target y declara que D8 manda en genealogia."
+    },
+    {
+      "path": "tests/regression/eve-03-canonical-catalog-source-contract.test.ts",
+      "line": 9,
+      "use": "Test de contrato EVE03 espera el XLSX en sources."
+    },
+    {
+      "path": "tests/regression/eve-04-runtime-catalog-ccov-cvar-preflight.test.ts",
+      "line": 7,
+      "use": "Test EVE04 CCOV/CVAR usa la misma ruta D8."
+    },
+    {
+      "path": "docs/audits/EVE04_CVAR_001_SOURCE_DECISION_PREFLIGHT.md",
+      "line": 15,
+      "use": "Preflight CVAR registra exists=true, readable=true, size y sha256 de la copia."
+    },
+    {
+      "path": "docs/audits/_eve04_cvar_001_upstream_recovery_matrix.json",
+      "use": "La matriz CVAR upstream usa esta ruta como best_source_path para variables CVAR."
+    },
+    {
+      "path": "docs/audits/_eve_runtime_catalog_surgical_patch_01_source_matrix.json",
+      "line": 5,
+      "use": "Auditoria quirurgica EVE04 usa la ruta como mother source."
+    },
+    {
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1/EVE_04_Runtime_Catalog_v0_1.manifest.json",
+      "lines": [33, 152, 153],
+      "use": "EVE04 active declara el documento del Catalogo Madre."
+    },
+    {
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1_1_candidate.manifest.json",
+      "lines": [33, 152, 153],
+      "use": "EVE04 candidate declara el documento del Catalogo Madre."
+    }
+  ],
+  "commands_executed": [
+    "pwd",
+    "git -c safe.directory=\"C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\" -c core.longpaths=true status --short",
+    "Get-ChildItem -Recurse -File -Filter \"*Catalogo*Madre*\" | Select-Object FullName, Length, LastWriteTime",
+    "Get-ChildItem -Recurse -File -Filter \"*Capa1*\" | Select-Object FullName, Length, LastWriteTime",
+    "rg --files -g \"!*node_modules*\" -g \"!*tmp-cerebro-ai*\" | rg \"(EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7|Catalogo_Madre|Catálogo Madre|Capa1|Bloques_0_0_5_1_7)\"",
+    "rg -n --hidden -g \"!**/node_modules/**\" -g \"!**/tmp-cerebro-ai/**\" \"EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7\\.xlsx\" docs tests src scripts incoming",
+    "node -e \"fs/stat/sha256 check for D8 XLSX\""
+  ],
+  "next_step": "SEND_THIS_FILE_TO_CHATGPT_FOR_CVAR_REPAIR"
+}

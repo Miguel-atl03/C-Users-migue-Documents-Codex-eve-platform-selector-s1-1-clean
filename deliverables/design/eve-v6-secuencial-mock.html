@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>EVE — Mapa de trabajo · mock v6 · opción B secuencial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+        Opción B — secuencial wrap + columnas de rol (máx. 3 lado a lado).
+        Estado inicial vacío: 11 áreas en catálogo; columnas aparecen al elegir.
+        Solo scroll vertical.
+      */
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+        --page-pad: clamp(24px, 4vw, 64px);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        overflow-x: hidden;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        width: 100%;
+        max-width: 100vw;
+        min-height: 100vh;
+        margin: 0 auto;
+        padding: 40px var(--page-pad) 80px;
+        background: var(--eve-sheet);
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 48px;
+      }
+
+      .mark {
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .session {
+        text-align: right;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 1.9;
+      }
+
+      .room {
+        margin: 0 0 8px;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+      }
+
+      /* Franja ubicación + catálogo */
+      .ubicacion-band {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        column-gap: 20px;
+        row-gap: 20px;
+        align-items: start;
+        margin-bottom: clamp(48px, 8vh, 96px);
+        max-width: 100%;
+      }
+
+      .ubicacion-q {
+        grid-column: 1;
+        grid-row: 1;
+        margin: 0;
+        width: max-content;
+        max-width: 34ch;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .ubicacion {
+        grid-column: 1;
+        grid-row: 2;
+        min-width: 0;
+      }
+
+      .ubicacion-area {
+        display: block;
+        margin: 0 0 12px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        cursor: pointer;
+        text-align: left;
+        transition: color 180ms ease;
+      }
+
+      .ubicacion-area.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .ubicacion-area.is-on:hover,
+      .ubicacion-area.is-on:focus-visible {
+        color: color-mix(in srgb, var(--eve-mist) 72%, var(--eve-ink));
+        outline: none;
+      }
+
+      .ubicacion-area.is-focus {
+        font-weight: 700;
+      }
+
+      .ubicacion-custom-pending {
+        margin: 0 0 12px;
+      }
+
+      .ubicacion-custom-pending .custom-area-input {
+        width: min(100%, 300px);
+        min-height: 28px;
+        border: 0;
+        border-bottom: 1px solid #d8dce2;
+        background: transparent;
+        font-family: inherit;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        padding: 0 0 4px;
+      }
+
+      .ubicacion-custom-pending .custom-area-input::placeholder {
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+
+      .ubicacion-custom-pending .custom-area-input:focus {
+        outline: none;
+        border-bottom-color: var(--eve-ink);
+      }
+
+      .ubicacion-whisper {
+        margin: 24px 0 0;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        line-height: 1.75;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 52%, transparent);
+        max-width: 38ch;
+      }
+
+      .void-catalogo {
+        grid-column: 2;
+        grid-row: 1;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        align-items: baseline;
+        gap: 10px clamp(12px, 1.5vw, 20px);
+        padding-top: 2px;
+        min-width: 0;
+      }
+
+      .catalog-item {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        font-size: 8.5px;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 88%, transparent);
+        white-space: nowrap;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        transition: color 180ms ease;
+      }
+
+      .catalog-item:hover,
+      .catalog-item:focus-visible {
+        color: var(--eve-ink);
+        outline: none;
+      }
+
+      .catalog-item:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      .roles-columns.is-dormant {
+        display: none;
+      }
+
+      /* Roles: misma anchura que Estado A (420px máx, void entre columnas) */
+      .roles-columns {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(120px, 18vw, 280px);
+        align-items: start;
+        max-width: 100%;
+        margin-bottom: 120px;
+      }
+
+      .roles-columns.is-triple {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      .role-col {
+        min-width: 0;
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .role-col:nth-child(1) {
+        justify-self: start;
+      }
+
+      .role-col:nth-child(2) {
+        justify-self: end;
+      }
+
+      .roles-columns.is-triple .role-col:nth-child(2) {
+        justify-self: center;
+      }
+
+      .roles-columns.is-triple .role-col:nth-child(3) {
+        justify-self: end;
+      }
+
+      .role-col.is-muted {
+        opacity: 0.72;
+      }
+
+      .role-name {
+        margin: 0 0 20px;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .role-col.is-muted .role-name {
+        color: color-mix(in srgb, var(--eve-mist) 75%, var(--eve-ink));
+      }
+
+      .role-name.is-empty {
+        font-weight: 400;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+      }
+
+      .role-q {
+        margin: 0 0 18px;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .role-col.is-muted .role-q {
+        color: color-mix(in srgb, var(--eve-mist) 60%, transparent);
+      }
+
+      .role-resp {
+        margin: 0 0 36px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.55;
+        color: var(--eve-ink);
+      }
+
+      .role-resp.is-empty {
+        font-weight: 400;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+      }
+
+      .role-acts-q {
+        margin: 0 0 20px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .role-col.is-muted .role-acts-q {
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+
+      .role-act {
+        margin: 0 0 24px;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+      }
+
+      .role-act.is-empty {
+        font-weight: 400;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+      }
+
+      .role-more {
+        margin: 0;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 48%, transparent);
+      }
+
+      .need {
+        margin: clamp(32px, 5vh, 48px) 0 0;
+        max-width: 38ch;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        line-height: 1.65;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 52%, transparent);
+      }
+
+      .proposal-tag {
+        margin: 32px 0 0;
+        font-size: 6px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 45%, transparent);
+      }
+
+      @media (max-width: 900px) {
+        .ubicacion-band {
+          grid-template-columns: 1fr;
+        }
+
+        .ubicacion-q,
+        .void-catalogo,
+        .ubicacion {
+          grid-column: 1;
+        }
+
+        .ubicacion-q {
+          grid-row: 1;
+        }
+
+        .void-catalogo {
+          grid-row: 2;
+          padding-top: 0;
+        }
+
+        .ubicacion {
+          grid-row: 3;
+        }
+
+        .roles-columns,
+        .roles-columns.is-triple {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+
+        .role-col,
+        .role-col:nth-child(2),
+        .roles-columns.is-triple .role-col:nth-child(2),
+        .roles-columns.is-triple .role-col:nth-child(3) {
+          justify-self: start;
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen" aria-label="Mock v6 opción B — secuencial + columnas de rol">
+      <header class="topbar">
+        <span class="mark">EVE<sup>™</sup></span>
+        <div class="session">
+          <span>Hola.</span><br />
+          <span>Cerrar sesión</span>
+        </div>
+      </header>
+
+      <p class="room">[ Mapa de tu trabajo ]</p>
+
+      <section class="ubicacion-band" aria-labelledby="ubicacion-q">
+        <h2 class="ubicacion-q" id="ubicacion-q">¿Dónde participa tu trabajo?</h2>
+
+        <div class="void-catalogo" id="void-catalogo" role="group" aria-label="Catálogo de áreas">
+          <button type="button" class="catalog-item" data-area="Operaciones / Producción">Operaciones / Producción</button>
+          <button type="button" class="catalog-item" data-area="Ventas / Comercial">Ventas / Comercial</button>
+          <button type="button" class="catalog-item" data-area="I+D / Innovación">I+D / Innovación</button>
+          <button type="button" class="catalog-item" data-area="Logística / Entrega">Logística / Entrega</button>
+          <button type="button" class="catalog-item" data-area="Gestión de Talento (RRHH)">Gestión de Talento (RRHH)</button>
+          <button type="button" class="catalog-item" data-area="Finanzas / Tesorería">Finanzas / Tesorería</button>
+          <button type="button" class="catalog-item" data-area="Tecnología / Infraestructura">Tecnología / Infraestructura</button>
+          <button type="button" class="catalog-item" data-area="Administración / Legal">Administración / Legal</button>
+          <button type="button" class="catalog-item" data-area="Marketing Estratégico">Marketing Estratégico</button>
+          <button type="button" class="catalog-item" data-area="Planeación / Estrategia">Planeación / Estrategia</button>
+          <button type="button" class="catalog-item catalog-item-other" data-custom="true" id="catalog-other">
+            Otra área
+          </button>
+        </div>
+
+        <div class="ubicacion">
+          <div id="ubicacion-selected"></div>
+          <p class="ubicacion-whisper">
+            No buscamos tu departamento formal. Buscamos en qué parte de la operación tu
+            trabajo realmente interviene.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="roles-columns is-dormant"
+        id="roles-columns"
+        aria-label="Roles funcionales confirmados"
+        hidden
+      ></section>
+
+      <p class="need">
+        Escribe al menos una responsabilidad y dos actividades por cada área elegida.
+      </p>
+
+      <p class="proposal-tag">
+        Mock v6 · OPCIÓN B · catálogo 8.5px · revisión 2026-08-27d
+      </p>
+    </div>
+    <script>
+      (function () {
+        const MAX_AREAS = 3;
+        const OTHER_AREA_LABEL = "Otra área";
+        const ALL_AREAS = [
+          "Operaciones / Producción",
+          "Ventas / Comercial",
+          "I+D / Innovación",
+          "Logística / Entrega",
+          "Gestión de Talento (RRHH)",
+          "Finanzas / Tesorería",
+          "Tecnología / Infraestructura",
+          "Administración / Legal",
+          "Marketing Estratégico",
+          "Planeación / Estrategia",
+        ];
+
+        const ubicacionSelected = document.getElementById("ubicacion-selected");
+        const catalog = document.getElementById("void-catalogo");
+        const catalogOther = document.getElementById("catalog-other");
+        const rolesColumns = document.getElementById("roles-columns");
+
+        function slotCount() {
+          return ubicacionSelected.children.length;
+        }
+
+        function confirmedAreaNames() {
+          return [...ubicacionSelected.querySelectorAll(".ubicacion-area.is-on")].map(
+            (el) => el.dataset.area || el.textContent.trim()
+          );
+        }
+
+        function isAreaNameTaken(name) {
+          const normalized = name.trim().toLowerCase();
+          if (!normalized) return true;
+          if (ALL_AREAS.some((area) => area.toLowerCase() === normalized)) return true;
+          return confirmedAreaNames().some((area) => area.toLowerCase() === normalized);
+        }
+
+        function syncFocus() {
+          ubicacionSelected.querySelectorAll(".ubicacion-area.is-on").forEach((el, index) => {
+            el.classList.toggle("is-focus", index === 0);
+          });
+        }
+
+        function syncLayout() {
+          const count = slotCount();
+          const atMax = count >= MAX_AREAS;
+
+          rolesColumns.classList.toggle("is-triple", count >= 3);
+          rolesColumns.classList.toggle("is-dormant", count === 0);
+          rolesColumns.hidden = count === 0;
+
+          catalog.querySelectorAll(".catalog-item:not([data-custom])").forEach((btn) => {
+            btn.disabled = atMax;
+          });
+
+          catalogOther.disabled = atMax;
+        }
+
+        function createRoleColumn(name, slotId, isPending) {
+          const article = document.createElement("article");
+          article.className = "role-col is-muted";
+          article.dataset.slotId = slotId;
+          article.setAttribute("aria-label", isPending ? OTHER_AREA_LABEL : name);
+          article.innerHTML = `
+            <p class="role-name${isPending ? " is-empty" : ""}">${isPending ? "Escribe el nombre del área" : name}</p>
+            <p class="role-q">De qué respondes en ${isPending ? "esta área" : name}</p>
+            <p class="role-resp is-empty">Redacta una responsabilidad concreta de tu trabajo</p>
+            <p class="role-acts-q">Qué haces para cumplirlo</p>
+            <p class="role-act is-empty">1. Redacta una actividad concreta de tu trabajo</p>
+            <p class="role-act is-empty">2. Redacta una actividad concreta de tu trabajo</p>
+            <p class="role-more">+ Agregar otra actividad</p>
+          `;
+          return article;
+        }
+
+        function updateRoleColumn(slotId, name) {
+          const column = rolesColumns.querySelector(`[data-slot-id="${slotId}"]`);
+          if (!column) return;
+          column.setAttribute("aria-label", name);
+          const roleName = column.querySelector(".role-name");
+          roleName.textContent = name;
+          roleName.classList.remove("is-empty");
+          const roleQ = column.querySelector(".role-q");
+          roleQ.textContent = `De qué respondes en ${name}`;
+        }
+
+        function removeSlot(slotId) {
+          ubicacionSelected.querySelector(`[data-slot-id="${slotId}"]`)?.remove();
+          rolesColumns.querySelector(`[data-slot-id="${slotId}"]`)?.remove();
+          syncLayout();
+        }
+
+        function addPredefinedArea(name) {
+          const slotId = `area-${Date.now()}`;
+
+          const area = document.createElement("button");
+          area.type = "button";
+          area.className = "ubicacion-area is-on";
+          area.dataset.area = name;
+          area.dataset.slotId = slotId;
+          area.dataset.predefined = "true";
+          area.textContent = name;
+          ubicacionSelected.appendChild(area);
+
+          rolesColumns.appendChild(createRoleColumn(name, slotId, false));
+          syncFocus();
+          syncLayout();
+        }
+
+        function addCustomPendingSlot() {
+          const slotId = `custom-${Date.now()}`;
+
+          const pending = document.createElement("div");
+          pending.className = "ubicacion-custom-pending";
+          pending.dataset.slotId = slotId;
+          pending.innerHTML = `
+            <input
+              type="text"
+              class="custom-area-input"
+              placeholder="Escribe el nombre del área"
+              autocomplete="off"
+              aria-label="Nombre del área personalizada"
+            />
+          `;
+          ubicacionSelected.appendChild(pending);
+
+          const input = pending.querySelector("input");
+          rolesColumns.appendChild(createRoleColumn("", slotId, true));
+          syncLayout();
+          input.focus();
+
+          input.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              confirmCustomSlot(slotId, input.value);
+            }
+            if (event.key === "Escape") {
+              removeSlot(slotId);
+            }
+          });
+
+          input.addEventListener("blur", () => {
+            const name = input.value.trim();
+            if (!name) {
+              window.setTimeout(() => {
+                if (!input.isConnected) return;
+                if (document.activeElement === input) return;
+                removeSlot(slotId);
+              }, 120);
+              return;
+            }
+            confirmCustomSlot(slotId, name);
+          });
+        }
+
+        function confirmCustomSlot(slotId, rawName) {
+          const name = rawName.trim();
+          if (!name || isAreaNameTaken(name)) {
+            removeSlot(slotId);
+            return;
+          }
+
+          const pending = ubicacionSelected.querySelector(`[data-slot-id="${slotId}"]`);
+          if (!pending || !pending.classList.contains("ubicacion-custom-pending")) return;
+
+          const area = document.createElement("button");
+          area.type = "button";
+          area.className = "ubicacion-area is-on";
+          area.dataset.area = name;
+          area.dataset.slotId = slotId;
+          area.dataset.custom = "true";
+          area.textContent = name;
+          pending.replaceWith(area);
+
+          updateRoleColumn(slotId, name);
+          syncFocus();
+          syncLayout();
+        }
+
+        function createCatalogButton(name) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "catalog-item";
+          btn.dataset.area = name;
+          btn.textContent = name;
+          return btn;
+        }
+
+        function insertCatalogButtonInOrder(name) {
+          const btn = createCatalogButton(name);
+          const orderIndex = ALL_AREAS.indexOf(name);
+          const existingButtons = [...catalog.querySelectorAll(".catalog-item:not([data-custom])")];
+          const insertBefore = existingButtons.find((el) => {
+            const idx = ALL_AREAS.indexOf(el.dataset.area);
+            return idx > orderIndex;
+          });
+
+          if (insertBefore) {
+            catalog.insertBefore(btn, insertBefore);
+          } else {
+            catalog.insertBefore(btn, catalogOther);
+          }
+        }
+
+        function deselectArea(slotEl) {
+          const slotId = slotEl.dataset.slotId;
+          const name = slotEl.dataset.area;
+          if (!slotId) return;
+
+          removeSlot(slotId);
+
+          if (slotEl.dataset.predefined === "true" && ALL_AREAS.includes(name)) {
+            insertCatalogButtonInOrder(name);
+          }
+
+          syncFocus();
+          syncLayout();
+        }
+
+        catalog.addEventListener("click", (event) => {
+          const btn = event.target.closest(".catalog-item");
+          if (!btn || btn.disabled) return;
+
+          if (btn.dataset.custom === "true") {
+            if (slotCount() >= MAX_AREAS) return;
+            addCustomPendingSlot();
+            return;
+          }
+
+          const name = btn.dataset.area;
+          if (!name || confirmedAreaNames().includes(name)) return;
+          if (slotCount() >= MAX_AREAS) return;
+
+          btn.remove();
+          addPredefinedArea(name);
+        });
+
+        ubicacionSelected.addEventListener("click", (event) => {
+          const areaBtn = event.target.closest(".ubicacion-area.is-on");
+          if (!areaBtn) return;
+          deselectArea(areaBtn);
+        });
+
+        syncLayout();
+      })();
+    </script>
+  </body>
+</html>

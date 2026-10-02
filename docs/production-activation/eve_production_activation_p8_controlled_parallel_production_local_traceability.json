@@ -1,0 +1,50 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P8_CONTROLLED_PARALLEL_PRODUCTION_LOCAL_V1",
+  "generated_at": "2026-07-08T18:30:00.000Z",
+  "phase": "P8",
+  "entry_conditions": {
+    "p0_p1r_accepted": true,
+    "p2_bff_accepted": true,
+    "p3_p3r_accepted": true,
+    "p4_runtime_real_local_accepted": true,
+    "p5_gates_readiness_local_accepted": true,
+    "p6_p6r_client_safe_result_accepted": true,
+    "p7_consultant_review_packet_accepted": true
+  },
+  "deliverables": {
+    "parallel_production_types": "src/services/eve/runtime-40-20/parallel-production/runtime-40-20-parallel-production-types.ts",
+    "parallel_production_service": "src/services/eve/runtime-40-20/parallel-production/runtime-40-20-parallel-production-service.ts",
+    "parallel_production_local_adapter": "src/services/eve/runtime-40-20/parallel-production/runtime-40-20-parallel-production-local-adapter.ts",
+    "parallel_production_tests": "src/services/eve/runtime-40-20/parallel-production/runtime-40-20-parallel-production.test.mjs",
+    "consultant_parallel_production_route": "src/app/api/eve/runtime-40-20/consultant/parallel-production/route.ts",
+    "p8_smoke_script": "scripts/eve/production-activation/p8-controlled-parallel-production-local-smoke.mjs",
+    "p8_validate_script": "scripts/eve/production-activation/p8-validate-parallel-production-payloads.mjs",
+    "p8_boundary_scan_script": "scripts/eve/production-activation/p8-scan-parallel-production-boundaries.mjs"
+  },
+  "feature_flags": {
+    "EVE_RUNTIME_40_20_LOCAL_ENABLED": true,
+    "EVE_GATES_READINESS_LOCAL_ENABLED": true,
+    "EVE_CLIENT_SAFE_RESULT_LOCAL_ENABLED": true,
+    "EVE_CONSULTANT_REVIEW_PACKET_LOCAL_ENABLED": true,
+    "EVE_PARALLEL_PRODUCTION_LOCAL_ENABLED": true
+  },
+  "eligibility_mapping": {
+    "ready": "export_preparation_allowed_local",
+    "ready_with_flags": "export_preparation_allowed_with_flags_local",
+    "blocked": "export_preparation_blocked",
+    "reentry_required": "export_preparation_blocked_reentry_required",
+    "manual_review_required": "export_preparation_blocked_manual_review_required"
+  },
+  "boundary": {
+    "diagnosis_final_created": false,
+    "registry_final_created": false,
+    "ir_final_created": false,
+    "export_real_created": false,
+    "produccion_paralela_started": false,
+    "activation_allowed": false,
+    "production_supabase_touched": false
+  },
+  "ready_for_p9_qa_green_real_and_production_no_go": true,
+  "ready_for_production_activation": false,
+  "next_authorization_required": true
+}

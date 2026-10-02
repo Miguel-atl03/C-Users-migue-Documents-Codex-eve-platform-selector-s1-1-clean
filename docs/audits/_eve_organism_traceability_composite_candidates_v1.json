@@ -1,0 +1,873 @@
+{
+  "audit_id": "EVE_ORGANISM_TRACEABILITY_COMPOSITE_CANDIDATES_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "TRACEABILITY_FIELDS_PARTIAL_REQUIRE_HUMAN_CONFIRMATION",
+  "summary": {
+    "total": 44,
+    "ready_for_observer_design_review": 0,
+    "partial_needs_confirmation": 13,
+    "replay_only": 29,
+    "rejected": 2
+  },
+  "composite_candidates": [
+    {
+      "candidate_id": "TCC-001",
+      "object_name": "fixtures.ts",
+      "file_path": "src/domain/eve-execution-engine-shadow/fixtures.ts",
+      "fields_present": [
+        "correlationId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "reject"
+    },
+    {
+      "candidate_id": "TCC-002",
+      "object_name": "client-causal-aggregation-repository.ts",
+      "file_path": "src/services/client-causal-aggregation-repository.ts",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-003",
+      "object_name": "capa1-observer.mjs",
+      "file_path": "src/services/mba/adapters/capa1-observer.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-004",
+      "object_name": "parallel-production-observer.mjs",
+      "file_path": "src/services/mba/adapters/parallel-production-observer.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-005",
+      "object_name": "event-ledger.mjs",
+      "file_path": "src/services/mba/event-ledger.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-006",
+      "object_name": "governance-finding-normalizer.mjs",
+      "file_path": "src/services/mba/governance-finding-normalizer.mjs",
+      "fields_present": [
+        "idempotencyKey",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-007",
+      "object_name": "supabase-persistence.mjs",
+      "file_path": "src/services/mba/supabase-persistence.mjs",
+      "fields_present": [
+        "correlationId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "reject"
+    },
+    {
+      "candidate_id": "TCC-008",
+      "object_name": "assessment-run.mjs",
+      "file_path": "src/services/parallel-production/runtime/assessment-run.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-009",
+      "object_name": "candidate-export-generate.mjs",
+      "file_path": "src/services/parallel-production/runtime/candidate-export-generate.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-010",
+      "object_name": "index.mjs",
+      "file_path": "src/services/parallel-production/runtime/index.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-011",
+      "object_name": "inventory-resolve.mjs",
+      "file_path": "src/services/parallel-production/runtime/inventory-resolve.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-012",
+      "object_name": "mmabp-ir-project.mjs",
+      "file_path": "src/services/parallel-production/runtime/mmabp-ir-project.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-013",
+      "object_name": "repository.mjs",
+      "file_path": "src/services/parallel-production/runtime/repository.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-014",
+      "object_name": "shared.mjs",
+      "file_path": "src/services/parallel-production/runtime/shared.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-015",
+      "object_name": "eve-organism-composition-root.ts",
+      "file_path": "src/types/eve-organism-composition-root.ts",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [
+        "officialFlowRef"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "medium",
+      "decision": "partial_needs_confirmation"
+    },
+    {
+      "candidate_id": "TCC-016",
+      "object_name": "replay_fixture_001_workmap_activity.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_001_workmap_activity.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-017",
+      "object_name": "replay_fixture_002_significado_intent.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_002_significado_intent.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-018",
+      "object_name": "replay_fixture_003_runtime_like_response.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_003_runtime_like_response.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-019",
+      "object_name": "replay_fixture_004_evidence_provenance.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_004_evidence_provenance.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-020",
+      "object_name": "replay_fixture_005_candidate_source_trace.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_005_candidate_source_trace.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-021",
+      "object_name": "replay_fixture_006_official_flow_ref.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_006_official_flow_ref.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-022",
+      "object_name": "replay_fixture_007_missing_context.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_007_missing_context.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-023",
+      "object_name": "replay_fixture_008_missing_provenance.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_008_missing_provenance.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-024",
+      "object_name": "replay_fixture_009_missing_idempotency_correlation.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_009_missing_idempotency_correlation.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-025",
+      "object_name": "replay_fixture_010_missing_source_trace.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_010_missing_source_trace.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-026",
+      "object_name": "replay_fixture_011_registry_export_attempt.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_011_registry_export_attempt.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-027",
+      "object_name": "replay_fixture_012_tenant_leak_attempt.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_012_tenant_leak_attempt.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-028",
+      "object_name": "replay_fixture_013_gate_bypass_signal.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_013_gate_bypass_signal.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-029",
+      "object_name": "replay_fixture_014_evidence_corruption_signal.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_014_evidence_corruption_signal.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-030",
+      "object_name": "replay_fixture_015_no_go_critical_signal.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_015_no_go_critical_signal.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-031",
+      "object_name": "replay_fixture_016_non_critical_divergence_signal.json",
+      "file_path": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_016_non_critical_divergence_signal.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-032",
+      "object_name": "eve-organism-composition-root-shadow-harness.test.ts",
+      "file_path": "tests/regression/eve-organism-composition-root-shadow-harness.test.ts",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [
+        "officialFlowRef"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-033",
+      "object_name": "eve-organism-composition-root-shadow.test.ts",
+      "file_path": "tests/regression/eve-organism-composition-root-shadow.test.ts",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [
+        "officialFlowRef"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-034",
+      "object_name": "eve-organism-shadow-e2e-adapter.test.ts",
+      "file_path": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-035",
+      "object_name": "eve-organism-shadow-e2e-replay-fixtures.test.ts",
+      "file_path": "tests/regression/eve-organism-shadow-e2e-replay-fixtures.test.ts",
+      "fields_present": [
+        "correlationId",
+        "officialFlowRef",
+        "tenantId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-036",
+      "object_name": "mba-control-plane.test.mjs",
+      "file_path": "tests/regression/mba-control-plane/mba-control-plane.test.mjs",
+      "fields_present": [
+        "idempotencyKey"
+      ],
+      "fields_missing": [
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-037",
+      "object_name": "runtime-shadow-chain.test.mjs",
+      "file_path": "tests/regression/parallel-production/runtime-shadow-chain.test.mjs",
+      "fields_present": [
+        "correlationId",
+        "sessionId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-038",
+      "object_name": "AUDIT_EVE_ORGANISM_REPLAY_FIXTURES_SELECTION_PREFLIGHT_V1.md",
+      "file_path": "docs/audits/AUDIT_EVE_ORGANISM_REPLAY_FIXTURES_SELECTION_PREFLIGHT_V1.md",
+      "fields_present": [
+        "correlationId",
+        "officialFlowRef"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-039",
+      "object_name": "AUDIT_EVE_ORGANISM_SHADOW_E2E_REPLAY_FIXTURES_V1.md",
+      "file_path": "docs/audits/AUDIT_EVE_ORGANISM_SHADOW_E2E_REPLAY_FIXTURES_V1.md",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-040",
+      "object_name": "_eve_06_execution_engine_shadow_mode_fixtures_v1.json",
+      "file_path": "docs/audits/_eve_06_execution_engine_shadow_mode_fixtures_v1.json",
+      "fields_present": [
+        "correlationId"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-041",
+      "object_name": "_eve_organism_real_signal_vs_replay_fixture_matrix_v1.json",
+      "file_path": "docs/audits/_eve_organism_real_signal_vs_replay_fixture_matrix_v1.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-042",
+      "object_name": "_eve_organism_replay_fixtures_selection_preflight_v1.json",
+      "file_path": "docs/audits/_eve_organism_replay_fixtures_selection_preflight_v1.json",
+      "fields_present": [
+        "correlationId",
+        "officialFlowRef"
+      ],
+      "fields_missing": [
+        "idempotencyKey",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-043",
+      "object_name": "_eve_organism_replay_fixture_candidate_matrix_v1.json",
+      "file_path": "docs/audits/_eve_organism_replay_fixture_candidate_matrix_v1.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    },
+    {
+      "candidate_id": "TCC-044",
+      "object_name": "_eve_organism_shadow_e2e_replay_fixtures_v1.json",
+      "file_path": "docs/audits/_eve_organism_shadow_e2e_replay_fixtures_v1.json",
+      "fields_present": [
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "fields_missing": [],
+      "fields_only_possible_equivalent": [],
+      "can_support_observer_design": false,
+      "requires_human_confirmation": true,
+      "risk": "high",
+      "decision": "replay_only"
+    }
+  ]
+}

@@ -1,0 +1,1961 @@
+Documento madre canónico
+Bloque 2. Transformación
+
+Capa 1 v2.1 de EVE
+Diseño detallado para continuación acoplable posterior al Bloque 1, conexión con Codex, catálogo operativo, reglas de despliegue UI, persistencia, derivaciones y transducción posterior.
+Versión del documento: 0.1 de trabajo | Base estructural: Diseno_Formal_Capa1_v2_1_Unificado | Base de redacción operativa: Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 2 (Transformación).
+Alcance: desarrollo exhaustivo del Bloque 2 como pieza canónica autónoma, pero diseñada explícitamente para pegarse a continuación del Bloque 1 ya aprobado, sin ruptura de formato, nomenclatura ni lógica documental.
+Criterio rector: este documento no sintetiza. Explicita arquitectura, preguntas, lógica de despliegue, variables, proveniencia epistemológica, tablas destino, consistencias, aclaraciones y salida técnica del bloque.
+
+Ficha de cambio controlado C1-INSTR-V3-R9-001
+Código de cambio: C1-INSTR-V3-R9-001
+Nombre del cambio: Corrección controlada de instrumentación canónica para transformation_exception_exists y receiver_feedback.
+Tipo de cambio: Corrección documental de instrumentación canónica en Capa 1.0.
+Estado: Aprobado para incorporación documental.
+Alcance del cambio: Este cambio ajusta la forma en que Capa 1.0 captura, deriva y transporta dos variables estructurales necesarias para el expediente canónico, el evidence_bundle_for_transduction y el mmabp_design_source_bundle: transformation_exception_exists y receiver_feedback.
+Motivo del cambio: Durante una prueba real con el caso New Hometown Restaurant — flujo de orden delivery, se detectó que existía evidencia textual suficiente sobre excepciones de transformación y feedback operativo del receptor, pero esa evidencia no cerraba correctamente las variables canónicas requeridas. Como resultado, Capa 1.0 core pudo quedar en ready_with_flags, mientras el mmabp_design_source_bundle quedó bloqueado por contradicción aparente.
+Problema identificado en V3: La variable transformation_exception_exists no estaba cerrando desde su ruta canónica correcta en Bloque 2. La evidencia de fallas de transformación existía, por ejemplo duplicados, cancelaciones tardías, cambios no registrados u órdenes que no se consolidan correctamente, pero el booleano no se derivaba de forma robusta. La ruta correcta debe ser: pregunta 2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description si aplica.
+Problema identificado en R9: La variable receiver_feedback no estaba separada de receiver_satisfaction en Bloque 3. La evidencia de aviso, corrección, rechazo, devolución, recontacto o actualización por parte del receptor podía quedar absorbida en satisfacción del receptor, perdiendo su valor estructural como feedback operativo. La ruta correcta debe ser: falla de entrega en 3.10 → satisfacción/aceptación del receptor en 3.13 → feedback operativo del receptor en 3.13a → receiver_feedback_exists → receiver_feedback.
+Principio rector: La corrección no relaja gates, no cambia Capa 2.0, no permite diagnóstico temprano, no autoriza generación de diagramas desde evidencia incompleta y no convierte texto libre en hecho estructural sin ruta canónica. La corrección solo repara rutas canónicas de captura y derivación dentro de Capa 1.0 para que la evidencia ya existente pueda cerrarse correctamente como variable estructural.
+Documentos impactados: Bloque 2 — Transformación; Bloque 3 — Salida; Documento Madre / Catálogo de preguntas Capa 1; Diseño estructural Plataforma EVE — Capa 1.0; Diseño estructural Plataforma EVE — Capa 1.0 para Producción Paralela; contratos de salida scene_canonical_record, evidence_bundle_for_transduction y mmabp_design_source_bundle.
+Documentos no impactados funcionalmente: Capa 2.0, Capa 2.5, Capa 3, motor de diagnóstico EVE, monetización y narrativa final.
+Regla de no intervención: Este cambio no modifica el propósito de Capa 1.0 core. Capa 1.0 sigue produciendo expediente estructural canónico, scene_canonical_record, evidence_bundle_for_transduction y readiness hacia Capa 2.0. La producción paralela sigue consumiendo un bundle lateral. La corrección solo asegura que los campos estructurales necesarios se capturen y deriven desde rutas canónicas explícitas.
+Resultado esperado para V3: Después del cambio, Capa 1.0 debe poder cerrar correctamente transformation_exception_exists desde la respuesta canónica de Bloque 2. La ruta documental queda así: 2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description si aplica. Si la respuesta en 2.9 indica cualquier forma de falla, aunque sea rara, transformation_exception_exists debe derivarse como true. Si la respuesta indica que la transformación siempre ocurre correctamente, debe derivarse como false. Si la respuesta está ausente o no es interpretable, debe quedar como unresolved y abrir gap, no asumirse como false.
+Resultado esperado para R9: Después del cambio, Capa 1.0 debe poder separar satisfacción del receptor y feedback operativo del receptor. La ruta documental queda así: 3.10 falla de entrega → 3.13 satisfacción/aceptación del receptor → 3.13a feedback operativo del receptor → receiver_feedback_exists → receiver_feedback. Si el receptor avisa, rechaza, devuelve, corrige, pide cambio, bloquea el siguiente paso, recontacta, actualiza algo o escala el problema, receiver_feedback_exists debe derivarse como true y receiver_feedback debe conservar la evidencia literal. Si el receptor no avisa o no hay señal visible, debe derivarse como false. Si hay falla de entrega pero no se sabe si el receptor emite señal operativa, debe abrirse receiver_feedback_gap_flag.
+Impacto esperado en scene_canonical_record: El expediente canónico debe poder contener transformation_exception_exists, transformation_exception_type, transformation_exception_description, receiver_satisfaction, receiver_feedback_exists y receiver_feedback, preservando evidencia, derivación, confianza, gaps y proveniencia.
+Impacto esperado en evidence_bundle_for_transduction: El dominio transformation_evidence debe incluir transformation_exception_exists, transformation_exception_type, transformation_exception_description y, si aplica, transformation_exception_needs_clarification. El dominio handoff_evidence debe incluir receiver_satisfaction, receiver_feedback_exists, receiver_feedback y, si aplica, receiver_feedback_gap_flag. El dominio flow_evidence puede referenciar receiver_feedback cuando ese feedback active rework, rebote, espera, Process State o proceso de soporte.
+Impacto esperado en mmabp_design_source_bundle: La producción paralela debe recibir las variables ya cerradas o explícitamente marcadas como gap. Si existe evidencia textual de falla de transformación pero transformation_exception_exists queda sin cerrar, debe producirse transformation_exception_route_unresolved. Si existe falla de entrega pero no existe ruta canónica para capturar feedback operativo, debe producirse receiver_feedback_route_missing. La producción paralela no debe inferir estos hechos desde texto libre sin ruta canónica.
+Regla de frontera metodológica: Esta corrección no autoriza a Producción Paralela a inferir hechos desde texto libre sin ruta canónica. Tampoco autoriza a Capa 2.0 a consumir respuestas crudas como diagnóstico. La corrección solo añade o repara rutas canónicas de captura y derivación dentro de Capa 1.0.
+Criterio de aceptación documental: El cambio queda aceptado cuando Bloque 2 documenta explícitamente la derivación de transformation_exception_exists desde transformation_exception_type; Bloque 3 separa receiver_satisfaction de receiver_feedback; el catálogo maestro incorpora la nueva pregunta 3.13a y las variables asociadas; el diseño estructural de Capa 1.0 actualiza el expediente y el bundle de transducción; y el diseño de Producción Paralela actualiza el mmabp_design_source_bundle, sus gaps y sus validaciones funcionales.
+Criterio de no regresión: Un caso como New Hometown Restaurant — flujo de orden delivery, con evidencia textual de duplicados, cancelaciones tardías, cambios no registrados u órdenes no consolidadas, debe cerrar transformation_exception_exists = true si 2.9 indica falla. Un caso con evidencia de que el Chef, repartidor o coordinador avisa, corrige, rechaza, recontacta o actualiza por error de entrega debe cerrar receiver_feedback_exists = true y conservar receiver_feedback. Si estas variables no se cierran, el bloqueo debe clasificarse como falta de ruta canónica o gap de instrumentación, no como contradicción real del caso.
+0. Inicio de acoplamiento con el Bloque 1
+Este bloque comienza exactamente donde termina el Bloque 1. El Bloque 1 deja estabilizado, hasta donde sea posible, el disparador de la escena: de dónde viene la señal, con qué claridad llega, por qué canal, con qué frecuencia y qué excepciones presenta. Sobre esa base, el Bloque 2 deja de preguntar por el arranque y se desplaza al núcleo material de la escena: qué cambia realmente.
+La continuidad de ensamblaje debe leerse así: actividad declarada por el usuario → escena operativa regulada anclada por el Bloque 0 → escena situada sistémicamente por el Bloque 0.5 → escena activada causalmente por el Bloque 1 → escena materialmente reconstruida por el Bloque 2.
+Instrucción de integración documental: este bloque está redactado para copiarse y pegarse inmediatamente después del cierre del Bloque 1, conservando numeración de secciones, estilo y jerarquía. No requiere reescritura introductoria adicional.
+Dependencia mínima heredada del Bloque 1: si la escena no quedó razonablemente clara en su condición de arranque, la lectura de transformación puede contaminarse con supuestos sobre qué llega, cuándo llega o por qué llega. Cuando eso ocurra, la implementación deberá permitir reentrada breve al Bloque 1 sin romper trazabilidad.
+1. Identidad del bloque
+Campo
+Contenido
+Bloque
+2
+Nombre canónico
+Transformación
+Pregunta madre
+¿Qué cambia realmente en esta escena?
+Propósito operativo
+Reconstruir sobre qué entidad se trabaja y qué cambio real ocurre en ella, distinguiendo objeto, sujeto, acción, atributos, magnitud, causalidad, estados, iteraciones, excepciones y cambios ocultos.
+Momento del flujo
+Después del Bloque 1 (disparador) y antes del Bloque 3 (salida).
+Unidad de análisis
+Escena operativa regulada ya anclada y ya activada causalmente.
+Visible para usuario
+Sí, con despliegue condicional de subpreguntas y combinaciones.
+Naturaleza del bloque
+captura + derivación + validación ligera de consistencia + preparación estructural para Bloque 5
+Relación con PM / PF / MoC / OLC
+MoC: clases, atributos y relaciones que cambian. OLC: estados inicial y final, además de cambios válidos o fallidos. PF: tareas de transformación, causalidad e iteraciones. PM: hitos de transformación en el end-to-end.
+Relación con Capa 2
+Entrega variables canónicas suficientes para transducción causal sobre cambio, fallo, retrabajo, complejidad, loops, cambio oculto y brecha entre transformación oficial y transformación real.
+Huellas estructurales para inferencia VSM posterior
+S1 por capacidad transformativa y variedad manejada; S2 por interfaces si múltiples unidades transforman; S3 por estándares y capacidad asignada; S3* por auditoría de cambio real vs oficial; S4 por cambios recientes en la forma de transformar; S5 como huella tardía de sentido político; canal algedónico cuando la transformación falla, se contradice o duele.
+Restricción epistemológica
+Este bloque no pregunta todavía por impacto al receptor, ni por regulación de recursos, ni por sacrificio humano. Pregunta por transformación. No debe contaminarse con salida, capacidad o compensación.
+
+2. Decisión metodológica central del Bloque 2
+El Bloque 2 responde a una pregunta que parece obvia pero suele estar mal formulada en organizaciones y también en software: qué cambia. La tentación inmediata es preguntar por la acción del actor —qué haces, qué trámite haces, qué tarea ejecutas—, pero eso a menudo deja opaco el centro material de la escena. Este bloque corrige esa deriva: busca identificar el objeto transformado, o el sujeto afectado, o la acción/proceso como unidad de cambio, y después descomponer qué propiedades cambian en cada caso.
+Aquí hay una decisión ontológica importante. En muchas escenas, la transformación no vive solamente en un objeto clásico tipo factura o pedido. A veces lo que realmente cambia es un sujeto —cliente, proveedor, empleado—; otras veces el cuello de botella no está en la cosa ni en la persona sino en la propia acción: coordinar, validar, revisar, comunicar. Por eso el bloque permite seleccionar objeto, sujeto y acción en combinaciones de una, dos o tres dimensiones.
+La distinción no es decorativa. Es la forma de aumentar variedad descriptiva antes de pasar a la ingeniería de variedad del Bloque 5. Si no diferenciamos si limita el volumen de objetos, la cantidad de sujetos, la complejidad de la acción o una mezcla de los tres, después mediremos capacidad con una métrica equivocada.
+En términos de VSM, esto tiene bastante peso. S1 no solo ejecuta: transforma. Y la clase de transformación —su materialidad, complejidad, repetición, fallas y cambios ocultos— condiciona lo que S3 puede regular, lo que S3* debería auditar, y lo que el canal algedónico termina gritando cuando la transformación no se logra, se logra mal o se logra fuera del procedimiento.
+En términos de subsidiariedad, el bloque también muestra si la operación lidia con variedad absorbible localmente o si la unidad queda forzada a compensar, iterar o reinterpretar sin apoyo suficiente. No lo diagnostica todavía de forma fuerte; apenas deja la huella para que eso pueda leerse después, sin borrar la evidencia original del actor.
+3. Variables canónicas que el bloque debe producir
+Variable canónica
+Descripción
+Tipo epistemológico
+transformation_primary_dimensions
+Dimensión o dimensiones seleccionadas en 2.1: objeto, sujeto, acción.
+captured_user_evidence
+objeto_tipo
+Objeto principal cuando la actividad transforma o afecta un objeto.
+captured_user_evidence
+sujeto_tipo
+Sujeto principal cuando la actividad transforma o afecta un sujeto.
+captured_user_evidence
+accion_tipo
+Acción principal cuando la actividad transforma o afecta una acción/proceso.
+captured_user_evidence
+dimension_dominante
+Dimensión que limita más la escena en combinaciones dobles o triples.
+captured_user_evidence / canonical_derivation
+ranking_dimensiones
+Orden de prioridad entre objeto, sujeto y acción cuando las tres dimensiones están presentes.
+captured_user_evidence
+atributos_objeto_cambian
+Atributos del objeto que se modifican.
+captured_user_evidence
+atributos_sujeto_cambian
+Atributos del sujeto que se modifican.
+captured_user_evidence
+atributos_accion_cambian
+Características de la acción que cambian.
+captured_user_evidence
+transformation_attributes
+Consolidación canónica de todos los atributos/cualidades que cambian.
+canonical_derivation
+transformation_magnitude
+Magnitud del cambio: pequeño, medio, grande o radical.
+captured_user_evidence
+transformation_causality_action
+Acción directa ejecutada por el actor sobre la entidad transformada.
+captured_user_evidence
+transformation_causality_trigger
+Qué provoca normalmente que el actor haga ese cambio.
+captured_user_evidence
+transformation_state_initial
+Estado o condición inicial antes de la transformación.
+captured_user_evidence
+transformation_state_final
+Estado o condición final después de la transformación.
+captured_user_evidence
+transformation_iterations
+Régimen de iteración: una vez, pocas, muchas, continuo.
+captured_user_evidence
+transformation_iteration_count
+Número típico de ciclos cuando aplica.
+captured_user_evidence
+transformation_exception_exists
+Existencia de fallos en la transformación.
+canonical_derivation
+transformation_exception_type
+Intensidad o frecuencia del fallo.
+captured_user_evidence
+transformation_exception_description
+Descripción concreta de cómo falla la transformación.
+captured_user_evidence / clarification
+transformation_hidden_changes
+Existencia de cambios no oficiales o no esperados.
+captured_user_evidence
+transformation_hidden_changes_description
+Descripción de cambios ocultos y quién los hace.
+captured_user_evidence / clarification
+scene_transformation_confidence
+Confianza interna sobre completitud y consistencia del bloque.
+internal_calculated
+scene_transformation_readiness
+Marcador interno de preparación del bloque para transducción.
+readiness_marker
+transformation_metric_hint
+Pista para Bloque 5 sobre si la métrica posterior tenderá a volumen, cantidad, complejidad, tiempo o mezcla.
+canonical_derivation
+transformation_contradiction_flag
+Flag estructural por contradicciones entre estados, magnitud, iteración y tipo de cambio.
+consistency_flag
+4. Criterios de diseño de las preguntas del Bloque 2
+El bloque debe capturar el objeto de transformación y no confundirlo con la acción del usuario. La acción se pregunta, sí, pero como una dimensión específica, no como sustituto de todo el bloque.
+Los atributos que cambian deben documentarse con suficiente granularidad. No basta con saber que cambia “una factura”; hay que saber si cambia estado, monto, validación, relación, propietario, fecha u otro atributo concreto.
+Magnitud, causalidad, iteraciones, estado inicial, estado final, excepciones y cambios ocultos son atributos ortogonales. Deben capturarse por separado para que la transducción posterior no mezcle niveles.
+El despliegue debe ser condicional y combinatorio. La estructura tiene que soportar un caso de una dimensión, seis combinaciones relevantes y la posibilidad triple objeto + sujeto + acción.
+La UX debe usar lenguaje de escena, ejemplos concretos y ayuda contextual con la entidad seleccionada por el usuario. La pregunta debe adaptarse a {OBJETO}, {SUJETO} o {ACCIÓN} cuando corresponda.
+Debe preservarse la distinción entre ejecutor, autorizador y verificador. Por eso 2.4a pregunta la acción directa del actor y 2.4b pregunta qué la provoca.
+Las respuestas del Bloque 2 tienen que preparar explícitamente el terreno para Bloque 5: volumen de objetos, cantidad de sujetos, complejidad/frecuencia de la acción o mezcla.
+Siempre que haya fallos, cambios ocultos, estados incompatibles o descripciones excesivamente genéricas, el sistema debe poder disparar aclaraciones posteriores sin sobrescribir la evidencia original.
+5. Catálogo canónico de preguntas del Bloque 2
+A continuación se define el contenido final del Bloque 2. La numeración conserva continuidad con el diseño base y con la lógica del catálogo v2.1, pero aquí se explicita con el nivel de detalle necesario para conectarlo después a JSON operativo, UI, persistencia, Codex y Capa 2.
+Este bloque contiene subpreguntas, preguntas de relación entre dimensiones, una pregunta de ranking cuando aparecen las tres dimensiones, subpreguntas de atributos dinámicos, y preguntas posteriores sobre magnitud, causalidad, estados, iteraciones, excepciones y cambios ocultos. La combinación es intencional: la escena no se deja aplanar.
+6. Tabla maestra de preguntas
+En coherencia con el formato madre ya aprobado, cada pregunta se documenta con ficha canónica completa. No se reduce a código y texto, porque la lógica de este bloque depende justamente de sus condicionales y combinaciones.
+Código
+Pregunta visible
+Tipo canónico
+Condición de despliegue
+2.1
+¿Qué es lo principal que creas, cambias o afectas con esta actividad?
+multi_choice
+Siempre
+2.1a
+¿Cuál es ese objeto?
+single_choice + free_text condicional
+Si 2.1 incluye Objeto
+2.1b
+¿Cuál es ese sujeto?
+single_choice + free_text condicional
+Si 2.1 incluye Sujeto
+2.1c
+¿Cuál es la acción principal?
+single_choice + free_text condicional
+Si 2.1 incluye Acción
+2.1_AB_Relacion
+¿Cuál de estos dos es el limitante principal?
+single_choice
+Si 2.1 = Objeto + Sujeto
+2.1_AC_Relacion
+¿La acción es el cuello de botella o el objeto?
+single_choice
+Si 2.1 = Objeto + Acción
+2.1_BC_Relacion
+¿Qué limita más tu capacidad?
+single_choice
+Si 2.1 = Sujeto + Acción
+2.1_ABC_Relacion
+En esta actividad, ¿cuál de estos tres es el obstáculo principal?
+single_choice
+Si 2.1 = Objeto + Sujeto + Acción
+2.1_ABC_Prioridad
+Si tuvieras que ordenarlos por importancia, ¿cuál va primero?
+ranking
+Si 2.1 = Objeto + Sujeto + Acción
+2.2_obj
+De ese {OBJETO}, ¿cuáles de estas propiedades o características cambian?
+multi_choice dinámico
+Si 2.1 incluye Objeto
+2.2_suj
+De ese {SUJETO}, ¿cuáles de estas propiedades o características cambian?
+multi_choice dinámico
+Si 2.1 incluye Sujeto
+2.2_acc
+De esa {ACCIÓN}, ¿cuáles de estas características cambian?
+multi_choice dinámico
+Si 2.1 incluye Acción
+2.3
+Cuando haces esta actividad, ¿qué tanto cambia lo principal con respecto a como llegó?
+single_choice contextual
+Siempre, después de 2.2
+2.4a
+¿Qué acción o cambio haces tú directamente sobre lo principal?
+single_choice + free_text condicional
+Siempre
+2.4b
+¿Qué es lo que normalmente provoca que hagas ese cambio?
+single_choice + free_text condicional
+Siempre
+2.5
+Justo antes de que comience esta actividad, ¿en qué estado o condición se encuentra lo principal?
+free_text
+Siempre
+2.6
+Después de que termina esta actividad, ¿en qué estado o condición queda lo principal?
+free_text
+Siempre
+2.7
+¿Lo principal se transforma una sola vez o hay múltiples ciclos de transformación?
+single_choice
+Siempre
+2.8
+Si respondiste 'Pocas veces' o 'Muchas veces', ¿cuántos ciclos típicamente ocurren?
+single_choice
+Si 2.7 = Pocas veces o Muchas veces
+2.9
+¿Hay momentos en que no se transforma aunque debería, o se transforma de forma incorrecta?
+single_choice
+Siempre
+2.10
+Si respondiste 'Sí' en la pregunta anterior, ¿cómo falla la transformación? ¿Qué ocurre exactamente?
+free_text
+Si 2.9 indica falla
+2.11
+¿Hay cambios que ocurren en lo principal pero que no son oficiales o esperados?
+single_choice
+Siempre
+2.12
+Si respondiste 'Sí', ¿cuáles son esos cambios no oficiales y quién los hace?
+free_text
+Si 2.11 indica cambios ocultos
+2.A
+Aclaración sobre dimensión dominante cuando la relación quedó ambigua o tautológica.
+clarification
+Por flag de ambigüedad en 2.1_rel
+2.B
+Aclaración sobre falla de transformación descrita de forma genérica o insuficiente.
+clarification
+Por flag en 2.10
+2.C
+Aclaración sobre cambio oculto sin actor o sin tipo de cambio identificable.
+clarification
+Por flag en 2.12
+6.A. Catálogos dinámicos canónicos para 2.2
+El Bloque 2 requiere una subtabla canónica adicional para poder implementarse sin ambigüedad en EVE. Las preguntas 2.2_obj, 2.2_suj y 2.2_acc no deben desplegar listas abiertas 'según implementación'. Deben beber de catálogos dinámicos explícitos, trazables y versionables, derivados de la entidad identificada en 2.1a, 2.1b o 2.1c.
+Tabla madre requerida: entity_type → attribute_options. La lista siguiente no agota el universo posible, pero fija el contrato mínimo para arranque de implementación. Puede crecer por cliente, siempre que conserve trazabilidad hacia el catálogo canónico.
+entity_type
+attribute_options
+nota de implementación
+Factura
+estado; monto; propietario; fecha; información; validación; relación; otro
+Base mínima para dynamic_attribute_enum_by_object.
+Pedido
+cantidad; estado; prioridad; fecha; asignación; validación; relación; otro
+Base mínima para dynamic_attribute_enum_by_object.
+Cliente (como objeto: expediente/cuenta/caso)
+estado; información; clasificación; relación; validación; propietario; otro
+Usar como OBJETO solo cuando se trate el registro o caso del cliente.
+Proveedor
+estado; información; propietario; relación; clasificación; validación; acuerdo; otro
+Base mínima para dynamic_attribute_enum_by_subject.
+Empleado
+estado; información; asignación; validación; clasificación; relación; otro
+Base mínima para dynamic_attribute_enum_by_subject.
+Coordinar
+frecuencia; complejidad; participantes; duración; resultado; documentación; escalamiento; otro
+Base mínima para dynamic_attribute_enum_by_action.
+Validar
+frecuencia; complejidad; criterios; duración; resultado; documentación; escalamiento; otro
+Base mínima para dynamic_attribute_enum_by_action.
+Nota canónica de implementación: estas taxonomías son la base mínima. Cada cliente puede extenderlas, pero la extensión deberá versionarse sin romper los códigos de pregunta ni los nombres de variable del bloque.
+6.B. Declaración canónica de códigos y dependencias
+Los códigos 2.1_AB_Relacion, 2.1_AC_Relacion, 2.1_BC_Relacion, 2.1_ABC_Relacion, 2.1_ABC_Prioridad, 2.2_obj, 2.2_suj y 2.2_acc quedan declarados en este documento como nomenclatura canónica estable para Bloque 2. Cuando existan versiones anteriores del catálogo con códigos abreviados o combinaciones menos explícitas, este documento madre prevalece. La implementación deberá conservar, si hace falta, un mapa de compatibilidad retroactiva hacia JSON o catálogos previos, pero no debe degradar la claridad de estos códigos nuevos.
+Normalización adicional del contrato de ficha: en este bloque se distingue generated_from de depends_on. generated_from queda reservado para contenidos efectivamente derivados o contextualizados por el sistema —por ejemplo, catálogos dinámicos o ejemplos generados—, mientras que depends_on expresa la condición previa que habilita la aparición de la pregunta. Esta distinción se incorpora aquí para hacer más limpia la conversión posterior a plataforma.
+Ficha canónica 2.1
+Campo
+Contenido
+question_code
+2.1
+block_id
+2
+canonical_question_text
+¿Qué es lo principal que creas, cambias o afectas con esta actividad?
+short_ui_label
+Qué cambia
+help_text
+Piensa en aquello que realmente sale distinto después de que haces esta actividad. Puede ser una cosa concreta como una factura o un pedido; puede ser una persona o entidad como un cliente o proveedor; o puede ser la propia acción/proceso si lo que cambia de verdad es coordinar, validar, revisar o comunicar. Puedes elegir una, dos o tres dimensiones.
+field_type
+multi_choice
+answer_mode
+multi_choice
+ui_answer_mode_label
+cerrada múltiple
+options
+1) Un OBJETO (cosa); 2) Un SUJETO (persona/entidad); 3) Una ACCIÓN/PROCESO
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+N/A
+free_text_condition
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible al iniciar el bloque.
+branching_rule
+Si selecciona una dimensión, dispara solo la subpregunta correspondiente. Si selecciona dos, dispara ambas subpreguntas y la pregunta de relación asociada. Si selecciona las tres, dispara 2.1a, 2.1b, 2.1c, 2.1_ABC_Relacion y 2.1_ABC_Prioridad.
+canonical_variable_output
+transformation_primary_dimensions
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations.transformation_primary_dimensions; scene_answer_provenance
+used_by
+huellas para lectura posterior de MoC, OLC, PF y para inferencia de dimensión dominante y métrica de capacidad de Bloque 5
+risk_if_missing
+Si falta, la transformación queda ontológicamente borrosa y todo el bloque posterior pierde estabilidad.
+
+Ficha canónica 2.1a
+Campo
+Contenido
+question_code
+2.1a
+block_id
+2
+canonical_question_text
+¿Cuál es ese objeto?
+short_ui_label
+Objeto principal
+help_text
+Lo concreto que cambia en tu actividad. Cuando terminas, ¿qué cosa es diferente? Nota: Si cambias el registro del cliente (su cuenta, expediente), es "Cliente". Si cambió de un estado a otro (de "pendiente" a "completado"), es “Estado”. Si no está en la lista, elige "Otro".
+
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Factura; Pedido; Documento; Inventario; Cliente; Producto; Estado; Otro
+source_options
+fixed_enum_expandable
+fallback_options
+Otro
+allows_free_text
+conditional
+depends_on
+2.1 incluye Objeto.
+free_text_condition
+selected_option = Otro
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si 2.1 incluye Objeto.
+visibility_rule
+Visible solo si 2.1 incluye Objeto.
+branching_rule
+Al responder, personaliza la subpregunta 2.2 correspondiente y contribuye a la lógica de dominancia de la combinación si aplica.
+canonical_variable_output
+objeto_tipo
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de MoC, OLC y para construir opciones dinámicas de 2.2_obj
+risk_if_missing
+Si falta, la dimensión objeto queda seleccionada pero vacía; se vuelve imposible adaptar atributos y estados con precisión.
+
+Ficha canónica 2.1b
+Campo
+Contenido
+question_code
+2.1b
+block_id
+2
+canonical_question_text
+¿Cuál es ese sujeto?
+short_ui_label
+Sujeto principal
+help_text
+Nombra la persona, entidad o unidad que realmente cambia o es afectada de forma central por esta actividad. Nota: usa SUJETO cuando lo relevante en esta actividad sea la persona o entidad misma.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Cliente; Proveedor; Empleado; Departamento; Gerencia; Otro
+source_options
+fixed_enum_expandable
+fallback_options
+Otro
+allows_free_text
+conditional
+depends_on
+2.1 incluye Sujeto.
+free_text_condition
+selected_option = Otro
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si 2.1 incluye Sujeto.
+visibility_rule
+Visible solo si 2.1 incluye Sujeto.
+branching_rule
+Al responder, personaliza la subpregunta 2.2 correspondiente y contribuye a la lógica de dominancia de la combinación si aplica.
+canonical_variable_output
+sujeto_tipo
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de MoC, PF y para la métrica de cantidad de sujetos en Bloque 5
+risk_if_missing
+Si falta, la dimensión sujeto queda hueca y se debilita la lectura de cantidad de sujetos vs complejidad de acción.
+
+Ficha canónica 2.1c
+Campo
+Contenido
+question_code
+2.1c
+block_id
+2
+canonical_question_text
+¿Cuál es la acción principal?
+short_ui_label
+Acción principal
+help_text
+Nombra el verbo o proceso que realmente se ejecuta como núcleo de la transformación. Ejemplos: coordinar, validar, comunicar, preparar, revisar, autorizar. Si no aparece en la lista, elige Otro y escríbelo.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Coordinar; Validar; Comunicar; Preparar; Revisar; Autorizar; Otro
+source_options
+fixed_enum_expandable
+fallback_options
+Otro
+allows_free_text
+conditional
+depends_on
+2.1 incluye Acción.
+free_text_condition
+selected_option = Otro
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si 2.1 incluye Acción.
+visibility_rule
+Visible solo si 2.1 incluye Acción.
+branching_rule
+Al responder, personaliza la subpregunta 2.2 correspondiente y contribuye a la lógica de dominancia de la combinación si aplica.
+canonical_variable_output
+accion_tipo
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de PF, S1 y para la métrica de complejidad/frecuencia de acción en Bloque 5
+risk_if_missing
+Si falta, la dimensión acción queda seleccionada pero sin semántica concreta; la adaptación dinámica posterior pierde precisión.
+
+Ficha canónica 2.1_AB_Relacion
+Campo
+Contenido
+question_code
+2.1_AB_Relacion
+block_id
+2
+canonical_question_text
+¿Cuál de estos dos es el limitante principal?
+short_ui_label
+Qué limita más
+help_text
+Qué te limita más en la práctica: el volumen del objeto o la cantidad/gestión del sujeto. Ejemplo ¿Te limita la cantidad de pedidos que llegan o la cantidad de personal que tienes? ¿Te limita el número de facturas a emitir o el número de vendedores disponibles? ¿Te limita la cantidad de paquetes o la cantidad de repartidores?
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+1) El OBJETO limita; 2) El SUJETO limita; 3) Ambos limitan igual
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+2.1 = Objeto + Sujeto y 2.1a/2.1b respondidas.
+free_text_condition
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si se activa la combinación correspondiente.
+visibility_rule
+Visible si 2.1 = Objeto + Sujeto.
+branching_rule
+Su salida fija dimensión dominante o prepara aclaración 2.A si el usuario responde de forma ambigua o si la evidencia posterior contradice la dominancia declarada.
+canonical_variable_output
+dimension_dominante_AB
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations.dimension_dominante; scene_answer_provenance
+used_by
+huellas para lectura posterior de complejidad operativa y para adaptación métrica en Bloque 5
+risk_if_missing
+Si falta, la combinación existe pero no queda resuelta la dimensión que más limita la escena.
+
+Ficha canónica 2.1_AC_Relacion
+Campo
+Contenido
+question_code
+2.1_AC_Relacion
+block_id
+2
+canonical_question_text
+¿La acción es el cuello de botella o el objeto?
+short_ui_label
+Objeto o acción
+help_text
+Ayuda a distinguir si el problema central es que hay muchos objetos o que la acción misma es compleja.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+1) El OBJETO limita; 2) La ACCIÓN limita; 3) Ambos limitan igual
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+2.1 = Objeto + Acción y 2.1a/2.1c respondidas.
+free_text_condition
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si se activa la combinación correspondiente.
+visibility_rule
+Visible si 2.1 = Objeto + Acción.
+branching_rule
+Su salida fija dimensión dominante o prepara aclaración 2.A si el usuario responde de forma ambigua o si la evidencia posterior contradice la dominancia declarada.
+canonical_variable_output
+dimension_dominante_AC
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations.dimension_dominante; scene_answer_provenance
+used_by
+huellas para lectura posterior de complejidad operativa y para adaptación métrica en Bloque 5
+risk_if_missing
+Si falta, la combinación existe pero no queda resuelta la dimensión que más limita la escena.
+
+Ficha canónica 2.1_BC_Relacion
+Campo
+Contenido
+question_code
+2.1_BC_Relacion
+block_id
+2
+canonical_question_text
+¿Qué limita más tu capacidad?
+short_ui_label
+Sujeto o acción
+help_text
+Ayuda a distinguir si limita más la cantidad/diversidad de sujetos o la complejidad de la acción.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+1) El SUJETO limita; 2) La ACCIÓN limita; 3) Ambos limitan igual
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+2.1 = Sujeto + Acción y 2.1b/2.1c respondidas.
+free_text_condition
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si se activa la combinación correspondiente.
+visibility_rule
+Visible si 2.1 = Sujeto + Acción.
+branching_rule
+Su salida fija dimensión dominante o prepara aclaración 2.A si el usuario responde de forma ambigua o si la evidencia posterior contradice la dominancia declarada.
+canonical_variable_output
+dimension_dominante_BC
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations.dimension_dominante; scene_answer_provenance
+used_by
+huellas para lectura posterior de complejidad operativa y para adaptación métrica en Bloque 5
+risk_if_missing
+Si falta, la combinación existe pero no queda resuelta la dimensión que más limita la escena.
+
+Ficha canónica 2.1_ABC_Relacion
+Campo
+Contenido
+question_code
+2.1_ABC_Relacion
+block_id
+2
+canonical_question_text
+En esta actividad, ¿cuál de estos tres es el obstáculo principal?
+short_ui_label
+Obstáculo principal
+help_text
+Tienes tres cosas: lo que haces (acción), lo que procesas (objeto) y quién lo hace (sujeto). ¿Cuál te detiene más? Ejemplo: Acción: Preparar platos, Objeto: 50 pedidos diarios, Sujeto: 3 cocineros
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+1) El OBJETO; 2) El SUJETO; 3) La ACCIÓN; 4) Los tres limitan igual
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+2.1 = Objeto + Sujeto + Acción y 2.1a/2.1b/2.1c respondidas.
+free_text_condition
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si se activa la combinación correspondiente.
+visibility_rule
+Visible si 2.1 = Objeto + Sujeto + Acción.
+branching_rule
+Su salida fija dimensión dominante o prepara aclaración 2.A si el usuario responde de forma ambigua o si la evidencia posterior contradice la dominancia declarada.
+canonical_variable_output
+dimension_dominante_ABC
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations.dimension_dominante; scene_answer_provenance
+used_by
+huellas para lectura posterior de complejidad operativa y para adaptación métrica en Bloque 5
+risk_if_missing
+Si falta, la combinación existe pero no queda resuelta la dimensión que más limita la escena.
+
+Ficha canónica 2.1_ABC_Prioridad
+Campo
+Contenido
+question_code
+2.1_ABC_Prioridad
+block_id
+2
+canonical_question_text
+Si tuvieras que ordenarlos por importancia, ¿cuál va primero?
+short_ui_label
+Ranking de dimensiones
+help_text
+Ordena objeto, sujeto y acción según su peso real en esta escena. Sirve para saber qué domina más.
+field_type
+ranking
+answer_mode
+ranking
+ui_answer_mode_label
+ordenamiento
+options
+Objeto; Sujeto; Acción
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+2.1 = Objeto + Sujeto + Acción y 2.1_ABC_Relacion respondida.
+free_text_condition
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si 2.1 = Objeto + Sujeto + Acción.
+visibility_rule
+Visible solo en combinación triple, después de 2.1_ABC_Relacion.
+branching_rule
+Su salida afina dimension_dominante y deja ranking_dimensiones para downstream, especialmente Bloque 5.
+canonical_variable_output
+ranking_dimensiones
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations.ranking_dimensiones; scene_answer_provenance
+used_by
+huellas para lectura posterior de complejidad y para desempate de métrica dominante
+risk_if_missing
+Si falta, la combinación triple queda con dominancia demasiado plana y pierde capacidad de priorización posterior.
+
+Ficha canónica 2.2_obj
+Campo
+Contenido
+question_code
+2.2_obj
+block_id
+2
+canonical_question_text
+De ese {OBJETO}, ¿cuáles de estas propiedades o características cambian?
+short_ui_label
+Atributos del objeto
+help_text
+Selecciona las propiedades que sí cambian en ese objeto. Ejemplo para factura: estado, monto, propietario, fecha, información, validación, relación.
+field_type
+multi_choice
+answer_mode
+multi_choice
+ui_answer_mode_label
+cerrada múltiple
+options
+Opciones dinámicas según la entidad seleccionada en 2.1a/2.1b/2.1c, con opción Otro.
+source_options
+dynamic_attribute_enum_by_object
+fallback_options
+Otro
+allows_free_text
+conditional
+depends_on
+2.1 incluye Objeto y 2.1a ya identificó objeto_tipo.
+free_text_condition
+selected_option = Otro
+generated_from
+Catálogo dinámico derivado de objeto_tipo mediante dynamic_attribute_enum_by_object.
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si la dimensión correspondiente está activa.
+visibility_rule
+Visible solo si la dimensión correspondiente está presente en 2.1.
+branching_rule
+Su salida alimenta 2.3 y también consolida transformation_attributes. Si no se selecciona ningún atributo concreto, puede disparar aclaración 2.A o flag de especificidad insuficiente.
+canonical_variable_output
+atributos_objeto_cambian
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations.transformation_attributes; scene_answer_provenance
+used_by
+huellas para lectura posterior de MoC, OLC y complejidad transformativa; preparación explícita de ejemplos dinámicos en 2.3
+risk_if_missing
+Si falta, la transformación queda demasiado genérica y pierde modelabilidad causal.
+
+Ficha canónica 2.2_suj
+Campo
+Contenido
+question_code
+2.2_suj
+block_id
+2
+canonical_question_text
+De ese {SUJETO}, ¿cuáles de estas propiedades o características cambian?
+short_ui_label
+Atributos del sujeto
+help_text
+Selecciona las propiedades que sí cambian en ese sujeto. Ejemplo para proveedor: estado, información, propietario, relación, clasificación, validación, acuerdo.
+field_type
+multi_choice
+answer_mode
+multi_choice
+ui_answer_mode_label
+cerrada múltiple
+options
+Opciones dinámicas según la entidad seleccionada en 2.1a/2.1b/2.1c, con opción Otro.
+source_options
+dynamic_attribute_enum_by_subject
+fallback_options
+Otro
+allows_free_text
+conditional
+depends_on
+2.1 incluye Sujeto y 2.1b ya identificó sujeto_tipo.
+free_text_condition
+selected_option = Otro
+generated_from
+Catálogo dinámico derivado de sujeto_tipo mediante dynamic_attribute_enum_by_subject.
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si la dimensión correspondiente está activa.
+visibility_rule
+Visible solo si la dimensión correspondiente está presente en 2.1.
+branching_rule
+Su salida alimenta 2.3 y también consolida transformation_attributes. Si no se selecciona ningún atributo concreto, puede disparar aclaración 2.A o flag de especificidad insuficiente.
+canonical_variable_output
+atributos_sujeto_cambian
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations.transformation_attributes; scene_answer_provenance
+used_by
+huellas para lectura posterior de MoC, OLC y complejidad transformativa; preparación explícita de ejemplos dinámicos en 2.3
+risk_if_missing
+Si falta, la transformación queda demasiado genérica y pierde modelabilidad causal.
+
+Ficha canónica 2.2_acc
+Campo
+Contenido
+question_code
+2.2_acc
+block_id
+2
+canonical_question_text
+De esa {ACCIÓN}, ¿cuáles de estas características cambian?
+short_ui_label
+Características de la acción
+help_text
+Selecciona qué características de la acción cambian realmente. Ejemplo para coordinar: frecuencia, complejidad, participantes, duración, resultado, documentación, escalamiento.
+field_type
+multi_choice
+answer_mode
+multi_choice
+ui_answer_mode_label
+cerrada múltiple
+options
+Opciones dinámicas según la entidad seleccionada en 2.1a/2.1b/2.1c, con opción Otro.
+source_options
+dynamic_attribute_enum_by_action
+fallback_options
+Otro
+allows_free_text
+conditional
+depends_on
+2.1 incluye Acción y 2.1c ya identificó accion_tipo.
+free_text_condition
+selected_option = Otro
+generated_from
+Catálogo dinámico derivado de accion_tipo mediante dynamic_attribute_enum_by_action.
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si la dimensión correspondiente está activa.
+visibility_rule
+Visible solo si la dimensión correspondiente está presente en 2.1.
+branching_rule
+Su salida alimenta 2.3 y también consolida transformation_attributes. Si no se selecciona ningún atributo concreto, puede disparar aclaración 2.A o flag de especificidad insuficiente.
+canonical_variable_output
+atributos_accion_cambian
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations.transformation_attributes; scene_answer_provenance
+used_by
+huellas para lectura posterior de MoC, OLC y complejidad transformativa; preparación explícita de ejemplos dinámicos en 2.3
+risk_if_missing
+Si falta, la transformación queda demasiado genérica y pierde modelabilidad causal.
+
+Ficha canónica 2.3
+Campo
+Contenido
+question_code
+2.3
+block_id
+2
+canonical_question_text
+Cuando haces esta actividad, ¿qué tanto cambia lo principal con respecto a cómo llegó?
+short_ui_label
+Magnitud del cambio
+help_text
+Selecciona pequeño si cambia solo un atributo. Ejemplo: Cambias el estado de una factura de "pendiente" a "pagada".
+Medio si cambian varios. Ejemplo: Una solicitud pasa de "recibida" a "aprobada" Y se asigna responsable Y se establece fecha límite.
+Grande si cambian muchos. Ejemplo: Un proyecto pasa de "propuesta" a "activo" Y se asigna equipo Y presupuesto Y cronograma Y recursos Y prioridad.
+Radical si cambia la naturaleza de lo principal. Ejemplo: Una orden de compra se convierte en devolución (de "a recibir" a "a devolver") o Un cliente se convierte en proveedor (cambia su rol fundamental en el sistema)
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Pequeño; Medio; Grande; Radical
+source_options
+contextual_fixed_enum_with_dynamic_examples
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+Se respondieron las subpreguntas 2.2 correspondientes a la dimensión activa.
+free_text_condition
+N/A
+generated_from
+Ejemplos dinámicos derivados de los atributos seleccionados en 2.2 para contextualizar la magnitud.
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible una vez respondidas las preguntas de atributos relevantes.
+branching_rule
+Su salida alimenta consistencia posterior.
+canonical_variable_output
+transformation_magnitude
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de complejidad y cadena causal de transformación
+risk_if_missing
+Si falta, se debilita la modelabilidad de la transformación.
+
+Ficha canónica 2.4a
+Campo
+Contenido
+question_code
+2.4a
+block_id
+2
+canonical_question_text
+¿Qué acción o cambio haces tú directamente sobre lo principal?
+short_ui_label
+Acción directa
+help_text
+Preguntamos por tu acción directa sobre lo que estas trabajando. Ejemplo: Crear una nueva factura en el Sistema, Revisar un documento antes de enviarlo, Corregir datos incorrectos en un registro.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Crear; Revisar; Corregir; Aprobar; Registrar; Enviar; Combinar; Rechazar; Pausar o suspender; Otra
+source_options
+fixed_enum_expandable
+fallback_options
+Otra
+allows_free_text
+conditional
+depends_on
+N/A
+free_text_condition
+selected_option = Otra
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Su salida alimenta consistencia posterior.
+canonical_variable_output
+transformation_causality_action
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de complejidad y cadena causal de transformación
+risk_if_missing
+Si falta, se debilita la modelabilidad de la transformación.
+
+Ficha canónica 2.4b
+Campo
+Contenido
+question_code
+2.4b
+block_id
+2
+canonical_question_text
+¿Qué es lo que normalmente provoca que hagas ese cambio?
+short_ui_label
+Qué lo provoca
+help_text
+Qué provoca específicamente que hagas este cambio sobre lo principal
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Una solicitud o instrucción; Un error detectado; Una fecha o plazo; Una aprobación recibida; Un evento o cambio en otro objeto; Una urgencia o prioridad; Un estándar o política; Una combinación de los anteriores; Otro
+source_options
+fixed_enum_expandable
+fallback_options
+Otro
+allows_free_text
+conditional
+depends_on
+N/A
+free_text_condition
+selected_option = Otro
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Su salida alimenta consistencia posterior.
+canonical_variable_output
+transformation_causality_trigger
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de complejidad y cadena causal de transformación
+risk_if_missing
+Si falta, se debilita la modelabilidad de la transformación.
+
+Ficha canónica 2.5
+Campo
+Contenido
+question_code
+2.5
+block_id
+2
+canonical_question_text
+Justo antes de que comience esta actividad, ¿en qué estado o condición se encuentra lo principal?
+short_ui_label
+Estado inicial
+help_text
+Describe cómo llega lo principal justo antes de tu intervención. Ejemplos: pedido recibido sin validar, factura sin aprobar, proveedor sin verificar. Evita respuestas genéricas como 'normal' o 'pendiente' sin contexto.
+field_type
+free_text
+answer_mode
+free_text
+ui_answer_mode_label
+libre guiada
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+depends_on
+Lo principal ya quedó identificado por 2.1 y sus subpreguntas activas.
+free_text_condition
+Siempre
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Se cruza con 2.3, 2.7, 2.9 y 2.11 para validar si la transformación realmente cambia algo identificable.
+canonical_variable_output
+transformation_state_initial
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de OLC, PF y consistencia material del cambio
+risk_if_missing
+Si falta, la transformación queda sin transición de estado y se empobrece el modelado en OLC.
+
+Ficha canónica 2.6
+Campo
+Contenido
+question_code
+2.6
+block_id
+2
+canonical_question_text
+Después de que termina esta actividad, ¿en qué estado o condición queda lo principal?
+short_ui_label
+Estado final
+help_text
+Describe cómo queda lo principal después de la actividad. Ejemplos: pedido validado y asignado, factura aprobada, proveedor activo y verificado.
+field_type
+free_text
+answer_mode
+free_text
+ui_answer_mode_label
+libre guiada
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+depends_on
+Lo principal ya quedó identificado por 2.1 y sus subpreguntas activas.
+free_text_condition
+Siempre
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Se cruza con 2.3, 2.7, 2.9 y 2.11 para validar si la transformación realmente cambia algo identificable.
+canonical_variable_output
+transformation_state_final
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de OLC, PF y consistencia material del cambio
+risk_if_missing
+Si falta, la transformación queda sin transición de estado y se empobrece el modelado en OLC.
+
+Ficha canónica 2.7
+Campo
+Contenido
+question_code
+2.7
+block_id
+2
+canonical_question_text
+¿Lo principal se transforma una sola vez o hay múltiples ciclos de transformación?
+short_ui_label
+Ciclos de cambio
+help_text
+Piensa si la transformación ocurre una sola vez o si suele haber revisiones, rechazos, correcciones, reenvíos o rondas repetidas. Ejemplo: se revisa, se corrige y se revisa otra vez.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Una sola vez; Pocas veces; Muchas veces; Continuo
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+N/A
+free_text_condition
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si responde Pocas veces o Muchas veces, activa 2.8. Si responde Continuo, 2.8 no aparece.
+canonical_variable_output
+transformation_iterations
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de loops, S3*, algedónico y transformación real
+risk_if_missing
+Si falta, se pierde modelabilidad específica del fenómeno reportado.
+
+Ficha canónica 2.8
+Campo
+Contenido
+question_code
+2.8
+block_id
+2
+canonical_question_text
+Si respondiste 'Pocas veces' o 'Muchas veces', ¿cuántos ciclos típicamente ocurren?
+short_ui_label
+Cuántos ciclos
+help_text
+Elige el rango que mejor represente la cantidad típica de ciclos. No buscamos precisión matemática absoluta, sino una escala comparable entre escenas.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+2-3 ciclos; 4-5 ciclos; 6-10 ciclos; Más de 10 ciclos; Variable
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+2.7 = Pocas veces o Muchas veces.
+free_text_condition
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si se activa.
+visibility_rule
+Visible solo si 2.7 indica iteración discreta repetida.
+branching_rule
+No abre más preguntas, pero alimenta complejidad del loop y consistencia con excepciones.
+canonical_variable_output
+transformation_iteration_count
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de loops, S3*, algedónico y transformación real
+risk_if_missing
+Si falta, se pierde modelabilidad específica del fenómeno reportado.
+
+Ficha canónica 2.9
+Campo
+Contenido
+question_code
+2.9
+block_id
+2
+canonical_question_text
+¿Hay momentos en que no se transforma aunque debería, o se transforma de forma incorrecta?
+short_ui_label
+Fallos de transformación
+help_text
+Piensa en momentos en que lo principal debería cambiar y no cambia, o cambia mal. Queremos saber por la existencia del fallos.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+No, siempre se transforma correctamente; Sí, a veces falla pero es raro; Sí, falla regularmente; Sí, falla frecuentemente
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+N/A
+free_text_condition
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si la respuesta es “No, siempre se transforma correctamente”, deriva transformation_exception_exists = false y no activa 2.10.
+
+Si la respuesta es “Sí, a veces falla pero es raro”, “Sí, falla regularmente” o “Sí, falla frecuentemente”, deriva transformation_exception_exists = true y activa 2.10.
+
+Si la respuesta está ausente, inválida o no interpretable, deriva transformation_exception_exists = unresolved, marca transformation_exception_route_unresolved y no debe asumirse false.
+
+La variable transformation_exception_exists debe derivarse exclusivamente desde transformation_exception_type capturado en 2.9. Ninguna variable auxiliar, incluyendo transformation_failure_frequency si existiera en implementación, debe actuar como fuente canónica primaria.
+canonical_variable_output
+transformation_exception_type + transformation_exception_exists
+Regla de salida:
+transformation_exception_type conserva la respuesta literal/categórica de 2.9 como evidencia capturada.
+transformation_exception_exists se deriva canónicamente desde transformation_exception_type.
+provenance_type
+captured_user_evidence para transformation_exception_type.
+canonical_derivation para transformation_exception_exists.
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers para transformation_exception_type.
+scene_block_derivations para transformation_exception_exists.
+scene_answer_provenance para ambas variables, conservando la relación 2.9 → transformation_exception_type → transformation_exception_exists.
+scene_consistency_flags si transformation_exception_exists queda unresolved.
+used_by
+huellas para lectura posterior de loops, S3*, canal algedónico y transformación real
+risk_if_missing
+Si falta, se pierde modelabilidad específica del fenómeno reportado.
+
+Regla canónica de derivación V3 — transformation_exception_exists
+La variable transformation_exception_exists se deriva exclusivamente desde transformation_exception_type, capturado en la pregunta 2.9. Esta derivación existe para separar la evidencia categórica del usuario de la variable booleana necesaria para consolidación, transducción y producción paralela MMABP.
+Valor de transformation_exception_type en 2.9
+Valor derivado de transformation_exception_exists
+Acción
+No, siempre se transforma correctamente
+false
+No activar 2.10.
+Sí, a veces falla pero es raro
+true
+Activar 2.10.
+Sí, falla regularmente
+true
+Activar 2.10.
+Sí, falla frecuentemente
+true
+Activar 2.10.
+Ausente, inválido o no interpretable
+unresolved
+Marcar transformation_exception_route_unresolved.
+transformation_exception_exists no debe depender de variables auxiliares, inferencias libres, interpretación posterior del texto, ni de transformation_failure_frequency si esa variable existiera en implementación. Cualquier variable auxiliar debe mapearse hacia transformation_exception_type o tratarse como alias técnico, nunca como fuente canónica primaria.
+Cuando transformation_exception_exists = true, debe existir transformation_exception_description mediante 2.10 o, si la descripción resulta genérica, mediante aclaración 2.B.
+La falta de una descripción suficiente no debe impedir cerrar transformation_exception_exists = true. En ese caso se debe marcar transformation_exception_needs_clarification.
+
+Ficha canónica 2.10
+Campo
+Contenido
+question_code
+2.10
+block_id
+2
+canonical_question_text
+Si respondiste 'Sí' en la pregunta anterior, ¿cómo falla la transformación? ¿Qué ocurre exactamente?
+short_ui_label
+Cómo falla
+help_text
+Describe el síntoma concreto del fallo. Ejemplos: el sistema no registra el cambio, queda en estado incorrecto, vuelve atrás, alguien corrige después, sale incompleto. Evita respuestas vagas como 'falla' o 'sale mal'.
+field_type
+free_text
+answer_mode
+free_text
+ui_answer_mode_label
+libre guiada
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+depends_on
+transformation_exception_exists = true.
+free_text_condition
+Siempre que se active.
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si se activa.
+visibility_rule
+Visible solo si transformation_exception_exists = true.
+branching_rule
+Si la respuesta es genérica, tautológica o no identifica el tipo de fallo, puede disparar aclaración 2.B.
+canonical_variable_output
+transformation_exception_description
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de loops, S3*, algedónico y transformación real
+risk_if_missing
+Si falta, se pierde modelabilidad específica del fenómeno reportado.
+
+Ficha canónica 2.11
+Campo
+Contenido
+question_code
+2.11
+block_id
+2
+canonical_question_text
+¿Hay cambios que ocurren en lo principal pero que no son oficiales o esperados?
+short_ui_label
+Cambios ocultos
+help_text
+Piensa en cambios que sí ocurren pero quedan fuera del procedimiento formal, de la autorización esperada o del registro normal. Ejemplos: alguien cambia el precio sin autorización, actualiza el estado sin documentarlo o modifica datos por fuera del flujo.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+No, todo lo que ocurre es oficial; Sí, a veces ocurren cambios no autorizados; Sí, ocurren frecuentemente
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+depends_on
+N/A
+free_text_condition
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si indica cambios ocultos, activa 2.12.
+canonical_variable_output
+transformation_hidden_changes
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de loops, S3*, algedónico y transformación real
+risk_if_missing
+Si falta, se pierde modelabilidad específica del fenómeno reportado.
+
+Ficha canónica 2.12
+Campo
+Contenido
+question_code
+2.12
+block_id
+2
+canonical_question_text
+Si respondiste 'Sí', ¿cuáles son esos cambios no oficiales y quién los hace?
+short_ui_label
+Qué cambios y quién
+help_text
+Describe el cambio no oficial y, si puedes, quién lo hace o desde dónde ocurre. Ejemplos: ventas cambia el precio; otra área actualiza el estado; alguien corrige datos por fuera del sistema. Evita respuestas donde solo diga 'pasa' sin actor ni cambio identificable.
+field_type
+free_text
+answer_mode
+free_text
+ui_answer_mode_label
+libre guiada
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+depends_on
+2.11 indica cambios ocultos.
+free_text_condition
+Siempre que se active.
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si se activa.
+visibility_rule
+Visible solo si 2.11 = Sí, a veces / frecuentemente.
+branching_rule
+Si no identifica ni el tipo de cambio ni quién lo hace, puede disparar aclaración 2.C.
+canonical_variable_output
+transformation_hidden_changes_description
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_block_derivations; scene_answer_provenance
+used_by
+huellas para lectura posterior de loops, S3*, algedónico y transformación real
+risk_if_missing
+Si falta, se pierde modelabilidad específica del fenómeno reportado.
+
+Ficha canónica 2.A
+Campo
+Contenido
+question_code
+2.A
+block_id
+2
+canonical_question_text
+Veo que marcaste varias dimensiones o atributos, pero todavía no queda claro qué es lo que realmente limita más esta transformación. ¿Dirías que el problema principal está en el objeto, en el sujeto, en la acción o en una combinación concreta?
+short_ui_label
+Aclarar qué domina
+help_text
+Ejemplo: Tengo pocos cocineros Y llegan muchos pedidos, pero el verdadero problema es que no hay coordinación entre ellos.
+field_type
+free_text
+answer_mode
+clarification
+ui_answer_mode_label
+aclarada
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+depends_on
+Flag de ambigüedad o tautología en preguntas de relación/dominancia.
+free_text_condition
+Siempre que se active.
+generated_from
+Prompt aclaratorio construido automáticamente desde respuestas previas ambiguas o contradictorias.
+user_can_edit_generated
+sí, la persona responde la aclaración.
+required_rule
+Solo si la aclaración es disparada por flag.
+visibility_rule
+No aparece en flujo base; solo por flags.
+branching_rule
+No reemplaza la respuesta original. Se vincula a ella y se guarda como aclaración separada.
+canonical_variable_output
+dimension_dominante_clarificada
+provenance_type
+clarification
+epistemic_role
+clarification
+stored_in
+scene_clarifications; scene_answer_provenance; vínculo a question_code original
+used_by
+precisión adicional para consistencia, normalización y transducción posterior
+risk_if_missing
+Si falta cuando era necesaria, queda ambigüedad residual que puede reducir readiness del bloque.
+
+Ficha canónica 2.B
+Campo
+Contenido
+question_code
+2.B
+block_id
+2
+canonical_question_text
+Mencionaste que la transformación falla, pero todavía no queda claro cómo falla exactamente. ¿Qué es lo primero que ves que sale mal o no cambia cómo debería?
+short_ui_label
+Aclarar el fallo
+help_text
+Guíate por el síntoma observable. Lo que ves que no funciona. Ejemplo: El pedido llega sin la información del cliente, el documento queda en estado 'pendiente' cuando debería estar 'aprobado, el proceso se detiene y nadie sabe por qué.
+field_type
+free_text
+answer_mode
+clarification
+ui_answer_mode_label
+aclarada
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+depends_on
+Flag de descripción insuficiente, genérica o confusa en 2.10.
+free_text_condition
+Siempre que se active.
+generated_from
+Prompt aclaratorio construido automáticamente desde la descripción insuficiente de 2.10.
+user_can_edit_generated
+sí, la persona responde la aclaración.
+required_rule
+Solo si la aclaración es disparada por flag.
+visibility_rule
+No aparece en flujo base; solo por flags.
+branching_rule
+No reemplaza la respuesta original. Se vincula a ella y se guarda como aclaración separada.
+canonical_variable_output
+transformation_exception_description_clarified
+provenance_type
+clarification
+epistemic_role
+clarification
+stored_in
+scene_clarifications; scene_answer_provenance; vínculo a question_code original
+used_by
+precisión adicional para consistencia, normalización y transducción posterior
+risk_if_missing
+Si falta cuando era necesaria, queda ambigüedad residual que puede reducir readiness del bloque.
+
+Ficha canónica 2.C
+Campo
+Contenido
+question_code
+2.C
+block_id
+2
+canonical_question_text
+Mencionaste cambios no oficiales, pero todavía no queda claro cuál es el cambio concreto o quién lo hace. ¿Qué cambia fuera del procedimiento normal y desde dónde ocurre?
+short_ui_label
+Aclarar cambio oculto
+help_text
+Ejemplo: El coordinador de entregas anota cambios en Excel en lugar de registrarlos en el sistema porque el sistema no refleja cambios de última hora.
+field_type
+free_text
+answer_mode
+clarification
+ui_answer_mode_label
+aclarada
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+depends_on
+Flag de cambio oculto sin actor identificable o sin tipo de cambio discernible.
+free_text_condition
+Siempre que se active.
+generated_from
+Prompt aclaratorio construido automáticamente desde la descripción insuficiente de 2.12.
+user_can_edit_generated
+sí, la persona responde la aclaración.
+required_rule
+Solo si la aclaración es disparada por flag.
+visibility_rule
+No aparece en flujo base; solo por flags.
+branching_rule
+No reemplaza la respuesta original. Se vincula a ella y se guarda como aclaración separada.
+canonical_variable_output
+transformation_hidden_changes_description_clarified
+provenance_type
+clarification
+epistemic_role
+clarification
+stored_in
+scene_clarifications; scene_answer_provenance; vínculo a question_code original
+used_by
+precisión adicional para consistencia, normalización y transducción posterior
+risk_if_missing
+Si falta cuando era necesaria, queda ambigüedad residual que puede reducir readiness del bloque.
+
+7. Tipos de respuesta usados en el Bloque 2
+Normalización contractual: field_type define la naturaleza del control UI; answer_mode conserva el enum técnico estable; ui_answer_mode_label ofrece la lectura humana.
+single_choice: una opción cerrada única.
+multi_choice: varias opciones cerradas; aquí se usa para 2.1 y para 2.2 con opciones dinámicas por entidad.
+ranking: ordenamiento entre opciones cuando la combinación triple exige prioridad relativa.
+free_text: texto abierto breve, guiado por ejemplos y con restricción de longitud.
+clarification: respuesta abierta activada por ambigüedad, genericidad o contradicción.
+canonical_derivation: variable no preguntada directamente, pero calculada desde respuestas previas.
+internal_calculated / readiness_marker: variables internas que no deben mostrarse al usuario.
+8. Lógica de despliegue UI por pregunta
+2.1 abre el bloque y debe presentarse como selección de dimensiones de transformación. La UI tiene que permitir seleccionar una, dos o tres opciones sin hacer parecer que el usuario 'se equivocó' por elegir varias.
+2.1a, 2.1b y 2.1c aparecen solo para las dimensiones seleccionadas. Deben mostrarse con lenguaje adaptado y con opción Otro para no colapsar la variedad real.
+Cuando 2.1 selecciona dos dimensiones, se debe mostrar la pregunta de relación específica de esa combinación. Cuando selecciona las tres, se muestran 2.1_ABC_Relacion y 2.1_ABC_Prioridad.
+2.2 no es una sola pregunta plana. La UI debe desplegar 2.2_obj, 2.2_suj y/o 2.2_acc según la composición elegida en 2.1. Si hay dos o tres dimensiones, deben mostrarse todas las subpreguntas relevantes, no una fusión opaca.
+Las opciones de 2.2 deben adaptarse a la entidad específica elegida. La UI puede precargar taxonomías por tipo de objeto, sujeto o acción, pero siempre debe dejar un Otro controlado.
+2.3 aparece después de responder los atributos, con ejemplos dinámicos construidos desde 2.2. La pregunta debe ayudar a calibrar magnitud, no solo a repetir número de atributos.
+2.4a y 2.4b siempre deben mostrarse como preguntas separadas. La primera captura ejecución; la segunda, causa específica del cambio. No deben fusionarse.
+2.5 y 2.6 deben mostrarse como textos cortos guiados. La interfaz debe desalentar respuestas vacías o tautológicas con ejemplos visibles.
+2.7 abre la capa de iteraciones. Si la respuesta es Pocas veces o Muchas veces, se activa 2.8. Si la respuesta es Continuo, 2.8 no aparece.
+2.9 pregunta por fallos de transformación. Si existe falla, 2.10 aparece inmediatamente. Si no, se omite.
+2.11 pregunta por cambios ocultos. Si existen, 2.12 aparece inmediatamente. Si no, se omite.
+2.A, 2.B y 2.C no forman parte del flujo base. Son aclaraciones canónicas por ambigüedad de dimensión, descripción insuficiente del fallo o cambio oculto sin actor/cambio identificable.
+Orden base general: 2.1 → subpreguntas de dimensión → pregunta de relación si aplica → 2.2 subpreguntas relevantes → 2.3 → 2.4a → 2.4b → 2.5 → 2.6 → 2.7 → 2.8 si aplica → 2.9 → 2.10 si aplica → 2.11 → 2.12 si aplica
+Aclaraciones: 2.A, 2.B y 2.C no aparecen en flujo normal; se disparan solo por flags.
+Contrato de implementación: la UI debe respetar la combinatoria de 2.1 y 2.2. No puede aplanar el bloque a una sola rama lineal porque perdería la arquitectura que después alimenta Bloque 5.
+9. Lógica secuencial interna del Bloque 2
+2.1 identifica qué clase de transformación estamos observando: objeto, sujeto, acción o combinación.
+2.1a, 2.1b y 2.1c nombran las entidades concretas implicadas.
+Las preguntas de relación 2.1_* resuelven o aproximan la dimensión dominante y dejan una primera pista sobre volumen, cantidad, complejidad o mezcla.
+2.2 detalla qué propiedades cambian en cada dimensión activa.
+2.3 traduce esa lista de atributos a una magnitud de cambio comparativa.
+2.4a y 2.4b separan ejecución directa y causa inmediata del cambio.
+2.5 y 2.6 convierten la transformación en transición de estado inicial/final.
+2.7 y 2.8 hacen visible si la transformación es lineal o iterativa.
+2.9 y 2.10 registran fallos de transformación.
+2.11 y 2.12 registran cambios ocultos o no oficiales.
+Con la evidencia completa, el motor deriva transformation_attributes consolidados, transformation_exception_exists, transformation_metric_hint, scene_transformation_confidence y scene_transformation_readiness.
+Secuencia específica de combinaciones de 2.1: si 2.1 = solo Objeto → mostrar 2.1a → 2.2_obj; si 2.1 = solo Sujeto → mostrar 2.1b → 2.2_suj; si 2.1 = solo Acción → mostrar 2.1c → 2.2_acc.
+Si 2.1 = Objeto + Sujeto → mostrar 2.1a + 2.1b + 2.1_AB_Relacion + 2.2_obj + 2.2_suj.
+Si 2.1 = Objeto + Acción → mostrar 2.1a + 2.1c + 2.1_AC_Relacion + 2.2_obj + 2.2_acc.
+Si 2.1 = Sujeto + Acción → mostrar 2.1b + 2.1c + 2.1_BC_Relacion + 2.2_suj + 2.2_acc.
+Si 2.1 = Objeto + Sujeto + Acción → mostrar 2.1a + 2.1b + 2.1c + 2.1_ABC_Relacion + 2.1_ABC_Prioridad + 2.2_obj + 2.2_suj + 2.2_acc.
+10. Reglas formales de branching
+Regla
+Condición
+Acción
+B2-R1
+2.1 incluye Objeto
+Mostrar 2.1a y 2.2_obj.
+B2-R2
+2.1 incluye Sujeto
+Mostrar 2.1b y 2.2_suj.
+B2-R3
+2.1 incluye Acción
+Mostrar 2.1c y 2.2_acc.
+B2-R4
+2.1 = Objeto + Sujeto
+Mostrar 2.1_AB_Relacion.
+B2-R5
+2.1 = Objeto + Acción
+Mostrar 2.1_AC_Relacion.
+B2-R6
+2.1 = Sujeto + Acción
+Mostrar 2.1_BC_Relacion.
+B2-R7
+2.1 = Objeto + Sujeto + Acción
+Mostrar 2.1_ABC_Relacion y 2.1_ABC_Prioridad.
+B2-R8
+2.7 = Pocas veces o Muchas veces
+Mostrar 2.8.
+B2-R9
+2.9 indica falla
+Mostrar 2.10 y derivar transformation_exception_exists = true.
+B2-R10
+2.11 indica cambios ocultos
+Mostrar 2.12.
+B2-R11
+2.1_* relación ambigua, respuesta tautológica o contradicha por atributos/estados
+Activar aclaración 2.A.
+B2-R12
+2.10 vacía, genérica o no describe síntoma observable
+Activar aclaración 2.B.
+B2-R13
+2.12 no identifica ni cambio ni actor
+Activar aclaración 2.C.
+11. Separación epistemológica del Bloque 2
+captured_user_evidence: 2.1 a 2.12, cuando el usuario responde directamente sobre la transformación de la escena.
+clarification: 2.A, 2.B y 2.C, cuando el motor necesita mayor precisión sin modificar la respuesta original.
+canonical_derivation: transformation_attributes consolidados, transformation_exception_exists, transformation_metric_hint y, cuando corresponde, normalización de dimension_dominante.
+internal_calculated: scene_transformation_confidence.
+readiness_marker: scene_transformation_readiness.
+consistency_flag: transformation_contradiction_flag y otros flags por contradicción entre tipo de entidad, atributos, magnitud, estados, iteraciones, fallos y cambios ocultos.
+Restricción: aquí no se diagnostica aún salida, función VSM definitiva, capacidad, resource bargain ni compensación humana. Se dejan huellas para análisis posterior, pero no se emite juicio fuerte.
+12. Derivaciones internas y normalizaciones permitidas
+transformation_attributes consolidados se derivan agrupando atributos de objeto, sujeto y acción en una sola estructura canónica, sin borrar la procedencia de cada dimensión.
+transformation_exception_exists se deriva primariamente de 2.9, aunque puede validarse contra 2.10.
+transformation_metric_hint se deriva de 2.1 y de la pregunta de relación correspondiente: volumen cuando domina objeto; cantidad cuando domina sujeto; complejidad/frecuencia cuando domina acción; mezcla cuando ambas o todas limitan igual.
+scene_transformation_confidence puede calcularse combinando completitud del bloque, coherencia entre 2.1/2.2/2.3, compatibilidad entre 2.5 y 2.6, y precisión de 2.10 y 2.12 cuando aplican.
+scene_transformation_readiness puede derivarse a partir de completitud, consistencia y grado de ambigüedad remanente.
+Normalización adicional recomendada para downstream: cuando 2.7 = Continuo, transformation_iteration_count debe quedar como N/A y no como cero; cuando 2.1_ABC_Relacion = Los tres limitan igual, dimension_dominante puede normalizar a mixed_tripartite con ranking_dimensiones como apoyo.
+Lo que no debe hacerse aquí es inferir todavía impacto al receptor, rol VSM dominante de la escena, brecha de capacidad cerrada o patología humana definitiva. Eso pertenece a bloques posteriores o a capas posteriores.
+13. Lógica de consistencia mínima del bloque
+Chequeo
+Condición observada
+Flag sugerido
+Transformación sin entidad concreta
+2.1 respondida pero 2.1a/2.1b/2.1c faltan en dimensión activa
+transformation_entity_missing
+Magnitud incompatible con atributos
+2.3 = Radical pero 2.2 muestra un solo atributo menor, o 2.3 = Pequeño con múltiples cambios mayores
+transformation_magnitude_inconsistency
+Sin cambio de estado observable
+2.5 y 2.6 son iguales o tautológicos
+transformation_state_no_delta
+Iteración declarada sin conteo
+2.7 = Pocas/Muchas veces y 2.8 vacía
+transformation_iteration_needs_count
+Falla sin descripción suficiente
+2.9 indica sí y 2.10 es vacía o genérica
+transformation_exception_needs_clarification
+Cambio oculto sin actor/cambio
+2.11 indica sí y 2.12 no identifica tipo de cambio o actor
+transformation_hidden_change_needs_clarification
+Dimensión dominante ambigua
+2.1 combinación múltiple y relación = ambos/todos, pero sin ranking ni consistencia posterior
+transformation_dominance_ambiguous
+14. Aclaraciones canónicas del bloque
+2.A. Aclaración sobre dimensión dominante: aparece cuando la combinación de objeto, sujeto y acción quedó abierta o tautológica, o cuando la evidencia posterior contradice la dominancia reportada.
+2.B. Aclaración sobre falla de transformación: aparece cuando el usuario reconoce que hay fallo, pero la descripción de 2.10 no deja claro el síntoma observable.
+2.C. Aclaración sobre cambio oculto: aparece cuando se reportan cambios no oficiales, pero 2.12 no identifica con suficiente nitidez qué cambia o quién lo hace.
+15. Mapeo de almacenamiento y trazabilidad
+Elemento
+Destino principal
+Observaciones de trazabilidad
+Respuestas 2.1–2.12
+scene_question_answers
+Guardar opción seleccionada, texto literal, timestamp, bloque y subpregunta.
+Aclaraciones 2.A–2.C
+scene_clarifications
+No reemplazan evidencia original; se vinculan por question_code origen.
+Proveniencia
+scene_answer_provenance
+Registrar user / clarification / derivation / internal_calculated según corresponda.
+Derivaciones del bloque
+scene_block_derivations
+Guardar dimension_dominante, ranking_dimensiones, transformation_attributes consolidados, transformation_exception_exists, transformation_metric_hint y demás normalizaciones.
+
+La derivación transformation_exception_exists debe conservar referencia explícita a transformation_exception_type y a la pregunta 2.9. Si transformation_exception_exists queda unresolved, debe guardarse el estado unresolved y no omitirse silenciosamente.
+Flags de consistencia
+scene_consistency_flags
+Guardar flags estructurales con regla de disparo y severidad.
+Expediente canónico
+scene_canonical_records
+Consolidar únicamente variables normalizadas y referencias a evidencia.
+
+El expediente debe incluir transformation_exception_type, transformation_exception_exists y, cuando aplique, transformation_exception_description. Si transformation_exception_exists queda unresolved, el expediente debe conservar ese estado junto con transformation_exception_route_unresolved.
+
+16. Flujo de salida técnica del bloque
+Tablas/estructuras que alimenta: scene_question_answers, scene_answer_provenance, scene_block_derivations, scene_clarifications, scene_consistency_flags y scene_canonical_records.
+Variables canónicas producidas: transformation_primary_dimensions, objeto_tipo, sujeto_tipo, accion_tipo, dimension_dominante, ranking_dimensiones, atributos_objeto_cambian, atributos_sujeto_cambian, atributos_accion_cambian, transformation_attributes, transformation_magnitude, transformation_causality_action, transformation_causality_trigger, transformation_state_initial, transformation_state_final, transformation_iterations, transformation_iteration_count, transformation_exception_exists, transformation_exception_type, transformation_exception_description, transformation_hidden_changes, transformation_hidden_changes_description, transformation_metric_hint.
+Flags posibles: transformation_entity_missing, transformation_magnitude_inconsistency, transformation_state_no_delta, transformation_iteration_needs_count, transformation_exception_needs_clarification, transformation_exception_route_unresolved
+(Se activa cuando 2.9 está ausente, inválida, no interpretable o cuando existe evidencia textual de falla de transformación pero no se logró cerrar transformation_exception_exists desde transformation_exception_type) , transformation_hidden_change_needs_clarification, transformation_dominance_ambiguous, transformation_contradiction_flag.
+Gaps posibles ausencia de entidad concreta, atributos demasiado genéricos, ausencia de estados distinguibles, iteración sin escala, excepción sin sintomatología, ruta canónica de excepción no cerrada, cambio oculto sin actor.
+Aclaraciones posibles: 2.A, 2.B y 2.C.
+Uso posterior en Capa 2: nodos sobre cambio, transición de estado, loops, complejidad, fallo de transformación, cambio oculto, brecha entre proceso oficial y real, y preparación de métricas para Bloque 5.
+16.A. Salida técnica compacta canónica
+Se agrega esta tabla compacta para cerrar el contrato del bloque de forma más directamente auditable por UI, testing, JSON operativo y motor de reglas.
+Elemento
+Detalle
+Variables canónicas producidas
+transformation_primary_dimensions, objeto_tipo, sujeto_tipo, accion_tipo, dimension_dominante, ranking_dimensiones, atributos_objeto_cambian, atributos_sujeto_cambian, atributos_accion_cambian, transformation_attributes, transformation_magnitude, transformation_causality_action, transformation_causality_trigger, transformation_state_initial, transformation_state_final, transformation_iterations, transformation_iteration_count, transformation_exception_exists, transformation_exception_type, transformation_exception_description, transformation_hidden_changes, transformation_hidden_changes_description, transformation_metric_hint.
+
+Nota de corrección C1-INSTR-V3-R9-001:
+transformation_exception_type es evidencia capturada desde 2.9.
+transformation_exception_exists es derivación canónica obligatoria desde transformation_exception_type.
+transformation_exception_description es evidencia capturada o aclaración desde 2.10 / 2.B.
+Flags posibles
+transformation_entity_missing, transformation_magnitude_inconsistency, transformation_state_no_delta, transformation_iteration_needs_count, transformation_exception_needs_clarification, transformation_hidden_change_needs_clarification, transformation_dominance_ambiguous, transformation_contradiction_flag, transformation_exception_route_unresolved.
+Gaps posibles
+ausencia de entidad concreta, atributos demasiado genéricos, ausencia de estados distinguibles, iteración sin escala, excepción sin sintomatología, cambio oculto sin actor, ruta canónica de excepción no cerrada.
+Aclaraciones posibles
+2.A, 2.B y 2.C.
+Uso posterior en Capa 2
+Transducción de cambio material, transición de estado, complejidad, loops, fallos y transformación oculta; preparación explícita de métrica dominante para Bloque 5.
+Restricción epistemológica
+El Bloque 2 estructura evidencia de transformación; no diagnostica todavía salida, capacidad, compensación humana ni función VSM cerrada.
+
+17. Relación formal con el Bloque 1 y con los bloques posteriores
+El Bloque 1 entrega el estímulo y las precondiciones del inicio. El Bloque 2 toma esa base y pregunta qué cambia cuando la escena efectivamente entra en operación.
+El Bloque 3 heredará especialmente los estados finales y la naturaleza del objeto/sujeto/acción transformada, porque la salida no puede leerse sin saber qué fue transformado realmente.
+El Bloque 4 releerá 2.7, 2.8, 2.9 y 2.11 para comprender loops, desvíos, rutas no lineales y trabajo oculto en el flujo.
+El Bloque 5 depende críticamente de 2.1 y de la pregunta de relación correspondiente, porque allí se decide si la capacidad se medirá por volumen de objeto, cantidad de sujetos, complejidad/frecuencia de la acción o mezcla.
+El Bloque 6 podrá reusar 2.9, 2.10, 2.11 y 2.12 como precursores de compensación humana, pero todavía sin confundir transformación fallida con sacrificio humano; esa distinción hay que conservarla.
+18. Mapeo preliminar a VSM y canal algedónico
+2.1 y sus preguntas de relación dejan huellas importantes para S1: qué tipo de variedad opera la unidad, dónde está el cuello de botella y qué clase de transformación sostiene localmente.
+2.2 y 2.3 hablan tanto a MoC/OLC como a S3. Los atributos y la magnitud del cambio dejan ver el tipo de control y estándar que sería razonable esperar, aunque todavía no lo evalúan.
+2.4a y 2.4b tocan PF y también VSM. Separar acción ejecutada y causa específica del cambio ayuda a diferenciar operación, regulación y disparo causal sin colapsarlos en una sola etiqueta.
+2.7 y 2.8 son muy valiosos para S1 y S3: los ciclos repetidos insinúan retrabajo, variación estructural y demanda de capacidad adicional.
+2.9 y 2.10 alimentan sobre todo a S3* y al canal algedónico. Cuando la transformación debería ocurrir y no ocurre, o ocurre mal, ahí asoma el dolor real de la operación y la distancia entre lo que el sistema dice y lo que efectivamente cambia.
+2.11 y 2.12 son casi una ventana de auditoría crítica: revelan cambios que sí suceden pero quedan fuera de la oficialidad, muy relevantes para S3* y para lecturas posteriores de AHE cuando la compensación o la opacidad se vuelven crónicas.
+Convención epistemológica: este bloque no produce todavía lectura VSM fuerte ni diagnóstico AHE cerrado. Produce huellas para lectura posterior de S1, S2, S3, S3*, S4, S5 y canal algedónico.
+19. Reglas de aceptación del Bloque 2
+Queda explícito qué dimensión o combinación de dimensiones cambia en la escena.
+Cada dimensión activa queda nombrada con entidad concreta suficiente.
+Las combinaciones de objeto, sujeto y acción quedan resueltas mediante preguntas de relación o ranking cuando aplica.
+Quedan capturados los atributos o características que efectivamente cambian.
+Queda registrada una magnitud de transformación con ejemplos contextualizados.
+Queda distinguida la acción directa del actor respecto de la causa específica del cambio.
+Quedan descritos estado inicial y estado final de la transformación.
+Queda capturado si la transformación es lineal o iterativa y, cuando aplica, cuántos ciclos típicamente ocurren.
+Quedan registrados fallos de transformación y cambios ocultos cuando existen.
+El bloque deja listas las pistas necesarias para que el Bloque 5 adapte la métrica de capacidad al tipo real de limitante.

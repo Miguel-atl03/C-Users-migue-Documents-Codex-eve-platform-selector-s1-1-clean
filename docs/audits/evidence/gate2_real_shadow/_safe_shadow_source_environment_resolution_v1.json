@@ -1,0 +1,62 @@
+{
+  "dictamen": "GATE_2_REAL_SHADOW_ENVIRONMENT_DECLARATION_REQUIRED",
+  "gate": "Gate 2 real-shadow",
+  "exercise": "resolve_safe_shadow_source_environment",
+  "previous_blocker": "GATE_2_REAL_SHADOW_SOURCE_ADAPTER_BLOCKED_BY_ENVIRONMENT_NOT_AVAILABLE",
+  "inspection": {
+    "prior_source_adapter_evidence_found": true,
+    "bridge_reader_found": true,
+    "real_source_adapter_found": true,
+    "shadow_only_outbox_events_adapter_found": true
+  },
+  "environment_status": {
+    "classification": "DECLARATION_REQUIRED",
+    "safe_shadow_mirror_or_outbox_declared": false,
+    "separate_read_only_credentials_declared": false,
+    "source_connected_declared": false,
+    "real_table_read_path_declared": false,
+    "verifiable_write_count_guard_declared": false,
+    "can_execute_read_only_without_env_or_secret_values": false
+  },
+  "required_contract": {
+    "source_name_required": true,
+    "source_type_required": true,
+    "read_only_credentials_required": true,
+    "write_permissions_forbidden": true,
+    "service_role_allowed": false,
+    "tenant_scope_field_required": true,
+    "correlation_field_required": true,
+    "idempotency_field_required": true,
+    "provenance_field_required": true,
+    "official_outcome_field_required": true,
+    "shadow_outcome_field_required": true,
+    "replay_key_or_determinism_required": true,
+    "created_or_occurred_at_required": true
+  },
+  "side_effects": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_productive_connected": false,
+    "supabase_connected": false,
+    "writes_attempted": false,
+    "write_count": 0,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "runtime_mutated": false,
+    "object_inventory_mutated": false,
+    "mba_written": false,
+    "parallel_production_real_started": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false
+  },
+  "files_created": [
+    "docs/audits/evidence/gate2_real_shadow/required_safe_shadow_source_declaration_v1.md",
+    "docs/audits/evidence/gate2_real_shadow/_safe_shadow_source_environment_resolution_v1.json"
+  ],
+  "next_step": "WAIT_FOR_OR_PROVISION_SAFE_SHADOW_SOURCE_V1"
+}

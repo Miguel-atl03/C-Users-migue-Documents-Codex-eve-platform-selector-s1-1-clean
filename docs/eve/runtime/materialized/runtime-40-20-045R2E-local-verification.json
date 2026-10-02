@@ -1,0 +1,31 @@
+﻿{
+    "instruction":  "045-R2E",
+    "classification":  "blocked_f5_state_source_conformance",
+    "tests":  [
+                  {
+                      "name":  "F5C existing local tests",
+                      "command":  "node --test src/services/eve/object-binding/f5c-local-runtime-object-binding-service.test.mjs",
+                      "result":  "passed",
+                      "pass":  10,
+                      "fail":  0
+                  }
+              ],
+    "skipped_after_block":  [
+                                "new F5A schema tests",
+                                "loader tests",
+                                "69 definition reconciliation in DB",
+                                "state definition DB reconciliation",
+                                "binding tests",
+                                "materialization-event tests",
+                                "scene binding contract tests",
+                                "idempotency tests",
+                                "044 regression focal",
+                                "typecheck",
+                                "lint focal",
+                                "build",
+                                "git diff --check"
+                            ],
+    "reason":  "The instruction blocks before implementation when explicit state definition conformance cannot be demonstrated.",
+    "local_postgresql":  "not_required_after_state_gate_block",
+    "remote_contact":  "none"
+}

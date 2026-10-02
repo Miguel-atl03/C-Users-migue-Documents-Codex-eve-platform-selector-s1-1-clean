@@ -1,0 +1,1242 @@
+{
+  "requirements_id": "eve_organism_gate2_authority_test_requirements_v1",
+  "generated_at": "2026-06-25T19:35:58.198Z",
+  "total": 70,
+  "categories": [
+    "A_CAPABILITY_STATES",
+    "B_FORBIDDEN_TRANSITIONS",
+    "C_SIDE_EFFECT_GUARD",
+    "D_TENANT_AUTH_ISOLATION",
+    "E_ALGEDONIC_TRIGGERS",
+    "F_AUDIT_LEDGER",
+    "G_MANUAL_REVIEW_OVERRIDE",
+    "H_MBA_ANCHORS",
+    "I_B3_B7",
+    "J_VSM_SEPARATION",
+    "K_GATE3_REMAINS_FALSE",
+    "L_FORBIDDEN_IMPORTS_SCOPE"
+  ],
+  "requirements": [
+    {
+      "test_id": "AG-TEST-001",
+      "category": "A_CAPABILITY_STATES",
+      "name": "SHADOW cannot promote itself",
+      "input": {
+        "fixture_only": true,
+        "capability": "clientAccess",
+        "requested_state": "OFF"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "TENANT_LEAK",
+      "mba_rule_protected": "target state as Object[State]",
+      "no_go_protected": "AG-NG-001",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-002",
+      "category": "B_FORBIDDEN_TRANSITIONS",
+      "name": "ACTIVE impossible in Gate 2",
+      "input": {
+        "fixture_only": true,
+        "capability": "tenantContext",
+        "requested_state": "VALIDATED"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "NO_GO_DECISION",
+      "expected_algedonic_action": "UNAUTHORIZED_PRODUCT_WRITE",
+      "mba_rule_protected": "process state with timer",
+      "no_go_protected": "AG-NG-002",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-003",
+      "category": "C_SIDE_EFFECT_GUARD",
+      "name": "DB write denied",
+      "input": {
+        "fixture_only": true,
+        "capability": "runtimeCapture",
+        "requested_state": "SHADOW"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "CAPABILITY_TRANSITION_REQUESTED",
+      "expected_algedonic_action": "GATE_BYPASS",
+      "mba_rule_protected": "PF no produce state outside OLC",
+      "no_go_protected": "AG-NG-003",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-004",
+      "category": "D_TENANT_AUTH_ISOLATION",
+      "name": "registry denied",
+      "input": {
+        "fixture_only": true,
+        "capability": "gateAdvisory",
+        "requested_state": "SUPERVISED"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "CAPABILITY_TRANSITION_DECIDED",
+      "expected_algedonic_action": "EVIDENCE_CORRUPTION",
+      "mba_rule_protected": "QA rework to P-SUP-06",
+      "no_go_protected": "AG-NG-004",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-005",
+      "category": "E_ALGEDONIC_TRIGGERS",
+      "name": "export denied",
+      "input": {
+        "fixture_only": true,
+        "capability": "gateEnforcement",
+        "requested_state": "CONTROLLED_ACTIVE"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "SIDE_EFFECT_ALLOWED_OFFLINE",
+      "expected_algedonic_action": "PROVENANCE_MISSING_CRITICAL",
+      "mba_rule_protected": "export only with ACA Satisfied",
+      "no_go_protected": "AG-NG-005",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-006",
+      "category": "F_AUDIT_LEDGER",
+      "name": "diagnosis denied",
+      "input": {
+        "fixture_only": true,
+        "capability": "objectBinding",
+        "requested_state": "ACTIVE"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "SIDE_EFFECT_DENIED",
+      "expected_algedonic_action": "OBJECT_STATE_OLC_VIOLATION",
+      "mba_rule_protected": "transitions with timestamp actor event object destination",
+      "no_go_protected": "AG-NG-006",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-007",
+      "category": "G_MANUAL_REVIEW_OVERRIDE",
+      "name": "cross-tenant quarantines",
+      "input": {
+        "fixture_only": true,
+        "capability": "membraneOutbox",
+        "requested_state": "DEGRADED"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "TENANT_BOUNDARY_FAILURE",
+      "expected_algedonic_action": "EXPORT_WITHOUT_ACA_SATISFIED",
+      "mba_rule_protected": "receiver_satisfaction not feedback",
+      "no_go_protected": "AG-NG-007",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-008",
+      "category": "H_MBA_ANCHORS",
+      "name": "service_role denied",
+      "input": {
+        "fixture_only": true,
+        "capability": "governanceObserve",
+        "requested_state": "QUARANTINED"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "AUTH_BOUNDARY_FAILURE",
+      "expected_algedonic_action": "DIAGNOSIS_WITHOUT_CAUSAL_PRECONDITION",
+      "mba_rule_protected": "receiver_feedback route_ref",
+      "no_go_protected": "AG-NG-008",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-009",
+      "category": "I_B3_B7",
+      "name": "critical No-Go not overridable",
+      "input": {
+        "fixture_only": true,
+        "capability": "governanceEnforce",
+        "requested_state": "ROLLBACK_IN_PROGRESS"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "ALGEDONIC_EVENT",
+      "expected_algedonic_action": "B3_ROUTE_MISSING",
+      "mba_rule_protected": "B7 non-diagnostic",
+      "no_go_protected": "AG-NG-009",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-010",
+      "category": "J_VSM_SEPARATION",
+      "name": "unaudited override blocked",
+      "input": {
+        "fixture_only": true,
+        "capability": "candidateGeneration",
+        "requested_state": "REVOKED"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "MANUAL_REVIEW_REQUESTED",
+      "expected_algedonic_action": "B7_BOUNDARY_VIOLATION",
+      "mba_rule_protected": "B7 not structural fact",
+      "no_go_protected": "AG-NG-010",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-011",
+      "category": "K_GATE3_REMAINS_FALSE",
+      "name": "ledger chain required",
+      "input": {
+        "fixture_only": true,
+        "capability": "humanRelease",
+        "requested_state": "OFF"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "MANUAL_REVIEW_DECIDED",
+      "expected_algedonic_action": "UNAUTHENTICATED_OR_SERVICE_ROLE_ACCESS",
+      "mba_rule_protected": "B3B7AlignmentDelta",
+      "no_go_protected": "AG-NG-011",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-012",
+      "category": "L_FORBIDDEN_IMPORTS_SCOPE",
+      "name": "executor cannot certify own action",
+      "input": {
+        "fixture_only": true,
+        "capability": "registryWrite",
+        "requested_state": "VALIDATED"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "OVERRIDE_REQUESTED",
+      "expected_algedonic_action": "UNAUDITED_OVERRIDE",
+      "mba_rule_protected": "NC-01..NC-10",
+      "no_go_protected": "AG-NG-012",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-013",
+      "category": "A_CAPABILITY_STATES",
+      "name": "B3 without routeRef blocked",
+      "input": {
+        "fixture_only": true,
+        "capability": "finalExport",
+        "requested_state": "SHADOW"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "OVERRIDE_DECIDED",
+      "expected_algedonic_action": "STATE_LEDGER_DIVERGENCE",
+      "mba_rule_protected": "NC-B3-01",
+      "no_go_protected": "AG-NG-013",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-014",
+      "category": "B_FORBIDDEN_TRANSITIONS",
+      "name": "B7 candidate blocked",
+      "input": {
+        "fixture_only": true,
+        "capability": "parallelExecution",
+        "requested_state": "SUPERVISED"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "ROLLBACK_REQUESTED",
+      "expected_algedonic_action": "ROLLBACK_FAILURE",
+      "mba_rule_protected": "NC-B7-01",
+      "no_go_protected": "AG-NG-014",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-015",
+      "category": "C_SIDE_EFFECT_GUARD",
+      "name": "OLC-invalid state quarantined",
+      "input": {
+        "fixture_only": true,
+        "capability": "externalLLMAssistance",
+        "requested_state": "CONTROLLED_ACTIVE"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "ROLLBACK_COMPLETED",
+      "expected_algedonic_action": "AUDITOR_EXECUTOR_COLLAPSE",
+      "mba_rule_protected": "NC-ACA-01",
+      "no_go_protected": "AG-NG-015",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-016",
+      "category": "D_TENANT_AUTH_ISOLATION",
+      "name": "wait without timer blocked",
+      "input": {
+        "fixture_only": true,
+        "capability": "clientAccess",
+        "requested_state": "ACTIVE"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "B3_ROUTE_FINDING",
+      "expected_algedonic_action": "FIXTURE_CLAIMED_AS_REAL",
+      "mba_rule_protected": "C-001..C-010",
+      "no_go_protected": "AG-NG-016",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-017",
+      "category": "E_ALGEDONIC_TRIGGERS",
+      "name": "Gate 3 remains NOT_READY",
+      "input": {
+        "fixture_only": true,
+        "capability": "tenantContext",
+        "requested_state": "DEGRADED"
+      },
+      "expected_result": "required_named_case_passes",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "B7_BOUNDARY_FINDING",
+      "expected_algedonic_action": "TENANT_LEAK",
+      "mba_rule_protected": "VAL-B3-01",
+      "no_go_protected": "AG-NG-017",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-018",
+      "category": "F_AUDIT_LEDGER",
+      "name": "future authority guardrail requirement 18",
+      "input": {
+        "fixture_only": true,
+        "capability": "runtimeCapture",
+        "requested_state": "QUARANTINED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "PROMOTION_CHECKLIST_EVALUATED",
+      "expected_algedonic_action": "UNAUTHORIZED_PRODUCT_WRITE",
+      "mba_rule_protected": "VAL-B7-01",
+      "no_go_protected": "AG-NG-018",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-019",
+      "category": "G_MANUAL_REVIEW_OVERRIDE",
+      "name": "future authority guardrail requirement 19",
+      "input": {
+        "fixture_only": true,
+        "capability": "gateAdvisory",
+        "requested_state": "ROLLBACK_IN_PROGRESS"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "GATE_BYPASS",
+      "mba_rule_protected": "VAL-B3B7-ACA",
+      "no_go_protected": "AG-NG-019",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-020",
+      "category": "H_MBA_ANCHORS",
+      "name": "future authority guardrail requirement 20",
+      "input": {
+        "fixture_only": true,
+        "capability": "gateEnforcement",
+        "requested_state": "REVOKED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "NO_GO_DECISION",
+      "expected_algedonic_action": "EVIDENCE_CORRUPTION",
+      "mba_rule_protected": "target state as Object[State]",
+      "no_go_protected": "AG-NG-020",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-021",
+      "category": "I_B3_B7",
+      "name": "future authority guardrail requirement 21",
+      "input": {
+        "fixture_only": true,
+        "capability": "objectBinding",
+        "requested_state": "OFF"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "CAPABILITY_TRANSITION_REQUESTED",
+      "expected_algedonic_action": "PROVENANCE_MISSING_CRITICAL",
+      "mba_rule_protected": "process state with timer",
+      "no_go_protected": "AG-NG-021",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-022",
+      "category": "J_VSM_SEPARATION",
+      "name": "future authority guardrail requirement 22",
+      "input": {
+        "fixture_only": true,
+        "capability": "membraneOutbox",
+        "requested_state": "VALIDATED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "CAPABILITY_TRANSITION_DECIDED",
+      "expected_algedonic_action": "OBJECT_STATE_OLC_VIOLATION",
+      "mba_rule_protected": "PF no produce state outside OLC",
+      "no_go_protected": "AG-NG-022",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-023",
+      "category": "K_GATE3_REMAINS_FALSE",
+      "name": "future authority guardrail requirement 23",
+      "input": {
+        "fixture_only": true,
+        "capability": "governanceObserve",
+        "requested_state": "SHADOW"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "SIDE_EFFECT_ALLOWED_OFFLINE",
+      "expected_algedonic_action": "EXPORT_WITHOUT_ACA_SATISFIED",
+      "mba_rule_protected": "QA rework to P-SUP-06",
+      "no_go_protected": "AG-NG-023",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-024",
+      "category": "L_FORBIDDEN_IMPORTS_SCOPE",
+      "name": "future authority guardrail requirement 24",
+      "input": {
+        "fixture_only": true,
+        "capability": "governanceEnforce",
+        "requested_state": "SUPERVISED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "SIDE_EFFECT_DENIED",
+      "expected_algedonic_action": "DIAGNOSIS_WITHOUT_CAUSAL_PRECONDITION",
+      "mba_rule_protected": "export only with ACA Satisfied",
+      "no_go_protected": "AG-NG-024",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-025",
+      "category": "A_CAPABILITY_STATES",
+      "name": "future authority guardrail requirement 25",
+      "input": {
+        "fixture_only": true,
+        "capability": "candidateGeneration",
+        "requested_state": "CONTROLLED_ACTIVE"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "TENANT_BOUNDARY_FAILURE",
+      "expected_algedonic_action": "B3_ROUTE_MISSING",
+      "mba_rule_protected": "transitions with timestamp actor event object destination",
+      "no_go_protected": "AG-NG-025",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-026",
+      "category": "B_FORBIDDEN_TRANSITIONS",
+      "name": "future authority guardrail requirement 26",
+      "input": {
+        "fixture_only": true,
+        "capability": "humanRelease",
+        "requested_state": "ACTIVE"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "AUTH_BOUNDARY_FAILURE",
+      "expected_algedonic_action": "B7_BOUNDARY_VIOLATION",
+      "mba_rule_protected": "receiver_satisfaction not feedback",
+      "no_go_protected": "AG-NG-026",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-027",
+      "category": "C_SIDE_EFFECT_GUARD",
+      "name": "future authority guardrail requirement 27",
+      "input": {
+        "fixture_only": true,
+        "capability": "registryWrite",
+        "requested_state": "DEGRADED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "ALGEDONIC_EVENT",
+      "expected_algedonic_action": "UNAUTHENTICATED_OR_SERVICE_ROLE_ACCESS",
+      "mba_rule_protected": "receiver_feedback route_ref",
+      "no_go_protected": "AG-NG-027",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-028",
+      "category": "D_TENANT_AUTH_ISOLATION",
+      "name": "future authority guardrail requirement 28",
+      "input": {
+        "fixture_only": true,
+        "capability": "finalExport",
+        "requested_state": "QUARANTINED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "MANUAL_REVIEW_REQUESTED",
+      "expected_algedonic_action": "UNAUDITED_OVERRIDE",
+      "mba_rule_protected": "B7 non-diagnostic",
+      "no_go_protected": "AG-NG-028",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-029",
+      "category": "E_ALGEDONIC_TRIGGERS",
+      "name": "future authority guardrail requirement 29",
+      "input": {
+        "fixture_only": true,
+        "capability": "parallelExecution",
+        "requested_state": "ROLLBACK_IN_PROGRESS"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "MANUAL_REVIEW_DECIDED",
+      "expected_algedonic_action": "STATE_LEDGER_DIVERGENCE",
+      "mba_rule_protected": "B7 not structural fact",
+      "no_go_protected": "AG-NG-029",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-030",
+      "category": "F_AUDIT_LEDGER",
+      "name": "future authority guardrail requirement 30",
+      "input": {
+        "fixture_only": true,
+        "capability": "externalLLMAssistance",
+        "requested_state": "REVOKED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "OVERRIDE_REQUESTED",
+      "expected_algedonic_action": "ROLLBACK_FAILURE",
+      "mba_rule_protected": "B3B7AlignmentDelta",
+      "no_go_protected": "AG-NG-030",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-031",
+      "category": "G_MANUAL_REVIEW_OVERRIDE",
+      "name": "future authority guardrail requirement 31",
+      "input": {
+        "fixture_only": true,
+        "capability": "clientAccess",
+        "requested_state": "OFF"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "OVERRIDE_DECIDED",
+      "expected_algedonic_action": "AUDITOR_EXECUTOR_COLLAPSE",
+      "mba_rule_protected": "NC-01..NC-10",
+      "no_go_protected": "AG-NG-001",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-032",
+      "category": "H_MBA_ANCHORS",
+      "name": "future authority guardrail requirement 32",
+      "input": {
+        "fixture_only": true,
+        "capability": "tenantContext",
+        "requested_state": "VALIDATED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "ROLLBACK_REQUESTED",
+      "expected_algedonic_action": "FIXTURE_CLAIMED_AS_REAL",
+      "mba_rule_protected": "NC-B3-01",
+      "no_go_protected": "AG-NG-002",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-033",
+      "category": "I_B3_B7",
+      "name": "future authority guardrail requirement 33",
+      "input": {
+        "fixture_only": true,
+        "capability": "runtimeCapture",
+        "requested_state": "SHADOW"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "ROLLBACK_COMPLETED",
+      "expected_algedonic_action": "TENANT_LEAK",
+      "mba_rule_protected": "NC-B7-01",
+      "no_go_protected": "AG-NG-003",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-034",
+      "category": "J_VSM_SEPARATION",
+      "name": "future authority guardrail requirement 34",
+      "input": {
+        "fixture_only": true,
+        "capability": "gateAdvisory",
+        "requested_state": "SUPERVISED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "B3_ROUTE_FINDING",
+      "expected_algedonic_action": "UNAUTHORIZED_PRODUCT_WRITE",
+      "mba_rule_protected": "NC-ACA-01",
+      "no_go_protected": "AG-NG-004",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-035",
+      "category": "K_GATE3_REMAINS_FALSE",
+      "name": "future authority guardrail requirement 35",
+      "input": {
+        "fixture_only": true,
+        "capability": "gateEnforcement",
+        "requested_state": "CONTROLLED_ACTIVE"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "B7_BOUNDARY_FINDING",
+      "expected_algedonic_action": "GATE_BYPASS",
+      "mba_rule_protected": "C-001..C-010",
+      "no_go_protected": "AG-NG-005",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-036",
+      "category": "L_FORBIDDEN_IMPORTS_SCOPE",
+      "name": "future authority guardrail requirement 36",
+      "input": {
+        "fixture_only": true,
+        "capability": "objectBinding",
+        "requested_state": "ACTIVE"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "PROMOTION_CHECKLIST_EVALUATED",
+      "expected_algedonic_action": "EVIDENCE_CORRUPTION",
+      "mba_rule_protected": "VAL-B3-01",
+      "no_go_protected": "AG-NG-006",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-037",
+      "category": "A_CAPABILITY_STATES",
+      "name": "future authority guardrail requirement 37",
+      "input": {
+        "fixture_only": true,
+        "capability": "membraneOutbox",
+        "requested_state": "DEGRADED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "PROVENANCE_MISSING_CRITICAL",
+      "mba_rule_protected": "VAL-B7-01",
+      "no_go_protected": "AG-NG-007",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-038",
+      "category": "B_FORBIDDEN_TRANSITIONS",
+      "name": "future authority guardrail requirement 38",
+      "input": {
+        "fixture_only": true,
+        "capability": "governanceObserve",
+        "requested_state": "QUARANTINED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "NO_GO_DECISION",
+      "expected_algedonic_action": "OBJECT_STATE_OLC_VIOLATION",
+      "mba_rule_protected": "VAL-B3B7-ACA",
+      "no_go_protected": "AG-NG-008",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-039",
+      "category": "C_SIDE_EFFECT_GUARD",
+      "name": "future authority guardrail requirement 39",
+      "input": {
+        "fixture_only": true,
+        "capability": "governanceEnforce",
+        "requested_state": "ROLLBACK_IN_PROGRESS"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "CAPABILITY_TRANSITION_REQUESTED",
+      "expected_algedonic_action": "EXPORT_WITHOUT_ACA_SATISFIED",
+      "mba_rule_protected": "target state as Object[State]",
+      "no_go_protected": "AG-NG-009",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-040",
+      "category": "D_TENANT_AUTH_ISOLATION",
+      "name": "future authority guardrail requirement 40",
+      "input": {
+        "fixture_only": true,
+        "capability": "candidateGeneration",
+        "requested_state": "REVOKED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "CAPABILITY_TRANSITION_DECIDED",
+      "expected_algedonic_action": "DIAGNOSIS_WITHOUT_CAUSAL_PRECONDITION",
+      "mba_rule_protected": "process state with timer",
+      "no_go_protected": "AG-NG-010",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-041",
+      "category": "E_ALGEDONIC_TRIGGERS",
+      "name": "future authority guardrail requirement 41",
+      "input": {
+        "fixture_only": true,
+        "capability": "humanRelease",
+        "requested_state": "OFF"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "SIDE_EFFECT_ALLOWED_OFFLINE",
+      "expected_algedonic_action": "B3_ROUTE_MISSING",
+      "mba_rule_protected": "PF no produce state outside OLC",
+      "no_go_protected": "AG-NG-011",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-042",
+      "category": "F_AUDIT_LEDGER",
+      "name": "future authority guardrail requirement 42",
+      "input": {
+        "fixture_only": true,
+        "capability": "registryWrite",
+        "requested_state": "VALIDATED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "SIDE_EFFECT_DENIED",
+      "expected_algedonic_action": "B7_BOUNDARY_VIOLATION",
+      "mba_rule_protected": "QA rework to P-SUP-06",
+      "no_go_protected": "AG-NG-012",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-043",
+      "category": "G_MANUAL_REVIEW_OVERRIDE",
+      "name": "future authority guardrail requirement 43",
+      "input": {
+        "fixture_only": true,
+        "capability": "finalExport",
+        "requested_state": "SHADOW"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "TENANT_BOUNDARY_FAILURE",
+      "expected_algedonic_action": "UNAUTHENTICATED_OR_SERVICE_ROLE_ACCESS",
+      "mba_rule_protected": "export only with ACA Satisfied",
+      "no_go_protected": "AG-NG-013",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-044",
+      "category": "H_MBA_ANCHORS",
+      "name": "future authority guardrail requirement 44",
+      "input": {
+        "fixture_only": true,
+        "capability": "parallelExecution",
+        "requested_state": "SUPERVISED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "AUTH_BOUNDARY_FAILURE",
+      "expected_algedonic_action": "UNAUDITED_OVERRIDE",
+      "mba_rule_protected": "transitions with timestamp actor event object destination",
+      "no_go_protected": "AG-NG-014",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-045",
+      "category": "I_B3_B7",
+      "name": "future authority guardrail requirement 45",
+      "input": {
+        "fixture_only": true,
+        "capability": "externalLLMAssistance",
+        "requested_state": "CONTROLLED_ACTIVE"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "ALGEDONIC_EVENT",
+      "expected_algedonic_action": "STATE_LEDGER_DIVERGENCE",
+      "mba_rule_protected": "receiver_satisfaction not feedback",
+      "no_go_protected": "AG-NG-015",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-046",
+      "category": "J_VSM_SEPARATION",
+      "name": "future authority guardrail requirement 46",
+      "input": {
+        "fixture_only": true,
+        "capability": "clientAccess",
+        "requested_state": "ACTIVE"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "MANUAL_REVIEW_REQUESTED",
+      "expected_algedonic_action": "ROLLBACK_FAILURE",
+      "mba_rule_protected": "receiver_feedback route_ref",
+      "no_go_protected": "AG-NG-016",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-047",
+      "category": "K_GATE3_REMAINS_FALSE",
+      "name": "future authority guardrail requirement 47",
+      "input": {
+        "fixture_only": true,
+        "capability": "tenantContext",
+        "requested_state": "DEGRADED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "MANUAL_REVIEW_DECIDED",
+      "expected_algedonic_action": "AUDITOR_EXECUTOR_COLLAPSE",
+      "mba_rule_protected": "B7 non-diagnostic",
+      "no_go_protected": "AG-NG-017",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-048",
+      "category": "L_FORBIDDEN_IMPORTS_SCOPE",
+      "name": "future authority guardrail requirement 48",
+      "input": {
+        "fixture_only": true,
+        "capability": "runtimeCapture",
+        "requested_state": "QUARANTINED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "OVERRIDE_REQUESTED",
+      "expected_algedonic_action": "FIXTURE_CLAIMED_AS_REAL",
+      "mba_rule_protected": "B7 not structural fact",
+      "no_go_protected": "AG-NG-018",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-049",
+      "category": "A_CAPABILITY_STATES",
+      "name": "future authority guardrail requirement 49",
+      "input": {
+        "fixture_only": true,
+        "capability": "gateAdvisory",
+        "requested_state": "ROLLBACK_IN_PROGRESS"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "OVERRIDE_DECIDED",
+      "expected_algedonic_action": "TENANT_LEAK",
+      "mba_rule_protected": "B3B7AlignmentDelta",
+      "no_go_protected": "AG-NG-019",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-050",
+      "category": "B_FORBIDDEN_TRANSITIONS",
+      "name": "future authority guardrail requirement 50",
+      "input": {
+        "fixture_only": true,
+        "capability": "gateEnforcement",
+        "requested_state": "REVOKED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "ROLLBACK_REQUESTED",
+      "expected_algedonic_action": "UNAUTHORIZED_PRODUCT_WRITE",
+      "mba_rule_protected": "NC-01..NC-10",
+      "no_go_protected": "AG-NG-020",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-051",
+      "category": "C_SIDE_EFFECT_GUARD",
+      "name": "future authority guardrail requirement 51",
+      "input": {
+        "fixture_only": true,
+        "capability": "objectBinding",
+        "requested_state": "OFF"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "ROLLBACK_COMPLETED",
+      "expected_algedonic_action": "GATE_BYPASS",
+      "mba_rule_protected": "NC-B3-01",
+      "no_go_protected": "AG-NG-021",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-052",
+      "category": "D_TENANT_AUTH_ISOLATION",
+      "name": "future authority guardrail requirement 52",
+      "input": {
+        "fixture_only": true,
+        "capability": "membraneOutbox",
+        "requested_state": "VALIDATED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "B3_ROUTE_FINDING",
+      "expected_algedonic_action": "EVIDENCE_CORRUPTION",
+      "mba_rule_protected": "NC-B7-01",
+      "no_go_protected": "AG-NG-022",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-053",
+      "category": "E_ALGEDONIC_TRIGGERS",
+      "name": "future authority guardrail requirement 53",
+      "input": {
+        "fixture_only": true,
+        "capability": "governanceObserve",
+        "requested_state": "SHADOW"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "B7_BOUNDARY_FINDING",
+      "expected_algedonic_action": "PROVENANCE_MISSING_CRITICAL",
+      "mba_rule_protected": "NC-ACA-01",
+      "no_go_protected": "AG-NG-023",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-054",
+      "category": "F_AUDIT_LEDGER",
+      "name": "future authority guardrail requirement 54",
+      "input": {
+        "fixture_only": true,
+        "capability": "governanceEnforce",
+        "requested_state": "SUPERVISED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "PROMOTION_CHECKLIST_EVALUATED",
+      "expected_algedonic_action": "OBJECT_STATE_OLC_VIOLATION",
+      "mba_rule_protected": "C-001..C-010",
+      "no_go_protected": "AG-NG-024",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-055",
+      "category": "G_MANUAL_REVIEW_OVERRIDE",
+      "name": "future authority guardrail requirement 55",
+      "input": {
+        "fixture_only": true,
+        "capability": "candidateGeneration",
+        "requested_state": "CONTROLLED_ACTIVE"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "EXPORT_WITHOUT_ACA_SATISFIED",
+      "mba_rule_protected": "VAL-B3-01",
+      "no_go_protected": "AG-NG-025",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-056",
+      "category": "H_MBA_ANCHORS",
+      "name": "future authority guardrail requirement 56",
+      "input": {
+        "fixture_only": true,
+        "capability": "humanRelease",
+        "requested_state": "ACTIVE"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "QUARANTINED",
+      "expected_ledger_record": "NO_GO_DECISION",
+      "expected_algedonic_action": "DIAGNOSIS_WITHOUT_CAUSAL_PRECONDITION",
+      "mba_rule_protected": "VAL-B7-01",
+      "no_go_protected": "AG-NG-026",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-057",
+      "category": "I_B3_B7",
+      "name": "future authority guardrail requirement 57",
+      "input": {
+        "fixture_only": true,
+        "capability": "registryWrite",
+        "requested_state": "DEGRADED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "CAPABILITY_TRANSITION_REQUESTED",
+      "expected_algedonic_action": "B3_ROUTE_MISSING",
+      "mba_rule_protected": "VAL-B3B7-ACA",
+      "no_go_protected": "AG-NG-027",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-058",
+      "category": "J_VSM_SEPARATION",
+      "name": "future authority guardrail requirement 58",
+      "input": {
+        "fixture_only": true,
+        "capability": "finalExport",
+        "requested_state": "QUARANTINED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "DEGRADED",
+      "expected_ledger_record": "CAPABILITY_TRANSITION_DECIDED",
+      "expected_algedonic_action": "B7_BOUNDARY_VIOLATION",
+      "mba_rule_protected": "target state as Object[State]",
+      "no_go_protected": "AG-NG-028",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-059",
+      "category": "K_GATE3_REMAINS_FALSE",
+      "name": "future authority guardrail requirement 59",
+      "input": {
+        "fixture_only": true,
+        "capability": "parallelExecution",
+        "requested_state": "ROLLBACK_IN_PROGRESS"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "SIDE_EFFECT_ALLOWED_OFFLINE",
+      "expected_algedonic_action": "UNAUTHENTICATED_OR_SERVICE_ROLE_ACCESS",
+      "mba_rule_protected": "process state with timer",
+      "no_go_protected": "AG-NG-029",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AG-TEST-060",
+      "category": "L_FORBIDDEN_IMPORTS_SCOPE",
+      "name": "future authority guardrail requirement 60",
+      "input": {
+        "fixture_only": true,
+        "capability": "externalLLMAssistance",
+        "requested_state": "REVOKED"
+      },
+      "expected_result": "design_rule_enforced",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "SIDE_EFFECT_DENIED",
+      "expected_algedonic_action": "UNAUDITED_OVERRIDE",
+      "mba_rule_protected": "PF no produce state outside OLC",
+      "no_go_protected": "AG-NG-030",
+      "implementation_allowed_now": false
+    },
+    {
+      "test_id": "AUTH-FIX-001",
+      "category": "FIX_STATE_AND_ALGEDONIC_MAPPING",
+      "name": "SHADOW_to_SUPERVISED_current_gate2_authorized_false",
+      "description": "TR-003 must remain blocked in Gate 2",
+      "input": {
+        "fixture_only": true,
+        "design_validation": true
+      },
+      "expected_result": "pass_in_future_implementation",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "correct_no_go_mapping",
+      "mba_rule_protected": "Gate 2 replay-only authority and precise No-Go escalation",
+      "no_go_protected": "AG-NG-001",
+      "implementation_allowed_now": false,
+      "current_status": "design_requirement_added",
+      "gate3_ready": false,
+      "observer_authorized": false
+    },
+    {
+      "test_id": "AUTH-FIX-002",
+      "category": "FIX_STATE_AND_ALGEDONIC_MAPPING",
+      "name": "No_transition_to_SUPERVISED_CONTROLLED_ACTIVE_ACTIVE_current_gate2_authorized",
+      "description": "Future states must not be current Gate 2 authorized",
+      "input": {
+        "fixture_only": true,
+        "design_validation": true
+      },
+      "expected_result": "pass_in_future_implementation",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "correct_no_go_mapping",
+      "mba_rule_protected": "Gate 2 replay-only authority and precise No-Go escalation",
+      "no_go_protected": "AG-NG-001",
+      "implementation_allowed_now": false,
+      "current_status": "design_requirement_added",
+      "gate3_ready": false,
+      "observer_authorized": false
+    },
+    {
+      "test_id": "AUTH-FIX-003",
+      "category": "FIX_STATE_AND_ALGEDONIC_MAPPING",
+      "name": "TENANT_LEAK_maps_to_AG_NG_014",
+      "description": "Tenant leak maps to cross_tenant_context",
+      "input": {
+        "fixture_only": true,
+        "design_validation": true
+      },
+      "expected_result": "pass_in_future_implementation",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "correct_no_go_mapping",
+      "mba_rule_protected": "Gate 2 replay-only authority and precise No-Go escalation",
+      "no_go_protected": "AG-NG-014",
+      "implementation_allowed_now": false,
+      "current_status": "design_requirement_added",
+      "gate3_ready": false,
+      "observer_authorized": false
+    },
+    {
+      "test_id": "AUTH-FIX-004",
+      "category": "FIX_STATE_AND_ALGEDONIC_MAPPING",
+      "name": "B3_ROUTE_MISSING_maps_to_AG_NG_011",
+      "description": "B3 route missing maps to receiver_feedback_without_route_ref",
+      "input": {
+        "fixture_only": true,
+        "design_validation": true
+      },
+      "expected_result": "pass_in_future_implementation",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "correct_no_go_mapping",
+      "mba_rule_protected": "Gate 2 replay-only authority and precise No-Go escalation",
+      "no_go_protected": "AG-NG-011",
+      "implementation_allowed_now": false,
+      "current_status": "design_requirement_added",
+      "gate3_ready": false,
+      "observer_authorized": false
+    },
+    {
+      "test_id": "AUTH-FIX-005",
+      "category": "FIX_STATE_AND_ALGEDONIC_MAPPING",
+      "name": "B7_BOUNDARY_VIOLATION_maps_to_AG_NG_012_or_AG_NG_013",
+      "description": "B7 boundary maps to structural fact or candidate No-Go",
+      "input": {
+        "fixture_only": true,
+        "design_validation": true
+      },
+      "expected_result": "pass_in_future_implementation",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "correct_no_go_mapping",
+      "mba_rule_protected": "Gate 2 replay-only authority and precise No-Go escalation",
+      "no_go_protected": "AG-NG-012/AG-NG-013",
+      "implementation_allowed_now": false,
+      "current_status": "design_requirement_added",
+      "gate3_ready": false,
+      "observer_authorized": false
+    },
+    {
+      "test_id": "AUTH-FIX-006",
+      "category": "FIX_STATE_AND_ALGEDONIC_MAPPING",
+      "name": "UNAUDITED_OVERRIDE_maps_to_AG_NG_022",
+      "description": "Unaudited override maps to AG-NG-022",
+      "input": {
+        "fixture_only": true,
+        "design_validation": true
+      },
+      "expected_result": "pass_in_future_implementation",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "correct_no_go_mapping",
+      "mba_rule_protected": "Gate 2 replay-only authority and precise No-Go escalation",
+      "no_go_protected": "AG-NG-022",
+      "implementation_allowed_now": false,
+      "current_status": "design_requirement_added",
+      "gate3_ready": false,
+      "observer_authorized": false
+    },
+    {
+      "test_id": "AUTH-FIX-007",
+      "category": "FIX_STATE_AND_ALGEDONIC_MAPPING",
+      "name": "STATE_LEDGER_DIVERGENCE_maps_to_AG_NG_027",
+      "description": "State ledger divergence maps to AG-NG-027",
+      "input": {
+        "fixture_only": true,
+        "design_validation": true
+      },
+      "expected_result": "pass_in_future_implementation",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "correct_no_go_mapping",
+      "mba_rule_protected": "Gate 2 replay-only authority and precise No-Go escalation",
+      "no_go_protected": "AG-NG-027",
+      "implementation_allowed_now": false,
+      "current_status": "design_requirement_added",
+      "gate3_ready": false,
+      "observer_authorized": false
+    },
+    {
+      "test_id": "AUTH-FIX-008",
+      "category": "FIX_STATE_AND_ALGEDONIC_MAPPING",
+      "name": "ROLLBACK_FAILURE_maps_to_AG_NG_025",
+      "description": "Rollback failure maps to AG-NG-025",
+      "input": {
+        "fixture_only": true,
+        "design_validation": true
+      },
+      "expected_result": "pass_in_future_implementation",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "correct_no_go_mapping",
+      "mba_rule_protected": "Gate 2 replay-only authority and precise No-Go escalation",
+      "no_go_protected": "AG-NG-025",
+      "implementation_allowed_now": false,
+      "current_status": "design_requirement_added",
+      "gate3_ready": false,
+      "observer_authorized": false
+    },
+    {
+      "test_id": "AUTH-FIX-009",
+      "category": "FIX_STATE_AND_ALGEDONIC_MAPPING",
+      "name": "AUDITOR_EXECUTOR_COLLAPSE_maps_to_AG_NG_024",
+      "description": "Auditor executor collapse maps to AG-NG-024",
+      "input": {
+        "fixture_only": true,
+        "design_validation": true
+      },
+      "expected_result": "pass_in_future_implementation",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "correct_no_go_mapping",
+      "mba_rule_protected": "Gate 2 replay-only authority and precise No-Go escalation",
+      "no_go_protected": "AG-NG-024",
+      "implementation_allowed_now": false,
+      "current_status": "design_requirement_added",
+      "gate3_ready": false,
+      "observer_authorized": false
+    },
+    {
+      "test_id": "AUTH-FIX-010",
+      "category": "FIX_STATE_AND_ALGEDONIC_MAPPING",
+      "name": "FIXTURE_CLAIMED_AS_REAL_maps_to_AG_NG_029",
+      "description": "Fixture claimed as real maps to AG-NG-029",
+      "input": {
+        "fixture_only": true,
+        "design_validation": true
+      },
+      "expected_result": "pass_in_future_implementation",
+      "expected_state_effect": "NO_PRODUCT_EFFECT",
+      "expected_ledger_record": "VALIDATION_DECISION",
+      "expected_algedonic_action": "correct_no_go_mapping",
+      "mba_rule_protected": "Gate 2 replay-only authority and precise No-Go escalation",
+      "no_go_protected": "AG-NG-029",
+      "implementation_allowed_now": false,
+      "current_status": "design_requirement_added",
+      "gate3_ready": false,
+      "observer_authorized": false
+    }
+  ],
+  "fix_state_and_algedonic_mapping_requirements_added": true
+}

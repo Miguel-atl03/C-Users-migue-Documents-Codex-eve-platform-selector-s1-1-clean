@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "B7 PreclassificationRecord Contract",
+  "type": "object",
+  "required": [
+    "id",
+    "case_id",
+    "state",
+    "source_ref",
+    "derivation_ref",
+    "governance_issue_refs",
+    "readiness_decision_ref",
+    "allowed_consumers",
+    "forbidden_consumers",
+    "audit_log"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "captured",
+        "boundary_checked",
+        "signal_only_accepted",
+        "rejected",
+        "contamination_blocked",
+        "manual_review_required",
+        "frozen",
+        "archived"
+      ]
+    },
+    "source_ref": {
+      "type": "string"
+    },
+    "derivation_ref": {
+      "type": "string"
+    },
+    "governance_issue_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "readiness_decision_ref": {
+      "type": "string"
+    },
+    "allowed_consumers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_consumers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audit_log": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "implementation_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "materiality_level": {
+      "type": "string",
+      "enum": [
+        "L0 absent",
+        "L1 documented_only",
+        "L2 vocabulary_only",
+        "L3 guardrail_only",
+        "L4 contract_defined",
+        "L5 schema_present",
+        "L6 service_present",
+        "L7 tested_materiality",
+        "L8 executable_materiality"
+      ],
+      "const": "L4 contract_defined"
+    },
+    "materiality_rationale": {
+      "type": "string"
+    },
+    "preclassification_id": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "scene_id": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "source_b7_ref": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "preclassification_ahe_level_dominant": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "preclassification_interpersonal_signal": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "preclassification_interpersonal_note": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "preclassification_interpersonal_confirmation": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "preclassification_ahe_bundle_refined": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "interpretation_limit": {
+      "type": "string",
+      "enum": [
+        "non_diagnostic_preclassification_only"
+      ]
+    },
+    "no_render_zone": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

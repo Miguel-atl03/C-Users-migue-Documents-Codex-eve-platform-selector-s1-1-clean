@@ -1,0 +1,84 @@
+{
+  "audit_id": "RUNTIME_40_20_MOTOR_PHASE4_CLOSURE_INVALIDATED",
+  "plan_phase": {
+    "part": "PARTE 2",
+    "phase": "FASE 4",
+    "phase_name": "Motor Runtime",
+    "remediation": "Invalidation of incorrect Phase 4 closure"
+  },
+  "dictamen": "INVALIDATED",
+  "invalidated_instruction": "RUNTIME_40_20_MOTOR_PHASE4_CLOSURE_LOCAL_CONTRACT_V1",
+  "reason": [
+    "unauthorized_phase_decomposition_detected",
+    "phase4_closeout_claim_not_rector_supported"
+  ],
+  "claims_invalidated": {
+    "phase4_closed_local": true,
+    "ready_for_phase5_authorization": true,
+    "closeout_status": "phase4_motor_closed_local"
+  },
+  "corrected_claims": {
+    "phase4_closed_local": false,
+    "ready_for_phase5_authorization": false,
+    "phase5_started": false,
+    "next_authorization_required": true
+  },
+  "files_deleted": [
+    "src/services/eve/runtime-40-20/motor/runtime-40-20-motor-phase4-closure-types.ts",
+    "src/services/eve/runtime-40-20/motor/runtime-40-20-motor-phase4-closure-service.ts",
+    "src/services/eve/runtime-40-20/motor/runtime-40-20-motor-phase4-closure.test.mjs",
+    "docs/implementation/runtime_40_20_motor_phase4_closure_closeout.md",
+    "docs/implementation/runtime_40_20_motor_phase4_closure_traceability.json"
+  ],
+  "files_absent_at_cleanup": [],
+  "control_de_fuente_no_inferencia": {
+    "rector_documents_referenced": true,
+    "content_traceable_to_documents_or_instruction": true,
+    "free_inference_detected": false,
+    "unauthorized_expansion_detected": false
+  },
+  "rector_documents_referenced": [
+    "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+    "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+    "EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx"
+  ],
+  "phase_status_after_invalidation": {
+    "phase0": "closed_local",
+    "phase1": "closed_local",
+    "phase2": "closed_local_migration_not_applied",
+    "phase3": "closed_local_migration_not_applied",
+    "phase4": "open_partially_advanced",
+    "phase5": "early_local_artifacts_present_not_phase_active",
+    "phase6": "early_local_artifacts_present_not_phase_active",
+    "phase7": "early_local_artifacts_present_not_phase_active",
+    "phase8": "not_started"
+  },
+  "boundary": {
+    "migration_applied": false,
+    "catalog_activated": false,
+    "runtime_40_20_started": false,
+    "supabase_touched": false,
+    "sql_executed": false,
+    "endpoint_created": false,
+    "role_runtime_session_real_created": false,
+    "activity_runtime_run_real_created": false,
+    "runtime_interaction_instance_real_created": false,
+    "budget_ledger_real_created": false,
+    "audit_trail_real_created": false,
+    "ui_rendered_real": false,
+    "response_persisted_real": false,
+    "evidence_item_real_created": false,
+    "canonical_variable_record_real_created": false,
+    "branching_real_created": false,
+    "readiness_real_created": false,
+    "export_real_created": false,
+    "registry_live_db_created": false,
+    "ir_real_created": false,
+    "object_inventory_real_opened": false,
+    "f5c_real_opened": false,
+    "diagnosis_created": false,
+    "delivered_created": false
+  },
+  "next_required_action": "RUNTIME_40_20_PHASE4_REANCHOR_AND_GAP_REGISTER_V1",
+  "next_authorization_required": true
+}

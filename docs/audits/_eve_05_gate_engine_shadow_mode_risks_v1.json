@@ -1,0 +1,78 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-SHADOW-MODE-DESIGN-V1",
+  "riskCount": 12,
+  "risks": [
+    {
+      "riskId": "RISK-01",
+      "risk": "Using EVE-05 to block productive user flow.",
+      "severity": "critical",
+      "mitigation": "Shadow output cannot block users; canBlockUserFlow remains false."
+    },
+    {
+      "riskId": "RISK-02",
+      "risk": "Connecting to EVE brain before visual/manual approval.",
+      "severity": "critical",
+      "mitigation": "canConnectEveBrain and runtimeAuthority remain false."
+    },
+    {
+      "riskId": "RISK-03",
+      "risk": "Writing registry.",
+      "severity": "critical",
+      "mitigation": "Registry writes are blocked actions."
+    },
+    {
+      "riskId": "RISK-04",
+      "risk": "Activating diagnosis, IR or export.",
+      "severity": "critical",
+      "mitigation": "Shadow mode can report findings but cannot trigger diagnosis, IR or export."
+    },
+    {
+      "riskId": "RISK-05",
+      "risk": "Converting gates into runtime authority.",
+      "severity": "critical",
+      "mitigation": "Readiness states are internal shadow signals only."
+    },
+    {
+      "riskId": "RISK-06",
+      "risk": "Using D1 to close diagnosis instead of conformance.",
+      "severity": "high",
+      "mitigation": "D1 is constrained to MMABP methodology and conformance before consistency."
+    },
+    {
+      "riskId": "RISK-07",
+      "risk": "Using VSM1 for closed systemic diagnosis.",
+      "severity": "high",
+      "mitigation": "VSM1 is a methodological guard only."
+    },
+    {
+      "riskId": "RISK-08",
+      "risk": "Using AHE1 for closed human diagnosis.",
+      "severity": "high",
+      "mitigation": "AHE1 is an interpretive guard only."
+    },
+    {
+      "riskId": "RISK-09",
+      "risk": "Treating D3/D4 as primary methodological sources.",
+      "severity": "high",
+      "mitigation": "D3 remains downstream boundary; D4 remains technical contract."
+    },
+    {
+      "riskId": "RISK-10",
+      "risk": "Ignoring source proof.",
+      "severity": "high",
+      "mitigation": "Every reference validation must expose sourceTrace and evidenceRefs."
+    },
+    {
+      "riskId": "RISK-11",
+      "risk": "Accepting rules without condition/action/severity/source.",
+      "severity": "high",
+      "mitigation": "Missing condition/action/severity proof maps to shadow gap states."
+    },
+    {
+      "riskId": "RISK-12",
+      "risk": "Mutating WorkMap or Significado.",
+      "severity": "critical",
+      "mitigation": "WorkMap and Significado mutations are blocked actions."
+    }
+  ]
+}

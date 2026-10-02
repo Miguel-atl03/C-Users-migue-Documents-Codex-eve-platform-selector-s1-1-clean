@@ -1,0 +1,48 @@
+{
+  "dictamen": "EVE_POST_RING4_REAL_CASE_POLICY",
+  "generated_at": "2026-07-10T06:45:00.000Z",
+  "package_ref": "EVE_POST_RING4_REAL_OPERATION_DECISION_SERVICE_EVE_V1",
+  "real_cases_allowed": "conditional",
+  "requires_consultant_supervision": true,
+  "requires_case_scope": true,
+  "requires_data_boundary": true,
+  "requires_client_consent_or_service_authorization": true,
+  "requires_no_go_clean": true,
+  "requires_control_panel_or_manual_equivalent": true,
+  "public_self_service_allowed": false,
+  "case_scope_requirements": {
+    "tenant_id_required": true,
+    "case_id_required": true,
+    "role_scope_required": true,
+    "activity_scope_required": true,
+    "consultant_expert_assigned": true,
+    "operating_target_explicit": true
+  },
+  "data_boundary_requirements": {
+    "tenant_isolation": true,
+    "case_isolation": true,
+    "run_boundary": true,
+    "consent_or_authorization_trace": true,
+    "no_unscoped_data_access": true,
+    "inherits_ring4_boundary_policy": true
+  },
+  "supervision_requirements": {
+    "human_supervision_required": true,
+    "consultant_review_required": true,
+    "manual_review_before_client_safe_release": true,
+    "rollback_abort_available": true
+  },
+  "forbidden_without_authorization": [
+    "unsupervised_real_case",
+    "unscoped_real_case",
+    "real_case_without_consent_or_service_authorization",
+    "public_self_service_intake",
+    "automatic_diagnosis_final",
+    "external_export_without_consultant_authority"
+  ],
+  "policy_refs": [
+    "docs/production-activation/post_ring4_data_boundary_policy.json",
+    "docs/production-activation/post_ring4_consultant_expert_control_model.json",
+    "docs/production-activation/ring4_production_data_boundary_policy.json"
+  ]
+}

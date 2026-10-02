@@ -1,0 +1,2475 @@
+﻿/**
+
+ * WorkMap â€” mock v6 opciÃ³n B secuencial (eve-v6-secuencial-mock.html).
+
+ */
+
+
+
+.workmapScreen {
+
+  width: 100%;
+
+  background: var(--eve-sheet, #fafbfc);
+
+  color: var(--eve-ink, #12141a);
+
+  --eve-font-code: var(--font-eve-body), "IBM Plex Mono", "Consolas", monospace;
+
+  --eve-workmap-assist: #c98900;
+
+  --eve-workmap-assist-bright: #e5a000;
+
+  --eve-workmap-assist-deep: #a86f00;
+
+}
+
+
+
+.workmapWorkspace {
+
+  width: min(100%, 1440px);
+
+  margin: 0 auto;
+
+  padding: clamp(40px, 5vw, 56px) clamp(20px, 4vw, 64px) clamp(64px, 7vw, 96px);
+
+  text-align: left;
+
+}
+
+
+
+.workmapWorkspaceContinuous {
+
+  padding-top: clamp(24px, 3vw, 40px);
+
+}
+
+
+
+.workmapRoomMark {
+
+  margin: 0 0 clamp(32px, 4vw, 48px);
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 68%, transparent);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 8px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.22em;
+
+  text-transform: uppercase;
+
+}
+
+
+
+.workmapCatalogVoid {
+
+  grid-column: 2;
+
+  grid-row: 1;
+
+  position: relative;
+
+  width: 100%;
+
+  min-width: 0;
+
+  min-height: clamp(96px, 11vh, 120px);
+
+  align-self: start;
+
+}
+
+
+
+.workmapCatalogItem {
+
+  position: absolute;
+
+  display: block;
+
+  margin: 0;
+
+  padding: 2px 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--eve-mist, #9aa1ab);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 9px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+
+  line-height: 1.35;
+
+  text-transform: uppercase;
+
+  text-align: left;
+
+  max-width: none;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition: color 220ms ease;
+
+}
+
+
+
+/* Zigzag compacto — cuadrantes catM* (workmap-catalog-layout.ts, mock v6 autorizado) */
+.catM1 {
+  top: 48%;
+  left: 0;
+}
+
+.catM5 {
+  top: 0;
+  left: 28%;
+}
+
+.catM2 {
+  top: 0;
+  left: 50%;
+}
+
+.catM4 {
+  top: 0;
+  left: 76%;
+}
+
+.catM3 {
+  top: 8%;
+  left: 12%;
+}
+
+.catM7 {
+  top: -22%;
+  left: 88%;
+}
+
+.catM8 {
+  top: -22%;
+  left: 0;
+}
+
+.catM6 {
+  top: 52%;
+  left: 38%;
+}
+
+.catM9 {
+  top: 48%;
+  left: 56%;
+}
+
+.catM10 {
+  top: 32%;
+  left: 78%;
+}
+
+.catM11 {
+  top: 72%;
+  left: 24%;
+}
+
+.workmapCatalogToggle {
+  color: var(--eve-ink-muted, #7a828c);
+}
+
+.workmapCatalogToggleActive {
+  color: var(--eve-ink, #3d4450);
+}
+
+.workmapCatalogUnlisted {
+  font-style: italic;
+}
+
+.workmapCatalogUnlistedInput {
+  position: absolute;
+  top: 8%;
+  left: 12%;
+  z-index: 2;
+  min-width: min(220px, 52%);
+  padding-bottom: 10px;
+}
+
+.workmapCatalogVoidUnlistedOpen {
+  min-height: clamp(108px, 12vh, 132px);
+}
+
+.workmapCatalogUnlistedInput .workmapCustomAreaInput {
+  width: 100%;
+  min-width: 0;
+}
+
+.workmapCatalogVoidWhisper {
+  position: absolute;
+  top: 88%;
+  left: 0;
+  margin: 0;
+  max-width: min(420px, 92%);
+  color: var(--eve-mist, #9aa1ab);
+  font-family: var(--eve-font-code);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-transform: none;
+}
+
+
+
+/* â”€â”€ Franja ubicaciÃ³n + catÃ¡logo â”€â”€ */
+
+.workmapUbicacionBand {
+
+  display: grid;
+
+  grid-template-columns: auto minmax(0, 1fr);
+
+  grid-template-rows: auto;
+
+  column-gap: 20px;
+
+  align-items: start;
+
+  margin-bottom: clamp(48px, 8vh, 96px);
+
+  max-width: 100%;
+
+}
+
+
+
+.workmapUbicacionLeft {
+
+  grid-column: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: clamp(16px, 2vh, 24px);
+
+  min-width: 0;
+
+  max-width: 34ch;
+
+}
+
+
+
+.workmapUbicacionQuestion {
+
+  margin: 0;
+
+  width: max-content;
+
+  max-width: 34ch;
+
+  color: var(--eve-ink, #12141a);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  line-height: 1.45;
+
+  text-transform: uppercase;
+
+}
+
+
+
+.workmapUbicacionStack {
+
+  width: 100%;
+
+  min-width: 0;
+
+}
+
+
+
+.workmapUbicacionSelected {
+
+  display: block;
+
+  width: 100%;
+
+  margin: 0 0 12px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--eve-mist, #7a8190);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 9px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.08em;
+
+  line-height: 1.35;
+
+  text-transform: uppercase;
+
+  text-align: left;
+
+  padding: 0;
+
+  cursor: pointer;
+
+  transition: color 180ms ease;
+
+}
+
+
+
+.workmapUbicacionSelected:hover {
+
+  color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapUbicacionSelectedOn {
+
+  color: var(--eve-ink, #12141a);
+
+  font-weight: 600;
+
+}
+
+
+
+.workmapUbicacionSelectedFocus {
+
+  font-weight: 700;
+
+}
+
+
+
+.workmapUbicacionOther {
+
+  display: none;
+
+}
+
+
+
+.workmapUbicacionWhisper {
+
+  margin: 24px 0 0;
+
+  color: var(--eve-ink, #12141a);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 7px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.12em;
+
+  line-height: 1.75;
+
+  text-transform: uppercase;
+
+  max-width: 38ch;
+
+  transition: color 480ms ease, opacity 480ms ease;
+
+}
+
+
+
+.workmapUbicacionWhisperSettled {
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 52%, transparent);
+
+}
+
+
+
+.workmapCatalogItem:disabled {
+
+  opacity: 0.35;
+
+  cursor: not-allowed;
+
+  color: var(--eve-mist, #7a8190);
+
+}
+
+
+
+.workmapCatalogToggle:disabled {
+
+  color: var(--eve-mist, #7a8190);
+
+}
+
+
+
+.workmapCatalogItem:hover,
+
+.workmapCatalogItem:focus-visible {
+
+  color: var(--eve-ink, #12141a);
+
+  outline: none;
+
+}
+
+
+
+.workmapCustomAreaPending {
+
+  margin: 0 0 12px;
+
+}
+
+
+
+.workmapCustomAreaBlock {
+
+  margin-top: 20px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+}
+
+
+
+.workmapCustomAreaInput {
+
+  width: min(100%, 300px);
+
+  min-height: 36px;
+
+  border: 0;
+
+  border-bottom: 1px solid var(--eve-line, #d8dce2);
+
+  background: transparent;
+
+  color: var(--eve-ink, #12141a);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 9px;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+
+  outline: none;
+
+}
+
+
+
+.workmapCustomAreaInput:focus {
+
+  border-bottom-color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapCustomAreaAdd {
+
+  border: 0;
+
+  background: transparent;
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 68%, transparent);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 7px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+
+  padding: 0;
+
+  cursor: pointer;
+
+}
+
+
+
+.workmapCustomAreaAdd:hover {
+
+  color: var(--eve-ink, #12141a);
+
+}
+
+
+
+/* â”€â”€ Columnas de rol (opciÃ³n B) â”€â”€ */
+
+.workmapRolesColumns {
+
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  gap: clamp(120px, 18vw, 280px);
+
+  align-items: start;
+
+  max-width: 100%;
+
+  margin-bottom: 120px;
+
+}
+
+
+
+.workmapRolesColumnsTriple {
+
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+
+}
+
+
+
+.workmapRoleCol {
+
+  min-width: 0;
+
+  max-width: 420px;
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+
+
+.workmapRoleCol:nth-child(1) {
+
+  justify-self: start;
+
+}
+
+
+
+.workmapRoleCol:nth-child(2) {
+
+  justify-self: end;
+
+}
+
+
+
+.workmapRolesColumnsTriple .workmapRoleCol:nth-child(2) {
+
+  justify-self: center;
+
+}
+
+
+
+.workmapRolesColumnsTriple .workmapRoleCol:nth-child(3) {
+
+  justify-self: end;
+
+}
+
+
+
+.workmapSingleAreaSpread {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: clamp(72px, 10vh, 120px);
+
+  margin-bottom: 120px;
+
+}
+
+
+
+.workmapSingleAreaSpread .workmapRolesColumns {
+
+  margin-bottom: 0;
+
+}
+
+
+
+.workmapRedactionField {
+
+  overflow-y: hidden;
+
+  resize: none;
+
+  scrollbar-width: thin;
+
+  scrollbar-color: color-mix(in srgb, var(--eve-mist, #7a8190) 28%, transparent) transparent;
+
+}
+
+
+
+.workmapRedactionField::-webkit-scrollbar {
+
+  width: 3px;
+
+}
+
+
+
+.workmapRedactionField::-webkit-scrollbar-track {
+
+  background: transparent;
+
+}
+
+
+
+.workmapRedactionField::-webkit-scrollbar-thumb {
+
+  background: color-mix(in srgb, var(--eve-mist, #7a8190) 32%, transparent);
+
+  border-radius: 999px;
+
+}
+
+
+
+.workmapRedactionField::-webkit-scrollbar-button {
+
+  display: none;
+
+  height: 0;
+
+  width: 0;
+
+}
+
+
+
+.workmapRoleColMuted {
+
+  opacity: 0.72;
+
+}
+
+
+
+.workmapRoleName {
+
+  margin: 0 0 20px;
+
+  font-family: var(--eve-font-code);
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapRoleNameReserved {
+
+  visibility: hidden;
+
+}
+
+
+
+.workmapRoleColMuted .workmapRoleName {
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 75%, var(--eve-ink, #12141a));
+
+}
+
+
+
+.workmapRoleFields {
+
+  margin-bottom: 36px;
+
+  width: 100%;
+
+}
+
+
+
+.workmapRedactionFieldBlock {
+
+  margin-bottom: 36px;
+
+  width: 100%;
+
+}
+
+
+
+.workmapRedactionFieldBlock .workmapRoleResponse,
+.workmapRedactionFieldBlock .workmapRoleActivity {
+
+  margin-bottom: 0;
+
+}
+
+
+
+.workmapRoleQuestion {
+
+  margin: 0 0 18px;
+
+  font-family: var(--eve-font-code);
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  line-height: 1.45;
+
+  text-transform: uppercase;
+
+  color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapRoleColMuted .workmapRoleQuestion {
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 60%, transparent);
+
+}
+
+
+
+.workmapRoleResponse,
+.workmapRoleActivity {
+
+  font-family: var(--eve-font-code);
+
+  font-size: 8px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.12em;
+
+  line-height: 1.75;
+
+  text-transform: uppercase;
+
+  color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapRoleResponse {
+
+  width: 100%;
+
+  margin: 0 0 36px;
+
+  min-height: 48px;
+
+  border: 0;
+
+  background: transparent;
+
+  text-align: left;
+
+  resize: none;
+
+  outline: none;
+
+  padding: 0;
+
+}
+
+
+
+.workmapRoleResponseEmpty,
+.workmapRoleResponseEmpty::placeholder {
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 68%, transparent);
+
+}
+
+
+
+.workmapRoleResponseEmpty.workmapRoleRedactionExample,
+.workmapRoleResponseEmpty.workmapRoleRedactionExample::placeholder {
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 52%, transparent);
+
+  opacity: 1;
+
+}
+
+
+
+.workmapRoleActsQuestion {
+
+  margin: 0 0 20px;
+
+  font-family: var(--eve-font-code);
+
+  font-size: 8px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapRoleColMuted .workmapRoleActsQuestion {
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 55%, transparent);
+
+}
+
+
+
+.workmapRoleActivity {
+
+  width: 100%;
+
+  margin: 0;
+
+  min-height: 44px;
+
+  border: 0;
+
+  background: transparent;
+
+  text-align: left;
+
+  resize: none;
+
+  outline: none;
+
+  padding: 0;
+
+}
+
+
+
+.workmapRoleActivityEmpty,
+.workmapRoleActivityEmpty::placeholder {
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 68%, transparent);
+
+}
+
+
+
+.workmapRoleActivityEmpty.workmapRoleRedactionExample,
+.workmapRoleActivityEmpty.workmapRoleRedactionExample::placeholder {
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 52%, transparent);
+
+  opacity: 1;
+
+}
+
+
+
+.workmapRoleMore {
+
+  border: 0;
+
+  background: transparent;
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 62%, transparent);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 7px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+
+  padding: 0;
+
+  cursor: pointer;
+
+}
+
+
+
+.workmapRoleMore:hover {
+
+  color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapNeedWhisper {
+
+  margin: 0;
+
+  max-width: 38ch;
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 52%, transparent);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 7px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.1em;
+
+  line-height: 1.65;
+
+  text-transform: uppercase;
+
+  text-align: left;
+
+}
+
+
+
+.workmapAreaBlock {
+
+  display: none;
+
+}
+
+
+
+.workmapAreaDivider {
+
+  width: min(100%, 120px);
+
+  height: 1px;
+
+  margin: 72px 0 64px;
+
+  background: var(--eve-line, #d8dce2);
+
+}
+
+
+
+.workmapInscription {
+
+  margin-bottom: 48px;
+
+  text-align: left;
+
+}
+
+
+
+.workmapInscriptionQuestion {
+
+  margin: 0 0 22px;
+
+  color: var(--eve-ink, #12141a);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  line-height: 1.45;
+
+  text-transform: uppercase;
+
+  max-width: 40ch;
+
+}
+
+
+
+.workmapInscriptionField {
+
+  width: 100%;
+
+  margin: 0;
+
+  min-height: 52px;
+
+  border: 0;
+
+  border-bottom: 1px solid var(--eve-line, #d8dce2);
+
+  background: transparent;
+
+  color: var(--eve-ink, #12141a);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 13px;
+
+  font-weight: 500;
+
+  line-height: 1.55;
+
+  text-align: left;
+
+  resize: none;
+
+  outline: none;
+
+  padding: 0 0 12px;
+
+  transition: border-color 180ms ease;
+
+}
+
+
+
+.workmapInscriptionField:focus {
+
+  border-bottom-color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapFieldNeedsReview {
+
+  color: var(--eve-accent, #5c7d8f);
+
+}
+
+
+
+.workmapActivityStack {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 28px;
+
+  width: 100%;
+
+}
+
+
+
+.workmapActivityItem {
+
+  width: 100%;
+
+}
+
+
+
+.workmapFieldHint {
+
+  margin: 12px 0 0;
+
+  color: var(--eve-mist, #7a8190);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 11px;
+
+  line-height: 1.45;
+
+  text-align: left;
+
+}
+
+
+
+.workmapFieldAssist {
+
+  margin: 10px 0 0;
+
+  width: 100%;
+
+  max-width: 100%;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--eve-workmap-assist, #c98900);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 8px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.12em;
+
+  line-height: 1.75;
+
+  text-transform: uppercase;
+
+  text-align: left;
+
+}
+
+
+
+.workmapFieldAssistSoft {
+
+  color: var(--eve-workmap-assist-bright, #e5a000);
+
+  font-weight: 500;
+
+}
+
+
+
+.workmapFieldAssistReview {
+
+  color: var(--eve-workmap-assist, #c98900);
+
+  font-weight: 600;
+
+}
+
+
+
+.workmapFieldAssistWarning {
+
+  color: var(--eve-workmap-assist-deep, #a86f00);
+
+  font-weight: 600;
+
+}
+
+
+
+.workmapFieldHintReview {
+
+  color: var(--eve-ink, #12141a);
+
+  font-weight: 600;
+
+}
+
+
+
+.workmapFieldHintWarning {
+
+  color: var(--eve-mist, #7a8190);
+
+}
+
+
+
+.workmapFieldHintCoverage {
+
+  margin: 12px 0 0;
+
+  color: var(--eve-mist, #7a8190);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 8px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+
+  line-height: 1.45;
+
+  text-transform: uppercase;
+
+}
+
+
+
+.workmapInlineActions {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: flex-start;
+
+  gap: 24px 32px;
+
+  margin-top: 20px;
+
+}
+
+
+
+.workmapInlineAction {
+
+  border: 0;
+
+  background: transparent;
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 48%, transparent);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 7px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+
+  padding: 0;
+
+  cursor: pointer;
+
+}
+
+
+
+.workmapInlineAction:hover {
+
+  color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapRemoveAction {
+
+  display: block;
+
+  margin: 10px 0 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 62%, transparent);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 7px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+
+  padding: 0;
+
+  cursor: pointer;
+
+}
+
+
+
+.workmapRemoveAction:hover {
+
+  color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapMonumentFooter {
+
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: space-between;
+
+  align-items: flex-end;
+
+  gap: 24px;
+
+  padding-top: 32px;
+
+  max-width: 100%;
+
+}
+
+
+
+.workmapStatusNote {
+
+  margin: 0;
+
+  max-width: 38ch;
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 52%, transparent);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 7px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.1em;
+
+  line-height: 1.65;
+
+  text-transform: uppercase;
+
+  text-align: left;
+
+}
+
+
+
+.workmapStatusNoteAlert {
+
+  color: var(--eve-ink, #12141a);
+
+  font-weight: 600;
+
+}
+
+
+
+.workmapTrace {
+
+  border: 0;
+
+  background: transparent;
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 68%, transparent);
+
+  font-family: var(--eve-font-code);
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+
+  padding: 0;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+}
+
+
+
+.workmapTrace:disabled {
+
+  opacity: 0.5;
+
+  cursor: not-allowed;
+
+}
+
+
+
+/* ── Portal ayuda rol funcional (opción 1 · edges / opción 2 · void total) ── */
+
+.workmapRoleHelpTrigger {
+
+  display: inline;
+
+  vertical-align: baseline;
+
+  margin: 0 0 0 2px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 42%, var(--eve-ink, #12141a));
+
+  font-family: inherit;
+
+  font-size: inherit;
+
+  font-weight: 500;
+
+  letter-spacing: 0.18em;
+
+  line-height: inherit;
+
+  cursor: pointer;
+
+  transition: color 160ms ease;
+
+}
+
+
+
+.workmapRoleHelpTrigger:hover {
+
+  color: var(--eve-ink, #12141a);
+
+}
+
+
+
+.workmapRoleHelpTrigger:focus-visible {
+
+  color: var(--eve-ink, #12141a);
+
+  outline: 1px solid color-mix(in srgb, var(--eve-mist, #7a8190) 45%, transparent);
+
+  outline-offset: 2px;
+
+}
+
+
+
+.workmapRoleHelpTrigger:disabled {
+
+  opacity: 0.45;
+
+  cursor: not-allowed;
+
+}
+
+
+
+.workmapRoleHelpTriggerVoid {
+
+  position: absolute;
+
+  top: 0;
+
+  right: 0;
+
+  margin: 0;
+
+  z-index: 2;
+
+}
+
+
+
+
+
+.workmapRoleHelpOverlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1200;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+
+  max-width: 100vw;
+
+  height: 100%;
+
+  max-height: 100dvh;
+
+  overflow: hidden;
+
+  overflow-x: clip;
+
+  box-sizing: border-box;
+
+}
+
+
+
+/* --- Opcion 1: edges --- */
+
+.workmapRoleHelpOverlayEdges {
+
+  background: transparent;
+
+}
+
+
+
+.workmapRoleHelpStage {
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: min(480px, 92vw);
+
+  max-width: 100%;
+
+  min-height: min(420px, 72dvh);
+
+  padding: 48px 32px 52px;
+
+  overflow: hidden;
+
+  overflow-x: clip;
+
+  box-sizing: border-box;
+
+}
+
+
+
+.workmapRoleHelpMaterialityRing {
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  overflow-x: clip;
+
+  transform-origin: 50% 50%;
+
+}
+
+
+
+.workmapRoleHelpOverlayEdges.workmapRoleHelpPhaseEntering .workmapRoleHelpMaterialityRing {
+
+  animation: workmapRoleHelpEdgesRingEnter 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
+
+}
+
+
+
+.workmapRoleHelpOverlayEdges.workmapRoleHelpPhaseExiting .workmapRoleHelpMaterialityRing {
+
+  animation: workmapRoleHelpEdgesRingExit 480ms ease-in both;
+
+}
+
+
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardT1 { top: 4px; left: 2%; max-width: 30%; }
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardT2 { top: 0; left: 22%; max-width: 28%; }
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardT3 { top: 6px; left: 44%; max-width: 24%; }
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardT4 { top: 0; right: 18%; max-width: 26%; }
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardT5 { top: 4px; right: 0; max-width: 22%; }
+
+
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardB1 { bottom: 0; left: 0; max-width: 34%; }
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardB2 { bottom: 6px; left: 26%; max-width: 30%; }
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardB3 { bottom: 0; left: 52%; max-width: 24%; }
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardB4 { bottom: 4px; right: 0; max-width: 28%; }
+
+
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardL1 {
+
+  top: 14%;
+
+  left: 0;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  transform: rotate(180deg);
+
+  letter-spacing: 0.12em;
+
+  white-space: nowrap;
+
+}
+
+
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardL2 {
+
+  top: 44%;
+
+  left: 0;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  transform: rotate(180deg);
+
+  font-size: 6px;
+
+  letter-spacing: 0.1em;
+
+  white-space: nowrap;
+
+}
+
+
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardL3 {
+
+  bottom: 16%;
+
+  left: 0;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  transform: rotate(180deg);
+
+  white-space: nowrap;
+
+}
+
+
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardR1 {
+
+  top: 18%;
+
+  right: 0;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  letter-spacing: 0.11em;
+
+  white-space: nowrap;
+
+}
+
+
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardR2 {
+
+  top: 50%;
+
+  right: 0;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  font-size: 6px;
+
+  white-space: nowrap;
+
+}
+
+
+
+.workmapRoleHelpMaterialityRing .workmapRoleHelpShardR3 {
+
+  bottom: 20%;
+
+  right: 0;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  white-space: nowrap;
+
+}
+
+
+
+/* --- Opcion 2: void total --- */
+
+.workmapRoleHelpOverlayVoidTotal {
+
+  padding: 24px;
+
+}
+
+
+
+.workmapRoleHelpVoidSheet {
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  background: var(--eve-sheet, #fafbfc);
+
+}
+
+
+
+.workmapRoleHelpOverlayVoidTotal.workmapRoleHelpPhaseOpen .workmapRoleHelpVoidSheet {
+
+  opacity: 1;
+
+}
+
+
+
+.workmapRoleHelpOverlayVoidTotal.workmapRoleHelpPhaseEntering .workmapRoleHelpVoidSheet {
+
+  animation: workmapRoleHelpVoidIn 360ms ease-out forwards;
+
+}
+
+
+
+.workmapRoleHelpOverlayVoidTotal.workmapRoleHelpPhaseExiting .workmapRoleHelpVoidSheet {
+
+  animation: workmapRoleHelpVoidOut 280ms ease-in forwards;
+
+}
+
+
+
+.workmapRoleHelpMaterialityViewport {
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  overflow-x: clip;
+
+  transform-origin: 50% 50%;
+
+}
+
+
+
+.workmapRoleHelpOverlayVoidTotal.workmapRoleHelpPhaseEntering .workmapRoleHelpMaterialityViewport {
+
+  animation: workmapRoleHelpPushOut 640ms cubic-bezier(0.33, 1, 0.32, 1) forwards;
+
+}
+
+
+
+.workmapRoleHelpOverlayVoidTotal.workmapRoleHelpPhaseExiting .workmapRoleHelpMaterialityViewport {
+
+  animation: workmapRoleHelpPullIn 480ms cubic-bezier(0.33, 1, 0.32, 1) forwards;
+
+}
+
+
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardT1 { top: 7%; left: 5%; max-width: min(28vw, 220px); }
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardT2 { top: 5%; left: 24%; max-width: min(28vw, 220px); }
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardT3 { top: 8%; left: 46%; max-width: min(24vw, 200px); }
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardT4 { top: 5%; right: 20%; max-width: min(26vw, 210px); }
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardT5 { top: 7%; right: 5%; max-width: min(22vw, 180px); }
+
+
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardB1 { bottom: 8%; left: 5%; max-width: min(28vw, 220px); }
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardB2 { bottom: 6%; left: 26%; max-width: min(28vw, 220px); }
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardB3 { bottom: 8%; left: 52%; max-width: min(24vw, 200px); }
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardB4 { bottom: 6%; right: 5%; max-width: min(28vw, 220px); }
+
+
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardL1 {
+
+  top: 18%;
+
+  left: 2%;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  transform: rotate(180deg);
+
+  letter-spacing: 0.12em;
+
+  white-space: nowrap;
+
+}
+
+
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardL2 {
+
+  top: 44%;
+
+  left: 2%;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  transform: rotate(180deg);
+
+  font-size: 6px;
+
+  letter-spacing: 0.1em;
+
+  white-space: nowrap;
+
+}
+
+
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardL3 {
+
+  bottom: 16%;
+
+  left: 2%;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  transform: rotate(180deg);
+
+  white-space: nowrap;
+
+}
+
+
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardR1 {
+
+  top: 20%;
+
+  right: 2%;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  letter-spacing: 0.11em;
+
+  white-space: nowrap;
+
+}
+
+
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardR2 {
+
+  top: 50%;
+
+  right: 2%;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  font-size: 6px;
+
+  white-space: nowrap;
+
+}
+
+
+
+.workmapRoleHelpMaterialityViewport .workmapRoleHelpShardR3 {
+
+  bottom: 18%;
+
+  right: 2%;
+
+  max-width: none;
+
+  writing-mode: vertical-rl;
+
+  white-space: nowrap;
+
+}
+
+
+
+/* --- Contenido compartido (misma composicion en ambas opciones) --- */
+
+.workmapRoleHelpStack {
+
+  position: relative;
+
+  z-index: 2;
+
+  width: min(420px, 90vw);
+
+  max-width: 100%;
+
+  margin: 0;
+
+  padding: 0 16px;
+
+  box-sizing: border-box;
+
+}
+
+
+
+.workmapRoleHelpStackVoidTotal {
+
+  width: min(420px, 90%);
+
+  padding: 0;
+
+}
+
+
+
+.workmapRoleHelpPhaseEntering .workmapRoleHelpStack {
+
+  animation: workmapRoleHelpStackEnter 360ms ease-out both;
+
+}
+
+
+
+.workmapRoleHelpPhaseOpen .workmapRoleHelpStack {
+
+  opacity: 1;
+
+  transform: none;
+
+}
+
+
+
+.workmapRoleHelpPhaseExiting .workmapRoleHelpStack {
+
+  animation: workmapRoleHelpStackExit 220ms ease-in both;
+
+}
+
+
+
+.workmapRoleHelpShard {
+
+  position: absolute;
+
+  margin: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-family: var(--font-eve-mono, "IBM Plex Mono"), "Consolas", monospace;
+
+  font-size: 7px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.08em;
+
+  line-height: 1;
+
+  text-transform: uppercase;
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 78%, transparent);
+
+}
+
+
+
+.workmapRoleHelpShardNear {
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 52%, var(--eve-ink, #12141a));
+
+  font-weight: 500;
+
+}
+
+
+
+.workmapRoleHelpSrTitle {
+
+  position: absolute;
+
+  width: 1px;
+
+  height: 1px;
+
+  padding: 0;
+
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+
+  border: 0;
+
+}
+
+
+
+.workmapRoleHelpInscription {
+
+  margin: 0 0 28px;
+
+  max-width: 100%;
+
+  overflow-wrap: anywhere;
+
+  font-size: 11px;
+
+  font-weight: 400;
+
+  font-style: normal;
+
+  letter-spacing: 0;
+
+  line-height: 1.22;
+
+  text-transform: none;
+
+  color: var(--eve-ink, #12141a);
+
+  text-align: left;
+
+  font-variant-ligatures: none;
+
+  font-feature-settings: "liga" 0, "calt" 0;
+
+  -webkit-font-smoothing: antialiased;
+
+}
+
+
+
+.workmapRoleHelpInscription:last-of-type {
+
+  margin-bottom: 0;
+
+}
+
+
+
+.workmapRoleHelpClose {
+
+  display: block;
+
+  margin: 36px 0 0;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  font-size: 7px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+
+  color: color-mix(in srgb, var(--eve-mist, #7a8190) 62%, transparent);
+
+  cursor: pointer;
+
+}
+
+
+
+@keyframes workmapRoleHelpEdgesRingEnter {
+
+  from {
+
+    opacity: 0;
+
+    transform: scale(0.78);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: scale(1);
+
+  }
+
+}
+
+
+
+@keyframes workmapRoleHelpEdgesRingExit {
+
+  from {
+
+    opacity: 1;
+
+    transform: scale(1);
+
+  }
+
+  to {
+
+    opacity: 0;
+
+    transform: scale(1.14);
+
+  }
+
+}
+
+
+
+@keyframes workmapRoleHelpVoidIn {
+
+  0% { opacity: 0; }
+
+  35% { opacity: 0.35; }
+
+  100% { opacity: 1; }
+
+}
+
+
+
+@keyframes workmapRoleHelpVoidOut {
+
+  from { opacity: 1; }
+
+  to { opacity: 0; }
+
+}
+
+
+
+@keyframes workmapRoleHelpPushOut {
+
+  0% {
+
+    opacity: 0.9;
+
+    transform: scale(0.38);
+
+  }
+
+  45% {
+
+    opacity: 0.62;
+
+    transform: scale(1);
+
+  }
+
+  100% {
+
+    opacity: 0;
+
+    transform: scale(1.62);
+
+  }
+
+}
+
+
+
+@keyframes workmapRoleHelpPullIn {
+
+  0% {
+
+    opacity: 0;
+
+    transform: scale(1.62);
+
+  }
+
+  50% {
+
+    opacity: 0.58;
+
+    transform: scale(1);
+
+  }
+
+  100% {
+
+    opacity: 0;
+
+    transform: scale(0.38);
+
+  }
+
+}
+
+
+
+@keyframes workmapRoleHelpStackEnter {
+
+  0%, 22% {
+
+    opacity: 0;
+
+    transform: translateY(4px);
+
+  }
+
+  100% {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
+}
+
+
+
+@keyframes workmapRoleHelpStackExit {
+
+  from {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
+  to {
+
+    opacity: 0;
+
+    transform: translateY(4px);
+
+  }
+
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .workmapRoleHelpOverlay,
+  .workmapRoleHelpOverlay * {
+
+    animation: none !important;
+
+    transition: none !important;
+
+  }
+
+  .workmapRoleHelpPhaseOpen .workmapRoleHelpStack {
+
+    opacity: 1;
+
+    transform: none;
+
+  }
+
+  .workmapRoleHelpOverlayVoidTotal.workmapRoleHelpPhaseOpen .workmapRoleHelpVoidSheet {
+
+    opacity: 1;
+
+  }
+
+}
+
+
+@media (max-width: 900px) {
+
+  .workmapUbicacionBand {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+
+  .workmapUbicacionLeft,
+
+  .workmapCatalogVoid {
+
+    grid-column: 1;
+
+  }
+
+
+
+  .workmapUbicacionLeft {
+
+    grid-row: 1;
+
+  }
+
+
+
+  .workmapCatalogVoid {
+
+    grid-row: 2;
+
+    min-height: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+  }
+
+
+
+  .workmapCatalogItem {
+
+    position: static;
+
+    max-width: none;
+
+  }
+
+  .workmapCatalogUnlistedInput {
+    position: static;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .workmapCatalogVoidWhisper {
+    position: static;
+    max-width: none;
+  }
+
+
+
+  .workmapRolesColumns,
+
+  .workmapRolesColumnsTriple,
+
+  .workmapSingleAreaSpread .workmapRolesColumns {
+
+    grid-template-columns: 1fr;
+
+    gap: 48px;
+
+  }
+
+
+
+  .workmapSingleAreaSpread {
+
+    gap: 48px;
+
+  }
+
+
+
+  .workmapRoleCol,
+
+  .workmapRoleCol:nth-child(2),
+
+  .workmapRolesColumnsTriple .workmapRoleCol:nth-child(2),
+
+  .workmapRolesColumnsTriple .workmapRoleCol:nth-child(3) {
+
+    justify-self: start;
+
+    max-width: 100%;
+
+  }
+
+
+
+  .workmapMonumentFooter {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+}
+
+

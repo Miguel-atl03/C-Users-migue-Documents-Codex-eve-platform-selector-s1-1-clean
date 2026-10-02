@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Mapa de trabajo · mock v5 · cadena causal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+        MOCK v5 — cadena causal (no inventario)
+
+        Análisis de necesidad (estado: parcialmente lleno):
+        ─────────────────────────────────────────────────
+        Hero de marca          → NO. Solo al inicio del lienzo.
+        Foto umbral            → NO en esta propuesta. Compite con void.
+        ¿Dónde participa…?     → NO como pregunta activa. Ya eligió áreas;
+                                 esa pregunta pertenece al momento de marcar.
+        Catálogo de 11 áreas   → NO. Inventario = formulario. Solo marcas hechas.
+        Whisper pedagógico     → NO aquí. Útil al elegir áreas, no al grabar.
+        Spine / franjas / líneas → NO. Decoración sin causalidad.
+        Contadores 01/02       → NO. Meta de UI, no del trabajo.
+        Room mark              → SÍ, mínimo. Orienta sala sin monumento.
+        Marcas de área hechas  → SÍ, periféricas. Evidencia de dónde.
+        De qué respondes…      → SÍ. Pregunta causal activa.
+        Texto responsabilidad  → SÍ. Marca grabada.
+        Qué haces…             → SÍ. Consecuencia de la responsabilidad.
+        Actividades            → SÍ. Una grabada, una pendiente.
+        2ª área con form       → NO. Rompe void; solo presencia.
+        + Agregar actividad    → SÍ, susurro. Extiende la cadena si hace falta.
+        Regla de validación    → SOLO junto a Guardar incompleto (necesidad).
+        Guardar                → SÍ. Cierra cuando la cadena mínima existe.
+
+        Causalidad UX:
+          dónde (ya marcado) → de qué respondes → qué haces → guardar
+        El void central es el espacio de observación; el contenido no lo llena.
+      */
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1200px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .mark {
+        position: absolute;
+        top: 40px;
+        left: 64px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .session {
+        position: absolute;
+        top: 40px;
+        right: 64px;
+        text-align: right;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 1.9;
+      }
+
+      .room {
+        position: absolute;
+        top: 120px;
+        left: 64px;
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 70%, transparent);
+      }
+
+      /* Evidencia de DÓNDE — solo lo ya marcado, no el catálogo */
+      .where {
+        position: absolute;
+        top: 168px;
+        right: 64px;
+        text-align: right;
+      }
+
+      .where-k {
+        margin: 0 0 14px;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+
+      .where-area {
+        margin: 0;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        line-height: 2;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .where-area.is-focus {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .where-change {
+        margin: 18px 0 0;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 45%, transparent);
+      }
+
+      /*
+        Cadena activa — una sola área en foco.
+        Lectura: pregunta → marca → consecuencia.
+        Sin apilar un segundo formulario.
+      */
+      .cause {
+        position: absolute;
+        top: 320px;
+        left: 120px;
+        width: 520px;
+      }
+
+      .cause-q {
+        margin: 0 0 28px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 40ch;
+      }
+
+      .cause-mark {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.55;
+        color: var(--eve-ink);
+        max-width: 42ch;
+      }
+
+      /* Consecuencia — isla separada por void, no debajo en stack de form */
+      .effect {
+        position: absolute;
+        top: 520px;
+        right: 160px;
+        width: 400px;
+        text-align: right;
+      }
+
+      .effect-q {
+        margin: 0 0 28px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .effect-act {
+        margin: 0 0 48px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+      }
+
+      .effect-pending {
+        margin: 0 0 20px;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+      }
+
+      .effect-more {
+        margin: 0;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 48%, transparent);
+      }
+
+      /* 2ª área elegida: presencia, no captura simultánea */
+      .dormant {
+        position: absolute;
+        bottom: 200px;
+        left: 120px;
+        max-width: 28ch;
+      }
+
+      .dormant-k {
+        margin: 0 0 10px;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 48%, transparent);
+      }
+
+      .dormant-name {
+        margin: 0;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 75%, var(--eve-ink));
+      }
+
+      .footer {
+        position: absolute;
+        left: 120px;
+        right: 64px;
+        bottom: 56px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .need {
+        margin: 0;
+        max-width: 36ch;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        line-height: 1.65;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 52%, transparent);
+      }
+
+      .trace {
+        border: 0;
+        background: transparent;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 16px;
+        left: 64px;
+        font-size: 6px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 45%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Mock v5 — Mapa · cadena causal">
+      <span class="mark">EVE<sup>™</sup></span>
+      <div class="session">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <p class="room">[ Mapa de tu trabajo ]</p>
+
+      <!-- DÓNDE ya decidido: evidencia, no menú -->
+      <aside class="where" aria-label="Áreas ya marcadas">
+        <p class="where-k">Dónde</p>
+        <p class="where-area is-focus">Operaciones / Producción</p>
+        <p class="where-area">Ventas / Comercial</p>
+        <p class="where-change">¿Dónde participa tu trabajo?</p>
+      </aside>
+
+      <!-- CAUSA activa -->
+      <section class="cause">
+        <p class="cause-q">De qué respondes en Operaciones / Producción</p>
+        <p class="cause-mark">
+          Asegurar que la línea de ensamble cumpla el plan diario de producción sin
+          detener entregas.
+        </p>
+      </section>
+
+      <!-- EFECTO: qué haces — isla separada por void -->
+      <section class="effect">
+        <p class="effect-q">Qué haces para cumplirlo</p>
+        <p class="effect-act">
+          1. Revisar el tablero de órdenes y liberar la secuencia del turno.
+        </p>
+        <p class="effect-pending">2. Redacta una actividad concreta de tu trabajo</p>
+        <p class="effect-more">+ Agregar otra actividad</p>
+      </section>
+
+      <!-- Siguiente eslabón de la cadena: aún no abierto -->
+      <aside class="dormant">
+        <p class="dormant-name">De qué respondes en Ventas / Comercial</p>
+      </aside>
+
+      <footer class="footer">
+        <p class="need">
+          Escribe al menos una responsabilidad y dos actividades por cada área elegida.
+        </p>
+        <button class="trace" type="button">Guardar</button>
+      </footer>
+
+      <p class="proposal-tag">
+        Mock v5 · mapa · cadena causal · sin inventario · sin hero · copy oficial
+      </p>
+    </section>
+  </body>
+</html>

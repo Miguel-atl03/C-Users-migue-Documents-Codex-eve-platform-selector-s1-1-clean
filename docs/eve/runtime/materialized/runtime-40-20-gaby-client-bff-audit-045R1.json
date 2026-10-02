@@ -1,0 +1,94 @@
+{
+  "instruction": "045-R1",
+  "artifact": "runtime-40-20-gaby-client-bff-audit-045R1",
+  "audit_mode": "read_only_checkout",
+  "bff_candidate_status": "implemented_but_not_integrated_with_current_gaby_question_flow",
+  "route_inventory_evidence": [
+    "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff-types.ts:243-284"
+  ],
+  "routes": [
+    {
+      "route": "/api/eve/runtime-40-20/client-bff/state",
+      "method": "GET",
+      "caller_found_in_live_ui": false,
+      "input": "tenant_id, case_id, correlation_id",
+      "writes": "none in route",
+      "evidence": [
+        "src/app/api/eve/runtime-40-20/client-bff/state/route.ts:11-44"
+      ],
+      "status": "candidate_only"
+    },
+    {
+      "route": "/api/eve/runtime-40-20/client-bff/session",
+      "method": "GET",
+      "caller_found_in_live_ui": false,
+      "input": "tenant_id, case_id, optional role_id/activity_id/run_id, correlation_id",
+      "auth": "Bearer token and eve_can_access_case",
+      "writes": "possible local runtime writes when local flags enabled",
+      "evidence": [
+        "src/app/api/eve/runtime-40-20/client-bff/session/route.ts:21-119"
+      ],
+      "status": "candidate_partial"
+    },
+    {
+      "route": "/api/eve/runtime-40-20/client-bff/interaction",
+      "method": "GET",
+      "caller_found_in_live_ui": false,
+      "input": "tenant_id, case_id, role_id, activity_id, run_id, correlation_id",
+      "auth": "Bearer token and eve_can_access_case",
+      "writes": "possible local runtime writes when local flags enabled",
+      "evidence": [
+        "src/app/api/eve/runtime-40-20/client-bff/interaction/route.ts:18-115"
+      ],
+      "status": "candidate_partial"
+    },
+    {
+      "route": "/api/eve/runtime-40-20/client-bff/answer",
+      "method": "POST",
+      "caller_found_in_live_ui": false,
+      "input": "tenant_id, case_id, role_id, activity_id, run_id, correlation_id, idempotency_key, answer_payload",
+      "auth": "Bearer token and eve_can_access_case",
+      "writes": "possible local runtime writes when local flags enabled",
+      "evidence": [
+        "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts:23-190"
+      ],
+      "status": "candidate_partial_security_guard_failing"
+    },
+    {
+      "route": "/api/eve/runtime-40-20/client-bff/review",
+      "method": "GET",
+      "caller_found_in_live_ui": false,
+      "input": "tenant_id, case_id, role_id, activity_id, run_id, correlation_id",
+      "writes": "none in route",
+      "evidence": [
+        "src/app/api/eve/runtime-40-20/client-bff/review/route.ts:13-80"
+      ],
+      "status": "candidate_only"
+    },
+    {
+      "route": "/api/eve/runtime-40-20/client-bff/experience-event",
+      "method": "POST",
+      "caller_found_in_live_ui": true,
+      "input": "caseId, screenKey, eventType, requestId, idempotencyKey, sessionReference, roleRuntimeSessionId, activityId, sourceVersion, metadata",
+      "auth": "Bearer token; Supabase RPC eve_record_experience_event_as_user",
+      "writes": "RPC writes or rejects an experience event",
+      "evidence": [
+        "src/app/page.tsx:721-763",
+        "src/app/api/eve/runtime-40-20/client-bff/experience-event/route.ts:32-144"
+      ],
+      "status": "real_called_boundary_for_workmap_events_only"
+    }
+  ],
+  "security_guard": {
+    "classification": "security_boundary_violation_confirmed",
+    "test": "node --test src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff.test.mjs",
+    "result": "38_pass_1_fail",
+    "failing_control": "Import guard: BFF source files contain no forbidden imports.",
+    "failure": "Forbidden import pattern /from\\s+['\"][^'\"]*supabase/i found in src/app/api/eve/runtime-40-20/client-bff/answer/route.ts: import { createAuthenticatedServerSupabaseClient } from \"@/lib/supabase-server\";",
+    "guard_evidence": [
+      "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff.test.mjs:300-339",
+      "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts:2"
+    ]
+  },
+  "conclusion": "The BFF route family exists, but the current Gaby question path does not call state/session/interaction/answer/review. The only live call is experience-event for workmap telemetry. The answer route also violates its import guard."
+}

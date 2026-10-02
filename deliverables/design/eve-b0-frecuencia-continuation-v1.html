@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+      FREEZE APROBADO · BUILD 1.3
+      B0 · Continuación Frecuencia
+      Portado a: LocalB0FrecuenciaSection (lienzo local).
+      Misma estructura triangular de Cómo ocurre.
+      Columnas: max-width 16ch (igual que sección anterior).
+      Sin intro III · Frecuencia.
+
+      Q1 frecuencia → selección múltiple
+      Q2 situación → opciones + "Otro" → libre
+      Q3 actor → opciones + "Otro" → libre
+
+      Motion: preguntas solo aparecen (sin typewriter).
+      ?phase=frequency · ?demo=0
+    -->
+    <title>EVE — B0 · Frecuencia continuación · v1.3 (APROBADO)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #9aa1ab;
+        --eve-mist-deep: #7a8190;
+        --eve-line: #d8dce2;
+        --font-mono: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-mono);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .build {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 30;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .screen {
+        position: relative;
+        width: 100%;
+        max-width: 1440px;
+        min-height: calc(
+          clamp(280px, 32vh, 360px) + clamp(480px, 52vh, 580px) +
+            clamp(64px, 6vh, 88px)
+        );
+        margin: 0 auto;
+        padding-bottom: clamp(64px, 6vh, 88px);
+        background: var(--eve-sheet);
+      }
+
+      .signal {
+        position: absolute;
+        top: clamp(320px, 36vh, 420px);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(420px, 38vw);
+        max-width: 52ch;
+        z-index: 2;
+        text-align: center;
+        pointer-events: none;
+      }
+
+      .narrative {
+        margin: 0;
+        text-align: left;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.55;
+        color: var(--eve-mist-deep);
+        outline: none;
+      }
+
+      .narrative.is-anchor {
+        color: var(--eve-mist);
+      }
+
+      .field {
+        position: absolute;
+        top: clamp(200px, 24vh, 280px);
+        left: clamp(24px, 5vw, 72px);
+        right: clamp(24px, 5vw, 72px);
+        min-height: clamp(480px, 52vh, 580px);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(180px, 24vw, 360px);
+        align-items: start;
+      }
+
+      .column {
+        min-width: 0;
+        max-width: 16ch;
+      }
+
+      .column-left {
+        display: flex;
+        flex-direction: column;
+        gap: 56px;
+        justify-self: start;
+      }
+
+      .column-right {
+        text-align: right;
+        justify-self: end;
+      }
+
+      .column-right .q-block {
+        margin-left: auto;
+      }
+
+      .field.is-scene-void .column-left,
+      .field.is-scene-void .column-right .q-block {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .field.is-scene-void .scene-toggle {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .field.is-frequency .q-block {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .field.is-frequency.is-frequency-ready .q-block {
+        opacity: 1;
+        visibility: visible;
+        transition:
+          opacity 280ms ease,
+          visibility 280ms ease;
+      }
+
+      .q-block {
+        max-width: 16ch;
+        width: 100%;
+      }
+
+      .q-label {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .column-right .q-label {
+        text-align: right;
+      }
+
+      /* Opciones como inscripciones mist → ink (sin chips / radios) */
+      .opt-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .column-right .opt-list {
+        align-items: flex-end;
+      }
+
+      .opt {
+        border: 0;
+        background: transparent;
+        padding: 2px 0;
+        font-family: inherit;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        line-height: 1.4;
+        color: var(--eve-mist);
+        text-align: inherit;
+        cursor: pointer;
+        transition:
+          color 280ms ease,
+          font-weight 180ms ease;
+      }
+
+      .opt:hover {
+        color: var(--eve-ink);
+      }
+
+      .opt.is-active {
+        color: var(--eve-ink);
+        font-weight: 700;
+      }
+
+      .opt:disabled {
+        cursor: default;
+        opacity: 0.55;
+      }
+
+      .free-slot {
+        margin-top: 14px;
+        display: none;
+      }
+
+      .free-slot.is-open {
+        display: block;
+      }
+
+      .q-value {
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+        min-height: 2.4em;
+        width: 100%;
+        outline: none;
+        white-space: pre-wrap;
+        word-break: break-word;
+        text-align: inherit;
+      }
+
+      .q-value.is-empty::before {
+        content: attr(data-placeholder);
+        color: var(--eve-mist);
+        pointer-events: none;
+      }
+
+      .scene-toggle {
+        display: block;
+        width: 100%;
+        margin: 28px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        line-height: 1.45;
+        color: var(--eve-mist);
+        text-align: right;
+        cursor: pointer;
+        transition: color 220ms ease;
+      }
+
+      .scene-toggle.is-ready {
+        color: var(--eve-ink);
+      }
+
+      .scene-toggle:hover:not(:disabled) {
+        color: var(--eve-ink);
+      }
+
+      .scene-toggle:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      .closure-hint {
+        margin: 12px 0 0;
+        font-size: 7px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        text-align: right;
+        opacity: 0;
+      }
+
+      .closure-hint.is-visible {
+        opacity: 1;
+      }
+
+      .ops-notify {
+        position: fixed;
+        left: 24px;
+        bottom: 24px;
+        z-index: 20;
+        max-width: 48ch;
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 400ms ease;
+      }
+
+      .ops-notify.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .replay {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 20;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 400ms ease,
+          color 200ms ease;
+      }
+
+      .replay.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 900px) {
+        .screen {
+          min-height: auto;
+          padding: 72px 24px 120px;
+        }
+
+        .field,
+        .signal {
+          position: static;
+          transform: none;
+          width: auto;
+          margin: 0 0 40px;
+        }
+
+        .field {
+          display: block;
+          min-height: 0;
+        }
+
+        .column,
+        .column-left,
+        .column-right {
+          max-width: none;
+        }
+
+        .column-right {
+          text-align: left;
+          margin-top: 48px;
+        }
+
+        .column-right .q-block {
+          margin-left: 0;
+          max-width: none;
+        }
+
+        .column-right .q-label,
+        .column-right .opt-list,
+        .scene-toggle,
+        .closure-hint {
+          text-align: left;
+          align-items: flex-start;
+        }
+
+        .signal {
+          max-width: 52ch;
+          margin: 24px 0 40px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .field.is-frequency.is-frequency-ready .q-block,
+        .ops-notify,
+        .replay,
+        .opt {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="build" id="build">BUILD 1.3 · CONTINUACIÓN · FRECUENCIA</p>
+
+    <main class="screen is-scene-void" id="screen" aria-label="B0 · continuidad frecuencia">
+      <div class="signal" id="signal" aria-live="polite">
+        <p class="narrative" id="narrative">
+          Cuando el pedido ya tiene cotización aceptada y datos fiscales, solicito y
+          envío la factura de anticipo o de finiquito; el resultado pasa a cobranza
+          o a la ruta de entrega según el caso.
+        </p>
+      </div>
+
+      <section class="field is-scene-void" id="field">
+        <div class="column column-left" aria-label="Frecuencia y situación">
+          <article class="q-block" data-freq="frequency_base" id="block-q1">
+            <p class="q-label">
+              Con qué frecuencia ocurre normalmente esta escena?
+            </p>
+            <div
+              class="opt-list"
+              id="opts-frequency"
+              role="radiogroup"
+              aria-label="Con qué frecuencia ocurre normalmente esta escena"
+            ></div>
+          </article>
+
+          <article class="q-block" data-freq="typical_context" id="block-q2">
+            <p class="q-label">En qué situación suele pasar</p>
+            <div
+              class="opt-list"
+              id="opts-context"
+              role="radiogroup"
+              aria-label="En qué situación suele pasar"
+            ></div>
+            <div class="free-slot" id="free-context">
+              <div
+                class="q-value is-empty"
+                contenteditable="false"
+                data-placeholder="Describe la situación…"
+                id="value-context-other"
+                role="textbox"
+                aria-label="Situación — otro"
+              ></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="column column-right" aria-label="Actor y cierre">
+          <article class="q-block" data-freq="primary_actor_scope" id="block-q3">
+            <p class="q-label">
+              ¿Quién la hace normalmente o sobre quién recae directamente?
+            </p>
+            <div
+              class="opt-list"
+              id="opts-actor"
+              role="radiogroup"
+              aria-label="Quién la hace normalmente o sobre quién recae directamente"
+            ></div>
+            <div class="free-slot" id="free-actor">
+              <div
+                class="q-value is-empty"
+                contenteditable="false"
+                data-placeholder="Describe sobre quién recae…"
+                id="value-actor-other"
+                role="textbox"
+                aria-label="Actor — otro"
+              ></div>
+            </div>
+          </article>
+
+          <button class="scene-toggle is-ready" id="scene-toggle" type="button">
+            guardar
+          </button>
+          <p class="closure-hint" id="closure-hint"></p>
+        </div>
+      </section>
+    </main>
+
+    <p class="ops-notify" id="ops-notify" role="status" aria-live="polite"></p>
+    <button class="replay" id="replay" type="button">Volver a redacción guardada</button>
+
+    <script>
+      const BUILD = "1.3";
+      const STORAGE_KEY = "eve-b0-frecuencia-continuation-v1";
+
+      const FREQUENCY_OPTIONS = [
+        "Varias veces al día",
+        "Diaria",
+        "Varias veces por semana",
+        "Semanal",
+        "Varias veces al mes",
+        "Mensual",
+        "Solo en cierre",
+        "Solo ante contingencias",
+        "Irregular",
+        "Estacional",
+      ];
+
+      const CONTEXT_OPTIONS = [
+        "Al iniciar el turno",
+        "Cuando entra una solicitud",
+        "Al cierre de mes",
+        "Después de una aprobación",
+        "Cuando falta información",
+        "Cuando alguien pide corrección",
+        "Otro",
+      ];
+
+      const ACTOR_OPTIONS = [
+        "Yo mismo",
+        "Mi equipo",
+        "Otra persona del equipo",
+        "Otro equipo",
+        "Un sistema con intervención humana",
+        "Es compartida",
+        "Otro",
+      ];
+
+      const DEMO = {
+        frequency_base: "Bajo demanda / irregular",
+        /* demo preselects option ids, not free text */
+        frequency_option: "Irregular",
+        context_option: "Después de una aprobación",
+        actor_option: "Yo mismo",
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const fillDemo = params.get("demo") !== "0";
+      const startFrequency = params.get("phase") === "frequency";
+
+      const screenEl = document.getElementById("screen");
+      const fieldEl = document.getElementById("field");
+      const narrativeEl = document.getElementById("narrative");
+      const sceneToggle = document.getElementById("scene-toggle");
+      const closureHint = document.getElementById("closure-hint");
+      const opsNotify = document.getElementById("ops-notify");
+      const replayEl = document.getElementById("replay");
+
+      const optsFrequency = document.getElementById("opts-frequency");
+      const optsContext = document.getElementById("opts-context");
+      const optsActor = document.getElementById("opts-actor");
+      const freeContext = document.getElementById("free-context");
+      const freeActor = document.getElementById("free-actor");
+      const valueContextOther = document.getElementById("value-context-other");
+      const valueActorOther = document.getElementById("value-actor-other");
+
+      /** narrative_saved | frequency | frequency_saved */
+      let phase = "narrative_saved";
+      let frequencyChoice = null;
+      let contextChoice = null;
+      let actorChoice = null;
+
+      function syncEmpty(el) {
+        const text = (el.textContent || "").replace(/\u200b/g, "").trim();
+        el.classList.toggle("is-empty", text.length === 0);
+      }
+
+      function read(el) {
+        return (el.textContent || "").replace(/\u200b/g, "").trim();
+      }
+
+      function setNotify(text) {
+        opsNotify.textContent = text;
+        opsNotify.classList.toggle("is-visible", Boolean(text));
+      }
+
+      function mountOptions(container, options, groupName) {
+        container.innerHTML = "";
+        options.forEach((label) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "opt";
+          btn.textContent = label;
+          btn.dataset.value = label;
+          btn.dataset.group = groupName;
+          btn.setAttribute("role", "radio");
+          btn.setAttribute("aria-checked", "false");
+          container.appendChild(btn);
+        });
+      }
+
+      function setActiveInGroup(container, value) {
+        Array.from(container.querySelectorAll(".opt")).forEach((btn) => {
+          const active = btn.dataset.value === value;
+          btn.classList.toggle("is-active", active);
+          btn.setAttribute("aria-checked", active ? "true" : "false");
+        });
+      }
+
+      function clearGroup(container) {
+        Array.from(container.querySelectorAll(".opt")).forEach((btn) => {
+          btn.classList.remove("is-active");
+          btn.setAttribute("aria-checked", "false");
+          btn.disabled = false;
+        });
+      }
+
+      function disableGroups(disabled) {
+        [optsFrequency, optsContext, optsActor].forEach((container) => {
+          Array.from(container.querySelectorAll(".opt")).forEach((btn) => {
+            btn.disabled = disabled;
+          });
+        });
+        valueContextOther.contentEditable = disabled ? "false" : "true";
+        valueActorOther.contentEditable = disabled ? "false" : "true";
+      }
+
+      function resolvedContext() {
+        if (!contextChoice) return "";
+        if (contextChoice === "Otro") return read(valueContextOther);
+        return contextChoice;
+      }
+
+      function resolvedActor() {
+        if (!actorChoice) return "";
+        if (actorChoice === "Otro") return read(valueActorOther);
+        return actorChoice;
+      }
+
+      function canCloseFrequency() {
+        if (!frequencyChoice) return false;
+        if (!contextChoice) return false;
+        if (contextChoice === "Otro" && !read(valueContextOther)) return false;
+        if (!actorChoice) return false;
+        if (actorChoice === "Otro" && !read(valueActorOther)) return false;
+        return true;
+      }
+
+      function refreshFrequencyClosure() {
+        if (phase !== "frequency") return;
+        const ready = canCloseFrequency();
+        sceneToggle.disabled = !ready;
+        sceneToggle.classList.toggle("is-ready", ready);
+        if (!ready) {
+          closureHint.classList.add("is-visible");
+          if (!frequencyChoice) {
+            closureHint.textContent = "Elige con qué frecuencia ocurre";
+          } else if (!contextChoice) {
+            closureHint.textContent = "Elige en qué situación suele pasar";
+          } else if (contextChoice === "Otro" && !read(valueContextOther)) {
+            closureHint.textContent = "Describe la situación (otro)";
+          } else if (!actorChoice) {
+            closureHint.textContent = "Elige sobre quién recae";
+          } else if (actorChoice === "Otro" && !read(valueActorOther)) {
+            closureHint.textContent = "Describe sobre quién recae (otro)";
+          } else {
+            closureHint.textContent = "Completa las tres piezas";
+          }
+        } else {
+          closureHint.classList.remove("is-visible");
+        }
+      }
+
+      function selectFrequency(value) {
+        if (phase !== "frequency") return;
+        frequencyChoice = value;
+        setActiveInGroup(optsFrequency, value);
+        refreshFrequencyClosure();
+      }
+
+      function selectContext(value) {
+        if (phase !== "frequency") return;
+        contextChoice = value;
+        setActiveInGroup(optsContext, value);
+        const isOther = value === "Otro";
+        freeContext.classList.toggle("is-open", isOther);
+        valueContextOther.contentEditable = isOther ? "true" : "false";
+        if (!isOther) {
+          valueContextOther.textContent = "";
+          syncEmpty(valueContextOther);
+        } else {
+          valueContextOther.focus();
+        }
+        refreshFrequencyClosure();
+      }
+
+      function selectActor(value) {
+        if (phase !== "frequency") return;
+        actorChoice = value;
+        setActiveInGroup(optsActor, value);
+        const isOther = value === "Otro";
+        freeActor.classList.toggle("is-open", isOther);
+        valueActorOther.contentEditable = isOther ? "true" : "false";
+        if (!isOther) {
+          valueActorOther.textContent = "";
+          syncEmpty(valueActorOther);
+        } else {
+          valueActorOther.focus();
+        }
+        refreshFrequencyClosure();
+      }
+
+      function enterNarrativeSaved() {
+        phase = "narrative_saved";
+        frequencyChoice = null;
+        contextChoice = null;
+        actorChoice = null;
+
+        screenEl.classList.add("is-scene-void");
+        fieldEl.className = "field is-scene-void";
+        narrativeEl.classList.remove("is-anchor");
+
+        clearGroup(optsFrequency);
+        clearGroup(optsContext);
+        clearGroup(optsActor);
+        freeContext.classList.remove("is-open");
+        freeActor.classList.remove("is-open");
+        valueContextOther.textContent = "";
+        valueActorOther.textContent = "";
+        syncEmpty(valueContextOther);
+        syncEmpty(valueActorOther);
+        valueContextOther.contentEditable = "false";
+        valueActorOther.contentEditable = "false";
+        closureHint.classList.remove("is-visible");
+
+        sceneToggle.textContent = "guardar";
+        sceneToggle.disabled = false;
+        sceneToggle.classList.add("is-ready");
+        sceneToggle.setAttribute(
+          "aria-label",
+          "Guardar redacción suficiente y pasar a frecuencia",
+        );
+
+        setNotify("Ops · redacción suficiente en void · Guardar → frecuencia");
+        replayEl.classList.add("is-visible");
+      }
+
+      function enterFrequency() {
+        phase = "frequency";
+        frequencyChoice = null;
+        contextChoice = null;
+        actorChoice = null;
+
+        screenEl.classList.remove("is-scene-void");
+        fieldEl.className = "field is-frequency";
+        narrativeEl.classList.add("is-anchor");
+
+        clearGroup(optsFrequency);
+        clearGroup(optsContext);
+        clearGroup(optsActor);
+        freeContext.classList.remove("is-open");
+        freeActor.classList.remove("is-open");
+        valueContextOther.textContent = "";
+        valueActorOther.textContent = "";
+        syncEmpty(valueContextOther);
+        syncEmpty(valueActorOther);
+        disableGroups(false);
+
+        if (fillDemo) {
+          selectFrequency(DEMO.frequency_option);
+          selectContext(DEMO.context_option);
+          selectActor(DEMO.actor_option);
+        }
+
+        sceneToggle.textContent = "Así es · Guardar";
+        sceneToggle.setAttribute("aria-label", "Confirmar anclaje de frecuencia");
+        sceneToggle.disabled = true;
+        sceneToggle.classList.remove("is-ready");
+
+        setNotify(
+          "Ops · frecuencia · opciones aparecen · redacción ancla al centro",
+        );
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (phase !== "frequency") return;
+            fieldEl.classList.add("is-frequency-ready");
+            refreshFrequencyClosure();
+          });
+        });
+
+        replayEl.classList.add("is-visible");
+      }
+
+      function saveFrequency() {
+        if (!canCloseFrequency()) return;
+        phase = "frequency_saved";
+        disableGroups(true);
+        sceneToggle.disabled = true;
+        sceneToggle.classList.add("is-ready");
+        closureHint.classList.remove("is-visible");
+
+        const payload = {
+          build: BUILD,
+          frequency_base: frequencyChoice,
+          typical_context: resolvedContext(),
+          typical_context_option: contextChoice,
+          primary_actor_scope: resolvedActor(),
+          primary_actor_option: actorChoice,
+          narrative_anchor: read(narrativeEl),
+        };
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        } catch (_) {}
+
+        setNotify(
+          "Ops · B0-Q03 cerrado · continuidad triangular · listo para B0.5",
+        );
+      }
+
+      function onToggle() {
+        if (phase === "narrative_saved") {
+          enterFrequency();
+          return;
+        }
+        if (phase === "frequency") {
+          saveFrequency();
+        }
+      }
+
+      function bind() {
+        sceneToggle.addEventListener("click", onToggle);
+
+        optsFrequency.addEventListener("click", (event) => {
+          const btn = event.target.closest(".opt");
+          if (!btn || btn.disabled) return;
+          selectFrequency(btn.dataset.value);
+        });
+        optsContext.addEventListener("click", (event) => {
+          const btn = event.target.closest(".opt");
+          if (!btn || btn.disabled) return;
+          selectContext(btn.dataset.value);
+        });
+        optsActor.addEventListener("click", (event) => {
+          const btn = event.target.closest(".opt");
+          if (!btn || btn.disabled) return;
+          selectActor(btn.dataset.value);
+        });
+
+        [valueContextOther, valueActorOther].forEach((el) => {
+          el.addEventListener("input", () => {
+            syncEmpty(el);
+            refreshFrequencyClosure();
+          });
+          el.addEventListener("blur", () => syncEmpty(el));
+        });
+
+        replayEl.addEventListener("click", () => {
+          fieldEl.classList.remove("is-frequency-ready");
+          enterNarrativeSaved();
+        });
+      }
+
+      mountOptions(optsFrequency, FREQUENCY_OPTIONS, "frequency");
+      mountOptions(optsContext, CONTEXT_OPTIONS, "context");
+      mountOptions(optsActor, ACTOR_OPTIONS, "actor");
+      bind();
+
+      document.getElementById("build").textContent =
+        "BUILD " + BUILD + " · CONTINUACIÓN · FRECUENCIA";
+
+      if (startFrequency) {
+        enterFrequency();
+      } else {
+        enterNarrativeSaved();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,2829 @@
+{
+  "artifact_id": "EVE-PR3-AUTHORITATIVE-PERSISTENCE-MAPPING-v1.3",
+  "supersedes": "EVE-PR3-AUTHORITATIVE-PERSISTENCE-MAPPING-v1.2",
+  "state": "LOGICAL_FIELD_LEVEL_MAPPING_COMPLETE_WITH_COMMAND_RECEIPT__PHYSICAL_SHAPE_DEFERRED",
+  "source_design_ref": "EVE-PR3-CLEAN-PERSISTENCE-MINIMUM-B0-B2-v1.0",
+  "authority": "PROMPT PR3 v1.2.1 + promoted B0-B2 contracts/profiles",
+  "legacy_policy": "LEGACY_EVIDENCE_NOT_BASELINE; no reuse/extension by default",
+  "physical_storage_decision": "DEFERRED_TO_P2",
+  "logical_record_count": 32,
+  "physical_options_not_yet_decided": [
+    "one-record-type-per-table",
+    "shared event tables with discriminators",
+    "partitioned event stores",
+    "hybrid normalized/jsonb representation"
+  ],
+  "decision_rule_for_P2": "Choose physical layout only after proving field preservation, constraints, transaction boundaries, RLS and replay/reentry; physical optimization may not merge semantic authorities or erase revision/provenance.",
+  "canonical_mapping_rules": [
+    "Every logical field has an explicit source path or derivation rule.",
+    "A field absent from source remains absent/unknown; downstream may not manufacture it.",
+    "Response corrections append a revision and supersede; no overwrite.",
+    "Context-only upstream fields never become captured evidence by transport.",
+    "AI proposal/candidate never maps to EvidenceItem unless competent confirmation creates new admissible evidence.",
+    "Release/receipt/consumption remain three separate HandoffEvent records.",
+    "B0.5/B1 zero-generative-call policy is represented as execution constraint, not inferred from missing AI rows."
+  ],
+  "logical_records": [
+    {
+      "logical_record": "AuthorityArtifact",
+      "identity_key_ref": "AUTHORITY_ARTIFACT_KEY",
+      "semantics": "Versioned immutable authority artifact identity; not a physical file store.",
+      "source_authority": "A02 Object Registry + promoted bytes",
+      "fields": [
+        {
+          "field": "artifact_id",
+          "source_path": "A02.transversal_authorities.*.id OR A02.objects.* source artifact IDs",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "artifact_class",
+          "source_path": "derived from registry slot",
+          "mapping_rule": "ENUM_BY_REGISTRY_SLOT",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "revision",
+          "source_path": "source revision/version",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "sha256",
+          "source_path": "source SHA-256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "authority_domain",
+          "source_path": "registry/source authority domain",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "state",
+          "source_path": "source promotion/governance state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "source_locator",
+          "source_path": "promoted/master artifact locator",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        }
+      ],
+      "field_count": 7,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "ContractSet",
+      "identity_key_ref": "CONTRACT_SET_KEY",
+      "semantics": "Immutable ordered authority set bound to one production object.",
+      "source_authority": "A02 + A02A",
+      "fields": [
+        {
+          "field": "contract_set_id",
+          "source_path": "A02.objects[*].contract_set_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_key",
+          "source_path": "A02.objects[*].object_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "hash_profile_ref",
+          "source_path": "A02A.artifact_id",
+          "mapping_rule": "CONSTANT_REF",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "contract_set_sha256",
+          "source_path": "A02.objects[*].contract_set_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "ordered_member_refs",
+          "source_path": "A02.objects[*].contract_members",
+          "mapping_rule": "PRESERVE_ORDER",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "member_count",
+          "source_path": "len(A02.objects[*].contract_members)",
+          "mapping_rule": "COUNT",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "state",
+          "source_path": "A02.state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 7,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "ObjectBinding",
+      "identity_key_ref": "OBJECT_BINDING_KEY",
+      "semantics": "Exact promoted object/profile/runtime binding. Technical only; no semantic rewrite.",
+      "source_authority": "A02 Object Registry",
+      "fields": [
+        {
+          "field": "object_binding_id",
+          "source_path": "A07.technical_identity.OBJECT_BINDING_KEY",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_key",
+          "source_path": "A02.objects[*].object_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "profile_id",
+          "source_path": "A02.objects[*].profile_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "profile_revision",
+          "source_path": "A02.objects[*].profile_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "profile_sha256",
+          "source_path": "A02.objects[*].profile_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "mother_contract_id",
+          "source_path": "A02.objects[*].mother_contract_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "mother_contract_revision",
+          "source_path": "A02.objects[*].mother_contract_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "mother_contract_sha256",
+          "source_path": "A02.objects[*].mother_contract_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "runtime_artifact",
+          "source_path": "A02.objects[*].runtime_artifact",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "runtime_sha256",
+          "source_path": "A02.objects[*].runtime_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "promotion_receipt",
+          "source_path": "A02.objects[*].promotion_receipt",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "promotion_receipt_sha256",
+          "source_path": "A02.objects[*].promotion_receipt_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "contract_set_id",
+          "source_path": "A02.objects[*].contract_set_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "current_state",
+          "source_path": "A02.objects[*].current_state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "ai_policy",
+          "source_path": "A02.objects[*].ai_policy",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 15,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "ChainDefinition",
+      "identity_key_ref": "CHAIN_DEFINITION_KEY",
+      "semantics": "Immutable production-chain graph and transition contract.",
+      "source_authority": "A03 ChainDefinition",
+      "fields": [
+        {
+          "field": "chain_definition_id",
+          "source_path": "A03.chain_definition_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "revision",
+          "source_path": "A03.revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "scope",
+          "source_path": "A03.scope",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "nodes",
+          "source_path": "A03.nodes",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "edges",
+          "source_path": "A03.edges",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "next_resolution",
+          "source_path": "A03.next_resolution",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "retry_policy",
+          "source_path": "A03.retry_policy",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "reentry_policy",
+          "source_path": "A03.reentry_policy",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "persistence_ref",
+          "source_path": "A03.persistence_ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "definition_sha256",
+          "source_path": "A03.sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 10,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "CaseScope",
+      "identity_key_ref": "CASE_SCOPE_KEY",
+      "semantics": "Case-level boundary for one PR3 pilot scope.",
+      "source_authority": "Authorized WorkMap/BFF scope context",
+      "fields": [
+        {
+          "field": "case_id",
+          "source_path": "authorized product scope.case_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "tenant_id",
+          "source_path": "authorized product scope.tenant_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "company_id",
+          "source_path": "authorized product scope.company_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "scope_revision",
+          "source_path": "authorized product scope.revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "state",
+          "source_path": "authorized product scope.state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "opened_at",
+          "source_path": "server case opening receipt.timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 6,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "Participant",
+      "identity_key_ref": "PARTICIPANT_KEY",
+      "semantics": "Actor identity used for provenance; does not imply role identity.",
+      "source_authority": "Authenticated/authorized product context",
+      "fields": [
+        {
+          "field": "participant_id",
+          "source_path": "authorized product scope.participant_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "case_id",
+          "source_path": "authorized product scope.case_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "auth_actor_ref",
+          "source_path": "authenticated server context.actor_ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "participant_type",
+          "source_path": "authorized participant context.type",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "source_ref",
+          "source_path": "authorized participant source ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 5,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "RoleAssignment",
+      "identity_key_ref": "ROLE_ASSIGNMENT_KEY",
+      "semantics": "Assignment of a participant to the role observed in this run.",
+      "source_authority": "Authorized WorkMap/role context",
+      "fields": [
+        {
+          "field": "role_assignment_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "case_id",
+          "source_path": "authorized role context.case_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "participant_id",
+          "source_path": "authorized role context.participant_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "role_id",
+          "source_path": "authorized role context.role_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "role_label",
+          "source_path": "authorized role context.role_label",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "assignment_revision",
+          "source_path": "authorized role context.revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "state",
+          "source_path": "authorized role context.state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 7,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "Activity",
+      "identity_key_ref": "ACTIVITY_KEY",
+      "semantics": "Selected activity as upstream scope, before B0 semantic capture.",
+      "source_authority": "WorkMap authoritative activity context",
+      "fields": [
+        {
+          "field": "activity_id",
+          "source_path": "WorkMap activity.activity_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "role_id",
+          "source_path": "authorized role context.role_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "activity_literal",
+          "source_path": "WorkMap activity.literal",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "workmap_revision",
+          "source_path": "WorkMap activity.source_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "source_ref",
+          "source_path": "WorkMap activity.source_ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "selection_state",
+          "source_path": "WorkMap activity.selection_state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 6,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "ChainRun",
+      "identity_key_ref": "CHAIN_RUN_KEY",
+      "semantics": "One governed B0→B2 execution attempt; retry reuses identity, explicit new run increments ordinal.",
+      "source_authority": "Execution Runtime + A07",
+      "fields": [
+        {
+          "field": "chain_run_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "chain_definition_id",
+          "source_path": "A03.chain_definition_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "chain_definition_revision",
+          "source_path": "A03.revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "case_id",
+          "source_path": "CaseScope.case_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "participant_id",
+          "source_path": "Participant.participant_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "role_id",
+          "source_path": "RoleAssignment.role_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "activity_id",
+          "source_path": "Activity.activity_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "run_ordinal",
+          "source_path": "server allocated new-run ordinal",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "state",
+          "source_path": "Execution Runtime chain state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "Execution Runtime chain context revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "created_at",
+          "source_path": "server receipt.timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "completed_at",
+          "source_path": "Execution Runtime completion timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        }
+      ],
+      "field_count": 12,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "ObjectRun",
+      "identity_key_ref": "OBJECT_RUN_KEY",
+      "semantics": "Execution envelope for exactly one promoted block inside ChainRun.",
+      "source_authority": "A02/A03 + promoted runtime",
+      "fields": [
+        {
+          "field": "object_run_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "chain_run_id",
+          "source_path": "ChainRun.chain_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_key",
+          "source_path": "A03.nodes[*].object_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "contract_set_id",
+          "source_path": "A03.nodes[*].binding_contract_set_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "profile_id",
+          "source_path": "A02.objects[object_key].profile_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "profile_revision",
+          "source_path": "A02.objects[object_key].profile_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "profile_sha256",
+          "source_path": "A02.objects[object_key].profile_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "local_run_id",
+          "source_path": "promoted runtime local run id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "execution_ordinal",
+          "source_path": "A07 fixed ordinal within chain run",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "state",
+          "source_path": "promoted runtime state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "promoted runtime context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "started_at",
+          "source_path": "server runtime start timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "completed_at",
+          "source_path": "server runtime completion timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        }
+      ],
+      "field_count": 13,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "InteractionInstance",
+      "identity_key_ref": "INTERACTION_KEY",
+      "semantics": "One Runtime interaction opening. Preserves local identity and adds reproducible PR3 technical key.",
+      "source_authority": "Promoted runtime identity ledgers",
+      "fields": [
+        {
+          "field": "interaction_key",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "local_interaction_instance_id",
+          "source_path": "promoted runtime interaction_instance_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "runtime_definition_id",
+          "source_path": "promoted runtime runtime_id/interaction_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "definition_revision",
+          "source_path": "promoted runtime definition_revision/revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "promoted runtime context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "bucket",
+          "source_path": "promoted runtime budget_bucket/bucket",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "request envelope.idempotency_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "charge_event_id",
+          "source_path": "promoted runtime charge_event_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "state",
+          "source_path": "promoted runtime interaction state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "opening_ordinal",
+          "source_path": "A07 opening ordinal",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "opened_at",
+          "source_path": "promoted runtime opened_at",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "shown_at",
+          "source_path": "promoted runtime shown_at",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "completed_at",
+          "source_path": "promoted runtime completed_at",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        }
+      ],
+      "field_count": 14,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "PresentationEvent",
+      "identity_key_ref": "PRESENTATION_EVENT_KEY",
+      "semantics": "What the user was actually shown, separately from response/evidence.",
+      "source_authority": "Execution Runtime/BFF; B2 UI interaction contract",
+      "fields": [
+        {
+          "field": "presentation_event_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "InteractionInstance.interaction_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "target_id",
+          "source_path": "UI interaction/subfield target",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "presentation_mode",
+          "source_path": "runtime presentation_mode/static|ai_rendered|safe_fallback",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "rendered_text",
+          "source_path": "EVE-approved rendered/canonical text",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "current runtime context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "proposal_ref",
+          "source_path": "AIProposal.proposal_id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "admission_ref",
+          "source_path": "AdmissionDecision.admission_decision_id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "shown_at",
+          "source_path": "server/UI presentation receipt.timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 10,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "ResponseEvent",
+      "identity_key_ref": "RESPONSE_KEY",
+      "semantics": "Immutable response revision; correction creates successor row.",
+      "source_authority": "UI/BFF response contract + promoted runtime",
+      "fields": [
+        {
+          "field": "response_key",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "local_response_id",
+          "source_path": "promoted runtime response_id/response_event_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "InteractionInstance.interaction_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "subfield_id",
+          "source_path": "response contract.subfield_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "question_code",
+          "source_path": "response contract.question_code",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "raw_value",
+          "source_path": "response literal_or_value/raw_value",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "raw_literal",
+          "source_path": "response raw literal",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "user_action",
+          "source_path": "response contract.user_action",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "response_revision",
+          "source_path": "response contract.response_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "supersedes_response_key",
+          "source_path": "prior ResponseEvent.response_key",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "clarification_of_response_key",
+          "source_path": "prior ResponseEvent.response_key",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "knowledge_basis",
+          "source_path": "response contract.knowledge_basis",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "source_actor_ref",
+          "source_path": "authenticated provenance.actor_ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "provenance",
+          "source_path": "response contract.provenance",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "request envelope.idempotency_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "payload_sha256",
+          "source_path": "A07 canonical payload hash",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "received_at",
+          "source_path": "server receipt.timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "status",
+          "source_path": "runtime response admission state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 19,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "EvidenceItem",
+      "identity_key_ref": "EVIDENCE_KEY",
+      "semantics": "User-grounded evidence only; AI proposal/candidate never maps here without competent confirmation.",
+      "source_authority": "Promoted runtime epistemic policy",
+      "fields": [
+        {
+          "field": "evidence_id",
+          "source_path": "promoted runtime evidence_id OR A07 technical fallback",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "response_key",
+          "source_path": "ResponseEvent.response_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "question_code",
+          "source_path": "ResponseEvent.question_code",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "variable_id",
+          "source_path": "promoted runtime canonical target/variable id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "literal_or_value",
+          "source_path": "admissible user-grounded value/literal",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "knowledge_basis",
+          "source_path": "ResponseEvent.knowledge_basis",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "epistemic_class",
+          "source_path": "runtime epistemic admission result",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "provenance",
+          "source_path": "ResponseEvent.provenance",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "revision",
+          "source_path": "ResponseEvent.response_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "current",
+          "source_path": "derived from supersession chain",
+          "mapping_rule": "DERIVE_NO_OVERWRITE",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 11,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "CanonicalVariableRecord",
+      "identity_key_ref": "CANONICAL_VARIABLE_KEY",
+      "semantics": "Versioned material/canonical state, separated from evidence and candidate.",
+      "source_authority": "Promoted profile/mapping rules",
+      "fields": [
+        {
+          "field": "variable_record_id",
+          "source_path": "A07 technical derivation or local promoted variable ID",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "variable_id",
+          "source_path": "promoted profile canonical_variable_output/variable",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "value",
+          "source_path": "captured/derived value",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "value_state",
+          "source_path": "resolved|unknown|unresolved|not_applicable as authorized",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "epistemic_class",
+          "source_path": "captured_user_evidence|canonical_derivation|candidate etc",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "evidence_refs",
+          "source_path": "supporting EvidenceItem IDs",
+          "mapping_rule": "PRESERVE_ORDER_OR_SET_PER_PROFILE",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "derivation_rule_ref",
+          "source_path": "promoted rule_ref",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "source_response_key",
+          "source_path": "ResponseEvent.response_key",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "revision",
+          "source_path": "variable revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "current",
+          "source_path": "supersession current marker",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 12,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "CandidateRecord",
+      "identity_key_ref": "CANDIDATE_KEY",
+      "semantics": "Candidate remains distinct from evidence until authorized confirmation.",
+      "source_authority": "Promoted B0/B2 AI/candidate contracts",
+      "fields": [
+        {
+          "field": "candidate_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "target_id",
+          "source_path": "promoted target/canonical variable",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "proposed_value",
+          "source_path": "AI/deterministic candidate value",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "origin",
+          "source_path": "ai_proposed_candidate|eve_derived_candidate|structural_candidate",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "source_refs",
+          "source_path": "evidence/context refs",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "status",
+          "source_path": "proposed|confirmed|rejected|unresolved",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "revision",
+          "source_path": "candidate revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 9,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "BranchDecision",
+      "identity_key_ref": "BRANCH_DECISION_KEY",
+      "semantics": "Deterministic branch result; UI cannot author it.",
+      "source_authority": "Promoted runtime branching rules",
+      "fields": [
+        {
+          "field": "branch_decision_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "rule_ref",
+          "source_path": "promoted branch rule id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "input_refs",
+          "source_path": "canonical variable/evidence refs",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "tri_state",
+          "source_path": "TRUE|FALSE|UNKNOWN where applicable",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "target_ref",
+          "source_path": "activated/suppressed runtime target",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "outcome",
+          "source_path": "activate|suppress|hold|reentry",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "decided_at",
+          "source_path": "server decision timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 9,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "BudgetLedger",
+      "identity_key_ref": "BUDGET_LEDGER_KEY",
+      "semantics": "40+20 and reentry accounting; replay/correction do not silently recharge.",
+      "source_authority": "Promoted runtime ledgers",
+      "fields": [
+        {
+          "field": "budget_event_id",
+          "source_path": "charge_event_id OR A07 technical reentry event id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "InteractionInstance.interaction_key",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "bucket",
+          "source_path": "base_40|causal_20|internal_no_count|exceptional_reentry",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "delta",
+          "source_path": "1 for legitimate opening; 0 for replay/correction/internal",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "request envelope.idempotency_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "reason",
+          "source_path": "opening|replay|correction|reentry",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "recorded_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 8,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "GapRecord",
+      "identity_key_ref": "GAP_KEY",
+      "semantics": "Explicit unresolved/ambiguous/contradictory condition; absence is not false.",
+      "source_authority": "Promoted runtime gaps/reentry contracts",
+      "fields": [
+        {
+          "field": "gap_id",
+          "source_path": "promoted runtime gap id OR A07 technical derivation",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "gap_type",
+          "source_path": "promoted gap type",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "target_ref",
+          "source_path": "promoted target ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "severity",
+          "source_path": "promoted severity if defined",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "reason",
+          "source_path": "promoted reason/detail",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "owner",
+          "source_path": "causal owner",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "reentry_target",
+          "source_path": "authorized reentry target",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "dependent_set",
+          "source_path": "causally dependent refs",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "state",
+          "source_path": "open|closed|transported",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "created_at",
+          "source_path": "server/runtime timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "resolved_at",
+          "source_path": "server/runtime timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        }
+      ],
+      "field_count": 12,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "ReadinessDecision",
+      "identity_key_ref": "READINESS_KEY",
+      "semantics": "Consumer-specific readiness, never a universal score.",
+      "source_authority": "B05 frame control/B1 structural validation/B2 consumer contracts",
+      "fields": [
+        {
+          "field": "readiness_decision_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "consumer_id",
+          "source_path": "consumer contract id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "input_package_id",
+          "source_path": "MaterialPackage.material_package_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "input_package_revision",
+          "source_path": "MaterialPackage.package_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "outcome",
+          "source_path": "ready|ready_with_flags|blocked_by_missing_evidence|blocked_by_contradiction|reentry_required etc",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "restrictions",
+          "source_path": "current restrictions",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "gap_refs",
+          "source_path": "GapRecord.gap_id set",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "evidence_refs",
+          "source_path": "EvidenceItem/equivalent refs",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "rule_ref",
+          "source_path": "promoted readiness/frame-control rule",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "decided_at",
+          "source_path": "server/runtime timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 11,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "AIOperation",
+      "identity_key_ref": "AI_OPERATION_KEY",
+      "semantics": "One governed AI capability invocation; no factual authority implied.",
+      "source_authority": "B0/B2 AI exchange contracts",
+      "fields": [
+        {
+          "field": "ai_operation_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "InteractionInstance.interaction_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "operation",
+          "source_path": "render|candidate|classify_scale|semantic_review-support as authorized",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "profile_ref",
+          "source_path": "object profile id/revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "intent_ref",
+          "source_path": "SystemicIntentEnvelope/intended operation ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_sources",
+          "source_path": "authorized context/evidence refs",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "generator_ref",
+          "source_path": "server AI adapter provider/model/profile ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "status",
+          "source_path": "requested|completed|failed|fallback|rejected",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "requested_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 11,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "AIProposal",
+      "identity_key_ref": "AI_PROPOSAL_KEY",
+      "semantics": "AI-generated candidate/render proposal; not EvidenceItem.",
+      "source_authority": "B0/B2 AI adapter contracts",
+      "fields": [
+        {
+          "field": "proposal_id",
+          "source_path": "local promoted proposal_id OR A07 technical key",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "ai_operation_id",
+          "source_path": "AIOperation.ai_operation_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "request_id",
+          "source_path": "local AI request id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "InteractionInstance.interaction_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "action",
+          "source_path": "proposal action",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "payload",
+          "source_path": "AI proposal payload",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "payload_sha256",
+          "source_path": "A07 canonical payload hash",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "model_ref",
+          "source_path": "server provider/model/version",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "review_state",
+          "source_path": "pending|admitted|rejected|hold|stale",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "created_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 11,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "EvaluatorAuthority",
+      "identity_key_ref": "EVALUATOR_AUTHORITY_KEY",
+      "semantics": "Qualified semantic-review authority. P3 owns qualification; P1/P2 only consume exact record.",
+      "source_authority": "B2 evaluator qualification authority",
+      "fields": [
+        {
+          "field": "evaluator_authority_id",
+          "source_path": "qualified authority record.id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "revision",
+          "source_path": "qualified authority revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "approval_authority",
+          "source_path": "qualification approver",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "reviewer_identity",
+          "source_path": "qualified model/reviewer identity",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "reviewer_type",
+          "source_path": "automatic|human",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "reviewer_version",
+          "source_path": "qualified version",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "qualified_scope",
+          "source_path": "qualified scope/criteria",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "criterion_ids",
+          "source_path": "qualified criteria",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "interaction_classes",
+          "source_path": "qualified interaction classes",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "risk_classes",
+          "source_path": "qualified risk classes",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "independence_class",
+          "source_path": "qualified independence",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "generator_compatibility",
+          "source_path": "qualified generator compatibility",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "valid_from",
+          "source_path": "authority validity start",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "expires_at",
+          "source_path": "authority expiry",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "status",
+          "source_path": "active|expired|revoked|superseded",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "restrictions",
+          "source_path": "qualification restrictions",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "successor_authority_ref",
+          "source_path": "successor authority",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        }
+      ],
+      "field_count": 17,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "EvaluationRecord",
+      "identity_key_ref": "EVALUATION_KEY",
+      "semantics": "Semantic review separated from proposal generation and admission decision.",
+      "source_authority": "B2 semantic review contract",
+      "fields": [
+        {
+          "field": "evaluation_record_id",
+          "source_path": "local review_record_id OR A07 technical key",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "proposal_id",
+          "source_path": "AIProposal.proposal_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "evaluator_authority_id",
+          "source_path": "EvaluatorAuthority.evaluator_authority_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "reviewer_identity",
+          "source_path": "qualified reviewer/model identity",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "reviewer_version",
+          "source_path": "qualified reviewer/model version",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "criterion_results",
+          "source_path": "criterion-level results",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "aggregate_result",
+          "source_path": "admit|reject|hold/unknown as authorized",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "created_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 10,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "AdmissionDecision",
+      "identity_key_ref": "ADMISSION_KEY",
+      "semantics": "Competent admission of an AI proposal/render; still does not create user evidence.",
+      "source_authority": "B2/B0 semantic admission contract",
+      "fields": [
+        {
+          "field": "admission_decision_id",
+          "source_path": "local admission id OR A07 technical key",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "proposal_id",
+          "source_path": "AIProposal.proposal_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "evaluation_record_id",
+          "source_path": "EvaluationRecord.evaluation_record_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "evaluator_authority_id",
+          "source_path": "EvaluatorAuthority.evaluator_authority_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "decision",
+          "source_path": "ADMIT|REJECT|HOLD",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "reason",
+          "source_path": "decision reason",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "target_ids",
+          "source_path": "targets governed by decision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "A07 technical idempotency key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "created_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 11,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "HumanDecision",
+      "identity_key_ref": "HUMAN_DECISION_KEY",
+      "semantics": "Exceptional competent act only; Human Gate is not routine workforce.",
+      "source_authority": "PR3 exception authority / promoted runtimes",
+      "fields": [
+        {
+          "field": "human_decision_id",
+          "source_path": "A07 technical derivation or local human gate decision id",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "authority_ref",
+          "source_path": "authorized human authority",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "decision_scope",
+          "source_path": "exception/review scope",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "decision",
+          "source_path": "decision outcome",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "reason",
+          "source_path": "decision reason",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "target_refs",
+          "source_path": "affected targets",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "decided_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 9,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "MaterialPackage",
+      "identity_key_ref": "MATERIAL_PACKAGE_KEY",
+      "semantics": "Immutable revisioned handoff payload. Composite envelopes preserve upstream packages without semantic merge.",
+      "source_authority": "A05 field-level manifest",
+      "fields": [
+        {
+          "field": "material_package_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "package_type",
+          "source_path": "A05 binding.package_type",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "package_revision",
+          "source_path": "A07 package revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "producer_object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "consumer_object_key",
+          "source_path": "A05 binding.consumer",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "binding_id",
+          "source_path": "A05 binding.binding_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "contract_set_id",
+          "source_path": "ObjectRun.contract_set_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "payload",
+          "source_path": "A05 field-bound package payload",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "payload_sha256",
+          "source_path": "A07 package payload hash",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "source_package_refs",
+          "source_path": "upstream immutable package refs",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "restrictions",
+          "source_path": "A05 transported restrictions",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "released_at",
+          "source_path": "release event timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        }
+      ],
+      "field_count": 12,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "HandoffEvent",
+      "identity_key_ref": "HANDOFF_EVENT_KEY",
+      "semantics": "Release, receipt and consumption are separate facts over the same package.",
+      "source_authority": "A05/A07",
+      "fields": [
+        {
+          "field": "handoff_event_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "material_package_id",
+          "source_path": "MaterialPackage.material_package_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "event_type",
+          "source_path": "release|receipt|consumption",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "producer_object_run_id",
+          "source_path": "MaterialPackage.producer_object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "consumer_object_run_id",
+          "source_path": "consumer ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "consumer_object_key",
+          "source_path": "MaterialPackage.consumer_object_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "binding_id",
+          "source_path": "MaterialPackage.binding_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "A07 technical key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "event_state",
+          "source_path": "recorded|rejected|conflict",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "event_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 10,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "AuditEvent",
+      "identity_key_ref": "AUDIT_EVENT_KEY",
+      "semantics": "Append-only reconstruction of state, retries, corrections, reentry and authority acts.",
+      "source_authority": "Execution Runtime/BFF",
+      "fields": [
+        {
+          "field": "audit_event_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "chain_run_id",
+          "source_path": "ChainRun.chain_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "event_type",
+          "source_path": "governed event type",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "entity_ref",
+          "source_path": "affected logical identity",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "rule_ref",
+          "source_path": "contract/rule ref",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "prior_state_ref",
+          "source_path": "prior state/revision ref",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "new_state_ref",
+          "source_path": "new state/revision ref",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "reason",
+          "source_path": "event reason",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "details",
+          "source_path": "non-authoritative details",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "event_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 11,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "CommandReceipt",
+      "identity_key_ref": "COMMAND_RECEIPT_KEY",
+      "semantics": "Immutable command execution receipt that materializes idempotency before/with semantic and control-plane side effects. It is not business evidence and does not grant domain authority.",
+      "source_authority": "A07 v1.2 + A04 v1.1 ExecutionService command boundary",
+      "fields": [
+        {
+          "field": "command_receipt_id",
+          "source_path": "A07.COMMAND_RECEIPT_KEY record_id",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "operation",
+          "source_path": "A04/A07 command operation",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "command_scope_ref",
+          "source_path": "A07.command_scope_profiles[operation].command_scope_rule resolved server-side",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "command_event_id",
+          "source_path": "A07.command_scope_profiles[operation].command_event_id_source",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "client_event_id",
+          "source_path": "external command client_event_id when applicable",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "token_request_id",
+          "source_path": "ISSUE_ACTION_TOKEN token_request_id when applicable",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "A07 COMMAND_RECEIPT_KEY idempotency_key_rule",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "payload_sha256",
+          "source_path": "A07 canonical operation payload hash",
+          "mapping_rule": "SHA256_CANONICAL_JSON",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "receipt_state",
+          "source_path": "ExecutionService accepted/rejected terminal primary receipt state",
+          "mapping_rule": "ENUM_ACCEPTED_OR_REJECTED_PRECONDITION",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "chain_run_id",
+          "source_path": "accepted command result/domain scope when allocated/known",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "accepted command result/domain scope when allocated/known",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "accepted command result/domain scope when allocated/known",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "context_revision",
+          "source_path": "authoritative context revision associated with command",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "replay_of_receipt_id",
+          "source_path": "response projection reference when replaying original receipt; original persisted receipt normally null",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "result_payload_json",
+          "source_path": "exact protected replay result payload or immutable result reference envelope",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "result_payload_sha256",
+          "source_path": "SHA-256 of canonical persisted result payload when present",
+          "mapping_rule": "SHA256_CANONICAL_JSON",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "side_effect_refs",
+          "source_path": "all committed logical side-effect record/event refs caused by first execution; [] on rejected precondition",
+          "mapping_rule": "PRESERVE_ORDER",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "error_code",
+          "source_path": "stable server error code for rejected precondition; null on accepted command",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "server_time",
+          "source_path": "authoritative command completion timestamp UTC",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 19,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "OutboxEvent",
+      "identity_key_ref": "OUTBOX_EVENT_KEY",
+      "semantics": "Reliable delivery membrane; does not own methodological truth.",
+      "source_authority": "Production integration membrane",
+      "fields": [
+        {
+          "field": "outbox_event_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "chain_run_id",
+          "source_path": "ChainRun.chain_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "event_class",
+          "source_path": "handoff|state_change|audit_projection|notification",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "aggregate_ref",
+          "source_path": "logical entity/package ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "payload_ref",
+          "source_path": "immutable logical payload/package ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "A07 technical key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "delivery_state",
+          "source_path": "pending|sent|failed|dead_letter",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "attempt_count",
+          "source_path": "delivery attempts",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "next_attempt_at",
+          "source_path": "retry time",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "created_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 10,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    },
+    {
+      "logical_record": "PilotObservation",
+      "identity_key_ref": "PILOT_OBSERVATION_KEY",
+      "semantics": "Operational pilot evidence only; not MMABP/VSM/AHE diagnosis.",
+      "source_authority": "PR3 pilot telemetry/audit",
+      "fields": [
+        {
+          "field": "pilot_observation_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "chain_run_id",
+          "source_path": "ChainRun.chain_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true
+        },
+        {
+          "field": "observation_type",
+          "source_path": "latency|fallback|error|user_correction|reentry|model_usage|handoff",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "metric_or_fact",
+          "source_path": "observed operational fact",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "source_ref",
+          "source_path": "audit/telemetry/runtime ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "field": "recorded_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "field_count": 7,
+      "all_fields_have_source_path": true,
+      "all_fields_have_mapping_rule": true,
+      "physical_storage_target": "UNDECIDED_P2"
+    }
+  ],
+  "handoff_mapping_ref": "EVE-PR3-HANDOFF-BINDING-MANIFEST-v1.2",
+  "identity_mapping_ref": "EVE-PR3-IDENTITY-REVISION-IDEMPOTENCY-LEDGER-CONTRACT-v1.2",
+  "contract_set_hash_profile_ref": "EVE-PR3-CONTRACT-SET-HASH-PROFILE-v1.0",
+  "sqlite_policy": "FORBIDDEN_IN_REAL_USER_PATH",
+  "completion_note": "This is a logical record/field contract only. CommandReceipt is the 32nd logical record. It deliberately does not choose one-table-per-record, schema names, indexes, partitions, or a 32-table physical topology.",
+  "logical_field_mapping_count": 341,
+  "coverage": {
+    "logical_record_count_expected": 32,
+    "logical_record_count_observed": 32,
+    "logical_field_mapping_count": 341,
+    "records_with_missing_source_path": [],
+    "records_with_missing_mapping_rule": [],
+    "physical_decision": "DEFERRED_TO_P2",
+    "does_not_imply_32_tables": true
+  },
+  "physical_non_decisions": [
+    "No schema name selected.",
+    "No table count selected.",
+    "No table-per-logical-record assumption.",
+    "No denormalization/normalization strategy selected.",
+    "No index/partition/RLS physical policy selected here.",
+    "No legacy Supabase table adopted as baseline."
+  ],
+  "does_not_imply_32_tables": true,
+  "implementation_policy_binding": {
+    "B2_PR3_limit_resolution_artifact_id": "EVE-PR3-B2-IMPLEMENTATION-LIMIT-RESOLUTION-v1.0",
+    "B2_PR3_limit_resolution_sha256": "5e4b9ca2afb26af8769348a8311ee6744560ea1fb05301db609d83a11a2c6540",
+    "materialization_rule": "If P2 persists implementation authorities, use existing AuthorityArtifact logical record; this does not create a new semantic record class or imply a physical table.",
+    "promoted_profile_mutation": "FORBIDDEN"
+  }
+}

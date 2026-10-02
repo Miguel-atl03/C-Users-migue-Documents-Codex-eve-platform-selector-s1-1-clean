@@ -1,0 +1,2802 @@
+/*
+ * EVE 01 Agent Constitution v0.1
+ * Generated from platform rector documents D1-D5.
+ * Internal assistant instructions are intentionally excluded as platform sources.
+ */
+
+export type EveSeverity = 'blocker' | 'high' | 'medium' | 'low';
+
+export interface EveConstitutionRule {
+  id: string;
+  module: string;
+  label: string;
+  assertion: string;
+  severity: EveSeverity | string;
+  applies_to: string[];
+  trigger: string;
+  allowed_actions: string[];
+  blocked_actions: string[];
+  required_evidence: string[];
+  pass_condition: string;
+  fail_state: string;
+  corrective_action: string;
+  source_refs: string[];
+  depends_on: string[];
+  emits: string[];
+}
+
+export interface EveConstitutionDecisionInput {
+  requestedAction: string;
+  contextTags?: string[];
+  evidenceKeys?: string[];
+  sourceTrace?: string[];
+  readinessState?: string;
+}
+
+export interface EveConstitutionDecision {
+  chipId: string;
+  allowed: boolean;
+  matchedRuleIds: string[];
+  blockedByRuleIds: string[];
+  allowedActions: string[];
+  blockedActions: string[];
+  readinessState: string;
+  auditRequired: boolean;
+  sourceTrace: string[];
+  requiredInputs: string[];
+}
+
+export const EVE_01_AGENT_CONSTITUTION = {
+  "chip_id": "EVE-01-AGENT-CONSTITUTION",
+  "chip_name": "EVE 01 Agent Constitution",
+  "version": "0.1.0",
+  "status": "draft_ready_for_review",
+  "language": "es",
+  "generated_at": "2026-06-17T23:03:36Z",
+  "stage": "01_agent_constitution",
+  "purpose": "Convertir los documentos rectores de plataforma D1-D5 en una constitucion ejecutable que defina autoridad, alcance, evidencia, diagnostico permitido, runtime behavior, frontera con Produccion Paralela y auditoria.",
+  "not_a_prompt": true,
+  "dependency_chips": [
+    "EVE-00-METHOD-KERNEL@0.2.0"
+  ],
+  "source_policy": {
+    "compiled_platform_sources": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5"
+    ],
+    "excluded_internal_sources": [
+      "Instrucciones actualizadas para GPT personalizado.docx",
+      "Instrucciones_Maestras_y_Exhaustivas_para_IA_Arquitectura_Mínima_de_Negocio_(MMABP)_y_Diagnóstico_EVE™.docx"
+    ],
+    "principle": "Los documentos internos del asistente no se compilan como fuente de plataforma; los documentos rectores se traducen a reglas atomicas y ejecutables."
+  },
+  "source_registry": {
+    "D1": {
+      "title": "Fundamentals of Business Architecture Modeling.pdf",
+      "role": "Fuente primaria MMABP: minimal business architecture, PM, MoC, PF, OLC, conformance y consistencia.",
+      "authority_scope": "Metodo MMABP",
+      "file": "Fundamentals of Business Architecture Modeling.pdf"
+    },
+    "D2": {
+      "title": "Tabla de Diagnóstico de Inconsistencias Estructurales EVE.docx",
+      "role": "Diccionario de traduccion entre inconsistencias MMABP y patologias potenciales EVE.",
+      "authority_scope": "Ontologia diagnostica",
+      "file": "Tabla de Diagnóstico de Inconsistencias Estructurales EVE.docx"
+    },
+    "D3": {
+      "title": "EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+      "role": "Integracion operativa Runtime 40/20, Capa 1.0, Produccion Paralela, MBA Control Plane y SG Shadow.",
+      "authority_scope": "Integracion operacional",
+      "file": "EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx"
+    },
+    "D4": {
+      "title": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "role": "Contrato tecnico ejecutable: entidades, estados, servicios, gates, payloads, seguridad minima y auditoria.",
+      "authority_scope": "Implementacion tecnica",
+      "file": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx"
+    },
+    "D5": {
+      "title": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "role": "Fuente normativa de reglas operativas, autoridad entre artefactos, gates, QA y frontera Capa 1.",
+      "authority_scope": "Gobierno runtime",
+      "file": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx"
+    }
+  },
+  "authority_order": [
+    {
+      "domain": "MMABP method",
+      "primary_source": "D1",
+      "note": "No puede ser relajado por runtime ni diagnostico."
+    },
+    {
+      "domain": "EVE diagnostic vocabulary",
+      "primary_source": "D2",
+      "note": "Interpreta inconsistencias; no crea reglas MMABP."
+    },
+    {
+      "domain": "Operational integration",
+      "primary_source": "D3",
+      "note": "Define pipeline Runtime/Capa 1/Produccion Paralela/MBA/SG."
+    },
+    {
+      "domain": "Technical execution",
+      "primary_source": "D4",
+      "note": "Define estados, entidades, servicios, payloads, seguridad y auditoria."
+    },
+    {
+      "domain": "Runtime governance",
+      "primary_source": "D5",
+      "note": "Define frontera, reglas operativas, gates y QA del runtime."
+    }
+  ],
+  "constitutional_pipeline": [
+    "resolve_source_authority",
+    "validate_scope_boundary",
+    "classify_evidence_epistemology",
+    "run_EVE_00_method_kernel",
+    "apply_MMABP_gates",
+    "apply_runtime_behavior_rules",
+    "if_diagnostic_language_requested_route_to_candidate",
+    "evaluate_parallel_production_boundary",
+    "emit_readiness_or_blocking_state",
+    "write_audit_trace"
+  ],
+  "decision_output_contract": {
+    "required_fields": [
+      "decision_id",
+      "chip_id",
+      "rule_ids",
+      "source_trace",
+      "input_classification",
+      "allowed_actions",
+      "blocked_actions",
+      "readiness_state",
+      "required_inputs",
+      "audit_required",
+      "next_chip_or_service"
+    ],
+    "forbidden_fields": [
+      "final_diagnosis_from_Capa1",
+      "raw_text_export",
+      "untraceable_recommendation"
+    ]
+  },
+  "readiness_states": [
+    {
+      "state": "capture_allowed",
+      "meaning": "La plataforma puede capturar o confirmar evidencia sin emitir diagnostico."
+    },
+    {
+      "state": "clarification_required",
+      "meaning": "Existe ambiguedad resoluble por pregunta o microconfirmacion."
+    },
+    {
+      "state": "blocked_by_scope",
+      "meaning": "La accion solicitada excede la frontera Capa 1 / runtime."
+    },
+    {
+      "state": "blocked_by_missing_evidence",
+      "meaning": "Falta evidencia minima para cerrar variable, candidato o ruta."
+    },
+    {
+      "state": "blocked_by_missing_canonical_route",
+      "meaning": "Hay evidencia textual, pero no cerro por la ruta canonica requerida."
+    },
+    {
+      "state": "blocked_by_contradiction",
+      "meaning": "La evidencia contradice modelos, estados, objetos, secuencia o receptor."
+    },
+    {
+      "state": "manual_review_required",
+      "meaning": "La ambiguedad, override, B7/C20 o riesgo de diagnostico prematuro exige actor autorizado."
+    },
+    {
+      "state": "ready_for_structural_candidate",
+      "meaning": "Se puede crear candidato PM/MoC/PF/OLC, no artefacto final."
+    },
+    {
+      "state": "ready_for_diagnostic_preclassification",
+      "meaning": "Se puede preparar hipotesis diagnostica para chip posterior, no diagnostico final de Capa 1."
+    },
+    {
+      "state": "ready_for_parallel_preview",
+      "meaning": "Puede preparar payload gobernado hacia SCR/EvidenceBundle/MDSB si gates y autoridad pasan."
+    },
+    {
+      "state": "export_blocked",
+      "meaning": "La salida a Produccion Paralela se bloquea por readiness, autoridad, B7/C20 o evidencia insuficiente."
+    },
+    {
+      "state": "audit_required",
+      "meaning": "Debe registrarse runtime_audit_trail antes de resolver o avanzar."
+    }
+  ],
+  "modules": {
+    "source_authority_rules": {
+      "description": "Resuelve autoridad documental y conflictos de fuente.",
+      "rules": [
+        {
+          "id": "SRC-001",
+          "module": "source_authority_rules",
+          "label": "D1 gobierna MMABP",
+          "assertion": "Toda decision metodologica sobre PM, MoC, PF, OLC, conformance o consistencia se resuelve con D1 y el chip 00_method_kernel.",
+          "severity": "blocker",
+          "applies_to": [
+            "all"
+          ],
+          "trigger": "Any MMABP interpretation is requested",
+          "allowed_actions": [
+            "apply_method_kernel",
+            "request_missing_reality_evidence"
+          ],
+          "blocked_actions": [
+            "invent_mmabp_rule",
+            "downgrade_mmabp_constraint"
+          ],
+          "required_evidence": [
+            "source_trace:D1",
+            "method_kernel_rule_ref"
+          ],
+          "pass_condition": "La decision MMABP cita D1 o regla compilada de 00_method_kernel.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Reenrutar al kernel MMABP y detener la accion no sustentada.",
+          "source_refs": [
+            "D1:FBA:1.3.3",
+            "D1:FBA:1.3.4",
+            "D1:FBA:1.3.5"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "SRC-002",
+          "module": "source_authority_rules",
+          "label": "D2 gobierna vocabulario diagnostico",
+          "assertion": "Las patologias EVE solo se nombran desde D2 y siempre como traduccion de una inconsistencia MMABP detectada.",
+          "severity": "high",
+          "applies_to": [
+            "diagnostic_language"
+          ],
+          "trigger": "A pathology label is about to be emitted",
+          "allowed_actions": [
+            "emit_diagnostic_candidate",
+            "route_to_diagnostic_ontology"
+          ],
+          "blocked_actions": [
+            "emit_final_diagnosis_without_structural_inconsistency",
+            "invent_pathology"
+          ],
+          "required_evidence": [
+            "inconsistency_type",
+            "models_involved",
+            "D2_mapping"
+          ],
+          "pass_condition": "La patologia corresponde a un par/trio/cuadrante MMABP definido en D2.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Bloquear el termino patologico y solicitar evidencia de inconsistencia.",
+          "source_refs": [
+            "D2:EVE_TABLE:inconsistency_mapping"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "SRC-003",
+          "module": "source_authority_rules",
+          "label": "D5 gobierna reglas runtime",
+          "assertion": "La conducta operativa de Runtime 40+20, gates, QA, B7/C20 y C09 se rige por D5.",
+          "severity": "blocker",
+          "applies_to": [
+            "runtime_operation"
+          ],
+          "trigger": "Runtime behavior or operational gate is evaluated",
+          "allowed_actions": [
+            "apply_runtime_governance",
+            "block_invalid_runtime_flow"
+          ],
+          "blocked_actions": [
+            "implement_from_narrative",
+            "bypass_runtime_catalog_governance"
+          ],
+          "required_evidence": [
+            "runtime_rule_ref",
+            "catalog_version"
+          ],
+          "pass_condition": "La accion usa regla normativa de D5 y conserva trazabilidad.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Volver a la regla D5 aplicable antes de continuar.",
+          "source_refs": [
+            "D5:CAT:authority",
+            "D5:CAT:gates",
+            "D5:CAT:B7_C09"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SRC-004",
+          "module": "source_authority_rules",
+          "label": "D4 gobierna implementacion tecnica",
+          "assertion": "Estados, entidades, payloads, seguridad minima, auditoria y servicios ejecutables se resuelven con D4.",
+          "severity": "high",
+          "applies_to": [
+            "technical_execution"
+          ],
+          "trigger": "A runtime service, state or payload is invoked",
+          "allowed_actions": [
+            "apply_technical_contract",
+            "validate_state_transition"
+          ],
+          "blocked_actions": [
+            "change_catalog_semantics_from_code",
+            "emit_payload_without_readiness"
+          ],
+          "required_evidence": [
+            "technical_contract_ref",
+            "state",
+            "actor_or_system_authority"
+          ],
+          "pass_condition": "La accion existe como estado, servicio, payload o control en D4 o equivalente aprobado.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear ejecucion y requerir mapeo tecnico equivalente.",
+          "source_refs": [
+            "D4:SPEC:components",
+            "D4:SPEC:states",
+            "D4:SPEC:security_audit"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SRC-005",
+          "module": "source_authority_rules",
+          "label": "D3 gobierna integracion operacional",
+          "assertion": "La conexion entre Runtime, Capa 1.0, Produccion Paralela, MBA Control Plane y SG Shadow se resuelve con D3.",
+          "severity": "high",
+          "applies_to": [
+            "integration_flow"
+          ],
+          "trigger": "Signals move across runtime/inventory/membrane/governance/parallel production",
+          "allowed_actions": [
+            "route_operational_signal",
+            "preserve_shadow_boundary"
+          ],
+          "blocked_actions": [
+            "activate_enforcement_from_shadow",
+            "skip_integration_membrane"
+          ],
+          "required_evidence": [
+            "integration_context",
+            "downstream_target",
+            "readiness_state"
+          ],
+          "pass_condition": "La ruta respeta el pipeline y lo que cada zona habilita o no habilita.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Detener transduccion y marcar frontera operacional.",
+          "source_refs": [
+            "D3:CONN:2",
+            "D3:CONN:4",
+            "D3:CONN:5"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SRC-006",
+          "module": "source_authority_rules",
+          "label": "Resolucion por dominio de autoridad",
+          "assertion": "Si dos fuentes parecen tensionarse, prevalece la fuente del dominio especifico sin relajar MMABP.",
+          "severity": "blocker",
+          "applies_to": [
+            "all"
+          ],
+          "trigger": "Source conflict detected",
+          "allowed_actions": [
+            "resolve_by_domain_authority",
+            "escalate_manual_review"
+          ],
+          "blocked_actions": [
+            "average_sources",
+            "choose_less_strict_rule"
+          ],
+          "required_evidence": [
+            "conflict_description",
+            "source_trace"
+          ],
+          "pass_condition": "Se selecciona D1/D2/D3/D4/D5 segun dominio y se documenta la razon.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Registrar conflicto y bloquear salida irreversible.",
+          "source_refs": [
+            "D1:FBA:1.3.5",
+            "D5:CAT:authority",
+            "D4:SPEC:hardening"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SRC-007",
+          "module": "source_authority_rules",
+          "label": "Exclusion de instrucciones internas",
+          "assertion": "Los documentos internos del asistente no se compilan como fuente de plataforma; solo pueden guiar la conversacion humana.",
+          "severity": "blocker",
+          "applies_to": [
+            "source_registry"
+          ],
+          "trigger": "A platform chip source is being registered",
+          "allowed_actions": [
+            "mark_internal_only"
+          ],
+          "blocked_actions": [
+            "compile_internal_instruction_as_platform_rule"
+          ],
+          "required_evidence": [
+            "source_type"
+          ],
+          "pass_condition": "La fuente compilada pertenece a D1-D5 para esta etapa.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Retirar fuente interna del chip y regenerar trazabilidad.",
+          "source_refs": [
+            "PROJECT:source_classification"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SRC-008",
+          "module": "source_authority_rules",
+          "label": "Trazabilidad obligatoria",
+          "assertion": "Toda decision constitucional debe emitir source_trace con documento rector, seccion logica y regla aplicada.",
+          "severity": "high",
+          "applies_to": [
+            "all"
+          ],
+          "trigger": "Any rule evaluation produces a decision",
+          "allowed_actions": [
+            "emit_source_trace",
+            "log_decision"
+          ],
+          "blocked_actions": [
+            "opaque_decision",
+            "untraceable_block"
+          ],
+          "required_evidence": [
+            "rule_id",
+            "source_refs"
+          ],
+          "pass_condition": "La decision incluye regla, fuente y estado resultante.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit event y detener si falta source_trace.",
+          "source_refs": [
+            "D4:SPEC:audit",
+            "D5:CAT:QA"
+          ],
+          "depends_on": [],
+          "emits": []
+        }
+      ]
+    },
+    "scope_boundary_rules": {
+      "description": "Define lo que el cerebro EVE puede y no puede hacer en Capa 1/runtime.",
+      "rules": [
+        {
+          "id": "SCP-001",
+          "module": "scope_boundary_rules",
+          "label": "Capa 1 no diagnostica",
+          "assertion": "Capa 1 produce evidencia estructural gobernada; no produce diagnostico final, monetizacion, IR/export ni diagramas desde texto libre.",
+          "severity": "blocker",
+          "applies_to": [
+            "platform_action"
+          ],
+          "trigger": "An action is requested or an output is about to be emitted",
+          "allowed_actions": [
+            "capture_evidence",
+            "create_structural_candidate",
+            "emit_readiness_signal"
+          ],
+          "blocked_actions": [
+            "final_diagnosis",
+            "monetization_decision",
+            "IR_export_from_free_text",
+            "draw_diagram_from_raw_text"
+          ],
+          "required_evidence": [
+            "scope",
+            "readiness_state",
+            "source_trace"
+          ],
+          "pass_condition": "La accion queda dentro de la frontera autorizada.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear accion y emitir required_inputs o manual_review segun corresponda.",
+          "source_refs": [
+            "D4:SPEC:frontier",
+            "D5:CAT:purpose_boundary"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SCP-002",
+          "module": "scope_boundary_rules",
+          "label": "Acciones permitidas del agente operativo",
+          "assertion": "El agente operativo puede capturar, preguntar, clarificar, canonicalizar, detectar gaps, aplicar gates, crear candidatos y decidir readiness.",
+          "severity": "high",
+          "applies_to": [
+            "platform_action"
+          ],
+          "trigger": "An action is requested or an output is about to be emitted",
+          "allowed_actions": [
+            "ask_question",
+            "clarify",
+            "canonicalize",
+            "detect_gap",
+            "apply_gate",
+            "create_candidate"
+          ],
+          "blocked_actions": [
+            "close_final_artifact_without_governance"
+          ],
+          "required_evidence": [
+            "scope",
+            "readiness_state",
+            "source_trace"
+          ],
+          "pass_condition": "La accion queda dentro de la frontera autorizada.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear accion y emitir required_inputs o manual_review segun corresponda.",
+          "source_refs": [
+            "D3:CONN:5",
+            "D4:SPEC:components"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SCP-003",
+          "module": "scope_boundary_rules",
+          "label": "No diagramacion desde texto crudo",
+          "assertion": "Ningun PM/MoC/PF/OLC se genera como artefacto final a partir de respuestas literales sin candidatos, conformance, consistencia y readiness.",
+          "severity": "blocker",
+          "applies_to": [
+            "platform_action"
+          ],
+          "trigger": "An action is requested or an output is about to be emitted",
+          "allowed_actions": [
+            "prepare_candidate",
+            "request_missing_evidence"
+          ],
+          "blocked_actions": [
+            "final_diagram_from_literal_answer"
+          ],
+          "required_evidence": [
+            "scope",
+            "readiness_state",
+            "source_trace"
+          ],
+          "pass_condition": "La accion queda dentro de la frontera autorizada.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear accion y emitir required_inputs o manual_review segun corresponda.",
+          "source_refs": [
+            "D5:CAT:purpose_boundary",
+            "D4:SPEC:MMABP_before_diagnosis"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SCP-004",
+          "module": "scope_boundary_rules",
+          "label": "No produccion real desde runtime",
+          "assertion": "Runtime y Produccion Paralela operan como ensayo, candidate/export preview o rehearsal; no activan produccion real ni transduccion final.",
+          "severity": "high",
+          "applies_to": [
+            "platform_action"
+          ],
+          "trigger": "An action is requested or an output is about to be emitted",
+          "allowed_actions": [
+            "parallel_preview",
+            "rehearsal_candidate"
+          ],
+          "blocked_actions": [
+            "real_production",
+            "final_transduction"
+          ],
+          "required_evidence": [
+            "scope",
+            "readiness_state",
+            "source_trace"
+          ],
+          "pass_condition": "La accion queda dentro de la frontera autorizada.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear accion y emitir required_inputs o manual_review segun corresponda.",
+          "source_refs": [
+            "D3:CONN:4"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SCP-005",
+          "module": "scope_boundary_rules",
+          "label": "SG Shadow no muta core",
+          "assertion": "Soft Governance en shadow/report-only clasifica, enruta u observa; no muta readiness, core state ni export.",
+          "severity": "high",
+          "applies_to": [
+            "platform_action"
+          ],
+          "trigger": "An action is requested or an output is about to be emitted",
+          "allowed_actions": [
+            "report_only_finding",
+            "routing_recommendation"
+          ],
+          "blocked_actions": [
+            "mutate_core_state",
+            "enforce_workflow"
+          ],
+          "required_evidence": [
+            "scope",
+            "readiness_state",
+            "source_trace"
+          ],
+          "pass_condition": "La accion queda dentro de la frontera autorizada.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear accion y emitir required_inputs o manual_review segun corresponda.",
+          "source_refs": [
+            "D3:CONN:4"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SCP-006",
+          "module": "scope_boundary_rules",
+          "label": "B7/C20 son frontera no diagnostica",
+          "assertion": "B7-Q39, B7-Q40 y C20 solo emiten readiness o preclassification signal; no producen MoC, IR, registry, export ni diagnostico.",
+          "severity": "blocker",
+          "applies_to": [
+            "platform_action"
+          ],
+          "trigger": "An action is requested or an output is about to be emitted",
+          "allowed_actions": [
+            "emit_readiness_signal",
+            "open_microconfirmation"
+          ],
+          "blocked_actions": [
+            "direct_MoC_projection",
+            "direct_IR",
+            "direct_registry",
+            "direct_export",
+            "diagnosis_from_B7"
+          ],
+          "required_evidence": [
+            "scope",
+            "readiness_state",
+            "source_trace"
+          ],
+          "pass_condition": "La accion queda dentro de la frontera autorizada.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear accion y emitir required_inputs o manual_review segun corresponda.",
+          "source_refs": [
+            "D5:CAT:B7_C20",
+            "D4:SPEC:B7_direct_projection"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SCP-007",
+          "module": "scope_boundary_rules",
+          "label": "UI no es fuente de verdad",
+          "assertion": "La interfaz visual representa el XLSX/workbook operativo; no define metodologia, nodos, reglas ni autoridad.",
+          "severity": "high",
+          "applies_to": [
+            "platform_action"
+          ],
+          "trigger": "An action is requested or an output is about to be emitted",
+          "allowed_actions": [
+            "render_view_model"
+          ],
+          "blocked_actions": [
+            "write_method_rule_from_UI",
+            "store_truth_in_UI"
+          ],
+          "required_evidence": [
+            "scope",
+            "readiness_state",
+            "source_trace"
+          ],
+          "pass_condition": "La accion queda dentro de la frontera autorizada.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear accion y emitir required_inputs o manual_review segun corresponda.",
+          "source_refs": [
+            "D5:CAT:authority"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SCP-008",
+          "module": "scope_boundary_rules",
+          "label": "Narrativa DOCX no implementa interacciones",
+          "assertion": "La narrativa normativa gobierna, pero ninguna interaccion se implementa si no existe como fila operacional con campos obligatorios.",
+          "severity": "high",
+          "applies_to": [
+            "platform_action"
+          ],
+          "trigger": "An action is requested or an output is about to be emitted",
+          "allowed_actions": [
+            "validate_catalog_row"
+          ],
+          "blocked_actions": [
+            "runtime_interaction_from_narrative_only"
+          ],
+          "required_evidence": [
+            "scope",
+            "readiness_state",
+            "source_trace"
+          ],
+          "pass_condition": "La accion queda dentro de la frontera autorizada.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear accion y emitir required_inputs o manual_review segun corresponda.",
+          "source_refs": [
+            "D5:CAT:rule_mother"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SCP-009",
+          "module": "scope_boundary_rules",
+          "label": "No ocultar maquinaria interna al cliente",
+          "assertion": "Object Inventory, Membrane, SG Shadow y Produccion Paralela no se exponen como visceras de UI; se traducen a senales seguras.",
+          "severity": "high",
+          "applies_to": [
+            "platform_action"
+          ],
+          "trigger": "An action is requested or an output is about to be emitted",
+          "allowed_actions": [
+            "translate_signal_for_UI"
+          ],
+          "blocked_actions": [
+            "expose_internal_control_plane"
+          ],
+          "required_evidence": [
+            "scope",
+            "readiness_state",
+            "source_trace"
+          ],
+          "pass_condition": "La accion queda dentro de la frontera autorizada.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear accion y emitir required_inputs o manual_review segun corresponda.",
+          "source_refs": [
+            "D3:CONN:integration_UI_boundary"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "SCP-010",
+          "module": "scope_boundary_rules",
+          "label": "Separacion de caso, rol y actividad",
+          "assertion": "La accion operativa debe conservar case_id, role_id, activity_id y run_id cuando aplique.",
+          "severity": "blocker",
+          "applies_to": [
+            "platform_action"
+          ],
+          "trigger": "An action is requested or an output is about to be emitted",
+          "allowed_actions": [
+            "scoped_query",
+            "scoped_persistence"
+          ],
+          "blocked_actions": [
+            "cross_case_read",
+            "cross_role_merge_without_authority"
+          ],
+          "required_evidence": [
+            "scope",
+            "readiness_state",
+            "source_trace"
+          ],
+          "pass_condition": "La accion queda dentro de la frontera autorizada.",
+          "fail_state": "blocked_by_scope",
+          "corrective_action": "Bloquear accion y emitir required_inputs o manual_review segun corresponda.",
+          "source_refs": [
+            "D4:SPEC:security_audit"
+          ],
+          "depends_on": [],
+          "emits": []
+        }
+      ]
+    },
+    "evidence_epistemology_rules": {
+      "description": "Gobierna proveniencia, inferencia, correccion, gaps y variables.",
+      "rules": [
+        {
+          "id": "EPI-001",
+          "module": "evidence_epistemology_rules",
+          "label": "Proveniencia obligatoria",
+          "assertion": "Toda evidencia declara provenance_type: captured_user_evidence, ai_inferred_unconfirmed, user_confirmed_suggestion, user_corrected_evidence, canonical_derivation o internal_calculated.",
+          "severity": "blocker",
+          "applies_to": [
+            "evidence_lifecycle"
+          ],
+          "trigger": "Evidence is captured, inferred, corrected or consumed",
+          "allowed_actions": [
+            "evidence_item"
+          ],
+          "blocked_actions": [
+            "evidence_without_provenance"
+          ],
+          "required_evidence": [
+            "provenance_type",
+            "response_revision",
+            "source_trace"
+          ],
+          "pass_condition": "La evidencia queda trazable y con estado epistemico correcto.",
+          "fail_state": "blocked_by_missing_evidence",
+          "corrective_action": "No consumir evidencia hasta corregir proveniencia o ruta.",
+          "source_refs": [
+            "D4:SPEC:epistemology"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "EPI-002",
+          "module": "evidence_epistemology_rules",
+          "label": "Inferencia IA no es evidencia dura",
+          "assertion": "Una sugerencia o inferencia IA sin confirmacion no puede entrar como captured_user_evidence ni cerrar ruta critica.",
+          "severity": "blocker",
+          "applies_to": [
+            "evidence_lifecycle"
+          ],
+          "trigger": "Evidence is captured, inferred, corrected or consumed",
+          "allowed_actions": [
+            "ai_inferred_unconfirmed"
+          ],
+          "blocked_actions": [
+            "hard_close_from_unconfirmed_inference"
+          ],
+          "required_evidence": [
+            "provenance_type",
+            "response_revision",
+            "source_trace"
+          ],
+          "pass_condition": "La evidencia queda trazable y con estado epistemico correcto.",
+          "fail_state": "blocked_by_missing_evidence",
+          "corrective_action": "No consumir evidencia hasta corregir proveniencia o ruta.",
+          "source_refs": [
+            "D4:SPEC:epistemology",
+            "D5:CAT:no_hard_inference"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "EPI-003",
+          "module": "evidence_epistemology_rules",
+          "label": "Correccion conserva historia",
+          "assertion": "Toda correccion del usuario conserva la respuesta previa como superseded; no se borra evidencia previa.",
+          "severity": "high",
+          "applies_to": [
+            "evidence_lifecycle"
+          ],
+          "trigger": "Evidence is captured, inferred, corrected or consumed",
+          "allowed_actions": [
+            "supersede_response",
+            "append_revision"
+          ],
+          "blocked_actions": [
+            "delete_prior_evidence"
+          ],
+          "required_evidence": [
+            "provenance_type",
+            "response_revision",
+            "source_trace"
+          ],
+          "pass_condition": "La evidencia queda trazable y con estado epistemico correcto.",
+          "fail_state": "blocked_by_missing_evidence",
+          "corrective_action": "No consumir evidencia hasta corregir proveniencia o ruta.",
+          "source_refs": [
+            "D4:SPEC:security_audit"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "EPI-004",
+          "module": "evidence_epistemology_rules",
+          "label": "Subrespuestas separadas",
+          "assertion": "Toda interaccion compuesta persiste subfields y variables separadas; nunca como single_textbox opaco.",
+          "severity": "blocker",
+          "applies_to": [
+            "evidence_lifecycle"
+          ],
+          "trigger": "Evidence is captured, inferred, corrected or consumed",
+          "allowed_actions": [
+            "persist_subfield_response"
+          ],
+          "blocked_actions": [
+            "single_textbox_as_canonical_truth"
+          ],
+          "required_evidence": [
+            "provenance_type",
+            "response_revision",
+            "source_trace"
+          ],
+          "pass_condition": "La evidencia queda trazable y con estado epistemico correcto.",
+          "fail_state": "blocked_by_missing_evidence",
+          "corrective_action": "No consumir evidencia hasta corregir proveniencia o ruta.",
+          "source_refs": [
+            "D4:SPEC:principles"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "EPI-005",
+          "module": "evidence_epistemology_rules",
+          "label": "Variable canonica separada del texto",
+          "assertion": "El texto literal no sustituye canonical_variable_record; debe materializarse variable con estado y proveniencia.",
+          "severity": "high",
+          "applies_to": [
+            "evidence_lifecycle"
+          ],
+          "trigger": "Evidence is captured, inferred, corrected or consumed",
+          "allowed_actions": [
+            "materialize_canonical_variable"
+          ],
+          "blocked_actions": [
+            "use_literal_answer_as_variable_without_mapping"
+          ],
+          "required_evidence": [
+            "provenance_type",
+            "response_revision",
+            "source_trace"
+          ],
+          "pass_condition": "La evidencia queda trazable y con estado epistemico correcto.",
+          "fail_state": "blocked_by_missing_evidence",
+          "corrective_action": "No consumir evidencia hasta corregir proveniencia o ruta.",
+          "source_refs": [
+            "D4:SPEC:components"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "EPI-006",
+          "module": "evidence_epistemology_rules",
+          "label": "Route missing es un estado formal",
+          "assertion": "Si existe evidencia textual pero no cerro por ruta canonica requerida, se emite blocked_by_missing_canonical_route o route_missing.",
+          "severity": "blocker",
+          "applies_to": [
+            "evidence_lifecycle"
+          ],
+          "trigger": "Evidence is captured, inferred, corrected or consumed",
+          "allowed_actions": [
+            "emit_route_missing"
+          ],
+          "blocked_actions": [
+            "invent_route_closure"
+          ],
+          "required_evidence": [
+            "provenance_type",
+            "response_revision",
+            "source_trace"
+          ],
+          "pass_condition": "La evidencia queda trazable y con estado epistemico correcto.",
+          "fail_state": "blocked_by_missing_evidence",
+          "corrective_action": "No consumir evidencia hasta corregir proveniencia o ruta.",
+          "source_refs": [
+            "D4:SPEC:glossary",
+            "D5:CAT:C09"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "EPI-007",
+          "module": "evidence_epistemology_rules",
+          "label": "Gap no se maquilla",
+          "assertion": "La falta de dato produce gap, reentry o manual review; no se resuelve por redaccion cosmetica.",
+          "severity": "high",
+          "applies_to": [
+            "evidence_lifecycle"
+          ],
+          "trigger": "Evidence is captured, inferred, corrected or consumed",
+          "allowed_actions": [
+            "create_gap",
+            "reentry"
+          ],
+          "blocked_actions": [
+            "cosmetic_closure"
+          ],
+          "required_evidence": [
+            "provenance_type",
+            "response_revision",
+            "source_trace"
+          ],
+          "pass_condition": "La evidencia queda trazable y con estado epistemico correcto.",
+          "fail_state": "blocked_by_missing_evidence",
+          "corrective_action": "No consumir evidencia hasta corregir proveniencia o ruta.",
+          "source_refs": [
+            "D3:CONN:gaps",
+            "D5:CAT:QA"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "EPI-008",
+          "module": "evidence_epistemology_rules",
+          "label": "Confianza baja exige microconfirmacion",
+          "assertion": "Baja confianza semantica, senales cruzadas o ambiguedad B7/C20 abren microconfirmacion o manual_review.",
+          "severity": "high",
+          "applies_to": [
+            "evidence_lifecycle"
+          ],
+          "trigger": "Evidence is captured, inferred, corrected or consumed",
+          "allowed_actions": [
+            "open_microconfirmation",
+            "manual_review_required"
+          ],
+          "blocked_actions": [
+            "proceed_as_confirmed"
+          ],
+          "required_evidence": [
+            "provenance_type",
+            "response_revision",
+            "source_trace"
+          ],
+          "pass_condition": "La evidencia queda trazable y con estado epistemico correcto.",
+          "fail_state": "blocked_by_missing_evidence",
+          "corrective_action": "No consumir evidencia hasta corregir proveniencia o ruta.",
+          "source_refs": [
+            "D5:CAT:B7_C20",
+            "D4:SPEC:test_cases"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "EPI-009",
+          "module": "evidence_epistemology_rules",
+          "label": "Timestamp y revision",
+          "assertion": "Toda evidencia persistida debe poder reconstruir version, revision y momento de captura/correccion.",
+          "severity": "high",
+          "applies_to": [
+            "evidence_lifecycle"
+          ],
+          "trigger": "Evidence is captured, inferred, corrected or consumed",
+          "allowed_actions": [
+            "record_timestamp",
+            "response_revision_number"
+          ],
+          "blocked_actions": [
+            "unversioned_evidence"
+          ],
+          "required_evidence": [
+            "provenance_type",
+            "response_revision",
+            "source_trace"
+          ],
+          "pass_condition": "La evidencia queda trazable y con estado epistemico correcto.",
+          "fail_state": "blocked_by_missing_evidence",
+          "corrective_action": "No consumir evidencia hasta corregir proveniencia o ruta.",
+          "source_refs": [
+            "D4:SPEC:idempotency_recomputation"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "EPI-010",
+          "module": "evidence_epistemology_rules",
+          "label": "Evidencia minima por salida",
+          "assertion": "Ningun candidato, readiness o payload se emite sin evidencia minima y source_trace.",
+          "severity": "blocker",
+          "applies_to": [
+            "evidence_lifecycle"
+          ],
+          "trigger": "Evidence is captured, inferred, corrected or consumed",
+          "allowed_actions": [
+            "validate_minimum_evidence"
+          ],
+          "blocked_actions": [
+            "emit_unfounded_output"
+          ],
+          "required_evidence": [
+            "provenance_type",
+            "response_revision",
+            "source_trace"
+          ],
+          "pass_condition": "La evidencia queda trazable y con estado epistemico correcto.",
+          "fail_state": "blocked_by_missing_evidence",
+          "corrective_action": "No consumir evidencia hasta corregir proveniencia o ruta.",
+          "source_refs": [
+            "D4:SPEC:readiness",
+            "D5:CAT:QA"
+          ],
+          "depends_on": [],
+          "emits": []
+        }
+      ]
+    },
+    "mmabp_governance_rules": {
+      "description": "Conecta el chip 00_method_kernel con las fronteras runtime y diagnosticas.",
+      "rules": [
+        {
+          "id": "MMG-001",
+          "module": "mmabp_governance_rules",
+          "label": "Kernel metodologico primero",
+          "assertion": "Toda salida estructural usa el chip 00_method_kernel antes de readiness, diagnostico o export preview.",
+          "severity": "blocker",
+          "applies_to": [
+            "structural_reasoning"
+          ],
+          "trigger": "A structural candidate or model-related output is considered",
+          "allowed_actions": [
+            "run_method_kernel"
+          ],
+          "blocked_actions": [
+            "diagnosis_or_export_before_method"
+          ],
+          "required_evidence": [
+            "method_kernel_result",
+            "evidence_bundle",
+            "candidate_state"
+          ],
+          "pass_condition": "La salida estructural no contradice el kernel MMABP ni gates runtime.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Reentry a evidencia o modelo afectado antes de avanzar.",
+          "source_refs": [
+            "D1:FBA:1.3.5",
+            "D4:SPEC:MMABP_before_diagnosis"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "MMG-002",
+          "module": "mmabp_governance_rules",
+          "label": "Cuatro vistas preservadas",
+          "assertion": "PM, MoC, PF y OLC son vistas complementarias; ninguna se usa como sustituto de otra.",
+          "severity": "blocker",
+          "applies_to": [
+            "structural_reasoning"
+          ],
+          "trigger": "A structural candidate or model-related output is considered",
+          "allowed_actions": [
+            "preserve_quadrants"
+          ],
+          "blocked_actions": [
+            "collapse_PM_PF",
+            "use_OLC_as_process"
+          ],
+          "required_evidence": [
+            "method_kernel_result",
+            "evidence_bundle",
+            "candidate_state"
+          ],
+          "pass_condition": "La salida estructural no contradice el kernel MMABP ni gates runtime.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Reentry a evidencia o modelo afectado antes de avanzar.",
+          "source_refs": [
+            "D1:FBA:1.3.4"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "MMG-003",
+          "module": "mmabp_governance_rules",
+          "label": "Conformance antes que consistencia",
+          "assertion": "Primero se valida cada modelo contra realidad; despues se revisa consistencia entre modelos.",
+          "severity": "blocker",
+          "applies_to": [
+            "structural_reasoning"
+          ],
+          "trigger": "A structural candidate or model-related output is considered",
+          "allowed_actions": [
+            "evaluate_conformance",
+            "then_consistency"
+          ],
+          "blocked_actions": [
+            "align_models_without_reality_check"
+          ],
+          "required_evidence": [
+            "method_kernel_result",
+            "evidence_bundle",
+            "candidate_state"
+          ],
+          "pass_condition": "La salida estructural no contradice el kernel MMABP ni gates runtime.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Reentry a evidencia o modelo afectado antes de avanzar.",
+          "source_refs": [
+            "D1:FBA:1.3.5"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "MMG-004",
+          "module": "mmabp_governance_rules",
+          "label": "No alineacion cosmetica",
+          "assertion": "Ante contradiccion, se regresa a realidad factual y se corrige el modelo que representa mal el negocio.",
+          "severity": "blocker",
+          "applies_to": [
+            "structural_reasoning"
+          ],
+          "trigger": "A structural candidate or model-related output is considered",
+          "allowed_actions": [
+            "request_reality_verification"
+          ],
+          "blocked_actions": [
+            "rename_to_hide_contradiction"
+          ],
+          "required_evidence": [
+            "method_kernel_result",
+            "evidence_bundle",
+            "candidate_state"
+          ],
+          "pass_condition": "La salida estructural no contradice el kernel MMABP ni gates runtime.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Reentry a evidencia o modelo afectado antes de avanzar.",
+          "source_refs": [
+            "D1:FBA:Chap4",
+            "D3:CONN:no_cosmetic_consistency"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "MMG-005",
+          "module": "mmabp_governance_rules",
+          "label": "Semantic Resolution Gate",
+          "assertion": "Antes de proyectar a MoC/OLC, resolver clase, estado, atributo, proceso, alias, role, phase, end o falsa ISA.",
+          "severity": "blocker",
+          "applies_to": [
+            "structural_reasoning"
+          ],
+          "trigger": "A structural candidate or model-related output is considered",
+          "allowed_actions": [
+            "run_semantic_resolution_gate"
+          ],
+          "blocked_actions": [
+            "project_ambiguous_concept"
+          ],
+          "required_evidence": [
+            "method_kernel_result",
+            "evidence_bundle",
+            "candidate_state"
+          ],
+          "pass_condition": "La salida estructural no contradice el kernel MMABP ni gates runtime.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Reentry a evidencia o modelo afectado antes de avanzar.",
+          "source_refs": [
+            "D5:CAT:SEM_gate",
+            "D4:SPEC:MMABPGateEngine"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "MMG-006",
+          "module": "mmabp_governance_rules",
+          "label": "Process State/Timer Gate",
+          "assertion": "Ninguna espera fuerte llega a PF como Process State sin evento esperado, condicion de liberacion, timer/salida o criterio de vencimiento.",
+          "severity": "blocker",
+          "applies_to": [
+            "structural_reasoning"
+          ],
+          "trigger": "A structural candidate or model-related output is considered",
+          "allowed_actions": [
+            "run_process_state_timer_gate"
+          ],
+          "blocked_actions": [
+            "create_wait_without_exit"
+          ],
+          "required_evidence": [
+            "method_kernel_result",
+            "evidence_bundle",
+            "candidate_state"
+          ],
+          "pass_condition": "La salida estructural no contradice el kernel MMABP ni gates runtime.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Reentry a evidencia o modelo afectado antes de avanzar.",
+          "source_refs": [
+            "D5:CAT:PST_gate",
+            "D4:SPEC:MMABPGateEngine"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "MMG-007",
+          "module": "mmabp_governance_rules",
+          "label": "Consistencia factual minima",
+          "assertion": "Objetos, estados, eventos y operaciones deben coincidir entre PM/MoC/PF/OLC antes de avanzar.",
+          "severity": "blocker",
+          "applies_to": [
+            "structural_reasoning"
+          ],
+          "trigger": "A structural candidate or model-related output is considered",
+          "allowed_actions": [
+            "check_factual_consistency"
+          ],
+          "blocked_actions": [
+            "orphan_event",
+            "object_without_MoC"
+          ],
+          "required_evidence": [
+            "method_kernel_result",
+            "evidence_bundle",
+            "candidate_state"
+          ],
+          "pass_condition": "La salida estructural no contradice el kernel MMABP ni gates runtime.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Reentry a evidencia o modelo afectado antes de avanzar.",
+          "source_refs": [
+            "D1:FBA:Chap4",
+            "D2:EVE_TABLE:factual"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "MMG-008",
+          "module": "mmabp_governance_rules",
+          "label": "Consistencia temporal minima",
+          "assertion": "La secuencia PF no puede forzar estados imposibles del OLC.",
+          "severity": "blocker",
+          "applies_to": [
+            "structural_reasoning"
+          ],
+          "trigger": "A structural candidate or model-related output is considered",
+          "allowed_actions": [
+            "check_temporal_consistency"
+          ],
+          "blocked_actions": [
+            "force_invalid_OLC_state"
+          ],
+          "required_evidence": [
+            "method_kernel_result",
+            "evidence_bundle",
+            "candidate_state"
+          ],
+          "pass_condition": "La salida estructural no contradice el kernel MMABP ni gates runtime.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Reentry a evidencia o modelo afectado antes de avanzar.",
+          "source_refs": [
+            "D1:FBA:Chap4",
+            "D2:EVE_TABLE:temporal"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "MMG-009",
+          "module": "mmabp_governance_rules",
+          "label": "Consistencia estructural minima",
+          "assertion": "Gateways, loops, paralelismos y alternativas del PF requieren base causal compatible con OLC/MoC.",
+          "severity": "blocker",
+          "applies_to": [
+            "structural_reasoning"
+          ],
+          "trigger": "A structural candidate or model-related output is considered",
+          "allowed_actions": [
+            "check_structural_consistency"
+          ],
+          "blocked_actions": [
+            "gateway_without_causal_basis"
+          ],
+          "required_evidence": [
+            "method_kernel_result",
+            "evidence_bundle",
+            "candidate_state"
+          ],
+          "pass_condition": "La salida estructural no contradice el kernel MMABP ni gates runtime.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Reentry a evidencia o modelo afectado antes de avanzar.",
+          "source_refs": [
+            "D1:FBA:Chap4",
+            "D2:EVE_TABLE:structural"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        },
+        {
+          "id": "MMG-010",
+          "module": "mmabp_governance_rules",
+          "label": "Contradiccion bloquea candidato",
+          "assertion": "Si la evidencia contradice estado, secuencia, receptor, objeto o proceso contenedor, se bloquea candidato hasta reentry o manual review.",
+          "severity": "blocker",
+          "applies_to": [
+            "structural_reasoning"
+          ],
+          "trigger": "A structural candidate or model-related output is considered",
+          "allowed_actions": [
+            "block_candidate"
+          ],
+          "blocked_actions": [
+            "emit_structural_candidate_anyway"
+          ],
+          "required_evidence": [
+            "method_kernel_result",
+            "evidence_bundle",
+            "candidate_state"
+          ],
+          "pass_condition": "La salida estructural no contradice el kernel MMABP ni gates runtime.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Reentry a evidencia o modelo afectado antes de avanzar.",
+          "source_refs": [
+            "D4:SPEC:readiness",
+            "D5:CAT:QA"
+          ],
+          "depends_on": [
+            "EVE-00-METHOD-KERNEL"
+          ],
+          "emits": []
+        }
+      ]
+    },
+    "diagnostic_boundary_rules": {
+      "description": "Define cuándo una patologia puede ser candidata y cuándo debe bloquearse.",
+      "rules": [
+        {
+          "id": "DGN-001",
+          "module": "diagnostic_boundary_rules",
+          "label": "Diagnostico nace de inconsistencia",
+          "assertion": "Ninguna patologia EVE se emite sin una inconsistencia MMABP identificada por modelos implicados.",
+          "severity": "blocker",
+          "applies_to": [
+            "diagnostic_reasoning"
+          ],
+          "trigger": "A diagnostic term or pathology mapping is requested",
+          "allowed_actions": [
+            "emit_pathology_candidate"
+          ],
+          "blocked_actions": [
+            "pathology_from_vibe"
+          ],
+          "required_evidence": [
+            "inconsistency_evidence",
+            "models_involved",
+            "D2_mapping"
+          ],
+          "pass_condition": "El diagnostico queda como candidato gobernado y trazable.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Reenviar a diagnostic_ontology o solicitar evidencia antes de emitir etiqueta.",
+          "source_refs": [
+            "D2:EVE_TABLE:inconsistency_mapping"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "DGN-002",
+          "module": "diagnostic_boundary_rules",
+          "label": "Etiqueta diagnostica es potencial",
+          "assertion": "Hasta que el chip diagnostic_ontology cierre la evaluacion, el termino patologico es candidato o hipotesis, no diagnostico final.",
+          "severity": "blocker",
+          "applies_to": [
+            "diagnostic_reasoning"
+          ],
+          "trigger": "A diagnostic term or pathology mapping is requested",
+          "allowed_actions": [
+            "diagnostic_candidate"
+          ],
+          "blocked_actions": [
+            "final_diagnosis_in_Capa1"
+          ],
+          "required_evidence": [
+            "inconsistency_evidence",
+            "models_involved",
+            "D2_mapping"
+          ],
+          "pass_condition": "El diagnostico queda como candidato gobernado y trazable.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Reenviar a diagnostic_ontology o solicitar evidencia antes de emitir etiqueta.",
+          "source_refs": [
+            "D2:EVE_TABLE",
+            "D4:SPEC:frontier"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "DGN-003",
+          "module": "diagnostic_boundary_rules",
+          "label": "Par/trio/cuadrante explicito",
+          "assertion": "Toda hipotesis diagnostica declara modelos implicados: PM-MoC, PM-PF, MoC-PF, PF-OLC, OLC-MoC o compuesto.",
+          "severity": "high",
+          "applies_to": [
+            "diagnostic_reasoning"
+          ],
+          "trigger": "A diagnostic term or pathology mapping is requested",
+          "allowed_actions": [
+            "models_involved_trace"
+          ],
+          "blocked_actions": [
+            "pathology_without_model_trace"
+          ],
+          "required_evidence": [
+            "inconsistency_evidence",
+            "models_involved",
+            "D2_mapping"
+          ],
+          "pass_condition": "El diagnostico queda como candidato gobernado y trazable.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Reenviar a diagnostic_ontology o solicitar evidencia antes de emitir etiqueta.",
+          "source_refs": [
+            "D2:EVE_TABLE"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "DGN-004",
+          "module": "diagnostic_boundary_rules",
+          "label": "D2 no altera MMABP",
+          "assertion": "La tabla diagnostica interpreta fallas; no modifica reglas de conformance o consistencia de D1.",
+          "severity": "high",
+          "applies_to": [
+            "diagnostic_reasoning"
+          ],
+          "trigger": "A diagnostic term or pathology mapping is requested",
+          "allowed_actions": [
+            "interpret_after_method"
+          ],
+          "blocked_actions": [
+            "change_MMABP_rule_from_pathology"
+          ],
+          "required_evidence": [
+            "inconsistency_evidence",
+            "models_involved",
+            "D2_mapping"
+          ],
+          "pass_condition": "El diagnostico queda como candidato gobernado y trazable.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Reenviar a diagnostic_ontology o solicitar evidencia antes de emitir etiqueta.",
+          "source_refs": [
+            "D1:FBA:1.3.5",
+            "D2:EVE_TABLE"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "DGN-005",
+          "module": "diagnostic_boundary_rules",
+          "label": "Compuesta exige evidencia cruzada",
+          "assertion": "Patologias compuestas requieren evidencia de tres o cuatro perspectivas, no un solo sintoma local.",
+          "severity": "high",
+          "applies_to": [
+            "diagnostic_reasoning"
+          ],
+          "trigger": "A diagnostic term or pathology mapping is requested",
+          "allowed_actions": [
+            "compound_diagnostic_candidate"
+          ],
+          "blocked_actions": [
+            "compound_label_from_single_gap"
+          ],
+          "required_evidence": [
+            "inconsistency_evidence",
+            "models_involved",
+            "D2_mapping"
+          ],
+          "pass_condition": "El diagnostico queda como candidato gobernado y trazable.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Reenviar a diagnostic_ontology o solicitar evidencia antes de emitir etiqueta.",
+          "source_refs": [
+            "D2:EVE_TABLE:compound"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "DGN-006",
+          "module": "diagnostic_boundary_rules",
+          "label": "Diagnostico prematuro bloqueado",
+          "assertion": "B7, C20, SG Shadow o UI no pueden cerrar diagnostico EVE final.",
+          "severity": "blocker",
+          "applies_to": [
+            "diagnostic_reasoning"
+          ],
+          "trigger": "A diagnostic term or pathology mapping is requested",
+          "allowed_actions": [
+            "block_premature_diagnosis"
+          ],
+          "blocked_actions": [
+            "diagnosis_from_B7_C20"
+          ],
+          "required_evidence": [
+            "inconsistency_evidence",
+            "models_involved",
+            "D2_mapping"
+          ],
+          "pass_condition": "El diagnostico queda como candidato gobernado y trazable.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Reenviar a diagnostic_ontology o solicitar evidencia antes de emitir etiqueta.",
+          "source_refs": [
+            "D5:CAT:B7_C20",
+            "D3:CONN:SG_shadow"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "DGN-007",
+          "module": "diagnostic_boundary_rules",
+          "label": "Incertidumbre explicita",
+          "assertion": "Si falta soporte documental o evidencia factual, el agente emite incertidumbre y required_inputs.",
+          "severity": "high",
+          "applies_to": [
+            "diagnostic_reasoning"
+          ],
+          "trigger": "A diagnostic term or pathology mapping is requested",
+          "allowed_actions": [
+            "emit_uncertainty",
+            "request_evidence"
+          ],
+          "blocked_actions": [
+            "overconfident_diagnosis"
+          ],
+          "required_evidence": [
+            "inconsistency_evidence",
+            "models_involved",
+            "D2_mapping"
+          ],
+          "pass_condition": "El diagnostico queda como candidato gobernado y trazable.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Reenviar a diagnostic_ontology o solicitar evidencia antes de emitir etiqueta.",
+          "source_refs": [
+            "D2:EVE_TABLE",
+            "D4:SPEC:manual_review"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "DGN-008",
+          "module": "diagnostic_boundary_rules",
+          "label": "Correccion antes de etiqueta",
+          "assertion": "Cuando el modelo puede estar mal por captura incompleta, la primera accion es corregir evidencia/modelo, no etiquetar patologia.",
+          "severity": "high",
+          "applies_to": [
+            "diagnostic_reasoning"
+          ],
+          "trigger": "A diagnostic term or pathology mapping is requested",
+          "allowed_actions": [
+            "correct_model_or_evidence"
+          ],
+          "blocked_actions": [
+            "pathologize_missing_data"
+          ],
+          "required_evidence": [
+            "inconsistency_evidence",
+            "models_involved",
+            "D2_mapping"
+          ],
+          "pass_condition": "El diagnostico queda como candidato gobernado y trazable.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Reenviar a diagnostic_ontology o solicitar evidencia antes de emitir etiqueta.",
+          "source_refs": [
+            "D1:FBA:Chap4",
+            "D5:CAT:QA"
+          ],
+          "depends_on": [],
+          "emits": []
+        }
+      ]
+    },
+    "runtime_behavior_rules": {
+      "description": "Gobierna interacción, presupuesto, rutas críticas, C09, B7/C20 y readiness.",
+      "rules": [
+        {
+          "id": "RTM-001",
+          "module": "runtime_behavior_rules",
+          "label": "Presupuesto 40+20",
+          "assertion": "Cada activity_runtime_run respeta maximo 40 interacciones base y hasta 20 causales salvo reentry justificado y auditado.",
+          "severity": "blocker",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "enforce_budget"
+          ],
+          "blocked_actions": [
+            "unbounded_questioning"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D4:SPEC:budget",
+            "D5:CAT:40_20"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-002",
+          "module": "runtime_behavior_rules",
+          "label": "Causal por senal estructural",
+          "assertion": "Una causal se abre por evidencia, gap, contradiccion, ruta critica o baja confianza; no por curiosidad analitica.",
+          "severity": "high",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "open_causal_by_signal"
+          ],
+          "blocked_actions": [
+            "open_causal_for_curiosity"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D3:CONN:20_controls",
+            "D4:SPEC:priority_algorithm"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-003",
+          "module": "runtime_behavior_rules",
+          "label": "Rutas criticas prioritarias",
+          "assertion": "B0, B2, B3 y B7 tienen prioridad ante presion de presupuesto y no se cierran por inferencia libre.",
+          "severity": "blocker",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "prioritize_critical_route"
+          ],
+          "blocked_actions": [
+            "skip_critical_route"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D5:CAT:critical_routes",
+            "D4:SPEC:priority_algorithm"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-004",
+          "module": "runtime_behavior_rules",
+          "label": "B0 confirma actividad",
+          "assertion": "Actividad parcial o debil no se consolida como evidence hard hasta confirmacion o reconstruccion guiada.",
+          "severity": "high",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "guided_reconstruction"
+          ],
+          "blocked_actions": [
+            "hard_close_partial_activity"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D4:SPEC:test_B0",
+            "D5:CAT:B0_Q01"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-005",
+          "module": "runtime_behavior_rules",
+          "label": "B2 protege transformacion",
+          "assertion": "Excepcion de transformacion se captura o deriva por ruta canonica; no por texto libre sin trazabilidad.",
+          "severity": "high",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "validate_transformation_exception_route"
+          ],
+          "blocked_actions": [
+            "free_text_exception_as_closed"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "blocked_by_missing_canonical_route",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D3:CONN:blocks",
+            "D5:CAT:critical_routes"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-006",
+          "module": "runtime_behavior_rules",
+          "label": "B3/C09 feedback no es satisfaccion",
+          "assertion": "receiver_satisfaction no equivale a receiver_feedback; feedback operativo requiere ruta C09 cuando hay senal de aviso, devolucion, correccion, bloqueo o rechazo.",
+          "severity": "blocker",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "open_C09_when_needed"
+          ],
+          "blocked_actions": [
+            "derive_feedback_from_satisfaction"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "blocked_by_missing_canonical_route",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D5:CAT:C09",
+            "D4:SPEC:C09"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-007",
+          "module": "runtime_behavior_rules",
+          "label": "B7/C20 microconfirmacion",
+          "assertion": "C20 se abre solo con baja confianza, senales cruzadas o necesidad de correccion; no produce IR/registry/export.",
+          "severity": "blocker",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "open_C20_microconfirmation"
+          ],
+          "blocked_actions": [
+            "routine_C20",
+            "C20_export"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D5:CAT:B7_C20",
+            "D4:SPEC:test_B7"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-008",
+          "module": "runtime_behavior_rules",
+          "label": "Reentry gobernado",
+          "assertion": "Reentry ocurre por gap bloqueante, contradiccion, ruta canonica faltante o manual review; consume presupuesto segun origen y exige justificacion.",
+          "severity": "high",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "open_reentry_with_justification"
+          ],
+          "blocked_actions": [
+            "silent_reentry"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D4:SPEC:states_budget"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-009",
+          "module": "runtime_behavior_rules",
+          "label": "Readiness como estado formal",
+          "assertion": "Ready, ready_with_flags, blocked, manual_review y export_blocked son decisiones formales, no prosa.",
+          "severity": "high",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "emit_readiness_decision_record"
+          ],
+          "blocked_actions": [
+            "narrative_readiness_only"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D4:SPEC:readiness_entities"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-010",
+          "module": "runtime_behavior_rules",
+          "label": "Budget agotado crea carry_forward",
+          "assertion": "Si hay mas causales que presupuesto, se priorizan rutas criticas y el resto viaja como carry_forward gap.",
+          "severity": "high",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "create_carry_forward_gap"
+          ],
+          "blocked_actions": [
+            "drop_unasked_signal"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D4:SPEC:priority_algorithm"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-011",
+          "module": "runtime_behavior_rules",
+          "label": "Interaccion desde fila operacional",
+          "assertion": "El motor puede producir next_interaction sin leer narrativa DOCX; requiere definition/version/mapping.",
+          "severity": "blocker",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "load_interaction_def"
+          ],
+          "blocked_actions": [
+            "interpret_DOCX_as_runtime_row"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D4:SPEC:implementation_criteria",
+            "D5:CAT:workbook_model"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "RTM-012",
+          "module": "runtime_behavior_rules",
+          "label": "Mapeo de nodos y variables",
+          "assertion": "Cada interaccion runtime conserva source_nodes, source_codes, canonical_variables, conformance_checkpoint y consistency_checkpoint.",
+          "severity": "blocker",
+          "applies_to": [
+            "runtime_run"
+          ],
+          "trigger": "A runtime interaction is opened, closed, skipped or consumed",
+          "allowed_actions": [
+            "validate_interaction_mapping"
+          ],
+          "blocked_actions": [
+            "activate_unmapped_interaction"
+          ],
+          "required_evidence": [
+            "run_id",
+            "interaction_def",
+            "budget_state",
+            "route_status"
+          ],
+          "pass_condition": "El runtime avanza sin romper frontera, presupuesto ni trazabilidad.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Aplicar reentry, gap o manual_review antes de continuar.",
+          "source_refs": [
+            "D5:CAT:workbook_required_fields"
+          ],
+          "depends_on": [],
+          "emits": []
+        }
+      ]
+    },
+    "parallel_production_boundary_rules": {
+      "description": "Protege la salida hacia SCR/EvidenceBundle/MDSB y Produccion Paralela.",
+      "rules": [
+        {
+          "id": "PPI-001",
+          "module": "parallel_production_boundary_rules",
+          "label": "Produccion Paralela no consume texto crudo",
+          "assertion": "Produccion Paralela consume evidence_items, variables y candidates gobernados; no transforma texto literal en artefacto final.",
+          "severity": "blocker",
+          "applies_to": [
+            "parallel_export"
+          ],
+          "trigger": "A downstream payload or parallel production handoff is considered",
+          "allowed_actions": [
+            "export_governed_payload"
+          ],
+          "blocked_actions": [
+            "raw_text_to_parallel_artifact"
+          ],
+          "required_evidence": [
+            "readiness_decision",
+            "authority",
+            "payload_source_trace"
+          ],
+          "pass_condition": "Solo se emite payload gobernado, autorizado y trazable.",
+          "fail_state": "export_blocked",
+          "corrective_action": "Bloquear payload y registrar gap/authority issue.",
+          "source_refs": [
+            "D3:CONN:parallel_production",
+            "D5:CAT:QA"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "PPI-002",
+          "module": "parallel_production_boundary_rules",
+          "label": "Export requiere readiness permitido",
+          "assertion": "Emitir payload hacia SCR/EvidenceBundle/MDSB requiere readiness_state permitido y actor/sistema autorizado.",
+          "severity": "blocker",
+          "applies_to": [
+            "parallel_export"
+          ],
+          "trigger": "A downstream payload or parallel production handoff is considered",
+          "allowed_actions": [
+            "emit_payload_if_authorized"
+          ],
+          "blocked_actions": [
+            "export_without_readiness"
+          ],
+          "required_evidence": [
+            "readiness_decision",
+            "authority",
+            "payload_source_trace"
+          ],
+          "pass_condition": "Solo se emite payload gobernado, autorizado y trazable.",
+          "fail_state": "export_blocked",
+          "corrective_action": "Bloquear payload y registrar gap/authority issue.",
+          "source_refs": [
+            "D4:SPEC:security_audit"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "PPI-003",
+          "module": "parallel_production_boundary_rules",
+          "label": "Payload desde variables/evidence",
+          "assertion": "SCR/EvidenceBundle/MDSB se generan solo desde variables canonicas y evidence_items gobernados.",
+          "severity": "blocker",
+          "applies_to": [
+            "parallel_export"
+          ],
+          "trigger": "A downstream payload or parallel production handoff is considered",
+          "allowed_actions": [
+            "build_payload_from_governed_data"
+          ],
+          "blocked_actions": [
+            "payload_from_free_text"
+          ],
+          "required_evidence": [
+            "readiness_decision",
+            "authority",
+            "payload_source_trace"
+          ],
+          "pass_condition": "Solo se emite payload gobernado, autorizado y trazable.",
+          "fail_state": "export_blocked",
+          "corrective_action": "Bloquear payload y registrar gap/authority issue.",
+          "source_refs": [
+            "D4:SPEC:implementation_criteria"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "PPI-004",
+          "module": "parallel_production_boundary_rules",
+          "label": "B7/C20 no exportan",
+          "assertion": "Ningun flujo permite registry, IR o export directo desde B7-Q39/B7-Q40/C20.",
+          "severity": "blocker",
+          "applies_to": [
+            "parallel_export"
+          ],
+          "trigger": "A downstream payload or parallel production handoff is considered",
+          "allowed_actions": [
+            "block_B7_export"
+          ],
+          "blocked_actions": [
+            "B7_direct_export"
+          ],
+          "required_evidence": [
+            "readiness_decision",
+            "authority",
+            "payload_source_trace"
+          ],
+          "pass_condition": "Solo se emite payload gobernado, autorizado y trazable.",
+          "fail_state": "export_blocked",
+          "corrective_action": "Bloquear payload y registrar gap/authority issue.",
+          "source_refs": [
+            "D4:SPEC:tests_T020",
+            "D5:CAT:B7_C20"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "PPI-005",
+          "module": "parallel_production_boundary_rules",
+          "label": "Contradiccion bloquea export",
+          "assertion": "Contradicciones PM/MoC/PF/OLC, route_missing o missing_evidence bloquean export hasta reentry/manual review.",
+          "severity": "blocker",
+          "applies_to": [
+            "parallel_export"
+          ],
+          "trigger": "A downstream payload or parallel production handoff is considered",
+          "allowed_actions": [
+            "export_blocked"
+          ],
+          "blocked_actions": [
+            "export_with_blocking_gap"
+          ],
+          "required_evidence": [
+            "readiness_decision",
+            "authority",
+            "payload_source_trace"
+          ],
+          "pass_condition": "Solo se emite payload gobernado, autorizado y trazable.",
+          "fail_state": "export_blocked",
+          "corrective_action": "Bloquear payload y registrar gap/authority issue.",
+          "source_refs": [
+            "D4:SPEC:readiness",
+            "D5:CAT:QA"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "PPI-006",
+          "module": "parallel_production_boundary_rules",
+          "label": "Candidate no es artifact final",
+          "assertion": "structural_candidate_record es preparatorio; artifact final requiere fases posteriores y gobernanza especifica.",
+          "severity": "high",
+          "applies_to": [
+            "parallel_export"
+          ],
+          "trigger": "A downstream payload or parallel production handoff is considered",
+          "allowed_actions": [
+            "candidate_record"
+          ],
+          "blocked_actions": [
+            "final_artifact_from_candidate"
+          ],
+          "required_evidence": [
+            "readiness_decision",
+            "authority",
+            "payload_source_trace"
+          ],
+          "pass_condition": "Solo se emite payload gobernado, autorizado y trazable.",
+          "fail_state": "export_blocked",
+          "corrective_action": "Bloquear payload y registrar gap/authority issue.",
+          "source_refs": [
+            "D4:SPEC:DDL",
+            "D3:CONN:parallel_boundaries"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "PPI-007",
+          "module": "parallel_production_boundary_rules",
+          "label": "SG Shadow no promueve export",
+          "assertion": "Findings y recommendations report-only no promueven export final ni mutan readiness.",
+          "severity": "high",
+          "applies_to": [
+            "parallel_export"
+          ],
+          "trigger": "A downstream payload or parallel production handoff is considered",
+          "allowed_actions": [
+            "shadow_recommendation"
+          ],
+          "blocked_actions": [
+            "shadow_export_promotion"
+          ],
+          "required_evidence": [
+            "readiness_decision",
+            "authority",
+            "payload_source_trace"
+          ],
+          "pass_condition": "Solo se emite payload gobernado, autorizado y trazable.",
+          "fail_state": "export_blocked",
+          "corrective_action": "Bloquear payload y registrar gap/authority issue.",
+          "source_refs": [
+            "D3:CONN:SG_shadow"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "PPI-008",
+          "module": "parallel_production_boundary_rules",
+          "label": "Payload versionado y auditable",
+          "assertion": "Todo parallel_export_payload debe ser versionado, reconstruible y auditado.",
+          "severity": "high",
+          "applies_to": [
+            "parallel_export"
+          ],
+          "trigger": "A downstream payload or parallel production handoff is considered",
+          "allowed_actions": [
+            "versioned_payload",
+            "audit_payload"
+          ],
+          "blocked_actions": [
+            "unversioned_payload"
+          ],
+          "required_evidence": [
+            "readiness_decision",
+            "authority",
+            "payload_source_trace"
+          ],
+          "pass_condition": "Solo se emite payload gobernado, autorizado y trazable.",
+          "fail_state": "export_blocked",
+          "corrective_action": "Bloquear payload y registrar gap/authority issue.",
+          "source_refs": [
+            "D4:SPEC:DDL_security"
+          ],
+          "depends_on": [],
+          "emits": []
+        }
+      ]
+    },
+    "audit_authority_rules": {
+      "description": "Define autoridad, versionado, seguridad minima, overrides y audit trail.",
+      "rules": [
+        {
+          "id": "AUD-001",
+          "module": "audit_authority_rules",
+          "label": "Audit trail por decision relevante",
+          "assertion": "Toda decision de gate, bloqueo, reentry, manual review, override o export preview crea audit event.",
+          "severity": "blocker",
+          "applies_to": [
+            "governance_event"
+          ],
+          "trigger": "Audit, security, versioning or authority event occurs",
+          "allowed_actions": [
+            "runtime_audit_trail"
+          ],
+          "blocked_actions": [
+            "unaudited_decision"
+          ],
+          "required_evidence": [
+            "actor_id",
+            "timestamp",
+            "case_scope",
+            "rule_id"
+          ],
+          "pass_condition": "El evento queda auditado, versionado y con autoridad validada.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit trail, bloquear activacion o exigir actor autorizado.",
+          "source_refs": [
+            "D4:SPEC:audit"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "AUD-002",
+          "module": "audit_authority_rules",
+          "label": "Override con campos obligatorios",
+          "assertion": "Todo override registra actor_id, razon, alcance, prior_value, new_value y timestamp.",
+          "severity": "blocker",
+          "applies_to": [
+            "governance_event"
+          ],
+          "trigger": "Audit, security, versioning or authority event occurs",
+          "allowed_actions": [
+            "record_override"
+          ],
+          "blocked_actions": [
+            "silent_override"
+          ],
+          "required_evidence": [
+            "actor_id",
+            "timestamp",
+            "case_scope",
+            "rule_id"
+          ],
+          "pass_condition": "El evento queda auditado, versionado y con autoridad validada.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit trail, bloquear activacion o exigir actor autorizado.",
+          "source_refs": [
+            "D4:SPEC:security_audit"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "AUD-003",
+          "module": "audit_authority_rules",
+          "label": "Manual review solo actor autorizado",
+          "assertion": "manual_review_required solo se resuelve por actor autorizado y queda auditado.",
+          "severity": "blocker",
+          "applies_to": [
+            "governance_event"
+          ],
+          "trigger": "Audit, security, versioning or authority event occurs",
+          "allowed_actions": [
+            "authorized_manual_review"
+          ],
+          "blocked_actions": [
+            "self_resolve_manual_review"
+          ],
+          "required_evidence": [
+            "actor_id",
+            "timestamp",
+            "case_scope",
+            "rule_id"
+          ],
+          "pass_condition": "El evento queda auditado, versionado y con autoridad validada.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit trail, bloquear activacion o exigir actor autorizado.",
+          "source_refs": [
+            "D4:SPEC:security_audit"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "AUD-004",
+          "module": "audit_authority_rules",
+          "label": "Rutas criticas con audit obligatorio",
+          "assertion": "Cualquier cambio a B0/B2/B3/B7 exige audit log obligatorio.",
+          "severity": "blocker",
+          "applies_to": [
+            "governance_event"
+          ],
+          "trigger": "Audit, security, versioning or authority event occurs",
+          "allowed_actions": [
+            "critical_route_audit"
+          ],
+          "blocked_actions": [
+            "critical_route_silent_change"
+          ],
+          "required_evidence": [
+            "actor_id",
+            "timestamp",
+            "case_scope",
+            "rule_id"
+          ],
+          "pass_condition": "El evento queda auditado, versionado y con autoridad validada.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit trail, bloquear activacion o exigir actor autorizado.",
+          "source_refs": [
+            "D4:SPEC:security_audit",
+            "D5:CAT:critical_routes"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "AUD-005",
+          "module": "audit_authority_rules",
+          "label": "Version y checksum",
+          "assertion": "Activacion de catalogo, chip o regla exige version, checksum y estado frozen/active cuando aplique.",
+          "severity": "high",
+          "applies_to": [
+            "governance_event"
+          ],
+          "trigger": "Audit, security, versioning or authority event occurs",
+          "allowed_actions": [
+            "register_checksum"
+          ],
+          "blocked_actions": [
+            "activate_unversioned_catalog"
+          ],
+          "required_evidence": [
+            "actor_id",
+            "timestamp",
+            "case_scope",
+            "rule_id"
+          ],
+          "pass_condition": "El evento queda auditado, versionado y con autoridad validada.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit trail, bloquear activacion o exigir actor autorizado.",
+          "source_refs": [
+            "D4:SPEC:QA_import",
+            "D5:CAT:version_control"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "AUD-006",
+          "module": "audit_authority_rules",
+          "label": "Source trace por regla",
+          "assertion": "Cada salida constitucional incluye rule_id, source_refs y dependency chips.",
+          "severity": "high",
+          "applies_to": [
+            "governance_event"
+          ],
+          "trigger": "Audit, security, versioning or authority event occurs",
+          "allowed_actions": [
+            "emit_rule_trace"
+          ],
+          "blocked_actions": [
+            "opaque_AI_decision"
+          ],
+          "required_evidence": [
+            "actor_id",
+            "timestamp",
+            "case_scope",
+            "rule_id"
+          ],
+          "pass_condition": "El evento queda auditado, versionado y con autoridad validada.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit trail, bloquear activacion o exigir actor autorizado.",
+          "source_refs": [
+            "D4:SPEC:audit",
+            "D5:CAT:QA"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "AUD-007",
+          "module": "audit_authority_rules",
+          "label": "Idempotencia de respuestas",
+          "assertion": "POST/respuesta debe soportar idempotency_key y response_revision_number para evitar duplicados y perdida de correccion.",
+          "severity": "high",
+          "applies_to": [
+            "governance_event"
+          ],
+          "trigger": "Audit, security, versioning or authority event occurs",
+          "allowed_actions": [
+            "idempotent_response"
+          ],
+          "blocked_actions": [
+            "duplicate_untracked_response"
+          ],
+          "required_evidence": [
+            "actor_id",
+            "timestamp",
+            "case_scope",
+            "rule_id"
+          ],
+          "pass_condition": "El evento queda auditado, versionado y con autoridad validada.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit trail, bloquear activacion o exigir actor autorizado.",
+          "source_refs": [
+            "D4:SPEC:implementation_ready"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "AUD-008",
+          "module": "audit_authority_rules",
+          "label": "Tenancy y scoping",
+          "assertion": "Ningun query de usuario puede leer datos fuera de case_id/tenant autorizado.",
+          "severity": "blocker",
+          "applies_to": [
+            "governance_event"
+          ],
+          "trigger": "Audit, security, versioning or authority event occurs",
+          "allowed_actions": [
+            "tenant_scoped_query"
+          ],
+          "blocked_actions": [
+            "cross_tenant_read"
+          ],
+          "required_evidence": [
+            "actor_id",
+            "timestamp",
+            "case_scope",
+            "rule_id"
+          ],
+          "pass_condition": "El evento queda auditado, versionado y con autoridad validada.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit trail, bloquear activacion o exigir actor autorizado.",
+          "source_refs": [
+            "D4:SPEC:security_audit"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "AUD-009",
+          "module": "audit_authority_rules",
+          "label": "No borrado de evidencia",
+          "assertion": "La evidencia se supersede, archiva o invalida por recomputacion; no se borra para ocultar contradicciones.",
+          "severity": "high",
+          "applies_to": [
+            "governance_event"
+          ],
+          "trigger": "Audit, security, versioning or authority event occurs",
+          "allowed_actions": [
+            "supersede_or_archive"
+          ],
+          "blocked_actions": [
+            "delete_evidence_to_pass_gate"
+          ],
+          "required_evidence": [
+            "actor_id",
+            "timestamp",
+            "case_scope",
+            "rule_id"
+          ],
+          "pass_condition": "El evento queda auditado, versionado y con autoridad validada.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit trail, bloquear activacion o exigir actor autorizado.",
+          "source_refs": [
+            "D4:SPEC:security_audit"
+          ],
+          "depends_on": [],
+          "emits": []
+        },
+        {
+          "id": "AUD-010",
+          "module": "audit_authority_rules",
+          "label": "QA bloquea activacion",
+          "assertion": "Loader o chip activation se bloquea si falla QA requerido, metadata o columnas/campos obligatorios.",
+          "severity": "blocker",
+          "applies_to": [
+            "governance_event"
+          ],
+          "trigger": "Audit, security, versioning or authority event occurs",
+          "allowed_actions": [
+            "block_activation_on_QA_failure"
+          ],
+          "blocked_actions": [
+            "activate_with_failed_QA"
+          ],
+          "required_evidence": [
+            "actor_id",
+            "timestamp",
+            "case_scope",
+            "rule_id"
+          ],
+          "pass_condition": "El evento queda auditado, versionado y con autoridad validada.",
+          "fail_state": "audit_required",
+          "corrective_action": "Crear audit trail, bloquear activacion o exigir actor autorizado.",
+          "source_refs": [
+            "D4:SPEC:QA_import",
+            "D5:CAT:workbook_required_fields"
+          ],
+          "depends_on": [],
+          "emits": []
+        }
+      ]
+    }
+  },
+  "rule_index_count": 76,
+  "rule_index": [
+    "SRC-001",
+    "SRC-002",
+    "SRC-003",
+    "SRC-004",
+    "SRC-005",
+    "SRC-006",
+    "SRC-007",
+    "SRC-008",
+    "SCP-001",
+    "SCP-002",
+    "SCP-003",
+    "SCP-004",
+    "SCP-005",
+    "SCP-006",
+    "SCP-007",
+    "SCP-008",
+    "SCP-009",
+    "SCP-010",
+    "EPI-001",
+    "EPI-002",
+    "EPI-003",
+    "EPI-004",
+    "EPI-005",
+    "EPI-006",
+    "EPI-007",
+    "EPI-008",
+    "EPI-009",
+    "EPI-010",
+    "MMG-001",
+    "MMG-002",
+    "MMG-003",
+    "MMG-004",
+    "MMG-005",
+    "MMG-006",
+    "MMG-007",
+    "MMG-008",
+    "MMG-009",
+    "MMG-010",
+    "DGN-001",
+    "DGN-002",
+    "DGN-003",
+    "DGN-004",
+    "DGN-005",
+    "DGN-006",
+    "DGN-007",
+    "DGN-008",
+    "RTM-001",
+    "RTM-002",
+    "RTM-003",
+    "RTM-004",
+    "RTM-005",
+    "RTM-006",
+    "RTM-007",
+    "RTM-008",
+    "RTM-009",
+    "RTM-010",
+    "RTM-011",
+    "RTM-012",
+    "PPI-001",
+    "PPI-002",
+    "PPI-003",
+    "PPI-004",
+    "PPI-005",
+    "PPI-006",
+    "PPI-007",
+    "PPI-008",
+    "AUD-001",
+    "AUD-002",
+    "AUD-003",
+    "AUD-004",
+    "AUD-005",
+    "AUD-006",
+    "AUD-007",
+    "AUD-008",
+    "AUD-009",
+    "AUD-010"
+  ],
+  "change_log": [
+    {
+      "version": "0.1.0",
+      "date": "2026-06-17T23:03:36Z",
+      "change": "Etapa 01 creada usando solo documentos rectores D1-D5. Documentos internos del asistente excluidos como fuente compilada."
+    }
+  ]
+} as const;
+
+export const EVE_01_RULES: EveConstitutionRule[] = Object.values(EVE_01_AGENT_CONSTITUTION.modules)
+  .flatMap((module: any) => module.rules) as EveConstitutionRule[];
+
+export function getEve01Rule(ruleId: string): EveConstitutionRule | undefined {
+  return EVE_01_RULES.find((rule) => rule.id === ruleId);
+}
+
+export function findEve01RulesByBlockedAction(action: string): EveConstitutionRule[] {
+  return EVE_01_RULES.filter((rule) => rule.blocked_actions.includes(action));
+}
+
+export function findEve01RulesByAllowedAction(action: string): EveConstitutionRule[] {
+  return EVE_01_RULES.filter((rule) => rule.allowed_actions.includes(action));
+}
+
+export function evaluateEve01Constitution(input: EveConstitutionDecisionInput): EveConstitutionDecision {
+  const blockedRules = findEve01RulesByBlockedAction(input.requestedAction);
+  const allowedRules = findEve01RulesByAllowedAction(input.requestedAction);
+  const blocking = blockedRules.length > 0;
+  const sourceTrace = Array.from(new Set([
+    ...(input.sourceTrace ?? []),
+    ...blockedRules.flatMap((r) => r.source_refs),
+    ...allowedRules.flatMap((r) => r.source_refs),
+  ]));
+  const readinessState = blocking
+    ? (blockedRules.find((r) => r.severity === 'blocker')?.fail_state ?? 'manual_review_required')
+    : (input.readinessState ?? 'capture_allowed');
+  return {
+    chipId: EVE_01_AGENT_CONSTITUTION.chip_id,
+    allowed: !blocking && allowedRules.length > 0,
+    matchedRuleIds: Array.from(new Set([...allowedRules.map((r) => r.id), ...blockedRules.map((r) => r.id)])),
+    blockedByRuleIds: blockedRules.map((r) => r.id),
+    allowedActions: Array.from(new Set(allowedRules.flatMap((r) => r.allowed_actions))),
+    blockedActions: Array.from(new Set(blockedRules.flatMap((r) => r.blocked_actions))),
+    readinessState,
+    auditRequired: blocking || readinessState.includes('manual_review') || readinessState.includes('audit'),
+    sourceTrace,
+    requiredInputs: Array.from(new Set(blockedRules.flatMap((r) => r.required_evidence))),
+  };
+}

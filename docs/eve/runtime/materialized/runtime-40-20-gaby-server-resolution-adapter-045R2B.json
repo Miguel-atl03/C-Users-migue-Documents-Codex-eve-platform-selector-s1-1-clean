@@ -1,0 +1,55 @@
+﻿{
+    "metadata":  {
+                     "instruction":  "045-R2B",
+                     "git_root":  "C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone/external-consumers/eve-platform-operational-baseline-c312",
+                     "head":  "8becedf4940b9bd19ec9d9968b9308d34070b555",
+                     "final_classification":  "blocked_gaby_runtime_write_atomicity_gap",
+                     "staging_consulted":  "no",
+                     "staging_writes":  "none",
+                     "production_consulted":  "no",
+                     "remote_writes":  "none",
+                     "code_modified":  [
+
+                                       ],
+                     "sql_modified":  [
+
+                                      ],
+                     "B0_modified":  "no",
+                     "B1_modified":  "no",
+                     "Gaby_modified":  "no",
+                     "commit_created":  "no"
+                 },
+    "existing_service":  {
+                             "path":  "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts",
+                             "materiality":  "existing_service_extendable",
+                             "capabilities":  [
+                                                  "render_next",
+                                                  "ingest_response",
+                                                  "server-built RuntimeResponsePayload",
+                                                  "044-A.3M source capture crosswalk",
+                                                  "governed ResponseIngestService call"
+                                              ]
+                         },
+    "route_candidate":  {
+                            "path":  "src/app/api/eve/runtime-40-20/governed-execution/advance/route.ts",
+                            "status":  "server_only_candidate",
+                            "gap":  "synthetic/internal route, not live Gaby scene ownership boundary"
+                        },
+    "required_server_resolution":  [
+                                       "auth request",
+                                       "validate session/scene ownership",
+                                       "resolve activityRuntimeRun",
+                                       "validate run",
+                                       "resolve catalog from run",
+                                       "resolve open interaction instance",
+                                       "validate binding",
+                                       "resolve slots via 044-A.3M",
+                                       "resolve source identity",
+                                       "source_trace",
+                                       "provenance",
+                                       "revision",
+                                       "idempotency",
+                                       "build ingest command"
+                                   ],
+    "blocker":  "blocked_gaby_runtime_write_atomicity_gap"
+}

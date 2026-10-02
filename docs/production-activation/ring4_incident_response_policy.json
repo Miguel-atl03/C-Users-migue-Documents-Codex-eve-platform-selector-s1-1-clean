@@ -1,0 +1,118 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING4_INCIDENT_RESPONSE_POLICY",
+  "generated_at": "2026-07-09T07:48:00.000Z",
+  "authorization_ref": "ring4-authorization-expanded-production-scale-governance-20260709",
+  "ring": 4,
+  "ring_name": "expanded_production_scale_governance",
+  "version": "1.0.0",
+  "incident_response_required": true,
+  "human_supervision_required": true,
+  "consultant_notification_required": true,
+  "incident_severity_levels": [
+    {
+      "id": "R4-IR-SEV1",
+      "severity": "critical",
+      "description": "Data boundary breach, unscoped access, or production safety violation",
+      "response": "immediate_abort_and_rollback_evaluation",
+      "consultant_notification": "immediate",
+      "scale_pause": true,
+      "blocking": true
+    },
+    {
+      "id": "R4-IR-SEV2",
+      "severity": "high",
+      "description": "SLO breach, error budget exhaustion, or repeated session failures",
+      "response": "scale_pause_and_rollback_evaluation",
+      "consultant_notification": "within_15_minutes",
+      "scale_pause": true,
+      "blocking": true
+    },
+    {
+      "id": "R4-IR-SEV3",
+      "severity": "medium",
+      "description": "Degraded performance or partial observability gap",
+      "response": "operator_investigation_and_scale_hold",
+      "consultant_notification": "within_1_hour",
+      "scale_pause": true,
+      "blocking": false
+    },
+    {
+      "id": "R4-IR-SEV4",
+      "severity": "low",
+      "description": "Non-blocking anomaly requiring documentation",
+      "response": "log_and_monitor",
+      "consultant_notification": "next_review_cycle",
+      "scale_pause": false,
+      "blocking": false
+    }
+  ],
+  "incident_response_procedures": [
+    {
+      "id": "R4-IRP-01",
+      "procedure": "detect_and_classify_incident",
+      "mandatory_for_ring4": true,
+      "automated_detection_required": true
+    },
+    {
+      "id": "R4-IRP-02",
+      "procedure": "notify_operator_and_supervisor",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-IRP-03",
+      "procedure": "notify_consultant_on_sev1_sev2",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-IRP-04",
+      "procedure": "pause_traffic_ramp_on_sev1_sev2",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-IRP-05",
+      "procedure": "evaluate_rollback_on_sev1_sev2",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-IRP-06",
+      "procedure": "evaluate_abort_on_sev1",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-IRP-07",
+      "procedure": "document_incident_in_audit_trail",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-IRP-08",
+      "procedure": "update_boundary_ledger_on_incident",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-IRP-09",
+      "procedure": "no_go_evaluation_after_incident",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-IRP-10",
+      "procedure": "human_authorization_required_before_resume",
+      "mandatory_for_ring4": true
+    }
+  ],
+  "escalation_path": {
+    "operator": "first_responder",
+    "supervisor": "second_level",
+    "consultant": "third_level_review",
+    "abort_authority": "supervisor_or_consultant",
+    "rollback_authority": "supervisor_or_consultant",
+    "scale_resume_authority": "human_authorization_required"
+  },
+  "ring3_baseline": {
+    "ring3_abort_drill_ref": "docs/production-activation/ring3_abort_drill_results.json",
+    "ring3_rollback_drill_ref": "docs/production-activation/ring3_rollback_drill_results.json",
+    "abort_drill_passed": true,
+    "rollback_drill_passed": true
+  },
+  "all_procedures_defined_at_authorization": true,
+  "incident_response_drill_required_before_ring4_closeout": true
+}

@@ -1,0 +1,17 @@
+{
+  "components_id": "EVE_ORGANISM_GATE2_REAL_SHADOW_BRIDGE_READER_FUTURE_COMPONENTS_V1",
+  "total": 11,
+  "components": [
+    { "name": "ShadowOutboxReadBoundary", "responsibility": "read only from shadow_only_outbox_events in approved non-productive or shadow-only environment", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false },
+    { "name": "ShadowOutboxEventLoader", "responsibility": "load accepted outbox events", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false },
+    { "name": "RealShadowObservableEventAssembler", "responsibility": "assemble the observable contract required by the bridge from outbox data", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false },
+    { "name": "RealShadowEventValidator", "responsibility": "reject incomplete or contaminated events", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false },
+    { "name": "RealShadowDedupeGuard", "responsibility": "dedupe by tenant_id plus idempotency_key plus official_flow_ref", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false },
+    { "name": "ShadowEvaluationInvoker", "responsibility": "invoke Composition Root shadow without side effects", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false },
+    { "name": "OfficialShadowComparator", "responsibility": "compare officialOutcome against shadowOutcome", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false },
+    { "name": "ShadowDivergenceReportBuilder", "responsibility": "produce shadowDivergenceReport", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false },
+    { "name": "BridgeGovernanceRecorder", "responsibility": "record governance findings without productive authority", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false },
+    { "name": "BridgeAlgedonicGuard", "responsibility": "detect critical No-Go and degrade or quarantine", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false },
+    { "name": "S3StarDivergenceReviewQueue", "responsibility": "queue divergences for S3* review", "future_component": true, "created_now": false, "reads_product": false, "writes_product": false, "writes_registry": false, "exports": false, "final_diagnosis": false, "grants_gate3": false }
+  ]
+}

@@ -1,0 +1,271 @@
+{
+  "audit_id": "eve_organism_real_observable_signal_required_fields_v1",
+  "created_at": "2026-06-25T04:42:31Z",
+  "dictamen": "REAL_OBSERVABLE_SIGNAL_CONTRACT_CONSOLIDATED_REPLAY_ONLY_CONTINUES",
+  "contract_schema_name": "REAL_OBSERVABLE_SIGNAL_CONTRACT_V1_SCHEMA_DOCUMENTAL",
+  "schema_type": "documental_non_executable",
+  "required_sections": {
+    "identity": {
+      "required": true,
+      "fields": [
+        "contractName",
+        "contractVersion",
+        "signalId",
+        "signalKind",
+        "signalName",
+        "signalTimestamp",
+        "sourceSystem",
+        "sourceLayer",
+        "sourceEnvironment",
+        "observationMode",
+        "signalStatus"
+      ],
+      "allowedObservationMode": [
+        "replay_only",
+        "offline_fixture",
+        "real_candidate_not_authorized",
+        "future_real_observable_candidate"
+      ],
+      "forbiddenObservationMode": [
+        "production_observer_active",
+        "mutating_observer",
+        "diagnostic_observer",
+        "autonomous_observer"
+      ],
+      "allowedSignalStatus": [
+        "replay_only",
+        "future_candidate_not_authorized",
+        "blocked",
+        "structurally_defined_but_unproven",
+        "requires_real_product_evidence"
+      ]
+    },
+    "mba_anchor": {
+      "required": true,
+      "fields": [
+        "pmProcessId",
+        "pmProcessName",
+        "pmTrigger",
+        "pmTargetState",
+        "pmSynchronization",
+        "pfId",
+        "pfEvent",
+        "pfProcessStep",
+        "pfProcessState",
+        "pfTimerIfWaiting",
+        "pfDataObject",
+        "objectName",
+        "objectState",
+        "objectStateNotation",
+        "mocClass",
+        "mocOperation",
+        "olcName",
+        "olcFromState",
+        "olcTransitionEvent",
+        "olcToState",
+        "olcEndIfApplicable",
+        "consistencyCheckRequired"
+      ],
+      "rules": [
+        "objectStateNotation must be Object[State]",
+        "pmTargetState must be Object[State]",
+        "objectState must exist in OLC",
+        "mocOperation must exist in MoC",
+        "pfEvent must exist in MBA event contract or be candidate_event_pending_MBA_approval",
+        "waiting PF process state must have timer"
+      ]
+    },
+    "operational_context": {
+      "required": true,
+      "fields": [
+        "tenantId",
+        "organizationId",
+        "caseId",
+        "clientRef",
+        "engagementId",
+        "sessionId",
+        "activityId",
+        "actorId",
+        "userId",
+        "roleContext",
+        "sourceActorType"
+      ],
+      "rules": [
+        "tenantId mandatory for real signal",
+        "organizationId mandatory for real signal",
+        "caseId mandatory for case/SCR/bundle/evidential scene/movie/diagnosis/ACA/export",
+        "use not_applicable_with_reason rather than null"
+      ]
+    },
+    "traceability": {
+      "required": true,
+      "fields": [
+        "provenance",
+        "sourceTrace",
+        "sourceRef",
+        "evidenceRef",
+        "routeRef",
+        "handoffRef",
+        "sourceQuestionCode",
+        "causalEventRef",
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef",
+        "auditRef",
+        "sourceDocumentRef",
+        "sourceLineOrLocator"
+      ],
+      "rules": [
+        "provenance mandatory",
+        "sourceTrace mandatory if candidate/evidence/SCR/bundle/feedback/export exists",
+        "routeRef mandatory for B3 receiver_feedback",
+        "fixture fields are not real evidence"
+      ]
+    },
+    "no_mutation_boundary": {
+      "required": true,
+      "allGate2BooleansMustBeFalse": [
+        "uiTouchAllowed",
+        "workMapMutationAllowed",
+        "significadoMutationAllowed",
+        "dbWriteAllowed",
+        "supabaseWriteAllowed",
+        "runtimeMutationAllowed",
+        "registryWriteAllowed",
+        "exportAllowed",
+        "diagnosisAllowed",
+        "productionAuthorityAllowed",
+        "sideEffectsAllowed"
+      ],
+      "ifTrueOrUnknown": "blocked_mutation_risk"
+    },
+    "security_boundary": {
+      "required": true,
+      "requiredValues": {
+        "authBoundaryRequired": true,
+        "tenantIsolationRequired": true,
+        "rlsReadBoundaryRequiredIfDB": true,
+        "serviceRoleAllowed": false,
+        "secretsAllowed": false,
+        "tokenExposureAllowed": false,
+        "crossTenantAccessAllowed": false,
+        "anonymousObservationAllowed": false
+      }
+    },
+    "b3_b7_boundary": {
+      "required": true,
+      "requiredValues": {
+        "receiverSatisfactionAllowedAsFeedback": false,
+        "receiverFeedbackRequiresRouteRef": true,
+        "b3RouteRefRequired": true,
+        "b3AllowedAsOperationalEvidenceWithRoute": true,
+        "b7InterpretationLimitRequired": true,
+        "b7DiagnosticUseAllowed": false,
+        "b7CandidateGenerationAllowed": false,
+        "b7StructuralFactAllowed": false,
+        "b7OeeGenerationAllowed": false,
+        "b7IrProjectionAllowed": false,
+        "b7DiagramGenerationAllowed": false,
+        "b3b7AlignmentDeltaRequiredWhenApplicable": true
+      }
+    },
+    "admissibility": {
+      "required": true,
+      "fields": [
+        "mbaAnchorComplete",
+        "pmConformant",
+        "mocClassDefined",
+        "pfEventMapped",
+        "pfTimerPresentIfWaiting",
+        "olcStateAuthorized",
+        "traceabilityComplete",
+        "operationalContextComplete",
+        "noMutationProven",
+        "tenantBoundaryProven",
+        "authBoundaryProven",
+        "b3b7BoundaryClean",
+        "realEvidenceProven",
+        "fixtureOrReplayOnly",
+        "admissibilityStatus"
+      ],
+      "allowedStatus": [
+        "replay_only",
+        "blocked_missing_mba_anchor",
+        "blocked_missing_traceability",
+        "blocked_missing_operational_context",
+        "blocked_mutation_risk",
+        "blocked_security_boundary",
+        "blocked_b3_b7_violation",
+        "blocked_olc_violation",
+        "blocked_missing_real_evidence",
+        "real_candidate_requires_evidence",
+        "future_ready_for_real_observation_preflight"
+      ],
+      "forbiddenStatus": [
+        "observer_ready",
+        "read_only_observer_ready",
+        "production_ready",
+        "diagnostic_ready"
+      ]
+    },
+    "evidence_requirements": {
+      "required": true,
+      "requirements": [
+        "real tenantId evidence",
+        "real organizationId evidence",
+        "real caseId/sessionId/activityId evidence",
+        "real actor/user evidence",
+        "real provenance evidence",
+        "real sourceTrace evidence",
+        "real idempotencyKey evidence",
+        "real correlationId evidence",
+        "real officialFlowRef evidence or approved equivalent",
+        "no mutation proof",
+        "no UI touch proof",
+        "no WorkMap mutation proof",
+        "no Significado mutation proof",
+        "no DB write proof",
+        "no Supabase write proof",
+        "auth boundary proof",
+        "tenant isolation proof",
+        "RLS/read boundary proof if DB appears",
+        "B3 routeRef proof if receiver_feedback",
+        "B7 non-diagnostic proof if B7 appears",
+        "OLC authorization proof",
+        "PF event mapping proof"
+      ]
+    },
+    "no_go": {
+      "required": true,
+      "source": "_eve_organism_real_observable_signal_no_go_matrix_v1.json"
+    },
+    "future_test_requirements": {
+      "required": true,
+      "source": "_eve_organism_real_observable_signal_test_requirements_v1.json",
+      "implementationAllowedNow": false
+    },
+    "audit_metadata": {
+      "required": true,
+      "fields": [
+        "createdAt",
+        "createdBy",
+        "sourceMBA",
+        "sourceAudits",
+        "gate",
+        "authorityState",
+        "observerAuthorized",
+        "realObservationAuthorized",
+        "replayOnlyContinues",
+        "blockersClosedByContract",
+        "exitConditionsClosedByContract"
+      ],
+      "fixedValues": {
+        "observerAuthorized": false,
+        "realObservationAuthorized": false,
+        "replayOnlyContinues": true,
+        "blockersClosedByContract": 0,
+        "exitConditionsClosedByContract": 0
+      }
+    }
+  }
+}

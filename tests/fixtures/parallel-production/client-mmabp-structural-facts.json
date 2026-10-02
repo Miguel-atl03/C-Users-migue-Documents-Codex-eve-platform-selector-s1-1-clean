@@ -1,0 +1,119 @@
+{
+  "inventory_id": "CLIENTE_001_MMABP_FACTS_V1",
+  "inventory_type": "client_mmabp_structural_facts",
+  "inventory_version": "1.0.0",
+  "source_bundle_id": "MMABPDSB_001",
+  "client_id": "CLIENTE_001",
+  "session_id": "SESSION_001",
+  "structural_facts": [
+    {
+      "fact_id": "FACT_000001",
+      "client_id": "CLIENTE_001",
+      "session_id": "SESSION_001",
+      "scene_id": "SC_001",
+      "source_user_id": "USR_001",
+      "source_user_role": "Analista de operaciones",
+      "block_origin": "block_4",
+      "question_origin": "4.3",
+      "literal_evidence": "Cuando falta la aprobacion, esperamos a que legal responda o lo perseguimos por chat.",
+      "normalized_fact_type": "process_state",
+      "canonical_label": "Solicitud en espera de aprobacion legal",
+      "quadrant_targets": ["PF", "PM", "OLC"],
+      "source_candidate_ids": ["CAND_001"],
+      "source_evidence_ids": ["EVID_001", "EVID_002"],
+      "related_process": "Gestionar solicitud",
+      "related_object_class": "Solicitud",
+      "related_object_state": "Pendiente de aprobacion legal",
+      "related_event": "Aprobacion legal recibida",
+      "related_operation": null,
+      "confidence": 0.78,
+      "conformance_status": "pending",
+      "consistency_status": "pending",
+      "projection_status": "candidate",
+      "flags": [
+        {
+          "code": "timer_required",
+          "severity": "warning",
+          "source_evidence_ids": ["EVID_001"]
+        }
+      ],
+      "gaps": [],
+      "boundaries": {
+        "not_diagnostic": true,
+        "not_capa2_readiness": true,
+        "not_monetization": true,
+        "not_final_narrative": true
+      }
+    },
+    {
+      "fact_id": "FACT_000002",
+      "client_id": "CLIENTE_001",
+      "session_id": "SESSION_001",
+      "scene_id": "SC_001",
+      "source_user_id": "USR_001",
+      "source_user_role": "Analista de operaciones",
+      "block_origin": "block_4",
+      "question_origin": "4.3",
+      "literal_evidence": "Cuando falta la aprobacion, esperamos a que legal responda o lo perseguimos por chat.",
+      "normalized_fact_type": "workaround",
+      "canonical_label": "Seguimiento informal por chat para obtener aprobacion",
+      "quadrant_targets": ["PF", "PM"],
+      "source_candidate_ids": ["CAND_002"],
+      "source_evidence_ids": ["EVID_001"],
+      "related_process": "Gestionar solicitud",
+      "related_object_class": null,
+      "related_object_state": null,
+      "related_event": null,
+      "related_operation": null,
+      "confidence": 0.71,
+      "conformance_status": "pending",
+      "consistency_status": "pending",
+      "projection_status": "candidate",
+      "flags": [],
+      "gaps": [],
+      "boundaries": {
+        "not_diagnostic": true,
+        "not_capa2_readiness": true,
+        "not_monetization": true,
+        "not_final_narrative": true
+      }
+    },
+    {
+      "fact_id": "FACT_000003",
+      "client_id": "CLIENTE_001",
+      "session_id": "SESSION_001",
+      "scene_id": "SC_001",
+      "source_user_id": "USR_001",
+      "source_user_role": "Analista de operaciones",
+      "block_origin": "block_3",
+      "question_origin": "3.1",
+      "literal_evidence": "La solicitud es el objeto de negocio que cambia de estado durante la aprobacion.",
+      "normalized_fact_type": "object_class",
+      "canonical_label": "Solicitud",
+      "quadrant_targets": ["MoC"],
+      "source_candidate_ids": ["CAND_003"],
+      "source_evidence_ids": ["EVID_003"],
+      "related_process": "Gestionar solicitud",
+      "related_object_class": "Solicitud",
+      "related_object_state": null,
+      "related_event": null,
+      "related_operation": null,
+      "confidence": 0.76,
+      "conformance_status": "pending",
+      "consistency_status": "pending",
+      "projection_status": "candidate",
+      "flags": [],
+      "gaps": [],
+      "boundaries": {
+        "not_diagnostic": true,
+        "not_capa2_readiness": true,
+        "not_monetization": true,
+        "not_final_narrative": true
+      }
+    }
+  ],
+  "inventory_readiness": {
+    "status": "ready_with_inventory_gaps",
+    "notes": ["Inventario listo para resolucion semantica inicial; requiere timer para diagramacion PF."]
+  }
+}

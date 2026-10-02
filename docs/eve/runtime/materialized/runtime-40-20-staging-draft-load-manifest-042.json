@@ -1,0 +1,128 @@
+{
+  "instruction": "Codex 042 / 042-A",
+  "generated_at_utc": "2026-08-06T20:13:49.355Z",
+  "project": {
+    "name": "eve-staging-onboarding",
+    "project_ref": "shrpiwkxcdgvbqymjecx",
+    "verified_url": "https://shrpiwkxcdgvbqymjecx.supabase.co"
+  },
+  "objective": "Resolve legacy NULL authority, deploy only the governed RPC correction, and load the complete Runtime 40/20 catalog as draft.",
+  "authority_decision": {
+    "branch": "B",
+    "approved_rule": "EVE-RUNTIME-SEMPERSIST-R1 requires semantic authority in the three organs and does not require physical NULL in the twelve legacy columns.",
+    "authority_artifacts": [
+      "docs/eve/runtime/materialized/runtime-40-20-legacy-null-authority-042A.json",
+      "docs/eve/runtime/materialized/runtime-40-20-legacy-null-authority-042A.md"
+    ]
+  },
+  "implementation": {
+    "migration": "supabase/migrations/20260806180000_eve_runtime_40_20_legacy_physical_compatibility_rpc_042A.sql",
+    "rollback": "docs/eve/runtime/materialized/runtime-40-20-governed-draft-load-rpc-042A.rollback.sql",
+    "rollback_restores_exact_040D_body": true,
+    "rpc_migration_history": {
+      "version": "20260806182009",
+      "name": "eve_runtime_40_20_legacy_physical_compatibility_rpc_042a"
+    },
+    "rpc_security": {
+      "security_definer": true,
+      "search_path": "public",
+      "public_execute": false,
+      "anon_execute": false,
+      "authenticated_execute": false,
+      "service_role_execute": true
+    },
+    "changed_tables": [],
+    "changed_defaults": [],
+    "changed_columns": [],
+    "hashes": {
+      "payload_sha256": "118d2772677d1e5bf24e6dd930762b38d61530b0b561618eb321f60d3bb5cbc7",
+      "rpc_migration_sha256": "70d6b4df7e3c06648394e09006d8dc1d446d1aca103215abe3c07d49f65e7b3a",
+      "rpc_rollback_sha256": "f54d66d47b8513fbed1f05a250f074935d8f9ec4710d3436520c73c456c11eaa"
+    }
+  },
+  "catalogloader_chain": [
+    "buildRuntime4020CatalogDraftRecords",
+    "buildRuntime4020DraftLoadRpcPayload",
+    "server-side PostgreSQL connection",
+    "public.eve_runtime_40_20_load_catalog_draft(jsonb)"
+  ],
+  "payload": {
+    "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+    "bytes": 7705733,
+    "sha256": "118d2772677d1e5bf24e6dd930762b38d61530b0b561618eb321f60d3bb5cbc7",
+    "legacy_typed_columns_semantic_authority": false,
+    "legacy_payload_values_supplied": 0,
+    "canonicalization_reexecuted": false,
+    "xlsx_reread": false
+  },
+  "local_validation": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "catalogloader_postgresql": "passed",
+    "governed_rpc": "passed",
+    "physical_defaults_correct": "12/12",
+    "semantic_round_trip": "720/720",
+    "rollback": "passed"
+  },
+  "staging_rpc_correction": {
+    "status": "deployed",
+    "negative_legacy_payload": "blocked_legacy_semantic_payload_present",
+    "negative_writes": 0,
+    "rollback_executed": false
+  },
+  "staging_draft_load": {
+    "first_load": "draft_loaded",
+    "transaction_result": "committed",
+    "counts": {
+      "catalog_versions": 1,
+      "artifact_sections": 33,
+      "source_nodes": 164,
+      "interaction_definitions": 60,
+      "interaction_mappings": 170,
+      "subfields": 57,
+      "branching_rules": 120,
+      "epistemic_rules": 300,
+      "variable_maps": 300,
+      "semantic_total": 720
+    },
+    "replay": {
+      "exact_replay": "idempotent_replay",
+      "replay_transaction_result": "no_write_idempotent",
+      "core_altered": "blocked_catalog_identity_content_conflict",
+      "semantic_altered": "blocked_catalog_identity_content_conflict",
+      "default_physical_altered": "blocked_and_rolled_back",
+      "row_missing": "blocked_catalog_identity_content_conflict",
+      "row_additional": "blocked_catalog_identity_content_conflict",
+      "mutations_left_by_conflict_tests": 0
+    }
+  },
+  "protected_baseline": {
+    "B0": {
+      "catalog_version_id": "EVE_RUNTIME_40_20_B0_V1",
+      "observable_checksum": "9cd3a5ae1b534a326fc08213663d13a3",
+      "delta": 0
+    },
+    "Gaby_and_runtime": {
+      "activity_runtime_run": 32,
+      "runtime_interaction_instance": 4,
+      "runtime_subfield_response": 11,
+      "response_record": 4,
+      "role_runtime_session": 6,
+      "delta": 0
+    }
+  },
+  "security": {
+    "staging_consulted": true,
+    "staging_rpc_correction": true,
+    "staging_catalog_draft_writes": true,
+    "production_consulted": false,
+    "catalog_activated": false,
+    "B0_modified": false,
+    "B1_modified": false,
+    "Gaby_modified": false,
+    "commit_created": false,
+    "temporary_database_url_removed": true
+  },
+  "classification": "staging_runtime_40_20_catalog_draft_loaded",
+  "next_gap": "runtime_40_20_QA_T001_T020_and_activation_gate_required"
+}

@@ -1,0 +1,29 @@
+{
+  "test_plan_id": "BRIDGE_READER_REAL_SOURCE_ADAPTER_TEST_PLAN_V1",
+  "future_tests_total": 22,
+  "tests_written_now": false,
+  "test_cases": [
+    { "test_id": "ADAPTER-TEST-001", "category": "contract", "description": "Adapter contract defaults.", "expected_result": "readOnly true, shadowOnly true, writesAllowed false", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-002", "category": "authority", "description": "Reject write capability.", "expected_result": "blocked_by_write_risk", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-003", "category": "authority", "description": "Reject observer dependency.", "expected_result": "blocked_by_observer_dependency", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-004", "category": "authority", "description": "Reject Gate 3/Fase 9 dependency.", "expected_result": "blocked_by_gate3_or_fase9_dependency", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-005", "category": "forbidden_surface", "description": "Reject registry/export/diagnosis fields.", "expected_result": "blocked_by_registry_export_diagnosis_dependency", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-006", "category": "validation", "description": "Validate source record required fields.", "expected_result": "missing required field blocks implementation", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-007", "category": "mapping", "description": "Map valid source record to ShadowOnlyOutboxEventRecord.", "expected_result": "direct and derived fields preserved", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-008", "category": "context", "description": "Preserve tenant/session/activity context.", "expected_result": "context preserved exactly", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-009", "category": "context", "description": "Preserve correlationId/idempotencyKey.", "expected_result": "dedupe boundary preserved exactly", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-010", "category": "context", "description": "Preserve provenance/sourceRef.", "expected_result": "source trace preserved exactly", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-011", "category": "comparison", "description": "Reject missing officialOutcome.", "expected_result": "No-Go finding", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-012", "category": "comparison", "description": "Reject missing shadowOutcome.", "expected_result": "No-Go finding", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-013", "category": "tenant", "description": "Detect tenant mix.", "expected_result": "tenant mix blocked unless explicitly allowed", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-014", "category": "dedupe", "description": "Detect duplicate idempotency.", "expected_result": "replay poisoning risk blocked", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-015", "category": "immutability", "description": "Produce BridgeReader input without mutating source.", "expected_result": "source unchanged", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-016", "category": "integration", "description": "Invoke Bridge Reader with mapped records.", "expected_result": "Bridge Reader receives compatible records", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-017", "category": "report", "description": "Produce divergence report through Bridge Reader.", "expected_result": "shadowDivergenceReport produced by Bridge Reader, not adapter authority", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-018", "category": "promotion", "description": "Promotion remains false.", "expected_result": "Gate 2 real-shadow, Gate 3 and Fase 9 remain false", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-019", "category": "forbidden_imports", "description": "No DB write / Supabase write imports.", "expected_result": "no write-capable imports", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-020", "category": "forbidden_imports", "description": "No process.env/fetch/fs.write/writeFile.", "expected_result": "no runtime/env/network/filesystem write dependency", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-021", "category": "audit", "description": "JSON audits parse.", "expected_result": "all JSON parse", "authority_preserved": true },
+    { "test_id": "ADAPTER-TEST-022", "category": "scope", "description": "No forbidden files modified.", "expected_result": "only future allowlist files touched in implementation step", "authority_preserved": true }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "dictamen": "SHADOW_QA_COMPARE_TEST_RECONCILED_WITH_REMAINING_GIT_BLOCKER",
+  "testModified": "tests/regression/eve-04-runtime-catalog-shadow-qa-compare.test.ts",
+  "obsoleteExpectationsRemoved": [
+    "src/app/admin/runtime-vsm/page.tsx",
+    "src/app/page.tsx"
+  ],
+  "newExpectation": {
+    "forbiddenTrackedProductPaths": []
+  },
+  "rootExecutionSupport": {
+    "appRootResolvedFromImportMetaUrl": true,
+    "gitRootUsedWithGitDashC": true,
+    "workspacePrefixNormalized": "external-consumers/eve-platform",
+    "serviceCallsReceiveRepoRoot": true
+  },
+  "commandResults": [
+    {
+      "command": "pwd",
+      "exitCode": 0
+    },
+    {
+      "command": "git status --short",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --name-only",
+      "exitCode": 0,
+      "remainingTrackedForbiddenDiffs": [
+        "external-consumers/eve-platform/src/app/page.tsx"
+      ]
+    },
+    {
+      "command": "node --test external-consumers/eve-platform/tests/regression/eve-04-runtime-catalog-shadow-service.test.ts",
+      "exitCode": 1,
+      "result": "FAIL; service test still has root-relative path assumptions and detects src/app/page.tsx outside allowlist"
+    },
+    {
+      "command": "node --test external-consumers/eve-platform/tests/regression/eve-04-runtime-catalog-shadow-qa-compare.test.ts",
+      "exitCode": 1,
+      "result": "FAIL 1/6; correctly detects forbidden tracked product path src/app/page.tsx"
+    }
+  ],
+  "remainingGitBlocker": {
+    "path": "src/app/page.tsx",
+    "blocksPromotion": true
+  },
+  "noContamination": {
+    "productTouched": false,
+    "srcAppTouched": false,
+    "chipsTouched": false,
+    "runtimeTouched": false,
+    "packageTouched": false
+  },
+  "recommendation": "HUMAN_CLEAN_WORKTREE_REQUIRED"
+}

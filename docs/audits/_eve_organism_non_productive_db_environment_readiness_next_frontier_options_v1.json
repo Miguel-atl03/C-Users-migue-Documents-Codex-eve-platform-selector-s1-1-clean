@@ -1,0 +1,54 @@
+{
+  "decision_id": "NON_PRODUCTIVE_DB_ENVIRONMENT_READINESS_CLOSEOUT_AND_NEXT_FRONTIER_DECISION_V1",
+  "options": [
+    {
+      "id": "OPTION_A",
+      "name": "NON_PRODUCTIVE_DB_ENVIRONMENT_EVIDENCE_COLLECTION_PLAN_V1",
+      "allowed_now": true,
+      "requires_environment_creation_now": false,
+      "requires_db_connection_now": false,
+      "requires_supabase_connection_now": false,
+      "requires_migration_execution_now": false,
+      "requires_sql_modification_now": false,
+      "requires_observer_creation_now": false,
+      "preserves_authority_false": true,
+      "addresses_environment_gap": "partial",
+      "addresses_physical_validation_gap": "partial",
+      "risk_level": "low",
+      "reason": "Designing evidence collection can reduce ambiguity without creating environment, connecting DB/Supabase, or executing migration."
+    },
+    {
+      "id": "OPTION_B",
+      "name": "HOLD_UNTIL_NON_PRODUCTIVE_DB_ENVIRONMENT_CONFIRMED_V1",
+      "allowed_now": true,
+      "requires_environment_creation_now": false,
+      "requires_db_connection_now": false,
+      "requires_supabase_connection_now": false,
+      "requires_migration_execution_now": false,
+      "requires_sql_modification_now": false,
+      "requires_observer_creation_now": false,
+      "preserves_authority_false": true,
+      "addresses_environment_gap": "none",
+      "addresses_physical_validation_gap": "none",
+      "risk_level": "medium",
+      "reason": "Holding preserves safety but does not define how evidence should be collected."
+    },
+    {
+      "id": "OPTION_C",
+      "name": "EXECUTE_PHYSICAL_NON_PRODUCTIVE_MIGRATION_VALIDATION_V1",
+      "allowed_now": false,
+      "requires_environment_creation_now": false,
+      "requires_db_connection_now": true,
+      "requires_supabase_connection_now": false,
+      "requires_migration_execution_now": true,
+      "requires_sql_modification_now": false,
+      "requires_observer_creation_now": false,
+      "preserves_authority_false": false,
+      "addresses_environment_gap": "full",
+      "addresses_physical_validation_gap": "full",
+      "risk_level": "critical",
+      "reason": "Execution is blocked because the non-productive environment and execution evidence are not yet confirmed."
+    }
+  ],
+  "selected_option_id": "OPTION_A"
+}

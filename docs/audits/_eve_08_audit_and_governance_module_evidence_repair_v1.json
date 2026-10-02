@@ -1,0 +1,87 @@
+{
+  "dictamen": "MODULE_EVIDENCE_PREPARED_FOR_INDEPENDENT_QA",
+  "modules_expected": 6,
+  "modules_completed": 6,
+  "accepted_as_final_proof": 0,
+  "independent_qa_required": true,
+  "rows": [
+    {
+      "module": "audit_trail",
+      "module_id": "M8-AUDIT-TRAIL",
+      "primary_source_id": "EVE01",
+      "primary_locator": "$.modules.audit_authority_rules.rules[0]",
+      "primary_excerpt": "{\"allowed_actions\":[\"runtime_audit_trail\"],\"applies_to\":[\"governance_event\"],\"assertion\":\"Toda decision de gate, bloqueo, reentry, manual review, override o export preview crea audit event.\",\"blocked_actions\":[\"unaudited_decision\"],\"corrective_action\":\"Crear audit trail, bloquear activacion o exigir actor autorizado.\",\"depends_on\":[],\"emits\":[],\"fail_state\":\"audit_required\",\"id\":\"AUD-001\",\"label\":\"Audit trail por decision relevante\",\"module\":\"audit_authority_rules\",\"pass_condition\":\"El evento queda auditado, versionado y con autoridad validada.\",\"required_evidence\":[\"actor_id\",\"timestamp\",\"case_scope\",\"rule_id\"],\"severity\":\"blocker\",\"source_refs\":[\"D4:SPEC:audit\"],\"trigger\":\"Audit, security, versioning or authority event occurs\"}",
+      "primary_excerpt_sha256": "a4dc95e8d409acc5799fae89c62bcdf5bf0eb6efc9e55a80309314b7f7b1f3fe",
+      "supporting_source_id": "D4",
+      "supporting_locator": "table:4:row:19",
+      "supporting_excerpt": "runtime_audit_trail | Bitácora de eventos y cambios. | audit_id, run_id, actor_type, event_type, prior_value, new_value, reason, timestamp",
+      "supporting_excerpt_sha256": "e9a7ceecc345a81f3a43d7ed945d0fcdcc5c4e3329a6c4831c6c394fa7e052d8",
+      "evidence_status": "WORKBENCH_PREPARED_PENDING_INDEPENDENT_QA"
+    },
+    {
+      "module": "version_control",
+      "module_id": "M8-VERSION-CONTROL",
+      "primary_source_id": "EVE01",
+      "primary_locator": "$.modules.audit_authority_rules.rules[4]",
+      "primary_excerpt": "{\"allowed_actions\":[\"register_checksum\"],\"applies_to\":[\"governance_event\"],\"assertion\":\"Activacion de catalogo, chip o regla exige version, checksum y estado frozen/active cuando aplique.\",\"blocked_actions\":[\"activate_unversioned_catalog\"],\"corrective_action\":\"Crear audit trail, bloquear activacion o exigir actor autorizado.\",\"depends_on\":[],\"emits\":[],\"fail_state\":\"audit_required\",\"id\":\"AUD-005\",\"label\":\"Version y checksum\",\"module\":\"audit_authority_rules\",\"pass_condition\":\"El evento queda auditado, versionado y con autoridad validada.\",\"required_evidence\":[\"actor_id\",\"timestamp\",\"case_scope\",\"rule_id\"],\"severity\":\"high\",\"source_refs\":[\"D4:SPEC:QA_import\",\"D5:CAT:version_control\"],\"trigger\":\"Audit, security, versioning or authority event occurs\"}",
+      "primary_excerpt_sha256": "cf5504b0c039729b4d11d10adc37a97b4c0776ce3e9d174bfff219f33e1a9507",
+      "supporting_source_id": "D4",
+      "supporting_locator": "table:4:row:2",
+      "supporting_excerpt": "runtime_catalog_version | Versiona el runtime implementable y su fuente documental. | catalog_version_id, version_label, status, source_xlsx_checksum, effective_from, frozen_at",
+      "supporting_excerpt_sha256": "411e29aef89d9e860926fdb11756f6f4632a847f9d69f35e2ba7900aa0e24390",
+      "evidence_status": "WORKBENCH_PREPARED_PENDING_INDEPENDENT_QA"
+    },
+    {
+      "module": "checksum_registry",
+      "module_id": "M8-CHECKSUM-REGISTRY",
+      "primary_source_id": "EVE01",
+      "primary_locator": "$.modules.audit_authority_rules.rules[4]",
+      "primary_excerpt": "{\"allowed_actions\":[\"register_checksum\"],\"applies_to\":[\"governance_event\"],\"assertion\":\"Activacion de catalogo, chip o regla exige version, checksum y estado frozen/active cuando aplique.\",\"blocked_actions\":[\"activate_unversioned_catalog\"],\"corrective_action\":\"Crear audit trail, bloquear activacion o exigir actor autorizado.\",\"depends_on\":[],\"emits\":[],\"fail_state\":\"audit_required\",\"id\":\"AUD-005\",\"label\":\"Version y checksum\",\"module\":\"audit_authority_rules\",\"pass_condition\":\"El evento queda auditado, versionado y con autoridad validada.\",\"required_evidence\":[\"actor_id\",\"timestamp\",\"case_scope\",\"rule_id\"],\"severity\":\"high\",\"source_refs\":[\"D4:SPEC:QA_import\",\"D5:CAT:version_control\"],\"trigger\":\"Audit, security, versioning or authority event occurs\"}",
+      "primary_excerpt_sha256": "cf5504b0c039729b4d11d10adc37a97b4c0776ce3e9d174bfff219f33e1a9507",
+      "supporting_source_id": "D4",
+      "supporting_locator": "table:24:row:5",
+      "supporting_excerpt": "T-016 checksum_registered | Registrar checksum de XLSX y DOCX al activar catálogo. | Checksum no nulo.",
+      "supporting_excerpt_sha256": "92047695ba9902f35010f29c751d26956022315f5b0f45675fe0b496822a16b2",
+      "evidence_status": "WORKBENCH_PREPARED_PENDING_INDEPENDENT_QA"
+    },
+    {
+      "module": "override_log",
+      "module_id": "M8-OVERRIDE-LOG",
+      "primary_source_id": "EVE01",
+      "primary_locator": "$.modules.audit_authority_rules.rules[1]",
+      "primary_excerpt": "{\"allowed_actions\":[\"record_override\"],\"applies_to\":[\"governance_event\"],\"assertion\":\"Todo override registra actor_id, razon, alcance, prior_value, new_value y timestamp.\",\"blocked_actions\":[\"silent_override\"],\"corrective_action\":\"Crear audit trail, bloquear activacion o exigir actor autorizado.\",\"depends_on\":[],\"emits\":[],\"fail_state\":\"audit_required\",\"id\":\"AUD-002\",\"label\":\"Override con campos obligatorios\",\"module\":\"audit_authority_rules\",\"pass_condition\":\"El evento queda auditado, versionado y con autoridad validada.\",\"required_evidence\":[\"actor_id\",\"timestamp\",\"case_scope\",\"rule_id\"],\"severity\":\"blocker\",\"source_refs\":[\"D4:SPEC:security_audit\"],\"trigger\":\"Audit, security, versioning or authority event occurs\"}",
+      "primary_excerpt_sha256": "9b6c0f369f3c405d17959108af05bfaad7cb1ea5fc999f9219f7ae962a6beed5",
+      "supporting_source_id": "D4",
+      "supporting_locator": "table:25:row:5",
+      "supporting_excerpt": "Override | Todo override debe registrar actor_id, razón, alcance, prior_value, new_value y timestamp.",
+      "supporting_excerpt_sha256": "ed34811ea05f0139bbb22b5a2e190cac690250335a200fdcfec74d29ad93a3a6",
+      "evidence_status": "WORKBENCH_PREPARED_PENDING_INDEPENDENT_QA"
+    },
+    {
+      "module": "manual_review",
+      "module_id": "M8-MANUAL-REVIEW",
+      "primary_source_id": "EVE01",
+      "primary_locator": "$.modules.audit_authority_rules.rules[2]",
+      "primary_excerpt": "{\"allowed_actions\":[\"authorized_manual_review\"],\"applies_to\":[\"governance_event\"],\"assertion\":\"manual_review_required solo se resuelve por actor autorizado y queda auditado.\",\"blocked_actions\":[\"self_resolve_manual_review\"],\"corrective_action\":\"Crear audit trail, bloquear activacion o exigir actor autorizado.\",\"depends_on\":[],\"emits\":[],\"fail_state\":\"audit_required\",\"id\":\"AUD-003\",\"label\":\"Manual review solo actor autorizado\",\"module\":\"audit_authority_rules\",\"pass_condition\":\"El evento queda auditado, versionado y con autoridad validada.\",\"required_evidence\":[\"actor_id\",\"timestamp\",\"case_scope\",\"rule_id\"],\"severity\":\"blocker\",\"source_refs\":[\"D4:SPEC:security_audit\"],\"trigger\":\"Audit, security, versioning or authority event occurs\"}",
+      "primary_excerpt_sha256": "4af8cdeacb9d1b3385d697cbe74e350a550e59fa92899cef33b00aae1490b3ec",
+      "supporting_source_id": "D4",
+      "supporting_locator": "table:25:row:4",
+      "supporting_excerpt": "Manual review | manual_review_required solo puede resolverse por actor autorizado y debe crear runtime_audit_trail.",
+      "supporting_excerpt_sha256": "535644a1987a1f9bf2541540ba6747da32797130ba19458d9a3d6df87a4cae38",
+      "evidence_status": "WORKBENCH_PREPARED_PENDING_INDEPENDENT_QA"
+    },
+    {
+      "module": "qa_activation_tests",
+      "module_id": "M8-QA-ACTIVATION-TESTS",
+      "primary_source_id": "EVE01",
+      "primary_locator": "$.modules.audit_authority_rules.rules[9]",
+      "primary_excerpt": "{\"allowed_actions\":[\"block_activation_on_QA_failure\"],\"applies_to\":[\"governance_event\"],\"assertion\":\"Loader o chip activation se bloquea si falla QA requerido, metadata o columnas/campos obligatorios.\",\"blocked_actions\":[\"activate_with_failed_QA\"],\"corrective_action\":\"Crear audit trail, bloquear activacion o exigir actor autorizado.\",\"depends_on\":[],\"emits\":[],\"fail_state\":\"audit_required\",\"id\":\"AUD-010\",\"label\":\"QA bloquea activacion\",\"module\":\"audit_authority_rules\",\"pass_condition\":\"El evento queda auditado, versionado y con autoridad validada.\",\"required_evidence\":[\"actor_id\",\"timestamp\",\"case_scope\",\"rule_id\"],\"severity\":\"blocker\",\"source_refs\":[\"D4:SPEC:QA_import\",\"D5:CAT:workbook_required_fields\"],\"trigger\":\"Audit, security, versioning or authority event occurs\"}",
+      "primary_excerpt_sha256": "d79507539be2f299d66b82f967dbde33219962f43c52c8a5fcd4246ebfc92b1b",
+      "supporting_source_id": "D4",
+      "supporting_locator": "paragraph:302",
+      "supporting_excerpt": "Además de QA T-001 a T-012, el loader del catálogo debe ejecutar pruebas de importación y versionado. Si falla una prueba bloqueante, el catálogo no puede activarse.",
+      "supporting_excerpt_sha256": "4a23f3ff430877d7aa9bcd59a11d0e3e571b66c821fba4b7fe164e53d53fdbc1",
+      "evidence_status": "WORKBENCH_PREPARED_PENDING_INDEPENDENT_QA"
+    }
+  ]
+}

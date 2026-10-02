@@ -1,0 +1,4209 @@
+/* Auto-generated rector artifact. No product wiring is performed by this file. */
+export const ACTIVATION_CONTRACT_ID = "EVE-ORGANISM-CONTROLLED-ACTIVATION-CONTRACT-V1" as const;
+export type ActivationState = "OFF" | "VALIDATED" | "SHADOW" | "SUPERVISED" | "CONTROLLED_ACTIVE" | "ACTIVE" | "DEGRADED" | "QUARANTINED" | "ROLLBACK_IN_PROGRESS" | "REVOKED";
+export type CapabilityId = "CAP-CLIENT-ACCESS" | "CAP-TENANT-CONTEXT" | "CAP-RUNTIME-CAPTURE" | "CAP-GATE-ADVISORY" | "CAP-GATE-ENFORCEMENT" | "CAP-OBJECT-BINDING" | "CAP-MEMBRANE-OUTBOX" | "CAP-GOVERNANCE-OBSERVE" | "CAP-GOVERNANCE-ENFORCE" | "CAP-CANDIDATE-GENERATION" | "CAP-HUMAN-RELEASE" | "CAP-REGISTRY-WRITE" | "CAP-FINAL-EXPORT" | "CAP-PARALLEL-EXECUTION" | "CAP-EXTERNAL-LLM";
+export type ActorRole = "CLIENT_USER" | "TENANT_OPERATOR" | "HUMAN_REVIEWER" | "SYSTEM_OPERATOR" | "RELEASE_MANAGER" | "INDEPENDENT_AUDITOR" | "ADAPTATION_OWNER" | "POLICY_OWNER";
+
+export interface TransitionEvidence {
+  present: readonly string[];
+  actorRole: ActorRole;
+  hardBlockersOpen?: readonly string[];
+}
+
+export interface TransitionDecision {
+  allowed: boolean;
+  code: string;
+  missing: string[];
+  rollbackTarget?: ActivationState;
+}
+
+export const activationContract = {
+  "contract_id": "EVE-ORGANISM-CONTROLLED-ACTIVATION-CONTRACT-V1",
+  "version": "1.0.0",
+  "generated_at": "2026-06-24",
+  "language": "es",
+  "status": "RECTOR_CONTRACT_READY_FOR_REPO_TRANSDUCTION_WITH_BLOCKING_GAPS",
+  "certification_scope": {
+    "source_traceability": "PASS",
+    "internal_consistency": "PASS",
+    "productive_activation": "NOT_AUTHORIZED",
+    "reason": "El inventario permite diseñar el contrato, pero 14 gaps observados impiden activar productivamente desde inventario solo."
+  },
+  "identity": {
+    "system": "EVE Platform",
+    "organism_scope": "Capa 01, Producción Paralela, UI cliente/admin, runtime, sistema nervioso, gobernanza y stack cognitivo.",
+    "cognitive_stack_counting_rule": "EVE-00 es kernel constitucional; EVE-01..EVE-08 son ocho chips funcionales.",
+    "purpose": "Conceder autoridad por capacidad, alcance y estado; impedir activación global no gobernada.",
+    "non_goal": "No implementa composition root, DB policies, outbox, UI ni side effects."
+  },
+  "observed_repo_snapshot": {
+    "repo_root": "C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone",
+    "platform_root": "C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone/external-consumers/eve-platform",
+    "stack": {
+      "framework": "Next.js 16.2.5 / React 19.2.4",
+      "language": "TypeScript plus JavaScript/MJS scripts",
+      "package_manager": "npm",
+      "lockfile": "package-lock.json",
+      "db_client": "@supabase/supabase-js 2.105.3",
+      "auth_client": "Supabase Auth",
+      "llm_client_boundary": "OPENAI_API_KEY used by operational-description coach services"
+    },
+    "inventory_counts": {
+      "src_app_files": 59,
+      "ui_routes": 15,
+      "api_services": 33,
+      "scripts": 30,
+      "tests": 120,
+      "chips_found": 9,
+      "nervous_signals": 16,
+      "governance_mechanisms": 12,
+      "data_entities": 16,
+      "feature_flags": 9,
+      "wiring_edges": 28,
+      "authority_rows": 16,
+      "gaps": 14
+    },
+    "worktree_dirty": true,
+    "inventory_dictamen": "INVENTORY_READY_WITH_GAPS_FOR_ACTIVATION_CONTRACT_AND_AUTHORITY_MAP"
+  },
+  "source_registry": [
+    {
+      "source_id": "SRC-INV-01",
+      "title": "EVE Organism Repo Technical Inventory V1 (JSON)",
+      "source_path": "docs/audits/_eve_organism_repo_technical_inventory_v1.json",
+      "sha256": "d2e9c3b9a21d1216a7ca0dda47ccfa8135b5042522524c44610bd411211683e7",
+      "authority": "Observed repo inventory",
+      "use": "Factual inventory of routes, services, chips, signals, entities, flags and governance mechanisms."
+    },
+    {
+      "source_id": "SRC-GRAPH-01",
+      "title": "EVE Organism Repo Connection Graph V1",
+      "source_path": "docs/audits/_eve_organism_repo_connection_graph_v1.json",
+      "sha256": "7ce33cef41c3120c98598023f9da274adb0f2ff10281b1e2f79090a542c66fb2",
+      "authority": "Observed wiring evidence",
+      "use": "Observed component nodes and wiring edges."
+    },
+    {
+      "source_id": "SRC-AUTH-01",
+      "title": "EVE Organism Authority Matrix Observed V1",
+      "source_path": "docs/audits/_eve_organism_authority_matrix_observed_v1.json",
+      "sha256": "06c0aaae9359be238662aaebe713f5dd95380d89fb301367beb5e88bb215fdef",
+      "authority": "Observed authority evidence",
+      "use": "Observed read/write-capable authority surfaces and risks."
+    },
+    {
+      "source_id": "SRC-GAP-01",
+      "title": "EVE Organism Activation Gap Index V1",
+      "source_path": "docs/audits/_eve_organism_activation_gap_index_v1.json",
+      "sha256": "0b19cefd8e4e70dc380118d2ce51f9c9a8157df1978240ecf3d957d3868e57c2",
+      "authority": "Activation blocker evidence",
+      "use": "Critical/high/medium gaps that must constrain activation."
+    },
+    {
+      "source_id": "SRC-ORG-01",
+      "title": "EVE Runtime Fases 1 a 8 como organismo vivo",
+      "source_path": "EVE_Runtime_Fases_1_a_8_Organismo_Vivo_Contexto_Operativo_v1.docx",
+      "sha256": "6afb25ca5a4e1ccda96c8bcd9cca7c2137f2e2ce90159d0a912fac2a9ff87edc",
+      "authority": "Operational organism context",
+      "use": "Anatomy, nervous system, regulation, rehearsal/candidate boundaries and non-production identity."
+    },
+    {
+      "source_id": "SRC-UI-01",
+      "title": "Handoff Login a WorkMap",
+      "source_path": "HANDOFF_Bundle_Pantallas_EVE_Login_a_WorkMap.docx",
+      "sha256": "c314e18a3eef1515ef79d441ac7f250b2df879c1aef256e7b820ced1d5331994",
+      "authority": "Approved UI continuity handoff",
+      "use": "Frozen client flow and no-substitution rule."
+    },
+    {
+      "source_id": "SRC-UI-02",
+      "title": "Handoff WorkMap a Significado",
+      "source_path": "HANDOFF_WorkMap_a_Significado_de_tu_trabajo.docx",
+      "sha256": "2da47f7f8d1d2008bfa93c015c03466eb5cdd366e9e5ef543557f7adbd9a525b",
+      "authority": "Approved WorkMap-to-Significado handoff",
+      "use": "Continuation flow, coverage-only readiness and frozen WorkMap baseline."
+    },
+    {
+      "source_id": "SRC-EVE08-01",
+      "title": "EVE 08 Audit and Governance v0.1.1 candidate",
+      "source_path": "docs/chips/audit-and-governance/EVE_08_Audit_And_Governance_v0_1_1_candidate/EVE_08_Audit_And_Governance_v0_1_1_candidate.json",
+      "sha256": "b397ac950ef0f847a5897794b285745500c484ab768e998215854dce104034d9",
+      "authority": "Governance candidate evidence",
+      "use": "Brain blockers, QA status, governance closure and non-activation state."
+    },
+    {
+      "source_id": "SRC-MMABP-01",
+      "title": "Fundamentals of Business Architecture Modeling",
+      "source_path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/sources/Fundamentals of Business Architecture Modeling.pdf",
+      "sha256": "3dd3485afa518244cb600b4c479cad0ea11f242e88e4204b9422739ddf843147",
+      "authority": "Supreme MMABP method authority",
+      "use": "Conformance, consistency and PM/MoC/PF/OLC discipline."
+    },
+    {
+      "source_id": "SRC-VSM-01",
+      "title": "Organizational Systems: Managing Complexity with the Viable System Model",
+      "source_path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/Organizational Systems Managing Complexity with the Viable System model.pdf",
+      "sha256": "00bd8009333bedf9bc5dbbd2d2ff3f295bb874066b319796744b1ef019fca418",
+      "authority": "VSM viability and governance authority",
+      "use": "Autonomy/cohesion, intrinsic/extrinsic control, coordination, variety and systemic functions."
+    },
+    {
+      "source_id": "SRC-AHE-01",
+      "title": "Marco AHE",
+      "source_path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/sources/Marco de Interpretación y Observación Explicativo Arquitectura Humana Empresarial_(AHE).docx",
+      "sha256": "17f5845744bff404e9218e641b3006c2c6f32f5870c3fe81d1bd47077104b55e",
+      "authority": "Human recursive causality lens",
+      "use": "Human burden, coercive governance, algedonic suppression and zero-sum reproduction."
+    }
+  ],
+  "evidence_index": [
+    {
+      "evidence_id": "EV-INV-COUNTS",
+      "source_id": "SRC-INV-01",
+      "locator": "$.inventory_counts",
+      "literal_or_value": {
+        "src_app_files": 59,
+        "ui_routes": 15,
+        "api_services": 33,
+        "scripts": 30,
+        "tests": 120,
+        "chips_found": 9,
+        "nervous_signals": 16,
+        "governance_mechanisms": 12,
+        "data_entities": 16,
+        "feature_flags": 9,
+        "wiring_edges": 28,
+        "authority_rows": 16,
+        "gaps": 14
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-INV-ROUTES",
+      "source_id": "SRC-INV-01",
+      "locator": "$.ui_routes / $.api_services.routes_observed",
+      "literal_or_value": {
+        "ui_routes": 15,
+        "api_routes": 33
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-INV-SIGNALS",
+      "source_id": "SRC-INV-01",
+      "locator": "$.nervous_signals",
+      "literal_or_value": [
+        "auth_user_id",
+        "empresa_id",
+        "sessionId",
+        "activityId",
+        "flowState",
+        "workmap draft",
+        "questionnaire answers",
+        "primary activity selection",
+        "support activity selection",
+        "Significado Block0 answers",
+        "diagnostic session state",
+        "scene bootstrap/canonicalize/preclassify/consistency",
+        "runtime observability events",
+        "MBA shadow observations",
+        "parallel production runtime artifacts",
+        "candidate export payloads"
+      ],
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-INV-GOV",
+      "source_id": "SRC-INV-01",
+      "locator": "$.governance_mechanisms",
+      "literal_or_value": [
+        "session-boundary auth and owner resolution",
+        "rector docs registry runtimeAuthority declarations",
+        "document transduction QA policy",
+        "primary activity selection policy v1.3",
+        "runtime Block0 catalog adapter and response model",
+        "WorkMap save/operational readiness validation",
+        "Significado source and block0 persistence boundary",
+        "MBA transition guard and shadow observer",
+        "parallel production warning/readiness services",
+        "shadow harness safety flags for EVE00-EVE08",
+        "regression tests for candidate-only/not-wired claims",
+        "runtime observability and VSM admin read surfaces"
+      ],
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-INV-CHIPS",
+      "source_id": "SRC-INV-01",
+      "locator": "$.chips_found",
+      "literal_or_value": [
+        {
+          "chip": "EVE-00 Method Kernel",
+          "path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-01 Agent Constitution",
+          "path": "docs/chips/agent-constitution/EVE_01_Agent_Constitution_v0_1/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-02 Diagnostic Ontology",
+          "path": "docs/chips/diagnostic-ontology/EVE_02_Diagnostic_Ontology_v0_1/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-03 Canonical Catalog",
+          "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-04 Runtime Catalog",
+          "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/",
+          "status_observed": "candidate_or_shadow_work_in_progress"
+        },
+        {
+          "chip": "EVE-05 Gate Engine",
+          "path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-06 Execution Engine",
+          "path": "docs/chips/execution-engine/EVE_06_Execution_Engine_v0_1/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-07 Parallel Production Interface",
+          "path": "docs/chips/parallel-production-interface/EVE_07_Parallel_Production_Interface_v0_1_2_candidate/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-08 Audit and Governance",
+          "path": "docs/chips/audit-and-governance/EVE_08_Audit_And_Governance_v0_1_1_candidate/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        }
+      ],
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-GRAPH-OBS",
+      "source_id": "SRC-GRAPH-01",
+      "locator": "$.edges",
+      "literal_or_value": {
+        "edge_count": 28
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-AUTH-OBS",
+      "source_id": "SRC-AUTH-01",
+      "locator": "$.rows",
+      "literal_or_value": {
+        "row_count": 16,
+        "write_capable_rows": 6
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-GAPS",
+      "source_id": "SRC-GAP-01",
+      "locator": "$.gaps",
+      "literal_or_value": {
+        "count": 14,
+        "critical": 5,
+        "high": 7,
+        "medium": 2
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-ORG-REHEARSAL",
+      "source_id": "SRC-ORG-01",
+      "locator": "paragraph 256",
+      "literal_or_value": "Fase 8 prepara Producción Paralela como rehearsal/candidate. Persistió candidatos de run y artifacts, integró la capa Camunda/BPMN como control de calidad, y verificó No-Go, design readiness y ausencia de export o transducción.",
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-ORG-NO-PROD",
+      "source_id": "SRC-ORG-01",
+      "locator": "paragraphs 289,292,299",
+      "literal_or_value": [
+        "No Producción Paralela real.",
+        "No diagnóstico.",
+        "El recorrido no es una lista de módulos; es una maduración orgánica. Cada fase agrega una capacidad nueva sin eliminar la anterior. La base captura, el loader alimenta, el motor mueve, los gates protegen, Object Inventory da forma, la Membrana regula frontera, Soft Governance observa en sombra y Producción Paralela ensaya movimiento exterior sin cruzar a producción real."
+      ],
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-ORG-ALGEDONIC",
+      "source_id": "SRC-ORG-01",
+      "locator": "paragraph 228",
+      "literal_or_value": "AlgedonicSignal se enruta al canal algedónico sin handoff ni bloqueo.",
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-HANDOFF-NOSUB",
+      "source_id": "SRC-UI-01",
+      "locator": "paragraphs 8,20,63",
+      "literal_or_value": [
+        "La nueva pantalla debe conectarse con WorkMap como una continuación del flujo, no como una reescritura del flujo anterior. WorkMap quedó aprobado y congelado; cualquier cambio futuro debe ser explícitamente autorizado.",
+        "Toda intervención debe ser agregación, salvo autorización explícita de sustitución o rollback.",
+        "Toda mejora futura debe agregarse sobre lo aprobado; no sustituir."
+      ],
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-HANDOFF-WMSIG",
+      "source_id": "SRC-UI-02",
+      "locator": "paragraphs 25,29",
+      "literal_or_value": [
+        "Las mejoras son agregaciones. No sustituir helpers, contratos o microcopy aprobados salvo que Miguel lo autorice de forma explícita.",
+        "La pantalla WorkMap quedó aprobada y congelada en F9UI.1-C40-H12. Debe tratarse como baseline estable. La siguiente pantalla debe conectarse a ella, no absorberla ni modificarla."
+      ],
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-MMABP-CONFORMANCE",
+      "source_id": "SRC-MMABP-01",
+      "locator": "PDF page 180 (file page 194)",
+      "literal_or_value": "Conformance evaluation ... focuses on evaluation of the alignment of models with the real world.",
+      "evidence_type": "literal_pdf_excerpt"
+    },
+    {
+      "evidence_id": "EV-MMABP-CONSISTENCY",
+      "source_id": "SRC-MMABP-01",
+      "locator": "PDF page 182 (file page 196)",
+      "literal_or_value": "Consistency is not conformance ... first determine what are the facts (reality) ... then correct the models accordingly.",
+      "evidence_type": "literal_pdf_excerpt"
+    },
+    {
+      "evidence_id": "EV-VSM-CONTROL",
+      "source_id": "SRC-VSM-01",
+      "locator": "PDF pages 21,55",
+      "literal_or_value": "Stability cannot depend on extrinsic control; control in an organizational system should be interpreted mainly as self-regulation.",
+      "evidence_type": "literal_pdf_excerpt"
+    },
+    {
+      "evidence_id": "EV-VSM-COORD",
+      "source_id": "SRC-VSM-01",
+      "locator": "PDF page 59",
+      "literal_or_value": "Communication understood as coordination of actions implies a circular process and continuous negotiation.",
+      "evidence_type": "literal_pdf_excerpt"
+    },
+    {
+      "evidence_id": "EV-VSM-AUTONOMY",
+      "source_id": "SRC-VSM-01",
+      "locator": "PDF page 124",
+      "literal_or_value": "Viable organizations have recursive structures of autonomous units within autonomous units; the VSM balances autonomy and cohesion.",
+      "evidence_type": "literal_pdf_excerpt"
+    },
+    {
+      "evidence_id": "EV-AHE-BURDEN",
+      "source_id": "SRC-AHE-01",
+      "locator": "paragraphs 36,65,72",
+      "literal_or_value": [
+        "Empatía-Amor (El Sentir): La capacidad de conexión genuina. En sistemas de suma cero, el canal algedónico (señal de dolor sistémico) está anestesiado. AHE observa cómo la empatía es reemplazada por la reactividad defensiva, donde el individuo aprende que sentir el dolor del sistema es peligroso para su propia supervivencia.",
+        "La Emancipación Estructural: AHE explica que la reversión de la patología en este nivel requiere emancipación. No se trata de cambiar la estructura directamente, sino de usar mecanismos (como auditorías S3*) para traer a la luz lo que la distinción oculta, forzando al sistema a ver que lo \"inevitable\" es contingente. Al cambiar la distinción fundamental que S5 usa para observar el mundo, se diseñan nuevos mecanismos formales que hacen que la suma cero sea estructuralmente imposible, obligando a la organización a reorganizarse alrededor de la generación de valor.",
+        "La divergencia en el proceso (MMABP) no es un error de diseño, sino la materialización de una distinción arbitraria de suma cero (Luhmann) protegida por el poder de agenda (Jackson). Esta estructura satura a S3 (VSM), lo que anestesia el canal algedónico y suprime la Curiosidad y la Empatía del individuo (Nivel Intrapersonal). Bajo estas restricciones, la alteración de la información reportada no es una desviación conductual, sino el único mecanismo de supervivencia matemáticamente viable para el individuo."
+      ],
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-EVE08-BLOCKERS",
+      "source_id": "SRC-EVE08-01",
+      "locator": "$.initial_brain_assessment.blockers",
+      "literal_or_value": {
+        "count": 11,
+        "activation_decision": "BLOCKED"
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-EVE08-CLOSURE",
+      "source_id": "SRC-EVE08-01",
+      "locator": "$.governance_closure_register",
+      "literal_or_value": {
+        "closure_state": "SYSTEMIC_GOVERNANCE_DEFINED_NOT_ACTIVATED",
+        "evidence_authority_order": [
+          "exact predecessor artifact snapshot and hashes",
+          "rector source files and current manifests",
+          "source-proof matrices bound to exact artifacts",
+          "hash-bound shadow harness results",
+          "secondary audits and historical procedure evidence"
+        ],
+        "open_obligations": [
+          {
+            "obligation_id": "CLOSE-001",
+            "scope": "EVE00–EVE06",
+            "action": "Create exhaustive source-proof matrices and independent QA",
+            "blocking": true
+          },
+          {
+            "obligation_id": "CLOSE-002",
+            "scope": "EVE03↔EVE04",
+            "action": "Reconcile 33 pending definitions upstream",
+            "blocking": true
+          },
+          {
+            "obligation_id": "CLOSE-003",
+            "scope": "EVE06",
+            "action": "Independent QA rerun",
+            "blocking": true
+          },
+          {
+            "obligation_id": "CLOSE-004",
+            "scope": "EVE07",
+            "action": "Exact-hash source preflight and bound shadow harness",
+            "blocking": true
+          },
+          {
+            "obligation_id": "CLOSE-005",
+            "scope": "EVE08",
+            "action": "Repo intake and shadow governance harness",
+            "blocking": true
+          },
+          {
+            "obligation_id": "CLOSE-006",
+            "scope": "brain activation",
+            "action": "Rollback drill, human approval and single-authority switch",
+            "blocking": true
+          }
+        ],
+        "resolved_in_this_version": [
+          "Exact 00–07 snapshot binding",
+          "Stale audit classification",
+          "System-state evidence matrix",
+          "QA status semantics for stale evidence, status consistency and dependency blocking",
+          "Version lineage and non-overwrite policy"
+        ]
+      },
+      "evidence_type": "exact_json_value"
+    }
+  ],
+  "principles": [
+    {
+      "rule_id": "ACT-P-001",
+      "category": "principle",
+      "statement": "La autoridad se concede por capacidad y alcance; no existe un interruptor global de cerebro.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-002",
+      "category": "principle",
+      "statement": "La presencia de un chip o dev harness no constituye autoridad productiva.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.chips_found / UI dev routes"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-003",
+      "category": "principle",
+      "statement": "La UI cliente solo consume vistas estables mediante BFF/application service; no importa chips ni vísceras internas.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "paragraph 299"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-004",
+      "category": "principle",
+      "statement": "WorkMap y su cableado aprobado son baseline congelado; cualquier cambio es agregación explícita.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-UI-01",
+          "locator": "paragraph 8"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-005",
+      "category": "principle",
+      "statement": "Significado se inserta como continuación del flujo WorkMap, no como sustitución de Guardar o readiness.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-UI-02",
+          "locator": "paragraph 29"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-006",
+      "category": "principle",
+      "statement": "Conformance contra realidad precede a consistencia entre modelos.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-MMABP-01",
+          "locator": "PDF page 180-182"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-007",
+      "category": "principle",
+      "statement": "Una inconsistencia no se corrige alineando cosméticamente modelos; primero se determina el hecho real.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-MMABP-01",
+          "locator": "PDF page 182"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-008",
+      "category": "principle",
+      "statement": "Control productivo prioriza autorregulación local y añade control extrínseco solo donde la variedad residual lo exige.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 21,55"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-009",
+      "category": "principle",
+      "statement": "La comunicación operacional se valida como coordinación circular de acciones, no solo transmisión de mensajes.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF page 59"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-010",
+      "category": "principle",
+      "statement": "Autonomía local y cohesión global deben coexistir; ninguna capacidad central absorbe decisiones que corresponden a S1.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF page 124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-011",
+      "category": "principle",
+      "statement": "EVE08 audita y gobierna, pero no ejecuta la misma acción irreversible que audita.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-012",
+      "category": "principle",
+      "statement": "Toda acción irreversible exige aprobación humana, evidencia, idempotencia, audit trail y rollback probado.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-013",
+      "category": "principle",
+      "statement": "La gobernanza no puede convertir revisión humana en cuello de botella coercitivo sin medir carga y reversión.",
+      "severity": "high",
+      "blocking": false,
+      "source_refs": [
+        {
+          "source_id": "SRC-AHE-01",
+          "locator": "paragraphs 36,65,72"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-014",
+      "category": "principle",
+      "statement": "Producción Paralela permanece candidate/rehearsal hasta release explícito; nunca escribe registry por sí sola.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "paragraphs 253,256,289"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-015",
+      "category": "principle",
+      "statement": "El canal algedónico puede degradar o cuarentenar una capacidad sin esperar la cadena normal.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "paragraph 228"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-016",
+      "category": "principle",
+      "statement": "Las rutas dev/shadow no son superficies productivas y deben estar deshabilitadas en producción.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-017",
+      "category": "principle",
+      "statement": "Service-role solo opera desde adapters allowlisted, con alcance tenant, ledger y revocación.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "AUTH-009/AUTH-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-018",
+      "category": "principle",
+      "statement": "El estado brainConnectionEnabled es derivado de capacidades; no es una bandera operable.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-005"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-019",
+      "category": "principle",
+      "statement": "Toda promoción se realiza por anillos y puede retroceder una capacidad sin apagar todo el organismo.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 21,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-020",
+      "category": "principle",
+      "statement": "No se habilitan registryWrite, finalExport y parallelExecution en el mismo release.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-006/GAP-008"
+        }
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "role_id": "CLIENT_USER",
+      "vsm_role": "S1",
+      "description": "Usuario autenticado que aporta información y consume resultados comprensibles.",
+      "can_approve_irreversible": false
+    },
+    {
+      "role_id": "TENANT_OPERATOR",
+      "vsm_role": "S1",
+      "description": "Responsable operativo del tenant/actividad; resuelve gaps locales y confirma evidencia.",
+      "can_approve_irreversible": false
+    },
+    {
+      "role_id": "HUMAN_REVIEWER",
+      "vsm_role": "S3*",
+      "description": "Revisa candidates, evidencia y divergencias; no ejecuta la acción que audita.",
+      "can_approve_irreversible": "bounded"
+    },
+    {
+      "role_id": "SYSTEM_OPERATOR",
+      "vsm_role": "S3",
+      "description": "Opera runtime, capacidad y releases dentro del allowlist técnico.",
+      "can_approve_irreversible": false
+    },
+    {
+      "role_id": "RELEASE_MANAGER",
+      "vsm_role": "S3/S5",
+      "description": "Autoriza promoción de capacidad y release controlado con evidencia completa.",
+      "can_approve_irreversible": true
+    },
+    {
+      "role_id": "INDEPENDENT_AUDITOR",
+      "vsm_role": "S3*",
+      "description": "Verifica logs, checksums, bypass, tenant isolation y rollback de forma independiente.",
+      "can_approve_irreversible": false
+    },
+    {
+      "role_id": "ADAPTATION_OWNER",
+      "vsm_role": "S4",
+      "description": "Analiza divergencias, feedback y evolución futura sin adquirir autoridad operativa directa.",
+      "can_approve_irreversible": false
+    },
+    {
+      "role_id": "POLICY_OWNER",
+      "vsm_role": "S5",
+      "description": "Define identidad, límites, riesgos inaceptables y revoca autoridad.",
+      "can_approve_irreversible": true
+    }
+  ],
+  "states": [
+    {
+      "state": "OFF",
+      "productive_effects": false,
+      "description": "Capacidad deshabilitada; no lee tráfico productivo salvo health checks."
+    },
+    {
+      "state": "VALIDATED",
+      "productive_effects": false,
+      "description": "Artefacto y dependencias validados; aún sin tráfico ni side effects."
+    },
+    {
+      "state": "SHADOW",
+      "productive_effects": false,
+      "description": "Procesa copia de tráfico real; produce evidencia comparativa no vinculante."
+    },
+    {
+      "state": "SUPERVISED",
+      "productive_effects": "bounded",
+      "description": "Opera sobre trabajo real con revisión humana previa a toda acción irreversible."
+    },
+    {
+      "state": "CONTROLLED_ACTIVE",
+      "productive_effects": "allowlisted",
+      "description": "Ejecuta únicamente side effects autorizados por alcance, tenant, acción y versión."
+    },
+    {
+      "state": "ACTIVE",
+      "productive_effects": "full_within_contract",
+      "description": "Autoridad productiva concedida dentro del contrato y monitoreo continuo."
+    },
+    {
+      "state": "DEGRADED",
+      "productive_effects": "reduced",
+      "description": "Conjunto mínimo de capacidades; evita propagación de daño."
+    },
+    {
+      "state": "QUARANTINED",
+      "productive_effects": false,
+      "description": "Aislada por daño, inconsistencia o evidencia insuficiente."
+    },
+    {
+      "state": "ROLLBACK_IN_PROGRESS",
+      "productive_effects": "compensating_only",
+      "description": "Solo permite acciones compensatorias auditadas."
+    },
+    {
+      "state": "REVOKED",
+      "productive_effects": false,
+      "description": "Autoridad retirada; requiere nueva validación para reingresar."
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "CAP-CLIENT-ACCESS",
+      "name": "clientAccess",
+      "owner": "CLIENT_BFF",
+      "default_state": "VALIDATED",
+      "purpose": "Exponer experiencia autenticada y estable sin vísceras internas.",
+      "allowed_in_supervised": [
+        "read_client_view",
+        "submit_intent",
+        "read_progress"
+      ],
+      "irreversible_effects": [],
+      "hard_blockers": [
+        "tenant_context_missing",
+        "auth_not_verified",
+        "dev_route_in_production"
+      ],
+      "source_evidence": [
+        "SRC-INV-01",
+        "SRC-UI-01",
+        "SRC-UI-02"
+      ]
+    },
+    {
+      "capability_id": "CAP-TENANT-CONTEXT",
+      "name": "tenantContext",
+      "owner": "SESSION_BOUNDARY",
+      "default_state": "VALIDATED",
+      "purpose": "Resolver y propagar empresa, sesión, usuario y actividad en cada comando.",
+      "allowed_in_supervised": [
+        "resolve_scope",
+        "assert_session_owner"
+      ],
+      "irreversible_effects": [],
+      "hard_blockers": [
+        "tenant_scope_not_proven",
+        "session_owner_mismatch"
+      ],
+      "source_evidence": [
+        "SRC-INV-01",
+        "SRC-AUTH-01",
+        "SRC-GAP-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-RUNTIME-CAPTURE",
+      "name": "runtimeCapture",
+      "owner": "RUNTIME_ORCHESTRATOR",
+      "default_state": "OFF",
+      "purpose": "Capturar respuestas, estados, timers y evidencia por actividad.",
+      "allowed_in_supervised": [
+        "create_run",
+        "ingest_response",
+        "materialize_evidence",
+        "update_nonfinal_state"
+      ],
+      "irreversible_effects": [
+        "productive_state_write"
+      ],
+      "hard_blockers": [
+        "tenant_context_missing",
+        "provenance_missing",
+        "idempotency_key_missing"
+      ],
+      "source_evidence": [
+        "SRC-INV-01",
+        "SRC-ORG-01",
+        "SRC-EVE08-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-GATE-ADVISORY",
+      "name": "gateAdvisory",
+      "owner": "EVE05_GATE_ENGINE",
+      "default_state": "VALIDATED",
+      "purpose": "Evaluar gates sin bloquear el flujo oficial.",
+      "allowed_in_supervised": [
+        "emit_advisory_decision",
+        "request_reentry",
+        "request_manual_review"
+      ],
+      "irreversible_effects": [],
+      "hard_blockers": [
+        "candidate_missing",
+        "source_binding_missing"
+      ],
+      "source_evidence": [
+        "SRC-INV-01",
+        "SRC-EVE08-01",
+        "SRC-MMABP-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-GATE-ENFORCEMENT",
+      "name": "gateEnforcement",
+      "owner": "EVE05_GATE_ENGINE",
+      "default_state": "OFF",
+      "purpose": "Bloquear transiciones productivas cuando falla una condición crítica.",
+      "allowed_in_supervised": [
+        "block_transition",
+        "hold_candidate",
+        "open_reentry"
+      ],
+      "irreversible_effects": [
+        "workflow_block"
+      ],
+      "hard_blockers": [
+        "rollback_not_tested",
+        "manual_review_path_missing",
+        "false_block_rate_unmeasured"
+      ],
+      "source_evidence": [
+        "SRC-GAP-01",
+        "SRC-MMABP-01",
+        "SRC-EVE08-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-OBJECT-BINDING",
+      "name": "objectBinding",
+      "owner": "OBJECT_BINDING_ADAPTER",
+      "default_state": "OFF",
+      "purpose": "Vincular evidencia y candidates con objetos y estados gobernados.",
+      "allowed_in_supervised": [
+        "create_candidate_binding",
+        "validate_binding"
+      ],
+      "irreversible_effects": [
+        "materialized_binding"
+      ],
+      "hard_blockers": [
+        "semantic_resolution_failed",
+        "tenant_scope_not_proven"
+      ],
+      "source_evidence": [
+        "SRC-ORG-01",
+        "SRC-MMABP-01",
+        "SRC-GAP-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-MEMBRANE-OUTBOX",
+      "name": "membraneOutbox",
+      "owner": "OUTBOX_ADAPTER",
+      "default_state": "OFF",
+      "purpose": "Publicar eventos idempotentes después de persistencia local y auditada.",
+      "allowed_in_supervised": [
+        "enqueue_candidate_event",
+        "replay_shadow_event"
+      ],
+      "irreversible_effects": [
+        "event_publish"
+      ],
+      "hard_blockers": [
+        "outbox_contract_missing",
+        "idempotency_key_missing",
+        "correlation_id_missing"
+      ],
+      "source_evidence": [
+        "SRC-GAP-01",
+        "SRC-ORG-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-GOVERNANCE-OBSERVE",
+      "name": "governanceObserve",
+      "owner": "EVE08_GOVERNANCE",
+      "default_state": "VALIDATED",
+      "purpose": "Observar decisiones, divergencias, overrides y side effects sin ejecutar operación.",
+      "allowed_in_supervised": [
+        "append_audit_event",
+        "emit_governance_finding",
+        "request_review"
+      ],
+      "irreversible_effects": [],
+      "hard_blockers": [
+        "audit_sink_unavailable"
+      ],
+      "source_evidence": [
+        "SRC-INV-01",
+        "SRC-AUTH-01",
+        "SRC-EVE08-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-GOVERNANCE-ENFORCE",
+      "name": "governanceEnforce",
+      "owner": "EVE08_GOVERNANCE",
+      "default_state": "OFF",
+      "purpose": "Aplicar policy holds o degradación sin ejecutar la operación auditada.",
+      "allowed_in_supervised": [
+        "hold_release",
+        "degrade_capability",
+        "quarantine_scope"
+      ],
+      "irreversible_effects": [
+        "authority_change"
+      ],
+      "hard_blockers": [
+        "independent_audit_not_proven",
+        "kill_switch_missing",
+        "rollback_not_tested"
+      ],
+      "source_evidence": [
+        "SRC-GAP-01",
+        "SRC-EVE08-01",
+        "SRC-VSM-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-CANDIDATE-GENERATION",
+      "name": "candidateGeneration",
+      "owner": "EVE07_PARALLEL_INTERFACE",
+      "default_state": "VALIDATED",
+      "purpose": "Preparar SCR, EvidenceBundle, MDSB, IR y registry candidates sin writes finales.",
+      "allowed_in_supervised": [
+        "generate_candidate",
+        "validate_payload",
+        "emit_preview"
+      ],
+      "irreversible_effects": [],
+      "hard_blockers": [
+        "readiness_not_passed",
+        "raw_text_to_candidate",
+        "b7_direct_projection"
+      ],
+      "source_evidence": [
+        "SRC-ORG-01",
+        "SRC-EVE08-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-HUMAN-RELEASE",
+      "name": "humanRelease",
+      "owner": "RELEASE_MANAGER",
+      "default_state": "OFF",
+      "purpose": "Aprobar o rechazar acciones irreversibles con evidencia, alcance y expiración.",
+      "allowed_in_supervised": [
+        "approve_candidate",
+        "reject_candidate",
+        "request_changes"
+      ],
+      "irreversible_effects": [
+        "release_decision"
+      ],
+      "hard_blockers": [
+        "review_record_missing",
+        "evidence_bundle_missing",
+        "conflict_of_interest"
+      ],
+      "source_evidence": [
+        "SRC-GAP-01",
+        "SRC-EVE08-01",
+        "SRC-VSM-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-REGISTRY-WRITE",
+      "name": "registryWrite",
+      "owner": "REGISTRY_WRITE_ADAPTER",
+      "default_state": "OFF",
+      "purpose": "Promover un registry candidate aprobado a registro activo versionado.",
+      "allowed_in_supervised": [],
+      "irreversible_effects": [
+        "registry_write"
+      ],
+      "hard_blockers": [
+        "registry_policy_ambiguous",
+        "approval_missing",
+        "version_conflict",
+        "rollback_not_tested"
+      ],
+      "source_evidence": [
+        "SRC-GAP-01",
+        "SRC-EVE08-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-FINAL-EXPORT",
+      "name": "finalExport",
+      "owner": "EXPORT_RELEASE_ADAPTER",
+      "default_state": "OFF",
+      "purpose": "Emitir export final aprobado y trazable.",
+      "allowed_in_supervised": [
+        "preview_export"
+      ],
+      "irreversible_effects": [
+        "external_export"
+      ],
+      "hard_blockers": [
+        "approval_missing",
+        "export_scope_unverified",
+        "provenance_missing",
+        "tenant_scope_not_proven"
+      ],
+      "source_evidence": [
+        "SRC-ORG-01",
+        "SRC-GAP-01",
+        "SRC-EVE08-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-PARALLEL-EXECUTION",
+      "name": "parallelExecution",
+      "owner": "PARALLEL_PRODUCTION_RUNTIME",
+      "default_state": "OFF",
+      "purpose": "Ejecutar Producción Paralela real solo después de rehearsal y release gate.",
+      "allowed_in_supervised": [
+        "shadow_rehearsal",
+        "compare_candidate"
+      ],
+      "irreversible_effects": [
+        "parallel_productive_handoff"
+      ],
+      "hard_blockers": [
+        "shadow_harness_unbound",
+        "release_approval_missing",
+        "rollback_not_tested"
+      ],
+      "source_evidence": [
+        "SRC-ORG-01",
+        "SRC-EVE08-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-EXTERNAL-LLM",
+      "name": "externalLLMAssistance",
+      "owner": "COACH_ADAPTER",
+      "default_state": "OFF",
+      "purpose": "Usar LLM externo solo como asistencia sin autoridad estructural.",
+      "allowed_in_supervised": [
+        "draft_help",
+        "suggest_clarification"
+      ],
+      "irreversible_effects": [],
+      "hard_blockers": [
+        "llm_boundary_unconfirmed",
+        "pii_policy_missing",
+        "prompt_audit_missing"
+      ],
+      "source_evidence": [
+        "SRC-INV-01",
+        "SRC-GAP-01",
+        "SRC-AHE-01"
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "transition_id": "TR-001",
+      "from": "OFF",
+      "to": "VALIDATED",
+      "required": [
+        "artifact_integrity_pass",
+        "dependency_check_pass",
+        "owner_assigned"
+      ],
+      "approver": "SYSTEM_OPERATOR",
+      "rollback_target": "OFF"
+    },
+    {
+      "transition_id": "TR-002",
+      "from": "VALIDATED",
+      "to": "SHADOW",
+      "required": [
+        "shadow_harness_pass",
+        "no_side_effects_proven",
+        "tenant_scope_instrumented",
+        "audit_sink_ready"
+      ],
+      "approver": "RELEASE_MANAGER",
+      "rollback_target": "VALIDATED"
+    },
+    {
+      "transition_id": "TR-003",
+      "from": "SHADOW",
+      "to": "SUPERVISED",
+      "required": [
+        "shadow_comparison_pass",
+        "divergence_explained",
+        "manual_review_ready",
+        "rollback_drill_pass"
+      ],
+      "approver": "POLICY_OWNER",
+      "rollback_target": "SHADOW"
+    },
+    {
+      "transition_id": "TR-004",
+      "from": "SUPERVISED",
+      "to": "CONTROLLED_ACTIVE",
+      "required": [
+        "write_allowlist_approved",
+        "tenant_isolation_proven",
+        "idempotency_proven",
+        "human_release_enabled"
+      ],
+      "approver": "POLICY_OWNER",
+      "rollback_target": "SUPERVISED"
+    },
+    {
+      "transition_id": "TR-005",
+      "from": "CONTROLLED_ACTIVE",
+      "to": "ACTIVE",
+      "required": [
+        "cohort_evidence_pass",
+        "post_operation_reconciliation_pass",
+        "algedonic_channel_tested",
+        "periodic_recertification_scheduled"
+      ],
+      "approver": "POLICY_OWNER",
+      "rollback_target": "CONTROLLED_ACTIVE"
+    },
+    {
+      "transition_id": "TR-006",
+      "from": "SHADOW",
+      "to": "DEGRADED",
+      "required": [
+        "performance_or_evidence_risk"
+      ],
+      "approver": "SYSTEM_OPERATOR",
+      "rollback_target": "VALIDATED"
+    },
+    {
+      "transition_id": "TR-007",
+      "from": "SUPERVISED",
+      "to": "DEGRADED",
+      "required": [
+        "noncritical_incident"
+      ],
+      "approver": "SYSTEM_OPERATOR",
+      "rollback_target": "SHADOW"
+    },
+    {
+      "transition_id": "TR-008",
+      "from": "CONTROLLED_ACTIVE",
+      "to": "DEGRADED",
+      "required": [
+        "noncritical_incident"
+      ],
+      "approver": "SYSTEM_OPERATOR",
+      "rollback_target": "SUPERVISED"
+    },
+    {
+      "transition_id": "TR-009",
+      "from": "ACTIVE",
+      "to": "DEGRADED",
+      "required": [
+        "noncritical_incident"
+      ],
+      "approver": "SYSTEM_OPERATOR",
+      "rollback_target": "CONTROLLED_ACTIVE"
+    },
+    {
+      "transition_id": "TR-010",
+      "from": "ANY",
+      "to": "QUARANTINED",
+      "required": [
+        "critical_no_go_trigger"
+      ],
+      "approver": "INDEPENDENT_AUDITOR_OR_POLICY_OWNER",
+      "rollback_target": "VALIDATED"
+    },
+    {
+      "transition_id": "TR-011",
+      "from": "QUARANTINED",
+      "to": "ROLLBACK_IN_PROGRESS",
+      "required": [
+        "rollback_plan_selected",
+        "evidence_preserved",
+        "operator_assigned"
+      ],
+      "approver": "POLICY_OWNER",
+      "rollback_target": "QUARANTINED"
+    },
+    {
+      "transition_id": "TR-012",
+      "from": "ROLLBACK_IN_PROGRESS",
+      "to": "VALIDATED",
+      "required": [
+        "compensation_complete",
+        "reconciliation_pass",
+        "independent_audit_pass"
+      ],
+      "approver": "POLICY_OWNER",
+      "rollback_target": "QUARANTINED"
+    },
+    {
+      "transition_id": "TR-013",
+      "from": "ANY",
+      "to": "REVOKED",
+      "required": [
+        "policy_revocation_or_unrecoverable_risk"
+      ],
+      "approver": "POLICY_OWNER",
+      "rollback_target": "OFF"
+    },
+    {
+      "transition_id": "TR-014",
+      "from": "REVOKED",
+      "to": "OFF",
+      "required": [
+        "revocation_closed",
+        "artifacts_archived"
+      ],
+      "approver": "POLICY_OWNER",
+      "rollback_target": "REVOKED"
+    }
+  ],
+  "activation_gates": [
+    {
+      "gate_id": "G0-DOCUMENT-CLOSURE",
+      "name": "Clausura documental y de dependencia",
+      "target_state": "VALIDATED",
+      "required_evidence": [
+        "Exact versions and hashes for EVE-00..EVE-08",
+        "Manifests and source-proof status",
+        "No stale audit used as current authority",
+        "Clean or explicitly isolated EVE04 state",
+        "Open blockers registered in EVE08"
+      ],
+      "blocking_gaps": [
+        "GAP-012"
+      ],
+      "pass_effect": "Capabilities may enter VALIDATED only.",
+      "fail_effect": "Remain OFF; no composition root traffic."
+    },
+    {
+      "gate_id": "G1-PASSIVE-COMPOSITION",
+      "name": "Composition root pasivo",
+      "target_state": "SHADOW",
+      "required_evidence": [
+        "Typed ports and adapters",
+        "No UI direct chip imports",
+        "No product writes",
+        "Correlation and idempotency context propagated",
+        "EVE08 audit event capture available"
+      ],
+      "blocking_gaps": [
+        "GAP-001",
+        "GAP-002",
+        "GAP-007"
+      ],
+      "pass_effect": "Read-only and shadow evaluation traffic allowed.",
+      "fail_effect": "No wiring beyond static validation."
+    },
+    {
+      "gate_id": "G2-END-TO-END-SHADOW",
+      "name": "Shadow E2E con tráfico real no vinculante",
+      "target_state": "SHADOW",
+      "required_evidence": [
+        "Tenant-scoped traffic copy",
+        "Official-vs-EVE decision comparison",
+        "Gate trace, latency, retries and replay metrics",
+        "Zero productive side effects",
+        "Divergence explainability and reversibility"
+      ],
+      "blocking_gaps": [
+        "GAP-003",
+        "GAP-005",
+        "GAP-010",
+        "GAP-011"
+      ],
+      "pass_effect": "Eligible for supervised pilot review.",
+      "fail_effect": "Remain SHADOW or QUARANTINED."
+    },
+    {
+      "gate_id": "G3-SUPERVISED-OPERATION",
+      "name": "Operación supervisada",
+      "target_state": "SUPERVISED",
+      "required_evidence": [
+        "Human review queue operational",
+        "Gates classify advisory vs enforcement",
+        "Object binding and evidence provenance complete",
+        "Candidate generation only",
+        "Registry/export/final diagnosis remain blocked"
+      ],
+      "blocking_gaps": [
+        "GAP-005",
+        "GAP-008",
+        "GAP-010"
+      ],
+      "pass_effect": "Real capture and candidate generation with human authority.",
+      "fail_effect": "Return to SHADOW."
+    },
+    {
+      "gate_id": "G4-CONTROLLED-WRITES",
+      "name": "Escrituras controladas por capacidad",
+      "target_state": "CONTROLLED_ACTIVE",
+      "required_evidence": [
+        "Route-by-route tenant/RLS audit",
+        "Service-role allowlist and denylist",
+        "Write ledger and immutable audit",
+        "Rollback drill for each side effect",
+        "One irreversible capability per release"
+      ],
+      "blocking_gaps": [
+        "GAP-003",
+        "GAP-004",
+        "GAP-006",
+        "GAP-008",
+        "GAP-010"
+      ],
+      "pass_effect": "Only approved allowlisted writes enabled.",
+      "fail_effect": "Remain SUPERVISED."
+    },
+    {
+      "gate_id": "G5-CLIENT-PILOT",
+      "name": "Fase 9 piloto cliente",
+      "target_state": "CONTROLLED_ACTIVE",
+      "required_evidence": [
+        "Approved client routes and BFF",
+        "WorkMap baseline preserved",
+        "Significado inserted as continuation, not replacement",
+        "Customer language hides internal organism",
+        "Results are reviewed and comprehensible"
+      ],
+      "blocking_gaps": [
+        "GAP-009",
+        "GAP-010",
+        "GAP-013"
+      ],
+      "pass_effect": "Pilot tenant access enabled by cohort.",
+      "fail_effect": "Internal-only operation."
+    },
+    {
+      "gate_id": "G6-RING-DEPLOYMENT",
+      "name": "Fase 10 QA y despliegue por anillos",
+      "target_state": "ACTIVE",
+      "required_evidence": [
+        "Internal ring pass",
+        "Pilot tenant pass",
+        "Small cohort pass",
+        "Security, privacy, accessibility, load and recovery pass",
+        "Post-activation monitor and recertification active"
+      ],
+      "blocking_gaps": [
+        "GAP-003",
+        "GAP-008",
+        "GAP-011",
+        "GAP-014"
+      ],
+      "pass_effect": "Availability expands one ring at a time.",
+      "fail_effect": "Hold or rollback current ring."
+    }
+  ],
+  "event_contracts": [
+    {
+      "event": "ClientIntentReceived",
+      "producer": "CLIENT_BFF",
+      "consumer": "COMPOSITION_ROOT",
+      "required_fields": [
+        "tenantId",
+        "userId",
+        "sessionId",
+        "activityId",
+        "correlationId",
+        "idempotencyKey",
+        "intentType",
+        "payloadRef"
+      ],
+      "side_effect": "none"
+    },
+    {
+      "event": "RuntimeCommandAccepted",
+      "producer": "COMPOSITION_ROOT",
+      "consumer": "RUNTIME_ORCHESTRATOR",
+      "required_fields": [
+        "commandId",
+        "scope",
+        "capabilityState",
+        "policyVersion"
+      ],
+      "side_effect": "none"
+    },
+    {
+      "event": "EvidenceRecorded",
+      "producer": "EVE06_EXECUTION",
+      "consumer": [
+        "EVE05_GATE",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "evidenceId",
+        "sourceNodeId",
+        "provenance",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "side_effect": "local_persistence_only"
+    },
+    {
+      "event": "CanonicalVariableMaterialized",
+      "producer": "EVE06_EXECUTION",
+      "consumer": [
+        "EVE05_GATE",
+        "EVE07_PARALLEL"
+      ],
+      "required_fields": [
+        "recordId",
+        "variableName",
+        "valueRef",
+        "provenance",
+        "confidence",
+        "status"
+      ],
+      "side_effect": "local_persistence_only"
+    },
+    {
+      "event": "GateDecisionIssued",
+      "producer": "EVE05_GATE",
+      "consumer": [
+        "COMPOSITION_ROOT",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "gateId",
+        "decision",
+        "reasonCodes",
+        "candidateRef",
+        "policyVersion"
+      ],
+      "side_effect": "hold_or_advisory"
+    },
+    {
+      "event": "StructuralCandidatePrepared",
+      "producer": "EVE06_EXECUTION",
+      "consumer": [
+        "EVE07_PARALLEL",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "candidateId",
+        "modelType",
+        "evidenceRefs",
+        "conformanceStatus",
+        "consistencyStatus"
+      ],
+      "side_effect": "candidate_only"
+    },
+    {
+      "event": "ParallelPayloadPrepared",
+      "producer": "EVE07_PARALLEL",
+      "consumer": [
+        "HUMAN_REVIEW_QUEUE",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "payloadId",
+        "payloadType",
+        "candidateRefs",
+        "blockers",
+        "readiness"
+      ],
+      "side_effect": "candidate_only"
+    },
+    {
+      "event": "ManualReviewRequested",
+      "producer": [
+        "EVE05_GATE",
+        "EVE07_PARALLEL",
+        "EVE08_GOVERNANCE"
+      ],
+      "consumer": "HUMAN_REVIEW_QUEUE",
+      "required_fields": [
+        "reviewId",
+        "reviewType",
+        "scope",
+        "evidenceRefs",
+        "requestedBy",
+        "dueAt"
+      ],
+      "side_effect": "queue_write"
+    },
+    {
+      "event": "HumanReleaseDecision",
+      "producer": "HUMAN_REVIEWER",
+      "consumer": [
+        "RELEASE_MANAGER",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "reviewId",
+        "decision",
+        "actorId",
+        "reason",
+        "artifactHash",
+        "expiresAt"
+      ],
+      "side_effect": "authorization_record"
+    },
+    {
+      "event": "ReleaseAuthorized",
+      "producer": "RELEASE_MANAGER",
+      "consumer": "RELEASE_ADAPTER",
+      "required_fields": [
+        "releaseId",
+        "capabilityId",
+        "scope",
+        "artifactHash",
+        "approvalRefs",
+        "rollbackPlanId"
+      ],
+      "side_effect": "allowlisted_release"
+    },
+    {
+      "event": "AlgedonicSignalRaised",
+      "producer": "ANY_COMPONENT",
+      "consumer": [
+        "INDEPENDENT_AUDITOR",
+        "POLICY_OWNER"
+      ],
+      "required_fields": [
+        "signalId",
+        "severity",
+        "scope",
+        "harmType",
+        "evidenceRefs",
+        "occurredAt"
+      ],
+      "side_effect": "immediate_hold"
+    },
+    {
+      "event": "CapabilityStateChanged",
+      "producer": "EVE08_GOVERNANCE",
+      "consumer": [
+        "COMPOSITION_ROOT",
+        "OBSERVABILITY"
+      ],
+      "required_fields": [
+        "capabilityId",
+        "from",
+        "to",
+        "reason",
+        "approvalRefs",
+        "timestamp"
+      ],
+      "side_effect": "authority_change"
+    },
+    {
+      "event": "RollbackStarted",
+      "producer": "POLICY_OWNER",
+      "consumer": [
+        "SYSTEM_OPERATOR",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "rollbackId",
+        "scope",
+        "targetState",
+        "planHash",
+        "evidenceSnapshot"
+      ],
+      "side_effect": "compensation_only"
+    },
+    {
+      "event": "RollbackCompleted",
+      "producer": "SYSTEM_OPERATOR",
+      "consumer": [
+        "INDEPENDENT_AUDITOR",
+        "POLICY_OWNER"
+      ],
+      "required_fields": [
+        "rollbackId",
+        "reconciliationResult",
+        "residualRisks",
+        "completedAt"
+      ],
+      "side_effect": "none"
+    }
+  ],
+  "manual_review_types": [
+    {
+      "review_type": "STRUCTURAL_CANDIDATE_REVIEW",
+      "required_for": [
+        "mmabp_ir_candidate",
+        "registry_candidate"
+      ],
+      "sla_hours": 24,
+      "independence_required": true
+    },
+    {
+      "review_type": "OVERRIDE_REVIEW",
+      "required_for": [
+        "any_blocking_override"
+      ],
+      "sla_hours": 4,
+      "independence_required": true
+    },
+    {
+      "review_type": "EXPORT_RELEASE_REVIEW",
+      "required_for": [
+        "final_export"
+      ],
+      "sla_hours": 24,
+      "independence_required": true
+    },
+    {
+      "review_type": "TENANT_SCOPE_EXCEPTION_REVIEW",
+      "required_for": [
+        "scope_exception"
+      ],
+      "sla_hours": 2,
+      "independence_required": true
+    },
+    {
+      "review_type": "ALGEDONIC_INCIDENT_REVIEW",
+      "required_for": [
+        "critical_no_go"
+      ],
+      "sla_hours": 1,
+      "independence_required": true
+    },
+    {
+      "review_type": "LLM_ASSISTANCE_REVIEW",
+      "required_for": [
+        "llm_generated_structure_candidate"
+      ],
+      "sla_hours": 24,
+      "independence_required": false
+    }
+  ],
+  "no_go_rules": [
+    {
+      "id": "NG-001",
+      "trigger": "tenant_data_leak_or_cross_tenant_read",
+      "action": "QUARANTINE_ALL_WRITE_CAPABILITIES",
+      "severity": "critical"
+    },
+    {
+      "id": "NG-002",
+      "trigger": "evidence_without_provenance",
+      "action": "BLOCK_CANDIDATE_AND_REQUEST_REENTRY",
+      "severity": "hard"
+    },
+    {
+      "id": "NG-003",
+      "trigger": "gate_bypass_detected",
+      "action": "QUARANTINE_SCOPE_AND_ALERT_S3_STAR",
+      "severity": "critical"
+    },
+    {
+      "id": "NG-004",
+      "trigger": "structural_candidate_without_object_binding",
+      "action": "BLOCK_HANDOFF",
+      "severity": "hard"
+    },
+    {
+      "id": "NG-005",
+      "trigger": "override_requested_and_not_audited",
+      "action": "BLOCK_RELEASE",
+      "severity": "hard"
+    },
+    {
+      "id": "NG-006",
+      "trigger": "state_ledger_divergence",
+      "action": "FREEZE_WRITES_AND_RECONCILE",
+      "severity": "critical"
+    },
+    {
+      "id": "NG-007",
+      "trigger": "export_without_human_approval",
+      "action": "BLOCK_EXPORT_AND_ALERT",
+      "severity": "critical"
+    },
+    {
+      "id": "NG-008",
+      "trigger": "registry_write_without_version_and_approval",
+      "action": "BLOCK_REGISTRY_WRITE",
+      "severity": "critical"
+    },
+    {
+      "id": "NG-009",
+      "trigger": "stale_source_proof_used_as_authority",
+      "action": "REVOKE_ARTIFACT_AUTHORITY",
+      "severity": "hard"
+    },
+    {
+      "id": "NG-010",
+      "trigger": "rollback_not_proven_for_requested_side_effect",
+      "action": "DENY_CAPABILITY_PROMOTION",
+      "severity": "hard"
+    },
+    {
+      "id": "NG-011",
+      "trigger": "ui_imports_chip_or_internal_registry_directly",
+      "action": "BLOCK_BUILD_OR_RELEASE",
+      "severity": "hard"
+    },
+    {
+      "id": "NG-012",
+      "trigger": "executor_and_auditor_same_unsegregated_identity",
+      "action": "BLOCK_IRREVERSIBLE_ACTION",
+      "severity": "critical"
+    },
+    {
+      "id": "NG-013",
+      "trigger": "b7_or_c20_direct_ir_registry_export",
+      "action": "BLOCK_PROJECTION",
+      "severity": "hard"
+    },
+    {
+      "id": "NG-014",
+      "trigger": "receiver_satisfaction_used_as_receiver_feedback",
+      "action": "OPEN_RECEIVER_FEEDBACK_ROUTE_MISSING",
+      "severity": "hard"
+    },
+    {
+      "id": "NG-015",
+      "trigger": "raw_text_to_diagnosis_or_ir",
+      "action": "BLOCK_AND_REQUIRE_CANONICAL_ROUTE",
+      "severity": "critical"
+    },
+    {
+      "id": "NG-016",
+      "trigger": "service_role_used_outside_allowlist",
+      "action": "REVOKE_SERVICE_ROLE_PATH",
+      "severity": "critical"
+    },
+    {
+      "id": "NG-017",
+      "trigger": "manual_review_backlog_exceeds_threshold",
+      "action": "DEGRADE_AUTOMATION_AND_ESCALATE_CAPACITY",
+      "severity": "high"
+    },
+    {
+      "id": "NG-018",
+      "trigger": "human_burden_or_workaround_pattern_increases_after_gate_enablement",
+      "action": "REVIEW_GATE_DESIGN_AND_DEGRADE_ENFORCEMENT",
+      "severity": "high"
+    }
+  ],
+  "tenant_and_security_contract": {
+    "required_scope_fields": [
+      "tenantId",
+      "userId",
+      "sessionId",
+      "activityId"
+    ],
+    "required_transport_fields": [
+      "correlationId",
+      "idempotencyKey",
+      "policyVersion",
+      "artifactVersion"
+    ],
+    "session_boundary_path": "src/lib/session-boundary.ts",
+    "client_auth_path": "src/lib/supabase.ts",
+    "server_client_path": "src/lib/supabase-server.ts",
+    "rules": [
+      "Todo comando debe resolverse a un único tenant, sesión y actividad antes de llegar al composition root.",
+      "Ningún side effect puede ejecutarse con scope unknown o inferido.",
+      "Service-role no hereda el scope del cliente: debe recibir scope verificado y allowlist de tablas/acciones.",
+      "RLS y tenant isolation deben probarse por ruta antes de CONTROLLED_ACTIVE.",
+      "Admin y dev routes no comparten autoridad de escritura productiva."
+    ],
+    "open_blockers": [
+      "GAP-003",
+      "GAP-004",
+      "GAP-010"
+    ]
+  },
+  "side_effect_policy": {
+    "classes": [
+      {
+        "class": "NONE",
+        "examples": [
+          "validation",
+          "candidate generation",
+          "read-only registry",
+          "audit finding"
+        ]
+      },
+      {
+        "class": "LOCAL_REVERSIBLE",
+        "examples": [
+          "draft save",
+          "shadow observation",
+          "review queue append"
+        ]
+      },
+      {
+        "class": "PRODUCTIVE_REVERSIBLE",
+        "examples": [
+          "operational state update with ledger",
+          "outbox enqueue"
+        ]
+      },
+      {
+        "class": "IRREVERSIBLE_OR_EXTERNAL",
+        "examples": [
+          "registry write",
+          "final export",
+          "parallel productive handoff"
+        ]
+      }
+    ],
+    "rule": "Toda clase distinta de NONE exige scope, idempotency, audit event y rollback/compensation; IRREVERSIBLE_OR_EXTERNAL exige aprobación humana."
+  },
+  "override_contract": {
+    "required_fields": [
+      "overrideId",
+      "requestedBy",
+      "scope",
+      "blockedRuleId",
+      "reason",
+      "evidenceRefs",
+      "reviewerId",
+      "decision",
+      "expiresAt",
+      "auditHash"
+    ],
+    "rules": [
+      "No existe override implícito.",
+      "Override solicitado y no auditado bloquea release.",
+      "Override aprobado expira y no cambia la regla base.",
+      "El ejecutor no puede aprobar su propio override.",
+      "Toda frecuencia de override se monitorea como señal de diseño defectuoso o carga coercitiva."
+    ]
+  },
+  "rollback_and_kill_switch": {
+    "kill_switch_scopes": [
+      "global",
+      "tenant",
+      "capability",
+      "route",
+      "artifact_type",
+      "chip_version"
+    ],
+    "required_actions": [
+      "stop_new_commands",
+      "preserve_evidence",
+      "freeze_side_effects",
+      "emit_algedonic_signal",
+      "start_reconciliation",
+      "select_rollback_plan"
+    ],
+    "rollback_evidence": [
+      "pre_state_hash",
+      "post_state_hash",
+      "ledger_entries",
+      "compensation_results",
+      "residual_risks",
+      "independent_audit"
+    ],
+    "open_blocker": "GAP-008"
+  },
+  "vsm_governance_mapping": {
+    "S1": "Tenants, actividades, sesiones y equipos cliente; autonomía local dentro de políticas.",
+    "S2": "Timers, branching, idempotencia, reentry, colisiones y coordinación de ritmos.",
+    "S3": "Capacidad, permisos, gate enforcement y ejecución controlada.",
+    "S3_star": "Auditoría independiente, probes, reconciliación y detección de bypass.",
+    "S4": "Divergencias, feedback, evolución de catálogo y aprendizaje.",
+    "S5": "Identidad, límites, riesgo aceptable, promoción y revocación.",
+    "algedonic_channel": "Señal crítica directa a auditor/policy owner para degradar, cuarentenar o hacer rollback."
+  },
+  "mmabp_activation_model": {
+    "PM": "Necesidad cliente → captura/análisis → revisión → publicación controlada → resultado utilizable.",
+    "MoC": [
+      "Tenant",
+      "Session",
+      "Activity",
+      "Evidence",
+      "CanonicalVariable",
+      "Candidate",
+      "Review",
+      "Approval",
+      "Artifact",
+      "Release",
+      "Revocation"
+    ],
+    "PF_process_states": [
+      "awaiting_evidence",
+      "awaiting_review",
+      "awaiting_approval",
+      "awaiting_release",
+      "reentry_required"
+    ],
+    "PF_timer_rule": "Todo Process State debe tener timeout, escalation y salida definida.",
+    "OLC_artifact_candidate": [
+      "created",
+      "validated",
+      "blocked",
+      "review_required",
+      "approved",
+      "released",
+      "revoked",
+      "superseded"
+    ],
+    "conformance_before_consistency": true
+  },
+  "ahe_safeguards": {
+    "measures": [
+      "review_wait_time",
+      "override_frequency",
+      "gate_generated_rework",
+      "local_workarounds",
+      "manual_burden",
+      "appeal_rate",
+      "reversal_rate",
+      "unresolved_human_cost"
+    ],
+    "rule": "Si la gobernanza incrementa compensación humana, silencio o workaround, degradar enforcement y revisar diseño; no culpabilizar al actor."
+  },
+  "open_gaps": [
+    {
+      "gap_id": "GAP-001",
+      "type": "activation_contract_missing",
+      "severity": "critical",
+      "description": "No single repo artifact defines the controlled organism activation contract across chips, runtime, UI, persistence, registry and rollback.",
+      "evidence": "Many shadow/dev harnesses and chip packages exist, but no observed productive activation contract.",
+      "required_next_evidence": "EVE-ORGANISM-CONTROLLED-ACTIVATION-CONTRACT-V1"
+    },
+    {
+      "gap_id": "GAP-002",
+      "type": "authority_map_missing",
+      "severity": "critical",
+      "description": "Observed authority surfaces are distributed across UI, API, Supabase clients, MBA service role services, registries and chip docs.",
+      "evidence": "Authority rows in _eve_organism_authority_matrix_observed_v1.json.",
+      "required_next_evidence": "EVE-ORGANISM-WIRING-AND-AUTHORITY-MAP-V1"
+    },
+    {
+      "gap_id": "GAP-003",
+      "type": "rls_and_db_policy_unverified",
+      "severity": "critical",
+      "description": "Supabase persistence is present, but RLS, table policies, indexes and tenant isolation were not verified from database state.",
+      "evidence": "supabase/prisma/db/migrations folders were not observed in this platform root.",
+      "required_next_evidence": "DB schema, RLS policy and service-role write audit."
+    },
+    {
+      "gap_id": "GAP-004",
+      "type": "service_role_boundary_high_risk",
+      "severity": "critical",
+      "description": "MBA and parallel production persistence can use service role keys.",
+      "evidence": "src/services/mba/server-supabase-client.mjs and src/services/parallel-production/runtime/repository.mjs.",
+      "required_next_evidence": "Explicit service role allowlist, denylist, audit log and rollback design."
+    },
+    {
+      "gap_id": "GAP-005",
+      "type": "shadow_to_productive_promotion_path_missing",
+      "severity": "critical",
+      "description": "Shadow services and dev harnesses are present, but the allowed promotion path from shadow candidate to productive authority is not observed.",
+      "evidence": "EVE00-EVE08 shadow/dev routes exist; packages remain candidate/dev-only unless separately wired.",
+      "required_next_evidence": "Promotion gate contract and human approval checkpoints."
+    },
+    {
+      "gap_id": "GAP-006",
+      "type": "registry_write_policy_ambiguous",
+      "severity": "high",
+      "description": "Registry and runtimeAuthority concepts exist, but a unified registry write policy for organism activation is not observed.",
+      "evidence": "rector-docs registry declares runtimeAuthority for documents; shadow harness tests reject registryWrite true.",
+      "required_next_evidence": "Registry authority table and write path audit."
+    },
+    {
+      "gap_id": "GAP-007",
+      "type": "event_bus_or_outbox_missing",
+      "severity": "high",
+      "description": "No canonical event bus/outbox contract was observed for organism-level activation.",
+      "evidence": "MBA event ledger and runtime observation routes exist, but no organism-wide outbox contract found in inventory.",
+      "required_next_evidence": "Event/outbox schema and idempotency policy."
+    },
+    {
+      "gap_id": "GAP-008",
+      "type": "kill_switch_and_rollback_missing",
+      "severity": "high",
+      "description": "No explicit kill switch, rollback ledger or activation disable path was observed.",
+      "evidence": "Feature flags exist for intake and env configuration; no organism-level kill switch observed.",
+      "required_next_evidence": "Rollback and disable controls."
+    },
+    {
+      "gap_id": "GAP-009",
+      "type": "productive_ui_entrypoint_approval_missing",
+      "severity": "high",
+      "description": "Productive UI has active flows and dev routes coexist, but the approved UI entrypoints for chip activation are not defined.",
+      "evidence": "src/app/page.tsx, admin routes and dev routes coexist.",
+      "required_next_evidence": "Route allowlist by activation stage."
+    },
+    {
+      "gap_id": "GAP-010",
+      "type": "tenant_scope_not_fully_proven",
+      "severity": "high",
+      "description": "Session owner boundaries exist, but end-to-end tenant isolation for every write route is not proven in this inventory.",
+      "evidence": "session-boundary.ts exists; many API routes must be reviewed route-by-route.",
+      "required_next_evidence": "Route-by-route tenant and session ownership matrix."
+    },
+    {
+      "gap_id": "GAP-011",
+      "type": "qa_coverage_for_activation_missing",
+      "severity": "high",
+      "description": "There are many regression tests, but no single activation precheck test suite was observed for the whole organism.",
+      "evidence": "120 test files observed; tests are chip/feature/regression-specific.",
+      "required_next_evidence": "Activation precheck suite covering authority, persistence, registry, UI and rollback."
+    },
+    {
+      "gap_id": "GAP-012",
+      "type": "runtime_catalog_state_dirty",
+      "severity": "high",
+      "description": "Worktree has EVE04 deleted/modified/untracked state; activation work must not use dirty candidate state without isolation.",
+      "evidence": "git status showed deleted EVE04 candidate files and modified EVE04 shadow service/test.",
+      "required_next_evidence": "Clean or explicitly isolated EVE04 bundle state."
+    },
+    {
+      "gap_id": "GAP-013",
+      "type": "manual_visual_approvals_not_runtime_authority",
+      "severity": "medium",
+      "description": "Manual visual approvals exist for dev harnesses, but these are not productive authority.",
+      "evidence": "EVE01/EVE02/EVE03/EVE08 UI trace/manual visual approval closeouts exist or were requested previously.",
+      "required_next_evidence": "Explicit distinction between visual QA and production activation."
+    },
+    {
+      "gap_id": "GAP-014",
+      "type": "external_ai_or_llm_boundary_unconfirmed",
+      "severity": "medium",
+      "description": "OpenAI coach services and env vars exist; organism activation must define whether LLM calls are allowed, shadowed or disabled.",
+      "evidence": "OPENAI_API_KEY and OPENAI_MODEL used by operational-description-coach services.",
+      "required_next_evidence": "LLM boundary contract and audit logging."
+    }
+  ],
+  "atomic_rules": [
+    {
+      "rule_id": "ACT-P-001",
+      "category": "principle",
+      "statement": "La autoridad se concede por capacidad y alcance; no existe un interruptor global de cerebro.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-002",
+      "category": "principle",
+      "statement": "La presencia de un chip o dev harness no constituye autoridad productiva.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.chips_found / UI dev routes"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-003",
+      "category": "principle",
+      "statement": "La UI cliente solo consume vistas estables mediante BFF/application service; no importa chips ni vísceras internas.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "paragraph 299"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-004",
+      "category": "principle",
+      "statement": "WorkMap y su cableado aprobado son baseline congelado; cualquier cambio es agregación explícita.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-UI-01",
+          "locator": "paragraph 8"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-005",
+      "category": "principle",
+      "statement": "Significado se inserta como continuación del flujo WorkMap, no como sustitución de Guardar o readiness.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-UI-02",
+          "locator": "paragraph 29"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-006",
+      "category": "principle",
+      "statement": "Conformance contra realidad precede a consistencia entre modelos.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-MMABP-01",
+          "locator": "PDF page 180-182"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-007",
+      "category": "principle",
+      "statement": "Una inconsistencia no se corrige alineando cosméticamente modelos; primero se determina el hecho real.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-MMABP-01",
+          "locator": "PDF page 182"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-008",
+      "category": "principle",
+      "statement": "Control productivo prioriza autorregulación local y añade control extrínseco solo donde la variedad residual lo exige.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 21,55"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-009",
+      "category": "principle",
+      "statement": "La comunicación operacional se valida como coordinación circular de acciones, no solo transmisión de mensajes.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF page 59"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-010",
+      "category": "principle",
+      "statement": "Autonomía local y cohesión global deben coexistir; ninguna capacidad central absorbe decisiones que corresponden a S1.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF page 124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-011",
+      "category": "principle",
+      "statement": "EVE08 audita y gobierna, pero no ejecuta la misma acción irreversible que audita.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-012",
+      "category": "principle",
+      "statement": "Toda acción irreversible exige aprobación humana, evidencia, idempotencia, audit trail y rollback probado.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-013",
+      "category": "principle",
+      "statement": "La gobernanza no puede convertir revisión humana en cuello de botella coercitivo sin medir carga y reversión.",
+      "severity": "high",
+      "blocking": false,
+      "source_refs": [
+        {
+          "source_id": "SRC-AHE-01",
+          "locator": "paragraphs 36,65,72"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-014",
+      "category": "principle",
+      "statement": "Producción Paralela permanece candidate/rehearsal hasta release explícito; nunca escribe registry por sí sola.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "paragraphs 253,256,289"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-015",
+      "category": "principle",
+      "statement": "El canal algedónico puede degradar o cuarentenar una capacidad sin esperar la cadena normal.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "paragraph 228"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-016",
+      "category": "principle",
+      "statement": "Las rutas dev/shadow no son superficies productivas y deben estar deshabilitadas en producción.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-017",
+      "category": "principle",
+      "statement": "Service-role solo opera desde adapters allowlisted, con alcance tenant, ledger y revocación.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "AUTH-009/AUTH-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-018",
+      "category": "principle",
+      "statement": "El estado brainConnectionEnabled es derivado de capacidades; no es una bandera operable.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-005"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-019",
+      "category": "principle",
+      "statement": "Toda promoción se realiza por anillos y puede retroceder una capacidad sin apagar todo el organismo.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 21,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-P-020",
+      "category": "principle",
+      "statement": "No se habilitan registryWrite, finalExport y parallelExecution en el mismo release.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-006/GAP-008"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-001",
+      "category": "capability",
+      "statement": "clientAccess inicia en VALIDATED y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "clientAccess",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-UI-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-UI-02",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-002",
+      "category": "capability",
+      "statement": "tenantContext inicia en VALIDATED y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "tenantContext",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-003",
+      "category": "capability",
+      "statement": "runtimeCapture inicia en OFF y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "runtimeCapture",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-004",
+      "category": "capability",
+      "statement": "gateAdvisory inicia en VALIDATED y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "gateAdvisory",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-MMABP-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-005",
+      "category": "capability",
+      "statement": "gateEnforcement inicia en OFF y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "gateEnforcement",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-MMABP-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-006",
+      "category": "capability",
+      "statement": "objectBinding inicia en OFF y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "objectBinding",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-MMABP-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-007",
+      "category": "capability",
+      "statement": "membraneOutbox inicia en OFF y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "membraneOutbox",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-008",
+      "category": "capability",
+      "statement": "governanceObserve inicia en VALIDATED y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "governanceObserve",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-009",
+      "category": "capability",
+      "statement": "governanceEnforce inicia en OFF y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "governanceEnforce",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-010",
+      "category": "capability",
+      "statement": "candidateGeneration inicia en VALIDATED y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "candidateGeneration",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-011",
+      "category": "capability",
+      "statement": "humanRelease inicia en OFF y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "humanRelease",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-012",
+      "category": "capability",
+      "statement": "registryWrite inicia en OFF y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "registryWrite",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-013",
+      "category": "capability",
+      "statement": "finalExport inicia en OFF y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "finalExport",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-014",
+      "category": "capability",
+      "statement": "parallelExecution inicia en OFF y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "parallelExecution",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-C-015",
+      "category": "capability",
+      "statement": "externalLLMAssistance inicia en OFF y solo puede ejecutar efectos declarados en su estado.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "capability": "externalLLMAssistance",
+        "state": "ANY"
+      },
+      "action": "enforce_capability_contract",
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "capability evidence"
+        },
+        {
+          "source_id": "SRC-AHE-01",
+          "locator": "capability evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-S-001",
+      "category": "state",
+      "statement": "El estado OFF permite efectos productivos=False; Capacidad deshabilitada; no lee tráfico productivo salvo health checks.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.activation_contract"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-S-002",
+      "category": "state",
+      "statement": "El estado VALIDATED permite efectos productivos=False; Artefacto y dependencias validados; aún sin tráfico ni side effects.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.activation_contract"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-S-003",
+      "category": "state",
+      "statement": "El estado SHADOW permite efectos productivos=False; Procesa copia de tráfico real; produce evidencia comparativa no vinculante.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.activation_contract"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-S-004",
+      "category": "state",
+      "statement": "El estado SUPERVISED permite efectos productivos=bounded; Opera sobre trabajo real con revisión humana previa a toda acción irreversible.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.activation_contract"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-S-005",
+      "category": "state",
+      "statement": "El estado CONTROLLED_ACTIVE permite efectos productivos=allowlisted; Ejecuta únicamente side effects autorizados por alcance, tenant, acción y versión.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.activation_contract"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-S-006",
+      "category": "state",
+      "statement": "El estado ACTIVE permite efectos productivos=full_within_contract; Autoridad productiva concedida dentro del contrato y monitoreo continuo.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.activation_contract"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-S-007",
+      "category": "state",
+      "statement": "El estado DEGRADED permite efectos productivos=reduced; Conjunto mínimo de capacidades; evita propagación de daño.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.activation_contract"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-S-008",
+      "category": "state",
+      "statement": "El estado QUARANTINED permite efectos productivos=False; Aislada por daño, inconsistencia o evidencia insuficiente.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.activation_contract"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-S-009",
+      "category": "state",
+      "statement": "El estado ROLLBACK_IN_PROGRESS permite efectos productivos=compensating_only; Solo permite acciones compensatorias auditadas.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.activation_contract"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-S-010",
+      "category": "state",
+      "statement": "El estado REVOKED permite efectos productivos=False; Autoridad retirada; requiere nueva validación para reingresar.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.activation_contract"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-001",
+      "category": "transition",
+      "statement": "Transición OFF→VALIDATED exige artifact_integrity_pass, dependency_check_pass, owner_assigned y aprobación SYSTEM_OPERATOR.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "OFF",
+        "to": "VALIDATED"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-002",
+      "category": "transition",
+      "statement": "Transición VALIDATED→SHADOW exige shadow_harness_pass, no_side_effects_proven, tenant_scope_instrumented, audit_sink_ready y aprobación RELEASE_MANAGER.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "VALIDATED",
+        "to": "SHADOW"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-003",
+      "category": "transition",
+      "statement": "Transición SHADOW→SUPERVISED exige shadow_comparison_pass, divergence_explained, manual_review_ready, rollback_drill_pass y aprobación POLICY_OWNER.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "SHADOW",
+        "to": "SUPERVISED"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-004",
+      "category": "transition",
+      "statement": "Transición SUPERVISED→CONTROLLED_ACTIVE exige write_allowlist_approved, tenant_isolation_proven, idempotency_proven, human_release_enabled y aprobación POLICY_OWNER.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "SUPERVISED",
+        "to": "CONTROLLED_ACTIVE"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-005",
+      "category": "transition",
+      "statement": "Transición CONTROLLED_ACTIVE→ACTIVE exige cohort_evidence_pass, post_operation_reconciliation_pass, algedonic_channel_tested, periodic_recertification_scheduled y aprobación POLICY_OWNER.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "CONTROLLED_ACTIVE",
+        "to": "ACTIVE"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-006",
+      "category": "transition",
+      "statement": "Transición SHADOW→DEGRADED exige performance_or_evidence_risk y aprobación SYSTEM_OPERATOR.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "SHADOW",
+        "to": "DEGRADED"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-007",
+      "category": "transition",
+      "statement": "Transición SUPERVISED→DEGRADED exige noncritical_incident y aprobación SYSTEM_OPERATOR.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "SUPERVISED",
+        "to": "DEGRADED"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-008",
+      "category": "transition",
+      "statement": "Transición CONTROLLED_ACTIVE→DEGRADED exige noncritical_incident y aprobación SYSTEM_OPERATOR.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "CONTROLLED_ACTIVE",
+        "to": "DEGRADED"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-009",
+      "category": "transition",
+      "statement": "Transición ACTIVE→DEGRADED exige noncritical_incident y aprobación SYSTEM_OPERATOR.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "ACTIVE",
+        "to": "DEGRADED"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-010",
+      "category": "transition",
+      "statement": "Transición ANY→QUARANTINED exige critical_no_go_trigger y aprobación INDEPENDENT_AUDITOR_OR_POLICY_OWNER.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "ANY",
+        "to": "QUARANTINED"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-011",
+      "category": "transition",
+      "statement": "Transición QUARANTINED→ROLLBACK_IN_PROGRESS exige rollback_plan_selected, evidence_preserved, operator_assigned y aprobación POLICY_OWNER.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "QUARANTINED",
+        "to": "ROLLBACK_IN_PROGRESS"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-012",
+      "category": "transition",
+      "statement": "Transición ROLLBACK_IN_PROGRESS→VALIDATED exige compensation_complete, reconciliation_pass, independent_audit_pass y aprobación POLICY_OWNER.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "ROLLBACK_IN_PROGRESS",
+        "to": "VALIDATED"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-013",
+      "category": "transition",
+      "statement": "Transición ANY→REVOKED exige policy_revocation_or_unrecoverable_risk y aprobación POLICY_OWNER.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "ANY",
+        "to": "REVOKED"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-T-014",
+      "category": "transition",
+      "statement": "Transición REVOKED→OFF exige revocation_closed, artifacts_archived y aprobación POLICY_OWNER.",
+      "severity": "hard",
+      "blocking": true,
+      "condition": {
+        "from": "REVOKED",
+        "to": "OFF"
+      },
+      "action": "allow_transition_only_if_all_required_evidence",
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "PDF pages 55,124"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-G-001",
+      "category": "activation_gate",
+      "statement": "G0-DOCUMENT-CLOSURE bloquea promoción hasta que toda evidencia requerida esté presente y los gaps GAP-012 estén cerrados.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-012"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-G-002",
+      "category": "activation_gate",
+      "statement": "G1-PASSIVE-COMPOSITION bloquea promoción hasta que toda evidencia requerida esté presente y los gaps GAP-001, GAP-002, GAP-007 estén cerrados.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001,GAP-002,GAP-007"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-G-003",
+      "category": "activation_gate",
+      "statement": "G2-END-TO-END-SHADOW bloquea promoción hasta que toda evidencia requerida esté presente y los gaps GAP-003, GAP-005, GAP-010, GAP-011 estén cerrados.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003,GAP-005,GAP-010,GAP-011"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-G-004",
+      "category": "activation_gate",
+      "statement": "G3-SUPERVISED-OPERATION bloquea promoción hasta que toda evidencia requerida esté presente y los gaps GAP-005, GAP-008, GAP-010 estén cerrados.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005,GAP-008,GAP-010"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-G-005",
+      "category": "activation_gate",
+      "statement": "G4-CONTROLLED-WRITES bloquea promoción hasta que toda evidencia requerida esté presente y los gaps GAP-003, GAP-004, GAP-006, GAP-008, GAP-010 estén cerrados.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003,GAP-004,GAP-006,GAP-008,GAP-010"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-G-006",
+      "category": "activation_gate",
+      "statement": "G5-CLIENT-PILOT bloquea promoción hasta que toda evidencia requerida esté presente y los gaps GAP-009, GAP-010, GAP-013 estén cerrados.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-009,GAP-010,GAP-013"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-G-007",
+      "category": "activation_gate",
+      "statement": "G6-RING-DEPLOYMENT bloquea promoción hasta que toda evidencia requerida esté presente y los gaps GAP-003, GAP-008, GAP-011, GAP-014 estén cerrados.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003,GAP-008,GAP-011,GAP-014"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-001",
+      "category": "no_go",
+      "statement": "Si tenant_data_leak_or_cross_tenant_read, ejecutar QUARANTINE_ALL_WRITE_CAPABILITIES.",
+      "severity": "critical",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-002",
+      "category": "no_go",
+      "statement": "Si evidence_without_provenance, ejecutar BLOCK_CANDIDATE_AND_REQUEST_REENTRY.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-003",
+      "category": "no_go",
+      "statement": "Si gate_bypass_detected, ejecutar QUARANTINE_SCOPE_AND_ALERT_S3_STAR.",
+      "severity": "critical",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-004",
+      "category": "no_go",
+      "statement": "Si structural_candidate_without_object_binding, ejecutar BLOCK_HANDOFF.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-005",
+      "category": "no_go",
+      "statement": "Si override_requested_and_not_audited, ejecutar BLOCK_RELEASE.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-006",
+      "category": "no_go",
+      "statement": "Si state_ledger_divergence, ejecutar FREEZE_WRITES_AND_RECONCILE.",
+      "severity": "critical",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-007",
+      "category": "no_go",
+      "statement": "Si export_without_human_approval, ejecutar BLOCK_EXPORT_AND_ALERT.",
+      "severity": "critical",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-008",
+      "category": "no_go",
+      "statement": "Si registry_write_without_version_and_approval, ejecutar BLOCK_REGISTRY_WRITE.",
+      "severity": "critical",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-009",
+      "category": "no_go",
+      "statement": "Si stale_source_proof_used_as_authority, ejecutar REVOKE_ARTIFACT_AUTHORITY.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-010",
+      "category": "no_go",
+      "statement": "Si rollback_not_proven_for_requested_side_effect, ejecutar DENY_CAPABILITY_PROMOTION.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-011",
+      "category": "no_go",
+      "statement": "Si ui_imports_chip_or_internal_registry_directly, ejecutar BLOCK_BUILD_OR_RELEASE.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-012",
+      "category": "no_go",
+      "statement": "Si executor_and_auditor_same_unsegregated_identity, ejecutar BLOCK_IRREVERSIBLE_ACTION.",
+      "severity": "critical",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-013",
+      "category": "no_go",
+      "statement": "Si b7_or_c20_direct_ir_registry_export, ejecutar BLOCK_PROJECTION.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-014",
+      "category": "no_go",
+      "statement": "Si receiver_satisfaction_used_as_receiver_feedback, ejecutar OPEN_RECEIVER_FEEDBACK_ROUTE_MISSING.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-015",
+      "category": "no_go",
+      "statement": "Si raw_text_to_diagnosis_or_ir, ejecutar BLOCK_AND_REQUIRE_CANONICAL_ROUTE.",
+      "severity": "critical",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-016",
+      "category": "no_go",
+      "statement": "Si service_role_used_outside_allowlist, ejecutar REVOKE_SERVICE_ROLE_PATH.",
+      "severity": "critical",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-017",
+      "category": "no_go",
+      "statement": "Si manual_review_backlog_exceeds_threshold, ejecutar DEGRADE_AUTOMATION_AND_ESCALATE_CAPACITY.",
+      "severity": "high",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-NG-018",
+      "category": "no_go",
+      "statement": "Si human_burden_or_workaround_pattern_increases_after_gate_enablement, ejecutar REVIEW_GATE_DESIGN_AND_DEGRADE_ENFORCEMENT.",
+      "severity": "high",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "activation gaps"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.initial_brain_assessment.blockers"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-RV-001",
+      "category": "manual_review",
+      "statement": "STRUCTURAL_CANDIDATE_REVIEW es obligatorio para mmabp_ir_candidate, registry_candidate; SLA=24h; independencia=True.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.modules.manual_review"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-RV-002",
+      "category": "manual_review",
+      "statement": "OVERRIDE_REVIEW es obligatorio para any_blocking_override; SLA=4h; independencia=True.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.modules.manual_review"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-RV-003",
+      "category": "manual_review",
+      "statement": "EXPORT_RELEASE_REVIEW es obligatorio para final_export; SLA=24h; independencia=True.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.modules.manual_review"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-RV-004",
+      "category": "manual_review",
+      "statement": "TENANT_SCOPE_EXCEPTION_REVIEW es obligatorio para scope_exception; SLA=2h; independencia=True.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.modules.manual_review"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-RV-005",
+      "category": "manual_review",
+      "statement": "ALGEDONIC_INCIDENT_REVIEW es obligatorio para critical_no_go; SLA=1h; independencia=True.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.modules.manual_review"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-RV-006",
+      "category": "manual_review",
+      "statement": "LLM_ASSISTANCE_REVIEW es obligatorio para llm_generated_structure_candidate; SLA=24h; independencia=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-005/GAP-008"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "$.modules.manual_review"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-001",
+      "category": "event_contract",
+      "statement": "ClientIntentReceived solo es válido con campos tenantId, userId, sessionId, activityId, correlationId, idempotencyKey, intentType, payloadRef y side_effect=none.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-002",
+      "category": "event_contract",
+      "statement": "RuntimeCommandAccepted solo es válido con campos commandId, scope, capabilityState, policyVersion y side_effect=none.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-003",
+      "category": "event_contract",
+      "statement": "EvidenceRecorded solo es válido con campos evidenceId, sourceNodeId, provenance, tenantId, sessionId, activityId y side_effect=local_persistence_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-004",
+      "category": "event_contract",
+      "statement": "CanonicalVariableMaterialized solo es válido con campos recordId, variableName, valueRef, provenance, confidence, status y side_effect=local_persistence_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-005",
+      "category": "event_contract",
+      "statement": "GateDecisionIssued solo es válido con campos gateId, decision, reasonCodes, candidateRef, policyVersion y side_effect=hold_or_advisory.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-006",
+      "category": "event_contract",
+      "statement": "StructuralCandidatePrepared solo es válido con campos candidateId, modelType, evidenceRefs, conformanceStatus, consistencyStatus y side_effect=candidate_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-007",
+      "category": "event_contract",
+      "statement": "ParallelPayloadPrepared solo es válido con campos payloadId, payloadType, candidateRefs, blockers, readiness y side_effect=candidate_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-008",
+      "category": "event_contract",
+      "statement": "ManualReviewRequested solo es válido con campos reviewId, reviewType, scope, evidenceRefs, requestedBy, dueAt y side_effect=queue_write.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-009",
+      "category": "event_contract",
+      "statement": "HumanReleaseDecision solo es válido con campos reviewId, decision, actorId, reason, artifactHash, expiresAt y side_effect=authorization_record.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-010",
+      "category": "event_contract",
+      "statement": "ReleaseAuthorized solo es válido con campos releaseId, capabilityId, scope, artifactHash, approvalRefs, rollbackPlanId y side_effect=allowlisted_release.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-011",
+      "category": "event_contract",
+      "statement": "AlgedonicSignalRaised solo es válido con campos signalId, severity, scope, harmType, evidenceRefs, occurredAt y side_effect=immediate_hold.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-012",
+      "category": "event_contract",
+      "statement": "CapabilityStateChanged solo es válido con campos capabilityId, from, to, reason, approvalRefs, timestamp y side_effect=authority_change.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-013",
+      "category": "event_contract",
+      "statement": "RollbackStarted solo es válido con campos rollbackId, scope, targetState, planHash, evidenceSnapshot y side_effect=compensation_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    },
+    {
+      "rule_id": "ACT-EV-014",
+      "category": "event_contract",
+      "statement": "RollbackCompleted solo es válido con campos rollbackId, reconciliationResult, residualRisks, completedAt y side_effect=none.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.nervous_signals"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-007"
+        }
+      ]
+    }
+  ],
+  "qa_activation_tests": [
+    {
+      "test_id": "ACT-QA-001",
+      "assertion": "No UI route imports chip TS or internal registry directly.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-002",
+      "assertion": "All productive write routes prove auth, tenant, session and activity scope.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-003",
+      "assertion": "All service-role calls are allowlisted, audited and tenant scoped.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-004",
+      "assertion": "Every side effect has idempotency key and reconciliation evidence.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-005",
+      "assertion": "Registry write, final export and parallel execution are not enabled in the same release.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-006",
+      "assertion": "EVE07 remains candidate-only before human release.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-007",
+      "assertion": "EVE08 audit identity is separated from executor identity.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-008",
+      "assertion": "All dev routes are disabled or access-restricted in production.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-009",
+      "assertion": "Rollback drill passes for each promoted capability.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-010",
+      "assertion": "Algedonic signal can quarantine a tenant/capability without global outage.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-011",
+      "assertion": "WorkMap H12 baseline is unchanged by Significado/runtime activation.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-012",
+      "assertion": "No raw text reaches diagnosis, IR, registry or final export.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-013",
+      "assertion": "Conformance is evaluated before cross-model consistency.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-014",
+      "assertion": "Manual review backlog and gate-generated human burden remain below approved thresholds.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-015",
+      "assertion": "All capability transitions have named approver and evidence bundle.",
+      "blocking": true
+    },
+    {
+      "test_id": "ACT-QA-016",
+      "assertion": "Post-activation monitor and recertification schedule exist before ACTIVE.",
+      "blocking": true
+    }
+  ],
+  "derived_fields": {
+    "brainConnectionEnabled": "true only when all required capabilities are at or above the requested ring state and no hard blocker is open; this field is read-only.",
+    "productiveActivationAllowed": "false while any critical gap remains open."
+  },
+  "dictamen": "READY_AS_RECTOR_CONTRACT; PRODUCTIVE_ACTIVATION_BLOCKED_UNTIL_GAPS_AND_GATES_CLOSE"
+} as const;
+
+const stateOrder: Record<Exclude<ActivationState, "DEGRADED" | "QUARANTINED" | "ROLLBACK_IN_PROGRESS" | "REVOKED">, number> = {
+  OFF: 0,
+  VALIDATED: 1,
+  SHADOW: 2,
+  SUPERVISED: 3,
+  CONTROLLED_ACTIVE: 4,
+  ACTIVE: 5,
+};
+
+export function findCapability(capabilityId: CapabilityId) {
+  return activationContract.capabilities.find((item) => item.capability_id === capabilityId);
+}
+
+export function evaluateTransition(
+  capabilityId: CapabilityId,
+  from: ActivationState,
+  to: ActivationState,
+  evidence: TransitionEvidence,
+): TransitionDecision {
+  const capability = findCapability(capabilityId);
+  if (!capability) return { allowed: false, code: "CAPABILITY_NOT_FOUND", missing: [] };
+  if ((evidence.hardBlockersOpen?.length ?? 0) > 0) {
+    return { allowed: false, code: "HARD_BLOCKER_OPEN", missing: [...(evidence.hardBlockersOpen ?? [])] };
+  }
+  const transition = activationContract.transitions.find(
+    (item) => (item.from === from || item.from === "ANY") && item.to === to,
+  );
+  if (!transition) return { allowed: false, code: "TRANSITION_NOT_DEFINED", missing: [] };
+  const missing = transition.required.filter((item) => !evidence.present.includes(item));
+  if (missing.length > 0) {
+    return { allowed: false, code: "EVIDENCE_MISSING", missing, rollbackTarget: transition.rollback_target as ActivationState };
+  }
+  const approver = transition.approver;
+  const roleAllowed =
+    approver === evidence.actorRole ||
+    (approver === "INDEPENDENT_AUDITOR_OR_POLICY_OWNER" &&
+      (evidence.actorRole === "INDEPENDENT_AUDITOR" || evidence.actorRole === "POLICY_OWNER"));
+  if (!roleAllowed) return { allowed: false, code: "APPROVER_ROLE_MISMATCH", missing: [] };
+  return { allowed: true, code: "TRANSITION_ALLOWED", missing: [], rollbackTarget: transition.rollback_target as ActivationState };
+}
+
+export function deriveBrainConnectionEnabled(
+  capabilityStates: Readonly<Record<string, ActivationState>>,
+  hardBlockersOpen: readonly string[],
+): boolean {
+  if (hardBlockersOpen.length > 0) return false;
+  const required = activationContract.capabilities.filter((c) =>
+    ["clientAccess", "tenantContext", "runtimeCapture", "gateAdvisory", "governanceObserve", "candidateGeneration"].includes(c.name),
+  );
+  return required.every((capability) => {
+    const state = capabilityStates[capability.capability_id];
+    return state === "SUPERVISED" || state === "CONTROLLED_ACTIVE" || state === "ACTIVE";
+  });
+}
+
+export function canExecuteSideEffect(
+  capabilityId: CapabilityId,
+  state: ActivationState,
+  sideEffect: string,
+  hasHumanApproval: boolean,
+): boolean {
+  const capability = findCapability(capabilityId);
+  if (!capability) return false;
+  if (state === "OFF" || state === "VALIDATED" || state === "SHADOW" || state === "QUARANTINED" || state === "REVOKED") return false;
+  if (capability.irreversible_effects.includes(sideEffect as never)) {
+    return (state === "CONTROLLED_ACTIVE" || state === "ACTIVE") && hasHumanApproval;
+  }
+  return state === "SUPERVISED" || state === "CONTROLLED_ACTIVE" || state === "ACTIVE";
+}
+
+export function evaluateNoGo(trigger: string) {
+  return activationContract.no_go_rules.find((item) => item.trigger === trigger) ?? null;
+}
+
+export function activationGate(gateId: string) {
+  return activationContract.activation_gates.find((item) => item.gate_id === gateId) ?? null;
+}

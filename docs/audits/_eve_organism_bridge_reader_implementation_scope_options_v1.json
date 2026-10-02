@@ -1,0 +1,111 @@
+{
+  "options_id": "EVE_ORGANISM_BRIDGE_READER_IMPLEMENTATION_SCOPE_OPTIONS_V1",
+  "options": [
+    {
+      "id": "OPTION_A",
+      "name": "OPTION_A_RECOMMENDED",
+      "decision": "APPROVE_NON_PRODUCTIVE_BRIDGE_READER_IMPLEMENTATION_ONLY",
+      "allowed": [
+        "implement non-productive reader",
+        "read-only",
+        "shadow-only",
+        "fixture or local records allowed",
+        "pure functions and regression tests allowed",
+        "audit files allowed"
+      ],
+      "forbidden": [
+        "productive observer",
+        "product writes",
+        "DB writes",
+        "Supabase writes",
+        "registry",
+        "export",
+        "diagnosis",
+        "Gate 3",
+        "Fase 9",
+        "productive brain connection"
+      ],
+      "when_to_choose": "Choose when the prior plan exists, no critical blockers are present, and implementation can remain non-productive, read-only and shadow-only.",
+      "risk": "medium",
+      "recommendation_status": "recommended_with_gaps",
+      "non_productive": true,
+      "read_only": true,
+      "shadow_only": true,
+      "bridge_reader_implemented": false,
+      "blocks_option_a": false,
+      "gaps_total": 3,
+      "critical_gaps": 0,
+      "blockers_total": 0
+    },
+    {
+      "id": "OPTION_B",
+      "name": "APPROVE_TEST_HARNESS_ONLY",
+      "decision": "APPROVE_TEST_HARNESS_ONLY",
+      "allowed": [
+        "tests only",
+        "fixtures only",
+        "no reader service",
+        "no adapter",
+        "no DB connection",
+        "no outbox consumption"
+      ],
+      "forbidden": [
+        "reader implementation",
+        "runtime code",
+        "observer",
+        "product connection",
+        "registry",
+        "export",
+        "diagnosis",
+        "Gate 3",
+        "Fase 9"
+      ],
+      "when_to_choose": "Choose if Miguel wants additional proof before any service/type implementation.",
+      "risk": "low",
+      "recommendation_status": "fallback"
+    },
+    {
+      "id": "OPTION_C",
+      "name": "REQUEST_ADDITIONAL_REVIEW",
+      "decision": "REQUEST_ADDITIONAL_REVIEW",
+      "allowed": [
+        "manual review",
+        "gap review",
+        "allowlist review",
+        "risk review"
+      ],
+      "forbidden": [
+        "implementation",
+        "service creation",
+        "adapter creation",
+        "observer",
+        "DB or Supabase connection",
+        "registry/export/diagnosis"
+      ],
+      "when_to_choose": "Choose if the scope owner wants more review of gaps or future allowlist before approving implementation.",
+      "risk": "low",
+      "recommendation_status": "available"
+    },
+    {
+      "id": "OPTION_D",
+      "name": "BLOCK_BRIDGE_READER_IMPLEMENTATION",
+      "decision": "BLOCK_BRIDGE_READER_IMPLEMENTATION",
+      "allowed": [
+        "document blocker",
+        "preserve current state"
+      ],
+      "forbidden": [
+        "implementation",
+        "runtime code",
+        "observer",
+        "product connection",
+        "real observation",
+        "Gate 3",
+        "Fase 9"
+      ],
+      "when_to_choose": "Choose if critical authority leakage, unsafe write surface, missing plan, or contaminated scope is found.",
+      "risk": "lowest_execution_risk",
+      "recommendation_status": "not_recommended_currently"
+    }
+  ]
+}

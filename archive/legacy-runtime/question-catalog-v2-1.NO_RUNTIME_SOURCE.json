@@ -1,0 +1,1383 @@
+{
+  "version": "CAPA1_V2_1",
+  "source": "Diseno formal de la Capa 1 v2.1 de EVE + Marco de Trabajo y Catalogo de Preguntas Capa1.v2.1.docx",
+  "unit": "scene",
+  "purpose": "Captura estructural de escenas operativas reguladas para construir un expediente canonico auditable por sessionId, listo para transduccion causal.",
+  "compatibilityMode": {
+    "replaces": "FULL_V03 for new Capa 1 v2.1 sessions",
+    "doesNotReplaceAtRuntimeYet": true,
+    "legacyCatalog": "FULL_V03"
+  },
+  "principles": [
+    "Primero evidencia capturada; despues clasificacion.",
+    "La unidad de captura es una escena operativa regulada, no una actividad plana.",
+    "Separar evidencia, normalizacion, derivacion, aclaracion, inferencia ligera y metadatos.",
+    "Mantener trazabilidad por sessionId, sceneId, answerId y canonicalVariable.",
+    "La salida de Capa 1 es intermedia y estructural; no es diagnostico final."
+  ],
+  "depthLevels": [
+    {
+      "id": "A_core",
+      "label": "Escena nuclear profunda",
+      "blocks": ["0", "0.5", "1", "2", "3", "4", "5", "6", "7"]
+    },
+    {
+      "id": "B_abbreviated",
+      "label": "Escena principal abreviada",
+      "blocks": ["0", "0.5", "1", "2", "3", "4", "7"]
+    },
+    {
+      "id": "C_support_reentry",
+      "label": "Escena soporte o reentrada",
+      "blocks": ["0", "0.5", "1", "2", "3", "4", "5", "6", "7"],
+      "triggeredBy": ["high_ambiguity", "insufficient_evidence_for_nuclear_node", "critical_scene_deepening_required"]
+    }
+  ],
+  "answerNatures": [
+    "captured",
+    "normalized",
+    "derived",
+    "computed",
+    "clarification",
+    "inferred",
+    "state_metadata"
+  ],
+  "enrichmentFromDetailedCatalog": {
+    "sourceFile": "C:\\Users\\migue\\Desktop\\Plataforma Digital\\Marco de Trabajo y Catalogo de Preguntas Capa1.v2.1.docx",
+    "status": "crossed_into_catalog_as_overlay",
+    "reason": "El documento detallado agrega opciones, subpreguntas y logica recursiva que deben gobernar la implementacion aunque la UI aun no las consuma.",
+    "block_0_5": {
+      "canonicalVariables": [
+        "scene_macro_process",
+        "scene_functional_client",
+        "scene_failure_affected_actor",
+        "scene_enabled_milestone",
+        "scene_priority_source",
+        "scene_displacement_source"
+      ],
+      "changesOverBaseCatalog": [
+        "0.5 no debe preguntar mision final; la mision se infiere despues de bloques 1, 2 y 3.",
+        "0.5.1 debe separar quien se beneficia si sale bien de quien sufre si sale mal.",
+        "0.5.4 debe separar quien ordena prioridad normal de quien desplaza prioridad ante urgencia."
+      ],
+      "exactQuestionOverrides": {
+        "0.5.1": {
+          "text": "Independientemente de a quien le entregues tu trabajo directamente, quien es la persona o area que finalmente se beneficia si esta actividad sale bien?",
+          "fieldType": "select_with_text",
+          "options": ["Cliente externo", "Cliente interno", "Operacion", "Finanzas", "Ventas", "Recursos Humanos", "Direccion/Gerencia", "Otro"]
+        },
+        "0.5.1a": {
+          "text": "Y quien sufre si esta actividad sale mal?",
+          "fieldType": "select_with_text",
+          "options": ["Cliente externo", "Cliente interno", "Operacion", "Finanzas", "Ventas", "Recursos Humanos", "Direccion/Gerencia", "Mi equipo", "Yo", "Otro"]
+        },
+        "0.5.2": {
+          "text": "A que gran proceso de la empresa pertenece esta actividad?",
+          "fieldType": "select_with_text",
+          "canonicalVariable": "scene_macro_process"
+        },
+        "0.5.3": {
+          "text": "Cuando terminas esta actividad con exito, que hito importante se desbloquea en la empresa para que otros puedan avanzar?",
+          "fieldType": "guided_short_text",
+          "canonicalVariable": "scene_enabled_milestone"
+        },
+        "0.5.4": {
+          "text": "Si tienes muchas cosas que hacer y no hay tiempo para todo, quien o que define que esta actividad en particular debe hacerse primero?",
+          "fieldType": "select_with_text",
+          "canonicalVariable": "scene_priority_source",
+          "options": ["Mi jefe directo", "Un sistema/ticket", "El cliente lo exige", "Yo mismo", "Un comite/politica", "Otro"]
+        },
+        "0.5.4a": {
+          "text": "Si ya estas trabajando en esta actividad y te entra otra urgencia que la desplaza, de quien o de donde suele venir esa nueva prioridad?",
+          "fieldType": "select_with_text",
+          "canonicalVariable": "scene_displacement_source",
+          "options": ["Mi jefe directo", "Un sistema/ticket", "El cliente lo exige", "Yo mismo", "Un comite/politica", "Otro"]
+        }
+      }
+    },
+    "block_1": {
+      "canonicalVariables": [
+        "trigger_source",
+        "trigger_type",
+        "trigger_frequency",
+        "trigger_pattern",
+        "trigger_clarity",
+        "trigger_channel",
+        "trigger_preconditions",
+        "trigger_exception_exists",
+        "trigger_exception_description"
+      ],
+      "changesOverBaseCatalog": [
+        "Separar fuente, naturaleza, frecuencia/patron, claridad, canal, precondiciones y excepciones.",
+        "La pregunta 1.1 debe preguntar por la senal que indica empezar, no por quien inicia.",
+        "La pregunta 1.4 une frecuencia y patron, pero debe producir trigger_frequency y trigger_pattern."
+      ],
+      "exactQuestionOverrides": {
+        "1.1": {
+          "text": "De donde viene normalmente la senal que te indica empezar?",
+          "options": ["Un cliente interno o externo me lo solicita", "Un sistema o aplicacion me lo notifica", "Mi jefe o superior me lo ordena", "Un companero me lo pasa", "Yo mismo lo decido", "Una combinacion de los anteriores"]
+        },
+        "1.2": {
+          "text": "Cuando esto comienza, es algo que esperas que ocurra o es algo que te sorprende?",
+          "options": ["Es planificado", "Es reactivo", "Es una mezcla"]
+        },
+        "1.3": {
+          "text": "Cuando esto debe comenzar, esta muy claro para ti que es el momento, o hay ambiguedad?",
+          "options": ["Muy claro", "Claro pero a veces tengo dudas", "Ambiguo", "Muy ambiguo"]
+        },
+        "1.4": {
+          "text": "Con que frecuencia ocurre este disparador y si hay un patron que puedas predecir?",
+          "options": ["Diaria predecible", "Semanal predecible", "Mensual predecible", "Bajo demanda", "Continuo", "Irregular"]
+        },
+        "1.5": {
+          "text": "Por que medio te llega la noticia de que debes comenzar?",
+          "fieldType": "multi_select",
+          "options": ["Email", "Telefono o mensaje de texto", "Sistema o aplicacion", "Presencial", "Reunion o llamada de equipo", "Otro"]
+        },
+        "1.7": {
+          "text": "Hay momentos en que esto deberia comenzar pero no comienza?",
+          "options": ["No, siempre funciona como deberia", "Si, a veces ocurre pero es raro", "Si, ocurre regularmente", "Si, ocurre frecuentemente"]
+        },
+        "1.8": {
+          "text": "Si ocurre esa excepcion, que pasa exactamente y como te enteras?",
+          "visibleIf": [{ "questionCode": "1.7", "operator": "not_equals", "value": "no" }]
+        }
+      }
+    },
+    "block_2": {
+      "canonicalVariables": [
+        "transformation_dimensions_selected",
+        "objeto_tipo",
+        "sujeto_tipo",
+        "accion_tipo",
+        "dimension_dominante",
+        "ranking_dimensiones",
+        "object_transformation_attributes",
+        "subject_transformation_attributes",
+        "action_transformation_attributes",
+        "transformation_magnitude",
+        "transformation_direct_action",
+        "transformation_change_cause",
+        "transformation_state_initial",
+        "transformation_state_final",
+        "transformation_iterations",
+        "transformation_iteration_count",
+        "transformation_exception_exists",
+        "transformation_exception_description",
+        "transformation_hidden_changes",
+        "transformation_hidden_changes_description"
+      ],
+      "recursiveLogic": {
+        "2.1": {
+          "type": "multi_select",
+          "options": {
+            "A_object": "Un OBJETO: factura, pedido, documento, inventario, cliente, producto, estado",
+            "B_subject": "Un SUJETO: cliente, proveedor, empleado, departamento, gerencia",
+            "C_action": "Una ACCION/PROCESO: coordinar, validar, comunicar, preparar, revisar, autorizar"
+          },
+          "combinations": {
+            "A": ["2.1a"],
+            "B": ["2.1b"],
+            "C": ["2.1c"],
+            "A+B": ["2.1a", "2.1b", "2.1_AB_Relacion"],
+            "A+C": ["2.1a", "2.1c", "2.1_AC_Relacion"],
+            "B+C": ["2.1b", "2.1c", "2.1_BC_Relacion"],
+            "A+B+C": ["2.1a", "2.1b", "2.1c", "2.1_ABC_Relacion", "2.1_ABC_Prioridad"]
+          }
+        },
+        "dimensionRelationQuestions": {
+          "2.1_AB_Relacion": ["El OBJETO limita por volumen", "El SUJETO limita por cantidad", "Ambos limitan igual"],
+          "2.1_AC_Relacion": ["El OBJETO limita", "La ACCION es compleja y limita", "Ambos limitan igual"],
+          "2.1_BC_Relacion": ["La CANTIDAD de SUJETOS limita", "La COMPLEJIDAD de la ACCION limita", "Ambos limitan igual"],
+          "2.1_ABC_Relacion": ["El OBJETO limita", "El SUJETO limita", "La ACCION limita", "Los tres limitan igual"],
+          "2.1_ABC_Prioridad": "ranking de Objeto/Sujeto/Accion"
+        },
+        "2.2_dynamicAttributes": {
+          "object": ["Estado", "Monto/Cantidad", "Propietario", "Fecha", "Informacion", "Validacion", "Relacion", "Otro"],
+          "subject": ["Estado", "Informacion", "Propietario", "Relacion", "Clasificacion", "Validacion", "Acuerdo", "Otro"],
+          "action": ["Frecuencia", "Complejidad", "Participantes", "Duracion", "Resultado", "Documentacion", "Escalamiento", "Otro"]
+        }
+      },
+      "changesOverBaseCatalog": [
+        "Agregar preguntas 2.1_AB_Relacion, 2.1_AC_Relacion, 2.1_BC_Relacion, 2.1_ABC_Relacion y 2.1_ABC_Prioridad.",
+        "2.2 no es una pregunta unica; se expande por cada dimension seleccionada.",
+        "2.3 debe usar ejemplos dinamicos segun atributos seleccionados en 2.2.",
+        "2.4A y 2.4B se mantienen separadas: accion directa vs causa del cambio."
+      ]
+    },
+    "block_5": {
+      "dependsOn": ["2.1", "2.1a", "2.1b", "2.1c", "2.1_AB_Relacion", "2.1_AC_Relacion", "2.1_BC_Relacion", "2.1_ABC_Relacion", "2.1_ABC_Prioridad"],
+      "recursiveFlow": [
+        "Bloque 2.1 captura Objeto/Sujeto/Accion.",
+        "Las relaciones 2.1_* calculan dimension_dominante.",
+        "5.0 se adapta dinamicamente a objeto_tipo, sujeto_tipo o accion_tipo.",
+        "5.1 captura capacidad nominal con metrica dinamica.",
+        "5.2 captura capacidad real con la misma metrica.",
+        "5.3 calcula brecha de capacidad.",
+        "5.4-5.14 capturan recursos, discrecionalidad, constrenimientos, compensacion, variedad residual y resource bargain.",
+        "5.14 alimenta Bloque 6 si hay brecha + compensacion."
+      ],
+      "exactQuestionOverrides": {
+        "5.0": {
+          "textTemplates": {
+            "object": "Pensando en {OBJETO} que procesas: normalmente trabajas con muchos {OBJETO} en el mismo periodo, o cada {OBJETO} requiere atencion individual?",
+            "subject": "Pensando en {SUJETO} que atiendes: normalmente interactuas con muchos {SUJETO} en el mismo periodo, o cada {SUJETO} requiere atencion individual?",
+            "action": "Pensando en la accion de {ACCION} que realizas: normalmente la repites muchas veces en el mismo periodo, o cada vez que la haces es diferente?"
+          },
+          "options": ["Repetitivo", "Discrecional", "Mezcla"],
+          "canonicalVariable": "naturaleza_actividad_5_0"
+        },
+        "5.1": {
+          "fieldType": "dynamic_capacity",
+          "canonicalVariable": "capacidad_nominal_5_1",
+          "dependsOn": ["dimension_dominante", "naturaleza_actividad_5_0"]
+        },
+        "5.2": {
+          "fieldType": "dynamic_capacity",
+          "canonicalVariable": "capacidad_real_5_2",
+          "mirrors": "5.1"
+        },
+        "5.3": {
+          "fieldType": "computed",
+          "canonicalVariable": "brecha_capacidad_5_3",
+          "formulaVolume": "(capacidad_nominal - capacidad_real) / capacidad_nominal * 100",
+          "timeScaleDays": { "less_than_1h": 0.125, "1_to_4h": 0.25, "1_day": 1, "2_to_5_days": 3.5, "more_than_5_days": 6 }
+        },
+        "5.4": { "canonicalVariable": "recursos_personas_5_4", "options": ["Solo yo", "Yo + 1 parcial", "Yo + 1 completo", "Yo + 2-3", "Yo + 4 o mas", "Rotativo"] },
+        "5.5": { "canonicalVariable": "recursos_sistemas_5_5", "fieldType": "multi_select", "options": ["Sistema automatizado", "Sistema con trabajo manual", "Multiples sistemas conectados manualmente", "Hojas de calculo/improvisado", "Trabajo manual", "Otro"] },
+        "5.6": { "canonicalVariable": "recursos_tiempo_5_6", "options": ["100%", "75%", "50%", "25%", "Menos del 25%", "No esta claro"] },
+        "5.7": { "canonicalVariable": "recursos_personas_requeridas_5_7" },
+        "5.8": { "canonicalVariable": "recursos_tiempo_requerido_5_8" },
+        "5.9": { "canonicalVariable": "discrecionalidad_5_9", "fieldType": "multi_select" },
+        "5.10": { "canonicalVariable": "constreñimientos_5_10", "fieldType": "multi_select" },
+        "5.11": { "canonicalVariable": "compensacion_5_11", "fieldType": "multi_select" },
+        "5.12": { "canonicalVariable": "variedad_residual_5_12", "fieldType": "multi_select_with_text" },
+        "5.13": { "canonicalVariable": "variedad_residual_destino_5_13", "visibleIf": [{ "questionCode": "5.12", "operator": "has_residual_variety", "value": true }] },
+        "5.14": { "canonicalVariable": "resource_bargain_5_14" },
+        "5.14b": { "canonicalVariable": "resource_bargain_cambio_5_14b", "visibleIf": [{ "questionCode": "5.14", "operator": "in", "value": ["sacrifice_frequent", "unsustainable"] }] }
+      }
+    },
+    "block_6": {
+      "canonicalVariables": [
+        "workaround_used",
+        "workaround_types",
+        "retrabajo_presente",
+        "retrabajo_descripcion",
+        "informacion_faltante",
+        "informacion_faltante_accion",
+        "regla_informal",
+        "regla_informal_estado",
+        "regla_informal_distribucion",
+        "sacrificio_humano",
+        "desgaste_acumulado",
+        "desgaste_tiempo",
+        "desgaste_conocido",
+        "costo_percibido",
+        "costo_percibido_razon",
+        "frase_trinchera",
+        "patron_repetitivo",
+        "absorcion_variedad_residual",
+        "absorcion_porcentaje",
+        "absorcion_responsable",
+        "sintesis_principal"
+      ],
+      "changesOverBaseCatalog": [
+        "Bloque 6 debe tener 11 preguntas principales y 3 aclaratorias.",
+        "6.1 es texto abierto + multi-select de tipos de parche, no solo si/no.",
+        "6.4 distingue regla informal conocida/autorizada de regla oculta/no autorizada.",
+        "6.7 es escala 1-10 + texto abierto.",
+        "6.8 preserva frase literal de trinchera.",
+        "6.10 mide absorcion de variedad residual y porcentaje de trabajo fuera de actividad.",
+        "6.11 sintetiza el mecanismo principal de compensacion."
+      ],
+      "exactQuestionOverrides": {
+        "6.1": {
+          "text": "Cuando esto no sale como deberia, que haces TU para que no se caiga? Hay algun procedimiento, atajo o solucion que tuviste que inventar?",
+          "fieldType": "multi_select_with_text",
+          "options": ["Archivo manual", "Paso extra fuera del procedimiento", "Salto un paso que no funciona", "Uso sistema diferente", "Pido ayuda informal", "Otro"]
+        },
+        "6.2": { "text": "Hay trabajo que tengas que hacer mas de una vez?", "fieldType": "boolean_with_text" },
+        "6.3": { "text": "Hay informacion, datos, aprobacion o claridad que no te llega cuando la necesitas?", "fieldType": "multi_select_with_text" },
+        "6.4": { "text": "Hay algo que haces pero que no esta en el procedimiento oficial?", "fieldType": "select_with_text", "options": ["Si, mi jefe lo sabe y esta de acuerdo", "Si, mi jefe no lo sabe o no esta de acuerdo", "No, todo esta en el manual"] },
+        "6.5": { "text": "Para que esta actividad funcione dentro de lo esperado, que tienes que sacrificar?", "fieldType": "multi_select" },
+        "6.6": { "text": "Como te sientes despues de hacer esto durante un tiempo?", "fieldType": "multi_select_with_text" },
+        "6.7": { "text": "En una escala, cuanto esfuerzo te cuesta hacer esta actividad bien?", "fieldType": "scale_with_text", "scale": { "min": 1, "max": 10 } },
+        "6.8": { "text": "Si tuvieras que resumir en UNA FRASE lo que significa hacer esta actividad para ti, cual seria?", "fieldType": "guided_short_text" },
+        "6.9": { "text": "Hay algo que siempre falla o que siempre ocurre bajo las mismas circunstancias?", "fieldType": "boolean_with_text" },
+        "6.10": { "text": "Hay cosas fuera del procedimiento normal que aparecen y agregan dificultad. Como las manejas TU?", "fieldType": "multi_select_with_text" },
+        "6.10a": { "text": "De todo lo que haces, cuanto es trabajo que no esta especificamente dentro de esta actividad?", "options": ["Menos del 10%", "10%-25%", "25%-50%", "50%-75%", "Mas del 75%"] },
+        "6.10b": { "text": "Quien deberia estar haciendo esto?" },
+        "6.11": { "text": "Cual es el principal mecanismo por el cual TU haces que esto funcione cuando el sistema no alcanza?", "fieldType": "select_with_text", "options": ["Trabajo extra", "Improvisacion", "Sacrificio de calidad", "Apoyo informal", "Automatizacion personal", "Aceptacion silenciosa", "Otro"] }
+      },
+      "clarificationTriggers": {
+        "6.A": "Usuario no menciona compensacion pero hay brecha alta o patron repetitivo de falla.",
+        "6.B": "Usuario menciona regla informal y dice que el jefe la conoce.",
+        "6.C": "Usuario selecciona sacrificio pero lo minimiza o normaliza."
+      }
+    },
+    "block_7": {
+      "internalByDefault": true,
+      "maxVisibleQuestions": 4,
+      "inferences": {
+        "scene_type": ["Transformacion", "Coordinacion", "Validacion", "Decision", "Adaptacion", "Politica", "Escalamiento", "Compensacion"],
+        "chain_position": ["Apertura", "Intermedia", "Cierre"],
+        "vsm_role": ["S1", "S2", "S3", "S3_star", "S4", "S5", "Algedonico"],
+        "mission_suggested": "Se infiere despues de la evidencia, no se pregunta en bloque 0.5.",
+        "confidence": {
+          "level": ["Alta", "Media", "Baja"],
+          "score": "0-100 orientativo",
+          "reducingFactors": ["Multiples interpretaciones plausibles", "Silencio patologico", "Evidencia insuficiente", "Contradicciones entre bloques", "Compensacion humana intensa que oculta la funcion principal"]
+        }
+      },
+      "microConfirmationRules": {
+        "7.1": "Visible si confianza < 80% o hay multiples tipos posibles.",
+        "7.2": "Visible si la posicion en cadena es ambigua.",
+        "7.3": "Visible si hay senales cruzadas entre funciones VSM.",
+        "7.4": "Visible si el usuario rechaza la mision sugerida o la confianza es baja."
+      }
+    }
+  },
+  "blocks": [
+    {
+      "id": "block_0",
+      "code": "0",
+      "name": "Identificacion minima de escena",
+      "purpose": "Registrar la escena candidata desde el relato original y dejar una base trazable para priorizacion.",
+      "depthLevelApplicability": ["A_core", "B_abbreviated", "C_support_reentry"],
+      "questions": [
+        {
+          "code": "0.1",
+          "text": "Nombre breve de la escena o actividad real.",
+          "fieldType": "guided_short_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_name"
+        },
+        {
+          "code": "0.2",
+          "text": "Con que frecuencia ocurre normalmente?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_frequency",
+          "options": [
+            { "value": "daily", "label": "Diario" },
+            { "value": "weekly", "label": "Semanal" },
+            { "value": "monthly", "label": "Mensual" },
+            { "value": "sporadic", "label": "Esporadico" },
+            { "value": "exceptional", "label": "Excepcional" }
+          ]
+        },
+        {
+          "code": "0.3",
+          "text": "En que contexto ocurre normalmente?",
+          "fieldType": "guided_short_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_typical_context"
+        },
+        {
+          "code": "0.4",
+          "text": "Que actor, rol o area la ejecuta principalmente?",
+          "fieldType": "guided_short_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_primary_actor"
+        },
+        {
+          "code": "0.5",
+          "text": "Esta escena representa lo normal o una variante excepcional?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_variant_type",
+          "options": [
+            { "value": "normal_recurrent", "label": "Lo normal y recurrente" },
+            { "value": "recurrent_variant", "label": "Una variante recurrente" },
+            { "value": "exceptional_variant", "label": "Una variante excepcional" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block_0_5",
+      "code": "0.5",
+      "name": "Encuadre funcional",
+      "purpose": "Identificar cliente funcional, necesidad, proceso, hito y posible desplazamiento entre beneficiario y afectado por falla.",
+      "depthLevelApplicability": ["A_core", "B_abbreviated", "C_support_reentry"],
+      "questions": [
+        {
+          "code": "0.5.1",
+          "text": "Quien recibe finalmente el valor de que esta escena salga bien?",
+          "fieldType": "guided_short_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_functional_client"
+        },
+        {
+          "code": "0.5.1a",
+          "text": "Si esta escena falla, quien se ve afectado primero o con mas fuerza?",
+          "fieldType": "guided_short_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_failure_affected_actor"
+        },
+        {
+          "code": "0.5.1_rel",
+          "text": "El beneficiario final y el actor afectado por falla son el mismo?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_beneficiary_failure_relation",
+          "options": [
+            { "value": "same", "label": "Si, es el mismo" },
+            { "value": "different", "label": "No, son distintos" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        {
+          "code": "0.5.1b",
+          "text": "Si son distintos, como se reparte el valor generado y el dano cuando falla?",
+          "fieldType": "guided_short_text",
+          "required": false,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_value_damage_distribution",
+          "visibleIf": [{ "questionCode": "0.5.1_rel", "operator": "equals", "value": "different" }]
+        },
+        {
+          "code": "0.5.1c",
+          "text": "Que tan claro es para ti quien recibe el valor final?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_functional_client_clarity",
+          "options": [
+            { "value": "clear", "label": "Claro" },
+            { "value": "partial", "label": "Parcialmente claro" },
+            { "value": "unclear", "label": "Poco claro" }
+          ]
+        },
+        {
+          "code": "0.5.1d",
+          "text": "Que tan claro es para ti quien resulta afectado cuando falla?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_failure_affected_actor_clarity",
+          "options": [
+            { "value": "clear", "label": "Claro" },
+            { "value": "partial", "label": "Parcialmente claro" },
+            { "value": "unclear", "label": "Poco claro" }
+          ]
+        },
+        {
+          "code": "0.5.2",
+          "text": "Que necesidad satisface esta escena?",
+          "fieldType": "guided_short_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_satisfied_need"
+        },
+        {
+          "code": "0.5.3",
+          "text": "A que proceso clave o proceso de soporte pertenece?",
+          "fieldType": "guided_short_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_macro_process"
+        },
+        {
+          "code": "0.5.4",
+          "text": "Que hito, entrega o paso importante habilita esta escena?",
+          "fieldType": "guided_short_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_enabled_milestone"
+        },
+        {
+          "code": "0.5.5",
+          "text": "Esta escena parece central para el proceso o mas bien de apoyo?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "scene_primary_or_support_character",
+          "options": [
+            { "value": "primary", "label": "Central" },
+            { "value": "support", "label": "De apoyo" },
+            { "value": "both", "label": "Ambas" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block_1",
+      "code": "1",
+      "name": "Disparador",
+      "purpose": "Describir que inicia la escena, desde donde entra, con que claridad y bajo que condiciones.",
+      "depthLevelApplicability": ["A_core", "B_abbreviated", "C_support_reentry"],
+      "questions": [
+        { "code": "1.1", "text": "Que normalmente dispara o inicia esta escena?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "trigger_source" },
+        {
+          "code": "1.2",
+          "text": "Ese inicio suele ser planeado o reactivo?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "trigger_type",
+          "options": [
+            { "value": "planned", "label": "Planeado" },
+            { "value": "reactive", "label": "Reactivo" },
+            { "value": "mixed", "label": "Mezcla de ambos" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        {
+          "code": "1.3",
+          "text": "Que tan claro es para ti cuando debe iniciar?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "trigger_clarity",
+          "options": [
+            { "value": "clear", "label": "Claro" },
+            { "value": "partial", "label": "A veces claro" },
+            { "value": "unclear", "label": "Poco claro" }
+          ]
+        },
+        {
+          "code": "1.4",
+          "text": "Con que frecuencia aparece ese disparador?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "trigger_frequency",
+          "options": [
+            { "value": "many_times_per_day", "label": "Varias veces al dia" },
+            { "value": "daily", "label": "Diario" },
+            { "value": "weekly", "label": "Semanal" },
+            { "value": "monthly", "label": "Mensual" },
+            { "value": "sporadic", "label": "Esporadico" }
+          ]
+        },
+        {
+          "code": "1.5",
+          "text": "Por que canal llega normalmente?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "trigger_channel",
+          "options": [
+            { "value": "system", "label": "Sistema" },
+            { "value": "email_message", "label": "Correo o mensaje" },
+            { "value": "meeting_call", "label": "Junta o llamada" },
+            { "value": "verbal", "label": "Verbal/informal" },
+            { "value": "document", "label": "Documento/formato" },
+            { "value": "observation", "label": "Observacion directa" },
+            { "value": "other", "label": "Otro" }
+          ]
+        },
+        { "code": "1.6", "text": "Que debe estar listo antes de que esta escena pueda empezar?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "trigger_preconditions" },
+        { "code": "1.7", "text": "Que pasa cuando el disparador no llega, llega tarde o llega incompleto?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "trigger_missing_or_late_effect" },
+        {
+          "code": "1.8",
+          "text": "Existe alguna excepcion frecuente sobre como inicia esta escena?",
+          "fieldType": "select_with_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "trigger_exception_exists",
+          "textCanonicalVariable": "trigger_exception_description",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "yes", "label": "Si" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block_2",
+      "code": "2",
+      "name": "Transformacion",
+      "purpose": "Identificar que cambia en la escena, sobre que dimension opera y que fallas o cambios ocultos aparecen.",
+      "depthLevelApplicability": ["A_core", "B_abbreviated", "C_support_reentry"],
+      "questions": [
+        {
+          "code": "2.1",
+          "text": "En esta escena, que cambia principalmente?",
+          "fieldType": "multi_select",
+          "required": true,
+          "minSelections": 1,
+          "maxSelections": 3,
+          "answerNature": "captured",
+          "canonicalVariable": "transformation_dimensions_selected",
+          "options": [
+            { "value": "object", "label": "Un objeto, documento, dato, producto o caso" },
+            { "value": "subject", "label": "Una persona, cliente, proveedor, equipo o area" },
+            { "value": "action", "label": "Una accion, decision, autorizacion, movimiento o respuesta" }
+          ]
+        },
+        { "code": "2.1a", "text": "Que objeto, documento, dato, producto o caso cambia?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "objeto_tipo", "visibleIf": [{ "questionCode": "2.1", "operator": "includes", "value": "object" }] },
+        { "code": "2.1b", "text": "Que persona, cliente, proveedor, equipo o area cambia de estado o condicion?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "sujeto_tipo", "visibleIf": [{ "questionCode": "2.1", "operator": "includes", "value": "subject" }] },
+        { "code": "2.1c", "text": "Que accion, decision, autorizacion, movimiento o respuesta cambia?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "accion_tipo", "visibleIf": [{ "questionCode": "2.1", "operator": "includes", "value": "action" }] },
+        {
+          "code": "2.1_rel",
+          "text": "Si hay mas de una dimension, cual domina o manda sobre las otras?",
+          "fieldType": "select",
+          "required": false,
+          "answerNature": "captured",
+          "canonicalVariable": "dimension_dominante",
+          "visibleIf": [{ "questionCode": "2.1", "operator": "selection_count_greater_than", "value": 1 }],
+          "options": [
+            { "value": "object_dominant", "label": "Domina el objeto/dato/caso" },
+            { "value": "subject_dominant", "label": "Domina la persona/equipo/area" },
+            { "value": "action_dominant", "label": "Domina la accion/decision" },
+            { "value": "balanced", "label": "Estan equilibradas" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        { "code": "2.2_obj", "text": "Que atributo del objeto cambia?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "object_transformation_attributes", "visibleIf": [{ "questionCode": "2.1", "operator": "includes", "value": "object" }] },
+        { "code": "2.2_suj", "text": "Que atributo, condicion o situacion del sujeto cambia?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "subject_transformation_attributes", "visibleIf": [{ "questionCode": "2.1", "operator": "includes", "value": "subject" }] },
+        { "code": "2.2_acc", "text": "Que atributo de la accion o decision cambia?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "action_transformation_attributes", "visibleIf": [{ "questionCode": "2.1", "operator": "includes", "value": "action" }] },
+        {
+          "code": "2.3",
+          "text": "Que tan grande o importante es el cambio producido?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "transformation_magnitude",
+          "options": [
+            { "value": "minor", "label": "Menor" },
+            { "value": "moderate", "label": "Moderado" },
+            { "value": "major", "label": "Grande" },
+            { "value": "critical", "label": "Critico" }
+          ]
+        },
+        {
+          "code": "2.4a",
+          "text": "Cual es la accion directa que normalmente haces en esta escena?",
+          "fieldType": "select_with_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "transformation_direct_action",
+          "options": [
+            { "value": "create", "label": "Crear" },
+            { "value": "review", "label": "Revisar" },
+            { "value": "correct", "label": "Corregir" },
+            { "value": "approve", "label": "Aprobar" },
+            { "value": "register", "label": "Registrar" },
+            { "value": "send", "label": "Enviar" },
+            { "value": "combine", "label": "Combinar" },
+            { "value": "reject", "label": "Rechazar" },
+            { "value": "pause", "label": "Pausar" },
+            { "value": "other", "label": "Otra" }
+          ]
+        },
+        {
+          "code": "2.4b",
+          "text": "Que normalmente causa que ese cambio tenga que hacerse?",
+          "fieldType": "select_with_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "transformation_change_cause",
+          "options": [
+            { "value": "request", "label": "Solicitud" },
+            { "value": "error", "label": "Error" },
+            { "value": "date_deadline", "label": "Fecha o vencimiento" },
+            { "value": "approval", "label": "Aprobacion" },
+            { "value": "event", "label": "Evento" },
+            { "value": "urgency", "label": "Urgencia" },
+            { "value": "standard", "label": "Estandar o regla" },
+            { "value": "combination", "label": "Combinacion" },
+            { "value": "other", "label": "Otro" }
+          ]
+        },
+        { "code": "2.5", "text": "Como esta normalmente la cosa/persona/accion antes de que intervengas?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "transformation_state_initial" },
+        { "code": "2.6", "text": "Como debe quedar despues de que intervienes?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "transformation_state_final" },
+        {
+          "code": "2.7",
+          "text": "La transformacion suele requerir ciclos, vueltas o revisiones repetidas?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "transformation_cycles_exist",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "sometimes", "label": "A veces" },
+            { "value": "often", "label": "Frecuentemente" }
+          ]
+        },
+        { "code": "2.8", "text": "Cuantas vueltas suele requerir cuando se repite?", "fieldType": "number", "required": false, "answerNature": "captured", "canonicalVariable": "transformation_cycle_count", "visibleIf": [{ "questionCode": "2.7", "operator": "in", "value": ["sometimes", "often"] }] },
+        {
+          "code": "2.9",
+          "text": "Que tan seguido falla esta transformacion?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "transformation_failure_frequency",
+          "options": [
+            { "value": "rare", "label": "Rara vez" },
+            { "value": "sometimes", "label": "A veces" },
+            { "value": "often", "label": "Frecuentemente" },
+            { "value": "unknown", "label": "No se sabe" }
+          ]
+        },
+        { "code": "2.10", "text": "Cuando falla, que suele pasar exactamente?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "transformation_failure_description", "visibleIf": [{ "questionCode": "2.9", "operator": "in", "value": ["sometimes", "often"] }] },
+        {
+          "code": "2.11",
+          "text": "Hay cambios ocultos, no oficiales o que no aparecen en el procedimiento?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "transformation_hidden_changes",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "yes", "label": "Si" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        { "code": "2.12", "text": "Que cambios ocultos ocurren y quien los hace?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "transformation_hidden_changes_description", "visibleIf": [{ "questionCode": "2.11", "operator": "equals", "value": "yes" }] }
+      ]
+    },
+    {
+      "id": "block_3",
+      "code": "3",
+      "name": "Salida y handoff",
+      "purpose": "Separar el estado final de lo transformado del entregable, receptor y efecto de la salida.",
+      "depthLevelApplicability": ["A_core", "B_abbreviated", "C_support_reentry"],
+      "questions": [
+        { "code": "3.1", "text": "Que entregas, liberas o dejas disponible al terminar la escena?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "output_object" },
+        { "code": "3.2", "text": "Quien recibe directamente esa salida?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "primary_receiver" },
+        {
+          "code": "3.3",
+          "text": "Que tipo de receptor es?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "receiver_type",
+          "options": [
+            { "value": "internal_person", "label": "Persona interna" },
+            { "value": "internal_area", "label": "Area interna" },
+            { "value": "external_client", "label": "Cliente externo" },
+            { "value": "supplier_partner", "label": "Proveedor o socio" },
+            { "value": "system", "label": "Sistema" },
+            { "value": "document_repository", "label": "Documento/repositorio" },
+            { "value": "other", "label": "Otro" }
+          ]
+        },
+        { "code": "3.4", "text": "Que depende de que esa persona, area o sistema reciba bien la salida?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "receiver_dependency" },
+        { "code": "3.5", "text": "Que impacto tiene para el receptor si la salida llega mal, tarde o incompleta?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "receiver_impact" },
+        { "code": "3.6", "text": "Cual es normalmente el siguiente paso despues de tu salida?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "next_step_after_output" },
+        {
+          "code": "3.7",
+          "text": "Hay receptores secundarios?",
+          "fieldType": "select_with_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "secondary_receivers_exist",
+          "textCanonicalVariable": "secondary_receivers",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "yes", "label": "Si" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        { "code": "3.8", "text": "Como se sabe que la salida esta bien hecha?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "quality_criteria" },
+        {
+          "code": "3.9",
+          "text": "Por que mecanismo entregas o dejas disponible la salida?",
+          "fieldType": "select_with_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "delivery_mechanism",
+          "options": [
+            { "value": "system", "label": "Sistema" },
+            { "value": "email_message", "label": "Correo o mensaje" },
+            { "value": "document", "label": "Documento/formato" },
+            { "value": "meeting_call", "label": "Junta o llamada" },
+            { "value": "verbal", "label": "Verbal/informal" },
+            { "value": "physical", "label": "Fisico" },
+            { "value": "other", "label": "Otro" }
+          ]
+        },
+        {
+          "code": "3.10",
+          "text": "Con que frecuencia entregas esa salida?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "delivery_frequency",
+          "options": [
+            { "value": "many_times_per_day", "label": "Varias veces al dia" },
+            { "value": "daily", "label": "Diario" },
+            { "value": "weekly", "label": "Semanal" },
+            { "value": "monthly", "label": "Mensual" },
+            { "value": "sporadic", "label": "Esporadico" }
+          ]
+        },
+        {
+          "code": "3.11",
+          "text": "Existe una excepcion frecuente en la salida o entrega?",
+          "fieldType": "select_with_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "delivery_exception_exists",
+          "textCanonicalVariable": "delivery_exception_type",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "yes", "label": "Si" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        { "code": "3.12", "text": "Que impacto tiene esa excepcion?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "delivery_exception_impact", "visibleIf": [{ "questionCode": "3.11", "operator": "equals", "value": "yes" }] },
+        { "code": "3.13", "text": "Cuando la salida falla, cual es la respuesta normal?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "delivery_failure_normal_response" },
+        {
+          "code": "3.14",
+          "text": "Ha cambiado recientemente la forma en que se entrega o recibe esta salida?",
+          "fieldType": "select_with_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "delivery_recent_change_exists",
+          "textCanonicalVariable": "delivery_recent_change_description",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "yes", "label": "Si" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block_4",
+      "code": "4",
+      "name": "Cadena causal y normalizacion del flujo",
+      "purpose": "Reconstruir dependencias, esperas, bloqueos, iteraciones, rutas alternativas, paralelismo y diferencia entre secuencia real y oficial.",
+      "depthLevelApplicability": ["A_core", "B_abbreviated", "C_support_reentry"],
+      "questions": [
+        { "code": "4.1", "text": "De que actividad, persona, area o sistema dependes justo antes de empezar?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "dependency_previous" },
+        { "code": "4.2", "text": "Quien depende de ti justo despues?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "dependency_next" },
+        {
+          "code": "4.3",
+          "text": "Cuanto tiempo suele haber de espera antes, durante o despues de esta escena?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "wait_time",
+          "options": [
+            { "value": "none", "label": "Casi nada" },
+            { "value": "less_than_1h", "label": "Menos de 1 hora" },
+            { "value": "1_to_4h", "label": "1 a 4 horas" },
+            { "value": "1_day", "label": "Aproximadamente 1 dia" },
+            { "value": "2_to_5_days", "label": "2 a 5 dias" },
+            { "value": "more_than_5_days", "label": "Mas de 5 dias" }
+          ]
+        },
+        {
+          "code": "4.4",
+          "text": "Hay fechas, cierres, horarios o eventos que gobiernan esta escena?",
+          "fieldType": "select_with_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "time_event_exists",
+          "textCanonicalVariable": "time_event",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "yes", "label": "Si" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        {
+          "code": "4.5",
+          "text": "La escena puede quedarse bloqueada porque dos cosas se esperan entre si?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "deadlock_risk",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "sometimes", "label": "A veces" },
+            { "value": "often", "label": "Frecuentemente" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        { "code": "4.5b", "text": "Cuando se bloquea asi, como se resuelve normalmente?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "deadlock_resolution", "visibleIf": [{ "questionCode": "4.5", "operator": "in", "value": ["sometimes", "often"] }] },
+        {
+          "code": "4.6",
+          "text": "La escena suele repetirse o regresar a un paso anterior?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "iteration_pattern",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "sometimes", "label": "A veces" },
+            { "value": "often", "label": "Frecuentemente" }
+          ]
+        },
+        { "code": "4.6b", "text": "Que suele causar esa repeticion o regreso?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "iteration_cause", "visibleIf": [{ "questionCode": "4.6", "operator": "in", "value": ["sometimes", "often"] }] },
+        {
+          "code": "4.7",
+          "text": "Existen rutas alternativas para resolver la misma escena?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "route_alternatives",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "yes_formal", "label": "Si, formales" },
+            { "value": "yes_informal", "label": "Si, informales" },
+            { "value": "both", "label": "Formales e informales" }
+          ]
+        },
+        { "code": "4.7b", "text": "Cuando se usa una ruta alternativa, quien decide y por que?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "route_alternative_decision", "visibleIf": [{ "questionCode": "4.7", "operator": "not_equals", "value": "no" }] },
+        {
+          "code": "4.8",
+          "text": "Esta escena ocurre en paralelo con otras actividades?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "parallelism_type",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "parallel_independent", "label": "Si, en paralelo pero independiente" },
+            { "value": "parallel_dependent", "label": "Si, en paralelo y dependiente" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        {
+          "code": "4.9",
+          "text": "Hay subprocesos ocultos que no aparecen en el flujo oficial?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "hidden_subprocess",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "yes", "label": "Si" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        { "code": "4.9b", "text": "Que subproceso oculto ocurre y quien lo sostiene?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "hidden_subprocess_description", "visibleIf": [{ "questionCode": "4.9", "operator": "equals", "value": "yes" }] },
+        {
+          "code": "4.10",
+          "text": "La secuencia real coincide con la secuencia oficial?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "real_vs_official_sequence",
+          "options": [
+            { "value": "same", "label": "Si, coincide" },
+            { "value": "minor_differences", "label": "Tiene diferencias menores" },
+            { "value": "major_differences", "label": "Es muy diferente" },
+            { "value": "no_official_sequence", "label": "No hay secuencia oficial clara" }
+          ]
+        },
+        { "code": "4.10b", "text": "Cual es la diferencia mas importante entre lo real y lo oficial?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "real_vs_official_sequence_difference", "visibleIf": [{ "questionCode": "4.10", "operator": "not_equals", "value": "same" }] },
+        { "code": "4.11", "text": "Si esta escena se bloquea, que se detiene despues?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "blockage_impact" },
+        { "code": "4.12", "text": "Donde esta el cuello de botella mas frecuente?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "bottleneck" },
+        {
+          "code": "4.13",
+          "text": "Que tan seguido se desvia la escena del camino normal?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "deviation_frequency",
+          "options": [
+            { "value": "rare", "label": "Rara vez" },
+            { "value": "sometimes", "label": "A veces" },
+            { "value": "often", "label": "Frecuentemente" },
+            { "value": "almost_always", "label": "Casi siempre" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block_5",
+      "code": "5",
+      "name": "Capacidad y discrecionalidad",
+      "purpose": "Medir capacidad nominal, capacidad real, brecha, recursos y discrecionalidad segun la dimension dominante de la transformacion.",
+      "depthLevelApplicability": ["A_core", "C_support_reentry"],
+      "dependsOn": ["2.1", "2.1_rel", "2.2_obj", "2.2_suj", "2.2_acc"],
+      "questions": [
+        {
+          "code": "5.0",
+          "text": "Que tipo de capacidad describe mejor esta escena?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "derived",
+          "canonicalVariable": "naturaleza_actividad_5_0",
+          "derivedFrom": ["2.1", "2.1_rel", "2.2_obj", "2.2_suj", "2.2_acc"],
+          "options": [
+            { "value": "object_throughput", "label": "Cantidad de objetos/datos/casos procesados" },
+            { "value": "subject_attention", "label": "Cantidad de personas/equipos/areas atendidas" },
+            { "value": "action_decision", "label": "Cantidad de acciones/decisiones ejecutadas" },
+            { "value": "time_to_complete", "label": "Tiempo para completar la escena" },
+            { "value": "mixed", "label": "Mixta" }
+          ]
+        },
+        { "code": "5.0_auto", "text": "Metrica de capacidad sugerida automaticamente.", "fieldType": "internal", "required": false, "answerNature": "inferred", "canonicalVariable": "capacity_metric_auto", "internalOnly": true, "derivedFrom": ["2.1", "2.1_rel"] },
+        { "code": "5.1", "text": "Cual es la capacidad nominal esperada para esta escena?", "fieldType": "number_with_unit", "required": true, "answerNature": "captured", "canonicalVariable": "capacidad_nominal", "unitDependsOn": "5.0" },
+        { "code": "5.2", "text": "Cual es la capacidad real que normalmente se logra?", "fieldType": "number_with_unit", "required": true, "answerNature": "captured", "canonicalVariable": "capacidad_real", "unitDependsOn": "5.0" },
+        { "code": "5.3", "text": "Brecha de capacidad calculada.", "fieldType": "computed", "required": true, "answerNature": "computed", "canonicalVariable": "brecha_capacidad", "computedFrom": ["5.1", "5.2"], "formula": "(capacidad_nominal - capacidad_real) / capacidad_nominal * 100" },
+        { "code": "5.4", "text": "Que personas son necesarias para sostener esta escena?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "recursos_personas" },
+        { "code": "5.5", "text": "Que sistemas o herramientas son necesarios?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "recursos_sistemas" },
+        { "code": "5.6", "text": "Que tiempo o ventana temporal necesita para funcionar bien?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "recursos_tiempo" },
+        { "code": "5.7", "text": "Que otros recursos necesita?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "recursos_requeridos" },
+        {
+          "code": "5.8",
+          "text": "Cuanta libertad tienes para decidir como resolver esta escena?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "discrecionalidad",
+          "options": [
+            { "value": "none", "label": "Casi ninguna" },
+            { "value": "low", "label": "Poca" },
+            { "value": "medium", "label": "Media" },
+            { "value": "high", "label": "Alta" }
+          ]
+        },
+        { "code": "5.9", "text": "Que reglas, limites o restricciones te constrinen?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "constreñimientos" },
+        { "code": "5.10", "text": "Que se sacrifica para que la escena salga adelante?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "resource_bargain" },
+        { "code": "5.11", "text": "Cuantos casos o pendientes absorbes aunque la capacidad real ya este rebasada?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "absorbed_cases" },
+        { "code": "5.12", "text": "Que salida de emergencia se usa cuando no alcanza la capacidad?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "capacity_escape_mechanism" },
+        {
+          "code": "5.13",
+          "text": "Por cuanto tiempo se puede sostener asi sin deterioro relevante?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "capacity_sustainability",
+          "options": [
+            { "value": "stable", "label": "Se sostiene normalmente" },
+            { "value": "short_term", "label": "Solo por poco tiempo" },
+            { "value": "already_deteriorating", "label": "Ya se esta deteriorando" },
+            { "value": "unknown", "label": "No se sabe" }
+          ]
+        },
+        { "code": "5.14", "text": "Que senales muestran que la capacidad esta llegando al limite?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "capacity_limit_signals" },
+        { "code": "5.14b", "text": "Quien detecta o absorbe primero esas senales?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "capacity_limit_first_absorber" }
+      ]
+    },
+    {
+      "id": "block_6",
+      "code": "6",
+      "name": "Compensacion humana, workaround y variedad residual",
+      "purpose": "Capturar arreglos informales, retrabajo, sacrificio, desgaste y absorcion humana de variedad no prevista.",
+      "depthLevelApplicability": ["A_core", "C_support_reentry"],
+      "questions": [
+        {
+          "code": "6.1",
+          "text": "Cuando el procedimiento normal no alcanza, se usa algun arreglo alterno?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "workaround_used",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "sometimes", "label": "A veces" },
+            { "value": "often", "label": "Frecuentemente" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        {
+          "code": "6.2",
+          "text": "Que tipo de arreglo alterno se usa?",
+          "fieldType": "multi_select",
+          "required": false,
+          "answerNature": "captured",
+          "canonicalVariable": "workaround_types",
+          "visibleIf": [{ "questionCode": "6.1", "operator": "in", "value": ["sometimes", "often"] }],
+          "options": [
+            { "value": "manual_tracking", "label": "Registro manual paralelo" },
+            { "value": "informal_approval", "label": "Aprobacion informal" },
+            { "value": "personal_memory", "label": "Memoria personal" },
+            { "value": "side_channel", "label": "Canal alterno" },
+            { "value": "extra_check", "label": "Revision extra" },
+            { "value": "manual_correction", "label": "Correccion manual" },
+            { "value": "other", "label": "Otro" }
+          ]
+        },
+        { "code": "6.2a", "text": "Describe el arreglo alterno mas comun.", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "workaround_description", "visibleIf": [{ "questionCode": "6.1", "operator": "in", "value": ["sometimes", "often"] }] },
+        { "code": "6.2b", "text": "Quien lo hace o lo sostiene?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "workaround_owner", "visibleIf": [{ "questionCode": "6.1", "operator": "in", "value": ["sometimes", "often"] }] },
+        {
+          "code": "6.2c",
+          "text": "Ese arreglo es conocido por otros o queda oculto?",
+          "fieldType": "select",
+          "required": false,
+          "answerNature": "captured",
+          "canonicalVariable": "workaround_visibility",
+          "visibleIf": [{ "questionCode": "6.1", "operator": "in", "value": ["sometimes", "often"] }],
+          "options": [
+            { "value": "visible", "label": "Conocido por varios" },
+            { "value": "partially_visible", "label": "Algunos lo saben" },
+            { "value": "hidden", "label": "Queda oculto" }
+          ]
+        },
+        {
+          "code": "6.3",
+          "text": "Hay retrabajo en esta escena?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "rework_present",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "sometimes", "label": "A veces" },
+            { "value": "often", "label": "Frecuentemente" }
+          ]
+        },
+        { "code": "6.3a", "text": "Que se tiene que rehacer y por que?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "rework_description", "visibleIf": [{ "questionCode": "6.3", "operator": "in", "value": ["sometimes", "often"] }] },
+        {
+          "code": "6.4",
+          "text": "Falta informacion para hacer bien esta escena?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "missing_information",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "sometimes", "label": "A veces" },
+            { "value": "often", "label": "Frecuentemente" }
+          ]
+        },
+        { "code": "6.4a", "text": "Que informacion falta?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "missing_information_description", "visibleIf": [{ "questionCode": "6.4", "operator": "in", "value": ["sometimes", "often"] }] },
+        { "code": "6.4b", "text": "Como se consigue o reemplaza esa informacion?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "missing_information_compensation", "visibleIf": [{ "questionCode": "6.4", "operator": "in", "value": ["sometimes", "often"] }] },
+        {
+          "code": "6.5",
+          "text": "Existe alguna regla informal que todos siguen aunque no este escrita?",
+          "fieldType": "select_with_text",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "informal_rule_exists",
+          "textCanonicalVariable": "informal_rule",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "yes", "label": "Si" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        {
+          "code": "6.6",
+          "text": "Alguien tiene que sacrificar tiempo, calidad, descanso o estabilidad para que funcione?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "human_sacrifice",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "sometimes", "label": "A veces" },
+            { "value": "often", "label": "Frecuentemente" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        { "code": "6.6a", "text": "Que se sacrifica exactamente?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "human_sacrifice_description", "visibleIf": [{ "questionCode": "6.6", "operator": "in", "value": ["sometimes", "often"] }] },
+        { "code": "6.6b", "text": "Quien carga normalmente con ese sacrificio?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "human_sacrifice_actor", "visibleIf": [{ "questionCode": "6.6", "operator": "in", "value": ["sometimes", "often"] }] },
+        {
+          "code": "6.7",
+          "text": "Se acumula desgaste por sostener esta escena asi?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "wear_accumulated",
+          "options": [
+            { "value": "no", "label": "No" },
+            { "value": "low", "label": "Poco" },
+            { "value": "medium", "label": "Medio" },
+            { "value": "high", "label": "Alto" }
+          ]
+        },
+        { "code": "6.7a", "text": "Como se nota ese desgaste?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "wear_signals", "visibleIf": [{ "questionCode": "6.7", "operator": "in", "value": ["medium", "high"] }] },
+        { "code": "6.7b", "text": "Desde cuando se viene acumulando?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "wear_duration", "visibleIf": [{ "questionCode": "6.7", "operator": "in", "value": ["medium", "high"] }] },
+        {
+          "code": "6.8",
+          "text": "Cual es el costo de esfuerzo de esta escena para quien la sostiene?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "effort_cost",
+          "options": [
+            { "value": "low", "label": "Bajo" },
+            { "value": "medium", "label": "Medio" },
+            { "value": "high", "label": "Alto" },
+            { "value": "unsustainable", "label": "Insostenible" }
+          ]
+        },
+        { "code": "6.9", "text": "Que frase diria alguien del equipo para describir esta escena cuando se complica?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "trench_phrase" },
+        {
+          "code": "6.9a",
+          "text": "Esa frase refleja cansancio, frustracion, resignacion o alerta?",
+          "fieldType": "multi_select",
+          "required": false,
+          "answerNature": "normalized",
+          "canonicalVariable": "trench_phrase_signal",
+          "derivedFrom": ["6.9"],
+          "options": [
+            { "value": "fatigue", "label": "Cansancio" },
+            { "value": "frustration", "label": "Frustracion" },
+            { "value": "resignation", "label": "Resignacion" },
+            { "value": "alert", "label": "Alerta" },
+            { "value": "pride", "label": "Orgullo por resolver" },
+            { "value": "unclear", "label": "No claro" }
+          ]
+        },
+        { "code": "6.9b", "text": "Quien suele decir o pensar algo asi?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "trench_phrase_actor" },
+        { "code": "6.9c", "text": "Que situacion suele detonar esa frase?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "trench_phrase_trigger" },
+        { "code": "6.10", "text": "Que cosas fuera del procedimiento normal aparecen y como las manejas?", "fieldType": "guided_short_text", "required": true, "answerNature": "captured", "canonicalVariable": "residual_variety_absorption" },
+        {
+          "code": "6.10a",
+          "text": "Esas cosas fuera del procedimiento se repiten?",
+          "fieldType": "select",
+          "required": false,
+          "answerNature": "captured",
+          "canonicalVariable": "repetitive_failure_pattern",
+          "options": [
+            { "value": "rare", "label": "Rara vez" },
+            { "value": "sometimes", "label": "A veces" },
+            { "value": "often", "label": "Frecuentemente" },
+            { "value": "almost_always", "label": "Casi siempre" }
+          ]
+        },
+        { "code": "6.10b", "text": "Que pasaria si nadie manejara esas cosas fuera del procedimiento?", "fieldType": "guided_short_text", "required": false, "answerNature": "captured", "canonicalVariable": "residual_variety_unabsorbed_effect" },
+        {
+          "code": "6.11",
+          "text": "Que tan visible es para la direccion el esfuerzo real que sostiene esta escena?",
+          "fieldType": "select",
+          "required": true,
+          "answerNature": "captured",
+          "canonicalVariable": "human_compensation_visibility",
+          "options": [
+            { "value": "visible", "label": "Visible" },
+            { "value": "partially_visible", "label": "Parcialmente visible" },
+            { "value": "hidden", "label": "Oculto" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        { "code": "6.A", "text": "Aclaracion breve sobre compensacion humana si hay contradiccion o ambiguedad.", "fieldType": "clarification", "required": false, "answerNature": "clarification", "canonicalVariable": "human_compensation_clarification", "triggeredBy": ["scene_consistency_flags"] },
+        { "code": "6.B", "text": "Aclaracion breve sobre workaround si hay contradiccion o ambiguedad.", "fieldType": "clarification", "required": false, "answerNature": "clarification", "canonicalVariable": "workaround_clarification", "triggeredBy": ["scene_consistency_flags"] },
+        { "code": "6.C", "text": "Aclaracion breve sobre variedad residual si hay contradiccion o ambiguedad.", "fieldType": "clarification", "required": false, "answerNature": "clarification", "canonicalVariable": "residual_variety_clarification", "triggeredBy": ["scene_consistency_flags"] }
+      ]
+    },
+    {
+      "id": "block_7",
+      "code": "7",
+      "name": "Verificacion ligera y preclasificacion",
+      "purpose": "Generar inferencias ligeras separadas de la evidencia y pedir confirmacion solo cuando la confianza sea media/baja o haya senales cruzadas.",
+      "depthLevelApplicability": ["A_core", "B_abbreviated", "C_support_reentry"],
+      "questions": [
+        {
+          "code": "7.0",
+          "text": "Inferencia interna de preclasificacion de escena.",
+          "fieldType": "internal",
+          "required": true,
+          "answerNature": "inferred",
+          "internalOnly": true,
+          "canonicalVariables": [
+            "preclassification_scene_type",
+            "preclassification_chain_position",
+            "preclassification_vsm_role",
+            "preclassification_ahe_signal",
+            "preclassification_mission_suggested",
+            "confidence_level",
+            "confidence_reasoning"
+          ],
+          "derivedFrom": ["0.5", "1", "2", "3", "4", "5", "6"]
+        },
+        {
+          "code": "7.1",
+          "text": "El sistema entiende esta escena como una escena de este tipo. Confirmas o corregirias la clasificacion?",
+          "fieldType": "confirmation",
+          "required": false,
+          "answerNature": "clarification",
+          "canonicalVariable": "user_confirmation_scene_type",
+          "visibleIf": [
+            { "questionCode": "7.0.confidence_level", "operator": "in", "value": ["medium", "low"] },
+            { "questionCode": "7.0.preclassification_scene_type", "operator": "has_multiple_candidates", "value": true }
+          ]
+        },
+        {
+          "code": "7.2",
+          "text": "El sistema no esta seguro de la posicion de esta escena en la cadena. Donde la ubicarias?",
+          "fieldType": "select",
+          "required": false,
+          "answerNature": "clarification",
+          "canonicalVariable": "user_confirmation_chain_position",
+          "visibleIf": [{ "questionCode": "7.0.preclassification_chain_position", "operator": "is_ambiguous", "value": true }],
+          "options": [
+            { "value": "upstream", "label": "Antes de que el trabajo principal empiece" },
+            { "value": "core", "label": "En el trabajo principal" },
+            { "value": "downstream", "label": "Despues del trabajo principal" },
+            { "value": "control", "label": "Revisando o controlando el trabajo" },
+            { "value": "support", "label": "Apoyando el trabajo" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        {
+          "code": "7.3",
+          "text": "Aparecen senales cruzadas sobre la funcion regulatoria. Cual describe mejor lo que realmente hace esta escena?",
+          "fieldType": "select",
+          "required": false,
+          "answerNature": "clarification",
+          "canonicalVariable": "user_confirmation_vsm_role",
+          "visibleIf": [{ "questionCode": "7.0.preclassification_vsm_role", "operator": "has_crossed_signals", "value": true }],
+          "options": [
+            { "value": "S1", "label": "Ejecuta trabajo operativo" },
+            { "value": "S2", "label": "Coordina para evitar choques" },
+            { "value": "S3", "label": "Controla, asigna o administra capacidad" },
+            { "value": "S3_star", "label": "Audita o verifica la realidad operativa" },
+            { "value": "S4", "label": "Mira futuro, entorno o mejora" },
+            { "value": "S5", "label": "Define identidad, criterio o direccion" },
+            { "value": "not_sure", "label": "No estoy seguro" }
+          ]
+        },
+        {
+          "code": "7.4",
+          "text": "La mision sugerida por el sistema no parece correcta. Cual seria mas cercana?",
+          "fieldType": "select",
+          "required": false,
+          "answerNature": "clarification",
+          "canonicalVariable": "user_correction_mission",
+          "visibleIf": [{ "questionCode": "7.0.preclassification_mission_suggested", "operator": "user_rejects_or_low_confidence", "value": true }],
+          "options": [
+            { "value": "1", "label": "Conseguir clientes o vender" },
+            { "value": "2", "label": "Crear, fabricar o armar lo que vendemos" },
+            { "value": "3", "label": "Entregar al cliente o hacer que funcione" },
+            { "value": "4", "label": "Cobrar, pagar o cuidar el dinero" },
+            { "value": "5", "label": "Contratar, capacitar o cuidar al personal" },
+            { "value": "6", "label": "Comprar insumos o mantener herramientas" },
+            { "value": "7", "label": "Revisar calidad, cumplimiento o riesgos" },
+            { "value": "8", "label": "Investigar, inventar o mejorar para el futuro" },
+            { "value": "9", "label": "Dirigir, poner metas o representar a la empresa" }
+          ]
+        }
+      ]
+    }
+  ],
+  "canonicalOutput": {
+    "sessionHeader": [
+      "session_id",
+      "instrument_version",
+      "actor_profile",
+      "fecha",
+      "empresa",
+      "estado_global",
+      "readiness_for_transduction"
+    ],
+    "sceneRegister": [
+      "scene_id",
+      "scene_name",
+      "scene_rank",
+      "depth_level",
+      "scene_status"
+    ],
+    "traceability": [
+      "answer_ids",
+      "timestamps",
+      "provenance_type",
+      "clarification_links",
+      "consistency_flags",
+      "evidence_bundle_for_transduction"
+    ]
+  }
+}

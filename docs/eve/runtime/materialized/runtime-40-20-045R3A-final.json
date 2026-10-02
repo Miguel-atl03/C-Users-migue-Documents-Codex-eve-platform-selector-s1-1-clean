@@ -1,0 +1,77 @@
+{
+  "instruction": "045-R3A",
+  "date": "2026-08-10",
+  "staging_project_ref": "shrpiwkxcdgvbqymjecx",
+  "production_contacted": false,
+  "staging_writes": false,
+  "remote_catalog_state": {
+    "full_catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+    "full_status": "active",
+    "full_activated_at": "2026-08-07T00:43:20.430888Z",
+    "b0_catalog_version_id": "EVE_RUNTIME_40_20_B0_V1",
+    "b0_status": "superseded",
+    "b0_superseded_by": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F"
+  },
+  "material_findings": [
+    {
+      "control": "run_catalog_selection",
+      "status": "blocked",
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts reads role_runtime_session.catalog_version_id and copies it into activity_runtime_run.catalog_version_id",
+        "supabase/migrations/20260727103000_lock_runtime_session_creation_authority.sql creates role_runtime_session without assigning catalog_version_id",
+        "staging information_schema shows role_runtime_session.catalog_version_id nullable with no default",
+        "staging information_schema shows activity_runtime_run.catalog_version_id nullable with no default"
+      ]
+    },
+    {
+      "control": "renderer_frontdoor",
+      "status": "blocked",
+      "evidence": [
+        "src/app/api/eve/runtime-40-20/governed-execution/advance/route.ts requires synthetic_case_token",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts still exposes start_synthetic_run path"
+      ]
+    },
+    {
+      "control": "opaque_binding",
+      "status": "blocked",
+      "evidence": [
+        "No proven server-issued opaque binding path from Gaby WorkMap to Runtime FULL run was found"
+      ]
+    },
+    {
+      "control": "answer_adapter",
+      "status": "blocked",
+      "evidence": [
+        "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts still derives answers with Object.entries(rawAnswerPayload ?? {})",
+        "The answer adapter remains local/synthetic and not proven against FULL runtime_question_ref projection"
+      ]
+    },
+    {
+      "control": "client_bff_security",
+      "status": "blocked",
+      "evidence": [
+        "client-bff routes import createAuthenticatedServerSupabaseClient directly instead of using the governed BFF boundary from 039/039-A"
+      ]
+    },
+    {
+      "control": "deployment_boundary",
+      "status": "blocked",
+      "evidence": [
+        "No staging app deployment boundary was executed or authorized in this instruction"
+      ]
+    }
+  ],
+  "final_classification": "blocked_gaby_full_run_creation",
+  "brecha_siguiente": "blocked_gaby_runtime_reentry remains open until real Gaby front-door creates a Runtime FULL draft run through governed server-side authority",
+  "security": {
+    "staging_consulted": "yes, read-only",
+    "staging_writes": "none",
+    "production_consulted": "no",
+    "remote_writes": "none",
+    "catalog_activated": "no",
+    "B0_modified": "no",
+    "B1_modified": "no",
+    "Gaby_modified": "no",
+    "commit_created": "no"
+  }
+}

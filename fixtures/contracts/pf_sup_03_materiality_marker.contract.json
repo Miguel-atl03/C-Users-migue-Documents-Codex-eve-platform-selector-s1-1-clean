@@ -1,0 +1,30 @@
+{
+  "marker_id": "PF_SUP_03_MATERIALITY_MARKER",
+  "scope": "PF-SUP-03 transduction",
+  "tree_branch": "Capa 1.0 / Ruta de Materializacion / EvidenceBundle -> PF-SUP-03",
+  "required_service_contract": "services/eve/transduction/evidential-scene-runner",
+  "required_schema_contracts": [
+    "pf_sup_03_escena_evidencial.schema.json",
+    "pf_sup_03_acto_observable.schema.json"
+  ],
+  "required_state_machines": [
+    "EscenaEvidencial",
+    "ActoObservable"
+  ],
+  "required_test_contract": "tests/pf-sup-03/evidential-scene-runner.test",
+  "required_source_refs": true,
+  "required_derivation_refs": true,
+  "required_governance_issue_links": true,
+  "required_readiness_decision": true,
+  "required_allowed_consumers": true,
+  "forbidden_outputs": [
+    "diagnosis",
+    "export",
+    "registry",
+    "final_client_narrative"
+  ],
+  "materiality_level_when_absent": "L0 absent",
+  "materiality_level_when_contract_defined": "L4 contract_defined",
+  "materiality_level_when_tested": "L7 tested_materiality",
+  "no_go_if_false_positive": "EscenaEvidencial claimed from vocabulary without contract."
+}

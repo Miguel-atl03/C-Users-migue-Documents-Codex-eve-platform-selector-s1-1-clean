@@ -1,0 +1,52 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P4_RUNTIME_40_20_REAL_BEHIND_SIGNIFICADO_LOCAL_V1",
+  "plan_phase": "Production activation — P4 Runtime 40/20 real behind Significado, local only",
+  "commands": [
+    {
+      "command": "npx tsc --noEmit --pretty false",
+      "status": "passed"
+    },
+    {
+      "command": "npm run build",
+      "status": "passed",
+      "cwd": "C:/eve/platform"
+    },
+    {
+      "command": "npm run build",
+      "status": "failed",
+      "cwd": "workspace_long_path",
+      "reason": "Windows MAX_PATH / Turbopack panic on long path"
+    },
+    {
+      "command": "node --test src/services/eve/runtime-40-20/runtime-real/runtime-40-20-runtime-real.test.mjs",
+      "status": "passed",
+      "tests": 20
+    },
+    {
+      "command": "node --test src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff.test.mjs",
+      "status": "passed",
+      "tests": 39
+    },
+    {
+      "command": "node --test src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane.test.mjs",
+      "status": "passed",
+      "tests": 885
+    },
+    {
+      "command": "npx supabase status",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/eve/production-activation/p4-runtime-real-local-smoke.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/eve/production-activation/p4-validate-runtime-real-records.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/eve/production-activation/p4-scan-runtime-real-boundaries.mjs",
+      "status": "passed"
+    }
+  ]
+}

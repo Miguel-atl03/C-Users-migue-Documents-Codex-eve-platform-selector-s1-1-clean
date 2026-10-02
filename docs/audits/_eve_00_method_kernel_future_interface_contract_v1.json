@@ -1,0 +1,100 @@
+{
+  "task": "EVE-00-METHOD-KERNEL-CONTROLLED-WIRING-DESIGN-V1",
+  "contractStatus": "conceptual_design_only",
+  "notProductiveCode": true,
+  "proposedInputShape": {
+    "version": "METHOD_KERNEL_INPUT_V1",
+    "evaluationMode": "shadow_mode | advisory_mode | controlled_gate_mode",
+    "structuralCandidateRecord": {
+      "recordId": "string",
+      "activityId": "string",
+      "createdFrom": "Runtime 40/20 confirmed evidence and structural candidate builder",
+      "pmCandidate": "object|null",
+      "mocCandidate": "object|null",
+      "pfCandidate": "object|null",
+      "olcCandidate": "object|null"
+    },
+    "evidenceItems": [
+      {
+        "evidenceId": "string",
+        "value": "unknown",
+        "sourceRef": "string",
+        "provenance": "user_confirmed | user_corrected | captured_user_evidence | canonical_derivation",
+        "epistemicStatus": "captured_user_evidence | user_confirmed_suggestion | user_corrected_evidence | canonical_derivation"
+      }
+    ],
+    "canonicalVariableRecords": ["object"],
+    "sourceRefs": ["string"],
+    "priorConformanceResults": ["object"],
+    "priorConsistencyResults": ["object"]
+  },
+  "proposedOutputShape": {
+    "version": "METHOD_KERNEL_EVALUATION_RESULT_V1",
+    "evaluationMode": "shadow_mode | advisory_mode | controlled_gate_mode",
+    "methodologicalReadinessState": "ready | ready_with_flags | blocked_by_missing_evidence | blocked_by_contradiction | manual_review_required | reentry_required",
+    "conformanceFindings": ["object"],
+    "consistencyFindings": ["object"],
+    "missingEvidenceFlags": ["object"],
+    "contradictionFlags": ["object"],
+    "manualReviewRequest": "object|null",
+    "sourceRefTrace": ["object"],
+    "auditEvents": ["object"]
+  },
+  "requiredSourceRefs": [
+    "D1:FBA source refs for MMABP methodological rules",
+    "D4/D5 refs only when checking compatibility boundary",
+    "Runtime interaction/source node refs for evidence",
+    "canonical variable refs",
+    "structural candidate refs"
+  ],
+  "requiredEpistemicStatuses": [
+    "captured_user_evidence",
+    "user_confirmed_suggestion",
+    "user_corrected_evidence",
+    "canonical_derivation"
+  ],
+  "forbiddenInputSources": [
+    "free text without provenance",
+    "raw WorkMap draft as closed evidence",
+    "unconfirmed B0 prefill",
+    "UI output without response bundle",
+    "data without sourceRef",
+    "D4/D5 as MMABP methodology source"
+  ],
+  "allowedReadinessStates": [
+    "ready",
+    "ready_with_flags",
+    "blocked_by_missing_evidence",
+    "blocked_by_contradiction",
+    "manual_review_required",
+    "reentry_required"
+  ],
+  "prohibitedSideEffects": [
+    "modify input payload",
+    "write registry",
+    "set runtimeAuthority",
+    "trigger diagnosis",
+    "emit IR",
+    "emit Produccion Paralela payload",
+    "decide primary activities",
+    "block B0",
+    "block WorkMap",
+    "surface UI copy"
+  ],
+  "auditEvents": [
+    "method_kernel_evaluation_started",
+    "method_kernel_input_rejected",
+    "method_kernel_conformance_checked",
+    "method_kernel_consistency_checked",
+    "method_kernel_missing_evidence_flagged",
+    "method_kernel_contradiction_flagged",
+    "method_kernel_evaluation_completed"
+  ],
+  "versioningRules": [
+    "Any implementation must start as V1 shadow mode.",
+    "Any registry authority change requires a separate task.",
+    "Any new input source requires explicit provenance and tests.",
+    "Any controlled gate activation requires Miguel approval and disabled-by-default config.",
+    "D1 remains methodological authority; D4/D5 remain compatibility boundary only."
+  ]
+}

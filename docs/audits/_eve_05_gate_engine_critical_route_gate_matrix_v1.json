@@ -1,0 +1,67 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-RECORD-RULE-SOURCE-QA-V1",
+  "module": "critical_route_gate",
+  "dictamen": "GATE_ENGINE_RECORD_RULE_QA_BLOCKED",
+  "satisfactionStatus": "blocked",
+  "sourcesRequired": ["D6", "D8", "D5", "D4"],
+  "sourcesRead": true,
+  "itemsChecked": {
+    "routes": [
+      "CR-B0-WorkMapIntake-semantic-entry",
+      "CR-B2-V3-transformation_exception",
+      "CR-B3-R9-receiver_feedback",
+      "CR-B7-AHE-boundary_guard"
+    ],
+    "rules": [
+      "CRT-ENG-001",
+      "CRT-ENG-002",
+      "CRT-ENG-003",
+      "CRT-ENG-004",
+      "CRT-ENG-005",
+      "CRT-ENG-006",
+      "CRT-ENG-007",
+      "CRT-ENG-008",
+      "CRT-ENG-009",
+      "CRT-ENG-010"
+    ]
+  },
+  "fieldsRequired": [
+    "critical route ids",
+    "source_nodes",
+    "source_codes",
+    "trigger condition",
+    "blocking condition",
+    "reentry condition",
+    "manual review condition",
+    "action",
+    "severity",
+    "source authority",
+    "failure mode",
+    "no diagnostico",
+    "no registry write",
+    "no Runtime productivo"
+  ],
+  "observations": {
+    "declaredRoutesCountMatches": true,
+    "declaredRulesCountMatches": true,
+    "allItemsHaveSourceRefs": true,
+    "d6CriticalRoutesSheetPresent": true,
+    "d8CriticalRoutesSheetPresent": true,
+    "noCableadoSignalsPresent": true
+  },
+  "qaClassification": {
+    "exact_match": 0,
+    "normalized_equivalent": 0,
+    "controlled_transformation_with_source": 0,
+    "mismatch": 0,
+    "missing_in_chip": 0,
+    "missing_in_source": 0,
+    "pending_source_proof": 14,
+    "not_applicable_with_justification": 0
+  },
+  "blockers": [
+    "D5 and D4 field/action/severity equivalence was not exhaustively compared at row/section level.",
+    "No complete field-by-field proof was produced for every BLOCK / REENTRY / REVIEW / ALLOW action."
+  ],
+  "satisfactionStatusReason": "Source refs and counts are present, but material equivalence by field/action/severity remains pending."
+}

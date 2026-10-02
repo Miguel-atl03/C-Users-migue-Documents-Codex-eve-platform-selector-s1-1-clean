@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — B0 Opción B · Flujo horizontal disperso</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --eve-accent: #5c7d8f;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-body: "Source Sans 3", "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 24px;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .note {
+        max-width: 1440px;
+        margin: 0 auto 12px;
+        font-size: 12px;
+        color: var(--eve-mist);
+      }
+
+      .screen {
+        position: relative;
+        width: min(1440px, 100%);
+        height: 900px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .registry {
+        position: absolute;
+        top: 36px;
+        left: 72px;
+        right: 72px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .registry-mark {
+        color: var(--eve-ink);
+        font-weight: 600;
+        letter-spacing: 0.42em;
+      }
+
+      .kicker {
+        position: absolute;
+        top: 88px;
+        left: 72px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        color: var(--eve-ink);
+      }
+
+      .title-block {
+        position: absolute;
+        top: 118px;
+        left: 72px;
+        max-width: 640px;
+      }
+
+      .title-block h1 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: clamp(34px, 3.2vw, 44px);
+        font-weight: 500;
+        line-height: 1.06;
+        letter-spacing: -0.02em;
+      }
+
+      .title-block p {
+        margin: 16px 0 0;
+        max-width: 520px;
+        color: var(--eve-mist);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .flow {
+        position: absolute;
+        top: 248px;
+        left: 72px;
+        right: 72px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(20px, 3.5vw, 56px);
+      }
+
+      .step {
+        min-width: 0;
+      }
+
+      .step-index {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--eve-mist);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+      }
+
+      .step-label {
+        display: block;
+        margin-bottom: 14px;
+        color: var(--eve-mist);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .step-line {
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid var(--eve-line);
+        background: transparent;
+        padding: 8px 0 12px;
+        color: var(--eve-ink);
+        font-family: var(--font-body);
+        font-size: 15px;
+        line-height: 1.45;
+        outline: none;
+      }
+
+      .step-line::placeholder {
+        color: rgba(122, 129, 144, 0.72);
+      }
+
+      .void {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        top: 390px;
+        bottom: 72px;
+        border-top: 1px solid var(--eve-line);
+      }
+
+      .void-caption {
+        position: absolute;
+        bottom: 28px;
+        left: 72px;
+        color: var(--eve-mist);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 900px) {
+        body {
+          padding: 12px;
+        }
+
+        .screen {
+          height: auto;
+          min-height: 820px;
+          padding-bottom: 48px;
+        }
+
+        .registry,
+        .kicker,
+        .title-block,
+        .flow,
+        .void,
+        .void-caption {
+          position: static;
+          left: auto;
+          right: auto;
+          top: auto;
+          bottom: auto;
+        }
+
+        .registry {
+          padding: 28px 24px 0;
+        }
+
+        .kicker {
+          padding: 18px 24px 0;
+        }
+
+        .title-block {
+          padding: 8px 24px 0;
+        }
+
+        .flow {
+          padding: 32px 24px 0;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 24px 20px;
+        }
+
+        .void {
+          margin: 48px 24px 0;
+          min-height: 220px;
+        }
+
+        .void-caption {
+          padding: 12px 24px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="note">
+      Mockup de referencia — B0 · Opción B. Abre este archivo en el navegador. Para
+      PNG: captura de pantalla o imprimir a PDF.
+    </p>
+
+    <main class="screen" aria-label="Mockup B0 opción B">
+      <div class="registry">
+        <span class="registry-mark">EVE<sup>™</sup></span>
+        <span>Strategic &amp; Operational Architecture / Enterprise Viability Engine</span>
+      </div>
+
+      <div class="kicker">02 / DETALLE</div>
+
+      <header class="title-block">
+        <h1>Qué hace esta actividad, pieza por pieza</h1>
+        <p>
+          Se rellena solo desde lo que escribiste en el mapa. Revísalo y corrige lo
+          que no cuadre.
+        </p>
+      </header>
+
+      <section class="flow" aria-label="Flujo horizontal disperso">
+        <div class="step">
+          <span class="step-index">I</span>
+          <span class="step-label">Qué haces</span>
+          <input
+            class="step-line"
+            type="text"
+            placeholder="Por ejemplo: reviso, preparo, cruzo…"
+            aria-label="Qué haces"
+          />
+        </div>
+        <div class="step">
+          <span class="step-index">II</span>
+          <span class="step-label">Sobre qué trabajas</span>
+          <input
+            class="step-line"
+            type="text"
+            placeholder="Sobre qué o con qué trabajas"
+            aria-label="Sobre qué trabajas"
+          />
+        </div>
+        <div class="step">
+          <span class="step-index">III</span>
+          <span class="step-label">Pasos del recorrido</span>
+          <input
+            class="step-line"
+            type="text"
+            placeholder="Pasos, revisión o forma habitual"
+            aria-label="Pasos del recorrido"
+          />
+        </div>
+        <div class="step">
+          <span class="step-index">IV</span>
+          <span class="step-label">Qué queda listo</span>
+          <input
+            class="step-line"
+            type="text"
+            placeholder="Qué queda listo al terminar"
+            aria-label="Qué queda listo"
+          />
+        </div>
+      </section>
+
+      <div class="void" aria-hidden="true"></div>
+      <p class="void-caption">Void monumental · telón de fondo</p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/parallel-production/design-gap.schema.json",
+  "title": "EVE Capa 1 Parallel Production Design Gap",
+  "type": "object",
+  "required": [
+    "gap_id",
+    "gap_type",
+    "severity",
+    "blocking_status",
+    "source_artifact_type",
+    "source_artifact_id",
+    "source_element_id",
+    "affected_quadrants",
+    "required_evidence",
+    "reentry_question",
+    "resolution_owner",
+    "resolution_status"
+  ],
+  "properties": {
+    "gap_id": { "type": "string", "minLength": 1 },
+    "gap_type": {
+      "enum": [
+        "missing_evidence",
+        "semantic_conflict",
+        "quadrant_support_missing",
+        "traceability_gap",
+        "conformance_gap",
+        "consistency_gap",
+        "projection_gap",
+        "generation_gap"
+      ]
+    },
+    "severity": { "enum": ["low", "medium", "high", "critical"] },
+    "blocking_status": { "enum": ["non_blocking", "warning", "blocking"] },
+    "source_artifact_type": { "type": "string", "minLength": 1 },
+    "source_artifact_id": { "type": "string", "minLength": 1 },
+    "source_element_id": { "type": ["string", "null"] },
+    "affected_quadrants": {
+      "type": "array",
+      "items": { "enum": ["PM", "PF", "MoC", "OLC"] }
+    },
+    "required_evidence": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "reentry_question": { "type": ["string", "null"] },
+    "resolution_owner": { "type": "string", "minLength": 1 },
+    "resolution_status": {
+      "enum": ["open", "in_review", "resolved", "accepted_risk"]
+    }
+  },
+  "additionalProperties": true
+}

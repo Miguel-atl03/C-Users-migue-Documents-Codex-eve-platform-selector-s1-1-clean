@@ -1,0 +1,87 @@
+{
+  "audit_id": "EVE-04-RUNTIME-CATALOG-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "matrix_scope": "minimum required module comparison; not exhaustive row/field QA",
+  "module_results": [
+    {
+      "module": "runtime_interactions_base_40",
+      "d6_sheet": "Runtime_Interactions_Base_40",
+      "package_xlsx_sheet": "Runtime_Base_40",
+      "d6_count": 40,
+      "chip_json_count": 40,
+      "ids_match": true,
+      "missing_in_chip": [],
+      "extra_in_chip": [],
+      "critical_fields_checked": ["visible_text_v1_1", "source_nodes", "source_codes", "required_variables", "readiness_effect", "acceptance_test"],
+      "critical_field_differences": [
+        {
+          "id": "B6-Q38",
+          "field": "source_nodes",
+          "d6": "B6_6_9, B6_6_10, B6_6_11",
+          "chip": "B6_6_8, B6_6_9, B6_6_10, B6_6_11",
+          "classification": "declared_correction_CCOV_001_not_material_mismatch",
+          "evidence": "B6_6_8 and trench_phrase exist in Phase3/upstream context; source files were not mutated."
+        }
+      ],
+      "status": "ok_with_declared_correction_exception"
+    },
+    {
+      "module": "runtime_interactions_causal_20",
+      "d6_sheet": "Runtime_Interactions_Causal_20",
+      "package_xlsx_sheet": "Runtime_Causal_20",
+      "d6_count": 20,
+      "chip_json_count": 20,
+      "ids_match": true,
+      "missing_in_chip": [],
+      "extra_in_chip": [],
+      "critical_field_differences": [],
+      "status": "ok"
+    },
+    {
+      "module": "ux_subfield_structure",
+      "d6_sheet": "UX_Subfield_Structure",
+      "package_xlsx_sheet": "UX_Subfields",
+      "d6_count": 17,
+      "chip_json_count": 17,
+      "ids_match": true,
+      "missing_in_chip": [],
+      "extra_in_chip": [],
+      "critical_field_differences": [
+        {
+          "id": "B6-Q38",
+          "field": "subfield_structure",
+          "d6": "repetitive_failure_pattern; extra_work_absorbed; compensation_primary_mechanism",
+          "chip": "trench_phrase; repetitive_failure_pattern; extra_work_absorbed; compensation_primary_mechanism",
+          "classification": "declared_correction_CCOV_001",
+          "evidence": "Package contains trench_phrase as separated subfield; Phase3 contains B6_6_8/trench_phrase; UP_B6 contains trench_phrase methodological context."
+        }
+      ],
+      "status": "ok_with_declared_correction_exception"
+    },
+    {
+      "module": "branching_budget_rules",
+      "d6_sheet": "Branching_Budget_Rules",
+      "package_xlsx_sheets": ["Branching_Rules", "Branching_Scores"],
+      "d6_record_count": 22,
+      "package_rule_count": 10,
+      "package_score_weight_count": 11,
+      "checks": {
+        "causal_limit_20_present": true,
+        "do_not_open_causal_by_analytic_curiosity_present": true,
+        "carry_forward_on_budget_exhaustion_present": true
+      },
+      "status": "ok_with_split_semantics"
+    },
+    {
+      "module": "readiness_gaps_reentry",
+      "d6_sheet": "Readiness_Gaps_Reentry",
+      "package_xlsx_sheet": "Readiness_Reentry",
+      "d6_count": 7,
+      "chip_json_count": 7,
+      "ids_match": true,
+      "missing_in_chip": [],
+      "extra_in_chip": [],
+      "required_states_observed": ["ready", "ready_with_flags", "blocked_by_missing_evidence", "blocked_by_contradiction", "blocked_by_missing_canonical_route", "manual_review_required", "reentry_required"],
+      "status": "ok"
+    }
+  ]
+}

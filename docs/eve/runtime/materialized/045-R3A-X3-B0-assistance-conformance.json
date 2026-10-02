@@ -1,0 +1,33 @@
+{
+  "instruction": "045-R3A-X3",
+  "assistance_loss": 0,
+  "b0_help_text": "preserved",
+  "b0_intro_example": "preserved",
+  "b0_operational_description_coach": "preserved",
+  "b0_boundary_confirmation": "preserved",
+  "workmap_to_b0_prefill": "preserved",
+  "canvas_path": "OfficialSignificadoSection → SignificadoEditor",
+  "mechanisms": {
+    "b0_help_text": {
+      "component": "SignificadoEditor RuntimeBlock0Question helpText",
+      "client_or_server": "client catalog metadata"
+    },
+    "b0_intro_example": {
+      "route": "/api/coach/operational-description/intro-example",
+      "hook": "useOperationalDescriptionIntroGuide"
+    },
+    "b0_operational_description_coach": {
+      "route": "/api/coach/operational-description",
+      "hook": "useOperationalDescriptionCoach",
+      "silent_draft_mutation": false
+    },
+    "b0_boundary_confirmation": {
+      "component": "ActivityBoundaryConfirmationPanel",
+      "human_action_required": true
+    },
+    "workmap_to_b0_prefill": {
+      "service": "workmap-to-block0-prefill",
+      "auto_confirms_B0": false
+    }
+  }
+}

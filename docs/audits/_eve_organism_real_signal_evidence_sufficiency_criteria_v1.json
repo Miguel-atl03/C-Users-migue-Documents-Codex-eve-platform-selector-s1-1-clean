@@ -1,0 +1,372 @@
+{
+  "dictamen": "REAL_SIGNAL_EVIDENCE_COLLECTION_PLAN_SPECIFICITY_FIXED_REPLAY_ONLY_CONTINUES",
+  "generated_at": "2026-06-25T06:29:30.090Z",
+  "specificityFixApplied": true,
+  "planStatus": "specificity_fixed_replay_only_continues",
+  "observerAuthorized": false,
+  "realObservationAuthorized": false,
+  "readOnlyObserverDesignAuthorized": false,
+  "blockersClosedByPlan": 0,
+  "exitConditionsClosedByPlan": 0,
+  "operationallyClosedExitConditions": 0,
+  "evidencePriorityOrder": [
+    "P0_tenant_auth_isolation",
+    "P1_no_mutation_boundary",
+    "P2_provenance_sourceTrace",
+    "P3_idempotency_correlation_officialFlowRef",
+    "P4_mba_anchor_PM_MoC_PF_OLC",
+    "P5_b3_b7_boundary"
+  ],
+  "productOwnerEvidenceResponseRequiredFields": [
+    "evidence_id",
+    "evidence_owner",
+    "evidence_locator",
+    "source_system",
+    "source_environment",
+    "timestamp_or_version",
+    "proof_type",
+    "redaction_status",
+    "why_not_fixture",
+    "related_contract_field",
+    "related_blocker",
+    "related_exit_condition"
+  ],
+  "nonAcceptableEvidence": [
+    "narrative_only_answer_without_locator",
+    "screenshot_without_source_path_or_timestamp",
+    "fixture",
+    "synthetic_field",
+    "test_only_payload",
+    "replay_only_output",
+    "verbal_confirmation_without_artifact",
+    "code_comment_without_runtime_evidence",
+    "unversioned_document",
+    "unowned_evidence"
+  ],
+  "gate2": {
+    "replay_only_continues": true,
+    "observer_authorized": false,
+    "real_observation_authorized": false,
+    "read_only_observer_design_authorized": false
+  },
+  "audit_id": "eve_organism_real_signal_evidence_sufficiency_criteria_v1",
+  "globalRule": "Fixtures, synthetic fields, test-only payloads and replay-only outputs are rejected as real evidence.",
+  "criteria": [
+    {
+      "criterionId": "GLOBAL-SUFF-001",
+      "evidenceCategory": "global",
+      "sufficientIf": [
+        "evidence has owner",
+        "evidence has locator",
+        "evidence has timestamp_or_version",
+        "evidence is from real product or approved real operational source",
+        "evidence is not fixture",
+        "evidence is not synthetic",
+        "evidence is not replay-only",
+        "evidence maps to exact contract field",
+        "evidence maps to blocker and exit condition"
+      ],
+      "insufficientIf": [
+        "evidence is narrative only",
+        "evidence lacks locator",
+        "evidence lacks owner",
+        "evidence lacks timestamp_or_version",
+        "evidence maps only to generic contract name"
+      ],
+      "rejectedIf": [
+        "fixture",
+        "synthetic",
+        "replay_only_output",
+        "test_only_payload",
+        "verbal_confirmation_without_artifact"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    },
+    {
+      "criterionId": "SUFF-IDENTITY-001",
+      "evidenceCategory": "identity_context",
+      "sufficientIf": [
+        "real tenant/org/case/session/activity/actor context has owner locator and timestamp/version",
+        "fields map to operational_context.* exact fields"
+      ],
+      "insufficientIf": [
+        "identifier appears only in fixture or synthetic sample",
+        "identifier lacks source system or locator"
+      ],
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    },
+    {
+      "criterionId": "SUFF-SECURITY-001",
+      "evidenceCategory": "tenant_auth_isolation",
+      "sufficientIf": [
+        "auth and tenant isolation are shown by versioned policy or inventory",
+        "RLS/read boundary is present if DB appears"
+      ],
+      "insufficientIf": [
+        "security is asserted verbally",
+        "service_role status is unknown"
+      ],
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    },
+    {
+      "criterionId": "SUFF-NOMUT-001",
+      "evidenceCategory": "no_mutation_boundary",
+      "sufficientIf": [
+        "no UI/WorkMap/Significado/DB/Supabase/runtime/registry/export/diagnosis mutation is proven with locator",
+        "proof maps to no_mutation_boundary exact fields"
+      ],
+      "insufficientIf": [
+        "proof only says read-only without artifact",
+        "write operations are not inventoried"
+      ],
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    },
+    {
+      "criterionId": "SUFF-TRACE-001",
+      "evidenceCategory": "provenance_sourceTrace",
+      "sufficientIf": [
+        "provenance and sourceTrace appear on real source artifact",
+        "sourceRef evidenceRef auditRef have locators"
+      ],
+      "insufficientIf": [
+        "source is described but not located",
+        "trace comes from replay only"
+      ],
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    },
+    {
+      "criterionId": "SUFF-CORR-001",
+      "evidenceCategory": "idempotency_correlation",
+      "sufficientIf": [
+        "idempotencyKey and correlationId come from real flow with locator",
+        "officialFlowRef or approved equivalent is versioned"
+      ],
+      "insufficientIf": [
+        "ids are generated in test only",
+        "official flow is generic or unnamed"
+      ],
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    },
+    {
+      "criterionId": "SUFF-OFFICIAL-001",
+      "evidenceCategory": "officialFlowRef",
+      "sufficientIf": [
+        "officialFlowRef maps to versioned flow owner and locator",
+        "approved equivalent states approver and timestamp/version"
+      ],
+      "insufficientIf": [
+        "equivalent is informal or unowned",
+        "flowRef is invented for fixture"
+      ],
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    },
+    {
+      "criterionId": "SUFF-MBA-001",
+      "evidenceCategory": "mba_anchor",
+      "sufficientIf": [
+        "PM/MoC/PF/OLC mapping uses exact fields and MBA-authorized Object[State]",
+        "PF event and OLC transition have locators"
+      ],
+      "insufficientIf": [
+        "Object[State] is invented",
+        "contract field is generic only"
+      ],
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    },
+    {
+      "criterionId": "SUFF-B3-001",
+      "evidenceCategory": "b3_receiver_feedback",
+      "sufficientIf": [
+        "receiver_feedback has routeRef and is separated from receiver_satisfaction",
+        "routeRef has source locator"
+      ],
+      "insufficientIf": [
+        "receiver_satisfaction is treated as feedback",
+        "routeRef missing"
+      ],
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    },
+    {
+      "criterionId": "SUFF-B7-001",
+      "evidenceCategory": "b7_non_diagnostic_boundary",
+      "sufficientIf": [
+        "B7 carries interpretation_limit and is not diagnostic or structural",
+        "B7 does not generate candidate/OEE/IR/diagram/diagnosis"
+      ],
+      "insufficientIf": [
+        "B7 becomes candidate or structural fact",
+        "interpretation_limit missing"
+      ],
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    },
+    {
+      "criterionId": "SUFF-FIXTURE-001",
+      "evidenceCategory": "fixture_rejection",
+      "sufficientIf": [
+        "evidence explicitly explains why it is not fixture/synthetic/replay-only",
+        "evidence is real product or approved operational source"
+      ],
+      "insufficientIf": [
+        "fixture is presented as real evidence",
+        "synthetic field or replay output is used as proof"
+      ],
+      "rejectedIf": [
+        "fixture",
+        "synthetic",
+        "replay_only_output",
+        "test_only_payload",
+        "synthetic_payload"
+      ],
+      "minimumLocatorRequired": true,
+      "minimumOwnerRequired": true,
+      "minimumTimestampOrVersionRequired": true,
+      "fixtureRejected": true,
+      "syntheticRejected": true,
+      "replayOnlyRejected": true,
+      "canCloseBlockerAlone": false,
+      "canCloseExitConditionAlone": false
+    }
+  ]
+}

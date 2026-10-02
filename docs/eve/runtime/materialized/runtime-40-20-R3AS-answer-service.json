@@ -1,0 +1,110 @@
+{
+    "baseline":  {
+                     "production_consulted":  false,
+                     "branch":  "release/eve-c312-production",
+                     "app_root":  "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform-operational-baseline-c312\\external-consumers\\eve-platform",
+                     "full_status":  "active",
+                     "head":  "8becedf4940b9bd19ec9d9968b9308d34070b555",
+                     "full_run_count":  30,
+                     "remote_writes":  "none",
+                     "b0_status":  "superseded",
+                     "b0_run_count":  8,
+                     "staging_project_ref":  "shrpiwkxcdgvbqymjecx",
+                     "git_root":  "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform-operational-baseline-c312"
+                 },
+    "safety":  {
+                   "production_consulted":  "no",
+                   "B0_modified":  "no",
+                   "B1_modified":  "no",
+                   "remote_database_writes":  "none",
+                   "staging_writes":  "none",
+                   "catalog_activated":  "no",
+                   "staging_consulted":  "select_only",
+                   "Gaby_modified":  "no",
+                   "commit_created":  "no"
+               },
+    "title":  "Answer service",
+    "connection_map":  [
+                           {
+                               "rector":  "R3AR catalog/run authority + Renderer 044",
+                               "id":  "A",
+                               "boundary":  "Gaby -\u003e next interaction",
+                               "existing_component":  "participant/workmap/finalize creates/returns activityRuntimeRunId and catalogVersionId",
+                               "existing_path":  "external-consumers/eve-platform/src/app/api/participant/workmap/finalize/route.ts",
+                               "current_status":  "backend_full_run_creation_conformant",
+                               "blocker":  null,
+                               "connection_required":  "real authenticated run -\u003e next governed interaction endpoint"
+                           },
+                           {
+                               "rector":  "Renderer 044 must source InteractionViewModel",
+                               "id":  "B",
+                               "boundary":  "interaction -\u003e UI",
+                               "existing_component":  "SceneQuestionnaireRunner visual component",
+                               "existing_path":  "external-consumers/eve-platform/src/components/SceneQuestionnaireRunner.tsx",
+                               "current_status":  "legacy_manifest_sequence_authority_present",
+                               "blocker":  "blocked_gaby_renderer_frontdoor",
+                               "connection_required":  "SceneQuestionnaireRunner Runtime FULL path must fetch server InteractionViewModel"
+                           },
+                           {
+                               "rector":  "Client BFF 39/39",
+                               "id":  "C",
+                               "boundary":  "UI answer -\u003e BFF",
+                               "existing_component":  "client-bff answer route listed in git delta but not safely writable/readable via long path during this run",
+                               "existing_path":  "external-consumers/eve-platform/src/app/api/eve/runtime-40-20/client-bff/answer/route.ts",
+                               "current_status":  "not safely materializable from live checkout",
+                               "blocker":  "blocked_client_bff_security",
+                               "connection_required":  "authenticated route -\u003e governed application service"
+                           },
+                           {
+                               "rector":  "ResponseIngest 044",
+                               "id":  "D",
+                               "boundary":  "BFF -\u003e ResponseIngest",
+                               "existing_component":  "runtime-40-20-response-ingest-service.ts",
+                               "existing_path":  "external-consumers/eve-platform/src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-service.ts",
+                               "current_status":  "implemented_not_connected_to_live_gaby_bff",
+                               "blocker":  "blocked_gaby_runtime_answer_adapter",
+                               "connection_required":  "server-side answer adapter must call existing ingest service"
+                           },
+                           {
+                               "rector":  "044 governed execution service",
+                               "id":  "E",
+                               "boundary":  "ingest -\u003e engine advance",
+                               "existing_component":  "execution-connected service exists in git delta",
+                               "existing_path":  "external-consumers/eve-platform/src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts",
+                               "current_status":  "synthetic_harness_materiality_only_not_proven_real_app_boundary",
+                               "blocker":  "blocked_gaby_real_roundtrip",
+                               "connection_required":  "authenticated real adapter separate from synthetic_case_token"
+                           },
+                           {
+                               "rector":  "Renderer 044 + persisted execution state",
+                               "id":  "F",
+                               "boundary":  "advance -\u003e next Renderer interaction",
+                               "existing_component":  "synthetic render/ingest evidence in 044A6 bundle",
+                               "existing_path":  "external-consumers/eve-platform/docs/eve/runtime/materialized/_044A6_bundle_staging",
+                               "current_status":  "synthetic_evidence_not_real_gaby_roundtrip",
+                               "blocker":  "blocked_gaby_real_roundtrip",
+                               "connection_required":  "persisted real run state bootstrap and next renderer response"
+                           },
+                           {
+                               "rector":  "reuse existing staging deployment boundary only",
+                               "id":  "G",
+                               "boundary":  "app -\u003e staging deployment",
+                               "existing_component":  "staging DB/RPC scripts and evidence only; no app hosting config found",
+                               "existing_path":  "scripts/eve/staging, docs/eve/runtime/materialized/*staging*",
+                               "current_status":  "deployment_boundary_absent_for_app_hosting",
+                               "blocker":  "blocked_staging_app_deployment_architecture_absent",
+                               "connection_required":  "existing deploy platform/project/environment"
+                           }
+                       ],
+    "generated_at":  "2026-08-10T00:00:00-06:00",
+    "summary":  "ResponseIngest 044 exists, but no proven live Gaby answer adapter connects authenticated UI answer -\u003e server-side semantic resolution -\u003e ResponseIngest without client semantic authority. Status: blocked_gaby_runtime_answer_adapter.",
+    "secondary_blockers":  [
+                               "blocked_client_bff_security",
+                               "blocked_gaby_runtime_answer_adapter",
+                               "blocked_gaby_real_roundtrip",
+                               "blocked_staging_app_deployment_architecture_absent"
+                           ],
+    "final_state":  "blocked_before_application_side_programming",
+    "classification":  "blocked_gaby_renderer_frontdoor",
+    "instruction":  "045-R3A-S"
+}

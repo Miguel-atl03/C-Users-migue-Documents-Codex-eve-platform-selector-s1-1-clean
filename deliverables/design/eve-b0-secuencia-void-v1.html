@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — B0 · Secuencia void v1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-kicker: "IBM Plex Mono", "Consolas", monospace;
+        --font-activity: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-kicker);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .void {
+        position: relative;
+        min-height: 100svh;
+        width: min(1440px, 100%);
+        margin: 0 auto;
+        padding: 88px 72px 72px;
+        overflow: hidden;
+      }
+
+      /* Misma posición y gramática que 02 / DETALLE */
+      .intro {
+        margin: 0;
+        max-width: 260px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        opacity: 0;
+        transition: color 900ms ease, opacity 900ms ease;
+      }
+
+      .intro.is-visible {
+        opacity: 1;
+      }
+
+      .intro.is-mist {
+        color: var(--eve-mist);
+      }
+
+      .flow {
+        position: absolute;
+        top: 148px;
+        left: 72px;
+        right: 72px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(24px, 4vw, 72px);
+        align-items: start;
+      }
+
+      .flow-step {
+        min-width: 0;
+        max-width: 34ch;
+      }
+
+      .flow-step.is-idle {
+        visibility: hidden;
+      }
+
+      .step-label {
+        margin: 0;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        min-height: 1.4em;
+      }
+
+      .step-value {
+        margin: 28px 0 0;
+        font-family: var(--font-activity);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+        max-width: 44ch;
+        min-height: 3em;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 1px;
+        height: 0.95em;
+        margin-left: 1px;
+        background: var(--eve-ink);
+        vertical-align: text-bottom;
+        animation: blink 900ms step-end infinite;
+      }
+
+      .cursor.is-hidden {
+        display: none;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .replay {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: var(--font-kicker);
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 400ms ease, color 200ms ease;
+      }
+
+      .replay.is-visible {
+        opacity: 1;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 900px) {
+        .void {
+          padding: 72px 24px 48px;
+        }
+
+        .flow {
+          left: 24px;
+          right: 24px;
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="void" aria-label="B0 secuencia void monumental">
+      <p class="intro" id="intro" aria-live="polite">Miremos de cerca…</p>
+
+      <section class="flow" aria-label="Flujo horizontal">
+        <div class="flow-step is-idle" id="step-one">
+          <p class="step-label" id="step-one-label" aria-live="polite"></p>
+          <p class="step-value" id="step-one-value" aria-live="polite"></p>
+        </div>
+        <div class="flow-step is-idle" id="step-two">
+          <p class="step-label" id="step-two-label" aria-live="polite"></p>
+          <p class="step-value" id="step-two-value" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+
+    <button class="replay" id="replay" type="button" hidden>Repetir secuencia</button>
+
+    <script>
+      const DEFAULT_ACTIVITY =
+        "Analizo la proyección mensual de erogaciones comparando el gasto real contra Oracle para generar reportes de desviaciones con análisis de causa raíz.";
+      const DEFAULT_OBJECT = "la proyección mensual de erogaciones";
+
+      const params = new URLSearchParams(window.location.search);
+      const activityText = params.get("actividad")?.trim() || DEFAULT_ACTIVITY;
+      const objectText = params.get("objeto")?.trim() || DEFAULT_OBJECT;
+
+      const introEl = document.getElementById("intro");
+      const stepOneEl = document.getElementById("step-one");
+      const stepOneLabelEl = document.getElementById("step-one-label");
+      const stepOneValueEl = document.getElementById("step-one-value");
+      const stepTwoEl = document.getElementById("step-two");
+      const stepTwoLabelEl = document.getElementById("step-two-label");
+      const stepTwoValueEl = document.getElementById("step-two-value");
+      const replayEl = document.getElementById("replay");
+
+      const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+      function makeCursor() {
+        const cursor = document.createElement("span");
+        cursor.className = "cursor";
+        cursor.setAttribute("aria-hidden", "true");
+        return cursor;
+      }
+
+      async function typewriter(target, text, speed = 34) {
+        target.textContent = "";
+        const cursor = makeCursor();
+        target.append(cursor);
+
+        for (const char of text) {
+          cursor.before(document.createTextNode(char));
+          await sleep(speed);
+        }
+
+        cursor.classList.add("is-hidden");
+      }
+
+      function resetSequence() {
+        introEl.classList.remove("is-visible", "is-mist");
+        stepOneEl.classList.add("is-idle");
+        stepTwoEl.classList.add("is-idle");
+        stepOneLabelEl.textContent = "";
+        stepOneValueEl.textContent = "";
+        stepTwoLabelEl.textContent = "";
+        stepTwoValueEl.textContent = "";
+        replayEl.hidden = true;
+        replayEl.classList.remove("is-visible");
+      }
+
+      async function runSequence() {
+        resetSequence();
+
+        await sleep(120);
+        introEl.classList.add("is-visible");
+
+        await sleep(3000);
+        introEl.classList.add("is-mist");
+
+        await sleep(400);
+        stepOneEl.classList.remove("is-idle");
+        await typewriter(stepOneLabelEl, "I · Qué haces");
+
+        await sleep(2000);
+        await typewriter(stepOneValueEl, activityText, 28);
+
+        await sleep(600);
+        stepTwoEl.classList.remove("is-idle");
+        await typewriter(stepTwoLabelEl, "II · Sobre qué trabajas");
+
+        await sleep(2000);
+        await typewriter(stepTwoValueEl, objectText, 28);
+
+        replayEl.hidden = false;
+        requestAnimationFrame(() => replayEl.classList.add("is-visible"));
+      }
+
+      replayEl.addEventListener("click", () => {
+        runSequence();
+      });
+
+      runSequence();
+    </script>
+  </body>
+</html>

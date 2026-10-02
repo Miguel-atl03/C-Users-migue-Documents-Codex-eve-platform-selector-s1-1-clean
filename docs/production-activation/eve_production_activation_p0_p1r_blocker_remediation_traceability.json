@@ -1,0 +1,57 @@
+{
+  "execution_id": "EVE_PRODUCTION_ACTIVATION_P0_P1R_BLOCKER_REMEDIATION_V1",
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P0_P1R_BLOCKER_REMEDIATION_COMPLETED",
+  "plan_phase": "Production activation — P0/P1 blocker remediation",
+  "blockers": [
+    {
+      "id": "B1",
+      "name": "Typecheck failed",
+      "status": "resolved",
+      "files_modified": [
+        "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts"
+      ],
+      "changes": [
+        "Typed blockingReasons/sourceReasons as RuntimeClientMembraneBlockingReason[]",
+        "Imported RuntimeClientReviewCloseoutCandidate from membrane types",
+        "Replaced phase9 accepted/completed checks with !== true normalization"
+      ]
+    },
+    {
+      "id": "B2",
+      "name": "Build path length",
+      "status": "resolved",
+      "path_used": "C:/eve/platform",
+      "build_passed_from_short_path": true
+    },
+    {
+      "id": "B3",
+      "name": "UI leakage",
+      "status": "resolved",
+      "files_modified": [
+        "src/app/page.tsx",
+        "src/components/SceneQuestionnaireRunner.tsx",
+        "src/features/significado/significado-copy.ts"
+      ]
+    },
+    {
+      "id": "B4",
+      "name": "Packaging duplicate path",
+      "status": "resolved",
+      "removed": "docs/production-activation/eve_production_activationactivation/"
+    },
+    {
+      "id": "B5",
+      "name": "UI browser QA runner",
+      "status": "deferred",
+      "ui_e2e_runner_available": false,
+      "client_browser_qa_status": "blocked_missing_safe_ui_runner"
+    }
+  ],
+  "readiness": {
+    "p0_baseline_passed": true,
+    "p1_static_client_ui_leakage_qa_passed": true,
+    "ready_for_p2_bff_real_design": true
+  },
+  "next_authorization_required": true,
+  "next_tree_point": "P2 — BFF real design and security contract, only after P0/P1R accepted"
+}

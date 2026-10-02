@@ -1,0 +1,85 @@
+{
+  "task": "EVE-00-METHOD-KERNEL-CONTROLLED-WIRING-DESIGN-V1",
+  "risks": [
+    {
+      "riskId": "MW-R01",
+      "risk": "Bloquear UI prematuramente",
+      "severity": "blocker",
+      "trigger": "Method Kernel runs before structural candidates and treats B0/WorkMap gaps as blocking.",
+      "mitigation": "Start only in shadow mode after PM/MoC/PF/OLC candidates exist; canBlockUserFlow=false.",
+      "mustBeResolvedBeforeWiring": true
+    },
+    {
+      "riskId": "MW-R02",
+      "risk": "Duplicar Runtime readiness",
+      "severity": "high",
+      "trigger": "Methodological readiness is interpreted as Runtime readiness/reentry.",
+      "mitigation": "Separate Runtime readiness, methodological readiness, diagnostic readiness and production readiness in contract and tests.",
+      "mustBeResolvedBeforeWiring": true
+    },
+    {
+      "riskId": "MW-R03",
+      "risk": "Diagnosticar en etapa 00",
+      "severity": "blocker",
+      "trigger": "Conformance or consistency findings are translated into EVE pathology.",
+      "mitigation": "Prohibit diagnostic outputs; test no diagnosis, no IR, no pathology hints.",
+      "mustBeResolvedBeforeWiring": true
+    },
+    {
+      "riskId": "MW-R04",
+      "risk": "Usar evidencia no confirmada",
+      "severity": "blocker",
+      "trigger": "WorkMap draft, B0 prefill or free text without provenance enters as captured evidence.",
+      "mitigation": "Require epistemic status and sourceRef; reject unconfirmed primary inputs.",
+      "mustBeResolvedBeforeWiring": true
+    },
+    {
+      "riskId": "MW-R05",
+      "risk": "Convertir conformance en juicio organizacional",
+      "severity": "high",
+      "trigger": "Methodological finding is worded as judgement about person, role or organization.",
+      "mitigation": "Limit output to model/evidence findings and manual review requests.",
+      "mustBeResolvedBeforeWiring": true
+    },
+    {
+      "riskId": "MW-R06",
+      "risk": "Invadir SelectionPolicy",
+      "severity": "high",
+      "trigger": "Kernel reorders, promotes or excludes primary activities.",
+      "mitigation": "No selection outputs; run only after selection and structural candidate creation.",
+      "mustBeResolvedBeforeWiring": true
+    },
+    {
+      "riskId": "MW-R07",
+      "risk": "Invadir WorkMap Assistance",
+      "severity": "medium",
+      "trigger": "Kernel critiques responsibility/activity writing during WorkMap intake.",
+      "mitigation": "Do not consume raw WorkMap as evidence; WorkMap Assistance remains separate chip.",
+      "mustBeResolvedBeforeWiring": true
+    },
+    {
+      "riskId": "MW-R08",
+      "risk": "Usar D4/D5 como fuente metodologica",
+      "severity": "blocker",
+      "trigger": "Runtime documents override D1 or define MMABP rules.",
+      "mitigation": "D1 remains primary methodological source; D4/D5 boundary-only assertions in tests.",
+      "mustBeResolvedBeforeWiring": true
+    },
+    {
+      "riskId": "MW-R09",
+      "risk": "Registrar runtimeAuthority demasiado pronto",
+      "severity": "blocker",
+      "trigger": "Registry marks Method Kernel as runtimeAuthority before implementation and tests.",
+      "mitigation": "No registry mutation in design; separate authorization task required.",
+      "mustBeResolvedBeforeWiring": true
+    },
+    {
+      "riskId": "MW-R10",
+      "risk": "Drift de estados",
+      "severity": "high",
+      "trigger": "Method Kernel states are mixed with Runtime route/gate states.",
+      "mitigation": "Whitelist Method Kernel states and assert blocked_by_missing_canonical_route stays Runtime-only.",
+      "mustBeResolvedBeforeWiring": true
+    }
+  ]
+}

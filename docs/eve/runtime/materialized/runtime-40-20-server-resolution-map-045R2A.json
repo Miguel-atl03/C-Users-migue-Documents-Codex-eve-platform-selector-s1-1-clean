@@ -1,0 +1,18 @@
+﻿{
+    "instruction":  "045-R2A",
+    "classification":  "client_boundary_minimal_field_gap",
+    "server_resolution_order":  [
+                                    "authenticate request",
+                                    "resolve session/case/participant/ownership",
+                                    "resolve role_runtime_session/activity_runtime_run from opaque run reference or session+activity if uniquely governed",
+                                    "resolve active FULL catalog from run/session, reject client catalog override",
+                                    "resolve current rendered interaction instance",
+                                    "resolve source-capture slots from 044-A.3M crosswalk",
+                                    "construct source_trace/provenance/revision/idempotency server-side",
+                                    "call ResponseIngestService",
+                                    "persist through governed server adapter"
+                                ],
+    "adapter_classification":  "existing_service_extendable",
+    "why_not_true_identity_gap":  "All semantic Runtime authority fields have material sources in run/session/catalog/renderer/crosswalk/persistence. The missing part is transport/binding of server-issued opaque references from the real Gaby flow.",
+    "why_not_server_resolvable_complete":  "The live Gaby question flow is still SceneQuestionnaireRunner over capa1-runtime-manifest and does not currently carry or echo the server-issued Runtime render token needed to identify the visible Runtime interaction/slot."
+}

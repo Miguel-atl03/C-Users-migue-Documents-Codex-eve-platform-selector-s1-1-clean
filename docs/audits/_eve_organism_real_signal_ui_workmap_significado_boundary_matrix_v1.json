@@ -1,0 +1,115 @@
+{
+  "audit_id": "EVE_ORGANISM_REAL_SIGNAL_BOUNDARY_EVIDENCE_REQUEST_V1",
+  "generated_at": "2026-06-25T02:23:38.498Z",
+  "dictamen": "BOUNDARY_EVIDENCE_PARTIAL_REPLAY_ONLY_CONTINUES",
+  "matrix": [
+    {
+      "file_path": "src/components/WorkMapIntake.tsx",
+      "route_or_service": "WorkMap UI component",
+      "operation": "UI capture/edit surface",
+      "is_ui_surface": true,
+      "is_service_layer": false,
+      "mutation_risk": "unknown",
+      "can_observe_without_touching_ui": false,
+      "can_observe_without_mutating_workmap": false,
+      "can_observe_without_mutating_significado": true,
+      "evidence_lines": [
+        {
+          "file_path": "docs/eve-workmap-ui-contract.md",
+          "line_number": 180,
+          "line_excerpt": "- No tocar `WorkMapIntake` para hacer Significado."
+        }
+      ]
+    },
+    {
+      "file_path": "src/services/work-map-draft.ts",
+      "route_or_service": "WorkMap draft service",
+      "operation": "read/write/clear local draft",
+      "is_ui_surface": false,
+      "is_service_layer": true,
+      "mutation_risk": true,
+      "can_observe_without_touching_ui": false,
+      "can_observe_without_mutating_workmap": false,
+      "can_observe_without_mutating_significado": true,
+      "evidence_lines": [
+        {
+          "file_path": "src/services/work-map-draft.ts",
+          "line_number": 32,
+          "line_excerpt": "export function writeWorkMapDraft(workMap: WorkMapData, sessionId?: string | null) {"
+        }
+      ]
+    },
+    {
+      "file_path": "src/components/significado/SignificadoDeTuTrabajo.tsx",
+      "route_or_service": "Significado UI component",
+      "operation": "UI capture/confirmation surface",
+      "is_ui_surface": true,
+      "is_service_layer": false,
+      "mutation_risk": "unknown",
+      "can_observe_without_touching_ui": false,
+      "can_observe_without_mutating_workmap": "unknown",
+      "can_observe_without_mutating_significado": false,
+      "evidence_lines": [
+        {
+          "file_path": "docs/eve-workmap-ui-contract.md",
+          "line_number": 159,
+          "line_excerpt": "Significado debe:"
+        }
+      ]
+    },
+    {
+      "file_path": "src/services/significado-draft.ts",
+      "route_or_service": "Significado draft service",
+      "operation": "read/write/clear local draft",
+      "is_ui_surface": false,
+      "is_service_layer": true,
+      "mutation_risk": true,
+      "can_observe_without_touching_ui": false,
+      "can_observe_without_mutating_workmap": true,
+      "can_observe_without_mutating_significado": false,
+      "evidence_lines": [
+        {
+          "file_path": "src/services/significado-draft.ts",
+          "line_number": 34,
+          "line_excerpt": "export function writeSignificadoDraft("
+        }
+      ]
+    },
+    {
+      "file_path": "src/services/significado-activity-anchor-adapter.ts",
+      "route_or_service": "Significado anchor builder",
+      "operation": "build submit payload with diagnostics/export/transduction disabled",
+      "is_ui_surface": false,
+      "is_service_layer": true,
+      "mutation_risk": "partial",
+      "can_observe_without_touching_ui": true,
+      "can_observe_without_mutating_workmap": "partial",
+      "can_observe_without_mutating_significado": "partial",
+      "evidence_lines": [
+        {
+          "file_path": "src/services/significado-activity-anchor-adapter.ts",
+          "line_number": 411,
+          "line_excerpt": "diagnosticsEnabled: false,"
+        }
+      ]
+    },
+    {
+      "file_path": "src/app/api/significado/block0/route.ts",
+      "route_or_service": "Significado Block0 API",
+      "operation": "persist answers",
+      "is_ui_surface": false,
+      "is_service_layer": true,
+      "mutation_risk": true,
+      "can_observe_without_touching_ui": true,
+      "can_observe_without_mutating_workmap": true,
+      "can_observe_without_mutating_significado": false,
+      "evidence_lines": [
+        {
+          "file_path": "src/app/api/significado/block0/route.ts",
+          "line_number": 8,
+          "line_excerpt": "import { persistSignificadoBlock0Answers } from \"@/services/significado-block0-repository\";"
+        }
+      ]
+    }
+  ]
+}

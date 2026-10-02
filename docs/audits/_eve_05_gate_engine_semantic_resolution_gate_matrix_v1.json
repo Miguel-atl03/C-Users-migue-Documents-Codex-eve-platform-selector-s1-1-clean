@@ -1,0 +1,45 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-RECORD-RULE-SOURCE-QA-V1",
+  "module": "semantic_resolution_gate",
+  "dictamen": "GATE_ENGINE_RECORD_RULE_QA_BLOCKED",
+  "satisfactionStatus": "blocked",
+  "sourcesRequired": ["D6", "D5", "D4", "D8", "D2_if_applicable"],
+  "sourcesRead": true,
+  "itemsChecked": {
+    "gates": ["SEM-001", "SEM-002", "SEM-003", "SEM-004", "SEM-005", "SEM-006", "SEM-007"],
+    "rules": ["SEM-ENG-001", "SEM-ENG-002", "SEM-ENG-003", "SEM-ENG-004", "SEM-ENG-005", "SEM-ENG-006", "SEM-ENG-007", "SEM-ENG-008"]
+  },
+  "fieldsRequired": [
+    "semantic ambiguity",
+    "semantic contradiction",
+    "source evidence requirement",
+    "resolution state",
+    "reentry target",
+    "manual review",
+    "blocked output",
+    "no inferencia sin evidencia",
+    "no alineacion cosmetica de modelos"
+  ],
+  "observations": {
+    "declaredGatesCountMatches": true,
+    "declaredRulesCountMatches": true,
+    "allItemsHaveSourceRefs": true,
+    "d6SemanticResolutionGatesSheetPresent": true,
+    "sourceEvidenceGuardPresentInPackage": true
+  },
+  "qaClassification": {
+    "exact_match": 0,
+    "normalized_equivalent": 0,
+    "controlled_transformation_with_source": 0,
+    "mismatch": 0,
+    "missing_in_chip": 0,
+    "missing_in_source": 0,
+    "pending_source_proof": 15,
+    "not_applicable_with_justification": 0
+  },
+  "blockers": [
+    "D5/D4/D8/D2 material equivalence for each semantic field was not exhaustively proven.",
+    "No complete proof was produced for every reentry, manual review and blocked output condition."
+  ],
+  "satisfactionStatusReason": "Gate/rule counts and source refs are present, but material field equivalence remains pending."
+}

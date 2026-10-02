@@ -1,0 +1,61 @@
+{
+  "instruction": "040-D",
+  "title": "Full local boundary validation against staging contract 040-A",
+  "classification": "phase2_staging_boundary_candidate_complete_local_only",
+  "fixture": "full 040-A six core tables + semantic organs 037",
+  "validation_results": {
+    "catalog_versions": 1,
+    "artifact_sections": 33,
+    "source_nodes": 164,
+    "interaction_definitions": 60,
+    "interaction_mappings": 170,
+    "subfields": 57,
+    "branching_rules": 120,
+    "epistemic_rules": 300,
+    "variable_maps": 300,
+    "semantic_total": 720,
+    "nonexistent_columns_referenced": 0,
+    "mapping_duplicates": 0,
+    "lineage_lost": 0,
+    "b0_delta": 0,
+    "exact_nine_table_replay": true,
+    "altered_content_blocked_nine_tables": true,
+    "missing_row_blocked": true,
+    "additional_row_blocked": true,
+    "concurrency_governed": true,
+    "rollback_nine_points": true,
+    "anon_execute": "denied",
+    "authenticated_execute": "denied",
+    "service_role_execute": "allowed",
+    "active_status_blocked": true
+  },
+  "tests": [
+    {
+      "name": "CatalogLoader local PostgreSQL exact",
+      "path": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-canonical-catalog-draft-loader-postgres-local.test.mjs",
+      "result": "passed"
+    },
+    {
+      "name": "Governed RPC candidate 040-D local",
+      "path": "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load.test.mjs",
+      "result": "passed"
+    },
+    {
+      "name": "focal lint",
+      "result": "passed"
+    },
+    {
+      "name": "typecheck",
+      "result": "passed"
+    },
+    {
+      "name": "build",
+      "result": "passed"
+    }
+  ],
+  "remote_contact": {
+    "staging_consulted": "no",
+    "production_consulted": "no",
+    "remote_writes": "none"
+  }
+}

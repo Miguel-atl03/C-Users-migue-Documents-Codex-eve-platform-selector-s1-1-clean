@@ -1,0 +1,95 @@
+{
+  "instruction": "045-R3",
+  "created_at_utc": "2026-08-10T18:06:59.912Z",
+  "classification": "blocked_gaby_runtime_reentry",
+  "sub_blockers": [
+    "blocked_gaby_next_interaction_runtime_source",
+    "blocked_client_bff_security",
+    "blocked_scene_authoritative_creation_boundary",
+    "blocked_panel_same_run_observability"
+  ],
+  "git": {
+    "branch": "release/eve-c312-production",
+    "head": "8becedf4940b9bd19ec9d9968b9308d34070b555",
+    "status_short": "M external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-service.ts\n M external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-types.ts\n M external-consumers/eve-platform/src/services/eve/runtime-40-20/canonical-variable/runtime-40-20-canonical-variable-service.ts\n M external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-canonicalization/runtime-40-20-catalog-canonicalization-service.ts\n M external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-canonicalization/runtime-40-20-catalog-canonicalization.test.mjs\n M external-consumers/eve-platform/src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-service.ts\n M external-consumers/eve-platform/src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-types.ts\n M external-consumers/eve-platform/src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-service.ts\n M external-consumers/eve-platform/tsconfig.json\n?? docs/eve/\n?? external-consumers/eve-platform/.codex-tmp/\n?? external-consumers/eve-platform/docs/eve/runtime/\n?? external-consumers/eve-platform/docs/eve/staging/\n?? external-consumers/eve-platform/scripts/eve/runtime/\n?? external-consumers/eve-platform/scripts/eve/staging/invoke-c312-staging-db.ps1\n?? external-consumers/eve-platform/scripts/eve/staging/invoke-runtime-40-20-staging-db-contract-secure.ps1\n?? external-consumers/eve-platform/scripts/eve/staging/runtime-40-20-staging-db-contract.mjs\n?? external-consumers/eve-platform/src/app/api/eve/runtime-40-20/governed-execution/\n?? external-consumers/eve-platform/src/services/eve/platform-authorization/\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/b7-confidence/\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-authority-crosswalk-044A4.json\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-authority-crosswalk-044A4R.json\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-authority-crosswalk.ts\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-activation/\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-canonical-catalog-draft-loader-postgres-local-adapter.ts\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-canonical-catalog-draft-loader-postgres-local.test.mjs\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-canonical-catalog-draft-loader-service.ts\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-canonical-catalog-draft-loader-types.ts\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-postgres-server-adapter.ts\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-service.ts\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-types.ts\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load.test.mjs\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-legacy-physical-compatibility.ts\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/execution-connected/\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/mmabp-gate/\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/object-inventory/\n?? external-consumers/eve-platform/src/services/eve/runtime-40-20/source-capture/\n?? external-consumers/eve-platform/supabase/migrations/20260804113000_eve_platform_runtime_catalog_global_authorization.sql\n?? external-consumers/eve-platform/supabase/migrations/20260805220000_eve_runtime_40_20_semantic_organs_final_041.sql\n?? external-consumers/eve-platform/supabase/migrations/20260805221000_eve_runtime_40_20_governed_draft_load_rpc_final_041.sql\n?? external-consumers/eve-platform/supabase/migrations/20260806180000_eve_runtime_40_20_legacy_physical_compatibility_rpc_042A.sql\n?? external-consumers/eve-platform/supabase/migrations/20260807010000_eve_runtime_40_20_activate_catalog_043B.sql\n?? external-consumers/eve-platform/tests/regression/consultant-control-panel/platform-runtime-catalog-activate-authorization.test.mjs\n?? external-consumers/eve-platform/tests/regression/consultant-control-panel/platform-runtime-catalog-authorization-db.e2e.test.mjs\n?? external-consumers/eve-platform/tests/regression/consultant-control-panel/platform-runtime-catalog-authorization.test.mjs\n?? external-consumers/eve-platform/tests/regression/consultant-control-panel/runtime-40-20-staging-db-contract.test.mjs\n?? external-consumers/eve-platform/tests/regression/consultant-control-panel/runtime-40-20-staging-db-secure-wrapper.test.mjs"
+  },
+  "staging_project_ref": "shrpiwkxcdgvbqymjecx",
+  "production_consulted": false,
+  "production_ref_prohibited": "bwflscplkjohdhkiqqoc",
+  "material_findings": {
+    "preconditions": {
+      "runtime_catalog_version_count": 2,
+      "runtime_interaction_def_count": 64,
+      "f5_runtime_object_binding_count": 4,
+      "f5_object_materialization_event_count": 4,
+      "f6_runtime_event_outbox_count": 4,
+      "f6_runtime_state_snapshot_count": 4,
+      "scene_registry_count": 0,
+      "runs_with_scene_id": 0
+    },
+    "runtime_runs": {
+      "total_runs": 62,
+      "non_synthetic_runs": 45,
+      "full_runtime_runs": 30,
+      "controlled_gaby_run": {
+        "activity_runtime_run_id": "a5382e2c-030f-4899-bead-8985833825ab",
+        "role_runtime_session_id": "13fdbec5-b649-4fd7-be05-3708f40fabe7",
+        "catalog_version_id": "EVE_RUNTIME_40_20_B0_V1",
+        "state": "active_base_capture",
+        "readiness_state": "in_progress",
+        "scene_id": null
+      },
+      "full_runs_latest_are_synthetic": true,
+      "full_runtime_real_gaby_run_found": false
+    },
+    "frontdoor_code": {
+      "scene_runner_legacy_catalog": "src/components/SceneQuestionnaireRunner.tsx lines 10-19, 42, 281-286, 354-380",
+      "scene_runner_client_canonical_variable": "src/components/SceneQuestionnaireRunner.tsx line 259",
+      "scene_answers_endpoint": "src/app/api/scenes/answers/route.ts lines 56-64 saves scene answers, not Runtime ingest",
+      "client_bff_answer_direct_supabase_import": "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts line 2",
+      "client_bff_answer_local_adapter_and_object_entries": "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts lines 17-21, 122-170",
+      "governed_execution_route_synthetic_gate": "src/app/api/eve/runtime-40-20/governed-execution/advance/route.ts lines 9-17, 109-133"
+    },
+    "prior_material_evidence": {
+      "r2a_server_resolution_map": "runtime-40-20-server-resolution-map-045R2A.json states missing transport/binding of server-issued opaque references from real Gaby flow",
+      "r2g_f6": "runtime_40_20_f6_integration_membrane_staging_conformant"
+    }
+  },
+  "decision": {
+    "real_user_path": false,
+    "runtime_full_question_source": false,
+    "legacy_sequence_authority": true,
+    "client_bff": "38/39_or_less_due_direct_supabase_import_and_local_adapter_path",
+    "server_resolved_semantics": false,
+    "real_branching": "not_executed_on_gaby_real_frontdoor",
+    "real_budget": "not_executed_on_gaby_real_frontdoor",
+    "real_gates": "not_executed_on_gaby_real_frontdoor",
+    "real_readiness": "not_executed_on_gaby_real_frontdoor",
+    "f5_live": "precondition_live_only_not_real_gaby_run",
+    "f6_live": "precondition_live_only_not_real_gaby_run",
+    "same_run_gaby_panel": false,
+    "panel_runtime_observable": false,
+    "scene_id_invention": 0,
+    "cross_tenant_leak": 0,
+    "mba_writes": 0,
+    "diagnostic_release": 0,
+    "export_final": 0,
+    "production_consulted": false
+  },
+  "security": {
+    "staging_consulted": "yes_read_only_selects",
+    "staging_writes": "none_in_045R3",
+    "production_consulted": "no",
+    "production_writes": "none",
+    "scene_writes": "none",
+    "mba_writes": "none",
+    "catalog_activated": "no",
+    "B0_modified": "no",
+    "B1_modified": "no",
+    "Gaby_modified": "no",
+    "Panel_modified": "no",
+    "commit_created": "no"
+  },
+  "artifact": "runtime-40-20-panel-runtime-observability-045R3",
+  "blocker_reason": "panel extension not attempted after upstream run identity block"
+}

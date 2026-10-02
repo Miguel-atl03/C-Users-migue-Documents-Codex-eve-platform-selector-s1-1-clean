@@ -1,0 +1,92 @@
+{
+  "auditId": "COMPLETE-B0-TRANSDUCTION-FIDELITY-XLSX-ROW-COLUMN-V1",
+  "dictamen": "B0_TRANSDUCTION_PARTIAL_OPERATIONAL",
+  "gaps": [
+    {
+      "gapId": "B0-XLSX-GAP-001",
+      "severity": "high",
+      "category": "row_column_fidelity",
+      "description": "The target catalog does not expose the 51 Runtime_Interactions_Base_40 columns as an atomic machine-readable source-to-target contract for B0-Q01..B0-Q04.",
+      "affectedInteractions": [
+        "B0-Q01",
+        "B0-Q02",
+        "B0-Q03",
+        "B0-Q04"
+      ],
+      "sourceEvidence": "Runtime_Interactions_Base_40 rows 2-5 contain governance, epistemic, checkpoint, routing, failure and review columns beyond the core UI fields.",
+      "targetEvidence": "block0.catalog.json preserves core interaction fields but omits many governance columns as direct target properties.",
+      "recommendedAction": "Create an explicit machine-readable row/column contract before claiming complete fidelity."
+    },
+    {
+      "gapId": "B0-XLSX-GAP-002",
+      "severity": "medium",
+      "category": "target_added_fields",
+      "description": "responseKind is present in target but has no direct XLSX source column.",
+      "affectedInteractions": [
+        "B0-Q01",
+        "B0-Q02",
+        "B0-Q03",
+        "B0-Q04"
+      ],
+      "sourceEvidence": "No responseKind column exists in Runtime_Interactions_Base_40.",
+      "targetEvidence": "Target uses compound or textarea responseKind values.",
+      "recommendedAction": "Classify as derived adaptation, with derivation rule and source columns declared."
+    },
+    {
+      "gapId": "B0-XLSX-GAP-003",
+      "severity": "medium",
+      "category": "canonical_help_missing",
+      "description": "B0-Q02 and B0-Q04 do not have direct UX_Subfield_Structure rows, while the target supplies fallback help text.",
+      "affectedInteractions": [
+        "B0-Q02",
+        "B0-Q04"
+      ],
+      "sourceEvidence": "UX_Subfield_Structure only has B0-Q01 and B0-Q03 direct rows.",
+      "targetEvidence": "Target carries fallback/help fields for B0-Q02 and B0-Q04.",
+      "recommendedAction": "Either add canonical source rows or mark the fallback as non-canonical adaptation in the transduction contract."
+    },
+    {
+      "gapId": "B0-XLSX-GAP-004",
+      "severity": "medium",
+      "category": "critical_route_partial",
+      "description": "Critical route CR-B0-WorkMapIntake-semantic-entry is referenced, but not all route columns are transduced atomically into B0 target structure.",
+      "affectedInteractions": [
+        "B0-Q01"
+      ],
+      "sourceEvidence": "Critical_Routes row 2 defines route-level semantics.",
+      "targetEvidence": "Target references routeOrGate/sourceSheetRefs but does not carry full route row as normalized contract.",
+      "recommendedAction": "Represent critical route source columns explicitly if row/column fidelity is required."
+    },
+    {
+      "gapId": "B0-XLSX-GAP-005",
+      "severity": "medium",
+      "category": "budget_rule_partial",
+      "description": "Branching_Budget_Rules BR-009 mentions B0 as a critical route under causal budget exhaustion, but is not atomically represented in the B0 catalog.",
+      "affectedInteractions": [
+        "B0-Q01",
+        "B0-Q02",
+        "B0-Q03",
+        "B0-Q04"
+      ],
+      "sourceEvidence": "Branching_Budget_Rules row 10 references B0/B2/B3/B7 priority under budget pressure.",
+      "targetEvidence": "No per-B0 budget rule object is present in block0.catalog.json.",
+      "recommendedAction": "Map global budget rules into a separate authority layer or approved exclusion."
+    },
+    {
+      "gapId": "B0-XLSX-GAP-006",
+      "severity": "low",
+      "category": "source_absent_direct_rows",
+      "description": "Readiness_Gaps_Reentry, QA_Checklist and Implementation_Dictionaries do not contain direct B0-Q01..B0-Q04 rows.",
+      "affectedInteractions": [
+        "B0-Q01",
+        "B0-Q02",
+        "B0-Q03",
+        "B0-Q04"
+      ],
+      "sourceEvidence": "No direct B0 interaction rows found in these sheets.",
+      "targetEvidence": "No direct row/column mapping can be asserted for these sheets.",
+      "recommendedAction": "Record as source-absent for direct B0 rows, not as target failure."
+    }
+  ],
+  "blockingConclusion": "No approved exclusions were found for the unmapped or target-added units, so complete fidelity cannot be certified."
+}

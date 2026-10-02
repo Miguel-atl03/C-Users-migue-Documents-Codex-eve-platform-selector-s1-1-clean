@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/parallel-production/consistency-report.schema.json",
+  "title": "EVE Capa 1 Parallel Production Consistency Report",
+  "type": "object",
+  "required": [
+    "report_id",
+    "client_id",
+    "source_registry_package_id",
+    "source_mmabp_ir_package_id",
+    "checked_cross_quadrant_relations",
+    "consistency_status",
+    "findings",
+    "blocking_gaps",
+    "warnings"
+  ],
+  "properties": {
+    "checked_cross_quadrant_relations": {
+      "type": "array",
+      "items": {
+        "enum": ["PM_PF", "PF_OLC", "MoC_PF", "MoC_OLC", "PM_PF_OLC"]
+      }
+    },
+    "consistency_status": {
+      "enum": ["passed", "passed_with_warnings", "partial", "blocked"]
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "finding_id",
+          "element_id",
+          "rule_id",
+          "status",
+          "reason",
+          "source_evidence_ids",
+          "source_fact_ids",
+          "gap_ids"
+        ]
+      }
+    },
+    "blocking_gaps": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

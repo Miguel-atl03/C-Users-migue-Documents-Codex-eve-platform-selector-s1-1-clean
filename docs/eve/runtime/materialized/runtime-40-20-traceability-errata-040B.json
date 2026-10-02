@@ -1,0 +1,149 @@
+{
+  "instruction": "Cursor 040-B",
+  "generated_at": "2026-08-05",
+  "head": "8becedf4940b9bd19ec9d9968b9308d34070b555",
+  "classification_support": "mapping_contract_authority_resolved",
+  "policy": "Do not invent new TR-IDs. Do not rewrite historical evidence; record corrections and apply them to live 040-A documentation where listed.",
+  "corrections": [
+    {
+      "errata_id": "040B-TR-001",
+      "target_files": [
+        "docs/eve/runtime/materialized/runtime-40-20-staging-core-projection-map-040A.json",
+        "docs/eve/runtime/materialized/runtime-40-20-staging-core-projection-map-040A.md"
+      ],
+      "scope": "mappings",
+      "previous": {
+        "source_fields": ["mapping_ordinal", "mapping_payload"],
+        "trace_id": "TR-004",
+        "status": ["blocked_semantic_mismatch", "blocked_no_authorized_storage"]
+      },
+      "corrected": {
+        "trace_id": "TR-028",
+        "rector_definition": "runtime_interaction_mapping en staging; Relación N:M interacción↔nodo; Solo mappings explícitos en S04/S06",
+        "rector_source": "docs/eve/runtime/materialized/runtime-40-20-trace-control-031.json section TR-028 (_source_row 32)",
+        "status": "loader_only_not_required_in_staging",
+        "must_exist_in_staging": false,
+        "reason": "TR-004 is Required Field Model (Required_Field_Model sheet), not mapping genealogy. Mapping organ is TR-028. Absence of mapping_ordinal/mapping_payload in staging is conformant."
+      }
+    },
+    {
+      "errata_id": "040B-TR-002",
+      "target_files": [
+        "docs/eve/runtime/materialized/runtime-40-20-staging-core-projection-map-040A.json",
+        "docs/eve/runtime/materialized/runtime-40-20-staging-core-projection-map-040A.md"
+      ],
+      "scope": "subfields",
+      "previous": {
+        "source_fields": [
+          "subfield_ordinal",
+          "source_file/source_sheet/source_row/trace_id/raw_payload"
+        ],
+        "trace_id": "TR-007"
+      },
+      "corrected": {
+        "trace_ids": ["TR-005", "TR-029"],
+        "rector_definitions": {
+          "TR-005": "UX subfields; UX_Subfield_Structure; mapeo literal interaction_id→subfield, orden, tipo y reglas",
+          "TR-029": "runtime_subfield_schema en staging; destino técnico de UX_Subfield_Structure"
+        },
+        "rector_source": "docs/eve/runtime/materialized/runtime-40-20-trace-control-031.json sections TR-005 (_source_row 9) and TR-029 (_source_row 33)",
+        "reason": "TR-007 is Mapa de salida MMABP (MMABP_Output_Map), not the subfield organ. Do not use TR-007 by default for subfield projection."
+      }
+    },
+    {
+      "errata_id": "040B-TR-003",
+      "target_files": [
+        "docs/eve/runtime/materialized/runtime-40-20-staging-core-projection-map-040A.json"
+      ],
+      "scope": "interacciones",
+      "previous": {
+        "trace_id_used_for_all_interaction_definition_rows": "TR-002"
+      },
+      "corrected": {
+        "base_interactions": "TR-002 — Runtime_Interactions_Base_40; Exactamente 40 filas; source_nodes/source_codes no vacíos",
+        "causal_interactions": "TR-003 — Runtime_Interactions_Causal_20; Exactamente 20 filas; trigger_condition no vacío",
+        "projection_annotation": "Generic interactionDefinitions projection rows covering both sheets cite TR-002|TR-003",
+        "rector_source": "docs/eve/runtime/materialized/runtime-40-20-trace-control-031.json sections TR-002 and TR-003"
+      }
+    },
+    {
+      "errata_id": "040B-ALIAS-001",
+      "target_files": [
+        "docs/eve/runtime/materialized/runtime-40-20-staging-core-projection-map-040A.json",
+        "docs/eve/runtime/materialized/runtime-40-20-staging-core-projection-map-040A.md"
+      ],
+      "scope": "aliases",
+      "previous": {
+        "authority_of_transformation": "explicit source evidence plus staging contract"
+      },
+      "corrected_aliases": [
+        {
+          "source_field": "interaction_group",
+          "target_column": "interaction_group_source",
+          "authority": "docs/eve/runtime/materialized/runtime-40-20-staging-core-contract-040A.json → public.runtime_interaction_def.columns → column_name interaction_group_source; source field from docs/eve/runtime/materialized/runtime-40-20-canonical-configuration-031.json interactions[].interaction_group"
+        },
+        {
+          "source_field": "group_normalized",
+          "target_column": "interaction_group_normalized",
+          "authority": "docs/eve/runtime/materialized/runtime-40-20-staging-core-contract-040A.json → public.runtime_interaction_def.columns → column_name interaction_group_normalized; source field from docs/eve/runtime/materialized/runtime-40-20-canonical-configuration-031.json interactions[].group_normalized"
+        },
+        {
+          "source_field": "function_name",
+          "target_column": "function_label",
+          "authority": "docs/eve/runtime/materialized/runtime-40-20-staging-core-contract-040A.json → public.runtime_interaction_def.columns → column_name function_label; source field from docs/eve/runtime/materialized/runtime-40-20-canonical-configuration-031.json interactions[].function_name"
+        },
+        {
+          "source_field": "raw_payload",
+          "target_column": "raw_row_json",
+          "authority": "docs/eve/runtime/materialized/runtime-40-20-staging-core-contract-040A.json → public.runtime_interaction_def.columns → column_name raw_row_json; loader projection raw_payload from CatalogLoader 038-B interaction definition rows"
+        },
+        {
+          "source_field": "subfield_ordinal",
+          "target_column": "ordinal",
+          "authority": "docs/eve/runtime/materialized/runtime-40-20-staging-core-contract-040A.json → public.runtime_subfield_schema.columns → column_name ordinal; TR-005 orden de UX_Subfield_Structure"
+        }
+      ]
+    },
+    {
+      "errata_id": "040B-FRAME-001",
+      "target_files": [
+        "docs/eve/runtime/materialized/runtime-40-20-staging-boundary-reconciliation-040A.json",
+        "docs/eve/runtime/materialized/runtime-40-20-staging-boundary-reconciliation-040A.md",
+        "docs/eve/runtime/materialized/runtime-40-20-staging-core-projection-map-040A.json",
+        "docs/eve/runtime/materialized/runtime-40-20-staging-core-projection-map-040A.md",
+        "docs/eve/runtime/materialized/runtime-40-20-staging-schema-boundary-conformance-040.md"
+      ],
+      "scope": "mapping authority framing",
+      "previous_claim": "Absence of mapping_ordinal/mapping_payload in staging blocks governed content comparison and forces blocked_staging_contract_semantic_conflict for the mapping organ.",
+      "corrected_claim": "mapping_ordinal and mapping_payload are loader/test/RPC-candidate technical constructs. Staging absence is conformant with TR-028 and CATID-R1. 038B.json compared_fields already exclude mapping_payload. Local adapter EXCEPT ALL that includes them is a dual local contract, not staging authority.",
+      "historical_classification_preserved": "blocked_staging_contract_semantic_conflict remains the historical 040-A classification for the instruction as executed; mapping-specific portion is superseded by mapping_contract_authority_resolved"
+    },
+    {
+      "errata_id": "040B-UTF8-001",
+      "target_files": [
+        "docs/eve/runtime/materialized/runtime-40-20-staging-schema-boundary-conformance-040.md"
+      ],
+      "scope": "documentary integrity",
+      "previous": "UTF-8 mojibake (e.g. Clasificaci?n, v?lido, ?rganos, Cat?logo, modific?)",
+      "corrected": "Restore Spanish UTF-8 literals without rewriting factual content"
+    },
+    {
+      "errata_id": "040B-HASH-001",
+      "target_files": [
+        "docs/eve/runtime/materialized/runtime-40-20-staging-boundary-reconciliation-040A-bundle-manifest.json"
+      ],
+      "scope": "documentary integrity",
+      "previous": "Manifest SHA256 values recorded before 040-B documentation corrections",
+      "corrected": "Recalculate SHA256 for every listed file after 040-B edits; keep zip_path historical note"
+    }
+  ],
+  "no_new_tr_ids_created": true,
+  "security": {
+    "staging_consulted": "no",
+    "production_consulted": "no",
+    "remote_writes": "none",
+    "code_functional_modified": "no",
+    "sql_modified": "no",
+    "commit_created": "no"
+  }
+}

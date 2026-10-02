@@ -1,0 +1,70 @@
+{
+  "auditId": "EVE-00-METHOD-KERNEL-OVERLAP-AUDIT-V1_2",
+  "dictamen": "METHOD_KERNEL_OVERLAP_AUDIT_READY_WITH_GAPS",
+  "records": [
+    {
+      "chipArea": "Primary activity selection boundary",
+      "existingArtifact": "src/domain/primary-activity-selection-policy.v1.3.ts; src/services/primary-activity-selector.ts",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "low",
+      "description": "Method Kernel validates methodological conformance after evidence/model candidates exist. Primary Activity Selection v1.3 remains the authority for eligibility, ranking and selectedPrimaryActivities.",
+      "recommendation": "Do not wire Method Kernel into activity scoring or selection. Consume selected/evidence outputs only in a later controlled phase."
+    },
+    {
+      "chipArea": "Runtime 40/20 readiness boundary",
+      "existingArtifact": "src/features/runtime/catalog/runtime-40-20.manifest.json; docs/runtime/runtime-40-20-machine-readable-map.md",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "medium",
+      "description": "Post-adjustment notes clarify that Method Kernel readiness is methodological and not a Runtime readiness/reentry gate. Runtime 40/20 remains partial by blocks.",
+      "recommendation": "Keep Method Kernel output advisory until an explicit mapping to Runtime states is designed and tested."
+    },
+    {
+      "chipArea": "FND-007/FND-008 runtime boundary references",
+      "existingArtifact": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx; docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "medium",
+      "description": "D4/D5 are now marked as compatibility boundary references, not Runtime gate implementations. D5 remains unresolved as declared DOCX.",
+      "recommendation": "Resolve D5 before any certification; keep D4/D5 out of methodological source authority."
+    },
+    {
+      "chipArea": "Runtime B0 evidence boundary",
+      "existingArtifact": "src/features/runtime/block0/block0.catalog.json; src/features/runtime/block0-catalog-snapshot.ts; src/services/runtime-block0-catalog-adapter.ts",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "medium",
+      "description": "Method Kernel may later consume evidence gathered through B0, but it does not replace B0 questions, confirmation, catalog adapter or B0 readiness effects.",
+      "recommendation": "Wire only downstream of B0 completion and never as B0 UI/source authority."
+    },
+    {
+      "chipArea": "WorkMap Writing Assistance",
+      "existingArtifact": "docs/workmap/workmap-writing-assistance-chip.md; docs/audits/_workmap_writing_assistance_doc_to_code_comparison_v1.json",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "low",
+      "description": "WorkMap Writing Assistance remains documented-not-wired and no runtimeAuthority. Method Kernel explicitly does not replace WorkMap.",
+      "recommendation": "No WorkMap wiring in Method Kernel phase."
+    },
+    {
+      "chipArea": "ASRO / operational description",
+      "existingArtifact": "docs/significado/canon/operational-description-brain.md; src/features/significado/operational-description-canon.ts",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "medium",
+      "description": "ASRO owns operational description capture/coaching. Method Kernel can later validate model candidates derived from evidence but must not rewrite ASRO capture rules.",
+      "recommendation": "Keep a one-way evidence consumption boundary."
+    },
+    {
+      "chipArea": "Document Transduction QA",
+      "existingArtifact": "docs/architecture/DOCUMENT_TRANSDUCTION_QA_STANDARD_V1.md; src/config/document-transduction-qa-policy.ts",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "low",
+      "description": "Document Transduction QA governs package/source fidelity; Method Kernel remains subject to QA and does not replace it.",
+      "recommendation": "Use QA policy for future DOCX regeneration and D5 resolution."
+    },
+    {
+      "chipArea": "Rector docs registry",
+      "existingArtifact": "src/config/rector-docs-registry.ts",
+      "overlapType": "authority_overlap",
+      "riskLevel": "medium",
+      "description": "The package is not registered as runtimeAuthority. D5 unresolved and DOCX stale prevent certification-level registry authority.",
+      "recommendation": "Do not register runtimeAuthority until D5 and DOCX parity are resolved."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P7_COMMAND_RESULTS",
+  "generated_at": "2026-07-08T18:05:00.000Z",
+  "commands": {
+    "typecheck": { "command": "npx tsc --noEmit --pretty false", "status": "passed" },
+    "build": { "command": "npx next build --webpack", "status": "passed", "note": "Turbopack fails on long Windows path; webpack build succeeded" },
+    "consultant_result_tests": { "command": "node --test consultant-result.test.mjs", "status": "passed", "count": 36 },
+    "client_result_tests": { "command": "node --test client-result.test.mjs", "status": "passed", "count": 39 },
+    "gates_readiness_tests": { "command": "node --test gates-readiness.test.mjs", "status": "passed", "count": 40 },
+    "runtime_real_tests": { "command": "node --test runtime-real.test.mjs", "status": "passed", "count": 20 },
+    "client_bff_tests": { "command": "node --test client-bff.test.mjs", "status": "passed", "count": 39 },
+    "client_membrane_tests": { "command": "node --test client-membrane.test.mjs", "status": "passed" },
+    "supabase_status": { "command": "npx supabase status", "status": "passed", "local_available": true },
+    "p7_smoke": { "command": "p7-consultant-review-packet-local-smoke.mjs", "status": "passed" },
+    "p7_validate": { "command": "p7-validate-consultant-review-packet.mjs", "status": "passed" },
+    "p7_boundary_scan": { "command": "p7-scan-consultant-output-boundaries.mjs", "status": "passed" }
+  },
+  "production_supabase_touched": false,
+  "activation_allowed": false
+}

@@ -1,0 +1,48 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-RECORD-RULE-SOURCE-QA-V1",
+  "module": "mmabp_conformance_gate",
+  "dictamen": "GATE_ENGINE_RECORD_RULE_QA_BLOCKED",
+  "satisfactionStatus": "blocked",
+  "sourcesRequired": ["D1", "D5", "D7", "D8"],
+  "sourcesRead": {
+    "D1": "pdf_structural_read_only",
+    "D5": "docx_text_extracted",
+    "D7": "docx_text_extracted",
+    "D8": "xlsx_workbook_read"
+  },
+  "itemsChecked": {
+    "engineRules": ["CONF-ENG-001", "CONF-ENG-002", "CONF-ENG-003", "CONF-ENG-004", "CONF-ENG-005", "CONF-ENG-006", "CONF-ENG-007", "CONF-ENG-008"],
+    "modelRulesCount": 53,
+    "modelRulePrefixesObserved": ["PM", "MOC", "PF", "OLC"]
+  },
+  "fieldsRequired": [
+    "PM, MoC, PF, OLC separados",
+    "conformance antes de consistency",
+    "condicion factual antes de alineacion de modelos",
+    "no sustituir MMABP con VSM/AHE",
+    "no cerrar conformance con inferencia IA no confirmada"
+  ],
+  "observations": {
+    "declaredEngineRulesCountMatches": true,
+    "declaredModelRulesCountMatches": true,
+    "allItemsHaveSourceRefs": true,
+    "D1ReferencesPresentInPackage": true,
+    "D5D7D8ReferencesPresentInPackage": true
+  },
+  "qaClassification": {
+    "exact_match": 0,
+    "normalized_equivalent": 0,
+    "controlled_transformation_with_source": 0,
+    "mismatch": 0,
+    "missing_in_chip": 0,
+    "missing_in_source": 0,
+    "pending_source_proof": 61,
+    "not_applicable_with_justification": 0
+  },
+  "blockers": [
+    "D1 PDF material text was not extractable with available local tooling.",
+    "53 model rules cannot be certified against D1 sections without material PDF comparison.",
+    "No complete field-level proof was produced for all PM/MoC/PF/OLC conformance assertions."
+  ],
+  "satisfactionStatusReason": "This module depends on D1 as methodological source; D1 material comparison is blocked."
+}

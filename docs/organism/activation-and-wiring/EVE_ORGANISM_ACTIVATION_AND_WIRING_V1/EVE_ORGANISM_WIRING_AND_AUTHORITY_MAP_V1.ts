@@ -1,0 +1,5181 @@
+/* Auto-generated rector artifact. This map does not perform product wiring. */
+export const WIRING_MAP_ID = "EVE-ORGANISM-WIRING-AND-AUTHORITY-MAP-V1" as const;
+export const wiringAndAuthorityMap = {
+  "map_id": "EVE-ORGANISM-WIRING-AND-AUTHORITY-MAP-V1",
+  "version": "1.0.0",
+  "generated_at": "2026-06-24",
+  "language": "es",
+  "status": "RECTOR_MAP_READY_FOR_COMPOSITION_ROOT_SHADOW_DESIGN_WITH_BLOCKING_GAPS",
+  "certification_scope": {
+    "observed_inventory_ingested": "PASS",
+    "target_wiring_internal_consistency": "PASS",
+    "productive_wiring": "NOT_AUTHORIZED",
+    "reason": "El mapa define el objetivo; no prueba DB/RLS, outbox, rollback, route authority ni wiring productivo."
+  },
+  "identity": {
+    "system": "EVE Platform",
+    "purpose": "Definir componentes, edges, transductores, autoridad y fronteras para ensamblar el organismo sin conexiones directas indebidas.",
+    "counting_rule": "EVE-00 kernel constitucional + EVE-01..EVE-08 ocho chips funcionales."
+  },
+  "source_registry": [
+    {
+      "source_id": "SRC-INV-01",
+      "title": "EVE Organism Repo Technical Inventory V1 (JSON)",
+      "source_path": "docs/audits/_eve_organism_repo_technical_inventory_v1.json",
+      "sha256": "d2e9c3b9a21d1216a7ca0dda47ccfa8135b5042522524c44610bd411211683e7",
+      "authority": "Observed repo inventory",
+      "use": "Factual inventory of routes, services, chips, signals, entities, flags and governance mechanisms."
+    },
+    {
+      "source_id": "SRC-GRAPH-01",
+      "title": "EVE Organism Repo Connection Graph V1",
+      "source_path": "docs/audits/_eve_organism_repo_connection_graph_v1.json",
+      "sha256": "7ce33cef41c3120c98598023f9da274adb0f2ff10281b1e2f79090a542c66fb2",
+      "authority": "Observed wiring evidence",
+      "use": "Observed component nodes and wiring edges."
+    },
+    {
+      "source_id": "SRC-AUTH-01",
+      "title": "EVE Organism Authority Matrix Observed V1",
+      "source_path": "docs/audits/_eve_organism_authority_matrix_observed_v1.json",
+      "sha256": "06c0aaae9359be238662aaebe713f5dd95380d89fb301367beb5e88bb215fdef",
+      "authority": "Observed authority evidence",
+      "use": "Observed read/write-capable authority surfaces and risks."
+    },
+    {
+      "source_id": "SRC-GAP-01",
+      "title": "EVE Organism Activation Gap Index V1",
+      "source_path": "docs/audits/_eve_organism_activation_gap_index_v1.json",
+      "sha256": "0b19cefd8e4e70dc380118d2ce51f9c9a8157df1978240ecf3d957d3868e57c2",
+      "authority": "Activation blocker evidence",
+      "use": "Critical/high/medium gaps that must constrain activation."
+    },
+    {
+      "source_id": "SRC-ORG-01",
+      "title": "EVE Runtime Fases 1 a 8 como organismo vivo",
+      "source_path": "EVE_Runtime_Fases_1_a_8_Organismo_Vivo_Contexto_Operativo_v1.docx",
+      "sha256": "6afb25ca5a4e1ccda96c8bcd9cca7c2137f2e2ce90159d0a912fac2a9ff87edc",
+      "authority": "Operational organism context",
+      "use": "Anatomy, nervous system, regulation, rehearsal/candidate boundaries and non-production identity."
+    },
+    {
+      "source_id": "SRC-UI-01",
+      "title": "Handoff Login a WorkMap",
+      "source_path": "HANDOFF_Bundle_Pantallas_EVE_Login_a_WorkMap.docx",
+      "sha256": "c314e18a3eef1515ef79d441ac7f250b2df879c1aef256e7b820ced1d5331994",
+      "authority": "Approved UI continuity handoff",
+      "use": "Frozen client flow and no-substitution rule."
+    },
+    {
+      "source_id": "SRC-UI-02",
+      "title": "Handoff WorkMap a Significado",
+      "source_path": "HANDOFF_WorkMap_a_Significado_de_tu_trabajo.docx",
+      "sha256": "2da47f7f8d1d2008bfa93c015c03466eb5cdd366e9e5ef543557f7adbd9a525b",
+      "authority": "Approved WorkMap-to-Significado handoff",
+      "use": "Continuation flow, coverage-only readiness and frozen WorkMap baseline."
+    },
+    {
+      "source_id": "SRC-EVE08-01",
+      "title": "EVE 08 Audit and Governance v0.1.1 candidate",
+      "source_path": "docs/chips/audit-and-governance/EVE_08_Audit_And_Governance_v0_1_1_candidate/EVE_08_Audit_And_Governance_v0_1_1_candidate.json",
+      "sha256": "b397ac950ef0f847a5897794b285745500c484ab768e998215854dce104034d9",
+      "authority": "Governance candidate evidence",
+      "use": "Brain blockers, QA status, governance closure and non-activation state."
+    },
+    {
+      "source_id": "SRC-MMABP-01",
+      "title": "Fundamentals of Business Architecture Modeling",
+      "source_path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/sources/Fundamentals of Business Architecture Modeling.pdf",
+      "sha256": "3dd3485afa518244cb600b4c479cad0ea11f242e88e4204b9422739ddf843147",
+      "authority": "Supreme MMABP method authority",
+      "use": "Conformance, consistency and PM/MoC/PF/OLC discipline."
+    },
+    {
+      "source_id": "SRC-VSM-01",
+      "title": "Organizational Systems: Managing Complexity with the Viable System Model",
+      "source_path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/Organizational Systems Managing Complexity with the Viable System model.pdf",
+      "sha256": "00bd8009333bedf9bc5dbbd2d2ff3f295bb874066b319796744b1ef019fca418",
+      "authority": "VSM viability and governance authority",
+      "use": "Autonomy/cohesion, intrinsic/extrinsic control, coordination, variety and systemic functions."
+    },
+    {
+      "source_id": "SRC-AHE-01",
+      "title": "Marco AHE",
+      "source_path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/sources/Marco de Interpretación y Observación Explicativo Arquitectura Humana Empresarial_(AHE).docx",
+      "sha256": "17f5845744bff404e9218e641b3006c2c6f32f5870c3fe81d1bd47077104b55e",
+      "authority": "Human recursive causality lens",
+      "use": "Human burden, coercive governance, algedonic suppression and zero-sum reproduction."
+    }
+  ],
+  "evidence_index": [
+    {
+      "evidence_id": "EV-INV-COUNTS",
+      "source_id": "SRC-INV-01",
+      "locator": "$.inventory_counts",
+      "literal_or_value": {
+        "src_app_files": 59,
+        "ui_routes": 15,
+        "api_services": 33,
+        "scripts": 30,
+        "tests": 120,
+        "chips_found": 9,
+        "nervous_signals": 16,
+        "governance_mechanisms": 12,
+        "data_entities": 16,
+        "feature_flags": 9,
+        "wiring_edges": 28,
+        "authority_rows": 16,
+        "gaps": 14
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-INV-ROUTES",
+      "source_id": "SRC-INV-01",
+      "locator": "$.ui_routes / $.api_services.routes_observed",
+      "literal_or_value": {
+        "ui_routes": 15,
+        "api_routes": 33
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-INV-SIGNALS",
+      "source_id": "SRC-INV-01",
+      "locator": "$.nervous_signals",
+      "literal_or_value": [
+        "auth_user_id",
+        "empresa_id",
+        "sessionId",
+        "activityId",
+        "flowState",
+        "workmap draft",
+        "questionnaire answers",
+        "primary activity selection",
+        "support activity selection",
+        "Significado Block0 answers",
+        "diagnostic session state",
+        "scene bootstrap/canonicalize/preclassify/consistency",
+        "runtime observability events",
+        "MBA shadow observations",
+        "parallel production runtime artifacts",
+        "candidate export payloads"
+      ],
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-INV-GOV",
+      "source_id": "SRC-INV-01",
+      "locator": "$.governance_mechanisms",
+      "literal_or_value": [
+        "session-boundary auth and owner resolution",
+        "rector docs registry runtimeAuthority declarations",
+        "document transduction QA policy",
+        "primary activity selection policy v1.3",
+        "runtime Block0 catalog adapter and response model",
+        "WorkMap save/operational readiness validation",
+        "Significado source and block0 persistence boundary",
+        "MBA transition guard and shadow observer",
+        "parallel production warning/readiness services",
+        "shadow harness safety flags for EVE00-EVE08",
+        "regression tests for candidate-only/not-wired claims",
+        "runtime observability and VSM admin read surfaces"
+      ],
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-INV-CHIPS",
+      "source_id": "SRC-INV-01",
+      "locator": "$.chips_found",
+      "literal_or_value": [
+        {
+          "chip": "EVE-00 Method Kernel",
+          "path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-01 Agent Constitution",
+          "path": "docs/chips/agent-constitution/EVE_01_Agent_Constitution_v0_1/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-02 Diagnostic Ontology",
+          "path": "docs/chips/diagnostic-ontology/EVE_02_Diagnostic_Ontology_v0_1/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-03 Canonical Catalog",
+          "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-04 Runtime Catalog",
+          "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/",
+          "status_observed": "candidate_or_shadow_work_in_progress"
+        },
+        {
+          "chip": "EVE-05 Gate Engine",
+          "path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-06 Execution Engine",
+          "path": "docs/chips/execution-engine/EVE_06_Execution_Engine_v0_1/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-07 Parallel Production Interface",
+          "path": "docs/chips/parallel-production-interface/EVE_07_Parallel_Production_Interface_v0_1_2_candidate/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        },
+        {
+          "chip": "EVE-08 Audit and Governance",
+          "path": "docs/chips/audit-and-governance/EVE_08_Audit_And_Governance_v0_1_1_candidate/",
+          "status_observed": "candidate_not_wired_or_shadow_artifacts"
+        }
+      ],
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-GRAPH-OBS",
+      "source_id": "SRC-GRAPH-01",
+      "locator": "$.edges",
+      "literal_or_value": {
+        "edge_count": 28
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-AUTH-OBS",
+      "source_id": "SRC-AUTH-01",
+      "locator": "$.rows",
+      "literal_or_value": {
+        "row_count": 16,
+        "write_capable_rows": 6
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-GAPS",
+      "source_id": "SRC-GAP-01",
+      "locator": "$.gaps",
+      "literal_or_value": {
+        "count": 14,
+        "critical": 5,
+        "high": 7,
+        "medium": 2
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-ORG-REHEARSAL",
+      "source_id": "SRC-ORG-01",
+      "locator": "paragraph 256",
+      "literal_or_value": "Fase 8 prepara Producción Paralela como rehearsal/candidate. Persistió candidatos de run y artifacts, integró la capa Camunda/BPMN como control de calidad, y verificó No-Go, design readiness y ausencia de export o transducción.",
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-ORG-NO-PROD",
+      "source_id": "SRC-ORG-01",
+      "locator": "paragraphs 289,292,299",
+      "literal_or_value": [
+        "No Producción Paralela real.",
+        "No diagnóstico.",
+        "El recorrido no es una lista de módulos; es una maduración orgánica. Cada fase agrega una capacidad nueva sin eliminar la anterior. La base captura, el loader alimenta, el motor mueve, los gates protegen, Object Inventory da forma, la Membrana regula frontera, Soft Governance observa en sombra y Producción Paralela ensaya movimiento exterior sin cruzar a producción real."
+      ],
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-ORG-ALGEDONIC",
+      "source_id": "SRC-ORG-01",
+      "locator": "paragraph 228",
+      "literal_or_value": "AlgedonicSignal se enruta al canal algedónico sin handoff ni bloqueo.",
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-HANDOFF-NOSUB",
+      "source_id": "SRC-UI-01",
+      "locator": "paragraphs 8,20,63",
+      "literal_or_value": [
+        "La nueva pantalla debe conectarse con WorkMap como una continuación del flujo, no como una reescritura del flujo anterior. WorkMap quedó aprobado y congelado; cualquier cambio futuro debe ser explícitamente autorizado.",
+        "Toda intervención debe ser agregación, salvo autorización explícita de sustitución o rollback.",
+        "Toda mejora futura debe agregarse sobre lo aprobado; no sustituir."
+      ],
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-HANDOFF-WMSIG",
+      "source_id": "SRC-UI-02",
+      "locator": "paragraphs 25,29",
+      "literal_or_value": [
+        "Las mejoras son agregaciones. No sustituir helpers, contratos o microcopy aprobados salvo que Miguel lo autorice de forma explícita.",
+        "La pantalla WorkMap quedó aprobada y congelada en F9UI.1-C40-H12. Debe tratarse como baseline estable. La siguiente pantalla debe conectarse a ella, no absorberla ni modificarla."
+      ],
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-MMABP-CONFORMANCE",
+      "source_id": "SRC-MMABP-01",
+      "locator": "PDF page 180 (file page 194)",
+      "literal_or_value": "Conformance evaluation ... focuses on evaluation of the alignment of models with the real world.",
+      "evidence_type": "literal_pdf_excerpt"
+    },
+    {
+      "evidence_id": "EV-MMABP-CONSISTENCY",
+      "source_id": "SRC-MMABP-01",
+      "locator": "PDF page 182 (file page 196)",
+      "literal_or_value": "Consistency is not conformance ... first determine what are the facts (reality) ... then correct the models accordingly.",
+      "evidence_type": "literal_pdf_excerpt"
+    },
+    {
+      "evidence_id": "EV-VSM-CONTROL",
+      "source_id": "SRC-VSM-01",
+      "locator": "PDF pages 21,55",
+      "literal_or_value": "Stability cannot depend on extrinsic control; control in an organizational system should be interpreted mainly as self-regulation.",
+      "evidence_type": "literal_pdf_excerpt"
+    },
+    {
+      "evidence_id": "EV-VSM-COORD",
+      "source_id": "SRC-VSM-01",
+      "locator": "PDF page 59",
+      "literal_or_value": "Communication understood as coordination of actions implies a circular process and continuous negotiation.",
+      "evidence_type": "literal_pdf_excerpt"
+    },
+    {
+      "evidence_id": "EV-VSM-AUTONOMY",
+      "source_id": "SRC-VSM-01",
+      "locator": "PDF page 124",
+      "literal_or_value": "Viable organizations have recursive structures of autonomous units within autonomous units; the VSM balances autonomy and cohesion.",
+      "evidence_type": "literal_pdf_excerpt"
+    },
+    {
+      "evidence_id": "EV-AHE-BURDEN",
+      "source_id": "SRC-AHE-01",
+      "locator": "paragraphs 36,65,72",
+      "literal_or_value": [
+        "Empatía-Amor (El Sentir): La capacidad de conexión genuina. En sistemas de suma cero, el canal algedónico (señal de dolor sistémico) está anestesiado. AHE observa cómo la empatía es reemplazada por la reactividad defensiva, donde el individuo aprende que sentir el dolor del sistema es peligroso para su propia supervivencia.",
+        "La Emancipación Estructural: AHE explica que la reversión de la patología en este nivel requiere emancipación. No se trata de cambiar la estructura directamente, sino de usar mecanismos (como auditorías S3*) para traer a la luz lo que la distinción oculta, forzando al sistema a ver que lo \"inevitable\" es contingente. Al cambiar la distinción fundamental que S5 usa para observar el mundo, se diseñan nuevos mecanismos formales que hacen que la suma cero sea estructuralmente imposible, obligando a la organización a reorganizarse alrededor de la generación de valor.",
+        "La divergencia en el proceso (MMABP) no es un error de diseño, sino la materialización de una distinción arbitraria de suma cero (Luhmann) protegida por el poder de agenda (Jackson). Esta estructura satura a S3 (VSM), lo que anestesia el canal algedónico y suprime la Curiosidad y la Empatía del individuo (Nivel Intrapersonal). Bajo estas restricciones, la alteración de la información reportada no es una desviación conductual, sino el único mecanismo de supervivencia matemáticamente viable para el individuo."
+      ],
+      "evidence_type": "literal_docx_paragraph"
+    },
+    {
+      "evidence_id": "EV-EVE08-BLOCKERS",
+      "source_id": "SRC-EVE08-01",
+      "locator": "$.initial_brain_assessment.blockers",
+      "literal_or_value": {
+        "count": 11,
+        "activation_decision": "BLOCKED"
+      },
+      "evidence_type": "exact_json_value"
+    },
+    {
+      "evidence_id": "EV-EVE08-CLOSURE",
+      "source_id": "SRC-EVE08-01",
+      "locator": "$.governance_closure_register",
+      "literal_or_value": {
+        "closure_state": "SYSTEMIC_GOVERNANCE_DEFINED_NOT_ACTIVATED",
+        "evidence_authority_order": [
+          "exact predecessor artifact snapshot and hashes",
+          "rector source files and current manifests",
+          "source-proof matrices bound to exact artifacts",
+          "hash-bound shadow harness results",
+          "secondary audits and historical procedure evidence"
+        ],
+        "open_obligations": [
+          {
+            "obligation_id": "CLOSE-001",
+            "scope": "EVE00–EVE06",
+            "action": "Create exhaustive source-proof matrices and independent QA",
+            "blocking": true
+          },
+          {
+            "obligation_id": "CLOSE-002",
+            "scope": "EVE03↔EVE04",
+            "action": "Reconcile 33 pending definitions upstream",
+            "blocking": true
+          },
+          {
+            "obligation_id": "CLOSE-003",
+            "scope": "EVE06",
+            "action": "Independent QA rerun",
+            "blocking": true
+          },
+          {
+            "obligation_id": "CLOSE-004",
+            "scope": "EVE07",
+            "action": "Exact-hash source preflight and bound shadow harness",
+            "blocking": true
+          },
+          {
+            "obligation_id": "CLOSE-005",
+            "scope": "EVE08",
+            "action": "Repo intake and shadow governance harness",
+            "blocking": true
+          },
+          {
+            "obligation_id": "CLOSE-006",
+            "scope": "brain activation",
+            "action": "Rollback drill, human approval and single-authority switch",
+            "blocking": true
+          }
+        ],
+        "resolved_in_this_version": [
+          "Exact 00–07 snapshot binding",
+          "Stale audit classification",
+          "System-state evidence matrix",
+          "QA status semantics for stale evidence, status consistency and dependency blocking",
+          "Version lineage and non-overwrite policy"
+        ]
+      },
+      "evidence_type": "exact_json_value"
+    }
+  ],
+  "observed_snapshot": {
+    "nodes": [
+      {
+        "id": "ui.home",
+        "kind": "ui_route",
+        "path": "src/app/page.tsx",
+        "route": "/"
+      },
+      {
+        "id": "ui.admin.runtime_vsm",
+        "kind": "ui_route",
+        "path": "src/app/admin/runtime-vsm/page.tsx",
+        "route": "/admin/runtime-vsm"
+      },
+      {
+        "id": "ui.admin.significado_trace",
+        "kind": "ui_route",
+        "path": "src/app/admin/significado-trace/page.tsx",
+        "route": "/admin/significado-trace"
+      },
+      {
+        "id": "ui.admin.significado_trace_session",
+        "kind": "ui_route",
+        "path": "src/app/admin/significado-trace/[sessionId]/page.tsx",
+        "route": "/admin/significado-trace/[sessionId]"
+      },
+      {
+        "id": "ui.dev.method_kernel_shadow",
+        "kind": "dev_route",
+        "path": "src/app/dev/method-kernel-shadow/page.tsx",
+        "route": "/dev/method-kernel-shadow"
+      },
+      {
+        "id": "ui.dev.agent_constitution_shadow",
+        "kind": "dev_route",
+        "path": "src/app/dev/agent-constitution-shadow/page.tsx",
+        "route": "/dev/agent-constitution-shadow"
+      },
+      {
+        "id": "ui.dev.diagnostic_ontology_shadow",
+        "kind": "dev_route",
+        "path": "src/app/dev/diagnostic-ontology-shadow/page.tsx",
+        "route": "/dev/diagnostic-ontology-shadow"
+      },
+      {
+        "id": "ui.dev.canonical_catalog_shadow",
+        "kind": "dev_route",
+        "path": "src/app/dev/canonical-catalog-shadow/page.tsx",
+        "route": "/dev/canonical-catalog-shadow"
+      },
+      {
+        "id": "ui.dev.runtime_catalog_shadow",
+        "kind": "dev_route",
+        "path": "src/app/dev/runtime-catalog-shadow/page.tsx",
+        "route": "/dev/runtime-catalog-shadow"
+      },
+      {
+        "id": "ui.dev.gate_engine_shadow",
+        "kind": "dev_route",
+        "path": "src/app/dev/eve-05-gate-engine-shadow/page.tsx",
+        "route": "/dev/eve-05-gate-engine-shadow"
+      },
+      {
+        "id": "ui.dev.execution_engine_shadow",
+        "kind": "dev_route",
+        "path": "src/app/dev/eve-06-execution-engine-shadow/page.tsx",
+        "route": "/dev/eve-06-execution-engine-shadow"
+      },
+      {
+        "id": "ui.dev.parallel_production_shadow",
+        "kind": "dev_route",
+        "path": "src/app/dev/eve-07-parallel-production-interface-shadow/page.tsx",
+        "route": "/dev/eve-07-parallel-production-interface-shadow"
+      },
+      {
+        "id": "ui.dev.audit_governance_shadow",
+        "kind": "dev_route",
+        "path": "src/app/dev/eve-08-audit-and-governance-shadow/page.tsx",
+        "route": "/dev/eve-08-audit-and-governance-shadow"
+      },
+      {
+        "id": "api.session.bootstrap",
+        "kind": "api_route",
+        "path": "src/app/api/session/bootstrap/route.ts",
+        "route": "/api/session/bootstrap",
+        "method": "POST"
+      },
+      {
+        "id": "api.session.restore",
+        "kind": "api_route",
+        "path": "src/app/api/session/restore/route.ts",
+        "route": "/api/session/restore",
+        "method": "POST"
+      },
+      {
+        "id": "api.rank_activities",
+        "kind": "api_route",
+        "path": "src/app/api/rank-activities/route.ts",
+        "route": "/api/rank-activities",
+        "method": "POST"
+      },
+      {
+        "id": "api.questionnaire.catalog",
+        "kind": "api_route",
+        "path": "src/app/api/questionnaire/catalog/route.ts",
+        "route": "/api/questionnaire/catalog",
+        "method": "unknown_from_export_scan"
+      },
+      {
+        "id": "api.questionnaire.submit",
+        "kind": "api_route",
+        "path": "src/app/api/questionnaire/submit/route.ts",
+        "route": "/api/questionnaire/submit",
+        "method": "POST"
+      },
+      {
+        "id": "api.significado.block0",
+        "kind": "api_route",
+        "path": "src/app/api/significado/block0/route.ts",
+        "route": "/api/significado/block0",
+        "method": "POST"
+      },
+      {
+        "id": "api.diagnostics.session",
+        "kind": "api_route",
+        "path": "src/app/api/diagnostics/session/route.ts",
+        "route": "/api/diagnostics/session",
+        "method": "POST"
+      },
+      {
+        "id": "api.runtime.vsm",
+        "kind": "api_route",
+        "path": "src/app/api/runtime/vsm/route.ts",
+        "route": "/api/runtime/vsm",
+        "method": "GET"
+      },
+      {
+        "id": "api.runtime.observability",
+        "kind": "api_route",
+        "path": "src/app/api/runtime/observability/route.ts",
+        "route": "/api/runtime/observability",
+        "method": "GET"
+      },
+      {
+        "id": "api.parallel.assessment_run",
+        "kind": "api_route",
+        "path": "src/app/api/parallel-production/assessment/run/route.ts",
+        "route": "/api/parallel-production/assessment/run",
+        "method": "POST"
+      },
+      {
+        "id": "api.parallel.candidate_export",
+        "kind": "api_route",
+        "path": "src/app/api/parallel-production/candidate-export/generate/route.ts",
+        "route": "/api/parallel-production/candidate-export/generate",
+        "method": "POST"
+      },
+      {
+        "id": "api.scenes.bootstrap",
+        "kind": "api_route",
+        "path": "src/app/api/scenes/bootstrap/route.ts",
+        "route": "/api/scenes/bootstrap",
+        "method": "POST"
+      },
+      {
+        "id": "api.scenes.canonicalize",
+        "kind": "api_route",
+        "path": "src/app/api/scenes/canonicalize/route.ts",
+        "route": "/api/scenes/canonicalize",
+        "method": "POST"
+      },
+      {
+        "id": "api.scenes.preclassify",
+        "kind": "api_route",
+        "path": "src/app/api/scenes/preclassify/route.ts",
+        "route": "/api/scenes/preclassify",
+        "method": "POST"
+      },
+      {
+        "id": "api.scenes.consistency",
+        "kind": "api_route",
+        "path": "src/app/api/scenes/consistency/route.ts",
+        "route": "/api/scenes/consistency",
+        "method": "POST"
+      },
+      {
+        "id": "service.supabase_client",
+        "kind": "client",
+        "path": "src/lib/supabase.ts"
+      },
+      {
+        "id": "service.supabase_server",
+        "kind": "client",
+        "path": "src/lib/supabase-server.ts"
+      },
+      {
+        "id": "service.session_boundary",
+        "kind": "authority_boundary",
+        "path": "src/lib/session-boundary.ts"
+      },
+      {
+        "id": "service.workmap",
+        "kind": "domain_service_group",
+        "path": "src/services/work-map-*.ts"
+      },
+      {
+        "id": "service.significado",
+        "kind": "domain_service_group",
+        "path": "src/services/significado-*.ts"
+      },
+      {
+        "id": "service.runtime_block0",
+        "kind": "domain_service_group",
+        "path": "src/services/runtime-block0-*.ts"
+      },
+      {
+        "id": "service.parallel_runtime",
+        "kind": "runtime_service_group",
+        "path": "src/services/parallel-production/runtime/*.mjs"
+      },
+      {
+        "id": "service.mba_shadow_observer",
+        "kind": "shadow_observer",
+        "path": "src/services/mba/shadow-observer.js"
+      },
+      {
+        "id": "config.rector_docs_registry",
+        "kind": "authority_registry",
+        "path": "src/config/rector-docs-registry.ts"
+      },
+      {
+        "id": "config.transduction_qa",
+        "kind": "qa_policy",
+        "path": "src/config/document-transduction-qa-policy.ts"
+      }
+    ],
+    "edges": [
+      {
+        "from": "ui.home",
+        "to": "service.supabase_client",
+        "type": "client_auth_session",
+        "evidence": "src/app/page.tsx imports @/lib/supabase"
+      },
+      {
+        "from": "ui.home",
+        "to": "api.session.bootstrap",
+        "type": "session_bootstrap",
+        "evidence": "observed route and session bootstrap flow"
+      },
+      {
+        "from": "ui.home",
+        "to": "api.rank_activities",
+        "type": "activity_ranking",
+        "evidence": "src/app/page.tsx fetches /api/rank-activities"
+      },
+      {
+        "from": "ui.home",
+        "to": "api.scenes.bootstrap",
+        "type": "scene_bootstrap",
+        "evidence": "src/app/page.tsx fetches /api/scenes/bootstrap"
+      },
+      {
+        "from": "ui.home",
+        "to": "api.diagnostics.session",
+        "type": "diagnostics_session",
+        "evidence": "src/app/page.tsx fetches /api/diagnostics/session"
+      },
+      {
+        "from": "ui.home",
+        "to": "service.workmap",
+        "type": "workmap_intake",
+        "evidence": "WorkMapIntake and work-map services are present"
+      },
+      {
+        "from": "ui.home",
+        "to": "service.significado",
+        "type": "significado_flow",
+        "evidence": "Significado component and block0 route are present"
+      },
+      {
+        "from": "api.session.bootstrap",
+        "to": "service.supabase_server",
+        "type": "server_persistence",
+        "evidence": "route uses supabase server client"
+      },
+      {
+        "from": "api.significado.block0",
+        "to": "service.session_boundary",
+        "type": "session_owner_check",
+        "evidence": "route imports resolveSessionOwner"
+      },
+      {
+        "from": "api.significado.block0",
+        "to": "service.significado",
+        "type": "block0_persistence",
+        "evidence": "route calls persistSignificadoBlock0Answers"
+      },
+      {
+        "from": "api.runtime.vsm",
+        "to": "api.runtime.observability",
+        "type": "runtime_admin_observation",
+        "evidence": "runtime admin routes exist"
+      },
+      {
+        "from": "api.parallel.assessment_run",
+        "to": "service.parallel_runtime",
+        "type": "parallel_production_runtime_call",
+        "evidence": "parallel-production route imports runtime service"
+      },
+      {
+        "from": "api.parallel.candidate_export",
+        "to": "service.parallel_runtime",
+        "type": "candidate_export_generation",
+        "evidence": "candidate-export route imports runtime service"
+      },
+      {
+        "from": "api.parallel.assessment_run",
+        "to": "service.mba_shadow_observer",
+        "type": "shadow_observation",
+        "evidence": "parallel production routes log mba shadow observations"
+      },
+      {
+        "from": "api.scenes.canonicalize",
+        "to": "service.mba_shadow_observer",
+        "type": "scene_shadow_observation",
+        "evidence": "scenes canonicalize imports shadow observer"
+      },
+      {
+        "from": "config.rector_docs_registry",
+        "to": "service.runtime_block0",
+        "type": "declared_runtime_authority",
+        "evidence": "runtimeAuthority true for selected operational docs"
+      },
+      {
+        "from": "ui.dev.method_kernel_shadow",
+        "to": "chip.eve_00",
+        "type": "dev_shadow_harness",
+        "evidence": "dev route exists"
+      },
+      {
+        "from": "ui.dev.agent_constitution_shadow",
+        "to": "chip.eve_01",
+        "type": "dev_shadow_harness",
+        "evidence": "dev route exists"
+      },
+      {
+        "from": "ui.dev.diagnostic_ontology_shadow",
+        "to": "chip.eve_02",
+        "type": "dev_shadow_harness",
+        "evidence": "dev route exists"
+      },
+      {
+        "from": "ui.dev.canonical_catalog_shadow",
+        "to": "chip.eve_03",
+        "type": "dev_shadow_harness",
+        "evidence": "dev route exists"
+      },
+      {
+        "from": "ui.dev.runtime_catalog_shadow",
+        "to": "chip.eve_04",
+        "type": "dev_shadow_harness",
+        "evidence": "dev route exists"
+      },
+      {
+        "from": "ui.dev.gate_engine_shadow",
+        "to": "chip.eve_05",
+        "type": "dev_shadow_harness",
+        "evidence": "dev route exists"
+      },
+      {
+        "from": "ui.dev.execution_engine_shadow",
+        "to": "chip.eve_06",
+        "type": "dev_shadow_harness",
+        "evidence": "dev route exists"
+      },
+      {
+        "from": "ui.dev.parallel_production_shadow",
+        "to": "chip.eve_07",
+        "type": "dev_shadow_harness",
+        "evidence": "dev route exists"
+      },
+      {
+        "from": "ui.dev.audit_governance_shadow",
+        "to": "chip.eve_08",
+        "type": "dev_shadow_harness",
+        "evidence": "dev route exists"
+      },
+      {
+        "from": "chip.eve_00",
+        "to": "config.rector_docs_registry",
+        "type": "not_productively_registered_observed",
+        "evidence": "package and dev shadow files exist; no productive activation asserted"
+      },
+      {
+        "from": "chip.eve_04",
+        "to": "service.eve_04_shadow",
+        "type": "shadow_service_only",
+        "evidence": "src/services/eve-04-runtime-catalog-shadow-service.ts exists"
+      },
+      {
+        "from": "chip.eve_08",
+        "to": "ui.dev.audit_governance_shadow",
+        "type": "shadow_visualization_only",
+        "evidence": "dev harness route exists"
+      }
+    ],
+    "authority_rows": [
+      {
+        "authority_id": "AUTH-001",
+        "surface": "Client auth session",
+        "path": "src/lib/supabase.ts",
+        "observed_authority": "Creates browser Supabase client when NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY exist.",
+        "can_write_productive_state": false,
+        "activation_status": "client_available_not_authority_contract",
+        "risk": "Client state alone is not enough to authorize productive activation."
+      },
+      {
+        "authority_id": "AUTH-002",
+        "surface": "Server Supabase client",
+        "path": "src/lib/supabase-server.ts",
+        "observed_authority": "Creates server Supabase client with public anon key when configured.",
+        "can_write_productive_state": true,
+        "activation_status": "requires_route_level_boundary",
+        "risk": "Write permissions depend on route logic and Supabase policies not fully inventoried here."
+      },
+      {
+        "authority_id": "AUTH-003",
+        "surface": "Session boundary",
+        "path": "src/lib/session-boundary.ts",
+        "observed_authority": "Authenticates commercial bearer token and resolves demo/commercial session ownership.",
+        "can_write_productive_state": false,
+        "activation_status": "observed_boundary",
+        "risk": "Coverage over every route must be checked before activation."
+      },
+      {
+        "authority_id": "AUTH-004",
+        "surface": "Rector docs registry",
+        "path": "src/config/rector-docs-registry.ts",
+        "observed_authority": "Declares runtimeAuthority true for selected operational docs and false for full runtime catalog.",
+        "can_write_productive_state": false,
+        "activation_status": "declarative_registry",
+        "risk": "This is documentation/config authority, not a complete runtime gate."
+      },
+      {
+        "authority_id": "AUTH-005",
+        "surface": "Document transduction QA policy",
+        "path": "src/config/document-transduction-qa-policy.ts",
+        "observed_authority": "Rejects runtimeAuthority claims without TS or JSON target.",
+        "can_write_productive_state": false,
+        "activation_status": "qa_policy_observed",
+        "risk": "QA policy does not itself wire runtime decisions."
+      },
+      {
+        "authority_id": "AUTH-006",
+        "surface": "Primary activity selector",
+        "path": "src/services/primary-activity-selector.ts",
+        "observed_authority": "Selects primary activities through policy artifacts.",
+        "can_write_productive_state": true,
+        "activation_status": "productive_flow_observed",
+        "risk": "Downstream authority must remain bounded to activity selection, not full chip activation."
+      },
+      {
+        "authority_id": "AUTH-007",
+        "surface": "WorkMap flow",
+        "path": "src/app/page.tsx",
+        "observed_authority": "Controls WorkMap intake, questionnaire states and support activity orchestration states.",
+        "can_write_productive_state": true,
+        "activation_status": "productive_ui_flow_observed",
+        "risk": "Support activity loop exists in product UI; activation contract must protect from chip overreach."
+      },
+      {
+        "authority_id": "AUTH-008",
+        "surface": "Significado Block0 route",
+        "path": "src/app/api/significado/block0/route.ts",
+        "observed_authority": "Persists Significado Block0 answers after session owner resolution.",
+        "can_write_productive_state": true,
+        "activation_status": "productive_api_observed",
+        "risk": "Must not become an unreviewed bridge for chip writes."
+      },
+      {
+        "authority_id": "AUTH-009",
+        "surface": "MBA shadow observer",
+        "path": "src/services/mba/shadow-observer.js",
+        "observed_authority": "Logs shadow observations and may use service role persistence when configured.",
+        "can_write_productive_state": true,
+        "activation_status": "shadow_persistence_observed",
+        "risk": "Shadow persistence needs explicit separation from product activation."
+      },
+      {
+        "authority_id": "AUTH-010",
+        "surface": "Parallel production runtime repository",
+        "path": "src/services/parallel-production/runtime/repository.mjs",
+        "observed_authority": "Uses MBA_SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SERVICE_ROLE_KEY for runtime artifact persistence.",
+        "can_write_productive_state": true,
+        "activation_status": "service_role_write_capable",
+        "risk": "High authority surface; requires activation contract, tenant scoping and rollback controls."
+      },
+      {
+        "authority_id": "AUTH-011",
+        "surface": "Runtime observability admin",
+        "path": "src/app/api/runtime/observability/route.ts",
+        "observed_authority": "Reads runtime observability data for admin use.",
+        "can_write_productive_state": false,
+        "activation_status": "read_observability",
+        "risk": "Read surface must not be mistaken for write authority."
+      },
+      {
+        "authority_id": "AUTH-012",
+        "surface": "Runtime VSM admin",
+        "path": "src/app/api/runtime/vsm/route.ts",
+        "observed_authority": "Builds runtime VSM snapshots.",
+        "can_write_productive_state": false,
+        "activation_status": "read_snapshot_observed",
+        "risk": "Referenced runtime-vsm path exists, but productive governance semantics need confirmation."
+      },
+      {
+        "authority_id": "AUTH-013",
+        "surface": "EVE-00 Method Kernel",
+        "path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/",
+        "observed_authority": "Candidate package with shadow/dev artifacts.",
+        "can_write_productive_state": false,
+        "activation_status": "candidate_not_wired_observed",
+        "risk": "No productive authority should be inferred from package presence."
+      },
+      {
+        "authority_id": "AUTH-014",
+        "surface": "EVE-04 Runtime Catalog shadow service",
+        "path": "src/services/eve-04-runtime-catalog-shadow-service.ts",
+        "observed_authority": "Shadow validation service for runtime catalog candidate.",
+        "can_write_productive_state": false,
+        "activation_status": "shadow_only_observed",
+        "risk": "Dirty worktree indicates EVE04 work in progress; do not promote without isolation."
+      },
+      {
+        "authority_id": "AUTH-015",
+        "surface": "EVE-08 Audit and Governance dev harness",
+        "path": "src/app/dev/eve-08-audit-and-governance-shadow/",
+        "observed_authority": "Dev-only visualization of audit/governance shadow behavior.",
+        "can_write_productive_state": false,
+        "activation_status": "dev_harness_only_observed",
+        "risk": "Manual visual approval does not equal productive authority."
+      },
+      {
+        "authority_id": "AUTH-016",
+        "surface": "Package scripts",
+        "path": "package.json",
+        "observed_authority": "Build, lint, regression, runtime observability and validation scripts.",
+        "can_write_productive_state": false,
+        "activation_status": "operator_tooling",
+        "risk": "Scripts can call live endpoints; activation runbooks must distinguish audit from mutation."
+      }
+    ],
+    "inventory_counts": {
+      "src_app_files": 59,
+      "ui_routes": 15,
+      "api_services": 33,
+      "scripts": 30,
+      "tests": 120,
+      "chips_found": 9,
+      "nervous_signals": 16,
+      "governance_mechanisms": 12,
+      "data_entities": 16,
+      "feature_flags": 9,
+      "wiring_edges": 28,
+      "authority_rows": 16,
+      "gaps": 14
+    },
+    "ui_routes": [
+      {
+        "route": "/",
+        "path": "src/app/page.tsx",
+        "classification": "productive_shell"
+      },
+      {
+        "route": "/admin/runtime-vsm",
+        "path": "src/app/admin/runtime-vsm/page.tsx",
+        "classification": "admin_observability"
+      },
+      {
+        "route": "/admin/significado-trace",
+        "path": "src/app/admin/significado-trace/page.tsx",
+        "classification": "admin_trace"
+      },
+      {
+        "route": "/admin/significado-trace/[sessionId]",
+        "path": "src/app/admin/significado-trace/[sessionId]/page.tsx",
+        "classification": "admin_trace_session"
+      },
+      {
+        "route": "/dev/method-kernel-shadow",
+        "path": "src/app/dev/method-kernel-shadow/page.tsx",
+        "classification": "dev_shadow"
+      },
+      {
+        "route": "/dev/agent-constitution-shadow",
+        "path": "src/app/dev/agent-constitution-shadow/page.tsx",
+        "classification": "dev_shadow"
+      },
+      {
+        "route": "/dev/diagnostic-ontology-shadow",
+        "path": "src/app/dev/diagnostic-ontology-shadow/page.tsx",
+        "classification": "dev_shadow"
+      },
+      {
+        "route": "/dev/canonical-catalog-shadow",
+        "path": "src/app/dev/canonical-catalog-shadow/page.tsx",
+        "classification": "dev_shadow"
+      },
+      {
+        "route": "/dev/runtime-catalog-shadow",
+        "path": "src/app/dev/runtime-catalog-shadow/page.tsx",
+        "classification": "dev_shadow"
+      },
+      {
+        "route": "/dev/eve-05-gate-engine-shadow",
+        "path": "src/app/dev/eve-05-gate-engine-shadow/page.tsx",
+        "classification": "dev_shadow"
+      },
+      {
+        "route": "/dev/eve-06-execution-engine-shadow",
+        "path": "src/app/dev/eve-06-execution-engine-shadow/page.tsx",
+        "classification": "dev_shadow"
+      },
+      {
+        "route": "/dev/eve-07-parallel-production-interface-shadow",
+        "path": "src/app/dev/eve-07-parallel-production-interface-shadow/page.tsx",
+        "classification": "dev_shadow"
+      },
+      {
+        "route": "/dev/eve-08-audit-and-governance-shadow",
+        "path": "src/app/dev/eve-08-audit-and-governance-shadow/page.tsx",
+        "classification": "dev_shadow"
+      },
+      {
+        "route": "/dev/e2e-block0",
+        "path": "src/app/dev/e2e-block0/page.tsx",
+        "classification": "dev_test"
+      },
+      {
+        "route": "/dev/significado",
+        "path": "src/app/dev/significado/page.tsx",
+        "classification": "dev_test"
+      }
+    ],
+    "api_routes": [
+      "src/app/api/audit/question-db-counts/route.ts",
+      "src/app/api/causal/client-aggregation/route.ts",
+      "src/app/api/causal/diagnostic/route.ts",
+      "src/app/api/coach/operational-description/intro-example/route.ts",
+      "src/app/api/coach/operational-description/route.ts",
+      "src/app/api/diagnostics/session/route.ts",
+      "src/app/api/export/activity-collection-xlsx/route.ts",
+      "src/app/api/health/route.ts",
+      "src/app/api/intake/triple/route.ts",
+      "src/app/api/mba-control-plane/observe/route.js",
+      "src/app/api/mba-control-plane/report/route.js",
+      "src/app/api/parallel-production/assessment/run/route.ts",
+      "src/app/api/parallel-production/candidate-export/generate/route.ts",
+      "src/app/api/parallel-production/design-source-bundle/route.ts",
+      "src/app/api/parallel-production/inventory/resolve/route.ts",
+      "src/app/api/parallel-production/mmabp-ir/project/route.ts",
+      "src/app/api/questionnaire/catalog/route.ts",
+      "src/app/api/questionnaire/submit/route.ts",
+      "src/app/api/rank-activities/route.ts",
+      "src/app/api/runtime/observability/route.ts",
+      "src/app/api/runtime/vsm/route.ts",
+      "src/app/api/scenes/answers/route.ts",
+      "src/app/api/scenes/bootstrap/route.ts",
+      "src/app/api/scenes/canonicalize/route.ts",
+      "src/app/api/scenes/consistency/route.ts",
+      "src/app/api/scenes/derive/route.ts",
+      "src/app/api/scenes/preclassify/route.ts",
+      "src/app/api/scenes/runtime-contract-verify/route.ts",
+      "src/app/api/session/bootstrap/route.ts",
+      "src/app/api/session/intermediate-output/route.ts",
+      "src/app/api/session/restore/route.ts",
+      "src/app/api/significado/block0/route.ts",
+      "src/app/api/structural/confirm/route.ts"
+    ],
+    "nervous_signals": [
+      "auth_user_id",
+      "empresa_id",
+      "sessionId",
+      "activityId",
+      "flowState",
+      "workmap draft",
+      "questionnaire answers",
+      "primary activity selection",
+      "support activity selection",
+      "Significado Block0 answers",
+      "diagnostic session state",
+      "scene bootstrap/canonicalize/preclassify/consistency",
+      "runtime observability events",
+      "MBA shadow observations",
+      "parallel production runtime artifacts",
+      "candidate export payloads"
+    ],
+    "governance_mechanisms": [
+      "session-boundary auth and owner resolution",
+      "rector docs registry runtimeAuthority declarations",
+      "document transduction QA policy",
+      "primary activity selection policy v1.3",
+      "runtime Block0 catalog adapter and response model",
+      "WorkMap save/operational readiness validation",
+      "Significado source and block0 persistence boundary",
+      "MBA transition guard and shadow observer",
+      "parallel production warning/readiness services",
+      "shadow harness safety flags for EVE00-EVE08",
+      "regression tests for candidate-only/not-wired claims",
+      "runtime observability and VSM admin read surfaces"
+    ],
+    "data_entities": [
+      "usuarios",
+      "empresas",
+      "sesiones",
+      "actividades",
+      "respuestas",
+      "ranking_actividades",
+      "metricas_por_capa",
+      "scene_registry",
+      "scene_answers",
+      "scene_preclassification",
+      "scene_canonical_records",
+      "session_intermediate_output",
+      "significado_block0",
+      "operational_description_coach_events",
+      "mba_shadow_observations_or_ledger",
+      "parallel_production_runtime_artifacts"
+    ],
+    "feature_flags": [
+      "NEXT_PUBLIC_INTAKE_UI",
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "MBA_SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "OPENAI_API_KEY",
+      "OPENAI_MODEL",
+      "EVE_BASE_URL",
+      "EVE_ACTIVITY_COLLECTION_TEMPLATE_XLSX"
+    ],
+    "worktree_dirty": true
+  },
+  "target_architecture": {
+    "layers": [
+      "experience",
+      "application",
+      "operation",
+      "nervous_system",
+      "cognition",
+      "governance",
+      "persistence",
+      "parallel"
+    ],
+    "components": [
+      {
+        "component_id": "CLIENT_UI",
+        "layer": "experience",
+        "type": "ui",
+        "repo_anchor": "src/app/page.tsx",
+        "status": "observed_productive_shell",
+        "authority_role": "intent_only"
+      },
+      {
+        "component_id": "ADMIN_OBSERVABILITY_UI",
+        "layer": "experience",
+        "type": "ui",
+        "repo_anchor": "src/app/admin/runtime-vsm/page.tsx",
+        "status": "observed_read_surface",
+        "authority_role": "read_only"
+      },
+      {
+        "component_id": "ADMIN_TRACE_UI",
+        "layer": "experience",
+        "type": "ui",
+        "repo_anchor": "src/app/admin/significado-trace/",
+        "status": "observed_admin_trace",
+        "authority_role": "read_only"
+      },
+      {
+        "component_id": "DEV_SHADOW_UI",
+        "layer": "experience",
+        "type": "ui",
+        "repo_anchor": "src/app/dev/",
+        "status": "observed_dev_only",
+        "authority_role": "non_productive"
+      },
+      {
+        "component_id": "CLIENT_BFF",
+        "layer": "application",
+        "type": "bff",
+        "repo_anchor": "TO_BE_IMPLEMENTED",
+        "status": "required",
+        "authority_role": "command_translation"
+      },
+      {
+        "component_id": "COMPOSITION_ROOT",
+        "layer": "application",
+        "type": "orchestrator",
+        "repo_anchor": "TO_BE_IMPLEMENTED",
+        "status": "required",
+        "authority_role": "assembly_only"
+      },
+      {
+        "component_id": "SESSION_BOUNDARY",
+        "layer": "application",
+        "type": "security_adapter",
+        "repo_anchor": "src/lib/session-boundary.ts",
+        "status": "observed",
+        "authority_role": "scope_validation"
+      },
+      {
+        "component_id": "SUPABASE_CLIENT",
+        "layer": "persistence",
+        "type": "client_adapter",
+        "repo_anchor": "src/lib/supabase.ts",
+        "status": "observed",
+        "authority_role": "client_session"
+      },
+      {
+        "component_id": "SUPABASE_SERVER",
+        "layer": "persistence",
+        "type": "server_adapter",
+        "repo_anchor": "src/lib/supabase-server.ts",
+        "status": "observed",
+        "authority_role": "bounded_repo_access"
+      },
+      {
+        "component_id": "SERVICE_ROLE_ADAPTER",
+        "layer": "persistence",
+        "type": "privileged_adapter",
+        "repo_anchor": "src/services/mba/server-supabase-client.mjs; src/services/parallel-production/runtime/repository.mjs",
+        "status": "observed_high_risk",
+        "authority_role": "allowlisted_privileged_write"
+      },
+      {
+        "component_id": "RUNTIME_ORCHESTRATOR",
+        "layer": "operation",
+        "type": "service",
+        "repo_anchor": "TO_BE_BOUND_TO_EXISTING_SERVICES",
+        "status": "required",
+        "authority_role": "run_coordination"
+      },
+      {
+        "component_id": "WORKMAP_SERVICE",
+        "layer": "operation",
+        "type": "service",
+        "repo_anchor": "src/services/work-map-*",
+        "status": "observed",
+        "authority_role": "workmap_domain"
+      },
+      {
+        "component_id": "SIGNIFICADO_SERVICE",
+        "layer": "operation",
+        "type": "service",
+        "repo_anchor": "src/services/significado-*",
+        "status": "observed",
+        "authority_role": "significado_domain"
+      },
+      {
+        "component_id": "SCENE_RUNTIME",
+        "layer": "operation",
+        "type": "service_group",
+        "repo_anchor": "src/app/api/scenes/**",
+        "status": "observed",
+        "authority_role": "scene_domain"
+      },
+      {
+        "component_id": "OBJECT_BINDING_ADAPTER",
+        "layer": "operation",
+        "type": "adapter",
+        "repo_anchor": "TO_BE_IMPLEMENTED_OR_BOUND",
+        "status": "required",
+        "authority_role": "candidate_binding"
+      },
+      {
+        "component_id": "OUTBOX_ADAPTER",
+        "layer": "nervous_system",
+        "type": "adapter",
+        "repo_anchor": "TO_BE_IMPLEMENTED",
+        "status": "missing",
+        "authority_role": "event_publish"
+      },
+      {
+        "component_id": "AUDIT_EVENT_SINK",
+        "layer": "governance",
+        "type": "service",
+        "repo_anchor": "TO_BE_IMPLEMENTED_OR_BOUND_TO_EVE08",
+        "status": "required",
+        "authority_role": "append_only_audit"
+      },
+      {
+        "component_id": "HUMAN_REVIEW_QUEUE",
+        "layer": "governance",
+        "type": "service",
+        "repo_anchor": "TO_BE_IMPLEMENTED",
+        "status": "missing",
+        "authority_role": "review_workflow"
+      },
+      {
+        "component_id": "RELEASE_ADAPTER",
+        "layer": "governance",
+        "type": "adapter",
+        "repo_anchor": "TO_BE_IMPLEMENTED",
+        "status": "missing",
+        "authority_role": "approved_side_effect_dispatch"
+      },
+      {
+        "component_id": "REGISTRY_WRITE_ADAPTER",
+        "layer": "governance",
+        "type": "adapter",
+        "repo_anchor": "TO_BE_IMPLEMENTED",
+        "status": "blocked",
+        "authority_role": "versioned_registry_write"
+      },
+      {
+        "component_id": "EXPORT_RELEASE_ADAPTER",
+        "layer": "governance",
+        "type": "adapter",
+        "repo_anchor": "src/app/api/export/activity-collection-xlsx/route.ts",
+        "status": "observed_route_but_authority_unverified",
+        "authority_role": "approved_export_only"
+      },
+      {
+        "component_id": "PARALLEL_PRODUCTION_RUNTIME",
+        "layer": "parallel",
+        "type": "service_group",
+        "repo_anchor": "src/app/api/parallel-production/**; src/services/parallel-production/**",
+        "status": "observed_candidate_or_shadow",
+        "authority_role": "rehearsal_candidate"
+      },
+      {
+        "component_id": "MBA_SHADOW_OBSERVER",
+        "layer": "governance",
+        "type": "observer",
+        "repo_anchor": "src/services/mba/shadow-observer.js",
+        "status": "observed_shadow_persistence",
+        "authority_role": "observe_only"
+      },
+      {
+        "component_id": "EVE00_METHOD_KERNEL",
+        "layer": "cognition",
+        "type": "chip",
+        "repo_anchor": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/",
+        "status": "candidate",
+        "authority_role": "method_validation"
+      },
+      {
+        "component_id": "EVE01_AGENT_CONSTITUTION",
+        "layer": "cognition",
+        "type": "chip",
+        "repo_anchor": "docs/chips/agent-constitution/EVE_01_Agent_Constitution_v0_1/",
+        "status": "candidate",
+        "authority_role": "agent_boundary"
+      },
+      {
+        "component_id": "EVE02_DIAGNOSTIC_ONTOLOGY",
+        "layer": "cognition",
+        "type": "chip",
+        "repo_anchor": "docs/chips/diagnostic-ontology/EVE_02_Diagnostic_Ontology_v0_1/",
+        "status": "candidate",
+        "authority_role": "candidate_pathology_only"
+      },
+      {
+        "component_id": "EVE03_CANONICAL_CATALOG",
+        "layer": "cognition",
+        "type": "chip",
+        "repo_anchor": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/",
+        "status": "candidate",
+        "authority_role": "read_only_registry"
+      },
+      {
+        "component_id": "EVE04_RUNTIME_CATALOG",
+        "layer": "cognition",
+        "type": "chip",
+        "repo_anchor": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/",
+        "status": "dirty_or_work_in_progress",
+        "authority_role": "interaction_definition"
+      },
+      {
+        "component_id": "EVE05_GATE_ENGINE",
+        "layer": "cognition",
+        "type": "chip",
+        "repo_anchor": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/",
+        "status": "candidate",
+        "authority_role": "gate_decision"
+      },
+      {
+        "component_id": "EVE06_EXECUTION_ENGINE",
+        "layer": "cognition",
+        "type": "chip",
+        "repo_anchor": "docs/chips/execution-engine/EVE_06_Execution_Engine_v0_1/",
+        "status": "candidate",
+        "authority_role": "evidence_and_candidate_materialization"
+      },
+      {
+        "component_id": "EVE07_PARALLEL_INTERFACE",
+        "layer": "cognition",
+        "type": "chip",
+        "repo_anchor": "docs/chips/parallel-production-interface/EVE_07_Parallel_Production_Interface_v0_1_2_candidate/",
+        "status": "candidate",
+        "authority_role": "payload_candidate_only"
+      },
+      {
+        "component_id": "EVE08_AUDIT_GOVERNANCE",
+        "layer": "governance",
+        "type": "chip",
+        "repo_anchor": "docs/chips/audit-and-governance/EVE_08_Audit_And_Governance_v0_1_1_candidate/",
+        "status": "candidate",
+        "authority_role": "audit_block_review"
+      }
+    ],
+    "edges": [
+      {
+        "edge_id": "TGT-001",
+        "from": "CLIENT_UI",
+        "to": "CLIENT_BFF",
+        "relation": "submit_intent",
+        "stage_min": "SUPERVISED",
+        "authority_transfer": "none"
+      },
+      {
+        "edge_id": "TGT-002",
+        "from": "CLIENT_BFF",
+        "to": "SESSION_BOUNDARY",
+        "relation": "assert_tenant_session_activity_scope",
+        "stage_min": "SHADOW",
+        "authority_transfer": "none"
+      },
+      {
+        "edge_id": "TGT-003",
+        "from": "CLIENT_BFF",
+        "to": "COMPOSITION_ROOT",
+        "relation": "send_typed_command",
+        "stage_min": "SHADOW",
+        "authority_transfer": "bounded_command"
+      },
+      {
+        "edge_id": "TGT-004",
+        "from": "COMPOSITION_ROOT",
+        "to": "EVE01_AGENT_CONSTITUTION",
+        "relation": "validate_agent_action",
+        "stage_min": "SHADOW",
+        "authority_transfer": "decision_only"
+      },
+      {
+        "edge_id": "TGT-005",
+        "from": "COMPOSITION_ROOT",
+        "to": "EVE03_CANONICAL_CATALOG",
+        "relation": "read_source_and_variable_registry",
+        "stage_min": "SHADOW",
+        "authority_transfer": "read_only"
+      },
+      {
+        "edge_id": "TGT-006",
+        "from": "COMPOSITION_ROOT",
+        "to": "EVE04_RUNTIME_CATALOG",
+        "relation": "resolve_interaction_and_branching",
+        "stage_min": "SHADOW",
+        "authority_transfer": "definition_only"
+      },
+      {
+        "edge_id": "TGT-007",
+        "from": "COMPOSITION_ROOT",
+        "to": "RUNTIME_ORCHESTRATOR",
+        "relation": "dispatch_scoped_runtime_command",
+        "stage_min": "SUPERVISED",
+        "authority_transfer": "bounded_execution"
+      },
+      {
+        "edge_id": "TGT-008",
+        "from": "RUNTIME_ORCHESTRATOR",
+        "to": "EVE06_EXECUTION_ENGINE",
+        "relation": "materialize_run_evidence_variables_candidates",
+        "stage_min": "SHADOW",
+        "authority_transfer": "candidate_materialization"
+      },
+      {
+        "edge_id": "TGT-009",
+        "from": "EVE06_EXECUTION_ENGINE",
+        "to": "EVE05_GATE_ENGINE",
+        "relation": "request_gate_evaluation",
+        "stage_min": "SHADOW",
+        "authority_transfer": "decision_only"
+      },
+      {
+        "edge_id": "TGT-010",
+        "from": "EVE05_GATE_ENGINE",
+        "to": "EVE00_METHOD_KERNEL",
+        "relation": "validate_mmabp_conformance_consistency",
+        "stage_min": "SHADOW",
+        "authority_transfer": "method_decision"
+      },
+      {
+        "edge_id": "TGT-011",
+        "from": "EVE05_GATE_ENGINE",
+        "to": "EVE03_CANONICAL_CATALOG",
+        "relation": "resolve_critical_route_and_semantic_binding",
+        "stage_min": "SHADOW",
+        "authority_transfer": "read_only"
+      },
+      {
+        "edge_id": "TGT-012",
+        "from": "EVE05_GATE_ENGINE",
+        "to": "COMPOSITION_ROOT",
+        "relation": "return_gate_decision",
+        "stage_min": "SHADOW",
+        "authority_transfer": "advisory_or_hold"
+      },
+      {
+        "edge_id": "TGT-013",
+        "from": "COMPOSITION_ROOT",
+        "to": "EVE02_DIAGNOSTIC_ONTOLOGY",
+        "relation": "classify_pathology_candidate_after_mmabp_pass",
+        "stage_min": "SUPERVISED",
+        "authority_transfer": "candidate_only"
+      },
+      {
+        "edge_id": "TGT-014",
+        "from": "EVE06_EXECUTION_ENGINE",
+        "to": "EVE07_PARALLEL_INTERFACE",
+        "relation": "provide_governed_candidates",
+        "stage_min": "SHADOW",
+        "authority_transfer": "candidate_only"
+      },
+      {
+        "edge_id": "TGT-015",
+        "from": "EVE07_PARALLEL_INTERFACE",
+        "to": "HUMAN_REVIEW_QUEUE",
+        "relation": "submit_candidate_payload",
+        "stage_min": "SUPERVISED",
+        "authority_transfer": "review_request"
+      },
+      {
+        "edge_id": "TGT-016",
+        "from": "HUMAN_REVIEW_QUEUE",
+        "to": "RELEASE_ADAPTER",
+        "relation": "approved_release_instruction",
+        "stage_min": "CONTROLLED_ACTIVE",
+        "authority_transfer": "human_authorization"
+      },
+      {
+        "edge_id": "TGT-017",
+        "from": "RELEASE_ADAPTER",
+        "to": "REGISTRY_WRITE_ADAPTER",
+        "relation": "execute_approved_registry_write",
+        "stage_min": "CONTROLLED_ACTIVE",
+        "authority_transfer": "single_use_scoped"
+      },
+      {
+        "edge_id": "TGT-018",
+        "from": "RELEASE_ADAPTER",
+        "to": "EXPORT_RELEASE_ADAPTER",
+        "relation": "execute_approved_export",
+        "stage_min": "CONTROLLED_ACTIVE",
+        "authority_transfer": "single_use_scoped"
+      },
+      {
+        "edge_id": "TGT-019",
+        "from": "RELEASE_ADAPTER",
+        "to": "PARALLEL_PRODUCTION_RUNTIME",
+        "relation": "execute_approved_parallel_handoff",
+        "stage_min": "CONTROLLED_ACTIVE",
+        "authority_transfer": "single_use_scoped"
+      },
+      {
+        "edge_id": "TGT-020",
+        "from": "RUNTIME_ORCHESTRATOR",
+        "to": "OUTBOX_ADAPTER",
+        "relation": "enqueue_post_commit_event",
+        "stage_min": "SUPERVISED",
+        "authority_transfer": "event_publish"
+      },
+      {
+        "edge_id": "TGT-021",
+        "from": "OUTBOX_ADAPTER",
+        "to": "EVE08_AUDIT_GOVERNANCE",
+        "relation": "emit_audit_and_governance_event",
+        "stage_min": "SHADOW",
+        "authority_transfer": "observe_only"
+      },
+      {
+        "edge_id": "TGT-022",
+        "from": "EVE00_METHOD_KERNEL",
+        "to": "AUDIT_EVENT_SINK",
+        "relation": "append_method_decision",
+        "stage_min": "SHADOW",
+        "authority_transfer": "append_only"
+      },
+      {
+        "edge_id": "TGT-023",
+        "from": "EVE01_AGENT_CONSTITUTION",
+        "to": "AUDIT_EVENT_SINK",
+        "relation": "append_constitution_decision",
+        "stage_min": "SHADOW",
+        "authority_transfer": "append_only"
+      },
+      {
+        "edge_id": "TGT-024",
+        "from": "EVE02_DIAGNOSTIC_ONTOLOGY",
+        "to": "AUDIT_EVENT_SINK",
+        "relation": "append_candidate_classification",
+        "stage_min": "SHADOW",
+        "authority_transfer": "append_only"
+      },
+      {
+        "edge_id": "TGT-025",
+        "from": "EVE05_GATE_ENGINE",
+        "to": "AUDIT_EVENT_SINK",
+        "relation": "append_gate_decision",
+        "stage_min": "SHADOW",
+        "authority_transfer": "append_only"
+      },
+      {
+        "edge_id": "TGT-026",
+        "from": "EVE06_EXECUTION_ENGINE",
+        "to": "AUDIT_EVENT_SINK",
+        "relation": "append_materialization_event",
+        "stage_min": "SHADOW",
+        "authority_transfer": "append_only"
+      },
+      {
+        "edge_id": "TGT-027",
+        "from": "EVE07_PARALLEL_INTERFACE",
+        "to": "AUDIT_EVENT_SINK",
+        "relation": "append_payload_candidate_event",
+        "stage_min": "SHADOW",
+        "authority_transfer": "append_only"
+      },
+      {
+        "edge_id": "TGT-028",
+        "from": "EVE08_AUDIT_GOVERNANCE",
+        "to": "AUDIT_EVENT_SINK",
+        "relation": "append_governance_decision",
+        "stage_min": "SHADOW",
+        "authority_transfer": "append_only"
+      },
+      {
+        "edge_id": "TGT-029",
+        "from": "EVE08_AUDIT_GOVERNANCE",
+        "to": "COMPOSITION_ROOT",
+        "relation": "hold_degrade_quarantine_signal",
+        "stage_min": "SUPERVISED",
+        "authority_transfer": "control_signal_only"
+      },
+      {
+        "edge_id": "TGT-030",
+        "from": "MBA_SHADOW_OBSERVER",
+        "to": "AUDIT_EVENT_SINK",
+        "relation": "append_shadow_observation",
+        "stage_min": "SHADOW",
+        "authority_transfer": "append_only"
+      },
+      {
+        "edge_id": "TGT-031",
+        "from": "WORKMAP_SERVICE",
+        "to": "SIGNIFICADO_SERVICE",
+        "relation": "continue_after_saved_workmap",
+        "stage_min": "SUPERVISED",
+        "authority_transfer": "flow_transition"
+      },
+      {
+        "edge_id": "TGT-032",
+        "from": "SIGNIFICADO_SERVICE",
+        "to": "RUNTIME_ORCHESTRATOR",
+        "relation": "open_runtime_for_confirmed_activity",
+        "stage_min": "SUPERVISED",
+        "authority_transfer": "bounded_command"
+      },
+      {
+        "edge_id": "TGT-033",
+        "from": "SCENE_RUNTIME",
+        "to": "RUNTIME_ORCHESTRATOR",
+        "relation": "scene_command_adapter",
+        "stage_min": "SUPERVISED",
+        "authority_transfer": "bounded_command"
+      },
+      {
+        "edge_id": "TGT-034",
+        "from": "INDEPENDENT_AUDITOR",
+        "to": "EVE08_AUDIT_GOVERNANCE",
+        "relation": "submit_independent_finding",
+        "stage_min": "SHADOW",
+        "authority_transfer": "audit_input"
+      }
+    ],
+    "composition_root_contract": {
+      "component": "COMPOSITION_ROOT",
+      "responsibilities": [
+        "assemble_ports",
+        "propagate_scope",
+        "sequence_capabilities",
+        "record_correlation",
+        "enforce_capability_state"
+      ],
+      "forbidden": [
+        "interpret_evidence",
+        "invent_route",
+        "write_database",
+        "write_registry",
+        "export_final",
+        "diagnose_final",
+        "approve_override"
+      ],
+      "input": "TypedOrganismCommand",
+      "output": "OrganismDecisionEnvelope"
+    },
+    "transducers": [
+      {
+        "adapter": "CLIENT_BFF",
+        "from": "client_intent",
+        "to": "TypedOrganismCommand",
+        "authority_gain": "none"
+      },
+      {
+        "adapter": "SESSION_BOUNDARY",
+        "from": "bearer/session context",
+        "to": "VerifiedScope",
+        "authority_gain": "scope validation only"
+      },
+      {
+        "adapter": "RUNTIME_COMMAND_ADAPTER",
+        "from": "TypedOrganismCommand",
+        "to": "ActivityRuntimeCommand",
+        "authority_gain": "bounded by capability state"
+      },
+      {
+        "adapter": "EVIDENCE_ADAPTER",
+        "from": "runtime response",
+        "to": "EvidenceRecorded",
+        "authority_gain": "none"
+      },
+      {
+        "adapter": "OUTBOX_ADAPTER",
+        "from": "committed domain event",
+        "to": "audited event publication",
+        "authority_gain": "none"
+      },
+      {
+        "adapter": "RELEASE_ADAPTER",
+        "from": "HumanReleaseDecision",
+        "to": "single approved side effect",
+        "authority_gain": "single-use scoped authority"
+      }
+    ]
+  },
+  "authority_matrix_target": [
+    {
+      "authority_id": "TGT-AUTH-001",
+      "component": "CLIENT_UI",
+      "can_read": true,
+      "can_decide": false,
+      "can_write": false,
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SUPERVISED",
+      "notes": "Submit intent; never structural authority."
+    },
+    {
+      "authority_id": "TGT-AUTH-002",
+      "component": "CLIENT_BFF",
+      "can_read": true,
+      "can_decide": false,
+      "can_write": false,
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Translate client intent to typed commands."
+    },
+    {
+      "authority_id": "TGT-AUTH-003",
+      "component": "SESSION_BOUNDARY",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": false,
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Can reject scope/auth mismatch."
+    },
+    {
+      "authority_id": "TGT-AUTH-004",
+      "component": "COMPOSITION_ROOT",
+      "can_read": true,
+      "can_decide": false,
+      "can_write": false,
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Assembly only; no interpretation or side effects."
+    },
+    {
+      "authority_id": "TGT-AUTH-005",
+      "component": "RUNTIME_ORCHESTRATOR",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": true,
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SUPERVISED",
+      "notes": "Writes only through scoped repositories."
+    },
+    {
+      "authority_id": "TGT-AUTH-006",
+      "component": "WORKMAP_SERVICE",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": true,
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SUPERVISED",
+      "notes": "Bounded to WorkMap domain."
+    },
+    {
+      "authority_id": "TGT-AUTH-007",
+      "component": "SIGNIFICADO_SERVICE",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": true,
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SUPERVISED",
+      "notes": "Bounded to Significado domain."
+    },
+    {
+      "authority_id": "TGT-AUTH-008",
+      "component": "SCENE_RUNTIME",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": true,
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SUPERVISED",
+      "notes": "Bounded to scene lifecycle."
+    },
+    {
+      "authority_id": "TGT-AUTH-009",
+      "component": "EVE00_METHOD_KERNEL",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": false,
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Method tribunal; no writes."
+    },
+    {
+      "authority_id": "TGT-AUTH-010",
+      "component": "EVE01_AGENT_CONSTITUTION",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": false,
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Agent action boundary."
+    },
+    {
+      "authority_id": "TGT-AUTH-011",
+      "component": "EVE02_DIAGNOSTIC_ONTOLOGY",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": false,
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": "candidate_only",
+      "can_write_registry": false,
+      "minimum_stage": "SUPERVISED",
+      "notes": "Only after MMABP pass."
+    },
+    {
+      "authority_id": "TGT-AUTH-012",
+      "component": "EVE03_CANONICAL_CATALOG",
+      "can_read": true,
+      "can_decide": false,
+      "can_write": false,
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Versioned read-only registry."
+    },
+    {
+      "authority_id": "TGT-AUTH-013",
+      "component": "EVE04_RUNTIME_CATALOG",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": false,
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Interaction definitions only."
+    },
+    {
+      "authority_id": "TGT-AUTH-014",
+      "component": "EVE05_GATE_ENGINE",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": false,
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Advisory in shadow; enforcement later."
+    },
+    {
+      "authority_id": "TGT-AUTH-015",
+      "component": "EVE06_EXECUTION_ENGINE",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": "candidate_only",
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Materializes evidence/variables/candidates."
+    },
+    {
+      "authority_id": "TGT-AUTH-016",
+      "component": "EVE07_PARALLEL_INTERFACE",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": "candidate_only",
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "No registry or final export."
+    },
+    {
+      "authority_id": "TGT-AUTH-017",
+      "component": "EVE08_AUDIT_GOVERNANCE",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": "audit_only",
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "May hold/degrade; cannot execute audited action."
+    },
+    {
+      "authority_id": "TGT-AUTH-018",
+      "component": "AUDIT_EVENT_SINK",
+      "can_read": true,
+      "can_decide": false,
+      "can_write": "append_only",
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Immutable append-only evidence."
+    },
+    {
+      "authority_id": "TGT-AUTH-019",
+      "component": "HUMAN_REVIEW_QUEUE",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": "review_record",
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SUPERVISED",
+      "notes": "No operational side effects."
+    },
+    {
+      "authority_id": "TGT-AUTH-020",
+      "component": "RELEASE_MANAGER",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": "authorization_record",
+      "can_block": true,
+      "can_override": true,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "CONTROLLED_ACTIVE",
+      "notes": "Human authority for release."
+    },
+    {
+      "authority_id": "TGT-AUTH-021",
+      "component": "RELEASE_ADAPTER",
+      "can_read": true,
+      "can_decide": false,
+      "can_write": "allowlisted_side_effect",
+      "can_block": false,
+      "can_override": false,
+      "can_export": true,
+      "can_diagnose": false,
+      "can_write_registry": true,
+      "minimum_stage": "CONTROLLED_ACTIVE",
+      "notes": "Executes exactly one approved action."
+    },
+    {
+      "authority_id": "TGT-AUTH-022",
+      "component": "REGISTRY_WRITE_ADAPTER",
+      "can_read": true,
+      "can_decide": false,
+      "can_write": "registry_only",
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": true,
+      "minimum_stage": "CONTROLLED_ACTIVE",
+      "notes": "Versioned, idempotent, reversible."
+    },
+    {
+      "authority_id": "TGT-AUTH-023",
+      "component": "EXPORT_RELEASE_ADAPTER",
+      "can_read": true,
+      "can_decide": false,
+      "can_write": "export_only",
+      "can_block": false,
+      "can_override": false,
+      "can_export": true,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "CONTROLLED_ACTIVE",
+      "notes": "Approved external export only."
+    },
+    {
+      "authority_id": "TGT-AUTH-024",
+      "component": "PARALLEL_PRODUCTION_RUNTIME",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": "candidate_or_approved_handoff",
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Rehearsal by default."
+    },
+    {
+      "authority_id": "TGT-AUTH-025",
+      "component": "SERVICE_ROLE_ADAPTER",
+      "can_read": true,
+      "can_decide": false,
+      "can_write": "allowlisted_db_write",
+      "can_block": false,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "CONTROLLED_ACTIVE",
+      "notes": "No direct UI/API unrestricted access."
+    },
+    {
+      "authority_id": "TGT-AUTH-026",
+      "component": "INDEPENDENT_AUDITOR",
+      "can_read": true,
+      "can_decide": true,
+      "can_write": "audit_finding",
+      "can_block": true,
+      "can_override": false,
+      "can_export": false,
+      "can_diagnose": false,
+      "can_write_registry": false,
+      "minimum_stage": "SHADOW",
+      "notes": "Separate identity from executor."
+    }
+  ],
+  "route_activation_policy": [
+    {
+      "route_id": "UI-01",
+      "route": "/",
+      "file_path": "src/app/page.tsx",
+      "category": "CLIENT_UI",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": false,
+      "note": "Via BFF; no direct chip/internal data access."
+    },
+    {
+      "route_id": "UI-02",
+      "route": "/admin/runtime-vsm",
+      "file_path": "src/app/admin/runtime-vsm/page.tsx",
+      "category": "ADMIN_READ",
+      "minimum_stage": "SHADOW",
+      "write_authority": false,
+      "note": "Read-only and operator-authorized."
+    },
+    {
+      "route_id": "UI-03",
+      "route": "/admin/significado-trace",
+      "file_path": "src/app/admin/significado-trace/page.tsx",
+      "category": "ADMIN_READ",
+      "minimum_stage": "SHADOW",
+      "write_authority": false,
+      "note": "Read-only and operator-authorized."
+    },
+    {
+      "route_id": "UI-04",
+      "route": "/admin/significado-trace/[sessionId]",
+      "file_path": "src/app/admin/significado-trace/[sessionId]/page.tsx",
+      "category": "ADMIN_READ",
+      "minimum_stage": "SHADOW",
+      "write_authority": false,
+      "note": "Read-only and operator-authorized."
+    },
+    {
+      "route_id": "UI-05",
+      "route": "/dev/method-kernel-shadow",
+      "file_path": "src/app/dev/method-kernel-shadow/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "UI-06",
+      "route": "/dev/agent-constitution-shadow",
+      "file_path": "src/app/dev/agent-constitution-shadow/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "UI-07",
+      "route": "/dev/diagnostic-ontology-shadow",
+      "file_path": "src/app/dev/diagnostic-ontology-shadow/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "UI-08",
+      "route": "/dev/canonical-catalog-shadow",
+      "file_path": "src/app/dev/canonical-catalog-shadow/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "UI-09",
+      "route": "/dev/runtime-catalog-shadow",
+      "file_path": "src/app/dev/runtime-catalog-shadow/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "UI-10",
+      "route": "/dev/eve-05-gate-engine-shadow",
+      "file_path": "src/app/dev/eve-05-gate-engine-shadow/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "UI-11",
+      "route": "/dev/eve-06-execution-engine-shadow",
+      "file_path": "src/app/dev/eve-06-execution-engine-shadow/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "UI-12",
+      "route": "/dev/eve-07-parallel-production-interface-shadow",
+      "file_path": "src/app/dev/eve-07-parallel-production-interface-shadow/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "UI-13",
+      "route": "/dev/eve-08-audit-and-governance-shadow",
+      "file_path": "src/app/dev/eve-08-audit-and-governance-shadow/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "UI-14",
+      "route": "/dev/e2e-block0",
+      "file_path": "src/app/dev/e2e-block0/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "UI-15",
+      "route": "/dev/significado",
+      "file_path": "src/app/dev/significado/page.tsx",
+      "category": "DEV_ONLY",
+      "minimum_stage": "OFF",
+      "write_authority": false,
+      "note": "Must be disabled or access-restricted in production."
+    },
+    {
+      "route_id": "API-01",
+      "route": "/api/audit/question-db-counts",
+      "file_path": "src/app/api/audit/question-db-counts/route.ts",
+      "category": "ADMIN_READ",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "Read-only admin/health"
+    },
+    {
+      "route_id": "API-02",
+      "route": "/api/causal/client-aggregation",
+      "file_path": "src/app/api/causal/client-aggregation/route.ts",
+      "category": "SHADOW_DIAGNOSTIC",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "Candidate-only, no final diagnosis"
+    },
+    {
+      "route_id": "API-03",
+      "route": "/api/causal/diagnostic",
+      "file_path": "src/app/api/causal/diagnostic/route.ts",
+      "category": "SHADOW_DIAGNOSTIC",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "Candidate-only, no final diagnosis"
+    },
+    {
+      "route_id": "API-04",
+      "route": "/api/coach/operational-description/intro-example",
+      "file_path": "src/app/api/coach/operational-description/intro-example/route.ts",
+      "category": "REVIEW_REQUIRED",
+      "minimum_stage": "OFF",
+      "write_authority": "route_review_required",
+      "note": "No activation without route review"
+    },
+    {
+      "route_id": "API-05",
+      "route": "/api/coach/operational-description",
+      "file_path": "src/app/api/coach/operational-description/route.ts",
+      "category": "REVIEW_REQUIRED",
+      "minimum_stage": "OFF",
+      "write_authority": "route_review_required",
+      "note": "No activation without route review"
+    },
+    {
+      "route_id": "API-06",
+      "route": "/api/diagnostics/session",
+      "file_path": "src/app/api/diagnostics/session/route.ts",
+      "category": "SHADOW_DIAGNOSTIC",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "Candidate-only, no final diagnosis"
+    },
+    {
+      "route_id": "API-07",
+      "route": "/api/export/activity-collection-xlsx",
+      "file_path": "src/app/api/export/activity-collection-xlsx/route.ts",
+      "category": "CONTROLLED_EXPORT",
+      "minimum_stage": "OFF",
+      "write_authority": "route_review_required",
+      "note": "Human approval and scoped export required"
+    },
+    {
+      "route_id": "API-08",
+      "route": "/api/health",
+      "file_path": "src/app/api/health/route.ts",
+      "category": "ADMIN_READ",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "Read-only admin/health"
+    },
+    {
+      "route_id": "API-09",
+      "route": "/api/intake/triple",
+      "file_path": "src/app/api/intake/triple/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-10",
+      "route": "/api/mba-control-plane/observe",
+      "file_path": "src/app/api/mba-control-plane/observe/route.js",
+      "category": "GOVERNANCE_SHADOW",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "Observe/report only"
+    },
+    {
+      "route_id": "API-11",
+      "route": "/api/mba-control-plane/report",
+      "file_path": "src/app/api/mba-control-plane/report/route.js",
+      "category": "GOVERNANCE_SHADOW",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "Observe/report only"
+    },
+    {
+      "route_id": "API-12",
+      "route": "/api/parallel-production/assessment/run",
+      "file_path": "src/app/api/parallel-production/assessment/run/route.ts",
+      "category": "SHADOW_CANDIDATE",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "No final export/registry"
+    },
+    {
+      "route_id": "API-13",
+      "route": "/api/parallel-production/candidate-export/generate",
+      "file_path": "src/app/api/parallel-production/candidate-export/generate/route.ts",
+      "category": "SHADOW_CANDIDATE",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "No final export/registry"
+    },
+    {
+      "route_id": "API-14",
+      "route": "/api/parallel-production/design-source-bundle",
+      "file_path": "src/app/api/parallel-production/design-source-bundle/route.ts",
+      "category": "SHADOW_CANDIDATE",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "No final export/registry"
+    },
+    {
+      "route_id": "API-15",
+      "route": "/api/parallel-production/inventory/resolve",
+      "file_path": "src/app/api/parallel-production/inventory/resolve/route.ts",
+      "category": "SHADOW_CANDIDATE",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "No final export/registry"
+    },
+    {
+      "route_id": "API-16",
+      "route": "/api/parallel-production/mmabp-ir/project",
+      "file_path": "src/app/api/parallel-production/mmabp-ir/project/route.ts",
+      "category": "SHADOW_CANDIDATE",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "No final export/registry"
+    },
+    {
+      "route_id": "API-17",
+      "route": "/api/questionnaire/catalog",
+      "file_path": "src/app/api/questionnaire/catalog/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-18",
+      "route": "/api/questionnaire/submit",
+      "file_path": "src/app/api/questionnaire/submit/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-19",
+      "route": "/api/rank-activities",
+      "file_path": "src/app/api/rank-activities/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-20",
+      "route": "/api/runtime/observability",
+      "file_path": "src/app/api/runtime/observability/route.ts",
+      "category": "ADMIN_READ",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "Read-only admin/health"
+    },
+    {
+      "route_id": "API-21",
+      "route": "/api/runtime/vsm",
+      "file_path": "src/app/api/runtime/vsm/route.ts",
+      "category": "ADMIN_READ",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "Read-only admin/health"
+    },
+    {
+      "route_id": "API-22",
+      "route": "/api/scenes/answers",
+      "file_path": "src/app/api/scenes/answers/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-23",
+      "route": "/api/scenes/bootstrap",
+      "file_path": "src/app/api/scenes/bootstrap/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-24",
+      "route": "/api/scenes/canonicalize",
+      "file_path": "src/app/api/scenes/canonicalize/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-25",
+      "route": "/api/scenes/consistency",
+      "file_path": "src/app/api/scenes/consistency/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-26",
+      "route": "/api/scenes/derive",
+      "file_path": "src/app/api/scenes/derive/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-27",
+      "route": "/api/scenes/preclassify",
+      "file_path": "src/app/api/scenes/preclassify/route.ts",
+      "category": "SHADOW_DIAGNOSTIC",
+      "minimum_stage": "SHADOW",
+      "write_authority": "route_review_required",
+      "note": "Candidate-only, no final diagnosis"
+    },
+    {
+      "route_id": "API-28",
+      "route": "/api/scenes/runtime-contract-verify",
+      "file_path": "src/app/api/scenes/runtime-contract-verify/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-29",
+      "route": "/api/session/bootstrap",
+      "file_path": "src/app/api/session/bootstrap/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-30",
+      "route": "/api/session/intermediate-output",
+      "file_path": "src/app/api/session/intermediate-output/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-31",
+      "route": "/api/session/restore",
+      "file_path": "src/app/api/session/restore/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-32",
+      "route": "/api/significado/block0",
+      "file_path": "src/app/api/significado/block0/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    },
+    {
+      "route_id": "API-33",
+      "route": "/api/structural/confirm",
+      "file_path": "src/app/api/structural/confirm/route.ts",
+      "category": "PRODUCTIVE_DOMAIN",
+      "minimum_stage": "SUPERVISED",
+      "write_authority": "route_review_required",
+      "note": "Tenant/session boundary and idempotency required"
+    }
+  ],
+  "event_contracts": [
+    {
+      "event": "ClientIntentReceived",
+      "producer": "CLIENT_BFF",
+      "consumer": "COMPOSITION_ROOT",
+      "required_fields": [
+        "tenantId",
+        "userId",
+        "sessionId",
+        "activityId",
+        "correlationId",
+        "idempotencyKey",
+        "intentType",
+        "payloadRef"
+      ],
+      "side_effect": "none"
+    },
+    {
+      "event": "RuntimeCommandAccepted",
+      "producer": "COMPOSITION_ROOT",
+      "consumer": "RUNTIME_ORCHESTRATOR",
+      "required_fields": [
+        "commandId",
+        "scope",
+        "capabilityState",
+        "policyVersion"
+      ],
+      "side_effect": "none"
+    },
+    {
+      "event": "EvidenceRecorded",
+      "producer": "EVE06_EXECUTION",
+      "consumer": [
+        "EVE05_GATE",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "evidenceId",
+        "sourceNodeId",
+        "provenance",
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "side_effect": "local_persistence_only"
+    },
+    {
+      "event": "CanonicalVariableMaterialized",
+      "producer": "EVE06_EXECUTION",
+      "consumer": [
+        "EVE05_GATE",
+        "EVE07_PARALLEL"
+      ],
+      "required_fields": [
+        "recordId",
+        "variableName",
+        "valueRef",
+        "provenance",
+        "confidence",
+        "status"
+      ],
+      "side_effect": "local_persistence_only"
+    },
+    {
+      "event": "GateDecisionIssued",
+      "producer": "EVE05_GATE",
+      "consumer": [
+        "COMPOSITION_ROOT",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "gateId",
+        "decision",
+        "reasonCodes",
+        "candidateRef",
+        "policyVersion"
+      ],
+      "side_effect": "hold_or_advisory"
+    },
+    {
+      "event": "StructuralCandidatePrepared",
+      "producer": "EVE06_EXECUTION",
+      "consumer": [
+        "EVE07_PARALLEL",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "candidateId",
+        "modelType",
+        "evidenceRefs",
+        "conformanceStatus",
+        "consistencyStatus"
+      ],
+      "side_effect": "candidate_only"
+    },
+    {
+      "event": "ParallelPayloadPrepared",
+      "producer": "EVE07_PARALLEL",
+      "consumer": [
+        "HUMAN_REVIEW_QUEUE",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "payloadId",
+        "payloadType",
+        "candidateRefs",
+        "blockers",
+        "readiness"
+      ],
+      "side_effect": "candidate_only"
+    },
+    {
+      "event": "ManualReviewRequested",
+      "producer": [
+        "EVE05_GATE",
+        "EVE07_PARALLEL",
+        "EVE08_GOVERNANCE"
+      ],
+      "consumer": "HUMAN_REVIEW_QUEUE",
+      "required_fields": [
+        "reviewId",
+        "reviewType",
+        "scope",
+        "evidenceRefs",
+        "requestedBy",
+        "dueAt"
+      ],
+      "side_effect": "queue_write"
+    },
+    {
+      "event": "HumanReleaseDecision",
+      "producer": "HUMAN_REVIEWER",
+      "consumer": [
+        "RELEASE_MANAGER",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "reviewId",
+        "decision",
+        "actorId",
+        "reason",
+        "artifactHash",
+        "expiresAt"
+      ],
+      "side_effect": "authorization_record"
+    },
+    {
+      "event": "ReleaseAuthorized",
+      "producer": "RELEASE_MANAGER",
+      "consumer": "RELEASE_ADAPTER",
+      "required_fields": [
+        "releaseId",
+        "capabilityId",
+        "scope",
+        "artifactHash",
+        "approvalRefs",
+        "rollbackPlanId"
+      ],
+      "side_effect": "allowlisted_release"
+    },
+    {
+      "event": "AlgedonicSignalRaised",
+      "producer": "ANY_COMPONENT",
+      "consumer": [
+        "INDEPENDENT_AUDITOR",
+        "POLICY_OWNER"
+      ],
+      "required_fields": [
+        "signalId",
+        "severity",
+        "scope",
+        "harmType",
+        "evidenceRefs",
+        "occurredAt"
+      ],
+      "side_effect": "immediate_hold"
+    },
+    {
+      "event": "CapabilityStateChanged",
+      "producer": "EVE08_GOVERNANCE",
+      "consumer": [
+        "COMPOSITION_ROOT",
+        "OBSERVABILITY"
+      ],
+      "required_fields": [
+        "capabilityId",
+        "from",
+        "to",
+        "reason",
+        "approvalRefs",
+        "timestamp"
+      ],
+      "side_effect": "authority_change"
+    },
+    {
+      "event": "RollbackStarted",
+      "producer": "POLICY_OWNER",
+      "consumer": [
+        "SYSTEM_OPERATOR",
+        "EVE08_AUDIT"
+      ],
+      "required_fields": [
+        "rollbackId",
+        "scope",
+        "targetState",
+        "planHash",
+        "evidenceSnapshot"
+      ],
+      "side_effect": "compensation_only"
+    },
+    {
+      "event": "RollbackCompleted",
+      "producer": "SYSTEM_OPERATOR",
+      "consumer": [
+        "INDEPENDENT_AUDITOR",
+        "POLICY_OWNER"
+      ],
+      "required_fields": [
+        "rollbackId",
+        "reconciliationResult",
+        "residualRisks",
+        "completedAt"
+      ],
+      "side_effect": "none"
+    }
+  ],
+  "data_ownership": [
+    {
+      "data_id": "DATA-01",
+      "entity": "usuarios",
+      "domain": "AUTH_TENANT_DOMAIN",
+      "authoritative_writer": "SUPABASE_SERVER",
+      "record_kind": "identity_profile",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-02",
+      "entity": "empresas",
+      "domain": "AUTH_TENANT_DOMAIN",
+      "authoritative_writer": "SUPABASE_SERVER",
+      "record_kind": "tenant_record",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-03",
+      "entity": "sesiones",
+      "domain": "SESSION_DOMAIN",
+      "authoritative_writer": "SESSION_BOUNDARY",
+      "record_kind": "session_lifecycle",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-04",
+      "entity": "actividades",
+      "domain": "WORKMAP_DOMAIN",
+      "authoritative_writer": "WORKMAP_SERVICE",
+      "record_kind": "activity_record",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-05",
+      "entity": "respuestas",
+      "domain": "RUNTIME_DOMAIN",
+      "authoritative_writer": "RUNTIME_ORCHESTRATOR",
+      "record_kind": "response_record",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-06",
+      "entity": "ranking_actividades",
+      "domain": "WORKMAP_DOMAIN",
+      "authoritative_writer": "WORKMAP_SERVICE",
+      "record_kind": "activity_ranking",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-07",
+      "entity": "metricas_por_capa",
+      "domain": "OBSERVABILITY_DOMAIN",
+      "authoritative_writer": "AUDIT_EVENT_SINK",
+      "record_kind": "metrics_read_model",
+      "minimum_stage": "SHADOW",
+      "tenant_field_required": false,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-08",
+      "entity": "scene_registry",
+      "domain": "SCENE_DOMAIN",
+      "authoritative_writer": "SCENE_RUNTIME",
+      "record_kind": "scene_registry_candidate",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-09",
+      "entity": "scene_answers",
+      "domain": "SCENE_DOMAIN",
+      "authoritative_writer": "SCENE_RUNTIME",
+      "record_kind": "scene_answer",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-10",
+      "entity": "scene_preclassification",
+      "domain": "DIAGNOSTIC_CANDIDATE_DOMAIN",
+      "authoritative_writer": "EVE02_DIAGNOSTIC_ONTOLOGY",
+      "record_kind": "candidate_only",
+      "minimum_stage": "SHADOW",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-11",
+      "entity": "scene_canonical_records",
+      "domain": "RUNTIME_DOMAIN",
+      "authoritative_writer": "EVE06_EXECUTION_ENGINE",
+      "record_kind": "canonical_record",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-12",
+      "entity": "session_intermediate_output",
+      "domain": "SESSION_DOMAIN",
+      "authoritative_writer": "RUNTIME_ORCHESTRATOR",
+      "record_kind": "intermediate_candidate",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-13",
+      "entity": "significado_block0",
+      "domain": "SIGNIFICADO_DOMAIN",
+      "authoritative_writer": "SIGNIFICADO_SERVICE",
+      "record_kind": "block0_answers",
+      "minimum_stage": "SUPERVISED",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-14",
+      "entity": "operational_description_coach_events",
+      "domain": "ASSISTANCE_DOMAIN",
+      "authoritative_writer": "COACH_ADAPTER",
+      "record_kind": "non_authoritative_event",
+      "minimum_stage": "SHADOW",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-15",
+      "entity": "mba_shadow_observations_or_ledger",
+      "domain": "GOVERNANCE_DOMAIN",
+      "authoritative_writer": "MBA_SHADOW_OBSERVER",
+      "record_kind": "shadow_observation",
+      "minimum_stage": "SHADOW",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    },
+    {
+      "data_id": "DATA-16",
+      "entity": "parallel_production_runtime_artifacts",
+      "domain": "PARALLEL_CANDIDATE_DOMAIN",
+      "authoritative_writer": "PARALLEL_PRODUCTION_RUNTIME",
+      "record_kind": "candidate_only",
+      "minimum_stage": "SHADOW",
+      "tenant_field_required": true,
+      "audit_required": true,
+      "direct_chip_write_forbidden": true,
+      "notes": "Observed entity; exact schema/RLS remains to be proven before controlled writes."
+    }
+  ],
+  "chip_call_order": [
+    "EVE01_AGENT_CONSTITUTION validates requested action",
+    "EVE03_CANONICAL_CATALOG supplies versioned source/variable registry",
+    "EVE04_RUNTIME_CATALOG resolves interaction, branching and gaps",
+    "EVE06_EXECUTION_ENGINE materializes run, evidence, variables and candidates",
+    "EVE05_GATE_ENGINE evaluates critical, semantic, timer, conformance and consistency gates",
+    "EVE00_METHOD_KERNEL acts as MMABP tribunal inside gate evaluation",
+    "EVE02_DIAGNOSTIC_ONTOLOGY may classify only a candidate after MMABP pass",
+    "EVE07_PARALLEL_INTERFACE prepares candidate-only payloads",
+    "EVE08_AUDIT_GOVERNANCE receives independent audit events and may hold/degrade/quarantine"
+  ],
+  "forbidden_edges": [
+    {
+      "from": "CLIENT_UI",
+      "to": "EVE00..EVE08",
+      "reason": "UI cannot import chips directly."
+    },
+    {
+      "from": "CLIENT_UI",
+      "to": "SERVICE_ROLE_ADAPTER",
+      "reason": "Client cannot obtain privileged persistence authority."
+    },
+    {
+      "from": "EVE07_PARALLEL_INTERFACE",
+      "to": "REGISTRY_WRITE_ADAPTER",
+      "reason": "Candidate interface cannot write active registry."
+    },
+    {
+      "from": "EVE07_PARALLEL_INTERFACE",
+      "to": "EXPORT_RELEASE_ADAPTER",
+      "reason": "Candidate interface cannot issue final export."
+    },
+    {
+      "from": "EVE08_AUDIT_GOVERNANCE",
+      "to": "productive domain repositories",
+      "reason": "Auditor cannot execute audited operation."
+    },
+    {
+      "from": "DEV_SHADOW_UI",
+      "to": "productive routes",
+      "reason": "Dev harness cannot become production entrypoint."
+    },
+    {
+      "from": "EVE02_DIAGNOSTIC_ONTOLOGY",
+      "to": "raw_text",
+      "reason": "Diagnosis cannot originate from raw text."
+    },
+    {
+      "from": "B7/C20",
+      "to": "IR/registry/export",
+      "reason": "B7/C20 direct projection forbidden."
+    },
+    {
+      "from": "receiver_satisfaction",
+      "to": "receiver_feedback",
+      "reason": "Feedback requires canonical route."
+    },
+    {
+      "from": "COMPOSITION_ROOT",
+      "to": "database",
+      "reason": "Composition root is not a repository."
+    },
+    {
+      "from": "ADMIN_OBSERVABILITY_UI",
+      "to": "productive write service",
+      "reason": "Observability is read-only."
+    },
+    {
+      "from": "any component",
+      "to": "final external side effect",
+      "reason": "Must pass ReleaseAdapter with human approval."
+    }
+  ],
+  "vsm_map": {
+    "S1": [
+      "CLIENT_UI",
+      "WORKMAP_SERVICE",
+      "SIGNIFICADO_SERVICE",
+      "SCENE_RUNTIME",
+      "tenant activities"
+    ],
+    "S2": [
+      "RUNTIME_ORCHESTRATOR",
+      "OUTBOX_ADAPTER",
+      "timers",
+      "branching",
+      "idempotency",
+      "reentry"
+    ],
+    "S3": [
+      "SYSTEM_OPERATOR",
+      "RELEASE_MANAGER",
+      "controlled gate enforcement",
+      "resource/permission control"
+    ],
+    "S3_star": [
+      "INDEPENDENT_AUDITOR",
+      "EVE08_AUDIT_GOVERNANCE",
+      "AUDIT_EVENT_SINK",
+      "reconciliation probes"
+    ],
+    "S4": [
+      "MBA_SHADOW_OBSERVER",
+      "divergence analytics",
+      "catalog/policy evolution"
+    ],
+    "S5": [
+      "POLICY_OWNER",
+      "activation contract",
+      "identity/no-go boundaries"
+    ],
+    "algedonic_channel": [
+      "AlgedonicSignalRaised",
+      "quarantine",
+      "kill switch",
+      "rollback initiation"
+    ]
+  },
+  "migration_sequence": [
+    {
+      "step": 1,
+      "name": "Freeze exact chip/source snapshot",
+      "result": "All artifact hashes and lifecycle states registered."
+    },
+    {
+      "step": 2,
+      "name": "Create passive composition root and typed ports",
+      "result": "No side effects; contracts compile."
+    },
+    {
+      "step": 3,
+      "name": "Wire independent audit channel",
+      "result": "All chip decisions observable in shadow."
+    },
+    {
+      "step": 4,
+      "name": "Run E2E shadow traffic copy",
+      "result": "Official-vs-EVE divergences recorded and explainable."
+    },
+    {
+      "step": 5,
+      "name": "Enable supervised capture/candidates",
+      "result": "Real work, human release, no registry/export."
+    },
+    {
+      "step": 6,
+      "name": "Enable one controlled write capability",
+      "result": "Allowlisted effect with rollback drill."
+    },
+    {
+      "step": 7,
+      "name": "Pilot Fase 9 through BFF",
+      "result": "Client sees stable business views only."
+    },
+    {
+      "step": 8,
+      "name": "Expand by deployment rings",
+      "result": "Evidence-driven promotion and recertification."
+    }
+  ],
+  "open_gaps": [
+    {
+      "gap_id": "GAP-001",
+      "type": "activation_contract_missing",
+      "severity": "critical",
+      "description": "No single repo artifact defines the controlled organism activation contract across chips, runtime, UI, persistence, registry and rollback.",
+      "evidence": "Many shadow/dev harnesses and chip packages exist, but no observed productive activation contract.",
+      "required_next_evidence": "EVE-ORGANISM-CONTROLLED-ACTIVATION-CONTRACT-V1"
+    },
+    {
+      "gap_id": "GAP-002",
+      "type": "authority_map_missing",
+      "severity": "critical",
+      "description": "Observed authority surfaces are distributed across UI, API, Supabase clients, MBA service role services, registries and chip docs.",
+      "evidence": "Authority rows in _eve_organism_authority_matrix_observed_v1.json.",
+      "required_next_evidence": "EVE-ORGANISM-WIRING-AND-AUTHORITY-MAP-V1"
+    },
+    {
+      "gap_id": "GAP-003",
+      "type": "rls_and_db_policy_unverified",
+      "severity": "critical",
+      "description": "Supabase persistence is present, but RLS, table policies, indexes and tenant isolation were not verified from database state.",
+      "evidence": "supabase/prisma/db/migrations folders were not observed in this platform root.",
+      "required_next_evidence": "DB schema, RLS policy and service-role write audit."
+    },
+    {
+      "gap_id": "GAP-004",
+      "type": "service_role_boundary_high_risk",
+      "severity": "critical",
+      "description": "MBA and parallel production persistence can use service role keys.",
+      "evidence": "src/services/mba/server-supabase-client.mjs and src/services/parallel-production/runtime/repository.mjs.",
+      "required_next_evidence": "Explicit service role allowlist, denylist, audit log and rollback design."
+    },
+    {
+      "gap_id": "GAP-005",
+      "type": "shadow_to_productive_promotion_path_missing",
+      "severity": "critical",
+      "description": "Shadow services and dev harnesses are present, but the allowed promotion path from shadow candidate to productive authority is not observed.",
+      "evidence": "EVE00-EVE08 shadow/dev routes exist; packages remain candidate/dev-only unless separately wired.",
+      "required_next_evidence": "Promotion gate contract and human approval checkpoints."
+    },
+    {
+      "gap_id": "GAP-006",
+      "type": "registry_write_policy_ambiguous",
+      "severity": "high",
+      "description": "Registry and runtimeAuthority concepts exist, but a unified registry write policy for organism activation is not observed.",
+      "evidence": "rector-docs registry declares runtimeAuthority for documents; shadow harness tests reject registryWrite true.",
+      "required_next_evidence": "Registry authority table and write path audit."
+    },
+    {
+      "gap_id": "GAP-007",
+      "type": "event_bus_or_outbox_missing",
+      "severity": "high",
+      "description": "No canonical event bus/outbox contract was observed for organism-level activation.",
+      "evidence": "MBA event ledger and runtime observation routes exist, but no organism-wide outbox contract found in inventory.",
+      "required_next_evidence": "Event/outbox schema and idempotency policy."
+    },
+    {
+      "gap_id": "GAP-008",
+      "type": "kill_switch_and_rollback_missing",
+      "severity": "high",
+      "description": "No explicit kill switch, rollback ledger or activation disable path was observed.",
+      "evidence": "Feature flags exist for intake and env configuration; no organism-level kill switch observed.",
+      "required_next_evidence": "Rollback and disable controls."
+    },
+    {
+      "gap_id": "GAP-009",
+      "type": "productive_ui_entrypoint_approval_missing",
+      "severity": "high",
+      "description": "Productive UI has active flows and dev routes coexist, but the approved UI entrypoints for chip activation are not defined.",
+      "evidence": "src/app/page.tsx, admin routes and dev routes coexist.",
+      "required_next_evidence": "Route allowlist by activation stage."
+    },
+    {
+      "gap_id": "GAP-010",
+      "type": "tenant_scope_not_fully_proven",
+      "severity": "high",
+      "description": "Session owner boundaries exist, but end-to-end tenant isolation for every write route is not proven in this inventory.",
+      "evidence": "session-boundary.ts exists; many API routes must be reviewed route-by-route.",
+      "required_next_evidence": "Route-by-route tenant and session ownership matrix."
+    },
+    {
+      "gap_id": "GAP-011",
+      "type": "qa_coverage_for_activation_missing",
+      "severity": "high",
+      "description": "There are many regression tests, but no single activation precheck test suite was observed for the whole organism.",
+      "evidence": "120 test files observed; tests are chip/feature/regression-specific.",
+      "required_next_evidence": "Activation precheck suite covering authority, persistence, registry, UI and rollback."
+    },
+    {
+      "gap_id": "GAP-012",
+      "type": "runtime_catalog_state_dirty",
+      "severity": "high",
+      "description": "Worktree has EVE04 deleted/modified/untracked state; activation work must not use dirty candidate state without isolation.",
+      "evidence": "git status showed deleted EVE04 candidate files and modified EVE04 shadow service/test.",
+      "required_next_evidence": "Clean or explicitly isolated EVE04 bundle state."
+    },
+    {
+      "gap_id": "GAP-013",
+      "type": "manual_visual_approvals_not_runtime_authority",
+      "severity": "medium",
+      "description": "Manual visual approvals exist for dev harnesses, but these are not productive authority.",
+      "evidence": "EVE01/EVE02/EVE03/EVE08 UI trace/manual visual approval closeouts exist or were requested previously.",
+      "required_next_evidence": "Explicit distinction between visual QA and production activation."
+    },
+    {
+      "gap_id": "GAP-014",
+      "type": "external_ai_or_llm_boundary_unconfirmed",
+      "severity": "medium",
+      "description": "OpenAI coach services and env vars exist; organism activation must define whether LLM calls are allowed, shadowed or disabled.",
+      "evidence": "OPENAI_API_KEY and OPENAI_MODEL used by operational-description-coach services.",
+      "required_next_evidence": "LLM boundary contract and audit logging."
+    }
+  ],
+  "atomic_rules": [
+    {
+      "rule_id": "WIR-P-001",
+      "category": "principle",
+      "statement": "La UI cliente se conecta exclusivamente al CLIENT_BFF; nunca importa chips ni repositorios internos.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-002",
+      "category": "principle",
+      "statement": "El COMPOSITION_ROOT ensambla y ordena capacidades; no interpreta evidencia ni ejecuta side effects.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-003",
+      "category": "principle",
+      "statement": "Cada edge productivo debe declarar tenant, sesión, actividad, correlationId, idempotencyKey y versión de política.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-004",
+      "category": "principle",
+      "statement": "EVE08 recibe eventos de todos los componentes por canal de auditoría independiente y no ejecuta la acción auditada.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-005",
+      "category": "principle",
+      "statement": "EVE07 produce payloads candidate-only; registry y export final requieren RELEASE_ADAPTER.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-006",
+      "category": "principle",
+      "statement": "Las rutas /dev permanecen fuera de producción y no otorgan autoridad.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-007",
+      "category": "principle",
+      "statement": "WorkMap continúa hacia Significado sin reescribir Guardar, coverage o baseline H12.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-UI-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-UI-02",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-008",
+      "category": "principle",
+      "statement": "El service-role no puede ser llamado desde UI, BFF o chips; solo desde adapter allowlisted y auditado.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-009",
+      "category": "principle",
+      "statement": "El outbox publica solo después de commit local y conserva idempotencia, correlación, tenant y replay status.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-010",
+      "category": "principle",
+      "statement": "Los chips se comunican por contratos tipados y eventos; no por acceso mutuo a estado interno.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-VSM-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-ORG-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-011",
+      "category": "principle",
+      "statement": "La lectura diagnóstica EVE02 solo ocurre después de conformance y consistency gate.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-MMABP-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-012",
+      "category": "principle",
+      "statement": "Toda escritura irreversible se concentra en adapters de release separados del razonamiento y auditoría.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-013",
+      "category": "principle",
+      "statement": "Admin observability y trace son superficies read-only; no comparten credenciales de escritura productiva.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-014",
+      "category": "principle",
+      "statement": "Un edge sin evidencia de auth/tenant/RLS queda REVIEW_REQUIRED y no se promueve.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-P-015",
+      "category": "principle",
+      "statement": "La ruta productiva no puede depender de dev harness, closeout o auditoría manual como runtime authority.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "relevant inventory/method evidence"
+        },
+        {
+          "source_id": "SRC-EVE08-01",
+          "locator": "relevant inventory/method evidence"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-001",
+      "category": "target_edge",
+      "statement": "CLIENT_UI puede submit_intent hacia CLIENT_BFF desde SUPERVISED con authority_transfer=none.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-002",
+      "category": "target_edge",
+      "statement": "CLIENT_BFF puede assert_tenant_session_activity_scope hacia SESSION_BOUNDARY desde SHADOW con authority_transfer=none.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-003",
+      "category": "target_edge",
+      "statement": "CLIENT_BFF puede send_typed_command hacia COMPOSITION_ROOT desde SHADOW con authority_transfer=bounded_command.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-004",
+      "category": "target_edge",
+      "statement": "COMPOSITION_ROOT puede validate_agent_action hacia EVE01_AGENT_CONSTITUTION desde SHADOW con authority_transfer=decision_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-005",
+      "category": "target_edge",
+      "statement": "COMPOSITION_ROOT puede read_source_and_variable_registry hacia EVE03_CANONICAL_CATALOG desde SHADOW con authority_transfer=read_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-006",
+      "category": "target_edge",
+      "statement": "COMPOSITION_ROOT puede resolve_interaction_and_branching hacia EVE04_RUNTIME_CATALOG desde SHADOW con authority_transfer=definition_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-007",
+      "category": "target_edge",
+      "statement": "COMPOSITION_ROOT puede dispatch_scoped_runtime_command hacia RUNTIME_ORCHESTRATOR desde SUPERVISED con authority_transfer=bounded_execution.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-008",
+      "category": "target_edge",
+      "statement": "RUNTIME_ORCHESTRATOR puede materialize_run_evidence_variables_candidates hacia EVE06_EXECUTION_ENGINE desde SHADOW con authority_transfer=candidate_materialization.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-009",
+      "category": "target_edge",
+      "statement": "EVE06_EXECUTION_ENGINE puede request_gate_evaluation hacia EVE05_GATE_ENGINE desde SHADOW con authority_transfer=decision_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-010",
+      "category": "target_edge",
+      "statement": "EVE05_GATE_ENGINE puede validate_mmabp_conformance_consistency hacia EVE00_METHOD_KERNEL desde SHADOW con authority_transfer=method_decision.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-011",
+      "category": "target_edge",
+      "statement": "EVE05_GATE_ENGINE puede resolve_critical_route_and_semantic_binding hacia EVE03_CANONICAL_CATALOG desde SHADOW con authority_transfer=read_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-012",
+      "category": "target_edge",
+      "statement": "EVE05_GATE_ENGINE puede return_gate_decision hacia COMPOSITION_ROOT desde SHADOW con authority_transfer=advisory_or_hold.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-013",
+      "category": "target_edge",
+      "statement": "COMPOSITION_ROOT puede classify_pathology_candidate_after_mmabp_pass hacia EVE02_DIAGNOSTIC_ONTOLOGY desde SUPERVISED con authority_transfer=candidate_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-014",
+      "category": "target_edge",
+      "statement": "EVE06_EXECUTION_ENGINE puede provide_governed_candidates hacia EVE07_PARALLEL_INTERFACE desde SHADOW con authority_transfer=candidate_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-015",
+      "category": "target_edge",
+      "statement": "EVE07_PARALLEL_INTERFACE puede submit_candidate_payload hacia HUMAN_REVIEW_QUEUE desde SUPERVISED con authority_transfer=review_request.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-016",
+      "category": "target_edge",
+      "statement": "HUMAN_REVIEW_QUEUE puede approved_release_instruction hacia RELEASE_ADAPTER desde CONTROLLED_ACTIVE con authority_transfer=human_authorization.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-017",
+      "category": "target_edge",
+      "statement": "RELEASE_ADAPTER puede execute_approved_registry_write hacia REGISTRY_WRITE_ADAPTER desde CONTROLLED_ACTIVE con authority_transfer=single_use_scoped.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-018",
+      "category": "target_edge",
+      "statement": "RELEASE_ADAPTER puede execute_approved_export hacia EXPORT_RELEASE_ADAPTER desde CONTROLLED_ACTIVE con authority_transfer=single_use_scoped.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-019",
+      "category": "target_edge",
+      "statement": "RELEASE_ADAPTER puede execute_approved_parallel_handoff hacia PARALLEL_PRODUCTION_RUNTIME desde CONTROLLED_ACTIVE con authority_transfer=single_use_scoped.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-020",
+      "category": "target_edge",
+      "statement": "RUNTIME_ORCHESTRATOR puede enqueue_post_commit_event hacia OUTBOX_ADAPTER desde SUPERVISED con authority_transfer=event_publish.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-021",
+      "category": "target_edge",
+      "statement": "OUTBOX_ADAPTER puede emit_audit_and_governance_event hacia EVE08_AUDIT_GOVERNANCE desde SHADOW con authority_transfer=observe_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-022",
+      "category": "target_edge",
+      "statement": "EVE00_METHOD_KERNEL puede append_method_decision hacia AUDIT_EVENT_SINK desde SHADOW con authority_transfer=append_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-023",
+      "category": "target_edge",
+      "statement": "EVE01_AGENT_CONSTITUTION puede append_constitution_decision hacia AUDIT_EVENT_SINK desde SHADOW con authority_transfer=append_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-024",
+      "category": "target_edge",
+      "statement": "EVE02_DIAGNOSTIC_ONTOLOGY puede append_candidate_classification hacia AUDIT_EVENT_SINK desde SHADOW con authority_transfer=append_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-025",
+      "category": "target_edge",
+      "statement": "EVE05_GATE_ENGINE puede append_gate_decision hacia AUDIT_EVENT_SINK desde SHADOW con authority_transfer=append_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-026",
+      "category": "target_edge",
+      "statement": "EVE06_EXECUTION_ENGINE puede append_materialization_event hacia AUDIT_EVENT_SINK desde SHADOW con authority_transfer=append_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-027",
+      "category": "target_edge",
+      "statement": "EVE07_PARALLEL_INTERFACE puede append_payload_candidate_event hacia AUDIT_EVENT_SINK desde SHADOW con authority_transfer=append_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-028",
+      "category": "target_edge",
+      "statement": "EVE08_AUDIT_GOVERNANCE puede append_governance_decision hacia AUDIT_EVENT_SINK desde SHADOW con authority_transfer=append_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-029",
+      "category": "target_edge",
+      "statement": "EVE08_AUDIT_GOVERNANCE puede hold_degrade_quarantine_signal hacia COMPOSITION_ROOT desde SUPERVISED con authority_transfer=control_signal_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-030",
+      "category": "target_edge",
+      "statement": "MBA_SHADOW_OBSERVER puede append_shadow_observation hacia AUDIT_EVENT_SINK desde SHADOW con authority_transfer=append_only.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-031",
+      "category": "target_edge",
+      "statement": "WORKMAP_SERVICE puede continue_after_saved_workmap hacia SIGNIFICADO_SERVICE desde SUPERVISED con authority_transfer=flow_transition.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-032",
+      "category": "target_edge",
+      "statement": "SIGNIFICADO_SERVICE puede open_runtime_for_confirmed_activity hacia RUNTIME_ORCHESTRATOR desde SUPERVISED con authority_transfer=bounded_command.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-033",
+      "category": "target_edge",
+      "statement": "SCENE_RUNTIME puede scene_command_adapter hacia RUNTIME_ORCHESTRATOR desde SUPERVISED con authority_transfer=bounded_command.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-E-034",
+      "category": "target_edge",
+      "statement": "INDEPENDENT_AUDITOR puede submit_independent_finding hacia EVE08_AUDIT_GOVERNANCE desde SHADOW con authority_transfer=audit_input.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-GRAPH-01",
+          "locator": "observed graph baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-001/GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-001",
+      "category": "authority",
+      "statement": "CLIENT_UI authority: read=True, decide=False, write=False, block=False, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-002",
+      "category": "authority",
+      "statement": "CLIENT_BFF authority: read=True, decide=False, write=False, block=False, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-003",
+      "category": "authority",
+      "statement": "SESSION_BOUNDARY authority: read=True, decide=True, write=False, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-004",
+      "category": "authority",
+      "statement": "COMPOSITION_ROOT authority: read=True, decide=False, write=False, block=False, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-005",
+      "category": "authority",
+      "statement": "RUNTIME_ORCHESTRATOR authority: read=True, decide=True, write=True, block=False, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-006",
+      "category": "authority",
+      "statement": "WORKMAP_SERVICE authority: read=True, decide=True, write=True, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-007",
+      "category": "authority",
+      "statement": "SIGNIFICADO_SERVICE authority: read=True, decide=True, write=True, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-008",
+      "category": "authority",
+      "statement": "SCENE_RUNTIME authority: read=True, decide=True, write=True, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-009",
+      "category": "authority",
+      "statement": "EVE00_METHOD_KERNEL authority: read=True, decide=True, write=False, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-010",
+      "category": "authority",
+      "statement": "EVE01_AGENT_CONSTITUTION authority: read=True, decide=True, write=False, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-011",
+      "category": "authority",
+      "statement": "EVE02_DIAGNOSTIC_ONTOLOGY authority: read=True, decide=True, write=False, block=False, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-012",
+      "category": "authority",
+      "statement": "EVE03_CANONICAL_CATALOG authority: read=True, decide=False, write=False, block=False, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-013",
+      "category": "authority",
+      "statement": "EVE04_RUNTIME_CATALOG authority: read=True, decide=True, write=False, block=False, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-014",
+      "category": "authority",
+      "statement": "EVE05_GATE_ENGINE authority: read=True, decide=True, write=False, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-015",
+      "category": "authority",
+      "statement": "EVE06_EXECUTION_ENGINE authority: read=True, decide=True, write=candidate_only, block=False, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-016",
+      "category": "authority",
+      "statement": "EVE07_PARALLEL_INTERFACE authority: read=True, decide=True, write=candidate_only, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-017",
+      "category": "authority",
+      "statement": "EVE08_AUDIT_GOVERNANCE authority: read=True, decide=True, write=audit_only, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-018",
+      "category": "authority",
+      "statement": "AUDIT_EVENT_SINK authority: read=True, decide=False, write=append_only, block=False, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-019",
+      "category": "authority",
+      "statement": "HUMAN_REVIEW_QUEUE authority: read=True, decide=True, write=review_record, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-020",
+      "category": "authority",
+      "statement": "RELEASE_MANAGER authority: read=True, decide=True, write=authorization_record, block=True, override=True, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-021",
+      "category": "authority",
+      "statement": "RELEASE_ADAPTER authority: read=True, decide=False, write=allowlisted_side_effect, block=False, override=False, export=True, registry=True.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-022",
+      "category": "authority",
+      "statement": "REGISTRY_WRITE_ADAPTER authority: read=True, decide=False, write=registry_only, block=False, override=False, export=False, registry=True.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-023",
+      "category": "authority",
+      "statement": "EXPORT_RELEASE_ADAPTER authority: read=True, decide=False, write=export_only, block=False, override=False, export=True, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-024",
+      "category": "authority",
+      "statement": "PARALLEL_PRODUCTION_RUNTIME authority: read=True, decide=True, write=candidate_or_approved_handoff, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-025",
+      "category": "authority",
+      "statement": "SERVICE_ROLE_ADAPTER authority: read=True, decide=False, write=allowlisted_db_write, block=False, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-A-026",
+      "category": "authority",
+      "statement": "INDEPENDENT_AUDITOR authority: read=True, decide=True, write=audit_finding, block=True, override=False, export=False, registry=False.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-AUTH-01",
+          "locator": "observed authority baseline"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-002"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-001",
+      "category": "data_ownership",
+      "statement": "usuarios pertenece a AUTH_TENANT_DOMAIN y solo SUPABASE_SERVER puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-002",
+      "category": "data_ownership",
+      "statement": "empresas pertenece a AUTH_TENANT_DOMAIN y solo SUPABASE_SERVER puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-003",
+      "category": "data_ownership",
+      "statement": "sesiones pertenece a SESSION_DOMAIN y solo SESSION_BOUNDARY puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-004",
+      "category": "data_ownership",
+      "statement": "actividades pertenece a WORKMAP_DOMAIN y solo WORKMAP_SERVICE puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-005",
+      "category": "data_ownership",
+      "statement": "respuestas pertenece a RUNTIME_DOMAIN y solo RUNTIME_ORCHESTRATOR puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-006",
+      "category": "data_ownership",
+      "statement": "ranking_actividades pertenece a WORKMAP_DOMAIN y solo WORKMAP_SERVICE puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-007",
+      "category": "data_ownership",
+      "statement": "metricas_por_capa pertenece a OBSERVABILITY_DOMAIN y solo AUDIT_EVENT_SINK puede escribirlo desde SHADOW; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-008",
+      "category": "data_ownership",
+      "statement": "scene_registry pertenece a SCENE_DOMAIN y solo SCENE_RUNTIME puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-009",
+      "category": "data_ownership",
+      "statement": "scene_answers pertenece a SCENE_DOMAIN y solo SCENE_RUNTIME puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-010",
+      "category": "data_ownership",
+      "statement": "scene_preclassification pertenece a DIAGNOSTIC_CANDIDATE_DOMAIN y solo EVE02_DIAGNOSTIC_ONTOLOGY puede escribirlo desde SHADOW; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-011",
+      "category": "data_ownership",
+      "statement": "scene_canonical_records pertenece a RUNTIME_DOMAIN y solo EVE06_EXECUTION_ENGINE puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-012",
+      "category": "data_ownership",
+      "statement": "session_intermediate_output pertenece a SESSION_DOMAIN y solo RUNTIME_ORCHESTRATOR puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-013",
+      "category": "data_ownership",
+      "statement": "significado_block0 pertenece a SIGNIFICADO_DOMAIN y solo SIGNIFICADO_SERVICE puede escribirlo desde SUPERVISED; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-014",
+      "category": "data_ownership",
+      "statement": "operational_description_coach_events pertenece a ASSISTANCE_DOMAIN y solo COACH_ADAPTER puede escribirlo desde SHADOW; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-015",
+      "category": "data_ownership",
+      "statement": "mba_shadow_observations_or_ledger pertenece a GOVERNANCE_DOMAIN y solo MBA_SHADOW_OBSERVER puede escribirlo desde SHADOW; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-D-016",
+      "category": "data_ownership",
+      "statement": "parallel_production_runtime_artifacts pertenece a PARALLEL_CANDIDATE_DOMAIN y solo PARALLEL_PRODUCTION_RUNTIME puede escribirlo desde SHADOW; direct_chip_write_forbidden=true.",
+      "severity": "hard",
+      "blocking": true,
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.data_entities_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-003/GAP-004/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-R-001",
+      "category": "route_policy",
+      "statement": "Las rutas de categoría ADMIN_READ usan minimum_stage=SHADOW y política: Read-only and operator-authorized..",
+      "severity": "hard",
+      "blocking": true,
+      "route_ids": [
+        "UI-02",
+        "UI-03",
+        "UI-04",
+        "API-01",
+        "API-08",
+        "API-20",
+        "API-21"
+      ],
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes / $.api_services.routes_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-009/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-R-002",
+      "category": "route_policy",
+      "statement": "Las rutas de categoría CLIENT_UI usan minimum_stage=SUPERVISED y política: Via BFF; no direct chip/internal data access..",
+      "severity": "hard",
+      "blocking": true,
+      "route_ids": [
+        "UI-01"
+      ],
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes / $.api_services.routes_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-009/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-R-003",
+      "category": "route_policy",
+      "statement": "Las rutas de categoría CONTROLLED_EXPORT usan minimum_stage=OFF y política: Human approval and scoped export required.",
+      "severity": "hard",
+      "blocking": true,
+      "route_ids": [
+        "API-07"
+      ],
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes / $.api_services.routes_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-009/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-R-004",
+      "category": "route_policy",
+      "statement": "Las rutas de categoría DEV_ONLY usan minimum_stage=OFF y política: Must be disabled or access-restricted in production..",
+      "severity": "hard",
+      "blocking": true,
+      "route_ids": [
+        "UI-05",
+        "UI-06",
+        "UI-07",
+        "UI-08",
+        "UI-09",
+        "UI-10",
+        "UI-11",
+        "UI-12",
+        "UI-13",
+        "UI-14",
+        "UI-15"
+      ],
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes / $.api_services.routes_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-009/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-R-005",
+      "category": "route_policy",
+      "statement": "Las rutas de categoría GOVERNANCE_SHADOW usan minimum_stage=SHADOW y política: Observe/report only.",
+      "severity": "hard",
+      "blocking": true,
+      "route_ids": [
+        "API-10",
+        "API-11"
+      ],
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes / $.api_services.routes_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-009/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-R-006",
+      "category": "route_policy",
+      "statement": "Las rutas de categoría PRODUCTIVE_DOMAIN usan minimum_stage=SUPERVISED y política: Tenant/session boundary and idempotency required.",
+      "severity": "hard",
+      "blocking": true,
+      "route_ids": [
+        "API-09",
+        "API-17",
+        "API-18",
+        "API-19",
+        "API-22",
+        "API-23",
+        "API-24",
+        "API-25",
+        "API-26",
+        "API-28",
+        "API-29",
+        "API-30",
+        "API-31",
+        "API-32",
+        "API-33"
+      ],
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes / $.api_services.routes_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-009/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-R-007",
+      "category": "route_policy",
+      "statement": "Las rutas de categoría REVIEW_REQUIRED usan minimum_stage=OFF y política: No activation without route review.",
+      "severity": "hard",
+      "blocking": true,
+      "route_ids": [
+        "API-04",
+        "API-05"
+      ],
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes / $.api_services.routes_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-009/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-R-008",
+      "category": "route_policy",
+      "statement": "Las rutas de categoría SHADOW_CANDIDATE usan minimum_stage=SHADOW y política: No final export/registry.",
+      "severity": "hard",
+      "blocking": true,
+      "route_ids": [
+        "API-12",
+        "API-13",
+        "API-14",
+        "API-15",
+        "API-16"
+      ],
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes / $.api_services.routes_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-009/GAP-010"
+        }
+      ]
+    },
+    {
+      "rule_id": "WIR-R-009",
+      "category": "route_policy",
+      "statement": "Las rutas de categoría SHADOW_DIAGNOSTIC usan minimum_stage=SHADOW y política: Candidate-only, no final diagnosis.",
+      "severity": "hard",
+      "blocking": true,
+      "route_ids": [
+        "API-02",
+        "API-03",
+        "API-06",
+        "API-27"
+      ],
+      "source_refs": [
+        {
+          "source_id": "SRC-INV-01",
+          "locator": "$.ui_routes / $.api_services.routes_observed"
+        },
+        {
+          "source_id": "SRC-GAP-01",
+          "locator": "GAP-009/GAP-010"
+        }
+      ]
+    }
+  ],
+  "qa_wiring_tests": [
+    {
+      "test_id": "WIR-QA-001",
+      "assertion": "No forbidden edge exists in compiled graph.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-002",
+      "assertion": "Every target edge declares minimum stage and authority transfer.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-003",
+      "assertion": "Every write-capable component maps to exactly one bounded repository/adapter.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-004",
+      "assertion": "Every API route has route category, minimum stage and tenant review status.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-005",
+      "assertion": "Every data entity has authoritative writer, tenant rule and audit rule.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-006",
+      "assertion": "All chip decisions emit append-only audit events.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-007",
+      "assertion": "EVE08 can hold/degrade but cannot execute release side effects.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-008",
+      "assertion": "Service-role paths are unreachable from client and chip layers.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-009",
+      "assertion": "WorkMap → Significado → Runtime flow preserves frozen baseline.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-010",
+      "assertion": "Composition root has zero direct database imports and zero domain interpretation.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-011",
+      "assertion": "Outbox events include tenant, correlation, idempotency and replay status.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-012",
+      "assertion": "All dev routes are excluded from production route manifest.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-013",
+      "assertion": "All release edges require HumanReleaseDecision and rollbackPlanId.",
+      "blocking": true
+    },
+    {
+      "test_id": "WIR-QA-014",
+      "assertion": "Observed graph and target graph remain separately labeled.",
+      "blocking": true
+    }
+  ],
+  "dictamen": "READY_AS_RECTOR_WIRING_MAP; PRODUCTIVE_WIRING_BLOCKED_UNTIL_GAPS_AND_QA_CLOSE"
+} as const;
+
+export type TargetComponentId = typeof wiringAndAuthorityMap.target_architecture.components[number]["component_id"];
+export type ActivationStage = "OFF" | "VALIDATED" | "SHADOW" | "SUPERVISED" | "CONTROLLED_ACTIVE" | "ACTIVE";
+
+export interface WiringValidation {
+  pass: boolean;
+  errors: string[];
+  warnings: string[];
+}
+
+export function getTargetComponent(componentId: string) {
+  return wiringAndAuthorityMap.target_architecture.components.find((item) => item.component_id === componentId) ?? null;
+}
+
+export function getAuthority(componentId: string) {
+  return wiringAndAuthorityMap.authority_matrix_target.find((item) => item.component === componentId) ?? null;
+}
+
+export function getRoutePolicy(route: string) {
+  return wiringAndAuthorityMap.route_activation_policy.find((item) => item.route === route) ?? null;
+}
+
+export function validateTargetGraph(): WiringValidation {
+  const errors: string[] = [];
+  const warnings: string[] = [];
+  const components = new Set<string>(wiringAndAuthorityMap.target_architecture.components.map((item) => item.component_id));
+  const edges = wiringAndAuthorityMap.target_architecture.edges as readonly {
+    edge_id: string;
+    from: string;
+    to: string;
+    stage_min: string;
+    authority_transfer: string;
+  }[];
+  for (const edge of edges) {
+    if (!components.has(edge.from as never) && !["INDEPENDENT_AUDITOR"].includes(edge.from)) {
+      errors.push(`Unknown edge source: ${edge.edge_id}:${edge.from}`);
+    }
+    if (!components.has(edge.to as never) && !["OBSERVABILITY"].includes(edge.to)) {
+      errors.push(`Unknown edge target: ${edge.edge_id}:${edge.to}`);
+    }
+    if (!edge.stage_min || !edge.authority_transfer) errors.push(`Incomplete edge contract: ${edge.edge_id}`);
+  }
+  const forbiddenPairs = wiringAndAuthorityMap.forbidden_edges.map((item) => `${item.from}->${item.to}`);
+  if (forbiddenPairs.length !== new Set(forbiddenPairs).size) warnings.push("Duplicate forbidden-edge statements");
+  return { pass: errors.length === 0, errors, warnings };
+}
+
+export function isRouteAllowed(route: string, currentStage: ActivationStage, production: boolean): boolean {
+  const policy = getRoutePolicy(route);
+  if (!policy) return false;
+  if (production && policy.category === "DEV_ONLY") return false;
+  const order: Record<ActivationStage, number> = {
+    OFF: 0,
+    VALIDATED: 1,
+    SHADOW: 2,
+    SUPERVISED: 3,
+    CONTROLLED_ACTIVE: 4,
+    ACTIVE: 5,
+  };
+  return order[currentStage] >= order[policy.minimum_stage as ActivationStage];
+}
+
+export function assertNoDirectUiChipEdge(): WiringValidation {
+  const errors: string[] = [];
+  for (const edge of wiringAndAuthorityMap.target_architecture.edges) {
+    if (edge.from === "CLIENT_UI" && edge.to.startsWith("EVE")) {
+      errors.push(`Forbidden direct UI-to-chip edge: ${edge.edge_id}`);
+    }
+  }
+  return { pass: errors.length === 0, errors, warnings: [] };
+}
+
+export function dataOwner(entity: string) {
+  return wiringAndAuthorityMap.data_ownership.find((item) => item.entity === entity) ?? null;
+}

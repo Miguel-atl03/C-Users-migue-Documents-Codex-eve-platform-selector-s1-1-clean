@@ -1,0 +1,121 @@
+{
+  "contractId": "EVE-03-CANONICAL-CATALOG-SHADOW-MODE-CONTRACT-V1",
+  "mode": "canonical_catalog_shadow",
+  "chipId": "EVE-03-CANONICAL-CATALOG",
+  "version": "0.1.0",
+  "status": "design_only_not_implemented",
+  "defaultEnabled": false,
+  "invocationScope": ["future_static_test", "future_dev_harness"],
+  "inputContract": {
+    "typeName": "CanonicalCatalogEvaluationInput",
+    "required": {
+      "mode": "canonical_catalog_shadow",
+      "queryType": [
+        "resolve_node",
+        "resolve_source_code",
+        "resolve_canonical_variable",
+        "validate_node_variable_map",
+        "validate_critical_route",
+        "validate_epistemic_policy",
+        "validate_source_document",
+        "validate_source_target_map",
+        "validate_vsm_guard",
+        "detect_catalog_gap"
+      ]
+    },
+    "optional": [
+      "nodeId",
+      "sourceCode",
+      "variableId",
+      "routeId",
+      "policyId",
+      "sourceDocumentId",
+      "sourceTargetId",
+      "evidenceRefs",
+      "sourceTrace",
+      "requestedOutputType",
+      "context"
+    ]
+  },
+  "outputContract": {
+    "typeName": "CanonicalCatalogEvaluationResult",
+    "fields": [
+      "version",
+      "mode",
+      "chipId",
+      "queryType",
+      "readinessState",
+      "resolved",
+      "resolvedEntity",
+      "missingReferences",
+      "gapFlags",
+      "sourceTrace",
+      "evidenceRefs",
+      "allowedActions",
+      "blockedActions",
+      "requiredInputs",
+      "findings",
+      "auditEvents",
+      "safetyFlags"
+    ]
+  },
+  "readinessStates": [
+    "catalog_lookup_ready",
+    "catalog_lookup_not_found",
+    "catalog_reference_valid",
+    "catalog_reference_missing",
+    "catalog_gap_detected",
+    "epistemic_policy_allows",
+    "epistemic_policy_blocks",
+    "critical_route_found",
+    "critical_route_missing",
+    "manual_review_required",
+    "reentry_required"
+  ],
+  "safetyFlags": {
+    "canBlockUserFlow": false,
+    "canModifyPayload": false,
+    "canWriteRegistry": false,
+    "canModifyCatalog": false,
+    "canTriggerRuntime": false,
+    "canTriggerDiagnosis": false,
+    "canTriggerExport": false,
+    "runtimeAuthority": false
+  },
+  "allowedActions": [
+    "read_catalog_record",
+    "validate_reference",
+    "report_missing_reference",
+    "report_gap_flag",
+    "emit_shadow_trace"
+  ],
+  "blockedActions": [
+    "registry_write",
+    "final_export",
+    "runtime_readiness_final",
+    "final_diagnosis",
+    "productive_ui_mutation",
+    "catalog_mutation",
+    "create_node",
+    "create_variable",
+    "workmap_mutation",
+    "significado_mutation"
+  ],
+  "sourceAuthority": {
+    "D8": "primary source for nodes, source codes, canonical variables, critical routes, epistemic policy and mappings",
+    "D6": "runtime XLSX compatibility boundary",
+    "D5": "runtime governance, QA, gates and critical-route boundary",
+    "D7": "runtime/MMABP architecture boundary",
+    "VSM1": "VSM methodological guard only; no operational fields generated solely from VSM1"
+  },
+  "relationshipToOtherChips": {
+    "EVE-00": "EVE-03 does not evaluate MMABP conformance",
+    "EVE-01": "EVE-03 does not provide constitutional authority or runtime permission",
+    "EVE-02": "EVE-03 does not diagnose and does not replace diagnostic ontology"
+  },
+  "knownLivingGap": {
+    "gapId": "CANONICAL_VARIABLES_REFERENCED_NOT_DEFINED",
+    "status": "still_open_non_blocking",
+    "count": 33
+  }
+}

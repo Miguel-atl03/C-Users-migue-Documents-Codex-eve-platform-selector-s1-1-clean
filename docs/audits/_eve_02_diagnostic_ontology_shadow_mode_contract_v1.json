@@ -1,0 +1,105 @@
+{
+  "designId": "EVE-02-DIAGNOSTIC-ONTOLOGY-SHADOW-MODE-DESIGN-V1",
+  "dictamen": "DIAGNOSTIC_ONTOLOGY_SHADOW_MODE_DESIGN_READY",
+  "mode": "diagnostic_ontology_shadow",
+  "disabledByDefault": true,
+  "invocationScope": ["future_test", "future_dev_harness"],
+  "sideEffects": {
+    "canBlockUserFlow": false,
+    "canModifyPayload": false,
+    "canWriteRegistry": false,
+    "canTriggerFinalDiagnosis": false,
+    "canTriggerIR": false,
+    "canTriggerExport": false,
+    "canTriggerProduction": false,
+    "runtimeAuthority": false
+  },
+  "inputContract": {
+    "typeName": "DiagnosticOntologyEvaluationInput",
+    "requiredFields": [
+      "mode",
+      "inconsistency_compartment",
+      "involved_models",
+      "conformance_status",
+      "consistency_status",
+      "evidence_refs",
+      "source_trace"
+    ],
+    "optionalFields": [
+      "methodKernelResult",
+      "agentConstitutionDecision",
+      "semanticGateStatus",
+      "processStateTimerGateStatus",
+      "requestedOutputType",
+      "confidenceContext"
+    ],
+    "acceptanceRules": [
+      "mode must equal diagnostic_ontology_shadow",
+      "inconsistency_compartment must be EVE02-CMP-001..EVE02-CMP-013",
+      "involved_models must match the compartment models",
+      "conformance_status must be validated by EVE-00 or equivalent guard",
+      "consistency_status must be validated by EVE-00 or equivalent guard",
+      "source_trace must include D2 and structural evidence",
+      "EVE-01 constitutional boundary must not block the requested output"
+    ]
+  },
+  "prohibitedInputs": [
+    "free_text_without_evidence_refs",
+    "free_text_without_source_trace",
+    "user_requested_pathology_directly",
+    "unknown_inconsistency_compartment",
+    "involved_models_mismatch",
+    "missing_conformance_status",
+    "missing_consistency_status",
+    "diagnostic_mapping_without_D2",
+    "final_diagnosis_request",
+    "B7_C20_as_final_diagnosis",
+    "productive_ui_pathology_label_exposure",
+    "raw_text_export",
+    "registry_write",
+    "export_payload",
+    "production_real"
+  ],
+  "outputContract": {
+    "typeName": "DiagnosticOntologyEvaluationResult",
+    "fields": [
+      "version",
+      "mode",
+      "chipId",
+      "readinessState",
+      "candidateId",
+      "compartmentId",
+      "pathologyCandidate",
+      "canonicalPathology",
+      "aliases",
+      "diagnosticQuestion",
+      "methodTrace",
+      "pathologyTrace",
+      "evidenceRefs",
+      "sourceTrace",
+      "allowedActions",
+      "blockedActions",
+      "requiredInputs",
+      "findings",
+      "auditEvents",
+      "safetyFlags"
+    ]
+  },
+  "readinessStates": [
+    "diagnostic_preclassification_candidate",
+    "blocked_by_conformance_unchecked",
+    "blocked_by_consistency_unchecked",
+    "blocked_by_missing_evidence",
+    "blocked_by_semantic_ambiguity",
+    "manual_review_required",
+    "reentry_required"
+  ],
+  "authorityBoundaries": {
+    "D2": "primary pathology source",
+    "D1": "methodological guard",
+    "EVE-00": "conformance and consistency owner",
+    "D4": "technical runtime boundary",
+    "D5": "runtime governance boundary",
+    "EVE-01": "constitutional no-final-diagnosis guard"
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "$id": "EVE-PR3-A04-TRANSPORT-CONTRACT-v1.1",
+  "state": "IMPLEMENTATION_READY_NOT_DEPLOYED__COMMAND_RECEIPT_COMPLETE",
+  "schemas": {
+    "ActionTokenRequest": {
+      "required": [
+        "token_request_id",
+        "operation"
+      ],
+      "properties": {
+        "operation": "enum(OPEN_OR_RESUME,SUBMIT_RESPONSE,SUBMIT_CORRECTION,RESUME)",
+        "chain_run_id": "string?",
+        "object_run_id": "string?",
+        "interaction_key": "string?",
+        "context_revision": "string?",
+        "token_request_id": "opaque random transport nonce; NON_SEMANTIC/NON_AUTHORITY; reuse on retry"
+      }
+    },
+    "ActionTokenResponse": {
+      "required": [
+        "command_receipt",
+        "client_event_id",
+        "operation",
+        "issued_at",
+        "expires_at",
+        "action_token"
+      ],
+      "properties": {
+        "client_event_id": "string opaque",
+        "operation": "string",
+        "bound_chain_run_id": "string?",
+        "bound_object_run_id": "string?",
+        "bound_interaction_key": "string?",
+        "bound_context_revision": "string?",
+        "issued_at": "UTC RFC3339",
+        "expires_at": "UTC RFC3339",
+        "action_token": "opaque integrity-protected token",
+        "command_receipt": "CommandReceiptProjection"
+      }
+    },
+    "OpenOrResumeCommand": {
+      "required": [
+        "action_token",
+        "client_event_id",
+        "mode",
+        "scope_ref",
+        "activity_ref",
+        "expected_chain_definition_id",
+        "expected_chain_definition_revision"
+      ],
+      "properties": {
+        "mode": "OPEN_OR_RESUME"
+      }
+    },
+    "AnswerItem": {
+      "required": [
+        "slot_ref",
+        "raw_value"
+      ],
+      "properties": {
+        "slot_ref": "server opaque string",
+        "raw_value": "JSON scalar|array|object per current slot",
+        "raw_literal": "string?",
+        "knowledge_basis": "string?"
+      }
+    },
+    "SubmitResponseCommand": {
+      "required": [
+        "action_token",
+        "client_event_id",
+        "chain_run_id",
+        "object_run_id",
+        "interaction_key",
+        "context_revision",
+        "answers"
+      ],
+      "properties": {
+        "answers": "AnswerItem[] nonempty"
+      }
+    },
+    "CorrectionItem": {
+      "required": [
+        "slot_ref",
+        "raw_value",
+        "supersedes_response_key",
+        "expected_response_revision"
+      ],
+      "properties": {
+        "raw_literal": "string?",
+        "knowledge_basis": "string?"
+      }
+    },
+    "SubmitCorrectionCommand": {
+      "required": [
+        "action_token",
+        "client_event_id",
+        "chain_run_id",
+        "object_run_id",
+        "interaction_key",
+        "context_revision",
+        "corrections"
+      ],
+      "properties": {
+        "corrections": "CorrectionItem[] nonempty"
+      }
+    },
+    "PresentationOption": {
+      "required": [
+        "option_ref",
+        "option_label"
+      ],
+      "properties": {
+        "option_ref": "server opaque",
+        "option_label": "visible string"
+      }
+    },
+    "PresentationSlot": {
+      "required": [
+        "slot_ref",
+        "field_key",
+        "source_code",
+        "label",
+        "control_family",
+        "answer_mode",
+        "required",
+        "capture_slot_kind"
+      ],
+      "properties": {
+        "options": "PresentationOption[]?",
+        "knowledge_basis_control": "server-declared control metadata?"
+      }
+    },
+    "InteractionContract": {
+      "required": [
+        "chain_definition_id",
+        "chain_definition_revision",
+        "chain_run_id",
+        "object_key",
+        "object_run_id",
+        "contract_set_id",
+        "profile_id",
+        "profile_revision",
+        "profile_sha256",
+        "runtime_definition_id",
+        "definition_revision",
+        "interaction_key",
+        "context_revision",
+        "bucket",
+        "presentation_event_id",
+        "presentation_state",
+        "visible_text",
+        "ui_component",
+        "slots",
+        "restrictions",
+        "server_time"
+      ]
+    },
+    "ExecutionResult": {
+      "required": [
+        "command_receipt",
+        "domain_state",
+        "next_projection"
+      ],
+      "properties": {
+        "next_projection": "exactly one of interaction_contract|reentry_descriptor|dependency_block|chain_complete_package_ref",
+        "command_receipt": "CommandReceiptProjection"
+      }
+    },
+    "ResumeCommand": {
+      "required": [
+        "action_token",
+        "client_event_id",
+        "chain_run_id"
+      ],
+      "properties": {
+        "last_known_context_revision": "string?"
+      }
+    },
+    "CommandReceiptProjection": {
+      "required": [
+        "command_receipt_id",
+        "operation",
+        "command_scope_ref",
+        "command_event_id",
+        "idempotency_key",
+        "payload_sha256",
+        "receipt_state",
+        "side_effect_refs",
+        "server_time"
+      ],
+      "properties": {
+        "client_event_id": "string?",
+        "token_request_id": "string?",
+        "replay_of_receipt_id": "string?",
+        "result_payload_sha256": "sha256?",
+        "error_code": "string?",
+        "receipt_state": "ACCEPTED|REJECTED_PRECONDITION|IDEMPOTENT_REPLAY|IDEMPOTENCY_CONFLICT",
+        "side_effect_refs": "string[]"
+      }
+    }
+  },
+  "server_only_slot_binding": {
+    "required": [
+      "slot_ref",
+      "object_run_id",
+      "interaction_key",
+      "runtime_definition_id",
+      "question_code",
+      "subfield_id",
+      "canonical_local_value_map?",
+      "context_revision",
+      "expected_response_revision"
+    ]
+  },
+  "security": "Reject unbound/expired/tampered action_token; never trust browser domain scope/object/next; validate response payload against server slot registry before runtime invocation.",
+  "supersedes": "EVE-PR3-A04-TRANSPORT-CONTRACT-v1.0",
+  "command_idempotency": {
+    "side_effecting_operations": [
+      "ISSUE_ACTION_TOKEN",
+      "OPEN_OR_RESUME",
+      "SUBMIT_RESPONSE",
+      "SUBMIT_CORRECTION",
+      "RESUME",
+      "INTERNAL_AI",
+      "HUMAN_EXCEPTION",
+      "HANDOFF"
+    ],
+    "pure_read_equivalent": [
+      "READ_STATE"
+    ],
+    "server_key_authority": "A07 COMMAND_RECEIPT_KEY; caller never supplies authoritative idempotency_key"
+  }
+}

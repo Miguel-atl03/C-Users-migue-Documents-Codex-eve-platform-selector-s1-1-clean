@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Estado A · Propuesta Cipher</title>
+    <style>
+      @font-face {
+        font-display: swap;
+        font-family: Favorit;
+        font-style: normal;
+        font-weight: 100 900;
+        src: url("./fonts/ABCFavoritVariable.woff2") format("woff2-variations");
+      }
+
+      :root {
+        --color-dark: #060403;
+        --color-light: #ebebe8;
+        --canvas-bg: #ebebe8;
+        --font-s: 12px;
+        --font-m: 24px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--canvas-bg);
+        color: var(--color-dark);
+        font-family: Favorit, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        margin: 0 auto;
+        background: var(--canvas-bg);
+        isolation: isolate;
+      }
+
+      .screen::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background:
+          radial-gradient(ellipse 80% 55% at 50% 18%, rgba(6, 4, 3, 0.045) 0%, transparent 72%),
+          radial-gradient(ellipse 70% 50% at 50% 82%, rgba(6, 4, 3, 0.04) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .screen::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        opacity: 0.35;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+        background-size: 180px 180px;
+        mix-blend-mode: multiply;
+        pointer-events: none;
+      }
+
+      /* Hero entrada — réplica composición imagen adjunta */
+      .hero-entry {
+        position: relative;
+        z-index: 1;
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+      }
+
+      .hero-core {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 28px;
+        padding: 0 48px;
+      }
+
+      .hero-brand-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+
+      .hero-logo {
+        font-size: var(--font-s);
+        font-weight: 500;
+        line-height: 120%;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero-logo sup {
+        font-size: 7px;
+        vertical-align: super;
+        letter-spacing: 0;
+      }
+
+      .hero-slogan {
+        max-width: 420px;
+        font-size: var(--font-s);
+        font-weight: 500;
+        line-height: 120%;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .hero-monument {
+        margin: 8px 0 0;
+        max-width: 520px;
+        font-size: var(--font-s);
+        font-weight: 400;
+        line-height: 140%;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .hero-monument em {
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      /* Strap + contenido Estado A */
+      .strap-section {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 128px 0 50vh;
+        background: transparent;
+      }
+
+      .meta-row {
+        width: 100%;
+        max-width: 1400px;
+        padding: 0 93px 80px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        font-size: var(--font-s);
+        font-weight: 500;
+        line-height: 120%;
+        text-transform: uppercase;
+      }
+
+      .meta-row .signout {
+        text-align: right;
+      }
+
+      .room-mark {
+        width: 100%;
+        max-width: 1400px;
+        padding: 0 93px 80px;
+        margin: 0;
+        text-align: center;
+        font-size: var(--font-m);
+        font-weight: 400;
+        line-height: 95%;
+        text-transform: uppercase;
+      }
+
+      .inscriptions-grid {
+        width: 100%;
+        max-width: 1400px;
+        padding: 0 93px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+
+      .inscription-col {
+        font-size: var(--font-m);
+        font-weight: 400;
+        line-height: 95%;
+        text-transform: uppercase;
+      }
+
+      .inscription-col .question {
+        margin: 0 0 24px;
+      }
+
+      .inscription-col .options {
+        margin: 0;
+      }
+
+      .trace-wrap {
+        width: 100%;
+        max-width: 1400px;
+        padding: 96px 93px 0;
+        text-align: center;
+      }
+
+      .trace {
+        border: 0;
+        border-bottom: 1px solid var(--color-dark);
+        background: transparent;
+        color: var(--color-dark);
+        font-family: Favorit, sans-serif;
+        font-size: var(--font-s);
+        font-weight: 500;
+        line-height: 120%;
+        text-transform: uppercase;
+        padding: 0 0 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" id="estado-a-cipher-mockup">
+      <div class="hero-entry">
+        <div class="hero-core">
+          <div class="hero-brand-row">
+            <div class="hero-logo" aria-label="EVE">EVE<sup>™</sup></div>
+            <p class="hero-slogan">
+              Strategic &amp; Operational Architecture / Enterprise Viability Engine
+            </p>
+          </div>
+          <p class="hero-monument">
+            Lo que sostiene <em>no siempre se ve.</em><br />
+            Una forma distinta de mirar.
+          </p>
+        </div>
+      </div>
+
+      <div class="strap-section">
+        <div class="meta-row">
+          <span>Hola.</span>
+          <span class="signout">Cerrar sesión</span>
+        </div>
+
+        <p class="room-mark">[ Comienza tu levantamiento ]</p>
+
+        <div class="inscriptions-grid">
+          <section class="inscription-col">
+            <p class="question">¿Desde qué lugar participas normalmente en la empresa?</p>
+            <p class="options">
+              Soy dueño/a, socio/a o parte de la dirección general. Estoy a cargo o dirijo un
+              área. Superviso o coordino el trabajo de otras personas. Analizo información,
+              datos o procesos de la empresa. Apoyo en administración, ventas, producción,
+              atención o soporte. Participo como externo, asesor o proveedor. Otro.
+            </p>
+          </section>
+
+          <section class="inscription-col">
+            <p class="question">¿Qué tan cerca estás de las decisiones?</p>
+            <p class="options">
+              Las tomo directamente. Participo en decidirlas. Las propongo o las preparo. Las
+              ejecuto cuando ya fueron decididas. Las vivo como impacto, pero no participo
+              mucho en decidirlas.
+            </p>
+          </section>
+        </div>
+
+        <div class="trace-wrap">
+          <button class="trace" type="button">Guardar</button>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

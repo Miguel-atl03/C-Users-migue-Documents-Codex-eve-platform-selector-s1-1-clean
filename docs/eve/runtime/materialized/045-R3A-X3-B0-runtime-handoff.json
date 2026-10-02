@@ -1,0 +1,35 @@
+{
+  "instruction": "045-R3A-X3",
+  "classification": "blocked_b0_to_full_runtime_handoff",
+  "invented_bridge": false,
+  "evidence": [
+    {
+      "id": "interaction_state_mismatch",
+      "detail": "persistCanonicalSignificadoBlock0 sets runtime_interaction_instance.state=confirmed; Runtime FULL readAnsweredInteractionIds filters state===answered",
+      "files": [
+        "src/services/significado-runtime-block0-repository.ts",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-real-application-service.ts"
+      ]
+    },
+    {
+      "id": "next_interaction_not_applied",
+      "detail": "block0Result.runtime.nextInteraction is pending message only; page does not apply it to runtimeFullFrontdoor",
+      "files": [
+        "src/app/page.tsx",
+        "src/services/significado-runtime-block0-repository.ts"
+      ]
+    },
+    {
+      "id": "ui_message_was_not_evidence",
+      "detail": "Former UI copy claimed Runtime continues; replaced with accurate non-authoritative message"
+    },
+    {
+      "id": "commercial_skips_legacy_bootstrap",
+      "detail": "After commercial B0 success, page sets questionnaire_main without runPostWorkMapQuestionnairePipeline/bootstrapScenes"
+    }
+  ],
+  "B0_to_FULL_runtime_handoff": "blocked",
+  "duplicate_B0_after_handoff": "unverifiable_without_authorized_bridge",
+  "FULL_run_identity_preserved_by_design": true,
+  "note": "X3 does not invent a bridge. Architectural blocker accepted per Gate 15."
+}

@@ -1,0 +1,24 @@
+{
+  "riskMatrixId": "EVE-07-PARALLEL-PRODUCTION-INTERFACE-SHADOW-MODE-RISKS-V1",
+  "mode": "parallel_production_interface_shadow",
+  "risks": [
+    {"riskId": "PPI-RISK-001", "risk": "PPI shadow used for final export", "severity": "critical", "guard": "canTriggerExport=false and final_export blocked"},
+    {"riskId": "PPI-RISK-002", "risk": "registry_candidate writes real registry", "severity": "critical", "guard": "canWriteRegistry=false and registry_write blocked"},
+    {"riskId": "PPI-RISK-003", "risk": "mmabp_ir_candidate converted into final IR", "severity": "high", "guard": "candidate_only output and IR finalization blocked"},
+    {"riskId": "PPI-RISK-004", "risk": "mdsb_payload used as final diagnosis", "severity": "critical", "guard": "canTriggerDiagnosis=false"},
+    {"riskId": "PPI-RISK-005", "risk": "evidence_bundle_payload treated as final truth without trace", "severity": "high", "guard": "sourceTrace and evidenceRefs required"},
+    {"riskId": "PPI-RISK-006", "risk": "scr_payload mutates core SCR", "severity": "critical", "guard": "canModifyPayload=false"},
+    {"riskId": "PPI-RISK-007", "risk": "export_blockers converted into export action", "severity": "critical", "guard": "blockers remain validation signals only"},
+    {"riskId": "PPI-RISK-008", "risk": "EXB-031 ignored when override is not audited", "severity": "critical", "guard": "exb_031_violation_detected"},
+    {"riskId": "PPI-RISK-009", "risk": "EVE06 used as active runtime", "severity": "critical", "guard": "EVE06 documentary source only"},
+    {"riskId": "PPI-RISK-010", "risk": "EVE05 used as productive authority", "severity": "critical", "guard": "EVE05 documentary source only"},
+    {"riskId": "PPI-RISK-011", "risk": "EVE04 used as active Runtime", "severity": "critical", "guard": "runtimeAuthority=false"},
+    {"riskId": "PPI-RISK-012", "risk": "D1 elevated to direct operational source", "severity": "high", "guard": "D1 methodological_guard_only"},
+    {"riskId": "PPI-RISK-013", "risk": "certification_report accepted circularly", "severity": "high", "guard": "certification_report_accepted_as_final_proof=false"},
+    {"riskId": "PPI-RISK-014", "risk": "shadow harness treated as certification", "severity": "high", "guard": "shadow output is non-certifying"},
+    {"riskId": "PPI-RISK-015", "risk": "SQL or DDL execution", "severity": "critical", "guard": "canExecuteSql=false"},
+    {"riskId": "PPI-RISK-016", "risk": "Supabase write", "severity": "critical", "guard": "canWriteSupabase=false"},
+    {"riskId": "PPI-RISK-017", "risk": "WorkMap or Significado mutation", "severity": "critical", "guard": "no product mutation"},
+    {"riskId": "PPI-RISK-018", "risk": "premature EVE brain connection", "severity": "critical", "guard": "canConnectEveBrain=false"}
+  ]
+}

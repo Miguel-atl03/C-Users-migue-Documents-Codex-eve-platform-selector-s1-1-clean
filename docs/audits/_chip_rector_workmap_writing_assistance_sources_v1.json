@@ -1,0 +1,55 @@
+{
+  "chipRectorId": "workmap_responsibility_activity_writing_assistance",
+  "sourceVerification": {
+    "sourceKind": "mixed",
+    "originalSourcePath": null,
+    "originalSourceExists": false,
+    "originalSourceReadInThisTask": false,
+    "sourceSectionsOrSheetsUsed": [],
+    "physicalOfficeFilesFound": [
+      "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "docs/significado/canon/Descripción_Operativa_cerebro AI.docx"
+    ],
+    "workMapOriginalDocxXlsxFound": false,
+    "missingReferencedSources": [
+      "docs/work-map-intake-ui-standard.md",
+      "docs/work-map-intake-operational-logic.md",
+      "docs/work-map-assistance-semantic-canon.md"
+    ],
+    "derivedArtifacts": [
+      "src/components/WorkMapIntake.tsx",
+      "src/domain/work-map.ts",
+      "src/services/work-map-activity-validation.ts",
+      "src/services/work-map-responsibility-validation.ts",
+      "src/services/work-map-save-validation.ts",
+      "src/services/work-map-operational-readiness.ts",
+      "tests/regression/work-map-save-validation.test.ts",
+      "tests/regression/work-map-operational-readiness.test.ts",
+      "docs/audits/WORKMAP_H12_BASELINE_DISCOVERY.md",
+      "docs/audits/WORKMAP_H12_PACKAGE_PREP.md"
+    ],
+    "comparisonReport": "No hay documento original WorkMap .docx/.xlsx ni MD canonico presente contra el cual comparar la regla ejecutable. La conducta actual se puede reconstruir desde codigo, tests y closeouts, pero no certificarse como chip rector documental.",
+    "coverageStatus": "code_and_tests_cover_behavior_but_original_authority_missing",
+    "assumptionBased": true,
+    "canMiguelCompareAgainstOriginal": false,
+    "dictamen": "CHIP_RECTOR_ASSUMPTION_BASED"
+  },
+  "tests": [
+    {
+      "command": "node --test tests/regression/work-map-operational-readiness.test.ts",
+      "exitCode": 0,
+      "result": "pass 13/13"
+    },
+    {
+      "command": "node --test tests/regression/work-map-save-validation.test.ts",
+      "exitCode": 0,
+      "result": "pass 190/190"
+    },
+    {
+      "command": "node --test tests/regression/workmap-to-block0-prefill.test.ts",
+      "exitCode": 0,
+      "result": "pass 15/15"
+    }
+  ]
+}

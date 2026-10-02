@@ -1,0 +1,208 @@
+{
+  "design_id": "eve_organism_gate2_tenant_auth_isolation_guard_design_v1",
+  "generated_at": "2026-06-25T19:35:58.198Z",
+  "context_fields": [
+    "tenantId",
+    "organizationId",
+    "caseId",
+    "sessionId",
+    "activityId",
+    "actorId",
+    "userId",
+    "roleContext",
+    "authContext",
+    "sourceEnvironment"
+  ],
+  "results": [
+    "PASS_OFFLINE_CONTEXT_ONLY",
+    "BLOCKED_MISSING_TENANT_CONTEXT",
+    "BLOCKED_CROSS_TENANT",
+    "BLOCKED_AUTH_BOUNDARY",
+    "BLOCKED_SERVICE_ROLE",
+    "REQUIRES_RLS_READ_BOUNDARY_PROOF",
+    "REQUIRES_REAL_PRODUCT_EVIDENCE"
+  ],
+  "tenant_isolation_proven": false,
+  "auth_boundary_proven": false,
+  "rls_boundary_proven": false,
+  "current_evidence_status": "structurally_defined_but_unproven",
+  "rules": [
+    {
+      "rule_id": "TA-001",
+      "condition": "tenantId missing",
+      "required_fields": [
+        "tenantId"
+      ],
+      "comparison_scope": [
+        "signal",
+        "evidence",
+        "candidate",
+        "ledger"
+      ],
+      "result": "BLOCKED_MISSING_TENANT_CONTEXT",
+      "severity": "critical",
+      "algedonic_action": "TENANT_LEAK",
+      "capability_state_effect": "QUARANTINED",
+      "ledger_record_type": "TENANT_BOUNDARY_FAILURE",
+      "evidence_required": true,
+      "current_evidence_status": "structurally_defined_but_unproven",
+      "can_be_overridden": false
+    },
+    {
+      "rule_id": "TA-002",
+      "condition": "organizationId missing",
+      "required_fields": [
+        "organizationId"
+      ],
+      "comparison_scope": [
+        "signal",
+        "evidence",
+        "candidate",
+        "ledger"
+      ],
+      "result": "BLOCKED_MISSING_TENANT_CONTEXT",
+      "severity": "critical",
+      "algedonic_action": "TENANT_LEAK",
+      "capability_state_effect": "QUARANTINED",
+      "ledger_record_type": "TENANT_BOUNDARY_FAILURE",
+      "evidence_required": true,
+      "current_evidence_status": "structurally_defined_but_unproven",
+      "can_be_overridden": false
+    },
+    {
+      "rule_id": "TA-003",
+      "condition": "signal/evidence/candidate/ledger tenant mismatch",
+      "required_fields": [
+        "tenantId",
+        "organizationId",
+        "caseId",
+        "sessionId",
+        "activityId"
+      ],
+      "comparison_scope": [
+        "signal",
+        "evidence",
+        "candidate",
+        "ledger"
+      ],
+      "result": "BLOCKED_CROSS_TENANT",
+      "severity": "critical",
+      "algedonic_action": "TENANT_LEAK",
+      "capability_state_effect": "QUARANTINED",
+      "ledger_record_type": "TENANT_BOUNDARY_FAILURE",
+      "evidence_required": true,
+      "current_evidence_status": "structurally_defined_but_unproven",
+      "can_be_overridden": false
+    },
+    {
+      "rule_id": "TA-004",
+      "condition": "anonymous observation",
+      "required_fields": [
+        "actorId",
+        "userId",
+        "authContext"
+      ],
+      "comparison_scope": [
+        "signal",
+        "evidence",
+        "candidate",
+        "ledger"
+      ],
+      "result": "BLOCKED_AUTH_BOUNDARY",
+      "severity": "critical",
+      "algedonic_action": "TENANT_LEAK",
+      "capability_state_effect": "QUARANTINED",
+      "ledger_record_type": "AUTH_BOUNDARY_FAILURE",
+      "evidence_required": true,
+      "current_evidence_status": "structurally_defined_but_unproven",
+      "can_be_overridden": false
+    },
+    {
+      "rule_id": "TA-005",
+      "condition": "service_role used as authority",
+      "required_fields": [
+        "roleContext",
+        "authContext"
+      ],
+      "comparison_scope": [
+        "signal",
+        "evidence",
+        "candidate",
+        "ledger"
+      ],
+      "result": "BLOCKED_SERVICE_ROLE",
+      "severity": "critical",
+      "algedonic_action": "TENANT_LEAK",
+      "capability_state_effect": "QUARANTINED",
+      "ledger_record_type": "AUTH_BOUNDARY_FAILURE",
+      "evidence_required": true,
+      "current_evidence_status": "structurally_defined_but_unproven",
+      "can_be_overridden": false
+    },
+    {
+      "rule_id": "TA-006",
+      "condition": "secrets or tokens captured",
+      "required_fields": [
+        "authContext"
+      ],
+      "comparison_scope": [
+        "signal",
+        "evidence",
+        "candidate",
+        "ledger"
+      ],
+      "result": "BLOCKED_AUTH_BOUNDARY",
+      "severity": "critical",
+      "algedonic_action": "TENANT_LEAK",
+      "capability_state_effect": "QUARANTINED",
+      "ledger_record_type": "AUTH_BOUNDARY_FAILURE",
+      "evidence_required": true,
+      "current_evidence_status": "structurally_defined_but_unproven",
+      "can_be_overridden": false
+    },
+    {
+      "rule_id": "TA-007",
+      "condition": "future DB read boundary lacks RLS proof",
+      "required_fields": [
+        "sourceEnvironment",
+        "authContext"
+      ],
+      "comparison_scope": [
+        "signal",
+        "evidence",
+        "candidate",
+        "ledger"
+      ],
+      "result": "REQUIRES_RLS_READ_BOUNDARY_PROOF",
+      "severity": "high",
+      "algedonic_action": "AUTH_BOUNDARY_REVIEW",
+      "capability_state_effect": "DEGRADED",
+      "ledger_record_type": "AUTH_BOUNDARY_FAILURE",
+      "evidence_required": true,
+      "current_evidence_status": "structurally_defined_but_unproven",
+      "can_be_overridden": false
+    },
+    {
+      "rule_id": "TA-008",
+      "condition": "real product evidence absent",
+      "required_fields": [
+        "sourceEnvironment",
+        "evidence_refs"
+      ],
+      "comparison_scope": [
+        "signal",
+        "evidence",
+        "candidate",
+        "ledger"
+      ],
+      "result": "REQUIRES_REAL_PRODUCT_EVIDENCE",
+      "severity": "medium",
+      "algedonic_action": "AUTH_BOUNDARY_REVIEW",
+      "capability_state_effect": "NO_STATE_CHANGE",
+      "ledger_record_type": "AUTH_BOUNDARY_FAILURE",
+      "evidence_required": true,
+      "current_evidence_status": "structurally_defined_but_unproven",
+      "can_be_overridden": false
+    }
+  ]
+}

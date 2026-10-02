@@ -1,0 +1,45 @@
+{
+  "dictamen": "GATE_4_SINGLE_CONTROLLED_WRITE_S3_REVIEW_ACCEPTED",
+  "gate": "Gate 4",
+  "review_type": "S3* single controlled write review",
+  "reviewed_evidence": [
+    "docs/audits/evidence/gate4_controlled_write/gate4_gate3_closeout_audit_marker_v1.json",
+    "docs/audits/evidence/gate4_controlled_write/gate4_single_controlled_write_run_result.md",
+    "docs/audits/evidence/gate4_controlled_write/gate4_single_controlled_write_run_sanitized_log.md",
+    "docs/audits/evidence/gate4_controlled_write/_gate4_single_controlled_write_run_v1.json"
+  ],
+  "s3_assessment": {
+    "uniqueness_valid": true,
+    "payload_contract_valid": true,
+    "no_go_clean": true,
+    "g2_risk_visible": true,
+    "promotion_blocked": true,
+    "mba_sufficiency": true
+  },
+  "decision": {
+    "accepted": true,
+    "accepted_with_minor_correction": false,
+    "rejected": false,
+    "blocked": false,
+    "reason": "The single controlled write is acceptable as the first Gate 4 write: it is exactly one local audit/control marker, matches the payload contract, keeps G2-RISK-001 visible, blocks promotion and has no diagnosis, export, registry, client pilot, DB, Supabase, Gate 5 or Fase 9 side effects."
+  },
+  "gate_effect": {
+    "gate4_can_close": true,
+    "gate5_authorized": false,
+    "fase9_authorized": false,
+    "production_authorized": false,
+    "irreversible_write_generalized": false
+  },
+  "side_effects": {
+    "code_modified": false,
+    "tests_executed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "writes_attempted": false,
+    "new_marker_created": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false
+  },
+  "next_step": "CLOSE_GATE_4_SINGLE_CONTROLLED_WRITE_V1"
+}

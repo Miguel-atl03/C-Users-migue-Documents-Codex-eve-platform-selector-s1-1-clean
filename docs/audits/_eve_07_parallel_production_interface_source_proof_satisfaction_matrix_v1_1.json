@@ -1,0 +1,4576 @@
+{
+  "audit_id": "EVE-07-PARALLEL-PRODUCTION-INTERFACE-RECORD-RULE-SOURCE-QA-V1_1",
+  "dictamen": "PARALLEL_PRODUCTION_INTERFACE_RECORD_RULE_QA_SATISFACTORY",
+  "generated_at": "2026-06-22T21:56:37.246Z",
+  "previous": "docs/audits/_eve_07_parallel_production_interface_source_proof_satisfaction_matrix_v1.json",
+  "summary": {
+    "rows_checked": 154,
+    "accepted": 154,
+    "rejected": 0,
+    "pending_source_proof": 0,
+    "d1_primary_proof_rows": 0,
+    "repaired_from_v1": 3,
+    "exact_source_proof_candidate_accepted": 3,
+    "materialDifference": false
+  },
+  "rows": [
+    {
+      "qaId": "QA11-SPM-001",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-001",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-001",
+      "targetField": "primary_proof",
+      "targetValue": "Emitir SceneCanonicalRecordPatch solo desde un activity_runtime_run existente y scopeado.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:23.1",
+        "EVE06:ARR-004"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.activity_runtime_run.rules[3]",
+      "sourceSectionOrSheet": "EVE06:ARR-004",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=ARR-004 | module=activity_runtime_run | category=scope | statement=Todo run debe quedar scopeado por case_id, role_id y activity_id. | condition=any scope field missing | action=reject run creation | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-002",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-002",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-002",
+      "targetField": "primary_proof",
+      "targetValue": "El payload corresponde a una actividad primaria; actividades secundarias viajan solo como contexto.",
+      "declaredSourceIds": [
+        "D4:22",
+        "EVE06:ARR-001",
+        "EVE06:ARR-002"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "EVE06",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 22, table 20, row 2",
+      "sourceSectionOrSheet": "D4:22",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 22, table 20, row 2",
+      "sourceExcerptOrCellValue": "Una actividad primaria crea un activity_runtime_run. | El runtime 40+20 aplica por actividad primaria.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-003",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-003",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-003",
+      "targetField": "primary_proof",
+      "targetValue": "Declarar catalog_version_id congelado y coincidente con el run.",
+      "declaredSourceIds": [
+        "D4:23.1",
+        "D4:25",
+        "EVE06:ARR-003"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.activity_runtime_run.rules[2]",
+      "sourceSectionOrSheet": "EVE06:ARR-003",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=ARR-003 | module=activity_runtime_run | category=catalog | statement=El run debe fijar catalog_version_id validado antes de iniciar. | condition=catalog version missing, mutable or QA failed | action=reject run creation | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-004",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-004",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-004",
+      "targetField": "primary_proof",
+      "targetValue": "No consolidar activity_anchor si B0 permanece weak_context o sin confirmación/reconstrucción.",
+      "declaredSourceIds": [
+        "D6!Critical_Routes:CR-B0",
+        "D4:23.1",
+        "D5:6.1"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D4",
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Critical_Routes!A2:G2",
+      "sourceSectionOrSheet": "D6!Critical_Routes:CR-B0",
+      "sourceRowColumnIfXlsx": "Critical_Routes!A2:G2",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "conservar weak_context o activar reconstrucción guiada.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-005",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-005",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-005",
+      "targetField": "primary_proof",
+      "targetValue": "Persistir por separado action_verb, input_object, procedure_standard, output_product y confirmation_status.",
+      "declaredSourceIds": [
+        "D4:23.1",
+        "D5:7",
+        "D6!Parallel_Production_Contract"
+      ],
+      "verifiedSourceIds": [
+        "D5",
+        "D4",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 7, table 9, row 2",
+      "sourceSectionOrSheet": "D5:7",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 7, table 9, row 2",
+      "sourceExcerptOrCellValue": "B0-Q01 | action_verb; input_or_object; procedure_or_standard; output_or_result; user_correction_note",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-006",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-006",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-006",
+      "targetField": "primary_proof",
+      "targetValue": "Construir block_outputs únicamente desde canonical_variable_record activos y trazables.",
+      "declaredSourceIds": [
+        "D4:8.3",
+        "D4:23.1",
+        "EVE06:CVR-003",
+        "EVE06:CVR-015"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "D4",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.canonical_variable_record.rules[2]",
+      "sourceSectionOrSheet": "EVE06:CVR-003",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=CVR-003 | module=canonical_variable_record | category=genealogy | statement=Toda variable debe derivar de evidence_item/subfield_response o derivación trazable. | condition=no source refs | action=reject materialization | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-007",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-007",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-007",
+      "targetField": "primary_proof",
+      "targetValue": "Cada salida de bloque conserva source_node_id, source_code y evidence refs cuando existan.",
+      "declaredSourceIds": [
+        "D8!Catalogo_Madre_Nodos",
+        "EVE03:source_node_registry",
+        "EVE06:CVR-003"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D8",
+        "EVE03"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.canonical_variable_record.rules[2]",
+      "sourceSectionOrSheet": "EVE06:CVR-003",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=CVR-003 | module=canonical_variable_record | category=genealogy | statement=Toda variable debe derivar de evidence_item/subfield_response o derivación trazable. | condition=no source refs | action=reject materialization | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-008",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-008",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-008",
+      "targetField": "primary_proof",
+      "targetValue": "Incluir gaps y flags del run; no ocultarlos ni convertirlos en valores por defecto.",
+      "declaredSourceIds": [
+        "D4:23.1",
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Readiness_Gaps_Reentry!A3:E3",
+      "sourceSectionOrSheet": "D6!Readiness_Gaps_Reentry",
+      "sourceRowColumnIfXlsx": "Readiness_Gaps_Reentry!A3:E3",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "readiness_state=ready_with_flags | meaning=Avanza con advertencias trazadas. | entry_condition=Gap no bloqueante o ruta crítica con evidencia suficiente pero bandera de riesgo. | allowed_next_step=Consumir con flags; revisar en QA. | blocked_actions=No ocultar bandera.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-009",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-009",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-009",
+      "targetField": "primary_proof",
+      "targetValue": "No proyectar excepción de transformación si CR-B2-V3 no está cerrada.",
+      "declaredSourceIds": [
+        "D6!Critical_Routes:CR-B2",
+        "EVE05:critical_route_gate"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Critical_Routes!A3:G3",
+      "sourceSectionOrSheet": "D6!Critical_Routes:CR-B2",
+      "sourceRowColumnIfXlsx": "Critical_Routes!A3:G3",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "critical_route_id=CR-B2-V3-transformation_exception | ruta=2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description | nodos=2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description | regla=La excepción de transformación se captura/deriva solo por ruta canónica;",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-010",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-010",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-010",
+      "targetField": "primary_proof",
+      "targetValue": "receiver_feedback solo entra si CR-B3-R9/C09 cerró; satisfaction no lo sustituye.",
+      "declaredSourceIds": [
+        "D5:6.2",
+        "D6!Critical_Routes:CR-B3",
+        "EVE05:critical_route_gate"
+      ],
+      "verifiedSourceIds": [
+        "D5",
+        "D6",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 6.2, paragraph 23",
+      "sourceSectionOrSheet": "D5:6.2",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 6.2, paragraph 23",
+      "sourceExcerptOrCellValue": "C09 queda normalizada con cuatro variables: receiver_feedback_exists; receiver_feedback; receiver_feedback_gap_flag; receiver_feedback_route_missing. Esta corrección elimina duplicidad y preserva la ruta crítica CR-B3-R9.",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-011",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-011",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-011",
+      "targetField": "primary_proof",
+      "targetValue": "B7 solo aporta readiness/preclassification no diagnóstica; no agrega clase, IR, registry o export.",
+      "declaredSourceIds": [
+        "D5:6.3",
+        "D6!Critical_Routes:CR-B7",
+        "EVE05:failure_guards"
+      ],
+      "verifiedSourceIds": [
+        "D5",
+        "D6",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 6.3, table 8, row 7",
+      "sourceSectionOrSheet": "D5:6.3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 6.3, table 8, row 7",
+      "sourceExcerptOrCellValue": "B7-Q39/B7-Q40 frontera MMABP | No generan salida MoC directa, registry directo, IR, export ni diagnóstico; solo readiness/preclassification signal no diagnóstico para EvidenceBundle y Capa 2.0/2.5.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-012",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-012",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-012",
+      "targetField": "primary_proof",
+      "targetValue": "No promover ai_inferred_unconfirmed a evidence hard dentro del SCR.",
+      "declaredSourceIds": [
+        "D4:1",
+        "D5:2",
+        "EVE06:EVI-005"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.evidence_item.rules[4]",
+      "sourceSectionOrSheet": "EVE06:EVI-005",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=EVI-005 | module=evidence_item | category=confidence | statement=confidence no transforma por sí sola una inferencia en evidencia capturada. | condition=confidence high but unconfirmed | action=retain ai_inferred_unconfirmed | blocking=True | severity=major",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-013",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-013",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-013",
+      "targetField": "primary_proof",
+      "targetValue": "Estado ready permite preparación; ready_with_flags obliga a transportar flags; estados bloqueados impiden emisión.",
+      "declaredSourceIds": [
+        "D6!Readiness_Gaps_Reentry",
+        "D4:4.1",
+        "D4:23.1"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D6",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 4.1, table 5, row 9",
+      "sourceSectionOrSheet": "D4:4.1",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 4.1, table 5, row 9",
+      "sourceExcerptOrCellValue": "readiness_evaluation | Gates, gaps y consistencia mínima evaluándose. | ready, ready_with_flags, blocked, reentry_required, manual_review_required",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-014",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-014",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-014",
+      "targetField": "primary_proof",
+      "targetValue": "Toda recomputación crea nueva versión y marca la anterior superseded.",
+      "declaredSourceIds": [
+        "D4:24",
+        "D4:26",
+        "EVE06:recompute"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 24, table 22, row 6",
+      "sourceSectionOrSheet": "D4:24",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 24, table 22, row 6",
+      "sourceExcerptOrCellValue": "Corrección que afecta export payload emitido | Marcar parallel_export_payload como superseded y generar nueva versión.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-015",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-015",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-015",
+      "targetField": "primary_proof",
+      "targetValue": "El mismo input lógico y versión producen el mismo checksum_source.",
+      "declaredSourceIds": [
+        "D4:23.1",
+        "D4:24"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 24, table 22, row 6",
+      "sourceSectionOrSheet": "D4:24",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 24, table 22, row 6",
+      "sourceExcerptOrCellValue": "Corrección que afecta export payload emitido | Marcar parallel_export_payload como superseded y generar nueva versión.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-016",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-016",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-016",
+      "targetField": "primary_proof",
+      "targetValue": "case_id, role_id, activity_id y run_id deben coincidir con el contexto autorizado.",
+      "declaredSourceIds": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 25, row 2",
+      "sourceSectionOrSheet": "D4!Table25",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 25, row 2",
+      "sourceExcerptOrCellValue": "Scoping | Todo registro persistente debe incluir case_id directa o indirectamente. Cuando aplique, también role_id, activity_id y run_id.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-017",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-017",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-017",
+      "targetField": "primary_proof",
+      "targetValue": "SCR patch no muta el core ni equivale a registro consolidado final.",
+      "declaredSourceIds": [
+        "D3!Table6",
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 5",
+      "sourceSectionOrSheet": "D3:R4",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 5",
+      "sourceExcerptOrCellValue": "R4 | Todo artifact de Producción Paralela es candidate_only hasta fase explícita contraria.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-018",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-018",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-018",
+      "targetField": "primary_proof",
+      "targetValue": "No exponer object_id, bindings, materialization events, snapshots o No-Go internos en UI cliente.",
+      "declaredSourceIds": [
+        "D3!Table11",
+        "D3:R7"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 11, row 2",
+      "sourceSectionOrSheet": "D3!Table11",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 11, row 2",
+      "sourceExcerptOrCellValue": "Mostrar estado seguro de actividad, preguntas pendientes, respuestas y continuidad. | Mostrar object_id, object_key, bindings, materialization events o snapshots.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-019",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-019",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-019",
+      "targetField": "primary_proof",
+      "targetValue": "Registrar actor/sistema, versión, reason, prior payload y timestamp para override o emisión.",
+      "declaredSourceIds": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 25, row 6",
+      "sourceSectionOrSheet": "D4!Table25",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 25, row 6",
+      "sourceExcerptOrCellValue": "Export payload | Emitir payload hacia Producción Paralela requiere readiness_state permitido y actor/sistema autorizado.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-020",
+      "previousQaId": "accepted",
+      "comparisonId": "SCRP-020",
+      "targetModule": "scr_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "SCRP-020",
+      "targetField": "primary_proof",
+      "targetValue": "Estados permitidos: draft, ready, sent, superseded, blocked; no usar 'final' o 'certified'.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:25"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 21, paragraph 284",
+      "sourceSectionOrSheet": "D4:21",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 21, paragraph 284",
+      "sourceExcerptOrCellValue": "CREATE TABLE parallel_export_payload ( parallel_export_payload_id TEXT PRIMARY KEY, run_id TEXT NOT NULL REFERENCES activity_runtime_run(run_id), payload_type TEXT NOT NULL CHECK (payload_type IN ('scr_patch','evidence_bundle_patch','mdsb_patch','combined_preview')), payload_json JSONB NOT NULL, payload_state TEXT NOT NULL CHECK (payload_state",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-021",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-001",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-001",
+      "targetField": "primary_proof",
+      "targetValue": "Construir EvidenceBundlePatch solo desde evidence_item y canonical_variable_record gobernados.",
+      "declaredSourceIds": [
+        "D4:8.3",
+        "D4:23.2",
+        "EVE06:EVI-001",
+        "EVE06:CVR-003"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "D4",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.evidence_item.rules[0]",
+      "sourceSectionOrSheet": "EVE06:EVI-001",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=EVI-001 | module=evidence_item | category=creation | statement=Crear evidence_item solo desde respuesta aceptada, confirmación/corrección o derivación gobernada. | condition=unaccepted input | action=reject evidence creation | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-022",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-002",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-002",
+      "targetField": "primary_proof",
+      "targetValue": "Incluir únicamente evidence_item activos; conservar referencias a superseded sin tratarlos como vigentes.",
+      "declaredSourceIds": [
+        "D4:24",
+        "EVE06:EVI-014"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.evidence_item.rules[13]",
+      "sourceSectionOrSheet": "EVE06:EVI-014",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=EVI-014 | module=evidence_item | category=append_only | statement=No borrar evidencia superseded. | condition=delete requested | action=reject delete and audit | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-023",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-003",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-003",
+      "targetField": "primary_proof",
+      "targetValue": "Cada evidence_item exige epistemic_status, provenance_type, source_interaction_id y confidence.",
+      "declaredSourceIds": [
+        "D4:23.2",
+        "D5:2",
+        "EVE06:EVI-002"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.evidence_item.rules[1]",
+      "sourceSectionOrSheet": "EVE06:EVI-002",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=EVI-002 | module=evidence_item | category=epistemic | statement=Todo evidence_item exige epistemic_status y provenance_type. | condition=metadata missing | action=reject record | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-024",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-004",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-004",
+      "targetField": "primary_proof",
+      "targetValue": "Conservar el valor literal o confirmado sin reescribirlo como interpretación.",
+      "declaredSourceIds": [
+        "D4:23.2",
+        "D3:R1",
+        "D3:R3"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 23.2, paragraph 292",
+      "sourceSectionOrSheet": "D4:23.2",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 23.2, paragraph 292",
+      "sourceExcerptOrCellValue": "{ \"payload_type\": \"evidence_bundle_patch\", \"run_id\": \"RUN-123\", \"evidence_items\": [ { \"evidence_item_id\": \"EVI-001\", \"source_interaction_id\": \"B3-Q21\", \"literal_value\": \"A veces tesorería la devuelve por falta de soporte.\", \"epistemic_status\": \"captured_user_evidence\", \"provenance_type\": \"user_answer\", \"confidence\": 0.92 } ], \"canonical_variables\": [",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-025",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-005",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-005",
+      "targetField": "primary_proof",
+      "targetValue": "Las preguntas compuestas viajan como subrespuestas separadas, nunca como single_textbox opaco.",
+      "declaredSourceIds": [
+        "D4:1",
+        "D5:7",
+        "EVE06:RSP-007",
+        "EVE06:RSP-008"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "D5",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.response_ingest.rules[7]",
+      "sourceSectionOrSheet": "EVE06:RSP-008",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=RSP-008 | module=response_ingest | category=subfields | statement=Prohibir single_textbox opaco para preguntas compuestas. | condition=compound interaction receives one opaque answer | action=reject payload | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-026",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-006",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-006",
+      "targetField": "primary_proof",
+      "targetValue": "Cada canonical variable incluye value, route_id, route_status, source evidence y gap flag cuando aplique.",
+      "declaredSourceIds": [
+        "D4:23.2",
+        "EVE06:CVR-003",
+        "EVE06:CVR-006",
+        "EVE06:CVR-007",
+        "EVE06:CVR-008"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "EVE06",
+        "EVE06",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.canonical_variable_record.rules[2]",
+      "sourceSectionOrSheet": "EVE06:CVR-003",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=CVR-003 | module=canonical_variable_record | category=genealogy | statement=Toda variable debe derivar de evidence_item/subfield_response o derivación trazable. | condition=no source refs | action=reject materialization | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-027",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-007",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-007",
+      "targetField": "primary_proof",
+      "targetValue": "Incluir el estado de B0, B2, B3 y B7 aunque la ruta esté bloqueada.",
+      "declaredSourceIds": [
+        "D6!Critical_Routes",
+        "EVE05:critical_route_gate"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Critical_Routes!A3:G3",
+      "sourceSectionOrSheet": "D6!Critical_Routes",
+      "sourceRowColumnIfXlsx": "Critical_Routes!A3:G3",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "critical_route_id=CR-B2-V3-transformation_exception | ruta=2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description | nodos=2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description | regla=La excepción de transformación se captura/deriva solo por ruta canónica;",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-028",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-008",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-008",
+      "targetField": "primary_proof",
+      "targetValue": "Si hay evidencia textual de feedback sin cierre C09, materializar receiver_feedback_route_missing=true.",
+      "declaredSourceIds": [
+        "D5:6.2",
+        "D6!Critical_Routes:CR-B3",
+        "D4:23.2"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D5",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 23.2, paragraph 292",
+      "sourceSectionOrSheet": "D4:23.2",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 23.2, paragraph 292",
+      "sourceExcerptOrCellValue": "{ \"payload_type\": \"evidence_bundle_patch\", \"run_id\": \"RUN-123\", \"evidence_items\": [ { \"evidence_item_id\": \"EVI-001\", \"source_interaction_id\": \"B3-Q21\", \"literal_value\": \"A veces tesorería la devuelve por falta de soporte.\", \"epistemic_status\": \"captured_user_evidence\", \"provenance_type\": \"user_answer\", \"confidence\": 0.92 } ], \"canonical_variables\": [",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-029",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-009",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-009",
+      "targetField": "primary_proof",
+      "targetValue": "B7-Q39/B7-Q40/C20 solo se incluyen como preclassification/readiness signal no diagnóstico.",
+      "declaredSourceIds": [
+        "D5:6.3",
+        "D6!Critical_Routes:CR-B7"
+      ],
+      "verifiedSourceIds": [
+        "D5",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 6.3, table 8, row 8",
+      "sourceSectionOrSheet": "D5:6.3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 6.3, table 8, row 8",
+      "sourceExcerptOrCellValue": "B7-Q39/B7-Q40 en workbook | mmabp_ir_target debe declararse como No IR directo; solo readiness/preclassification signal para EvidenceBundle y Capa 2.0/2.5. moc_output debe declarar No MoC output directo; solo readiness/preclassification signal no diagnóstico.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-030",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-010",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-010",
+      "targetField": "primary_proof",
+      "targetValue": "Transportar readiness_state, dominant_gate y manual_review_required sin suavizarlos.",
+      "declaredSourceIds": [
+        "D4:23.2",
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 23.2, paragraph 292",
+      "sourceSectionOrSheet": "D4:23.2",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 23.2, paragraph 292",
+      "sourceExcerptOrCellValue": "{ \"payload_type\": \"evidence_bundle_patch\", \"run_id\": \"RUN-123\", \"evidence_items\": [ { \"evidence_item_id\": \"EVI-001\", \"source_interaction_id\": \"B3-Q21\", \"literal_value\": \"A veces tesorería la devuelve por falta de soporte.\", \"epistemic_status\": \"captured_user_evidence\", \"provenance_type\": \"user_answer\", \"confidence\": 0.92 } ], \"canonical_variables\": [",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-031",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-011",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-011",
+      "targetField": "primary_proof",
+      "targetValue": "Todo gap se representa como registro explícito con type, affected_route, quadrant, severity y reentry target.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:23.2"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 21, table 18, row 6",
+      "sourceSectionOrSheet": "D4:21",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 21, table 18, row 6",
+      "sourceExcerptOrCellValue": "branching_decision | Registro de por qué se abrió/cerró una interacción causal o reentry. | N por run",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-032",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-012",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-012",
+      "targetField": "primary_proof",
+      "targetValue": "EvidenceBundle no declara conformance ni consistency satisfechas; solo transporta evidencia y decisiones de gate.",
+      "declaredSourceIds": [
+        "D1:4.1-4.5",
+        "EVE05:mmabp_conformance_gate",
+        "EVE05:mmabp_consistency_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.mmabp_conformance_gate",
+      "sourceSectionOrSheet": "EVE05:mmabp_conformance_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "role=Evaluar cada PM, MoC, PF y OLC contra realidad antes de cualquier consistencia.",
+      "evidenceType": "json_object",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-033",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-013",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-013",
+      "targetField": "primary_proof",
+      "targetValue": "El bundle no contiene diagnóstico EVE, VSM ni AHE cerrado.",
+      "declaredSourceIds": [
+        "D3!Table6",
+        "D3!Table10",
+        "D5:1"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 10, row 2",
+      "sourceSectionOrSheet": "D3!Table10",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 10, row 2",
+      "sourceExcerptOrCellValue": "Capa 1.0 | No diagnostica; produce expediente y bundle.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-034",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-014",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-014",
+      "targetField": "primary_proof",
+      "targetValue": "Deduplicar por evidence_item_id/variable_name+revision sin perder genealogía.",
+      "declaredSourceIds": [
+        "D4:24",
+        "EVE06:evidence_item"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.evidence_item.rules[3]",
+      "sourceSectionOrSheet": "EVE06:evidence_item",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=EVI-004 | module=evidence_item | category=revision | statement=response_revision_number y supersedes_evidence_item_id conservan la cadena de revisiones. | condition=revision > 1 | action=link previous evidence | blocking=True | severity=critical",
+      "evidenceType": "json_object",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-035",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-015",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-015",
+      "targetField": "primary_proof",
+      "targetValue": "No fabricar confidence; usar la calculada/capturada por el Execution Engine.",
+      "declaredSourceIds": [
+        "D4:23.2",
+        "EVE06:EVI-005"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.evidence_item.rules[4]",
+      "sourceSectionOrSheet": "EVE06:EVI-005",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=EVI-005 | module=evidence_item | category=confidence | statement=confidence no transforma por sí sola una inferencia en evidencia capturada. | condition=confidence high but unconfirmed | action=retain ai_inferred_unconfirmed | blocking=True | severity=major",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-036",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-016",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-016",
+      "targetField": "primary_proof",
+      "targetValue": "Emitir bundle solo para case_id/tenant autorizado y target permitido.",
+      "declaredSourceIds": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 25, row 3",
+      "sourceSectionOrSheet": "D4!Table25",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 25, row 3",
+      "sourceExcerptOrCellValue": "Tenancy | Ningún query de usuario puede leer datos fuera de su case_id/tenant autorizado.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-037",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-017",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-017",
+      "targetField": "primary_proof",
+      "targetValue": "Toda corrección de respuesta invalida bundle dependiente y crea nueva versión.",
+      "declaredSourceIds": [
+        "D4:24",
+        "D4:26"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 24, table 22, row 6",
+      "sourceSectionOrSheet": "D4:24",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 24, table 22, row 6",
+      "sourceExcerptOrCellValue": "Corrección que afecta export payload emitido | Marcar parallel_export_payload como superseded y generar nueva versión.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-038",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-018",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-018",
+      "targetField": "primary_proof",
+      "targetValue": "Calcular checksum sobre contenido canonizado, versión y refs de origen.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:23"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 21, table 18, row 12",
+      "sourceSectionOrSheet": "D4:21",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 21, table 18, row 12",
+      "sourceExcerptOrCellValue": "parallel_export_payload | Payload versionado hacia SCR/EvidenceBundle/MDSB. | N por run",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-039",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-019",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-019",
+      "targetField": "primary_proof",
+      "targetValue": "Un bundle blocked o superseded no puede enviarse como ready.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:4.1"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 21, paragraph 284",
+      "sourceSectionOrSheet": "D4:21",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 21, paragraph 284",
+      "sourceExcerptOrCellValue": "CREATE TABLE parallel_export_payload ( parallel_export_payload_id TEXT PRIMARY KEY, run_id TEXT NOT NULL REFERENCES activity_runtime_run(run_id), payload_type TEXT NOT NULL CHECK (payload_type IN ('scr_patch','evidence_bundle_patch','mdsb_patch','combined_preview')), payload_json JSONB NOT NULL, payload_state TEXT NOT NULL CHECK (payload_state",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-040",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-020",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-020",
+      "targetField": "primary_proof",
+      "targetValue": "EvidenceBundle prepara Capa 2.0/2.5; no ejecuta transducción, IR ni registry write.",
+      "declaredSourceIds": [
+        "D3!Table6",
+        "D3!Table10",
+        "D5:6.3"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 10, row 2",
+      "sourceSectionOrSheet": "D3!Table10",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 10, row 2",
+      "sourceExcerptOrCellValue": "Capa 1.0 | No diagnostica; produce expediente y bundle.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-041",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-021",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-021",
+      "targetField": "primary_proof",
+      "targetValue": "Registrar source payload refs, run, catalog, created_at y emitter.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:27"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 21, table 18, row 12",
+      "sourceSectionOrSheet": "D4:21",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 21, table 18, row 12",
+      "sourceExcerptOrCellValue": "parallel_export_payload | Payload versionado hacia SCR/EvidenceBundle/MDSB. | N por run",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-042",
+      "previousQaId": "accepted",
+      "comparisonId": "EVBP-022",
+      "targetModule": "evidence_bundle_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "EVBP-022",
+      "targetField": "primary_proof",
+      "targetValue": "Los payloads cerrados no admiten placeholders, ellipsis ni campos ficticios en producción/shadow validation.",
+      "declaredSourceIds": [
+        "D4:23",
+        "D4:28"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 28, table 26, row 4",
+      "sourceSectionOrSheet": "D4:28",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 28, table 26, row 4",
+      "sourceExcerptOrCellValue": "Payload cerrado | SCR/EvidenceBundle/MDSB patch no usan placeholders en producción.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-043",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-001",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-001",
+      "targetField": "primary_proof",
+      "targetValue": "Construir MMABPDesignSourceBundlePatch solo cuando existan EvidenceBundlePatch y structural_candidate_record gobernados.",
+      "declaredSourceIds": [
+        "D4:23.3",
+        "EVE06:SCR-001",
+        "EVE06:SCR-005"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.structural_candidate_record.rules[0]",
+      "sourceSectionOrSheet": "EVE06:SCR-001",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=SCR-001 | module=structural_candidate_record | category=creation | statement=Crear candidato solo desde variables canónicas y evidence_item gobernados. | condition=source variable/evidence missing | action=reject candidate | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-044",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-002",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-002",
+      "targetField": "primary_proof",
+      "targetValue": "No consumir texto libre ni respuestas crudas; usar variables canónicas, evidence refs y candidates.",
+      "declaredSourceIds": [
+        "D6!Parallel_Production_Contract",
+        "D5:2",
+        "D4:23.3"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D5",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A4:E4",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A4:E4",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=MMABPDesignSourceBundle | función=Fuente estructural para MBA. | campos mínimos=PM/MoC/PF/OLC candidates, checkpoints, blocked flags. | consumidor=Producción Paralela. | restricción=No consume texto libre sin variable canónica.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-045",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-003",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-003",
+      "targetField": "primary_proof",
+      "targetValue": "Cada structural candidate conserva id, quadrant_hint, type, label, source_variable y source_evidence_item_id.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:23.3",
+        "EVE06:SCR-005"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.structural_candidate_record.rules[4]",
+      "sourceSectionOrSheet": "EVE06:SCR-005",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=SCR-005 | module=structural_candidate_record | category=genealogy | statement=source_variable y source_evidence_item_id son obligatorios. | condition=missing source reference | action=reject candidate | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-046",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-004",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-004",
+      "targetField": "primary_proof",
+      "targetValue": "Solo candidates en estado candidate o accepted_for_rehearsal pueden entrar; blocked/stale/superseded quedan como issue refs.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:24",
+        "EVE06:SCR-015",
+        "EVE06:SCR-016",
+        "EVE06:SCR-017"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "D4",
+        "EVE06",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.structural_candidate_record.rules[14]",
+      "sourceSectionOrSheet": "EVE06:SCR-015",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=SCR-015 | module=structural_candidate_record | category=state | statement=candidate_state debe ser candidate, blocked, stale o superseded en esta fase. | condition=state outside allowed phase-6 set | action=reject state | blocking=True | severity=critical",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-047",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-005",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-005",
+      "targetField": "primary_proof",
+      "targetValue": "Cada candidato incluye checkpoint de conformance contra realidad; ausencia bloquea IR/registry candidate.",
+      "declaredSourceIds": [
+        "D1:4.1",
+        "D4:23.3",
+        "EVE05:mmabp_conformance_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.mmabp_conformance_gate.role",
+      "sourceSectionOrSheet": "EVE05:mmabp_conformance_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "Evaluar cada PM, MoC, PF y OLC contra realidad antes de cualquier consistencia.",
+      "evidenceType": "json_field",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-048",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-006",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-006",
+      "targetField": "primary_proof",
+      "targetValue": "Cada candidato incluye checkpoint de consistency aplicable y referencias a compartimentos evaluados.",
+      "declaredSourceIds": [
+        "D1:4.2-4.5",
+        "D4:23.3",
+        "EVE05:mmabp_consistency_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.mmabp_consistency_gate.role",
+      "sourceSectionOrSheet": "EVE05:mmabp_consistency_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "Comprobar coherencia factual, temporal, estructural y compuesta entre vistas conformantes.",
+      "evidenceType": "json_field",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-049",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-007",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-007",
+      "targetField": "primary_proof",
+      "targetValue": "MoC/OLC candidates requieren Semantic Resolution Gate resuelto.",
+      "declaredSourceIds": [
+        "D6!Semantic_Resolution_Gates",
+        "EVE05:semantic_resolution_gate"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Semantic_Resolution_Gates!A2:G2",
+      "sourceSectionOrSheet": "D6!Semantic_Resolution_Gates",
+      "sourceRowColumnIfXlsx": "Semantic_Resolution_Gates!A2:G2",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "gate_id=SEM-001 | riesgo_controlado=Convertir estado en clase | trigger_condition=B2 o MoC detecta etiqueta que parece estado | internal_checks=¿Es entidad estable o condición temporal del objeto?",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-050",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-008",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-008",
+      "targetField": "primary_proof",
+      "targetValue": "PF/OLC candidates con espera requieren PST gates resueltos.",
+      "declaredSourceIds": [
+        "D6!Process_State_Timer_Gates",
+        "EVE05:process_state_timer_gate"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Process_State_Timer_Gates!A2:G2",
+      "sourceSectionOrSheet": "D6!Process_State_Timer_Gates",
+      "sourceRowColumnIfXlsx": "Process_State_Timer_Gates!A2:G2",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "gate_id=PST-001 | trigger_condition=B4-Q24 indica espera fuerte | required_capture=awaited_event | visible_or_internal=visible si no se infiere con confianza | blocking_rule=Bloquear Process State si no existe evento esperado. | output_variables=awaited_event | mmabp_target=PF",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-051",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-009",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-009",
+      "targetField": "primary_proof",
+      "targetValue": "B0, B2, B3 y B7 deben evaluarse; un route_missing se transporta como readiness gap.",
+      "declaredSourceIds": [
+        "D6!Critical_Routes",
+        "EVE05:critical_route_gate"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Critical_Routes!A4:G4",
+      "sourceSectionOrSheet": "D6!Critical_Routes",
+      "sourceRowColumnIfXlsx": "Critical_Routes!A4:G4",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "MDSB;",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-052",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-010",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-010",
+      "targetField": "primary_proof",
+      "targetValue": "No crear handoff_feedback_event, rework o PF/OLC candidate desde receiver_satisfaction.",
+      "declaredSourceIds": [
+        "D5:6.2",
+        "D6!Critical_Routes:CR-B3"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Critical_Routes!A4:G4",
+      "sourceSectionOrSheet": "D6!Critical_Routes:CR-B3",
+      "sourceRowColumnIfXlsx": "Critical_Routes!A4:G4",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "| bloqueo_si_falla=receiver_feedback_route_missing / CanonicalRouteException / no crear rework desde satisfacción subjetiva.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-053",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-011",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-011",
+      "targetField": "primary_proof",
+      "targetValue": "B7-Q39/B7-Q40/C20 no crean MoC, IR, registry, export ni diagnóstico directo.",
+      "declaredSourceIds": [
+        "D5:6.3",
+        "D6!Critical_Routes:CR-B7"
+      ],
+      "verifiedSourceIds": [
+        "D5",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 6.3, table 8, row 7",
+      "sourceSectionOrSheet": "D5:6.3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 6.3, table 8, row 7",
+      "sourceExcerptOrCellValue": "B7-Q39/B7-Q40 frontera MMABP | No generan salida MoC directa, registry directo, IR, export ni diagnóstico; solo readiness/preclassification signal no diagnóstico para EvidenceBundle y Capa 2.0/2.5.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-054",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-012",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-012",
+      "targetField": "primary_proof",
+      "targetValue": "Mantener separados PM, MoC, PF y OLC; no fusionar vistas en una entidad genérica.",
+      "declaredSourceIds": [
+        "D1:1.3.4",
+        "D1:4",
+        "D6!Parallel_Production_Contract"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D1",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A9:E9",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A9:E9",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=Consistency Checks | función=Cruces PM↔MoC, PM↔PF, MoC↔PF, PF↔OLC, OLC↔MoC. | campos mínimos=factual, temporal, structural, composite consistency. | consumidor=QA / Producción Paralela. | restricción=Conformance primero; consistencia después.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-055",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-013",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-013",
+      "targetField": "primary_proof",
+      "targetValue": "ready_with_flags puede preparar MDSB solo si flags son no bloqueantes y se transportan completos.",
+      "declaredSourceIds": [
+        "D6!Readiness_Gaps_Reentry",
+        "D4:23.3"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Readiness_Gaps_Reentry!A3:E3",
+      "sourceSectionOrSheet": "D6!Readiness_Gaps_Reentry",
+      "sourceRowColumnIfXlsx": "Readiness_Gaps_Reentry!A3:E3",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "readiness_state=ready_with_flags | meaning=Avanza con advertencias trazadas. | entry_condition=Gap no bloqueante o ruta crítica con evidencia suficiente pero bandera de riesgo. | allowed_next_step=Consumir con flags; revisar en QA. | blocked_actions=No ocultar bandera.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-056",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-014",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-014",
+      "targetField": "primary_proof",
+      "targetValue": "manual_review_required impide estado ready/sent hasta decisión autorizada.",
+      "declaredSourceIds": [
+        "D4:27",
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 27, table 25, row 4",
+      "sourceSectionOrSheet": "D4:27",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 27, table 25, row 4",
+      "sourceExcerptOrCellValue": "Manual review | manual_review_required solo puede resolverse por actor autorizado y debe crear runtime_audit_trail.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-057",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-015",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-015",
+      "targetField": "primary_proof",
+      "targetValue": "Toda contradicción, semantic ambiguity, route missing o PST failure se conserva como issue ref.",
+      "declaredSourceIds": [
+        "D4:23.3",
+        "EVE05:semantic_resolution_gate",
+        "EVE05:process_state_timer_gate",
+        "EVE05:critical_route_gate",
+        "EVE05:mmabp_consistency_gate"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "EVE05",
+        "EVE05",
+        "EVE05",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 23.3, paragraph 294",
+      "sourceSectionOrSheet": "D4:23.3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 23.3, paragraph 294",
+      "sourceExcerptOrCellValue": "{ \"payload_type\": \"mdsb_patch\", \"run_id\": \"RUN-123\", \"structural_candidates\": [ { \"structural_candidate_id\": \"SC-001\", \"quadrant_hint\": \"PF\", \"candidate_type\": \"handoff_feedback_event\", \"candidate_label\": \"Tesorería devuelve factura por soporte faltante\", \"source_variable\": \"receiver_feedback\", \"source_evidence_item_id\": \"EVI-001\", \"conformance_checkpoint\": \"Representa una acción operativa real del",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-058",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-016",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-016",
+      "targetField": "primary_proof",
+      "targetValue": "MDSB no es diagrama ni autoriza diagramación; incluye export_restriction explícita.",
+      "declaredSourceIds": [
+        "D4:23.3",
+        "D3!Table5",
+        "D6!Parallel_Production_Contract"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D4",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 5, row 3",
+      "sourceSectionOrSheet": "D3!Table5",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 5, row 3",
+      "sourceExcerptOrCellValue": "MMABP-IR | Proyectar representación intermedia computable para PM, PF, MoC, OLC. | No equivale a diagrama final ni export final.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-059",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-017",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-017",
+      "targetField": "primary_proof",
+      "targetValue": "El payload es patch/candidate; no equivale a MDSB final ni transducción final.",
+      "declaredSourceIds": [
+        "D3!Table6",
+        "D3!Table10",
+        "D3:R4"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 5",
+      "sourceSectionOrSheet": "D3:R4",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 5",
+      "sourceExcerptOrCellValue": "R4 | Todo artifact de Producción Paralela es candidate_only hasta fase explícita contraria.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-060",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-018",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-018",
+      "targetField": "primary_proof",
+      "targetValue": "Correcciones de evidencia o gates marcan MDSB anterior superseded.",
+      "declaredSourceIds": [
+        "D4:24",
+        "D4:26"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 24, table 22, row 6",
+      "sourceSectionOrSheet": "D4:24",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 24, table 22, row 6",
+      "sourceExcerptOrCellValue": "Corrección que afecta export payload emitido | Marcar parallel_export_payload como superseded y generar nueva versión.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-061",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-019",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-019",
+      "targetField": "primary_proof",
+      "targetValue": "Solo actor/sistema autorizado puede pasar de draft a ready/sent.",
+      "declaredSourceIds": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 25, row 6",
+      "sourceSectionOrSheet": "D4!Table25",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 25, row 6",
+      "sourceExcerptOrCellValue": "Export payload | Emitir payload hacia Producción Paralela requiere readiness_state permitido y actor/sistema autorizado.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-062",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-020",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-020",
+      "targetField": "primary_proof",
+      "targetValue": "Incluir checksum del payload y refs a SCR/EvidenceBundle versiones usadas.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:23"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 21, table 18, row 12",
+      "sourceSectionOrSheet": "D4:21",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 21, table 18, row 12",
+      "sourceExcerptOrCellValue": "parallel_export_payload | Payload versionado hacia SCR/EvidenceBundle/MDSB. | N por run",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-063",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-021",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-021",
+      "targetField": "primary_proof",
+      "targetValue": "No admitir placeholders en structural_candidates, checkpoints o gaps.",
+      "declaredSourceIds": [
+        "D4:23",
+        "D4:28"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 28, table 26, row 4",
+      "sourceSectionOrSheet": "D4:28",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 28, table 26, row 4",
+      "sourceExcerptOrCellValue": "Payload cerrado | SCR/EvidenceBundle/MDSB patch no usan placeholders en producción.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-064",
+      "previousQaId": "accepted",
+      "comparisonId": "MDSB-022",
+      "targetModule": "mdsb_payload",
+      "targetUnitType": "rule",
+      "targetRuleId": "MDSB-022",
+      "targetField": "primary_proof",
+      "targetValue": "Persistir emitter, timestamp, target, reason y prior payload refs.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:27"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 27, table 25, row 8",
+      "sourceSectionOrSheet": "D4:27",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 27, table 25, row 8",
+      "sourceExcerptOrCellValue": "Auditoría | Cualquier cambio a ruta crítica B0/B2/B3/B7 exige audit log obligatorio.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-065",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-001",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-001",
+      "targetField": "primary_proof",
+      "targetValue": "Crear MMABP-IR candidate solo desde MDSBPatch ready y no bloqueado.",
+      "declaredSourceIds": [
+        "D3!Table5",
+        "D4:23.3",
+        "MDSB-013"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D4",
+        "EVE07_INTERNAL"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 5, row 3",
+      "sourceSectionOrSheet": "D3!Table5",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 5, row 3",
+      "sourceExcerptOrCellValue": "MMABP-IR | Proyectar representación intermedia computable para PM, PF, MoC, OLC. | No equivale a diagrama final ni export final.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-066",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-002",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-002",
+      "targetField": "primary_proof",
+      "targetValue": "MMABP-IR candidate es representación intermedia computable en ensayo; no es modelo final ni diagrama.",
+      "declaredSourceIds": [
+        "D3!Table5",
+        "D3:R4",
+        "D3:R5"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 5, row 3",
+      "sourceSectionOrSheet": "D3!Table5",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 5, row 3",
+      "sourceExcerptOrCellValue": "MMABP-IR | Proyectar representación intermedia computable para PM, PF, MoC, OLC. | No equivale a diagrama final ni export final.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-067",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-003",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-003",
+      "targetField": "primary_proof",
+      "targetValue": "Cada nodo/arista del IR conserva structural_candidate_id, source_variable y evidence_item refs.",
+      "declaredSourceIds": [
+        "D3:R3",
+        "D4:23.3"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 23.3, paragraph 294",
+      "sourceSectionOrSheet": "D4:23.3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 23.3, paragraph 294",
+      "sourceExcerptOrCellValue": "{ \"payload_type\": \"mdsb_patch\", \"run_id\": \"RUN-123\", \"structural_candidates\": [ { \"structural_candidate_id\": \"SC-001\", \"quadrant_hint\": \"PF\", \"candidate_type\": \"handoff_feedback_event\", \"candidate_label\": \"Tesorería devuelve factura por soporte faltante\", \"source_variable\": \"receiver_feedback\", \"source_evidence_item_id\": \"EVI-001\", \"conformance_checkpoint\": \"Representa una acción operativa real del",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-068",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-004",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-004",
+      "targetField": "primary_proof",
+      "targetValue": "Mantener particiones explícitas PM, MoC, PF y OLC.",
+      "declaredSourceIds": [
+        "D1:1.3.4",
+        "D1:4",
+        "D6!Parallel_Production_Contract"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D1",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A9:E9",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A9:E9",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=Consistency Checks | función=Cruces PM↔MoC, PM↔PF, MoC↔PF, PF↔OLC, OLC↔MoC. | campos mínimos=factual, temporal, structural, composite consistency. | consumidor=QA / Producción Paralela. | restricción=Conformance primero; consistencia después.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-069",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-005",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-005",
+      "targetField": "primary_proof",
+      "targetValue": "PM IR candidate solo contiene cliente/necesidad/proceso/trigger/target state/soporte/sincronización; no tareas detalladas.",
+      "declaredSourceIds": [
+        "D1:2.2.6",
+        "D6!Parallel_Production_Contract"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A5:E5",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A5:E5",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=PM Registry Candidates | función=Proceso, cliente, necesidad, trigger, estado objetivo, soporte, sincronización. | campos mínimos=customer, need, process, trigger, target_state, support_processes. | consumidor=MMABP-IR. | restricción=No fusionar PM con PF.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-070",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-006",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-006",
+      "targetField": "primary_proof",
+      "targetValue": "MoC IR candidate representa clases reales, relaciones, ISA/role/phase/end; no IDs técnicos ni esquema de base de datos.",
+      "declaredSourceIds": [
+        "D1:3.1.5",
+        "EVE05:semantic_resolution_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.semantic_resolution_gate",
+      "sourceSectionOrSheet": "EVE05:semantic_resolution_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "role=Resolver ambigüedad clase/estado/atributo/proceso/ISA/role/phase/end antes de MoC/OLC.",
+      "evidenceType": "json_object",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-071",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-007",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-007",
+      "targetField": "primary_proof",
+      "targetValue": "PF IR candidate no usa swimlanes ni flujos de datos; cada task referencia objeto/estado producido.",
+      "declaredSourceIds": [
+        "D1:2.3.3",
+        "D1:2.3.6",
+        "D6!Parallel_Production_Contract"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D1",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A7:E7",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A7:E7",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=PF Registry Candidates | función=Tareas, eventos, handoffs, gateways, Process States, timers. | campos mínimos=task, produced_state, event, wait, timer, loop, handoff. | consumidor=MMABP-IR. | restricción=No swimlanes; cada tarea produce objeto en estado específico.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-072",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-008",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-008",
+      "targetField": "primary_proof",
+      "targetValue": "Todo Process State candidate incluye awaited_event, release_condition, timer/timeout y exit_path.",
+      "declaredSourceIds": [
+        "D6!Process_State_Timer_Gates",
+        "EVE05:process_state_timer_gate"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Process_State_Timer_Gates!A2:G2",
+      "sourceSectionOrSheet": "D6!Process_State_Timer_Gates",
+      "sourceRowColumnIfXlsx": "Process_State_Timer_Gates!A2:G2",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "gate_id=PST-001 | trigger_condition=B4-Q24 indica espera fuerte | required_capture=awaited_event | visible_or_internal=visible si no se infiere con confianza | blocking_rule=Bloquear Process State si no existe evento esperado. | output_variables=awaited_event | mmabp_target=PF",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-073",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-009",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-009",
+      "targetField": "primary_proof",
+      "targetValue": "OLC IR candidate representa un solo objeto con estados/transiciones/eventos/transformers/end; no un proceso.",
+      "declaredSourceIds": [
+        "D1:3.2.4",
+        "EVE05:semantic_resolution_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.semantic_resolution_gate.gate_definitions[6]",
+      "sourceSectionOrSheet": "EVE05:semantic_resolution_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "gate_id=SEM-007 | risk_controlled=Objeto fusionado/marsupial | trigger_condition=Una respuesta mezcla ciclos de vida de objetos distintos | internal_checks=Separar portador, documento, orden, entrega, aprobación, incidente.",
+      "evidenceType": "json_object",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-074",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-010",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-010",
+      "targetField": "primary_proof",
+      "targetValue": "No marcar IR candidate como conformance-ready si cualquier modelo candidate falla contra realidad.",
+      "declaredSourceIds": [
+        "D1:4.1",
+        "EVE05:mmabp_conformance_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.mmabp_conformance_gate",
+      "sourceSectionOrSheet": "EVE05:mmabp_conformance_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "role=Evaluar cada PM, MoC, PF y OLC contra realidad antes de cualquier consistencia.",
+      "evidenceType": "json_object",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-075",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-011",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-011",
+      "targetField": "primary_proof",
+      "targetValue": "No marcar IR candidate como consistency-ready con contradicción factual, temporal, estructural o compuesta.",
+      "declaredSourceIds": [
+        "D1:4.2-4.5",
+        "EVE05:mmabp_consistency_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.mmabp_consistency_gate",
+      "sourceSectionOrSheet": "EVE05:mmabp_consistency_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "role=Comprobar coherencia factual, temporal, estructural y compuesta entre vistas conformantes.",
+      "evidenceType": "json_object",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-076",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-012",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-012",
+      "targetField": "primary_proof",
+      "targetValue": "Ante inconsistencia no alinear modelos cosméticamente; regresar a evidencia/realidad y reentry.",
+      "declaredSourceIds": [
+        "D1:4.1-4.5",
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Readiness_Gaps_Reentry!A5:E5",
+      "sourceSectionOrSheet": "D6!Readiness_Gaps_Reentry",
+      "sourceRowColumnIfXlsx": "Readiness_Gaps_Reentry!A5:E5",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "readiness_state=blocked_by_contradiction | meaning=Evidencia contradice otro bloque/modelo. | entry_condition=Conformance o consistencia fallida. | allowed_next_step=Reentry o manual_review. | blocked_actions=No alinear cosméticamente modelos.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-077",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-013",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-013",
+      "targetField": "primary_proof",
+      "targetValue": "No crear ningún elemento IR cuya única fuente sea B7/C20.",
+      "declaredSourceIds": [
+        "D5:6.3",
+        "D6!Critical_Routes:CR-B7"
+      ],
+      "verifiedSourceIds": [
+        "D5",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 6.3, table 8, row 7",
+      "sourceSectionOrSheet": "D5:6.3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 6.3, table 8, row 7",
+      "sourceExcerptOrCellValue": "B7-Q39/B7-Q40 frontera MMABP | No generan salida MoC directa, registry directo, IR, export ni diagnóstico; solo readiness/preclassification signal no diagnóstico para EvidenceBundle y Capa 2.0/2.5.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-078",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-014",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-014",
+      "targetField": "primary_proof",
+      "targetValue": "No crear rework/handoff feedback IR sin C09 cerrada y evidencia operativa del receptor.",
+      "declaredSourceIds": [
+        "D5:6.2",
+        "D6!Critical_Routes:CR-B3"
+      ],
+      "verifiedSourceIds": [
+        "D5",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 6.2, paragraph 23",
+      "sourceSectionOrSheet": "D5:6.2",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 6.2, paragraph 23",
+      "sourceExcerptOrCellValue": "C09 queda normalizada con cuatro variables: receiver_feedback_exists; receiver_feedback; receiver_feedback_gap_flag; receiver_feedback_route_missing. Esta corrección elimina duplicidad y preserva la ruta crítica CR-B3-R9.",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-079",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-015",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-015",
+      "targetField": "primary_proof",
+      "targetValue": "IR candidate no contiene diagnóstico EVE, VSM o AHE cerrado.",
+      "declaredSourceIds": [
+        "D3!Table6",
+        "D3!Table10"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 10, row 3",
+      "sourceSectionOrSheet": "D3!Table10",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 10, row 3",
+      "sourceExcerptOrCellValue": "Producción Paralela 1.6 | Candidate export no es ExportCodePackage.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-080",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-016",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-016",
+      "targetField": "primary_proof",
+      "targetValue": "IR candidate no escribe en registry activo; solo produce registry candidates separados.",
+      "declaredSourceIds": [
+        "D3!Table5",
+        "D3!Table6",
+        "D3:R4"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 5",
+      "sourceSectionOrSheet": "D3:R4",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 5",
+      "sourceExcerptOrCellValue": "R4 | Todo artifact de Producción Paralela es candidate_only hasta fase explícita contraria.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-081",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-017",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-017",
+      "targetField": "primary_proof",
+      "targetValue": "Toda recomputación crea nueva versión y marca la anterior superseded.",
+      "declaredSourceIds": [
+        "D4:24",
+        "D4:26"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 24, table 22, row 6",
+      "sourceSectionOrSheet": "D4:24",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 24, table 22, row 6",
+      "sourceExcerptOrCellValue": "Corrección que afecta export payload emitido | Marcar parallel_export_payload como superseded y generar nueva versión.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-082",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-018",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-018",
+      "targetField": "primary_proof",
+      "targetValue": "Calcular checksum sobre IR canonizado, fuentes y gate versions.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:23"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 21, paragraph 284",
+      "sourceSectionOrSheet": "D4:21",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 21, paragraph 284",
+      "sourceExcerptOrCellValue": "CREATE TABLE structural_candidate_record ( structural_candidate_id TEXT PRIMARY KEY, run_id TEXT NOT NULL REFERENCES activity_runtime_run(run_id), quadrant_hint TEXT NOT NULL, candidate_type TEXT NOT NULL, candidate_label TEXT NOT NULL, source_variable TEXT, source_evidence_item_id TEXT, conformance_checkpoint TEXT,",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-083",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-019",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-019",
+      "targetField": "primary_proof",
+      "targetValue": "MMABP-IR candidate permanece candidate_only/rehearsal_only; nunca adopta estado active, final o certified.",
+      "declaredSourceIds": [
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 5",
+      "sourceSectionOrSheet": "D3:R4",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 5",
+      "sourceExcerptOrCellValue": "R4 | Todo artifact de Producción Paralela es candidate_only hasta fase explícita contraria.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-084",
+      "previousQaId": "accepted",
+      "comparisonId": "IRCD-020",
+      "targetModule": "mmabp_ir_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "IRCD-020",
+      "targetField": "primary_proof",
+      "targetValue": "Registrar gate snapshots, issue refs, actor/system y reason en cada transición.",
+      "declaredSourceIds": [
+        "D4:27",
+        "D3:R3"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 27, table 25, row 8",
+      "sourceSectionOrSheet": "D4:27",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 27, table 25, row 8",
+      "sourceExcerptOrCellValue": "Auditoría | Cualquier cambio a ruta crítica B0/B2/B3/B7 exige audit log obligatorio.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-085",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-001",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-001",
+      "targetField": "primary_proof",
+      "targetValue": "Crear registry candidate solo desde MMABP-IR candidate listo y structural candidates trazables.",
+      "declaredSourceIds": [
+        "D3!Table5",
+        "D6!Parallel_Production_Contract",
+        "IRCD-001"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D3",
+        "EVE07_INTERNAL"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A5:E5",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A5:E5",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=PM Registry Candidates | función=Proceso, cliente, necesidad, trigger, estado objetivo, soporte, sincronización. | campos mínimos=customer, need, process, trigger, target_state, support_processes. | consumidor=MMABP-IR. | restricción=No fusionar PM con PF.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-086",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-002",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-002",
+      "targetField": "primary_proof",
+      "targetValue": "Registry candidate no equivale a registro activo ni autoriza escritura en registry productivo.",
+      "declaredSourceIds": [
+        "D3!Table6",
+        "D3!Table10",
+        "D3:R4"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 5",
+      "sourceSectionOrSheet": "D3:R4",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 5",
+      "sourceExcerptOrCellValue": "R4 | Todo artifact de Producción Paralela es candidate_only hasta fase explícita contraria.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-087",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-003",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-003",
+      "targetField": "primary_proof",
+      "targetValue": "registry_target permitido: PM, MoC, PF, OLC, Consistency o Readiness candidate.",
+      "declaredSourceIds": [
+        "D6!Parallel_Production_Contract",
+        "D4:13"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A9:E9",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A9:E9",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=Consistency Checks | función=Cruces PM↔MoC, PM↔PF, MoC↔PF, PF↔OLC, OLC↔MoC. | campos mínimos=factual, temporal, structural, composite consistency. | consumidor=QA / Producción Paralela. | restricción=Conformance primero; consistencia después.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-088",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-004",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-004",
+      "targetField": "primary_proof",
+      "targetValue": "Conservar IR element ids, structural_candidate ids, source variables y evidence refs.",
+      "declaredSourceIds": [
+        "D3:R3",
+        "D4:23.3"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 4",
+      "sourceSectionOrSheet": "D3:R3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 4",
+      "sourceExcerptOrCellValue": "R3 | Todo candidato debe tener fuente: binding, materialization, outbox, snapshot o evidence bundle.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-089",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-005",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-005",
+      "targetField": "primary_proof",
+      "targetValue": "PM candidate exige customer, need, process, trigger, target_state y support/synchronization cuando apliquen.",
+      "declaredSourceIds": [
+        "D1:2.2.6",
+        "D6!Parallel_Production_Contract"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A5:E5",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A5:E5",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=PM Registry Candidates | función=Proceso, cliente, necesidad, trigger, estado objetivo, soporte, sincronización. | campos mínimos=customer, need, process, trigger, target_state, support_processes. | consumidor=MMABP-IR. | restricción=No fusionar PM con PF.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-090",
+      "previousQaId": "pending_source_proof",
+      "comparisonId": "REGC-006",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-006",
+      "targetField": "primary_proof",
+      "targetValue": "No fusionar PM y PF ni almacenar tareas detalladas dentro de PM registry candidate.",
+      "declaredSourceIds": [
+        "D5:10/Table13/R5/C3",
+        "D1:2.2.6",
+        "D1:2.3.6"
+      ],
+      "verifiedSourceIds": [
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "heading \"10. Contrato de salida hacia Producción Paralela\"; table 13, row 5, column \"Restricción\"",
+      "sourceSectionOrSheet": "D5:10/Table13/R5/C3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "heading \"10. Contrato de salida hacia Producción Paralela\"; table 13, row 5, column \"Restricción\"",
+      "sourceExcerptOrCellValue": "PM Registry Candidates | Proceso, cliente, necesidad, trigger, estado objetivo, soporte, sincronización. | No fusionar PM con PF.",
+      "evidenceType": "docx_table_cell",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": true,
+      "notes": "Proof reparado aceptado: D1 no queda como prueba primaria; locator y excerpt exactos/estructurados presentes."
+    },
+    {
+      "qaId": "QA11-SPM-091",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-007",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-007",
+      "targetField": "primary_proof",
+      "targetValue": "MoC candidate exige class/relation semantics resueltas y evita IDs técnicos como conceptos.",
+      "declaredSourceIds": [
+        "D1:3.1.5",
+        "EVE05:semantic_resolution_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.semantic_resolution_gate.gate_definitions[0]",
+      "sourceSectionOrSheet": "EVE05:semantic_resolution_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "gate_id=SEM-001 | risk_controlled=Convertir estado en clase | trigger_condition=B2 o MoC detecta etiqueta que parece estado | internal_checks=¿Es entidad estable o condición temporal del objeto?",
+      "evidenceType": "json_object",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-092",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-008",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-008",
+      "targetField": "primary_proof",
+      "targetValue": "No usar 'tipo de' como Jerarquía ISA sin especialización real.",
+      "declaredSourceIds": [
+        "D1:3.1.5",
+        "D6!Semantic_Resolution_Gates:SEM-004"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Semantic_Resolution_Gates!A5:G5",
+      "sourceSectionOrSheet": "D6!Semantic_Resolution_Gates:SEM-004",
+      "sourceRowColumnIfXlsx": "Semantic_Resolution_Gates!A5:G5",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "gate_id=SEM-004 | riesgo_controlado=ISA falso por 'tipo de' | trigger_condition=Usuario dice tipo de sin especialización real | internal_checks=¿La especialización tiene identidad conceptual estable y reglas propias?",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-093",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-009",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-009",
+      "targetField": "primary_proof",
+      "targetValue": "Mantener role, phase y end como distinciones dinámicas; no fijarlas como clases estáticas sin resolución.",
+      "declaredSourceIds": [
+        "D6!Semantic_Resolution_Gates:SEM-006",
+        "EVE05:semantic_resolution_gate"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Semantic_Resolution_Gates!A7:G7",
+      "sourceSectionOrSheet": "D6!Semantic_Resolution_Gates:SEM-006",
+      "sourceRowColumnIfXlsx": "Semantic_Resolution_Gates!A7:G7",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "gate_id=SEM-006 | riesgo_controlado=Confusión role/phase/end | trigger_condition=Clase cambia por contexto, etapa o terminación | internal_checks=¿Es papel contextual, fase temporal o estado final?",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-094",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-010",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-010",
+      "targetField": "primary_proof",
+      "targetValue": "PF candidate exige task, event, object state, handoff/loop/gateway y Process State/timer cuando aplique.",
+      "declaredSourceIds": [
+        "D1:2.3.6",
+        "D6!Parallel_Production_Contract"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A7:E7",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A7:E7",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=PF Registry Candidates | función=Tareas, eventos, handoffs, gateways, Process States, timers. | campos mínimos=task, produced_state, event, wait, timer, loop, handoff. | consumidor=MMABP-IR. | restricción=No swimlanes; cada tarea produce objeto en estado específico.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-095",
+      "previousQaId": "pending_source_proof",
+      "comparisonId": "REGC-011",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-011",
+      "targetField": "primary_proof",
+      "targetValue": "No almacenar swimlanes ni contexto organizacional como estructura PF.",
+      "declaredSourceIds": [
+        "D5:10/Table13/R7/C3",
+        "D1:2.3.3"
+      ],
+      "verifiedSourceIds": [
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "heading \"10. Contrato de salida hacia Producción Paralela\"; table 13, row 7, column \"Restricción\"",
+      "sourceSectionOrSheet": "D5:10/Table13/R7/C3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "heading \"10. Contrato de salida hacia Producción Paralela\"; table 13, row 7, column \"Restricción\"",
+      "sourceExcerptOrCellValue": "PF Registry Candidates | Tareas, eventos, handoffs, gateways, Process States, timers. | No swimlanes; cada tarea produce objeto en estado específico.",
+      "evidenceType": "docx_table_cell",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": true,
+      "notes": "Proof reparado aceptado: D1 no queda como prueba primaria; locator y excerpt exactos/estructurados presentes."
+    },
+    {
+      "qaId": "QA11-SPM-096",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-012",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-012",
+      "targetField": "primary_proof",
+      "targetValue": "OLC candidate exige objeto único, estado, transición, evento, transformer y end; no fusiona ciclos.",
+      "declaredSourceIds": [
+        "D1:3.2.4",
+        "D6!Parallel_Production_Contract"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A8:E8",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A8:E8",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=OLC Registry Candidates | función=Objetos, estados, transiciones, constructor, transformer, destructor. | campos mínimos=object, state, transition, event, transformer, end. | consumidor=MMABP-IR. | restricción=No modelar OLC como proceso ni fusionar objetos.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-097",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-013",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-013",
+      "targetField": "primary_proof",
+      "targetValue": "Aliases no crean duplicados; conservar alias y resolver same/different concept.",
+      "declaredSourceIds": [
+        "D6!Semantic_Resolution_Gates:SEM-005"
+      ],
+      "verifiedSourceIds": [
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Semantic_Resolution_Gates!A6:G6",
+      "sourceSectionOrSheet": "D6!Semantic_Resolution_Gates:SEM-005",
+      "sourceRowColumnIfXlsx": "Semantic_Resolution_Gates!A6:G6",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "| possible_outputs=same_concept, different_concept, synonym, ambiguous | blocking_rule=Conservar alias sin duplicar clase hasta confirmar.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-098",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-014",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-014",
+      "targetField": "primary_proof",
+      "targetValue": "Cada record candidate incluye conformance_status y checkpoint refs.",
+      "declaredSourceIds": [
+        "D1:4.1",
+        "EVE05:mmabp_conformance_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.mmabp_conformance_gate.role",
+      "sourceSectionOrSheet": "EVE05:mmabp_conformance_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "Evaluar cada PM, MoC, PF y OLC contra realidad antes de cualquier consistencia.",
+      "evidenceType": "json_field",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-099",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-015",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-015",
+      "targetField": "primary_proof",
+      "targetValue": "Cada record candidate incluye consistency_status y compartments evaluados.",
+      "declaredSourceIds": [
+        "D1:4.2-4.5",
+        "EVE05:mmabp_consistency_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.mmabp_consistency_gate.role",
+      "sourceSectionOrSheet": "EVE05:mmabp_consistency_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "Comprobar coherencia factual, temporal, estructural y compuesta entre vistas conformantes.",
+      "evidenceType": "json_field",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-100",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-016",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-016",
+      "targetField": "primary_proof",
+      "targetValue": "No crear registry candidate desde B7-Q39/B7-Q40/C20.",
+      "declaredSourceIds": [
+        "D5:6.3",
+        "D6!Critical_Routes:CR-B7"
+      ],
+      "verifiedSourceIds": [
+        "D5",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 6.3, table 8, row 7",
+      "sourceSectionOrSheet": "D5:6.3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 6.3, table 8, row 7",
+      "sourceExcerptOrCellValue": "B7-Q39/B7-Q40 frontera MMABP | No generan salida MoC directa, registry directo, IR, export ni diagnóstico; solo readiness/preclassification signal no diagnóstico para EvidenceBundle y Capa 2.0/2.5.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-101",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-017",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-017",
+      "targetField": "primary_proof",
+      "targetValue": "Feedback/rework registry candidate exige receiver_feedback_exists y route closed; satisfaction no basta.",
+      "declaredSourceIds": [
+        "D5:6.2",
+        "D6!Critical_Routes:CR-B3"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Critical_Routes!A4:G4",
+      "sourceSectionOrSheet": "D6!Critical_Routes:CR-B3",
+      "sourceRowColumnIfXlsx": "Critical_Routes!A4:G4",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "El feedback operativo exige señal de aviso, rechazo, devolución, corrección, recontacto o bloqueo.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-102",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-018",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-018",
+      "targetField": "primary_proof",
+      "targetValue": "Registry candidate permanece en estado candidato/rehearsal o bloqueado; nunca adopta estado active.",
+      "declaredSourceIds": [
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 5",
+      "sourceSectionOrSheet": "D3:R4",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 5",
+      "sourceExcerptOrCellValue": "R4 | Todo artifact de Producción Paralela es candidate_only hasta fase explícita contraria.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-103",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-019",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-019",
+      "targetField": "primary_proof",
+      "targetValue": "Recomputación invalida candidatos dependientes y conserva historial.",
+      "declaredSourceIds": [
+        "D4:24",
+        "D4:26"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 24, table 22, row 6",
+      "sourceSectionOrSheet": "D4:24",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 24, table 22, row 6",
+      "sourceExcerptOrCellValue": "Corrección que afecta export payload emitido | Marcar parallel_export_payload como superseded y generar nueva versión.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-104",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-020",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-020",
+      "targetField": "primary_proof",
+      "targetValue": "Detectar duplicados por semantic key sin fusionar automáticamente conceptos ambiguos.",
+      "declaredSourceIds": [
+        "D6!Semantic_Resolution_Gates:SEM-005"
+      ],
+      "verifiedSourceIds": [
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Semantic_Resolution_Gates!A6:G6",
+      "sourceSectionOrSheet": "D6!Semantic_Resolution_Gates:SEM-005",
+      "sourceRowColumnIfXlsx": "Semantic_Resolution_Gates!A6:G6",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "gate_id=SEM-005 | riesgo_controlado=Alias o duplicado conceptual | trigger_condition=Dos nombres parecen referir a la misma clase | internal_checks=Comparar significado, relaciones, estados y uso operativo.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-105",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-021",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-021",
+      "targetField": "primary_proof",
+      "targetValue": "Solo servicio shadow/rehearsal autorizado puede persistir candidates; nunca usuario final.",
+      "declaredSourceIds": [
+        "D4:27",
+        "D4!Table25",
+        "D3!Table10"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 25, row 4",
+      "sourceSectionOrSheet": "D4!Table25",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 25, row 4",
+      "sourceExcerptOrCellValue": "Manual review | manual_review_required solo puede resolverse por actor autorizado y debe crear runtime_audit_trail.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-106",
+      "previousQaId": "accepted",
+      "comparisonId": "REGC-022",
+      "targetModule": "registry_candidate",
+      "targetUnitType": "rule",
+      "targetRuleId": "REGC-022",
+      "targetField": "primary_proof",
+      "targetValue": "No exponer IDs, bindings, inventory facts o registry internals en UI cliente.",
+      "declaredSourceIds": [
+        "D3!Table11",
+        "D3:R7"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 11, row 2",
+      "sourceSectionOrSheet": "D3!Table11",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 11, row 2",
+      "sourceExcerptOrCellValue": "Mostrar estado seguro de actividad, preguntas pendientes, respuestas y continuidad. | Mostrar object_id, object_key, bindings, materialization events o snapshots.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-107",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-001",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-001",
+      "targetField": "primary_proof",
+      "targetValue": "Evaluar blockers antes de construir, marcar ready o enviar cualquier payload/candidate.",
+      "declaredSourceIds": [
+        "D4:9",
+        "D4:23",
+        "EVE05:execution_pipeline",
+        "EVE06:execution_pipeline"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4",
+        "D4",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 9, ordered steps",
+      "sourceSectionOrSheet": "D4:9",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 9, ordered steps",
+      "sourceExcerptOrCellValue": "Ejecutar Semantic Resolution Gate si hay MoC/OLC candidate ambiguo.",
+      "evidenceType": "docx_section_sequence",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-108",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-002",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-002",
+      "targetField": "primary_proof",
+      "targetValue": "Un hard blocker abierto impide ready/sent, IR candidate y registry candidate.",
+      "declaredSourceIds": [
+        "D4:23",
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Readiness_Gaps_Reentry!A2:E2",
+      "sourceSectionOrSheet": "D6!Readiness_Gaps_Reentry",
+      "sourceRowColumnIfXlsx": "Readiness_Gaps_Reentry!A2:E2",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "readiness_state=ready | meaning=Evidencia suficiente y consistente. | entry_condition=Variables requeridas cerradas; sin contradicción ni ruta crítica fallida. | allowed_next_step=Producción Paralela puede consumir. | blocked_actions=No aplica.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-109",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-003",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-003",
+      "targetField": "primary_proof",
+      "targetValue": "Orden de evaluación: scope/version → evidence/provenance → critical routes → SEM/PST → conformance → consistency → readiness → authority/finality.",
+      "declaredSourceIds": [
+        "D4:9",
+        "D4:23",
+        "EVE05:execution_pipeline"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 9, paragraph 116",
+      "sourceSectionOrSheet": "D4:9",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 9, paragraph 116",
+      "sourceExcerptOrCellValue": "Orden de evaluación recomendado por respuesta:",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-110",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-004",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-004",
+      "targetField": "primary_proof",
+      "targetValue": "Deduplicar blockers por code+run+affected_object sin perder eventos de reapertura.",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:24"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 24, table 21, row 7",
+      "sourceSectionOrSheet": "D4:24",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 24, table 21, row 7",
+      "sourceExcerptOrCellValue": "recompute_scope | interaction_only, block, run, role_session o export_payload.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-111",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-005",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-005",
+      "targetField": "primary_proof",
+      "targetValue": "Estados permitidos: open, resolved, superseded, waived_by_authority; hard methodological blockers no se pueden waive.",
+      "declaredSourceIds": [
+        "D4:27",
+        "D3!Table9"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 27, table 25, row 7",
+      "sourceSectionOrSheet": "D4:27",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 27, table 25, row 7",
+      "sourceExcerptOrCellValue": "Corrección de respuesta | Toda corrección conserva respuesta previa como superseded; no se borra evidencia.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-112",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-006",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-006",
+      "targetField": "primary_proof",
+      "targetValue": "Resolver blocker solo con evidencia/gate/route nueva; nunca por default o silencio.",
+      "declaredSourceIds": [
+        "D3:R2",
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Readiness_Gaps_Reentry!A3:E3",
+      "sourceSectionOrSheet": "D6!Readiness_Gaps_Reentry",
+      "sourceRowColumnIfXlsx": "Readiness_Gaps_Reentry!A3:E3",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "readiness_state=ready_with_flags | meaning=Avanza con advertencias trazadas. | entry_condition=Gap no bloqueante o ruta crítica con evidencia suficiente pero bandera de riesgo. | allowed_next_step=Consumir con flags; revisar en QA. | blocked_actions=No ocultar bandera.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-113",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-007",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-007",
+      "targetField": "primary_proof",
+      "targetValue": "Correcciones reevalúan blockers dependientes y supersede payloads previos.",
+      "declaredSourceIds": [
+        "D4:24",
+        "D4:26"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 24, table 21, row 5",
+      "sourceSectionOrSheet": "D4:24",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 24, table 21, row 5",
+      "sourceExcerptOrCellValue": "derived_records_invalidated | Lista de variables, gaps, candidates o payloads que deben recalcularse.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-114",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-008",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-008",
+      "targetField": "primary_proof",
+      "targetValue": "Cada apertura/resolución registra actor, reason, source refs, prior/new status y timestamp.",
+      "declaredSourceIds": [
+        "D4:27"
+      ],
+      "verifiedSourceIds": [
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 27, table 25, row 8",
+      "sourceSectionOrSheet": "D4:27",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 27, table 25, row 8",
+      "sourceExcerptOrCellValue": "Auditoría | Cualquier cambio a ruta crítica B0/B2/B3/B7 exige audit log obligatorio.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-115",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-009",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-009",
+      "targetField": "primary_proof",
+      "targetValue": "Intento de export final, diagnóstico o activación no autorizada genera escalamiento algedónico/no-go.",
+      "declaredSourceIds": [
+        "D3:R8",
+        "D3!Table12",
+        "D3!Table11"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 9",
+      "sourceSectionOrSheet": "D3:R8",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 9",
+      "sourceExcerptOrCellValue": "R8 | El canal algedónico detiene si aparece presión por export, diagnóstico o activación no autorizada.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-116",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-010",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-010",
+      "targetField": "primary_proof",
+      "targetValue": "Export-preview puede mostrar blockers, pero nunca ocultarlos ni representar readiness falsa.",
+      "declaredSourceIds": [
+        "D4:7",
+        "D4:23"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 7, table 9, row 8",
+      "sourceSectionOrSheet": "D4:7",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 7, table 9, row 8",
+      "sourceExcerptOrCellValue": "GET /runtime/runs/{run_id}/export-preview | Previsualizar salida hacia Producción Paralela. | {run_id} | {scr_preview, evidence_bundle_preview, mdsb_preview}",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-117",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-011",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-011",
+      "targetField": "primary_proof",
+      "targetValue": "Solo actor autorizado resuelve manual_review/override blockers; el sistema automático no los cierra.",
+      "declaredSourceIds": [
+        "D4:27"
+      ],
+      "verifiedSourceIds": [
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 27, table 25, row 4",
+      "sourceSectionOrSheet": "D4:27",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 27, table 25, row 4",
+      "sourceExcerptOrCellValue": "Manual review | manual_review_required solo puede resolverse por actor autorizado y debe crear runtime_audit_trail.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-118",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-012",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-012",
+      "targetField": "primary_proof",
+      "targetValue": "Los códigos internos se traducen para UI admin; no se exponen como vísceras al usuario final.",
+      "declaredSourceIds": [
+        "D3!Table11",
+        "D3:R7"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 11, row 5",
+      "sourceSectionOrSheet": "D3!Table11",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 11, row 5",
+      "sourceExcerptOrCellValue": "Mantener continuidad del trabajo. | Generar export final, transducción o producción real.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-119",
+      "previousQaId": "pending_source_proof",
+      "comparisonId": "EXBE-013",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-013",
+      "targetField": "primary_proof",
+      "targetValue": "No se resuelve inconsistencia alineando modelos entre sí; se regresa a evidencia factual.",
+      "declaredSourceIds": [
+        "EVE05:$.modules.mmabp_conformance_gate.principles[4]",
+        "EVE05:$.modules.mmabp_conformance_gate.engine_rules[4]",
+        "D1:4.1-4.5"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "EVE05"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.mmabp_conformance_gate.principles[4]",
+      "sourceSectionOrSheet": "EVE05:$.modules.mmabp_conformance_gate.principles[4]",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "Ante inconsistencia, no se fuerza un modelo a parecer consistente; se identifica cual representacion contradice la realidad factual y se corrige. Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "evidenceType": "json_pointer",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": true,
+      "notes": "Proof reparado aceptado: D1 no queda como prueba primaria; locator y excerpt exactos/estructurados presentes."
+    },
+    {
+      "qaId": "QA11-SPM-120",
+      "previousQaId": "accepted",
+      "comparisonId": "EXBE-014",
+      "targetModule": "export_blockers",
+      "targetUnitType": "rule",
+      "targetRuleId": "EXBE-014",
+      "targetField": "primary_proof",
+      "targetValue": "La ausencia de blockers permite rehearsal/candidate progression, no certificación ni producción real.",
+      "declaredSourceIds": [
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 5",
+      "sourceSectionOrSheet": "D3:R4",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 5",
+      "sourceExcerptOrCellValue": "R4 | Todo artifact de Producción Paralela es candidate_only hasta fase explícita contraria.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-121",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-001",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-001",
+      "targetField": "primary_proof",
+      "targetValue": "run/case/role/activity scope incompleto",
+      "declaredSourceIds": [
+        "D4:27",
+        "EVE06:ARR-004"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.activity_runtime_run.rules[3]",
+      "sourceSectionOrSheet": "EVE06:ARR-004",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=ARR-004 | module=activity_runtime_run | category=scope | statement=Todo run debe quedar scopeado por case_id, role_id y activity_id. | condition=any scope field missing | action=reject run creation | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-122",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-002",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-002",
+      "targetField": "primary_proof",
+      "targetValue": "catalog_version_id no coincide con el run congelado",
+      "declaredSourceIds": [
+        "D4:23",
+        "EVE06:ARR-003"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.activity_runtime_run.rules[2]",
+      "sourceSectionOrSheet": "EVE06:ARR-003",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=ARR-003 | module=activity_runtime_run | category=catalog | statement=El run debe fijar catalog_version_id validado antes de iniciar. | condition=catalog version missing, mutable or QA failed | action=reject run creation | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-123",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-003",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-003",
+      "targetField": "primary_proof",
+      "targetValue": "actividad no confirmada o weak_context bloqueante",
+      "declaredSourceIds": [
+        "D6!Critical_Routes:CR-B0"
+      ],
+      "verifiedSourceIds": [
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Critical_Routes!A2:G2",
+      "sourceSectionOrSheet": "D6!Critical_Routes:CR-B0",
+      "sourceRowColumnIfXlsx": "Critical_Routes!A2:G2",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "Si la actividad llega parcial o fallida, Bloque 0 reconstruye sin inventar estructura.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-124",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-004",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-004",
+      "targetField": "primary_proof",
+      "targetValue": "excepción de transformación sin ruta canónica 2.9/2.10",
+      "declaredSourceIds": [
+        "D6!Critical_Routes:CR-B2"
+      ],
+      "verifiedSourceIds": [
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Critical_Routes!A3:G3",
+      "sourceSectionOrSheet": "D6!Critical_Routes:CR-B2",
+      "sourceRowColumnIfXlsx": "Critical_Routes!A3:G3",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "critical_route_id=CR-B2-V3-transformation_exception | ruta=2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description | nodos=2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description | regla=La excepción de transformación se captura/deriva solo por ruta canónica;",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-125",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-005",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-005",
+      "targetField": "primary_proof",
+      "targetValue": "feedback textual sin C09 cerrada",
+      "declaredSourceIds": [
+        "D5:6.2",
+        "D6!Critical_Routes:CR-B3"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Critical_Routes!A4:G4",
+      "sourceSectionOrSheet": "D6!Critical_Routes:CR-B3",
+      "sourceRowColumnIfXlsx": "Critical_Routes!A4:G4",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "| bloqueo_si_falla=receiver_feedback_route_missing / CanonicalRouteException / no crear rework desde satisfacción subjetiva.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-126",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-006",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-006",
+      "targetField": "primary_proof",
+      "targetValue": "receiver_satisfaction usada como receiver_feedback",
+      "declaredSourceIds": [
+        "D5:6.2"
+      ],
+      "verifiedSourceIds": [
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 6.2, paragraph 23",
+      "sourceSectionOrSheet": "D5:6.2",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 6.2, paragraph 23",
+      "sourceExcerptOrCellValue": "C09 queda normalizada con cuatro variables: receiver_feedback_exists; receiver_feedback; receiver_feedback_gap_flag; receiver_feedback_route_missing. Esta corrección elimina duplicidad y preserva la ruta crítica CR-B3-R9.",
+      "evidenceType": "docx_paragraph",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-127",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-007",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-007",
+      "targetField": "primary_proof",
+      "targetValue": "B7/C20 intenta crear MoC/IR/registry/export/diagnóstico",
+      "declaredSourceIds": [
+        "D5:6.3",
+        "D6!Critical_Routes:CR-B7"
+      ],
+      "verifiedSourceIds": [
+        "D5",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 6.3, table 8, row 7",
+      "sourceSectionOrSheet": "D5:6.3",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 6.3, table 8, row 7",
+      "sourceExcerptOrCellValue": "B7-Q39/B7-Q40 frontera MMABP | No generan salida MoC directa, registry directo, IR, export ni diagnóstico; solo readiness/preclassification signal no diagnóstico para EvidenceBundle y Capa 2.0/2.5.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-128",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-008",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-008",
+      "targetField": "primary_proof",
+      "targetValue": "SEM-001..007 no resuelto",
+      "declaredSourceIds": [
+        "D6!Semantic_Resolution_Gates"
+      ],
+      "verifiedSourceIds": [
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Semantic_Resolution_Gates!A2:G2",
+      "sourceSectionOrSheet": "D6!Semantic_Resolution_Gates",
+      "sourceRowColumnIfXlsx": "Semantic_Resolution_Gates!A2:G2",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "gate_id=SEM-001 | riesgo_controlado=Convertir estado en clase | trigger_condition=B2 o MoC detecta etiqueta que parece estado | internal_checks=¿Es entidad estable o condición temporal del objeto?",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-129",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-009",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-009",
+      "targetField": "primary_proof",
+      "targetValue": "PST gate faltante",
+      "declaredSourceIds": [
+        "D6!Process_State_Timer_Gates"
+      ],
+      "verifiedSourceIds": [
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Process_State_Timer_Gates!A2:G2",
+      "sourceSectionOrSheet": "D6!Process_State_Timer_Gates",
+      "sourceRowColumnIfXlsx": "Process_State_Timer_Gates!A2:G2",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "gate_id=PST-001 | trigger_condition=B4-Q24 indica espera fuerte | required_capture=awaited_event | visible_or_internal=visible si no se infiere con confianza | blocking_rule=Bloquear Process State si no existe evento esperado. | output_variables=awaited_event | mmabp_target=PF",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-130",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-010",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-010",
+      "targetField": "primary_proof",
+      "targetValue": "modelo candidate no representa realidad",
+      "declaredSourceIds": [
+        "D1:4.1",
+        "EVE05:mmabp_conformance_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.mmabp_conformance_gate.role",
+      "sourceSectionOrSheet": "EVE05:mmabp_conformance_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "Evaluar cada PM, MoC, PF y OLC contra realidad antes de cualquier consistencia.",
+      "evidenceType": "json_field",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-131",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-011",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-011",
+      "targetField": "primary_proof",
+      "targetValue": "inconsistencia factual/temporal/estructural/compuesta",
+      "declaredSourceIds": [
+        "D1:4.2-4.5",
+        "EVE05:mmabp_consistency_gate"
+      ],
+      "verifiedSourceIds": [
+        "EVE05",
+        "D1"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.mmabp_consistency_gate",
+      "sourceSectionOrSheet": "EVE05:mmabp_consistency_gate",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "role=Comprobar coherencia factual, temporal, estructural y compuesta entre vistas conformantes.",
+      "evidenceType": "json_object",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-132",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-012",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-012",
+      "targetField": "primary_proof",
+      "targetValue": "readiness state bloqueado/reentry/manual review",
+      "declaredSourceIds": [
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "verifiedSourceIds": [
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Readiness_Gaps_Reentry!A8:E8",
+      "sourceSectionOrSheet": "D6!Readiness_Gaps_Reentry",
+      "sourceRowColumnIfXlsx": "Readiness_Gaps_Reentry!A8:E8",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "readiness_state=reentry_required | meaning=Debe volver a bloque específico. | entry_condition=Gap bloquea conformance/consistencia/readiness. | allowed_next_step=Reabrir bloque/gate específico. | blocked_actions=No avanzar a Producción Paralela.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-133",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-013",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-013",
+      "targetField": "primary_proof",
+      "targetValue": "gap o flag existente omitido del payload",
+      "declaredSourceIds": [
+        "D4:23",
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Readiness_Gaps_Reentry!A8:E8",
+      "sourceSectionOrSheet": "D6!Readiness_Gaps_Reentry",
+      "sourceRowColumnIfXlsx": "Readiness_Gaps_Reentry!A8:E8",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "readiness_state=reentry_required | meaning=Debe volver a bloque específico. | entry_condition=Gap bloquea conformance/consistencia/readiness. | allowed_next_step=Reabrir bloque/gate específico. | blocked_actions=No avanzar a Producción Paralela.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-134",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-014",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-014",
+      "targetField": "primary_proof",
+      "targetValue": "evidence o variable sin provenance/epistemic status",
+      "declaredSourceIds": [
+        "D4:23.2",
+        "EVE06:EVI-002",
+        "EVE06:CVR-003"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.evidence_item.rules[1]",
+      "sourceSectionOrSheet": "EVE06:EVI-002",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=EVI-002 | module=evidence_item | category=epistemic | statement=Todo evidence_item exige epistemic_status y provenance_type. | condition=metadata missing | action=reject record | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-135",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-015",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-015",
+      "targetField": "primary_proof",
+      "targetValue": "inferencia IA no confirmada tratada como evidencia dura",
+      "declaredSourceIds": [
+        "D4:1",
+        "D5:2"
+      ],
+      "verifiedSourceIds": [
+        "D5",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 2, table 3, row 5",
+      "sourceSectionOrSheet": "D5:2",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 2, table 3, row 5",
+      "sourceExcerptOrCellValue": "MBA / Producción Paralela | Consumidor estructural de evidencia gobernada. | No modifica el catálogo ni diagnostica desde texto crudo.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-136",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-016",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-016",
+      "targetField": "primary_proof",
+      "targetValue": "texto libre salta a structural candidate/IR/registry",
+      "declaredSourceIds": [
+        "D4:1",
+        "D6!Parallel_Production_Contract"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Parallel_Production_Contract!A4:E4",
+      "sourceSectionOrSheet": "D6!Parallel_Production_Contract",
+      "sourceRowColumnIfXlsx": "Parallel_Production_Contract!A4:E4",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "salida=MMABPDesignSourceBundle | función=Fuente estructural para MBA. | campos mínimos=PM/MoC/PF/OLC candidates, checkpoints, blocked flags. | consumidor=Producción Paralela. | restricción=No consume texto libre sin variable canónica.",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-137",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-017",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-017",
+      "targetField": "primary_proof",
+      "targetValue": "pregunta compuesta guardada como texto opaco",
+      "declaredSourceIds": [
+        "D4:1",
+        "D5:4"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D5"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 1, table 2, row 5",
+      "sourceSectionOrSheet": "D4:1",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 1, table 2, row 5",
+      "sourceExcerptOrCellValue": "Preguntas compuestas con subcampos | Toda interacción compuesta guarda subresponses como variables separables; nunca como single_textbox opaco.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-138",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-018",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-018",
+      "targetField": "primary_proof",
+      "targetValue": "payload usa evidencia/candidate superseded",
+      "declaredSourceIds": [
+        "D4:24",
+        "EVE06:EVI-014",
+        "EVE06:SCR-016"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4",
+        "EVE06"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.evidence_item.rules[13]",
+      "sourceSectionOrSheet": "EVE06:EVI-014",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=EVI-014 | module=evidence_item | category=append_only | statement=No borrar evidencia superseded. | condition=delete requested | action=reject delete and audit | blocking=True | severity=blocker",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-139",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-019",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-019",
+      "targetField": "primary_proof",
+      "targetValue": "candidate blocked/stale/rejected usado como activo",
+      "declaredSourceIds": [
+        "D4:21",
+        "EVE06:SCR-015"
+      ],
+      "verifiedSourceIds": [
+        "EVE06",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "$.modules.structural_candidate_record.rules[14]",
+      "sourceSectionOrSheet": "EVE06:SCR-015",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "rule_id=SCR-015 | module=structural_candidate_record | category=state | statement=candidate_state debe ser candidate, blocked, stale o superseded en esta fase. | condition=state outside allowed phase-6 set | action=reject state | blocking=True | severity=critical",
+      "evidenceType": "json_rule",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-140",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-020",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-020",
+      "targetField": "primary_proof",
+      "targetValue": "payload contiene placeholders/ellipsis",
+      "declaredSourceIds": [
+        "D4:23",
+        "D4:28"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 28, table 26, row 4",
+      "sourceSectionOrSheet": "D4:28",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 28, table 26, row 4",
+      "sourceExcerptOrCellValue": "Payload cerrado | SCR/EvidenceBundle/MDSB patch no usan placeholders en producción.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-141",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-021",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-021",
+      "targetField": "primary_proof",
+      "targetValue": "payload/candidate sin checksum",
+      "declaredSourceIds": [
+        "D4:21",
+        "D4:23"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 21, table 18, row 12",
+      "sourceSectionOrSheet": "D4:21",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 21, table 18, row 12",
+      "sourceExcerptOrCellValue": "parallel_export_payload | Payload versionado hacia SCR/EvidenceBundle/MDSB. | N por run",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-142",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-022",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-022",
+      "targetField": "primary_proof",
+      "targetValue": "source_node/source_code/evidence refs incompletos",
+      "declaredSourceIds": [
+        "D8",
+        "EVE03:source_node_registry",
+        "EVE03:source_code_registry"
+      ],
+      "verifiedSourceIds": [
+        "D8",
+        "D8",
+        "EVE03"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Catalogo_Madre_Nodos!A1:AJ1",
+      "sourceSectionOrSheet": "D8",
+      "sourceRowColumnIfXlsx": "Catalogo_Madre_Nodos!A1:AJ1",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "master_node_id | capture_node_id | source_question_code_intact | source_document | canonical_variable_output | canonical_route_id",
+      "evidenceType": "xlsx_header",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-143",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-023",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-023",
+      "targetField": "primary_proof",
+      "targetValue": "actor/sistema sin autoridad de export",
+      "declaredSourceIds": [
+        "D4:27"
+      ],
+      "verifiedSourceIds": [
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 27, table 25, row 6",
+      "sourceSectionOrSheet": "D4:27",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 27, table 25, row 6",
+      "sourceExcerptOrCellValue": "Export payload | Emitir payload hacia Producción Paralela requiere readiness_state permitido y actor/sistema autorizado.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-144",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-024",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-024",
+      "targetField": "primary_proof",
+      "targetValue": "case/tenant mismatch",
+      "declaredSourceIds": [
+        "D4:27"
+      ],
+      "verifiedSourceIds": [
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 27, table 25, row 8",
+      "sourceSectionOrSheet": "D4:27",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 27, table 25, row 8",
+      "sourceExcerptOrCellValue": "Auditoría | Cualquier cambio a ruta crítica B0/B2/B3/B7 exige audit log obligatorio.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-145",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-025",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-025",
+      "targetField": "primary_proof",
+      "targetValue": "candidate intenta escribir registry activo",
+      "declaredSourceIds": [
+        "D3:R4",
+        "D3!Table6",
+        "D3!Table10"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 5",
+      "sourceSectionOrSheet": "D3:R4",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 5",
+      "sourceExcerptOrCellValue": "R4 | Todo artifact de Producción Paralela es candidate_only hasta fase explícita contraria.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-146",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-026",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-026",
+      "targetField": "primary_proof",
+      "targetValue": "shadow/rehearsal candidate intenta promoción productiva",
+      "declaredSourceIds": [
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 13, row 5",
+      "sourceSectionOrSheet": "D3:R4",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 13, row 5",
+      "sourceExcerptOrCellValue": "R4 | Todo artifact de Producción Paralela es candidate_only hasta fase explícita contraria.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-147",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-027",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-027",
+      "targetField": "primary_proof",
+      "targetValue": "candidate_export se trata como ExportCodePackage final",
+      "declaredSourceIds": [
+        "D3!Table5",
+        "D3!Table6"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 5, row 3",
+      "sourceSectionOrSheet": "D3!Table5",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 5, row 3",
+      "sourceExcerptOrCellValue": "MMABP-IR | Proyectar representación intermedia computable para PM, PF, MoC, OLC. | No equivale a diagrama final ni export final.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-148",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-028",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-028",
+      "targetField": "primary_proof",
+      "targetValue": "payload intenta emitir diagnóstico EVE/VSM/AHE",
+      "declaredSourceIds": [
+        "D3!Table6",
+        "D3!Table10",
+        "D3!Table11"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 10, row 2",
+      "sourceSectionOrSheet": "D3!Table10",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 10, row 2",
+      "sourceExcerptOrCellValue": "Capa 1.0 | No diagnostica; produce expediente y bundle.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-149",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-029",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-029",
+      "targetField": "primary_proof",
+      "targetValue": "Object Inventory/Membrane/SG Shadow internals expuestos al cliente",
+      "declaredSourceIds": [
+        "D3!Table11",
+        "D3:R7"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 11, row 4",
+      "sourceSectionOrSheet": "D3!Table11",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 11, row 4",
+      "sourceExcerptOrCellValue": "Traducir señales a lenguaje cliente sobrio. | Mostrar SG signals, routing decisions, No-Go técnico o lenguaje S1/S2/S3.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-150",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-030",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-030",
+      "targetField": "primary_proof",
+      "targetValue": "manual_review_required sin resolución autorizada",
+      "declaredSourceIds": [
+        "D4:27",
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D6"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "section 27, table 25, row 4",
+      "sourceSectionOrSheet": "D4:27",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "section 27, table 25, row 4",
+      "sourceExcerptOrCellValue": "Manual review | manual_review_required solo puede resolverse por actor autorizado y debe crear runtime_audit_trail.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-151",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-031",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-031",
+      "targetField": "primary_proof",
+      "targetValue": "overrideRequested=true y overrideAudited=false",
+      "declaredSourceIds": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "verifiedSourceIds": [
+        "D4",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 25, row 5",
+      "sourceSectionOrSheet": "D4!Table25",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 25, row 5",
+      "sourceExcerptOrCellValue": "Override | Todo override debe registrar actor_id, razón, alcance, prior_value, new_value y timestamp.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-152",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-032",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-032",
+      "targetField": "primary_proof",
+      "targetValue": "gap crítico quedó como carry_forward por presupuesto",
+      "declaredSourceIds": [
+        "D4:9",
+        "D6!Branching_Budget_Rules"
+      ],
+      "verifiedSourceIds": [
+        "D6",
+        "D4"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "Branching_Budget_Rules!A10:F10",
+      "sourceSectionOrSheet": "D6!Branching_Budget_Rules",
+      "sourceRowColumnIfXlsx": "Branching_Budget_Rules!A10:F10",
+      "sourceParagraphOrHeadingIfDocx": null,
+      "sourceExcerptOrCellValue": "Regla_ID=BR-009 | Señal / condición=Presupuesto causal agotado | Acción=Priorizar rutas críticas B0/B2/B3/B7, luego Process State/timer, luego semantic resolution. | Presupuesto=Máximo 20 | Prioridad=Gobierno de fatiga | Reentry / cierre=carry_forward con gap explícito",
+      "evidenceType": "xlsx_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-153",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-033",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-033",
+      "targetField": "primary_proof",
+      "targetValue": "MMABP-IR candidate tratado como diagrama final",
+      "declaredSourceIds": [
+        "D3!Table5"
+      ],
+      "verifiedSourceIds": [
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 5, row 3",
+      "sourceSectionOrSheet": "D3!Table5",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 5, row 3",
+      "sourceExcerptOrCellValue": "MMABP-IR | Proyectar representación intermedia computable para PM, PF, MoC, OLC. | No equivale a diagrama final ni export final.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    },
+    {
+      "qaId": "QA11-SPM-154",
+      "previousQaId": "accepted",
+      "comparisonId": "EXB-034",
+      "targetModule": "export_blockers",
+      "targetUnitType": "blocker",
+      "targetRuleId": "EXB-034",
+      "targetField": "primary_proof",
+      "targetValue": "MDSB patch tratado como MDSB final/transducción final",
+      "declaredSourceIds": [
+        "D3!Table6",
+        "D3!Table10",
+        "D3:R4"
+      ],
+      "verifiedSourceIds": [
+        "D3",
+        "D3",
+        "D3"
+      ],
+      "sourceRole": "primary_direct_or_structured_proof",
+      "sourceLocator": "table 10, row 7",
+      "sourceSectionOrSheet": "D3!Table10",
+      "sourceRowColumnIfXlsx": null,
+      "sourceParagraphOrHeadingIfDocx": "table 10, row 7",
+      "sourceExcerptOrCellValue": "Fase 8 PP rehearsal | Persiste candidatos; no producción real ni MDSB final.",
+      "evidenceType": "docx_table_row",
+      "qaStatus": "accepted",
+      "materialDifference": false,
+      "repairedFromV1": false,
+      "notes": "Proof preservado de V1 y reaceptado por locator/excerpt/source_id presentes."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "marker_id": "PF_SUP_05_MATERIALITY_MARKER",
+  "scope": "PF-SUP-05 synthesis boundary",
+  "tree_branch": "PF-SUP-05 / synthesis contract and delivery boundary ownership",
+  "required_service_contract": "services/eve/synthesis/expert-synthesis-contract-service",
+  "required_schema_contracts": [
+    "pf_sup_05_synthesis_case.schema.json",
+    "delivery_boundary.schema.json"
+  ],
+  "required_state_machines": [
+    "SynthesisCase",
+    "DeliveryBoundary"
+  ],
+  "required_test_contract": "tests/pf-sup-05/expert-synthesis-contract.test",
+  "required_source_refs": true,
+  "required_derivation_refs": true,
+  "required_governance_issue_links": true,
+  "required_readiness_decision": true,
+  "required_allowed_consumers": true,
+  "forbidden_outputs": [
+    "delivered_diagnosis",
+    "client_delivery",
+    "export_code_package_generated"
+  ],
+  "materiality_level_when_absent": "L0 absent",
+  "materiality_level_when_contract_defined": "L4 contract_defined",
+  "materiality_level_when_tested": "L7 tested_materiality",
+  "no_go_if_false_positive": "Delivered opened or claimed without authorization."
+}

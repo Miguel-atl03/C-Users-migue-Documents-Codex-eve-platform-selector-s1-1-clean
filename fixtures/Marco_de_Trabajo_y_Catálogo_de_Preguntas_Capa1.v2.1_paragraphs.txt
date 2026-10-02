@@ -1,0 +1,2532 @@
+Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 0.5 al Bloque 7
+Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 0.5 (Encuadre)
+1. Marco de Trabajo Maestría (MMABP + VSM + AHE)
+Para redactar las preguntas del Bloque 0.5 (Encuadre), aplicamos los siguientes principios rectores derivados del documento de diseño y las recomendaciones del punto 16:
+1.1 Propósito Ontológico del Bloque 0.5
+El Bloque 0.5 no busca saber qué hace el usuario, sino dónde vive esa escena en el ecosistema global.
+MMABP: Identifica el Proceso Clave (PM), los Clientes Relevantes (PM) y los Hitos (PM).
+VSM: Ubica la escena en la cadena de valor (S1) o en funciones de meta-sistema (S2-S5).
+AHE: Evita que el análisis quede encapsulado en tareas locales, forzando al usuario a ver el impacto de su trabajo en el "todo".
+1.2 Reglas de Redacción (Basadas en Punto 16)
+Lenguaje de escena: Preguntar en términos concretos ("¿Para quién existe esto?"), no abstractos ("¿Cuál es tu alineación estratégica?").
+Evitar preguntas prematuras: NO preguntar "¿Cuál es tu misión final?" (Recomendación 16.2). La misión será una inferencia tardía.
+Separar actores: Separar claramente al receptor inmediato del cliente funcional y del dueño de la prioridad (Recomendación 16.6).
+Claridad epistemológica: Dividir preguntas si permiten múltiples lecturas (Recomendación 16.4).
+2. Catálogo de Preguntas v2.1 - Bloque 0.5 (Encuadre)
+A continuación, se presentan las preguntas diseñadas para este bloque, con su justificación arquitectónica.
+Pregunta 0.5.1: El Beneficiario Final (Cliente Relevante - PM)
+Pregunta: Independientemente de a quién le entregues tu trabajo directamente, ¿quién es la persona o área que finalmente se beneficia si esta actividad sale mal?
+Tipo de respuesta: Select (Lista de áreas/roles) + Opción "Cliente Externo"
+Pregunta: ¿Y quién sufre si esta actividad sale mal?
+Tipo de respuesta: Select (Lista de áreas/roles) + Opción "Cliente Ext
+Justificación: Cumple la recomendación 16.6 (separar receptor inmediato de cliente funcional). En MMABP, esto mapea al "Cliente Relevante" en el Process Map. En VSM, conecta la tarea local con el propósito del S1. La razón de por qué son dos preguntas en una “Quién se beneficia” y “quién sufre si sale mal” es por qué no siempre son el mismo actor, así que ganamos precisión.
+Pregunta 0.5.2: El Proceso Contenedor (Proceso Clave - PM)
+Pregunta: ¿A qué gran proceso de la empresa pertenece esta actividad? (Ej. Si haces nóminas, pertenece a Recursos Humanos; si haces facturas, a Finanzas/Ventas).
+Tipo de respuesta: Select (Lista de macro-procesos de la empresa)
+Justificación: Ubica la escena en el End-to-End (E2E). En MMABP, esto define el "Proceso Clave". En VSM, ayuda a distinguir si es una transformación primaria (S1) o una función de soporte/regulación (S2/S3).
+Pregunta 0.5.3: El Hito Habilitador (Hitos - PM)
+Pregunta: Cuando terminas esta actividad con éxito, ¿qué hito importante se desbloquea en la empresa para que otros puedan avanzar?
+Tipo de respuesta: Texto corto guiado (Ej. "Se libera el presupuesto", "El cliente recibe el producto")
+Justificación: Relaciona la salida de la escena con el hito que habilita. En MMABP, esto construye la secuencia de hitos en el Process Map. En VSM, mapea las dependencias críticas entre unidades S1.
+Pregunta 0.5.4: La Fuente de Prioridad (Dueño de Prioridad - S5/S3)
+Pregunta: Si tienes muchas cosas que hacer y no hay tiempo para todo, ¿quién o qué define que esta actividad en particular debe hacerse primero?
+Tipo de respuesta: Select (Mi jefe directo, Un sistema/ticket, El cliente lo exige, Yo mismo, Un comité/política)
+Pregunta: Si ya estás trabajando en esta actividad y te entra otra urgencia que la desplaza, ¿de quién o de dónde suele venir esa nueva prioridad?
+Tipo de respuesta: Select (Mi jefe directo, Un sistema/ticket, El cliente lo exige, Yo mismo, Un comité/política)
+Justificación: Cumple la recomendación 16.6 (separar dueño de prioridad). En VSM, esto revela si la prioridad viene de S3 (gestión), S5 (política/identidad), o si hay un vacío de dirección y el usuario asume la carga (AHE - patología de suma cero).
+Deja ver dos cosas:
+quién ordena el trabajo en condiciones normales;
+y quién reordena el sistema cuando aparece una urgencia competidora.
+3. Salida Canónica Esperada (Transducción)
+Las respuestas a estas 4 preguntas permitirán a la plataforma generar las siguientes variables canónicas para el expediente:
+scene_macro_process: [Respuesta 0.5.2]
+scene_functional_client: [Respuesta 0.5.1]
+scene_enabled_milestone: [Respuesta 0.5.3]
+scene_priority_source: [Respuesta 0.5.4]
+(Nota: La "Misión Sugerida" no se pregunta aquí, se inferirá automáticamente después de capturar los Bloques 1, 2 y 3, cumpliendo la regla 16.2).
+Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 1 (Disparador)
+1. Marco de Trabajo Maestría (MMABP + VSM + AHE)
+1.1 Propósito Ontológico del Bloque 1
+El Bloque 1 responde a la pregunta fundamental: ¿Qué gatilla que esta escena comience? No pregunta quién lo hace, sino qué evento o estímulo inicia la cadena causal.
+Nivel de Realidad: Causalidad operativa (el evento que dispara el flujo).
+Integración Arquitectónica:
+MMABP (Process Map): Define el "Start Event" del proceso y los actores externos que lo generan.
+MMABP (Process Flow): Especifica las precondiciones y la tarea inicial ejecutable.
+MMABP (Model of Concepts): Identifica el objeto o evento iniciador y sus atributos.
+MMABP (Object Life Cycle): Marca la transición del objeto a su primer estado operativo.
+VSM (S1): Revela si la unidad es autónoma (dispara a sí misma) o dependiente (recibe órdenes).
+VSM (S2): Captura los handoffs y las interfaces entre unidades.
+VSM (S3): Identifica si la orden viene de gestión y si hay sobrecarga.
+VSM (S3):* Audita la brecha entre lo "planificado" y lo "reactivo real".
+VSM (S4): Detecta cambios recientes en cómo llega el disparador.
+VSM (S5): Revela el propósito político del disparador.
+VSM (Algedónico): Captura el dolor cuando el disparador es ambiguo o llega tarde.
+AHE: Expone la patología de suma cero si el usuario debe "adivinar" cuándo comienza (carga cognitiva no remunerada).
+1.2 Reglas Estructurales de Diseño
+Regla 1: Agnóstico respecto al actor No preguntar "¿Quién inicia esto?" sino "¿Qué avisa que debe comenzar?" El usuario puede ser iniciador o receptor; el Bloque 1 captura el evento, no el rol.
+Regla 2: Capturar fuente, naturaleza, frecuencia, claridad y canal Estos cinco atributos del disparador son ortogonales y deben capturarse por separado para evitar ambigüedad (Recomendación 16.4).
+Regla 3: Evitar mezcla de niveles ontológicos Bloque 1 = Disparador. Bloque 2 = Transformación. No preguntar "¿Qué haces cuando llega?" en Bloque 1.
+Regla 4: Detectar excepciones y silencios La realidad organizacional se rompe por lo que NO ocurre. Preguntar: "¿Hay momentos en que esto no comienza aunque debería?"
+Regla 5: Separar actores distintos Quien decide ≠ Quien comunica ≠ Quien ejecuta. Capturar cada rol por separado (Recomendación 16.6).
+1.3 Variables Canónicas que Produce Bloque 1
+Variable Canónica
+Tipo
+Propósito
+Mapeo
+trigger_source
+Enum
+De dónde viene el estímulo
+S1 autonomía, S2 handoff, S3 orden
+trigger_type
+Enum
+Naturaleza (planificado vs reactivo)
+S3* auditoría, AHE carga
+trigger_frequency
+Enum
+Frecuencia de ocurrencia
+S3 capacidad, S4 cambio
+trigger_pattern
+Boolean
+¿Hay patrón predecible?
+S2 coordinación, S4 adaptación
+trigger_clarity
+Enum
+¿Está claro cuándo comienza?
+Algedónico dolor, AHE ambigüedad
+trigger_channel
+Enum
+Medio de comunicación
+S2 interfaz, S4 evolución
+trigger_preconditions
+Text
+¿Qué debe ocurrir antes?
+PM precondiciones, PF entrada
+trigger_exception_exists
+Boolean
+¿Hay excepciones?
+S3* realidad no filtrada
+trigger_exception_description
+Text
+¿Cuáles son?
+Algedónico, AHE sacrificio
+2. Catálogo de Preguntas v2.1 - Bloque 1 (Disparador)
+Pregunta 1.1: Fuente del Estímulo (Origen del Disparador)
+Pregunta: ¿De dónde viene normalmente la señal que te indica empezar? Tipo de respuesta: Select (Opción única) Opciones:
+Un cliente (interno o externo) me lo solicita
+Un sistema o aplicación me lo notifica (email, alarma, dashboard)
+Mi jefe o superior me lo ordena
+Un compañero me lo pasa (handoff, coordinación)
+Yo mismo lo decido (rutina, ciclo que yo controlo)
+Una combinación de los anteriores
+Justificación:
+MMABP: Identifica actores externos en el Process Map.
+VSM: Revela si S1 es autónomo (opción 5) o dependiente (opciones 1-4).
+S2: Captura handoffs si es opción 4.
+S3: Captura órdenes si es opción 2 o 3.
+Recomendación 16.1: Lenguaje de escena ("qué te avisa"), no abstracto.
+Recomendación 16.6: Separar fuente de la comunicación (pregunta 1.3).
+Pregunta 1.2: Naturaleza del Disparador (Planificado vs Reactivo)
+Pregunta: Cuando esto comienza, ¿es algo que esperas que ocurra o es algo que te sorprende? Tipo de respuesta: Select (Opción única) Opciones:
+Es planificado: sé que va a ocurrir y más o menos cuándo
+Es reactivo: me sorprende, no lo veo venir
+Es una mezcla: a veces es planificado, a veces es sorpresa
+Justificación:
+MMABP (PF): Permite identificar si hay variaciones en el flujo (ej. "Si es sorpresa, el flujo es diferente").
+VSM (S3):* Audita la brecha entre lo "oficial" (planificado) y lo "real" (reactivo 90% del tiempo).
+AHE: Expone carga cognitiva si el usuario debe estar siempre alerta.
+Recomendación 16.5: Detecta excepciones ("a veces es sorpresa").
+Pregunta 1.3: Claridad del Disparador (¿Está Claro Cuándo Comienza?)
+Pregunta: Cuando esto debe comenzar, ¿está muy claro para ti que es el momento, o hay ambigüedad? Tipo de respuesta: Select (Opción única) Opciones:
+Muy claro: no hay duda de cuándo debe comenzar
+Claro: generalmente sé cuándo es, pero a veces tengo dudas
+Ambiguo: muchas veces no estoy seguro de si debo comenzar ahora o esperar
+Muy ambiguo: casi nunca estoy seguro de cuándo debe comenzar
+Justificación:
+Algedónico: Captura el dolor cuando el disparador es ambiguo.
+AHE: Expone la patología de suma cero (el usuario debe "adivinar" sin compensación).
+VSM (S3): Revela falta de dirección clara de S3.
+Recomendación 16.5: Detecta silencios (ambigüedad = silencio de dirección).
+Pregunta 1.4: Frecuencia y Patrón del Disparador
+Pregunta: ¿Con qué frecuencia ocurre este disparador y si hay un patrón que puedas predecir? Tipo de respuesta: Select (Opción única) Opciones:
+Diaria (todos los días, más o menos a la misma hora)
+Semanal (hay un día o momento de la semana predecible)
+Mensual (hay un momento del mes predecible)
+Bajo demanda (ocurre cuando el cliente lo solicita, sin patrón)
+Continuo (está ocurriendo constantemente)
+Irregular (no hay patrón, es completamente impredecible)
+Justificación:
+MMABP (PF): Permite normalizar el flujo según la frecuencia.
+VSM (S3): La frecuencia vs la capacidad real revela sobrecarga.
+VSM (S4): Cambios recientes en la frecuencia indican adaptación.
+Recomendación 16.4: Pregunta clara y sin múltiples lecturas.
+Nota: La pregunta está útil, aunque frecuencia y patrón podrían separarse si luego ves respuestas confusas.
+Pregunta 1.5: Canal de Comunicación del Disparador
+Pregunta: ¿Por qué medio te llega la noticia de que debes comenzar? Tipo de respuesta: Select (Opción única, o múltiple si aplica) Opciones:
+Email
+Teléfono o mensaje de texto
+Un sistema o aplicación (dashboard, ticket, notificación)
+Presencial (alguien te lo dice cara a cara)
+Reunión o llamada de equipo
+Otro (especificar)
+Justificación:
+VSM (S2): Define las interfaces que S1 debe mantener.
+VSM (S4): Cambios recientes en el canal indican evolución.
+MMABP (PM): Documenta los actores externos y sus medios.
+Recomendación 16.1: Lenguaje concreto (canal específico).
+Pregunta 1.6: Precondiciones del Disparador (¿Qué Debe Ocurrir Antes?)
+Pregunta: Para que este disparador ocurra, ¿qué debe haber ocurrido antes? (Ej. "Debe haber stock disponible", "El cliente debe haber pagado", "Debe ser fin de mes"). Tipo de respuesta: Texto corto (guiado con ejemplos) Restricción: Máximo 150 caracteres
+Justificación:
+MMABP (PM): Documenta las precondiciones del proceso.
+MMABP (PF): Define las "Input Conditions" de la primera tarea.
+MMABP (MoC): Identifica dependencias de objetos.
+VSM (S2): Revela dependencias con otras unidades.
+Recomendación 16.1: Lenguaje de escena ("qué debe haber ocurrido").
+Pregunta 1.7: Excepciones del Disparador (¿Hay Momentos en que NO Funciona?)
+Pregunta: ¿Hay momentos en que esto DEBERÍA comenzar pero NO comienza? (Ej. "Sí, a veces el cliente solicita pero el sistema o responsable no lo registra"). Tipo de respuesta: Select (Opción única) Opciones:
+No, siempre funciona como debería
+Sí, a veces ocurre pero es raro
+Sí, ocurre regularmente (digamos, 1 de cada 4 veces)
+Sí, ocurre frecuentemente (digamos, 1 de cada 2 veces o más)
+Justificación:
+VSM (S3):* Audita la realidad no filtrada (lo que realmente pasa vs lo oficial).
+Algedónico: Captura el dolor de los silencios (lo que NO ocurre).
+AHE: Expone la patología de suma cero (el usuario debe compensar la falla).
+Recomendación 16.5: Detecta excepciones y silencios.
+Pregunta 1.8: Descripción de la Excepción (Si Aplica)
+Pregunta: Si respondiste "Sí" en la pregunta anterior, ¿qué ocurre en esos momentos? ¿Cómo te das cuenta de que algo no funcionó? Tipo de respuesta: Texto corto (guiado) Restricción: Máximo 200 caracteres Condición: Solo aparece si la respuesta a 1.7 es "Sí, a veces..." o superior
+Justificación:
+VSM (S3):* Documenta la brecha entre lo oficial y lo real.
+Algedónico: Especifica el tipo de dolor.
+AHE: Documenta el sacrificio del usuario.
+3. Salida Canónica Esperada (Transducción)
+Las respuestas a estas 8 preguntas permitirán a la plataforma generar las siguientes variables canónicas para el expediente:
+{
+"trigger_source": "Un cliente (interno o externo) me lo solicita",
+"trigger_type": "Es una mezcla: a veces es planificado, a veces es sorpresa",
+"trigger_clarity": "Ambiguo: muchas veces no estoy seguro de si debo comenzar ahora o esperar",
+"trigger_frequency": "Bajo demanda",
+"trigger_pattern": false,
+"trigger_channel": ["Email", "Sistema"],
+"trigger_preconditions": "El cliente debe haber completado su solicitud en el formulario",
+"trigger_exception_exists": true,
+"trigger_exception_description": "A veces el cliente solicita pero el email no llega a mi bandeja"
+}
+4. Validación de Calidad (Checklist)
+✅ Cada pregunta es agnóstica respecto al actor(no asume quién ejecuta).✅Cada pregunta captura un atributo ortogonal(fuente, naturaleza, frecuencia, claridad, canal, precondiciones, excepciones).✅Lenguaje de escena(concreto, no abstracto).✅Evita preguntas prematuras(no pregunta "misión" ni "transformación").✅Detecta excepciones y silencios(pregunta 1.7 y 1.8).✅Separa actores distintos(fuente vs canal vs quien decide).✅Mapeo explícito a MMABP y VSM(cada pregunta conecta con variables canónicas).✅Alineación con Recomendaciones 16 (todas las 6 recomendaciones aplicadas).
+Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 2 (Transformación)
+1. Marco de Trabajo Maestría (MMABP + VSM + AHE)
+1.1 Propósito Ontológico del Bloque 2
+El Bloque 2 responde a la pregunta fundamental: ¿Qué cambia? ¿Cuál es el núcleo de la transformación? No pregunta quién lo hace ni para qué, sino qué objeto se modifica y cómo.
+Nivel de Realidad: Causalidad material (qué objeto se transforma y sus atributos).
+Integración Arquitectónica:
+MMABP (Model of Concepts): Define las clases de objetos y sus atributos que cambian.
+MMABP (Object Life Cycle): Especifica las transiciones de estado válidas e inválidas.
+MMABP (Process Flow): Describe las tareas que ejecutan la transformación y sus pre/postcondiciones.
+MMABP (Process Map): Mapea los hitos de transformación en el End-to-End.
+VSM (S1): Revela la capacidad transformativa y la variedad que maneja.
+VSM (S2): Captura handoffs si múltiples unidades transforman el objeto.
+VSM (S3): Identifica estándares de transformación y capacidad asignada.
+VSM (S3):* Audita la brecha entre transformación "oficial" y "real".
+VSM (S4): Detecta cambios recientes en cómo se transforma.
+VSM (S5): Revela el propósito político de la transformación.
+VSM (Algedónico): Captura el dolor cuando la transformación es defectuosa, incompleta o contradictoria.
+AHE: Expone la patología de suma cero si el usuario debe compensar transformaciones que fallan.
+1.2 Reglas Estructurales de Diseño
+Regla 1: Capturar el OBJETO, no la ACCIÓN Bloque 2 pregunta "¿Qué cambia?" (sustantivo), no "¿Qué haces?" (verbo). El objeto es el protagonista.
+Regla 2: Capturar ATRIBUTOS específicos, no el objeto genérico No basta saber que "un pedido" cambia. Hay que saber QUÉ atributos (estado, cantidad, precio, propietario, ubicación, etc.).
+Regla 3: Capturar MAGNITUD, CAUSALIDAD, ITERACIONES y EXCEPCIONES por separado Estos son atributos ortogonales. No mezclarlos en una sola pregunta (Recomendación 16.4).
+Regla 4: Capturar ESTADO INICIAL y ESTADO FINAL La transformación es una transición de estado. Ambos estados son críticos para mapear al OLC.
+Regla 5: Evitar mezclar ENTRADA con TRANSFORMACIÓN Bloque 1 = "¿Qué llega?" Bloque 2 = "¿Qué cambia?" No confundir.
+Regla 6: Separar EJECUTOR de AUTORIZADOR de VERIFICADOR Quien ejecuta la transformación ≠ Quien la autoriza ≠ Quien la verifica (Recomendación 16.6).
+Regla 7: Detectar TRANSFORMACIONES OCULTAS ¿Hay cambios que ocurren pero no son "oficiales"? S3* audita esto.
+1.3 Variables Canónicas que Produce Bloque 2
+Variable Canónica
+Tipo
+Propósito
+Mapeo
+transformation_object
+Text/Enum
+¿Qué objeto se transforma?
+MoC clase, OLC objeto
+transformation_attributes
+Multi-select
+¿Qué atributos cambian?
+MoC propiedades
+transformation_magnitude
+Enum
+¿Cuán grande es el cambio?
+S1 variedad, S3 complejidad
+transformation_causality
+Enum
+¿Quién causa el cambio?
+S1 capacidad, S3 estándar
+transformation_state_initial
+Text
+¿Cuál es el estado inicial?
+OLC estado inicial
+transformation_state_final
+Text
+¿Cuál es el estado final?
+OLC estado final
+transformation_iterations
+Boolean
+¿Hay ciclos?
+PF loops, S1 repetición
+transformation_iteration_count
+Number
+Si hay ciclos, ¿cuántos?
+S1 capacidad, S3 estándar
+transformation_exception_exists
+Boolean
+¿Hay excepciones?
+S3* realidad, Algedónico
+transformation_exception_type
+Enum
+¿Qué tipo?
+Algedónico dolor específico
+transformation_hidden_changes
+Boolean
+¿Hay cambios ocultos?
+S3* auditoría, AHE sacrificio
+2. Catálogo de Preguntas v2.1 - Bloque 2 (Transformación)
+Pregunta 2.1: Objeto Transformado (¿Qué Cambia?)
+Pregunta: ¿Qué es lo principal que creas, cambias o afectas con esta actividad? (Ej. Un pedido, una factura, un cliente, un inventario, un documento, etc.) Tipo de respuesta: Multi-select (permite seleccionar 1, 2 o 3 opciones)
+Opciones:
+Un OBJETO (cosa): Factura, pedido, documento, inventario, etc.
+Un SUJETO (persona/entidad): Cliente, proveedor, empleado, departamento, etc.
+Una ACCIÓN/PROCESO (verbo puro): Coordinar, validar, comunicar, preparar, etc.
+Lógica de Subpreguntas (Combinaciones)
+function dispararSubpreguntas(seleccion) {
+// Contar cuántas opciones seleccionó
+const cantidad = seleccion.length;
+if (cantidad === 1) {
+// CASO 1: Solo una opción
+if (seleccion.includes("A")) {
+mostrar(2_1a_Objeto);
+}
+else if (seleccion.includes("B")) {
+mostrar(2_1b_Sujeto);
+}
+else if (seleccion.includes("C")) {
+mostrar(2_1c_Accion);
+}
+}
+else if (cantidad === 2) {
+// CASO 2: Dos opciones
+if (seleccion.includes("A") && seleccion.includes("B")) {
+// A + B: Objeto + Sujeto
+mostrar(2_1a_Objeto);
+mostrar(2_1b_Sujeto);
+mostrar(2_1_AB_Relacion); // Pregunta de relación
+}
+else if (seleccion.includes("A") && seleccion.includes("C")) {
+// A + C: Objeto + Acción
+mostrar(2_1a_Objeto);
+mostrar(2_1c_Accion);
+mostrar(2_1_AC_Relacion); // Pregunta de relación
+}
+else if (seleccion.includes("B") && seleccion.includes("C")) {
+// B + C: Sujeto + Acción
+mostrar(2_1b_Sujeto);
+mostrar(2_1c_Accion);
+mostrar(2_1_BC_Relacion); // Pregunta de relación
+}
+}
+else if (cantidad === 3) {
+// CASO 3: Las tres opciones
+mostrar(2_1a_Objeto);
+mostrar(2_1b_Sujeto);
+mostrar(2_1c_Accion);
+mostrar(2_1_ABC_Relacion); // Pregunta de relación
+mostrar(2_1_ABC_Prioridad); // Pregunta de prioridad
+}
+}
+Desglose de Todas las Subpreguntas
+CASO 1: Solo una opción
+1.1 - Solo A (Objeto)
+2.1a Pregunta: ¿Cuál es ese objeto?
+Respuesta: Texto abierto + Select predefinido
+Opciones: Factura, Pedido, Documento, Inventario, Cliente, Producto, Estado, Otro
+Guardar: objeto_tipo = "Factura"
+1.2 - Solo B (Sujeto)
+2.1b Pregunta: ¿Cuál es ese sujeto?
+Respuesta: Texto abierto + Select predefinido
+Opciones: Cliente, Proveedor, Empleado, Departamento, Gerencia, Otro
+Guardar: sujeto_tipo = "Proveedor"
+1.3 - Solo C (Acción)
+2.1c Pregunta: ¿Cuál es la acción principal?
+Respuesta: Texto abierto + Select predefinido
+Opciones: Coordinar, Validar, Comunicar, Preparar, Revisar, Autorizar, Otro
+Guardar: accion_tipo = "Coordinar"
+CASO 2: Dos opciones
+2.1 - A + B (Objeto + Sujeto)
+Ejemplo: "Procesar pedidos de clientes"
+2.1a Pregunta: ¿Cuál es el objeto que cambias?
+Respuesta: Pedido
+Guardar: objeto_tipo = "Pedido"
+2.1b Pregunta: ¿Cuál es el sujeto que afectas?
+Respuesta: Cliente
+Guardar: sujeto_tipo = "Cliente"
+2.1_AB_Relacion Pregunta: ¿Cuál de estos dos es el limitante principal?
+Opciones:
+1. El OBJETO (Pedido): Limita por volumen de pedidos
+2. El SUJETO (Cliente): Limita por cantidad de clientes
+3. Ambos limitan igual
+Guardar: dimension_dominante_AB = "Objeto" / "Sujeto" / "Ambos"
+2.2 - A + C (Objeto + Acción)
+Ejemplo: "Validar y procesar facturas"
+2.1a Pregunta: ¿Cuál es el objeto que cambias?
+Respuesta: Factura
+Guardar: objeto_tipo = "Factura"
+2.1c Pregunta: ¿Cuál es la acción principal?
+Respuesta: Validar
+Guardar: accion_tipo = "Validar"
+2.1_AC_Relacion Pregunta: ¿La acción es el cuello de botella o el objeto?
+Opciones:
+1. El OBJETO (Factura): Hay muchas facturas, eso es lo que limita
+2. La ACCIÓN (Validar): La validación es compleja, eso es lo que limita
+3. Ambos limitan igual
+Guardar: dimension_dominante_AC = "Objeto" / "Accion" / "Ambos"
+2.3 - B + C (Sujeto + Acción)
+Ejemplo: "Coordinar con proveedores"
+2.1b Pregunta: ¿Cuál es el sujeto?
+Respuesta: Proveedor
+Guardar: sujeto_tipo = "Proveedor"
+2.1c Pregunta: ¿Cuál es la acción principal?
+Respuesta: Coordinar
+Guardar: accion_tipo = "Coordinar"
+2.1_BC_Relacion Pregunta: ¿Qué limita más tu capacidad?
+Opciones:
+1. La CANTIDAD de SUJETOS (Muchos proveedores)
+2. La COMPLEJIDAD de la ACCIÓN (Coordinar es complejo)
+3. Ambos limitan igual
+Guardar: dimension_dominante_BC = "Sujeto" / "Accion" / "Ambos"
+CASO 3: Las tres opciones (A + B + C)
+Ejemplo: "Coordinar con proveedores para que envíen facturas"
+2.1a Pregunta: ¿Cuál es el objeto?
+Respuesta: Factura
+Guardar: objeto_tipo = "Factura"
+2.1b Pregunta: ¿Cuál es el sujeto?
+Respuesta: Proveedor
+Guardar: sujeto_tipo = "Proveedor"
+2.1c Pregunta: ¿Cuál es la acción principal?
+Respuesta: Coordinar
+Guardar: accion_tipo = "Coordinar"
+2.1_ABC_Relacion Pregunta: En esta actividad, ¿cuál de estos tres es el obstáculo PRINCIPAL?
+Opciones:
+1. El OBJETO (Factura): Hay muchas facturas, eso es lo que limita
+2. El SUJETO (Proveedor): Hay muchos proveedores, eso es lo que limita
+3. La ACCIÓN (Coordinar): La coordinación es compleja, eso es lo que limita
+4. Los tres limitan igual
+Guardar: dimension_dominante_ABC = "Objeto" / "Sujeto" / "Accion" / "Todos"
+2.1_ABC_Prioridad Pregunta: Si tuvieras que ordenarlos por importancia, ¿cuál va primero?
+Respuesta: Ranking (1, 2, 3)
+Ejemplo:
+1º: Factura (es lo más importante)
+2º: Proveedor
+3º: Coordinar
+Guardar: ranking_dimensiones = ["Objeto", "Sujeto", "Accion"]
+Tabla Resumen de Combinaciones
+Combinación
+Subpreguntas Disparadas
+Pregunta de Relación
+Solo A
+2.1a
+NO
+Solo B
+2.1b
+NO
+Solo C
+2.1c
+NO
+A + B
+2.1a, 2.1b
+2.1_AB_Relacion (¿cuál limita?)
+A + C
+2.1a, 2.1c
+2.1_AC_Relacion (¿cuál limita?)
+B + C
+2.1b, 2.1c
+2.1_BC_Relacion (¿cuál limita?)
+A + B + C
+2.1a, 2.1b, 2.1c
+2.1_ABC_Relacion + 2.1_ABC_Prioridad
+Justificación:
+MMABP (MoC): Identifica la clase de objeto transformado.
+MMABP (OLC): Define qué objeto experimenta transiciones de estado.
+VSM (S1): Revela qué tipo de objeto maneja la unidad.
+Recomendación 16.1: Lenguaje de escena ("¿cuál es el objeto?"), no abstracto.
+Recomendación 16.3: Pregunta concreta sobre el sustantivo, no el verbo.
+Pregunta 2.2: Atributos que Cambian (¿Qué Propiedades?)
+Lógica condicional:
+function mostrarPregunta2_2(tipo_principal, objeto_tipo, sujeto_tipo, accion_tipo) {
+if (tipo_principal.includes("Objeto")) {
+// MOSTRAR 2.2 OBJETO
+mostrar(2_2_Objeto);
+}
+if (tipo_principal.includes("Sujeto")) {
+// MOSTRAR 2.2 SUJETO
+mostrar(2_2_Sujeto);
+}
+if (tipo_principal.includes("Accion")) {
+// MOSTRAR 2.2 ACCIÓN
+mostrar(2_2_Accion);
+}
+}
+2.2 OBJETO - Atributos que Cambian
+Pregunta: De ese {OBJETO}, ¿cuáles de estas propiedades o características cambian?
+Opciones dinámicas según objeto_tipo:
+Si objeto_tipo = "Factura":
+☐ Estado (De borrador a emitida)
+☐ Monto (Se aplica impuesto)
+☐ Propietario (De contabilidad a tesorería)
+☐ Fecha (Se registra vencimiento)
+☐ Información (Se completan datos del cliente)
+☐ Validación (Se marca como aprobada)
+☐ Relación (Se vincula a orden de venta)
+☐ Otro
+Guardar: atributos_objeto_cambian = ["Estado", "Monto", "Validación"]
+2.2 SUJETO - Atributos que Cambian
+Pregunta: De ese {SUJETO}, ¿cuáles de estas propiedades o características cambian?
+Opciones dinámicas según sujeto_tipo:
+Si sujeto_tipo = "Proveedor":
+☐ Estado (De prospecto a activo)
+☐ Información (Se actualiza contacto, datos)
+☐ Propietario (Se asigna a otro ejecutivo)
+☐ Relación (Se vincula a empresa matriz)
+☐ Clasificación (Se cambia categoría)
+☐ Validación (Se marca como verificado)
+☐ Acuerdo (Se actualiza contrato/términos)
+☐ Otro
+Guardar: atributos_sujeto_cambian = ["Estado", "Información", "Validación"]
+2.2 ACCIÓN - Características que Cambian
+Pregunta: De esa {ACCIÓN}, ¿cuáles de estas características cambian?
+Opciones dinámicas según accion_tipo:
+Si accion_tipo = "Coordinar":
+☐ Frecuencia (Cuántas veces se hace)
+☐ Complejidad (Se vuelve más o menos compleja)
+☐ Participantes (Quiénes intervienen)
+☐ Duración (Cuánto tarda)
+☐ Resultado (Qué se logra)
+☐ Documentación (Se registra o no)
+☐ Escalamiento (Se escala a otro nivel)
+☐ Otro
+Guardar: atributos_accion_cambian = ["Frecuencia", "Duración", "Resultado"]
+Tabla Resumen
+Tipo de 2.1
+Pregunta 2.2
+Ejemplos de Atributos
+Solo Objeto
+2.2 Objeto
+Estado, Monto, Validación, Información
+Solo Sujeto
+2.2 Sujeto
+Estado, Información, Relación, Clasificación
+Solo Acción
+2.2 Acción
+Frecuencia, Complejidad, Duración, Resultado
+Objeto + Sujeto
+2.2 Objeto + 2.2 Sujeto
+Ambas preguntas
+Objeto + Acción
+2.2 Objeto + 2.2 Acción
+Ambas preguntas
+Sujeto + Acción
+2.2 Sujeto + 2.2 Acción
+Ambas preguntas
+Objeto + Sujeto + Acción
+2.2 Objeto + 2.2 Sujeto + 2.2 Acción
+Las tres preguntas
+Justificación:
+MMABP (MoC): Mapea los atributos que cambian en la clase.
+MMABP (OLC): Estos atributos definen qué cambia en la transición de estado.
+VSM (S1): Revela la complejidad de la transformación.
+Recomendación 16.4: Pregunta clara que no permite múltiples lecturas (multi-select específico).
+Recomendación 16.3: Lenguaje concreto (propiedades específicas).
+Pregunta 2.3: Magnitud de la Transformación (¿Cuán Grande es el Cambio?)
+Pregunta: Cuando haces esta actividad, ¿qué tanto cambia el objeto con respecto a como llegó? Tipo de respuesta: Select (Opción única) Opciones:
+Opciones (Con ejemplos contextualizados a los atributos seleccionados en 2.2):
+[NOTA: Los ejemplos se generan dinámicamente basados en las respuestas de 2.2. Aquí van los patrones:]
+Si en 2.2 seleccionó solo 1 atributo (ej. "Estado o estatus"):
+Pequeño: solo 1 atributo cambia → Ejemplo: "Solo cambio el estado de 'pendiente' a 'completado', nada más"
+Si en 2.2 seleccionó 2-3 atributos (ej. "Estado", "Cantidad", "Propietario"):
+Medio: 2-3 atributos cambian → Ejemplo: "Cambio el estado, actualizo la cantidad y lo asigno a otro equipo"
+Si en 2.2 seleccionó 4 o más atributos:
+Grande: 4 o más atributos cambian → Ejemplo: "Cambio el estado, actualizo cantidad, precio, propietario, ubicación y validación"
+Siempre agregar:
+Radical: el objeto cambia de naturaleza → Ejemplo: "El pedido se convierte en una factura" o "El cliente prospecto se convierte en cliente corporativo"
+Justificación:
+VSM (S1): La magnitud define la variedad y complejidad que S1 maneja.
+VSM (S3): Define la complejidad que S3 debe controlar.
+MMABP (PF): La magnitud determina cuántas tareas se necesitan.
+Recomendación 16.4: Pregunta clara sin ambigüedad.
+Pregunta 2.4A: Causalidad de la Transformación (¿Quién Causa el Cambio?)
+Pregunta: ¿Qué acción o cambio haces tú directamente sobre el objeto? Tipo de respuesta: Select (Opción única) Opciones:
+Crear → Ejemplo: "Creo un nuevo pedido en el sistema"
+Revisar → Ejemplo: "Reviso los datos del pedido para detectar errores"
+Corregir → Ejemplo: "Corrijo la cantidad o dirección del pedido"
+Aprobar → Ejemplo: "Apruebo el pedido para que proceda a almacén"
+Registrar → Ejemplo: "Registro el pedido en el sistema de contabilidad"
+Enviar → Ejemplo: "Envío el pedido al cliente o al siguiente departamento"
+Combinar → Ejemplo: "Combino múltiples pedidos en una sola orden"
+Rechazar → Ejemplo: "Rechazo el pedido porque no cumple criterios"
+Pausar o suspender → Ejemplo: "Pongo el pedido en espera hasta nueva orden"
+Otra (especificar)
+Justificación:
+VSM (S1): Revela si S1 es autónomo (opción 1) o dependiente (opciones 2-5).
+VSM (S3): Identifica si hay estándares impuestos (opción 5).
+MMABP (PF): Define quién ejecuta la tarea.
+Recomendación 16.6: Separa ejecutor de autorizador.
+Pregunta 2.4B: Causalidad de la Transformación (¿Quién Causa el Cambio?)
+Pregunta: ¿Qué es lo que normalmente provoca que hagas ese cambio? Tipo de respuesta: Select (Opción única) Opciones:
+Una solicitud o instrucción → Ejemplo: "Mi jefe me pide que revise los pedidos"
+Un error detectado → Ejemplo: "Detecto que la cantidad está mal y debo corregirla"
+Una fecha o plazo → Ejemplo: "Cada viernes debo enviar los pedidos pendientes"
+Una aprobación recibida → Ejemplo: "El cliente aprobó el presupuesto, ahora creo el pedido"
+Un evento o cambio en otro objeto → Ejemplo: "Cuando llega un pedido nuevo, lo debo revisar"
+Una urgencia o prioridad → Ejemplo: "Un cliente importante requiere atención inmediata"
+Un estándar o política → Ejemplo: "La política dice que todos los pedidos deben ser aprobados antes de enviar"
+Una combinación de los anteriores → Ejemplo: "Depende de si hay errores, si es viernes, o si hay urgencia"
+Otro (especificar)
+Justificación:
+MMABP (PM): Define el evento que gatilla la tarea.
+MMABP (PF): Define la precondición que activa la tarea.
+VSM (S1): Revela qué estímulos recibe S1.
+VSM (S3): Identifica si hay estándares que gatillan la acción.
+Recomendación 16.6: Separa la acción del usuario del disparador causal.
+NOTA IMPORTANTE: Al separar 2.4.a y 2.4.b, la transducción causal queda mucho más limpia:
+2.4.a (Ejecución): Define qué hace la persona.
+2.4.b (Disparador): Define qué provoca que lo haga.
+Esto permite mapear correctamente a Process Flow (tarea + precondición), Object Life Cycle (transición gatillada por evento), y VSM (S1 recibe estímulo, ejecuta acción).
+Pregunta 2.5: Estado Inicial del Objeto (¿Cómo Llega?)
+Pregunta: Justo antes de que comience esta actividad, ¿en qué estado o condición se encuentra el objeto? (Ej. "Pedido recibido, sin procesar" o "Factura sin validar") Tipo de respuesta: Texto corto (guiado con ejemplos) Restricción: Máximo 100 caracteres
+Justificación:
+MMABP (OLC): Define el estado inicial de la transición.
+MMABP (PF): Es la precondición de la tarea.
+VSM (S1): Revela qué "materia prima" recibe S1.
+Recomendación 16.1: Lenguaje de escena (descripción concreta).
+Pregunta 2.6: Estado Final del Objeto (¿Cómo Sale?)
+Pregunta: Después de que termina esta actividad, ¿en qué estado o condición queda el objeto? (Ej. "Pedido procesado, listo para envío" o "Factura validada y aprobada") Tipo de respuesta: Texto corto (guiado con ejemplos) Restricción: Máximo 100 caracteres
+Justificación:
+MMABP (OLC): Define el estado final de la transición.
+MMABP (PF): Es la postcondición de la tarea.
+VSM (S1): Revela qué "producto" entrega S1.
+Recomendación 16.1: Lenguaje de escena (descripción concreta).
+Aquí hablas del objeto transformado.
+Pregunta 2.7: Iteraciones en la Transformación (¿Hay Ciclos?)
+Pregunta: ¿El objeto se transforma una sola vez o hay múltiples ciclos de transformación? (Ej. "Se revisa, se rechaza, se corrige, se revisa de nuevo") Tipo de respuesta: Select (Opción única) Opciones:
+Una sola vez: el objeto se transforma una vez y listo
+Pocas veces: 2-3 ciclos típicamente
+Muchas veces: 4 o más ciclos, o es variable
+Continuo: el objeto se transforma constantemente
+Justificación:
+MMABP (PF): Identifica loops en el flujo.
+VSM (S1): Revela si S1 debe tener capacidad para repetir.
+VSM (S3): Define estándares de iteración.
+Recomendación 16.5: Detecta excepciones (iteraciones inesperadas).
+Pregunta 2.8: Número de Iteraciones (Si Aplica)
+Pregunta: Si respondiste "Pocas veces" o "Muchas veces", ¿cuántos ciclos típicamente ocurren? Tipo de respuesta: Número (rango) Opciones:
+2-3 ciclos
+4-5 ciclos
+6-10 ciclos
+Más de 10 ciclos
+Variable (depende del caso)
+Justificación:
+MMABP (PF): Especifica la complejidad del loop.
+VSM (S3): Define capacidad necesaria.
+Condición: Solo aparece si la respuesta a 2.7 es "Pocas veces" o "Muchas veces".
+Pregunta 2.9: Excepciones en la Transformación (¿Hay Fallos?)
+Pregunta: ¿Hay momentos en que el objeto NO se transforma aunque debería, o se transforma de forma incorrecta? Tipo de respuesta: Select (Opción única) Opciones:
+No, siempre se transforma correctamente
+Sí, a veces falla pero es raro
+Sí, falla regularmente (digamos, 1 de cada 4 veces)
+Sí, falla frecuentemente (digamos, 1 de cada 2 veces o más)
+Justificación:
+VSM (S3):* Audita la realidad no filtrada (transformaciones que fallan).
+Algedónico: Captura el dolor de transformaciones defectuosas.
+AHE: Expone la patología de suma cero (el usuario debe compensar).
+Recomendación 16.5: Detecta excepciones.
+Pregunta 2.10: Descripción de la Excepción (¿Cómo Falla?)
+Pregunta: Si respondiste "Sí" en la pregunta anterior, ¿cómo falla la transformación? ¿Qué ocurre exactamente? Tipo de respuesta: Texto corto (guiado) Restricción: Máximo 200 caracteres Condición: Solo aparece si la respuesta a 2.9 es "Sí, a veces..." o superior
+Justificación:
+VSM (S3):* Documenta la brecha entre lo oficial y lo real.
+Algedónico: Especifica el tipo de dolor.
+AHE: Documenta el sacrificio del usuario.
+Pregunta 2.11: Transformaciones Ocultas (¿Hay Cambios No Oficiales?)
+Pregunta: ¿Hay cambios que ocurren en el objeto pero que NO son "oficiales" o esperados? (Ej. "Alguien modifica el precio sin autorización" o "El estado se actualiza pero nadie lo documenta") Tipo de respuesta: Select (Opción única) Opciones:
+No, todo lo que ocurre es oficial
+Sí, a veces ocurren cambios no autorizados
+Sí, ocurren frecuentemente
+Justificación:
+VSM (S3):* Detecta transformaciones ocultas (auditoría crítica).
+AHE: Expone la patología de suma cero (cambios no compensados).
+Algedónico: Captura el dolor de la falta de control.
+Recomendación 16.5: Detecta silencios (lo que ocurre pero no se dice).
+Pregunta 2.12: Descripción de Transformaciones Ocultas (Si Aplica)
+Pregunta: Si respondiste "Sí", ¿cuáles son esos cambios no oficiales y quién los hace? Tipo de respuesta: Texto corto (guiado) Restricción: Máximo 200 caracteres Condición: Solo aparece si la respuesta a 2.11 es "Sí, a veces..." o superior
+Justificación:
+VSM (S3):* Documenta transformaciones ocultas.
+AHE: Especifica la patología de suma cero.
+3. Salida Canónica Esperada (Transducción)
+Las respuestas a estas 12 preguntas permitirán a la plataforma generar las siguientes variables canónicas para el expediente:
+{
+"transformation_object": "Un pedido o solicitud",
+"transformation_attributes": ["Estado o estatus", "Cantidad o volumen", "Propietario o responsable"],
+"transformation_magnitude": "Medio: 2-3 atributos cambian",
+"transformation_causality": "Una combinación de los anteriores",
+"transformation_state_initial": "Pedido recibido del cliente, sin validar",
+"transformation_state_final": "Pedido validado, asignado a almacén, listo para picking",
+"transformation_iterations": true,
+"transformation_iteration_count": "2-3 ciclos",
+"transformation_exception_exists": true,
+"transformation_exception_type": "Falla regularmente",
+"transformation_exception_description": "A veces el sistema no registra la actualización de cantidad",
+"transformation_hidden_changes": true,
+"transformation_hidden_changes_description": "El equipo de ventas a veces cambia el precio sin avisar a almacén"
+}
+4. Validación de Calidad (Checklist)
+✅ Cada pregunta captura un atributo ortogonal(objeto, atributos, magnitud, causalidad, estado inicial, estado final, iteraciones, excepciones, cambios ocultos).✅Lenguaje de escena(concreto, no abstracto).✅Evita preguntas prematuras(no pregunta "impacto" ni "propósito").✅Detecta excepciones, iteraciones y silencios(preguntas 2.7, 2.9, 2.11).✅Separa actores distintos(ejecutor vs autorizador vs verificador).✅Mapeo explícito a MMABP y VSM(cada pregunta conecta con variables canónicas).✅Alineación con Recomendaciones 16(todas las 6 recomendaciones aplicadas).✅Captura transformaciones ocultas (S3* auditoría crítica, AHE patología).
+Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 3 (Salida)
+1. Marco de Trabajo Maestría (MMABP + VSM + AHE)
+1.1 Propósito Ontológico del Bloque 3
+El Bloque 3 responde a la pregunta fundamental: ¿Quién recibe? ¿Cuál es el impacto en el receptor? No pregunta qué se transforma ni cómo, sino a quién va el resultado y qué significa para el receptor.
+Nivel de Realidad: Causalidad social (quién recibe, qué impacto tiene, cómo el receptor depende).
+Integración Arquitectónica:
+MMABP (Process Map): Define el siguiente actor en la cadena E2E (handoff).
+MMABP (Process Flow): Especifica quién recibe y qué tarea ejecuta con lo que recibe.
+MMABP (Model of Concepts): Identifica los actores que dependen del objeto transformado.
+VSM (S1): Revela qué produce S1 y a quién lo entrega.
+VSM (S2): Coordina el handoff entre S1 y el siguiente S1.
+VSM (S3): Define estándares de entrega y calidad esperada.
+VSM (S3):* Audita si lo que se entrega es lo que se espera.
+VSM (S4): Detecta cambios en quién recibe o cómo recibe.
+VSM (S5): Revela el propósito político de la entrega.
+VSM (Algedónico): Captura el dolor cuando la entrega es defectuosa, incompleta o tardía.
+AHE: Expone la patología de suma cero si el receptor debe compensar entregas defectuosas.
+1.2 Reglas Estructurales de Diseño
+Regla 1: Capturar el RECEPTOR, no la ACCIÓN de envío Bloque 3 pregunta "¿Quién recibe?" (sustantivo), no "¿Cómo lo envías?" (verbo). El receptor es el protagonista.
+Regla 2: Capturar MÚLTIPLES receptores si existen No asumir un solo receptor. Puede haber receptor inmediato, funcional, final, y secundarios.
+Regla 3: Capturar TIPO DE RECEPTOR y su DEPENDENCIA ¿Es persona, equipo, sistema, cliente? ¿Es crítico, importante, opcional?
+Regla 4: Capturar QUÉ HACE el receptor con lo que recibe El impacto es la tarea siguiente del receptor.
+Regla 5: Capturar CRITERIOS DE CALIDAD esperada ¿Qué significa "bien hecho" para el receptor?
+Regla 6: Capturar MECANISMO Y FRECUENCIA de entrega ¿Cómo se entrega? ¿Con qué frecuencia?
+Regla 7: Detectar EXCEPCIONES en la entrega ¿Hay entregas que fallan? ¿Hay receptores que quedan sin recibir?
+Regla 8: Evitar mezclar TRANSFORMACIÓN con SALIDA Bloque 2 = "¿Qué cambia?" Bloque 3 = "¿Quién recibe?" No confundir.
+1.3 Variables Canónicas que Produce Bloque 3
+Variable Canónica
+Tipo
+Propósito
+Mapeo
+output_object
+Text
+¿Qué es lo que se entrega?
+PM hito, PF entrada siguiente
+primary_receiver
+Text/Enum
+¿Quién es el receptor inmediato?
+PM siguiente actor, S2 handoff
+receiver_type
+Enum
+¿Qué tipo de receptor?
+MoC actor, S1 interdependencia
+receiver_dependency
+Enum
+¿Qué tan crítico es?
+S3 prioridad, Algedónico impacto
+receiver_impact
+Text
+¿Qué hace el receptor?
+PF tarea siguiente, S1 capacidad
+secondary_receivers
+Multi-select
+¿Hay otros receptores?
+PM actores secundarios, S2 coordinación
+quality_criteria
+Text
+¿Qué criterios debe cumplir?
+S3 estándares, S3* auditoría
+delivery_mechanism
+Enum
+¿Cómo se entrega?
+S2 interfaz, PM canal
+delivery_frequency
+Enum
+¿Con qué frecuencia?
+S3 cadencia, S4 cambios
+delivery_exception_exists
+Boolean
+¿Hay excepciones?
+S3* realidad, Algedónico
+delivery_exception_type
+Enum
+¿Qué tipo de excepción?
+Algedónico dolor específico
+receiver_satisfaction
+Enum
+¿El receptor está satisfecho?
+Algedónico feedback, AHE compensación
+2. Catálogo de Preguntas v2.1 - Bloque 3 (Salida)
+Pregunta 3.1: Objeto de Salida (¿Qué Se Entrega?)
+Pregunta: ¿Qué es exactamente lo que entregas o pones a disposición de otro al terminar? (Ej. Un pedido procesado, una factura, un reporte, una aprobación, etc.) Tipo de respuesta: Text corto (guiado con ejemplos) Restricción: Máximo 100 caracteres
+Justificación:
+MMABP (PM): Define el hito de salida en el E2E.
+MMABP (PF): Define la postcondición/salida de la actividad.
+VSM (S1): Revela qué produce S1.
+Recomendación 16.1: Lenguaje de escena (descripción concreta).
+Aquí hablas del handoff.
+Pregunta 3.2: Receptor Inmediato (¿Quién Lo Recibe Primero?)
+Pregunta: ¿Quién es la persona, equipo o sistema que recibe directamente lo que entregas? Tipo de respuesta: Select (Opción única) + Opción "Otro (especificar)" Opciones (Sugeridas, adaptables por contexto):
+Un compañero de mi equipo
+Mi jefe o superior
+Otro equipo o departamento (especificar cuál)
+Un cliente externo
+Un sistema o aplicación
+Múltiples receptores (especificar)
+Otro (especificar)
+Justificación:
+MMABP (PM): Identifica el siguiente actor en la cadena.
+VSM (S2): Define el handoff entre unidades.
+Recomendación 16.1: Lenguaje de escena (quién, no abstracto).
+Pregunta 3.3: Tipo de Receptor (¿Qué Tipo de Actor es?)
+Pregunta: ¿Cuál es la naturaleza del receptor? Tipo de respuesta: Select (Opción única) Opciones:
+Una persona específica
+Un equipo o grupo
+Un departamento o área
+Un sistema o aplicación
+Un cliente o proveedor externo
+Múltiples tipos
+Justificación:
+MMABP (MoC): Clasifica los actores.
+VSM (S1): Revela interdependencias.
+Recomendación 16.3: Pregunta concreta.
+Pregunta 3.4: Criticidad para el Receptor (¿Qué Tan Importante es?)
+Pregunta: ¿Si el receptor no recibe esto a tiempo, ¿qué pasa normalmente con su trabajo? Tipo de respuesta: Select (Opción única) Opciones:
+No puede continuar
+Continúa, pero con retraso o retrabajo
+Puede avanzar parcialmente
+Casi no afecta
+Justificación:
+VSM (S3): Define prioridades de entrega.
+Algedónico: Revela el impacto del dolor si falla.
+AHE: Identifica si el receptor debe compensar si no recibe.
+La pregunta está bajo la perspectiva de juicio abstracto a consecuencia observable.
+Pregunta 3.5: Impacto en el Receptor (¿Qué Hace el Receptor con Esto?)
+Pregunta: ¿Qué hace el receptor con lo que le entregas? ¿Cuál es su siguiente paso? Tipo de respuesta: Texto corto (guiado con ejemplos) Restricción: Máximo 150 caracteres Ejemplos contextualizados:
+Si 3.1 = "Pedido procesado": "Lo envía al almacén para picking"
+Si 3.1 = "Factura": "La registra en contabilidad y la envía al cliente"
+Si 3.1 = "Reporte": "Lo presenta en la junta directiva"
+Justificación:
+MMABP (PF): Define la tarea siguiente del receptor.
+VSM (S1): Revela la capacidad siguiente en la cadena.
+Recomendación 16.1: Lenguaje de escena (qué hace, no abstracto).
+Pregunta 3.6: Receptores Secundarios (¿Hay Otros que También Reciben?)
+Pregunta: ¿Hay otros actores que también reciben o necesitan acceso a lo que entregas? (Selecciona todos los que apliquen) Tipo de respuesta: Maximo 3 Multi-select Opciones:
+☐ Auditoría o compliance
+☐ Finanzas o contabilidad
+☐ Gerencia o dirección
+☐ Cliente final
+☐ Proveedor o socio
+☐ Otro equipo (especificar)
+☐ No, solo el receptor principal
+Justificación:
+MMABP (PM): Identifica actores secundarios en el E2E.
+VSM (S2): Revela coordinaciones adicionales.
+Recomendación 16.4: Separa receptor inmediato de receptores secundarios.
+Pregunta 3.7: Criterios de Calidad (¿Qué Significa "Bien Hecho"?)
+Pregunta: ¿Qué criterios o estándares debe cumplir lo que entregas para que el receptor esté satisfecho? Tipo de respuesta: Multi-select Opciones:
+☐ Completo: sin información faltante
+☐ Exacto: sin errores de datos
+☐ A tiempo: llega en la fecha esperada
+☐ Validado: ya fue revisado y aprobado
+☐ Formateado: en el formato que el receptor espera
+☐ Documentado: con instrucciones o explicaciones
+☐ Confidencial: protegido según políticas
+☐ Otro (especificar)
+Justificación:
+VSM (S3): Define estándares de entrega.
+VSM (S3):* Audita si se cumplen.
+Algedónico: Captura el dolor si no se cumplen.
+Pregunta 3.8: Mecanismo de Entrega (¿Cómo Se Entrega?)
+Pregunta: ¿Cómo entregas lo que haces? ¿Por qué medio? Tipo de respuesta: Select (Opción única) Opciones:
+Email o mensaje
+Sistema o aplicación
+Documento físico o impreso
+Reunión o presentación verbal
+Acceso a base de datos o carpeta compartida
+Transferencia de datos
+Otro (especificar)
+Justificación:
+VSM (S2): Define la interfaz de handoff.
+MMABP (PM): Especifica el canal de comunicación.
+Recomendación 16.3: Pregunta concreta.
+Pregunta 3.9: Frecuencia de Entrega (¿Con Qué Frecuencia?)
+Pregunta: ¿Con qué frecuencia entregas esto? Tipo de respuesta: Select (Opción única) Opciones:
+Una sola vez (por proyecto o ciclo)
+Diaria
+Semanal
+Mensual
+Según demanda o urgencia
+Continuo (constantemente)
+Otro (especificar)
+Justificación:
+VSM (S3): Define la cadencia de entrega.
+VSM (S4): Detecta cambios en frecuencia.
+Recomendación 16.3: Pregunta concreta.
+Pregunta 3.10: Excepciones en la Entrega (¿Hay Fallos?)
+Pregunta: ¿Hay momentos en que lo que entregas no cumple lo esperado o no llega al receptor? Tipo de respuesta: Select (Opción única) Opciones:
+No, siempre llega como se espera
+Sí, a veces hay problemas pero es raro
+Sí, hay problemas regularmente (digamos, 1 de cada 4 entregas)
+Sí, hay problemas frecuentemente (digamos, 1 de cada 2 entregas o más)
+Justificación:
+VSM (S3):* Audita la realidad no filtrada (entregas que fallan).
+Algedónico: Captura el dolor del receptor.
+AHE: Expone si el receptor debe compensar.
+Recomendación 16.5: Detecta excepciones.
+Pregunta 3.11: Descripción de la Excepción (¿Cómo Falla la Entrega?)
+Pregunta: Si respondiste "Sí" en la pregunta anterior, ¿cuál es el problema típico? Tipo de respuesta: Select (Opción única) Opciones:
+No llega a tiempo
+Llega incompleto (falta información)
+Llega con errores
+Llega en formato incorrecto
+No llega a todos los receptores que deberían
+Llega pero el receptor no sabe qué hacer con ello
+Otro (especificar) Condición: Solo aparece si 3.10 = "Sí, a veces..." o superior
+Justificación:
+VSM (S3):* Documenta la brecha entre lo esperado y lo real.
+Algedónico: Especifica el tipo de dolor.
+AHE: Documenta la compensación del receptor.
+Pregunta 3.12: Impacto de la Excepción (¿Qué Pasa Cuando Falla?)
+Pregunta: Cuando esto ocurre, ¿cuál es el impacto en el receptor? ¿Qué tiene que hacer para compensar? Tipo de respuesta: Texto corto (guiado) Restricción: Máximo 200 caracteres Condición: Solo aparece si 3.10 = "Sí, a veces..." o superior
+Justificación:
+VSM (S3):* Documenta el impacto de la brecha.
+Algedónico: Captura el dolor específico.
+AHE: Documenta la patología de suma cero (compensación no remunerada).
+Pregunta 3.13: Satisfacción del Receptor (¿Está Satisfecho?)
+Pregunta: En general, Cuando entregas esto, ¿qué respuesta recibes normalmente del receptor? Tipo de respuesta: Select (Opción única) Opciones:
+Lo acepta sin cambios
+A veces pide aclaraciones menores
+Pide correcciones con cierta frecuencia
+Frecuentemente lo rechaza o lo devuelve
+Justificación:
+Algedónico: Feedback del receptor sobre el dolor.
+AHE: Revela si hay patología de suma cero.
+VSM (S4): Detecta si hay necesidad de adaptación.
+Pregunta 3.14: Cambios Recientes en la Entrega (¿Ha Cambiado Algo?)
+Pregunta: ¿Ha cambiado algo recientemente en cómo entregas, a quién entregas o qué criterios se esperan? Tipo de respuesta: Select (Opción única) Opciones:
+No, todo sigue igual
+Sí, cambió quién recibe
+Sí, cambió cómo se entrega
+Sí, cambiaron los criterios de calidad esperada
+Sí, cambió la frecuencia
+Sí, múltiples cambios (especificar)
+Justificación:
+VSM (S4): Detecta cambios en el entorno.
+VSM (S3): Identifica si hay nuevos estándares.
+Recomendación 16.5: Detecta evoluciones recientes.
+3. Salida Canónica Esperada (Transducción)
+Las respuestas a estas 14 preguntas permitirán a la plataforma generar las siguientes variables canónicas para el expediente:
+{
+"output_object": "Pedido procesado y validado",
+"primary_receiver": "Equipo de logística",
+"receiver_type": "Un equipo",
+"receiver_dependency": "Crítico: sin esto, no pueden hacer picking",
+"receiver_impact": "Toman el pedido y lo preparan para envío",
+"secondary_receivers": ["Auditoría", "Cliente final"],
+"quality_criteria": ["Completo", "Exacto", "A tiempo", "Validado"],
+"delivery_mechanism": "Sistema",
+"delivery_frequency": "Según demanda",
+"delivery_exception_exists": true,
+"delivery_exception_type": "Llega incompleto",
+"delivery_exception_description": "A veces falta información de cliente",
+"delivery_exception_impact": "El equipo de logística tiene que llamar para confirmar datos",
+"receiver_satisfaction": "Satisfecho: en general está bien, pero hay pequeñas mejoras",
+"recent_changes": "Sí, cambió quién recibe (ahora también auditoría)"
+}
+4. Validación de Calidad (Checklist)
+✅ Cada pregunta captura un atributo ortogonal(objeto, receptor inmediato, tipo, criticidad, impacto, receptores secundarios, criterios, mecanismo, frecuencia, excepciones, satisfacción, cambios).✅Lenguaje de escena(concreto, no abstracto).✅Evita preguntas prematuras(no pregunta "propósito final" ni "identidad").✅Detecta excepciones y silencios(preguntas 3.10, 3.11, 3.12).✅Separa receptor inmediato de receptores secundarios(preguntas 3.2 vs 3.6).✅Mapeo explícito a MMABP y VSM(cada pregunta conecta con variables canónicas).✅Alineación con Recomendaciones 16(todas las 6 recomendaciones aplicadas).✅Captura dolor del receptor y compensación (S3* auditoría, AHE patología).
+Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 4 (Cadena Causal y Normalización del Flujo)
+1. Marco de Trabajo Maestría (Especificación + Skills)
+1.1 Propósito Ontológico del Bloque 4
+El Bloque 4 responde a la pregunta fundamental: ¿Cuál es la secuencia real, las dependencias, los bloqueos y las formas no lineales de este proceso? No pregunta qué se hace ni a quién se entrega, sino la causalidad procesal viva que gobierna el flujo.
+Nivel de Realidad: Causalidad procesal (dependencias, sincronizaciones, no-linealidades).
+Salida Esperada: "Flujo procesal vivo, no aplanado" — señales observables que alimentan la transducción causal.
+1.2 Las 10 Variables Canónicas que Debe Producir
+#
+Variable
+Descripción
+Tipo
+1
+Dependencia previa crítica
+¿Qué debe ocurrir ANTES?
+Enum/Text
+2
+Dependencia posterior crítica
+¿Quién DEPENDE de que esto termine?
+Enum/Text
+3
+Espera típica
+Tiempo que pasa entre fin y siguiente inicio
+Enum
+4
+Evento de tiempo
+¿Hay un momento específico que gatilla?
+Enum/Text
+5
+Deadlock potencial
+¿Riesgo de bloqueo sin salida?
+Boolean/Text
+6
+Iteración
+¿Se repite? ¿Cuántas veces?
+Enum
+7
+Alternativa
+¿Hay caminos paralelos o decisiones?
+Boolean/Text
+8
+Paralelismo
+¿Corre en paralelo con otras cosas?
+Enum
+9
+Subproceso oculto
+¿Hay pasos no oficiales?
+Boolean/Text
+10
+Secuencia real vs oficial
+¿El orden real es diferente?
+Boolean/Text
+1.3 Integración Arquitectónica (Aplicación de Skills)
+process-map & system-view:
+Las preguntas capturan los 4 patrones de sincronización (Řepa Fig. 2.13).
+Identifican si el proceso es un Process State o Fire & Forget.
+object-life-cycle-model:
+Revelan transiciones de estado gatilladas por tiempo, decisión o evento externo.
+Capturan rutas alternativas en el OLC.
+eve-inevitabilidad-sistemica:
+Exponen si el deadlock es crónico (diseño sistémico vs. accidente).
+Revelan cómo el usuario compensa sin compensación (suma cero).
+vsm-knowledge & tabla-recursion-funcion:
+Identifican quién tiene discrecionalidad en la secuencia (S1, S3, o entorno).
+Detectan microgerencia (S3 interviene constantemente).
+Mapean puntos de espera y coordinación (S2).
+a-new-way-to-think:
+Desafían el modelo mental de que el proceso es lineal.
+Revelan cómo el usuario adapta el proceso para que funcione.
+2. Catálogo de Preguntas v2.1 - Bloque 4 (13 Preguntas)
+Pregunta 4.1: Dependencia Previa Crítica
+Pregunta: Antes de poder iniciar esta actividad, ¿qué TIENE que haber ocurrido o qué insumo TIENE que estar listo? Tipo de respuesta: Multi-select + Texto abierto Opciones:
+Una aprobación o autorización de alguien
+Información o datos de otro equipo
+Completación de una actividad previa
+Un evento externo (cliente, regulación, cambio de fecha)
+Un sistema o herramienta disponible
+Otro (especificar)
+Justificación:
+MMABP (PM): Define precondiciones en el Process Map.
+MMABP (PF): Define entrada al Process State.
+VSM (S2): Identifica coordinación crítica.
+Skill process-map: Captura la precondición exacta del flujo.
+Pregunta 4.2: Dependencia Posterior Crítica
+Pregunta: Si esta actividad no se terminara hoy, ¿quién o qué quedaría detenido o no podría avanzar? Tipo de respuesta: Multi-select + Texto abierto Opciones:
+Otro equipo o área
+Un cliente
+Un proceso automático o sistema
+Mi propio siguiente paso
+Varias personas/equipos al mismo tiempo
+Nadie de inmediato, pero se acumula después
+Otro (especificar)
+Justificación:
+MMABP (PM): Define postcondiciones en el Process Map.
+MMABP (PF): Define salida del Process State.
+VSM (S2): Identifica quién queda esperando.
+Algedónico: Si se retrasa, ¿quién sufre?
+Bloque 3 captura el handoff y Bloque 4 captura la dependencia procesal crítica.
+Pregunta 4.3: Espera Típica
+Pregunta: En la realidad, ¿cuánto tiempo típicamente PASA entre que terminas esta actividad y que el siguiente paso puede iniciarse? (Incluyendo esperas por revisión, aprobación, etc.) Tipo de respuesta: Select (Opción única) Opciones:
+Inmediato (sin espera)
+Horas
+Un día
+Varios días (2-5)
+Una semana o más
+Justificación:
+MMABP (PF): Define timers en Process States.
+VSM (S3):* Audita brecha entre teórico y real.
+Skill object-life-cycle-model: Captura el tiempo de transición entre estados.
+Pregunta 4.4: Evento de Tiempo
+Pregunta: ¿Hay un momento específico (fecha, hora, día de la semana, frecuencia) que gatilla que esta actividad DEBA iniciarse? Tipo de respuesta: Select (Opción única) Opciones:
+No, se inicia cuando llega el insumo o se lo pide alguien
+Sí, cada día a una hora específica
+Sí, cada semana en un día específico
+Sí, cada mes en una fecha específica
+Sí, cuando vence un plazo o SLA
+Sí, cuando se cumple una condición de tiempo (ej. después de 3 días)
+Otro (especificar)
+Justificación:
+MMABP (PF): Define eventos basados en tiempo (timers).
+MMABP (OLC): Define transiciones por "passing of time".
+VSM (S3): Define ritmos y cadencias operativas.
+Skill object-life-cycle-model: Captura transiciones temporales.
+Pregunta 4.5: Deadlock Potencial
+Pregunta: ¿Hay un escenario donde esta actividad podría quedarse BLOQUEADA esperando algo que nunca llega o que se olvidan de enviar? Tipo de respuesta: Select (Opción única) Opciones:
+No, hay un timeout o alguien se da cuenta si se retrasa
+Sí, a veces queda bloqueada y tengo que ir a preguntar
+Sí, frecuentemente queda bloqueada y nadie se da cuenta
+Sí, hay momentos donde el sistema se queda en un ciclo infinito
+Si responde Sí: Pregunta 4.5b: Cuando esto ocurre, ¿quién típicamente lo resuelve?
+Yo mismo (tengo que ir a buscar)
+Mi jefe interviene
+Alguien de otro equipo se da cuenta
+Nadie, simplemente se atrasa todo
+Otro (especificar)
+Justificación:
+MMABP (PF): Identifica ciclos infinitos o esperas sin timeout.
+VSM (S2): Identifica falta de amortiguación y coordinación.
+Algedónico: Cuando el deadlock ocurre, ¿quién lo resuelve?
+Skill eve-inevitabilidad-sistemica: Si es crónico, el sistema está diseñado para fallar.
+Pregunta 4.6: Iteración
+Pregunta: ¿Esta actividad se repite múltiples veces en un ciclo? (Ej. revisar 10 documentos, hacer 5 llamadas, procesar 20 pedidos) Tipo de respuesta: Select (Opción única) Opciones:
+No, se hace una sola vez
+Sí, pero el número de repeticiones varía mucho
+Sí, típicamente se repite 2-5 veces
+Sí, típicamente se repite 6-20 veces
+Sí, típicamente se repite más de 20 veces
+Si responde Sí: Pregunta 4.6b: ¿Haces todas las repeticiones de una vez o las intercalas con otras actividades?
+Todas de una vez (un lote)
+Las intercalo (una, luego otra cosa, luego otra)
+Depende del día o la urgencia
+Justificación:
+MMABP (PF): Define loops en el Process Flow.
+MMABP (OLC): Define transiciones iterativas.
+VSM (S1): Define capacidad de repetición.
+Skill process-map: Captura el patrón de repetición.
+Pregunta 4.7: Alternativa (Decisiones y Caminos)
+Pregunta: ¿Hay decisiones o puntos donde el proceso puede tomar DIFERENTES CAMINOS según la situación? Tipo de respuesta: Multi-select Opciones:
+Sí, según el tipo de cliente o proyecto
+Sí, según el monto o importancia
+Sí, según si hay errores o excepciones
+Sí, según una decisión de mi jefe
+Sí, según una regla o política
+No, siempre es el mismo camino
+Si responde Sí: Pregunta 4.7b: ¿Cuántos caminos diferentes hay típicamente?
+2 opciones (sí/no)
+3-4 opciones
+Más de 4 opciones
+Depende, puede haber muchas combinaciones
+Justificación:
+MMABP (PM): Define decisiones (gateways) en el Process Map.
+MMABP (PF): Define rutas alternativas en el Process Flow.
+VSM (S3): Identifica dónde se toman decisiones y quién las toma.
+Skill system-view: Captura la diversidad de caminos.
+Pregunta 4.8: Paralelismo
+Pregunta: Mientras tú estás haciendo esta actividad, ¿qué está pasando en paralelo? Tipo de respuesta: Select (Opción única) Opciones:
+Nada corre en paralelo; todo espera este paso
+Otras actividades avanzan, pero independientes de esta
+Otras actividades avanzan en paralelo y luego se integran con esta
+Yo sigo con otros temas mientras esta queda en espera
+Hay dependencias cruzadas entre equipos y a veces terminamos esperándonos mutuamente
+Justificación:
+MMABP (PM): Define patrones de sincronización (Řepa Fig. 2.13).
+MMABP (PF): Define AND/XOR gateways.
+VSM (S2): Identifica coordinación entre unidades paralelas.
+Skill process-map: Captura exactamente los 4 patrones de sincronización.
+ya distingues:
+no paralelismo,
+paralelismo independiente,
+paralelismo convergente,
+multitarea local,
+y dependencia circular.
+Pregunta 4.9: Subproceso Oculto (Workarounds)
+Pregunta: ¿Hay pasos que TÚ haces pero que NO están "en el manual" o que "no deberían ser necesarios"? (Ej. verificaciones extras, correcciones, búsquedas de información) Tipo de respuesta: Boolean + Texto abierto Opciones:
+No, sigo exactamente lo que dice el proceso
+Sí, hay pasos que hago para que funcione
+Si responde Sí: Pregunta 4.9b: ¿Por qué haces esos pasos extras?
+Porque si no lo hago, los siguientes pasos fallan
+Porque el sistema no funciona bien sin ellos
+Porque hay errores que tengo que corregir
+Porque nadie más lo hace y alguien tiene que hacerlo
+Otro (especificar)
+Justificación:
+VSM (S3):* Audita realidad vs. lo oficial.
+AHE: Expone patología de suma cero (el usuario compensa sin compensación).
+Skill eve-inevitabilidad-sistemica: El sistema está diseñado de tal forma que el usuario DEBE hacer workarounds.
+Pregunta 4.10: Secuencia Real vs Secuencia Oficial
+Pregunta: ¿El orden en que REALMENTE haces las cosas es diferente al orden que dice el proceso? Tipo de respuesta: Boolean + Texto abierto Opciones:
+No, hago todo en el orden que dice el proceso
+Sí, hay pasos que hago en diferente orden
+Si responde Sí: Pregunta 4.10b: ¿Por qué cambias el orden?
+Porque es más eficiente así
+Porque el siguiente paso no está listo, así que hago otro primero
+Porque hay una urgencia que me obliga a cambiar el orden
+Porque el proceso oficial no funciona en la práctica
+Otro (especificar)
+Justificación:
+VSM (S3):* Audita brecha entre diseño teórico y operación real.
+AHE: Expone cómo el usuario adapta el proceso.
+Skill a-new-way-to-think: Desafía el modelo mental de que el proceso es lineal.
+Pregunta 4.11: Impacto del Bloqueo (Algedónico)
+Pregunta: Cuando esta actividad se bloquea o se retrasa más de lo normal, ¿qué se rompe primero? Tipo de respuesta: Multi-select Opciones:
+Se detiene el trabajo de otros equipos
+El cliente espera, reclama o se molesta
+Se pierde tiempo buscando, persiguiendo o reexplicando
+Se acumula trabajo pendiente
+Mi jefe o dirección intervienen
+El sistema o proceso siguiente se bloquea
+Hay costo económico o penalización
+Otro (especificar)
+Justificación:
+Algedónico: Identifica qué tipo de señal de dolor se activa.
+VSM (S2): Identifica impacto en coordinación.
+Skill eve-inevitabilidad-sistemica: Expone quién sufre el costo del retraso.
+captas mejor:
+primer impacto observable,
+dolor algedónico,
+y costo de coordinación.
+Pregunta 4.12: Cuellos de Botella Recurrentes
+Pregunta: ¿Hay un punto específico donde esta actividad TÍPICAMENTE se atasca o se retrasa? Tipo de respuesta: Select (Opción única) Opciones:
+No hay cuellos de botella significativos
+Esperar aprobación o firma de alguien
+Esperar información de otro equipo
+Sistema lento o caído
+Falta de personal o exceso de carga
+Cambios constantes en lo que me piden
+Otro (especificar)
+Justificación:
+VSM (S2): Identifica fallas en coordinación y amortiguación.
+VSM (S3):* Audita causa raíz de ineficiencia operativa.
+Skill desdoblamiento-viplan: Identifica dónde la variedad no está siendo absorbida.
+Pregunta 4.13: Frecuencia de Desviaciones
+Pregunta: ¿Con qué frecuencia el flujo de esta actividad NO funciona como debería (bloqueos, cambios de orden, workarounds)? Tipo de respuesta: Select (Opción única) Opciones:
+Casi nunca (el proceso funciona bien)
+Ocasionalmente (algunas veces al mes)
+Frecuentemente (varias veces a la semana)
+Constantemente (es la forma normal de trabajar)
+Justificación:
+Skill eve-inevitabilidad-sistemica: Si es constante, el sistema está diseñado para operar fuera de su proceso oficial.
+VSM (S3):* Audita si hay una brecha sistémica entre diseño y realidad.
+3. Salida Canónica Esperada (Transducción)
+{
+"dependencia_previa_critica": ["Aprobación de presupuesto", "Datos del cliente"],
+"dependencia_posterior_critica": "Equipo de logística",
+"espera_tipica": "Varios días (2-5)",
+"evento_de_tiempo": "Cada viernes a las 5 PM",
+"deadlock_potencial": true,
+"deadlock_resolucion": "Yo mismo tengo que ir a buscar",
+"iteracion": true,
+"iteracion_numero": "6-20 veces",
+"iteracion_lote": "Todas de una vez",
+"alternativa": true,
+"alternativa_numero": "3-4 opciones",
+"paralelismo": "Otros equipos esperan mi resultado",
+"subproceso_oculto": true,
+"subproceso_razon": "El sistema no funciona bien sin ellos",
+"secuencia_real_vs_oficial": true,
+"secuencia_razon": "Porque el siguiente paso no está listo",
+"impacto_bloqueo": ["Se detiene el trabajo de otros equipos", "Mi jefe me llama la atención"],
+"cuello_botella": "Esperar información de otro equipo",
+"frecuencia_desviaciones": "Frecuentemente (varias veces a la semana)"
+}
+4. Validación de Calidad (Checklist)
+✅ Captura las 10 variables canónicas:Cada pregunta mapea a una variable específica.✅Aplica process-map:Captura explícitamente los 4 patrones de sincronización.✅Aplica object-life-cycle-model:Captura transiciones temporales y rutas alternativas.✅Aplica eve-inevitabilidad-sistemica:Expone si los bloqueos son sistémicos.✅Aplica vsm-knowledge & tabla-recursion-funcion:Identifica discrecionalidad y microgerencia.✅Aplica a-new-way-to-think:Desafía el modelo mental de linealidad.✅Lenguaje de escena:Preguntas concretas sobre el día a día.✅Señales observables:La salida es estructurada y lista para transducción causal.✅Flujo procesal vivo, no aplanado: Captura no-linealidades, loops, alternativas, deadlocks.
+Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 5 (Rediseñado)
+Capacidad y Discrecionalidad (Lógica Recursiva Causal)
+1. Marco de Trabajo Maestría (Especificación + Skills)
+1.1 Propósito Ontológico del Bloque 5 (Rediseñado)
+El Bloque 5 responde a la pregunta fundamental: ¿Con qué recursos realmente cuentas? ¿Dónde tienes margen de decisión? ¿Qué tienes que sacrificar para hacer esto?
+Cambio crítico: La pregunta 5.0 (Pregunta Filtro) ahora depende de 2.1 (Objeto, Sujeto, Acción). El sistema NO pregunta "¿muchas veces o caso por caso?", sino que infiere automáticamente qué dimensión es la limitante según el ranking de 2.1.
+Nivel de Realidad: Causalidad de recursos (variedad disponible, discrecionalidad, compensación) mapeada a la dimensión dominante de 2.1.
+Salida Esperada: "El contrato real entre el empleado y la organización" — el resource bargain degradado que expone la patología de suma cero (AHE), específico a la dimensión que limita.
+1.2 Las 10 Variables Canónicas que Debe Producir
+#
+Variable
+Descripción
+Tipo
+Origen
+1
+Dimensión dominante
+Qué limita: Objeto, Sujeto, Acción
+Enum
+De 2.1 (ranking)
+2
+Capacidad nominal
+Lo que debería poder hacer (en dimensión dominante)
+Number/Enum
+5.1
+3
+Capacidad real
+Lo que realmente puede hacer (en dimensión dominante)
+Number/Enum
+5.2
+4
+Brecha de capacidad
+Diferencia entre nominal y real
+Calculated
+5.3
+5
+Recursos asignados
+Lo que la organización le dio (personas, sistemas, tiempo)
+Multi-select
+5.4, 5.5, 5.6
+6
+Recursos requeridos
+Lo que necesitaría para hacer bien
+Multi-select
+5.7, 5.8
+7
+Discrecionalidad
+Margen de decisión en la dimensión dominante
+Multi-select
+5.9
+8
+Constreñimientos
+Límites duros que no puede cruzar
+Multi-select
+5.10
+9
+Compensación
+Qué sacrifica para hacer esto
+Multi-select
+5.11
+10
+Resource bargain
+¿Es un pacto justo?
+Enum
+5.14
+1.3 Integración Arquitectónica (Aplicación de Skills a Nivel Maestría)
+vsm-knowledge & tabla-recursion-funcion:
+Las preguntas capturan la variedad disponible vs. requerida en la dimensión dominante.
+Identifican dónde S1 tiene discrecionalidad vs. dónde está constreñido.
+Mapean el resource bargain entre S1 y S3, específico a la limitante.
+desdoblamiento-viplan:
+Revelan si la variedad está siendo absorbida en S1 o si se pasa al siguiente nivel (S2).
+Identifican dónde la variedad rebasa la capacidad en la dimensión que limita.
+eve-inevitabilidad-sistemica:
+Exponen si la brecha es crónica (diseño sistémico vs. accidente).
+Revelan cómo el usuario compensa sin compensación (suma cero) en la dimensión dominante.
+a-new-way-to-think:
+Desafían el modelo mental de que "si trabajas más duro, logras más".
+Revelan que la capacidad es un límite sistémico, no un problema de actitud.
+process-map & process-flow:
+Las preguntas se adaptan a si la limitante es volumen (repetición), cantidad (sujetos) o complejidad (acción).
+2. Lógica Operativa Recursiva y Causal
+2.1 Flujo de Dependencias (Recursión Causal)
+Bloque 2.1 (Objeto, Sujeto, Acción)
+↓
+├─ Si solo A: objeto_tipo = "Factura"
+├─ Si solo B: sujeto_tipo = "Proveedor"
+├─ Si solo C: accion_tipo = "Coordinar"
+└─ Si A+B+C: ranking_dimensiones = ["Factura", "Proveedor", "Coordinar"]
+↓
+Bloque 2.2 (Atributos que cambian)
+├─ Se dispara para CADA dimensión seleccionada
+└─ El orden se define por ranking_dimensiones
+↓
+Bloque 5.0 (Pregunta Filtro - REDISEÑADA)
+├─ Determina dimension_dominante (de 2.1_ABC_Relacion o 2.1_AB_Relacion, etc.)
+└─ Infiere automáticamente si es por VOLUMEN, CANTIDAD o COMPLEJIDAD
+↓
+Bloque 5.1 y 5.2 (Capacidad Nominal y Real)
+├─ Se adaptan dinámicamente según dimension_dominante
+└─ Preguntan en la métrica correcta (volumen, cantidad, complejidad)
+↓
+Bloque 5.3 (Brecha de Capacidad - CALCULADA)
+└─ Fórmula: (Nominal - Real) / Nominal × 100
+↓
+Bloque 5.4-5.14 (Recursos, Discrecionalidad, Compensación)
+└─ Todas las preguntas mantienen contexto de dimension_dominante
+2.2 Pseudocódigo de Flujo Condicional
+// ============================================
+// PASO 1: Capturar datos de Bloque 2.1
+// ============================================
+const seleccion_2_1 = getUserResponse(2_1); // ["Objeto", "Sujeto", "Acción"]
+const objeto_tipo = getUserResponse(2_1a); // "Factura"
+const sujeto_tipo = getUserResponse(2_1b); // "Proveedor"
+const accion_tipo = getUserResponse(2_1c); // "Coordinar"
+// ============================================
+// PASO 2: Determinar dimension_dominante
+// ============================================
+function determinarDimensionDominante(seleccion_2_1) {
+if (seleccion_2_1.length === 1) {
+// Solo una dimensión
+if (seleccion_2_1.includes("Objeto")) return "Objeto";
+if (seleccion_2_1.includes("Sujeto")) return "Sujeto";
+if (seleccion_2_1.includes("Accion")) return "Accion";
+}
+else if (seleccion_2_1.length === 2) {
+// Dos dimensiones: usar respuesta de 2.1_AB_Relacion, 2.1_AC_Relacion o 2.1_BC_Relacion
+const respuesta_relacion = getUserResponse(2_1_XY_Relacion);
+return respuesta_relacion; // "Objeto", "Sujeto", "Accion" o "Ambos"
+}
+else if (seleccion_2_1.length === 3) {
+// Tres dimensiones: usar ranking_dimensiones[0]
+const ranking = getUserResponse(2_1_ABC_Prioridad); // ["Objeto", "Sujeto", "Accion"]
+return ranking[0]; // La primera es la dominante
+}
+}
+const dimension_dominante = determinarDimensionDominante(seleccion_2_1);
+guardar(dimension_dominante); // Guardar para usar en 5.1 y 5.2
+// ============================================
+// PASO 3: Adaptar 5.0 (Pregunta Filtro)
+// ============================================
+function mostrarPregunta5_0(dimension_dominante, objeto_tipo, sujeto_tipo, accion_tipo) {
+if (dimension_dominante === "Objeto") {
+return `5.0 Pregunta Filtro: ¿Normalmente trabajas con muchos ${objeto_tipo}
+en el mismo periodo, o cada ${objeto_tipo} requiere atención individual?`;
+}
+else if (dimension_dominante === "Sujeto") {
+return `5.0 Pregunta Filtro: ¿Normalmente interactúas con muchos ${sujeto_tipo}
+en el mismo periodo, o cada ${sujeto_tipo} requiere atención individual?`;
+}
+else if (dimension_dominante === "Accion") {
+return `5.0 Pregunta Filtro: ¿Normalmente repites la acción de ${accion_tipo}
+muchas veces en el mismo periodo, o cada vez es diferente?`;
+}
+else if (dimension_dominante === "Ambos") {
+// Si ambos limitan igual, usar el primero del ranking
+const primera = ranking_dimensiones[0];
+return mostrarPregunta5_0(primera, objeto_tipo, sujeto_tipo, accion_tipo);
+}
+}
+// ============================================
+// PASO 4: Adaptar 5.1 y 5.2 (Capacidad)
+// ============================================
+function mostrarPregunta5_1_5_2(dimension_dominante, objeto_tipo, sujeto_tipo, accion_tipo, respuesta_5_0) {
+// respuesta_5_0 puede ser: "Repetitivo", "Discrecional", "Mezcla"
+if (dimension_dominante === "Objeto") {
+if (respuesta_5_0 === "Repetitivo") {
+return {
+pregunta_5_1: `Para esta actividad en particular, según lo que se espera de ti,
+¿cuántos ${objeto_tipo} deberías poder completar en un periodo normal?`,
+respuesta_5_1_tipo: "Número + unidad (por día / semana / mes)",
+pregunta_5_2: `En la realidad, ¿cuántos ${objeto_tipo} logras completar en ese mismo periodo?`,
+respuesta_5_2_tipo: "Número + misma unidad"
+};
+}
+else if (respuesta_5_0 === "Discrecional" || "Mezcla") {
+return {
+pregunta_5_1: `Para esta actividad en particular, según lo que se espera de ti,
+¿en cuánto tiempo debería quedar resuelto cada ${objeto_tipo}?`,
+respuesta_5_1_tipo: "Select (Menos de 1 hora / 1-4 horas / Un día / 2-5 días / Más de 5 días)",
+pregunta_5_2: `En la realidad, ¿en cuánto tiempo suele quedar resuelto cada ${objeto_tipo}?`,
+respuesta_5_2_tipo: "Select (mismas opciones)"
+};
+}
+}
+else if (dimension_dominante === "Sujeto") {
+if (respuesta_5_0 === "Repetitivo") {
+return {
+pregunta_5_1: `Para esta actividad en particular, según lo que se espera de ti,
+¿con cuántos ${sujeto_tipo} deberías poder interactuar en un periodo normal?`,
+respuesta_5_1_tipo: "Número + unidad (por día / semana / mes)",
+pregunta_5_2: `En la realidad, ¿con cuántos ${sujeto_tipo} logras interactuar en ese mismo periodo?`,
+respuesta_5_2_tipo: "Número + misma unidad"
+};
+}
+else if (respuesta_5_0 === "Discrecional" || "Mezcla") {
+return {
+pregunta_5_1: `Para esta actividad en particular, según lo que se espera de ti,
+¿en cuánto tiempo debería quedar resuelta cada interacción con un ${sujeto_tipo}?`,
+respuesta_5_1_tipo: "Select (Menos de 1 hora / 1-4 horas / Un día / 2-5 días / Más de 5 días)",
+pregunta_5_2: `En la realidad, ¿en cuánto tiempo suele quedar resuelta cada interacción?`,
+respuesta_5_2_tipo: "Select (mismas opciones)"
+};
+}
+}
+else if (dimension_dominante === "Accion") {
+if (respuesta_5_0 === "Repetitivo") {
+return {
+pregunta_5_1: `Para esta actividad en particular, según lo que se espera de ti,
+¿cuántas veces deberías poder ${accion_tipo} en un periodo normal?`,
+respuesta_5_1_tipo: "Número + unidad (por día / semana / mes)",
+pregunta_5_2: `En la realidad, ¿cuántas veces logras ${accion_tipo} en ese mismo periodo?`,
+respuesta_5_2_tipo: "Número + misma unidad"
+};
+}
+else if (respuesta_5_0 === "Discrecional" || "Mezcla") {
+return {
+pregunta_5_1: `Para esta actividad en particular, según lo que se espera de ti,
+¿en cuánto tiempo debería quedar resuelta cada vez que necesitas ${accion_tipo}?`,
+respuesta_5_1_tipo: "Select (Menos de 1 hora / 1-4 horas / Un día / 2-5 días / Más de 5 días)",
+pregunta_5_2: `En la realidad, ¿en cuánto tiempo suele quedar resuelta cada ${accion_tipo}?`,
+respuesta_5_2_tipo: "Select (mismas opciones)"
+};
+}
+}
+}
+// ============================================
+// PASO 5: Calcular Brecha (5.3)
+// ============================================
+function calcularBrecha(capacidad_nominal, capacidad_real) {
+return ((capacidad_nominal - capacidad_real) / capacidad_nominal) * 100;
+}
+const brecha = calcularBrecha(respuesta_5_1, respuesta_5_2);
+guardar(brecha);
+// ============================================
+// PASO 6: Mantener contexto en 5.4-5.14
+// ============================================
+// Todas las preguntas siguientes incluyen:
+// - dimension_dominante (para referencia)
+// - objeto_tipo / sujeto_tipo / accion_tipo (para ejemplos dinámicos)
+// - brecha (para validar si hay compensación)
+3. Catálogo de Preguntas v2.1 - Bloque 5 (Rediseñado)
+3.0 Pregunta Filtro (Rediseñada - Depende de 2.1)
+Disparador: Siempre (después de Bloque 2.1)
+Lógica previa:
+Capturar: dimension_dominante (de 2.1_ABC_Relacion o ranking)
+Capturar: objeto_tipo, sujeto_tipo, accion_tipo (de 2.1a, 2.1b, 2.1c)
+Pregunta (Adaptada dinámicamente):
+SI dimension_dominante = "Objeto":
+Pensando en {OBJETO} que procesas: ¿normalmente trabajas con muchos {OBJETO} en el mismo periodo (día, semana, mes), o cada {OBJETO} requiere atención individual y diferenciada?
+SI dimension_dominante = "Sujeto":
+Pensando en {SUJETO} que atiendes: ¿normalmente interactúas con muchos {SUJETO} en el mismo periodo, o cada {SUJETO} requiere atención individual?
+SI dimension_dominante = "Acción":
+Pensando en la acción de {ACCIÓN} que realizas: ¿normalmente la repites muchas veces en el mismo periodo, o cada vez que la haces es diferente?
+Opciones (Iguales para todas):
+Trabajo con muchos / interactúo con muchos / repito muchas veces (es repetitivo)
+Cada uno requiere atención individual / cada vez es diferente (es discrecional)
+Es una mezcla (a veces repito, a veces es individual)
+Guardar: naturaleza_actividad_5_0 = "Repetitivo" | "Discrecional" | "Mezcla"
+3.1 Capacidad Nominal (5.1 - Rediseñada)
+Disparador: Siempre (después de 5.0)
+Lógica previa:
+Capturar: dimension_dominante, naturaleza_actividad_5_0
+Pregunta (Adaptada dinámicamente):
+SI dimension_dominante = "Objeto" Y naturaleza = "Repetitivo":
+Para esta actividad en particular, según lo que se espera de ti, ¿cuántos {OBJETO} deberías poder completar en un periodo normal?
+Respuesta: Número + unidad fija (por día / semana / mes)
+Ejemplo: "50 facturas por día"
+SI dimension_dominante = "Objeto" Y naturaleza = "Discrecional" o "Mezcla":
+Para esta actividad en particular, según lo que se espera de ti, ¿en cuánto tiempo debería quedar resuelto cada {OBJETO}?
+Respuesta: Select
+Menos de 1 hora
+1 a 4 horas
+Un día
+2 a 5 días
+Más de 5 días
+Ejemplo: "Un día"
+SI dimension_dominante = "Sujeto" Y naturaleza = "Repetitivo":
+Para esta actividad en particular, según lo que se espera de ti, ¿con cuántos {SUJETO} deberías poder interactuar en un periodo normal?
+Respuesta: Número + unidad fija (por día / semana / mes)
+Ejemplo: "10 proveedores por semana"
+SI dimension_dominante = "Sujeto" Y naturaleza = "Discrecional" o "Mezcla":
+Para esta actividad en particular, según lo que se espera de ti, ¿en cuánto tiempo debería quedar resuelta cada interacción con un {SUJETO}?
+Respuesta: Select (mismas opciones de tiempo)
+Ejemplo: "2 a 5 días"
+SI dimension_dominante = "Acción" Y naturaleza = "Repetitivo":
+Para esta actividad en particular, según lo que se espera de ti, ¿cuántas veces deberías poder {ACCIÓN} en un periodo normal?
+Respuesta: Número + unidad fija (por día / semana / mes)
+Ejemplo: "20 validaciones por día"
+SI dimension_dominante = "Acción" Y naturaleza = "Discrecional" o "Mezcla":
+Para esta actividad en particular, según lo que se espera de ti, ¿en cuánto tiempo debería quedar resuelta cada vez que necesitas {ACCIÓN}?
+Respuesta: Select (mismas opciones de tiempo)
+Ejemplo: "Menos de 1 hora"
+Guardar: capacidad_nominal_5_1 = [respuesta]
+3.2 Capacidad Real (5.2 - Rediseñada)
+Disparador: Siempre (después de 5.1)
+Lógica previa:
+Capturar: dimension_dominante, naturaleza_actividad_5_0, capacidad_nominal_5_1
+Pregunta (Adaptada dinámicamente):
+Patrón: Idéntica a 5.1, pero pregunta por la realidad
+SI dimension_dominante = "Objeto" Y naturaleza = "Repetitivo":
+En la realidad, ¿cuántos {OBJETO} logras completar en ese mismo periodo?
+Respuesta: Número + misma unidad
+Ejemplo: "30 facturas por día"
+SI dimension_dominante = "Objeto" Y naturaleza = "Discrecional" o "Mezcla":
+En la realidad, ¿en cuánto tiempo suele quedar resuelto cada {OBJETO}?
+Respuesta: Select (mismas opciones)
+Ejemplo: "2 a 5 días"
+(Mismo patrón para Sujeto y Acción)
+Guardar: capacidad_real_5_2 = [respuesta]
+3.3 Brecha de Capacidad (5.3 - Calculada)
+Disparador: Automático (después de 5.2)
+Pregunta: [AUTOMÁTICA - No requiere respuesta del usuario]
+Cálculo:
+SI naturaleza = "Repetitivo":
+brecha = (capacidad_nominal - capacidad_real) / capacidad_nominal × 100
+SI naturaleza = "Discrecional" o "Mezcla":
+brecha = convertirTiempoAEscala(capacidad_nominal, capacidad_real)
+// Convertir opciones de tiempo a escala numérica para comparar
+Ejemplo (Volumen):
+(50 facturas - 30 facturas) / 50 × 100 = 40% de brecha
+Ejemplo (Tiempo):
+Nominal: "Un día" (1 día)
+Real: "2 a 5 días" (promedio 3.5 días)
+Brecha: (1 - 3.5) / 1 × 100 = 250% de brecha (muy significativa)
+Justificación:
+Tabla Recursión: Identifica si S1 está sobrecargado.
+VSM (S2): Identifica si hay amortiguación o si se pasa la carga al siguiente nivel.
+Inevitabilidad Sistémica: Si la brecha es > 30%, el sistema está diseñado para fallar.
+Guardar: brecha_capacidad_5_3 = [porcentaje]
+3.4 Recursos Asignados - Personas (5.4)
+Disparador: Siempre
+Pregunta: ¿Con cuántas PERSONAS cuentas realmente para hacer esta actividad?
+Tipo de respuesta: Select (Opción única)
+Opciones:
+Solo yo
+Yo + 1 persona a tiempo parcial
+Yo + 1 persona a tiempo completo
+Yo + 2-3 personas
+Yo + 4 o más personas
+Rotativo (varía mucho)
+Justificación:
+MMABP (PM): Define los recursos en el Process Map.
+VSM (S3): Define la asignación de recursos.
+Lenguaje de escena: "Cuántas personas" es más concreto que "FTE".
+Guardar: recursos_personas_5_4 = [opción]
+3.5 Recursos Asignados - Sistemas y Herramientas (5.5)
+Disparador: Siempre
+Pregunta: ¿Qué sistemas o herramientas tienes disponibles para hacer esta actividad?
+Tipo de respuesta: Multi-select
+Opciones:
+☐ Un sistema automatizado que lo hace casi todo
+☐ Un sistema que ayuda pero requiere trabajo manual
+☐ Múltiples sistemas que tengo que conectar manualmente
+☐ Hojas de cálculo o herramientas improvisadas
+☐ Principalmente trabajo manual sin sistema
+☐ Otro (especificar)
+Justificación:
+MMABP (PM): Define los recursos tecnológicos.
+VSM (S1): Define la capacidad de transformación.
+Guardar: recursos_sistemas_5_5 = [opciones]
+3.6 Recursos Asignados - Tiempo (5.6)
+Disparador: Siempre
+Pregunta: ¿Cuánto tiempo OFICIALMENTE se te asigna para esta actividad?
+Tipo de respuesta: Select (Opción única)
+Opciones:
+100% de mi tiempo (es mi única responsabilidad)
+75% de mi tiempo (tengo otras cosas menores)
+50% de mi tiempo (tengo otras responsabilidades importantes)
+25% de mi tiempo (es una tarea menor)
+Menos del 25% (es una tarea ocasional)
+No está claro
+Justificación:
+Tabla Recursión: Define si la asignación es suficiente para la variedad.
+VSM (S3): Define la asignación de recursos.
+Guardar: recursos_tiempo_5_6 = [opción]
+3.7 Recursos Requeridos - Personas (5.7)
+Disparador: Siempre
+Pregunta: Para hacer esta actividad bien y sin sacrificios recurrentes, ¿cuál de estas situaciones se parece más a lo que necesitarías?
+Tipo de respuesta: Select (Opción única)
+Opciones:
+Estoy bien con las personas actuales
+Necesitaría apoyo parcial en picos o urgencias
+Necesitaría una persona más de forma estable
+Necesitaría 2 o más personas más
+No es solo un tema de personas, también falta sistema/tiempo/proceso
+Justificación:
+Tabla Recursión: Identifica la variedad real que necesita absorber.
+VSM (S3):* Audita la brecha entre lo asignado y lo requerido.
+Guardar: recursos_personas_requeridas_5_7 = [opción]
+3.8 Recursos Requeridos - Tiempo (5.8)
+Disparador: Siempre
+Pregunta: ¿Cuánto tiempo REALMENTE necesitarías para hacer esto bien?
+Tipo de respuesta: Select (Opción única)
+Opciones:
+100% de mi tiempo (debería ser mi única responsabilidad)
+75% de mi tiempo
+50% de mi tiempo
+25% de mi tiempo
+Menos del 25%
+Justificación:
+Tabla Recursión: Define la variedad real vs. la asignada.
+AHE: Si hay brecha, el usuario compensa.
+Guardar: recursos_tiempo_requerido_5_8 = [opción]
+3.9 Discrecionalidad (5.9)
+Disparador: Siempre
+Pregunta: ¿En qué decisiones tienes libertad para actuar? ¿En cuáles estás constreñido?
+Tipo de respuesta: Multi-select (Decisiones que PUEDES tomar sin pedir permiso)
+Opciones:
+☐ Puedo decidir el orden en que hago las cosas
+☐ Puedo decidir cómo hacer cada tarea
+☐ Puedo decidir si algo es urgente o no
+☐ Puedo decidir si delego o hago yo mismo
+☐ Puedo decidir si algo está bien hecho o no
+☐ Puedo decidir si le digo "no" a una solicitud
+☐ Tengo muy poca discrecionalidad (casi todo me lo dicen)
+Justificación:
+Tabla Recursión/Función: Define dónde S1 tiene autonomía vs. dónde S3 decide.
+VSM (S1): Define el grado de libertad operativa.
+A New Way to Think: Revela el modelo mental de control vs. confianza.
+Guardar: discrecionalidad_5_9 = [opciones]
+3.10 Constreñimientos (5.10)
+Disparador: Siempre
+Pregunta: ¿Hay límites o restricciones que NO PUEDES cruzar bajo ninguna circunstancia?
+Tipo de respuesta: Multi-select
+Opciones:
+☐ No puedo gastar más de X presupuesto
+☐ No puedo contratar más personas
+☐ No puedo cambiar el proceso (está regulado)
+☐ No puedo rechazar una solicitud
+☐ No puedo trabajar fuera de X horario
+☐ No puedo usar ciertos sistemas o herramientas
+☐ No hay constreñimientos claros
+☐ Otro (especificar)
+Justificación:
+VSM (S5): Define los valores y límites que gobiernan S1.
+Tabla Recursión: Define qué decisiones están prohibidas.
+Inevitabilidad Sistémica: Si los constreñimientos son contradictorios, el sistema fuerza el fracaso.
+Guardar: constreñimientos_5_10 = [opciones]
+3.11 Compensación (5.11)
+Disparador: Siempre
+Pregunta: Para hacer esta actividad dentro de los límites que tienes, ¿qué tienes que sacrificar?
+Tipo de respuesta: Multi-select
+Opciones:
+☐ Tiempo personal (trabajo fuera de horario)
+☐ Calidad (hago cosas rápido pero no bien)
+☐ Otras responsabilidades (descuido otras cosas)
+☐ Salud mental o estrés
+☐ Relaciones (menos tiempo con familia/amigos)
+☐ Descanso o sueño
+☐ No sacrifico nada (está bien balanceado)
+☐ Otro (especificar)
+Justificación:
+AHE: Expone la patología de suma cero.
+Algedónico: Identifica el dolor crónico del usuario.
+Inevitabilidad Sistémica: Si la compensación es permanente, el usuario está siendo explotado sistémicamente.
+Guardar: compensacion_5_11 = [opciones]
+3.12 Variedad Residual (5.12)
+Disparador: Siempre
+Pregunta: ¿Hay casos o situaciones que simplemente NO puedes absorber? ¿Qué se escapa?
+Tipo de respuesta: Multi-select + Texto abierto
+Opciones:
+☐ Casos excepcionales que requieren análisis especial
+☐ Urgencias que llegan sin aviso
+☐ Cambios de requisitos a mitad de camino
+☐ Volumen inesperado
+☐ Problemas de calidad que tengo que corregir
+☐ Nada se escapa (lo absorbo todo)
+☐ Otro (especificar)
+Justificación:
+Tabla Recursión: Identifica dónde la variedad rebasa la capacidad.
+VSM (S2): Identifica dónde se pasa la carga al siguiente nivel.
+Algedónico: Si la variedad residual es alta, hay dolor crónico.
+Guardar: variedad_residual_5_12 = [opciones]
+3.13 Dónde Va la Variedad Residual (5.13)
+Disparador: Si 5.12 selecciona algo
+Pregunta: Cuando algo se escapa de tu capacidad, ¿qué pasa?
+Tipo de respuesta: Select (Opción única)
+Opciones:
+Se queda sin hacer
+Lo hace mi jefe
+Lo hace otro equipo
+Se atrasa indefinidamente
+El cliente lo resuelve por su cuenta
+Otro (especificar)
+Justificación:
+VSM (S2): Identifica dónde se pasa la carga.
+Tabla Recursión: Identifica si el siguiente nivel puede absorberlo.
+Guardar: variedad_residual_destino_5_13 = [opción]
+3.14 Resource Bargain (5.14)
+Disparador: Siempre
+Pregunta: Con los recursos que tienes hoy, ¿qué tan sostenible es cumplir esta actividad sin sacrificar otras cosas?
+Tipo de respuesta: Select (Opción única)
+Opciones:
+Sostenible: se puede cumplir bien de forma normal
+Tenso pero manejable
+Se cumple, pero a costa de sacrificios frecuentes
+Es insostenible en el tiempo
+No está claro porque cambia demasiado
+SI responde "Se cumple, pero a costa de sacrificios..." o "Es insostenible":
+Pregunta 5.14b: ¿Qué tendría que cambiar para que fuera justo?
+Tipo de respuesta: Multi-select
+Opciones:
+Más personas
+Mejor tecnología
+Menos responsabilidades
+Más tiempo
+Más autonomía
+Otro (especificar)
+Justificación:
+Tabla Recursión/Función: Define el contrato real entre niveles.
+VSM (S3): Define si el resource bargain es sostenible.
+AHE: Si el bargain está degradado, el usuario está en déficit permanente.
+Guardar: resource_bargain_5_14 = [opción] y resource_bargain_cambio_5_14b = [opciones]
+4. Salida Canónica Esperada (Transducción)
+{
+"bloque": 5,
+"scene_id": "escena_X",
+"session_id": "sesion_Y",
+"dimension_dominante": "Objeto",
+"objeto_tipo": "Factura",
+"sujeto_tipo": null,
+"accion_tipo": null,
+"naturaleza_actividad_5_0": "Repetitivo",
+"capacidad_nominal_5_1": "50 facturas por día",
+"capacidad_real_5_2": "30 facturas por día",
+"brecha_capacidad_5_3": 40,
+"recursos_personas_5_4": "Solo yo",
+"recursos_sistemas_5_5": ["Un sistema que ayuda pero requiere trabajo manual"],
+"recursos_tiempo_5_6": "50% de mi tiempo",
+"recursos_personas_requeridas_5_7": "Necesitaría una persona más de forma estable",
+"recursos_tiempo_requerido_5_8": "100% de mi tiempo",
+"discrecionalidad_5_9": ["Puedo decidir el orden", "Puedo decidir cómo hacer cada tarea"],
+"constreñimientos_5_10": ["No puedo contratar más personas", "No puedo cambiar el proceso"],
+"compensacion_5_11": ["Tiempo personal", "Salud mental", "Otras responsabilidades"],
+"variedad_residual_5_12": ["Urgencias que llegan sin aviso", "Cambios de requisitos"],
+"variedad_residual_destino_5_13": "Se atrasa indefinidamente",
+"resource_bargain_5_14": "Se cumple, pero a costa de sacrificios frecuentes",
+"resource_bargain_cambio_5_14b": ["Más personas", "Mejor tecnología"],
+"diagnostico_breve": "Brecha de capacidad del 40% en procesamiento de facturas. Usuario compensa con tiempo personal y sacrificio de otras responsabilidades. Resource bargain degradado.",
+"ready_for_transduction": true
+}
+5. Validación de Calidad (Checklist)
+✅ Captura las 10 variables canónicas: Cada pregunta mapea a una variable específica.
+✅ Depende de Bloque 2.1: dimension_dominante se infiere de 2.1, no de pregunta separada.
+✅ Adapta 5.0 dinámicamente: Pregunta filtro se personaliza según Objeto, Sujeto o Acción.
+✅ Adapta 5.1 y 5.2 dinámicamente: Preguntas de capacidad se personalizan según dimension_dominante y naturaleza_actividad.
+✅ Separa nominal de real: Pregunta 5.1 vs 5.2 (y calculada 5.3).
+✅ Captura recursos en múltiples dimensiones: Personas (5.4), Sistemas (5.5), Tiempo (5.6).
+✅ Identifica discrecionalidad vs. constreñimiento: Preguntas 5.9 y 5.10.
+✅ Detecta compensación: Pregunta 5.11 (qué sacrifica).
+✅ Captura variedad residual: Preguntas 5.12 y 5.13 (qué no absorbe y dónde va).
+✅ Evalúa el resource bargain: Preguntas 5.14 y 5.14b (¿es justo?).
+✅ Aplica vsm-knowledge & tabla-recursion-funcion: Mapea discrecionalidad y resource bargain.
+✅ Aplica eve-inevitabilidad-sistemica: Expone si la brecha es sistémica.
+✅ Aplica a-new-way-to-think: Desafía el modelo mental de que "trabajar más duro" resuelve todo.
+✅ Lenguaje de escena: Preguntas concretas sobre el día a día.
+✅ Señales observables: La salida es estructurada y lista para transducción causal.
+✅ Expone el contrato real: Revela el resource bargain degradado (AHE).
+✅ Recursión causal: Cada pregunta depende de la anterior y prepara la siguiente.
+6. Notas de Implementación
+Bloque 2.1 es prerequisito: No se puede iniciar Bloque 5 sin completar Bloque 2.1 y sus subpreguntas.
+dimension_dominante es la clave: Se calcula en 2.1 y se usa en todas las preguntas de 5.0-5.2.
+Validación de métrica: Si no hay métrica clara en 2.1, marcar Bloque 5 como "Incompleto" y escalar.
+Contexto persistente: Mantener en memoria: objeto_tipo, sujeto_tipo, accion_tipo, dimension_dominante, naturaleza_actividad_5_0.
+Ejemplos dinámicos: Todos los ejemplos en las preguntas deben usar las variables capturadas (no texto estático).
+Salida para Bloque 6: El resource_bargain (5.14) se usa como entrada para Bloque 6 (Compensación). Si hay brecha + compensación, confirma AHE.
+Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 6 (Compensación Humana, Workaround y Variedad Residual)
+1. Marco de Trabajo Maestría (Especificación + Skills)
+1.1 Propósito Ontológico del Bloque 6
+El Bloque 6 responde a la pregunta fundamental: ¿Cómo logra el sistema seguir operando cuando la regulación formal no absorbe la variedad necesaria? No pregunta qué está mal, sino cómo lo haces funcionar cuando está mal. No pregunta sobre problemas abstractos, sino sobre inteligencia operativa concreta: workarounds, retrabajo, información faltante, reglas informales, sacrificios humanos, desgaste, patrones repetitivos de falla.
+Nivel de Realidad: Causalidad de compensación humana (variedad residual absorbida por S1, mecanismos de autoorganización/autorregulación, silencio patológico).
+Salida Esperada: "Huella visible de compensación humana y aprendizaje truncado" — la evidencia de que el usuario está siendo explotado sistémicamente para mantener vivo un sistema inviable.
+1.2 Las 10 Variables Canónicas que Debe Producir
+#
+Variable
+Descripción
+Tipo
+1
+Workaround
+Parche local utilizado
+Text
+2
+Retrabajo
+Trabajo que se repite
+Boolean + Text
+3
+Información faltante
+Qué no llega cuando debería
+Text
+4
+Regla informal
+Qué se hace sin autorización
+Text
+5
+Sacrificio humano
+Qué se entrega personalmente
+Multi-select
+6
+Desgaste
+Costo acumulado en el tiempo
+Text
+7
+Costo percibido
+Lo que cuesta hacer esto
+Text
+8
+Frase de trinchera
+Evidencia textual literal
+Text
+9
+Patrón repetitivo
+Qué falla siempre
+Text
+10
+Absorción de variedad residual
+Cómo se maneja lo que no entra
+Text
+1.3 Integración Arquitectónica (Aplicación de Skills a Nivel Maestría)
+vsm-knowledge & tabla-recursion-funcion:
+Las preguntas capturan cómo S1 absorbe variedad residual cuando S3 no provee recursos.
+Revelan si la compensación es autorregulación (diseñada) o workaround (improvisada).
+Mapean dónde el resource bargain está degradado: S1 entrega sacrificio sin compensación.
+viplan-method (Ingeniería de Variedad):
+Las preguntas distinguen entre variedad absorbida localmente (autoorganización/autorregulación) vs. variedad que debería escalar.
+Capturan los mecanismos de absorción: atenuación (filtrar información), amplificación (generalizar respuestas), autorregulación (procedimientos pre-diseñados), autoorganización (colaboración emergente).
+Revelan si la variedad residual es sostenible o si está generando desgaste crónico (síntoma de que la absorción local está fallando).
+a-new-way-to-think (Roger Martin):
+Desafían el modelo mental dominante: "si trabajas más duro, logras más".
+Revelan que la compensación es una elección estratégica del usuario bajo constreñimientos, no un problema de actitud o falta de esfuerzo.
+Capturan la inteligencia operativa del usuario (como Mary con sus file cards) sin moralizar: el usuario está siendo estratégico dentro de los límites que le impone un sistema roto.
+eve-inevitabilidad-sistemica:
+Las preguntas revelan si la compensación es permanente (diseño sistémico) o accidental (falla puntual).
+Exponen cómo el sistema está diseñado para forzar compensación: el usuario no elige sacrificarse, el sistema lo obliga.
+process-map & process-flow:
+Las preguntas capturan loops, rebotes, waits y alternativas que no están en el flujo oficial.
+Revelan dónde el flujo real diverge del flujo diseñado.
+Detectan estados de espera sin trigger, transiciones de objeto que regresan, ciclos ocultos.
+2. Catálogo de Preguntas v2.1 - Bloque 6 (11 Preguntas Principales + 3 Aclaratorias)
+Pregunta 6.1: Workaround (Parche Local Utilizado)
+Pregunta: Cuando esto no sale como debería, ¿qué haces TÚ para que no se caiga? ¿Hay algún procedimiento, atajo o solución que tuviste que inventar? Tipo de respuesta: Texto abierto + Multi-select de tipos de parche Opciones de tipo de parche:
+Hago un archivo manual (Excel, papel, notas) para llenar un vacío del sistema
+Hago un paso extra que no está en el procedimiento oficial
+Salto un paso que está en el procedimiento pero que no funciona
+Uso un sistema diferente al que me indicaron
+Pido ayuda informal a alguien que no es mi jefe
+Otro (especificar)
+Justificación:
+MMABP (PF): Revela dónde el flujo oficial diverge del flujo real.
+VSM (S1): Evidencia de que S1 está improvisando para absorber variedad.
+Viplan (Variedad Residual): El workaround es el mecanismo local de absorción cuando falla la autorregulación.
+AHE: Expone que el usuario está "reparando" un sistema roto con su propio esfuerzo.
+Pregunta 6.2: Retrabajo (Trabajo que se Repite)
+Pregunta: ¿Hay trabajo que tengas que hacer más de una vez? ¿Hay algo que regresa, que hay que corregir, que no "pega" a la primera? Tipo de respuesta: Boolean + Texto abierto Si responde "Sí":
+Pregunta 6.2a: ¿Qué es lo que regresa o hay que corregir?
+Pregunta 6.2b: ¿Cuándo ocurre? ¿Siempre, o solo en ciertas circunstancias?
+Pregunta 6.2c: ¿Quién debería haberlo hecho bien la primera vez?
+Justificación:
+MMABP (PF): Revela loops, rebotes y transiciones de objeto que no son lineales.
+MMABP (OLC): Revela transiciones de objeto que no son correctas; el objeto regresa a un estado anterior.
+VSM (S3):* Auditoría de calidad que falla; el objeto no llega en el estado esperado.
+Variedad Residual: El retrabajo es evidencia de que la variedad no fue absorbida correctamente en el primer paso.
+Pregunta 6.3: Información Faltante
+Pregunta: ¿Hay información, datos, aprobación o claridad que NO TE LLEGA cuando la necesitas? Tipo de respuesta: Multi-select + Texto abierto Opciones:
+No me llega la aprobación del jefe a tiempo
+No me llega información del cliente o usuario
+No me llega información de otro equipo o área
+No me llega claridad sobre qué se espera de mí
+No me llega feedback sobre si lo que hice está bien
+No me llega actualización de cambios o nuevas reglas
+No me falta información; todo me llega
+Otro (especificar)
+Si selecciona algo:
+Pregunta 6.3a: Cuando no te llega, ¿qué haces? ¿Esperas, adivinas, escalas, o avanzo sin eso?
+Justificación:
+MMABP (PF): Revela dónde hay un estado de espera (wait) que debería tener un trigger pero no lo tiene.
+VSM (S2): Falla de coordinación; la información no fluye entre S1s.
+Variedad Residual: La información faltante es variedad que no fue atenuada ni amplificada correctamente.
+Pregunta 6.4: Regla Informal (Qué se Hace sin Autorización)
+Pregunta: ¿Hay algo que haces pero que no está en el procedimiento oficial? ¿Algo que haces porque es la única forma que funciona, aunque nadie te lo pidió?
+Tipo de respuesta: Texto abierto + Select (tres estados)
+Opciones (Estados Finos):
+Sí, lo hago y mi jefe lo sabe y está de acuerdo
+Sí, lo hago pero mi jefe no lo sabe (o no está de acuerdo)
+No, todo lo que hago está en el manual
+Si selecciona "Sí, lo hago y mi jefe lo sabe...":
+Pregunta 6.4a: ¿Otros compañeros lo hacen igual, o solo tú?
+Tipo de respuesta: Select (Opción única)
+Opciones:
+Otros compañeros lo hacen igual (es una práctica común)
+Solo yo lo hago (es mi solución personal)
+No sé si otros lo hacen
+Si selecciona "Sí, lo hago pero mi jefe no lo sabe...":
+Pregunta 6.4b: ¿Otros compañeros lo hacen igual, o solo tú?
+Tipo de respuesta: Select (Opción única)
+Opciones:
+Otros compañeros lo hacen igual (es una práctica común pero oculta)
+Solo yo lo hago (es mi solución personal)
+No sé si otros lo hacen
+Justificación:
+Tabla Recursión/Función: Revela dónde la discrecionalidad real diverge de la formal.
+VSM (S3): El resource bargain está degradado; S1 está haciendo lo que S3 no autoriza pero que es necesario.
+AHE: La regla informal es evidencia de que el sistema oficial es inviable.
+A New Way to Think: Captura la inteligencia operativa del usuario sin moralizar.
+Guardar:
+regla_informal_presente = true/false
+regla_informal_estado = "Conocida y autorizada" | "Desconocida u no autorizada"
+regla_informal_distribucion = "Común" | "Personal" | "Desconocida"
+Pregunta 6.5: Sacrificio Humano (Qué se Entrega Personalmente)
+Pregunta: Para que esta actividad funcione dentro de lo esperado, ¿qué tienes que sacrificar? Tipo de respuesta: Multi-select Opciones:
+Tiempo personal (trabajo fuera de horario, fines de semana)
+Calidad del sueño o descanso
+Salud mental o estrés acumulado
+Relaciones personales (menos tiempo con familia/amigos)
+Calidad en otras responsabilidades (descuido algo para hacer esto)
+Desarrollo profesional (no tengo tiempo para aprender)
+Autonomía o libertad (tengo que estar "siempre disponible")
+No sacrifico nada; está bien balanceado
+Otro (especificar)
+Justificación:
+AHE (Suma Cero): El sacrificio es la evidencia más clara de que el resource bargain es injusto.
+Algedónico: El sacrificio es dolor crónico que debería escalar pero que el usuario absorbe silenciosamente.
+Inevitabilidad Sistémica: Si el sacrificio es permanente, el sistema está diseñado para explotación.
+Pregunta 6.6: Desgaste (Costo Acumulado en el Tiempo)
+Pregunta: ¿Cómo te sientes después de hacer esto durante un tiempo? ¿Hay algo que haya cambiado en ti? Tipo de respuesta: Multi-select + Texto abierto Opciones:
+Agotamiento o fatiga acumulada
+Pérdida de motivación o entusiasmo
+Sensación de que "no es suficiente" lo que hago
+Deterioro de la calidad de mi trabajo
+Ganas de irme o cambiar de trabajo
+Cinismo o desconexión emocional
+Estoy bien; no veo cambios
+Otro (especificar)
+Si selecciona algo negativo:
+Pregunta 6.6a: ¿Cuánto tiempo lleva esto? ¿Meses, años?
+Pregunta 6.6b: ¿Alguien en la organización sabe que esto está pasando?
+Justificación:
+AHE: El desgaste es la manifestación temporal del sacrificio.
+Algedónico: Si el desgaste es visible pero se ignora, el canal algedónico está roto.
+Viabilidad: Un sistema que genera desgaste crónico es inviable a largo plazo.
+Pregunta 6.7: Costo Percibido (Lo que Cuesta Hacer Esto)
+Pregunta: En una escala, ¿cuánto esfuerzo te cuesta hacer esta actividad bien? Tipo de respuesta: Escala 1-10 + Texto abierto Escala:
+1-3: Bajo esfuerzo (es relativamente fácil)
+4-6: Esfuerzo moderado (requiere concentración)
+7-10: Alto esfuerzo (es muy demandante)
+Si responde 7-10:
+Pregunta 6.7a: ¿Cuál es la parte más difícil? ¿Es el volumen, la complejidad, la falta de información, el tiempo, o algo más?
+Pregunta 6.7b: ¿Ese esfuerzo está reflejado en tu descripción de trabajo o en cómo te evalúan?
+Justificación:
+AHE: Revela si el usuario percibe que el bargain es justo o injusto.
+Algedónico: Si el costo percibido es alto pero no se escala, hay silencio patológico.
+Pregunta 6.8: Frase de Trinchera (Evidencia Textual Literal)
+Pregunta: Si tuvieras que resumir en UNA FRASE lo que significa hacer esta actividad para ti, ¿cuál sería? Tipo de respuesta: Texto abierto (una frase literal) Ejemplos de respuestas esperadas:
+"Es lo que toca para que no se caiga todo"
+"Me toca hacerlo en la noche porque de día no hay tiempo"
+"Nadie se da cuenta, pero sin esto no funciona"
+"Es como estar en la trinchera: uno hace lo que puede con lo que tiene"
+Justificación:
+Preservación de voz: La frase literal es evidencia epistemológica que no puede ser reinterpretada.
+Transducción causal: La frase literal es el disparador de nodos causales.
+Narrativa diagnóstica: Las frases de trinchera son las que dan credibilidad a la película de inevitabilidad.
+Pregunta 6.9: Patrón Repetitivo de Falla (Qué Falla Siempre)
+Pregunta: ¿Hay algo que SIEMPRE FALLA o que SIEMPRE OCURRE bajo las mismas circunstancias? Tipo de respuesta: Texto abierto + Frecuencia Si responde "Sí":
+Pregunta 6.9a: ¿Bajo qué circunstancias ocurre? (ej. "cuando hay volumen alto", "cuando cambia el requisito", "cuando falta gente")
+Pregunta 6.9b: ¿Cuántas veces ha ocurrido? ¿Es predecible?
+Pregunta 6.9c: ¿Se ha intentado arreglarlo? ¿Qué pasó?
+Justificación:
+MMABP (PF): Revela un estado de falla que debería estar capturado en el OLC pero que no lo está.
+VSM (S3):* Auditoría que no se está haciendo; la falla se repite sin corrección.
+Inevitabilidad Sistémica: Un patrón repetitivo de falla es evidencia de que el sistema está diseñado para fallar.
+Pregunta 6.10: Absorción de Variedad Residual (Cómo se Maneja lo que No Entra)
+Pregunta: Hay cosas que simplemente no están en el procedimiento normal que estás haciendo. Cosas que "aparecen" y que agregan dificultad a la actividad. ¿Cómo las manejas TÚ? Tipo de respuesta: Multi-select + Texto abierto Opciones:
+Me quedo después de horario para hacerlas
+Las hago en paralelo con otras responsabilidades
+Las improviso sobre la marcha
+Las dejo para después (acumulación)
+Las delego informalmente a alguien más
+Las ignoro (no se hacen)
+Otro (especificar)
+Si selecciona algo:
+Pregunta 6.10a: De todo lo que haces en esta actividad, ¿cuánto es trabajo que NO está específicamente dentro de ella? ¿La mitad, una cuarta parte, casi todo? Tipo de respuesta: Select (Opción única) Opciones:
+Menos del 10% (casi nada)
+Entre 10% y 25% (una cuarta parte)
+Entre 25% y 50% (casi la mitad)
+Entre 50% y 75% (más de la mitad)
+Más del 75% (casi todo)
+Pregunta 6.10b: ¿Quién DEBERÍA estar haciendo esto? ¿Tu jefe? ¿Otro equipo? ¿El sistema? Tipo de respuesta: Texto Abierto Ejemplo de respuesta esperada: "El jefe debería revisar esto", "Otro equipo debería enviar esto correcto", "El sistema debería hacer esto automático"
+Justificación:
+Variedad Residual (Viplan): Es la variedad que debería escalar pero que es absorbida localmente por el usuario.
+AHE: La absorción de variedad residual es el mecanismo de explotación sistémica.
+Algedónico: Si la variedad residual es alta y el usuario la absorbe silenciosamente, el canal algedónico está roto.
+Pregunta 6.11: Síntesis de Compensación (Pregunta Integradora)
+Pregunta: Considerando todo lo anterior, ¿cuál es el PRINCIPAL MECANISMO por el cual TÚ haces que esto funcione cuando el sistema no alcanza? Tipo de respuesta: Select (Opción única) + Texto abierto Opciones:
+Trabajo extra (fuera de horario, fines de semana)
+Improvisación y creatividad (invento soluciones)
+Sacrificio de calidad en otras cosas
+Apoyo informal de colegas
+Automatización personal (archivos, scripts, etc.)
+Aceptación silenciosa (absorbo el problema sin queja)
+Otro (especificar)
+Justificación:
+Integración: Consolida todas las variables anteriores en un mecanismo principal.
+Transducción causal: Identifica el nodo causal más crítico para la compensación.
+3. Preguntas Aclaratorias (Disparadas por Contradicción)
+Aclaración 6.A: Si hay Silencio sobre Compensación
+Trigger: Usuario no menciona compensación pero el contexto sugiere que debería haberla (ej. alta brecha de capacidad, patrón repetitivo de falla).
+Pregunta Aclaratoria: Notamos que mencionaste [X brecha/falla]. ¿Cómo logras que eso no se caiga? ¿Hay algo que haces que no mencionaste?
+Motivo: Detectar silencio patológico.
+Aclaración 6.B: Si hay Inconsistencia entre Workaround y Autoridad
+Trigger: Usuario menciona regla informal pero dice que su jefe lo sabe y está de acuerdo.
+Pregunta Aclaratoria: Dijiste que [regla informal] y que tu jefe lo sabe. ¿Entonces es una regla oficial que no está documentada, o es algo que tu jefe tolera pero no aprueba formalmente?
+Motivo: Distinguir entre autorregulación (diseñada) y workaround (improvisada).
+Aclaración 6.C: Si hay Minimización del Sacrificio
+Trigger: Usuario selecciona sacrificio pero lo minimiza ("no es gran cosa", "todos lo hacemos").
+Pregunta Aclaratoria: Mencionaste [sacrificio], pero parece que lo ves como normal. ¿Crees que debería ser así? ¿O es solo que ya estás acostumbrado?
+Motivo: Detectar normalización de explotación.
+4. Salida Canónica Esperada
+{
+"scene_id": "escena_X",
+"session_id": "sesion_Y",
+"workaround_used": "Hago un archivo manual en Excel para rastrear lo que el sistema no captura",
+"workaround_types": ["Hago un archivo manual", "Pido ayuda informal"],
+"retrabajo_presente": true,
+"retrabajo_descripcion": "Tengo que corregir los datos que entran mal",
+"retrabajo_cuando": "Siempre que hay volumen alto",
+"retrabajo_responsable": "Debería hacerlo bien el área que envía los datos",
+"informacion_faltante": "No me llega la aprobación del jefe a tiempo",
+"informacion_faltante_accion": "Avanzo sin esperar porque si no, todo se atrasa",
+"regla_informal": "Avanzo sin esperar la aprobación porque si no, todo se atrasa",
+"regla_informal_conocida": false,
+"regla_informal_otros_hacen": true,
+"sacrificio_humano": ["Tiempo personal", "Calidad del sueño"],
+"desgaste_acumulado": "Después de 6 meses, estoy agotado",
+"desgaste_tiempo": "6 meses",
+"desgaste_conocido": false,
+"costo_percibido": 8,
+"costo_percibido_razon": "La parte más difícil es mantener todo en la cabeza sin sistema",
+"costo_percibido_reflejado": false,
+"frase_trinchera": "Es lo que toca para que no se caiga todo",
+"patron_repetitivo": "Siempre que hay volumen alto, me quedo hasta tarde",
+"patron_circunstancias": "Volumen alto",
+"patron_frecuencia": "Predecible, ocurre cada mes",
+"patron_intento_arreglo": "Se intentó, pero no hay recursos",
+"absorcion_variedad_residual": "Me quedo después de horario",
+"absorcion_mecanismos": ["Me quedo después de horario", "Las improviso sobre la marcha"],
+"absorcion_porcentaje": "30% de mi carga",
+"absorcion_responsable": "Debería estar en el diseño del sistema",
+"sintesis_principal": "Trabajo extra (fuera de horario, fines de semana)"
+}
+5. Validación de Calidad (Checklist)
+✅ Captura las 10 variables canónicas exactas:Cada pregunta mapea a una variable específica.✅Distingue workaround de autorregulación:Pregunta 6.4a diferencia lo conocido de lo informal.✅Hace visible el tiempo:Preguntas sobre cuándo, cuánto tiempo, con qué frecuencia.✅Captura patrones, no anécdotas:Pregunta 6.9 fuerza identificación de patrones repetitivos.✅Preserva la voz literal:Pregunta 6.8 captura frase de trinchera.✅Separa compensación de causa:Bloque 6 captura "cómo se compensa", no "por qué hay que compensar".✅Detecta silencio patológico:Aclaración 6.A dispara si hay silencio sobre compensación.✅Mapeo exhaustivo a MMABP:Conexión a PF (loops, waits), OLC (transiciones, ciclos), PM (flujo real vs. oficial).✅Mapeo exhaustivo a VSM:S1 (absorción), S2 (coordinación), S3 (bargain), S3* (auditoría), S4 (adaptación), S5 (política), Algedónico (dolor), AHE (suma cero).✅Aplicación de skills a nivel maestría:VSM, Viplan, A New Way to Think, EVE Inevitabilidad, Process Map/Flow.✅Lenguaje de escena concreto:"¿Qué haces TÚ para que no se caiga?" vs. abstracciones.✅Expone inteligencia operativa:Captura la creatividad del usuario sin moralizar.✅Revela patología de suma cero:Sacrificio + desgaste + absorción = explotación sistémica.✅Aclaraciones separadas: Preguntas aclaratorias viven en estructura separada, nunca disimuladas como respuestas originales.
+6. Diferenciación Crítica: Bloque 6 vs. Bloque 5
+Aspecto
+Bloque 5 (Capacidad y Discrecionalidad)
+Bloque 6 (Compensación y Variedad Residual)
+Pregunta Central
+¿Con qué recursos cuentas? ¿Dónde tienes libertad?
+¿Cómo lo haces funcionar cuando no alcanza?
+Nivel de Realidad
+Recursos disponibles vs. requeridos
+Mecanismos de absorción de variedad
+Foco
+Brecha entre nominal y real
+Cómo se compensa la brecha
+Salida
+Resource bargain (¿es justo?)
+Huella de compensación (¿es sostenible?)
+Mapeo VSM
+S1, S3, Tabla Recursión
+S1, S2, S3, S3*, S4, S5, Algedónico, AHE
+Mapeo MMABP
+PM (recursos), Tabla Recursión
+PF (loops, waits), OLC (ciclos), PM (flujo real)
+Skill Primario
+Tabla Recursión/Función
+Viplan (Ingeniería de Variedad)
+7. Orden de Presentación en Interfaz
+Recomendación: Las 11 preguntas principales deben presentarse en este orden para construir narrativa:
+Pregunta 6.1 (Workaround): Abre el tema de compensación de forma concreta.
+Pregunta 6.2 (Retrabajo): Revela ciclos ocultos.
+Pregunta 6.3 (Información Faltante): Revela dónde falla la coordinación.
+Pregunta 6.4 (Regla Informal): Revela dónde diverge la realidad del manual.
+Pregunta 6.5 (Sacrificio Humano): Revela el costo personal.
+Pregunta 6.6 (Desgaste): Revela el costo acumulado.
+Pregunta 6.7 (Costo Percibido): Revela la percepción del usuario sobre la injusticia.
+Pregunta 6.8 (Frase de Trinchera): Captura la voz literal.
+Pregunta 6.9 (Patrón Repetitivo): Revela la inevitabilidad de la falla.
+Pregunta 6.10 (Absorción de Variedad Residual): Revela el mecanismo principal.
+Pregunta 6.11 (Síntesis): Consolida el mecanismo principal de compensación.
+Aclaraciones: Se disparan solo si hay contradicción o silencio patológico.
+Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 7 (Verificación Ligera y Preclasificación)
+1. Marco de Trabajo Maestría (Especificación + Skills)
+1.1 Propósito Ontológico del Bloque 7
+El Bloque 7 NO es un bloque de captura de evidencia. Es un freno de seguridad que verifica la lectura funcional preliminar sin contaminar la evidencia capturada en Bloques 0.5-6.
+Arquitectura Híbrida:
+Componente Interno (Por Defecto): El sistema analiza la evidencia consolidada y propone una preclasificación.
+Componente de Microconfirmación (Solo Si Aplica): El usuario confirma, corrige o aclara solo cuando hay ambigüedad, baja confianza o señales cruzadas.
+Nivel de Realidad: Lectura consolidada (no nueva evidencia, sino síntesis de lo capturado).
+Salida Esperada: "Preclasificación asistida y trazable" — una lectura inicial de tipo de escena, posición en cadena, función regulatoria y misión sugerida, lista para transducción causal.
+1.2 Las 7 Variables Canónicas que Debe Producir
+#
+Variable
+Descripción
+Origen
+Tipo
+1
+Tipo de escena
+Qué tipo de actividad es
+Inferencia interna
+Enum
+2
+Posición en cadena
+Dónde está en el flujo
+Inferencia interna
+Enum
+3
+Función regulatoria predominante
+Qué función VSM o canal especial predomina en la escena
+Inferencia interna
+Enum
+4
+Misión sugerida
+Clasificación funcional preliminar
+Inferencia interna
+Text
+5
+Nivel de confianza
+Qué tan seguro está el sistema
+Cálculo automático
+Enum
+6
+Confirmación del usuario
+¿Estoy en lo correcto?
+Pregunta ligera (si aplica)
+Boolean
+7
+Necesidad de aclaración
+¿Hay ambigüedad, señales cruzadas o compensación que requiere revisión?
+Pregunta ligera (si aplica)
+Boolean
+1.3 Integración Arquitectónica (Aplicación de Skills a Nivel Maestría)
+vsm-knowledge:
+Las inferencias internas mapean la evidencia a los sistemas VSM (S1-S5) y al canal algedónico cuando aplica.
+La lectura inicial de VSM prepara el diagnóstico sin cerrar puertas.
+AHE no se clasifica como sistema VSM, sino como lente diagnóstica complementaria que revela compensación humana, sacrificio y absorción local de variedad residual.
+tabla-recursion-funcion:
+Las inferencias identifican dónde la discrecionalidad es real vs. formal.
+Detectan subsidiariedad invertida (decisiones que deberían estar en S1 pero están en S3).
+viplan-method (Ingeniería de Variedad):
+Las inferencias identifican dónde la variedad está siendo absorbida (S1, S2, S3, etc.).
+Detectan si la variedad residual está siendo absorbida localmente mediante compensación humana, workaround o sacrificio.
+Esa compensación se registra como señal diagnóstica AHE, no como una función VSM separada.
+eve-inevitabilidad-sistemica:
+Las inferencias revelan si la escena es síntoma de un diseño sistémico inviable.
+Preparan los nodos causales para la transducción.
+process-map & process-flow:
+Las inferencias identifican la posición de la escena en el flujo (apertura, intermedia, cierre).
+Detectan si hay loops, waits, rebotes que sugieren compensación.
+a-new-way-to-think:
+Las inferencias desafían la clasificación superficial.
+Revelan si la escena es una elección estratégica del usuario o una imposición del sistema.
+2. Arquitectura del Bloque 7: Componentes
+Componente 1: Lectura Preliminar Interna (Automática, Sin Preguntas)
+El sistema analiza la evidencia consolidada de Bloques 0.5-6 y produce:
+2.1.1 Inferencia 1: Tipo de Escena
+Reglas de Inferencia:
+Evidencia
+Tipo de Escena
+Lógica
+Cambio de objeto, atributo o estado
+Transformación
+Bloque 2: hay transformación_type = "Transformar"
+Handoff, espera, coordinación entre actores
+Coordinación
+Bloque 3: hay receptor_inmediato distinto del actor; Bloque 4: hay wait_pattern
+Revisión, control, auditoría, validación
+Validación
+Bloque 3: hay validation_rule; Bloque 5: hay audit_direct_source
+Decisión, prioridad, asignación de recursos
+Decisión
+Bloque 5: hay priority_source, resource_bargain_source
+Rediseño, aprendizaje, adaptación al futuro
+Adaptación
+Bloque 5: hay adaptation_source
+Política, identidad, trade-offs, límites
+Política
+Bloque 0.5: hay identidad implícita; Bloque 5: hay policy_source
+Escalamiento informal, dolor crónico, algedónico
+Escalamiento
+Bloque 6: hay frase_trinchera sobre dolor; Bloque 4: hay deadlock_risk
+Workaround, sacrificio, compensación humana
+Compensación
+Bloque 6: hay workaround_used, sacrificio_humano, desgaste_acumulado
+Salida: preclassification_scene_type = Enum (Transformación, Coordinación, Validación, Decisión, Adaptación, Política, Escalamiento, Compensación)
+2.1.2 Inferencia 2: Posición en Cadena
+Reglas de Inferencia:
+Evidencia
+Posición
+Lógica
+Es el primer paso, disparador inicial
+Apertura
+Bloque 1: trigger_event es el inicio; Bloque 0.5: es el primer hito
+Hay dependencias previas Y posteriores
+Intermedia
+Bloque 4: dependency_previous Y dependency_next ambas presentes
+Es el último paso, entrega final, cierre
+Cierre
+Bloque 3: target_state_expected es final; Bloque 4: no hay dependency_next
+Salida: preclassification_chain_position = Enum (Apertura, Intermedia, Cierre)
+2.1.3 Inferencia 3: Función Regulatoria Predominante
+Reglas de Inferencia:
+Evidencia
+Función predominante
+Lógica
+Transformación operativa de objeto
+S1
+Bloque 2: hay transformación clara del objeto;
+Bloque 3: hay output_object
+Coordinación, handoff, espera, interfaz
+S2
+Bloque 4: hay wait_pattern, interfaz o dependencia cruzada;
+Bloque 3: hay receiver_immediate
+Decisión, asignación, prioridad, control
+S3
+Bloque 5: hay priority_source, resource_bargain_source;
+Bloque 3: hay validation_rule
+Auditoría directa, observación no filtrada
+S3*
+Bloque 5: hay audit_direct_source;
+Bloque 3: hay validación que contradice lo reportado
+Adaptación, rediseño, futuro
+S4
+Bloque 0.5: hay criterio identitario o político; Bloque 5: hay policy_source
+Política, identidad, límites
+S5
+Bloque 0.5: hay identidad implícita; Bloque 5: hay policy_source
+Escalamiento informal, dolor que rebasa canales ordinarios
+Algedónico
+Bloque 6: hay dolor crónico, escalamiento informal o deadlock_risk en Bloque 4
+Salida: preclassification_vsm_role = Enum (S1, S2, S3, S3*, S4, S5, Algedónico, AHE)
+Salida complementaria: preclassification_ahe_signal = Boolean/Text- true si hay evidencia fuerte de workaround, sacrificio, desgaste o compensación humana- false si no hay evidencia suficiente- descripción breve del mecanismo compensatorio observado
+2.1.4 Inferencia 4: Misión Sugerida
+Reglas de Inferencia:
+Basada en la combinación de tipo de escena + función regulatoria:
+Tipo + Función
+Misión Sugerida
+Transformación + S1
+"Procesar/transformar [objeto] según [regla operativa]"
+Coordinación + S2
+"Coordinar entrega entre [actor A] y [actor B]"
+Validación + S3
+"Validar que [objeto] cumple [criterio]"
+Validación + S3*
+"Verificar realidad operativa de [objeto]"
+Decisión + S3
+"Decidir sobre [prioridad/asignación/trade-off]"
+Adaptación + S4
+"Rediseñar [proceso/estructura] para [futuro]"
+Política + S5
+"Definir [límite/identidad/criterio último]"
+Escalamiento + Algedónico
+"Escalar [problema] que rebasa canales ordinarios"
+Escena con señal AHE alta
+"Absorber [variedad residual] mediante [mecanismo compensatorio]"
+Salida: preclassification_mission_suggested = Text (misión preliminar)
+Nota:La misión sugerida puede incluir compensación humana cuando esa sea la forma dominante en que la escena se sostiene, pero eso no convierte a AHE en una función VSM. AHE se usa aquí como lente diagnóstica complementaria para describir cómo se mantiene vivo el sistema cuando la regulación formal no alcanza.
+2.1.5 Cálculo 5: Nivel de Confianza
+Fórmula de Confianza:
+El nivel de confianza NO es una verdad matemática dura, sino una heurística trazable que estima qué tan estable es la preclasificación con base en la evidencia disponible.Criterios orientativos de confianza:- Tipo de escena relativamente claro- Posición en cadena relativamente clara- Función regulatoria relativamente clara- Pocas señales cruzadas- Pocas contradicciones fuertes- Suficiente evidencia observacional en Bloques 0.5-6Factores que reducen confianza:- Múltiples interpretaciones plausibles- Silencio patológico o evidencia insuficiente- Contradicciones entre bloques- Compensación humana intensa que oculta la función principal de la escenaEscala sugerida:- Alta: la lectura preliminar es bastante estable y no requiere microconfirmación- Media: la lectura es plausible, pero conviene confirmar uno o dos puntos- Baja: la escena sigue ambigua y requiere microconfirmación y/o revisión manualSalida:- confidence_level = Enum (Alta, Media, Baja)- confidence_score = Number orientativo (0-100)- confidence_reasoning = Texto breve con la lógica que explica por qué el sistema asignó ese nivel
+Ejemplo de Cálculo:
+Tipo claro (Transformación): +20%
+Posición clara (Intermedia): +20%
+Función clara (S1): +20%
+Sin señales cruzadas: +20%
+Sin contradicciones: +20%
+Total: 100% (Confianza Alta)
+Salida: confidence_level = Enum (Alta > 80%, Media 50-80%, Baja < 50%)
+Componente 2: Microconfirmación del Usuario (Solo Si Aplica)
+El sistema dispara preguntas ligeras al usuario SOLO SI:
+Confianza es Media o Baja (< 80%)
+Hay señales cruzadas (evidencia contradictoria)
+Hay preclasificación ambigua (múltiples interpretaciones)
+2.2.1 Pregunta 7.1: Confirmación de Tipo de Escena (Si Confianza < 80%)
+Pregunta: Parece que esto es principalmente una [tipo sugerido]. ¿Es correcto? ¿O hay algo más? Tipo de respuesta: Select (Opción única) + Texto abierto Opciones:
+Sí, es principalmente [tipo sugerido]
+No, es principalmente [otro tipo] (especificar)
+Es una combinación de [tipo 1] y [tipo 2]
+Ejemplo:
+Sistema propone: "Esto es principalmente una Coordinación"
+Pregunta: "¿Es correcto que esto es principalmente una coordinación entre áreas? ¿O hay algo más?"
+Justificación:
+Detecta si la inferencia interna es correcta.
+Permite al usuario corregir sin contaminar la evidencia.
+2.2.2 Pregunta 7.2: Confirmación de Posición en Cadena (Si es Ambigua)
+Pregunta: En el flujo, ¿dónde está esto? ¿Es el primer paso, un paso intermedio, o el último? Tipo de respuesta: Select (Opción única) Opciones:
+Es el primer paso (apertura)
+Es un paso intermedio
+Es el último paso (cierre)
+Disparador: Si hay dependencias previas Y posteriores ambiguas, o si el usuario no está seguro.
+Justificación:
+Aclara la posición en el flujo.
+Prepara la normalización del proceso.
+2.2.3 Pregunta 7.3: Aclaración de Función Regulatoria (Si hay Señales Cruzadas)
+Pregunta: Veo que hay [evidencia A] que sugiere [función 1], pero también hay [evidencia B] que sugiere [función 2]. ¿Cuál es la función PRINCIPAL? Tipo de respuesta: Select (Opción única) Opciones:
+Función 1 (especificar)
+Función 2 (especificar)
+Ambas son igual de importantes
+Ejemplo:
+Sistema propone: "Veo transformación de objeto (S1) pero también hay validación (S3*). ¿Cuál es la función principal?"
+Justificación:
+Resuelve ambigüedad sin reinterpretar la evidencia.
+Prepara el mapeo a VSM.
+2.2.4 Pregunta 7.4: Corrección de Misión Sugerida (Si el Usuario No Está de Acuerdo)
+Pregunta: La misión que propongo es: "[misión sugerida]". ¿Es correcta? ¿O la cambiarías a algo diferente? Tipo de respuesta: Texto abierto Ejemplo:
+Sistema propone: "Misión sugerida: Procesar y validar entrada de datos"
+Pregunta: "¿Es correcta esta misión? ¿O la cambiarías?"
+Justificación:
+Permite al usuario corregir la clasificación funcional.
+Respeta la inteligencia del usuario sobre su propio trabajo.
+Componente 3: Freno de Seguridad (No Contamina Evidencia)
+Regla 1: Separación de Capas
+La preclasificación es una lectura sobre la evidencia, no una reinterpretación.
+Si el usuario corrige, la corrección se registra como una aclaración separada, no como cambio de la evidencia original.
+Regla 2: Trazabilidad
+Toda preclasificación debe registrar:
+Evidencia que la soporta
+Razonamiento de la inferencia
+Nivel de confianza
+Correcciones del usuario (si aplica)
+Regla 3: Aperturas Epistemológicas
+La preclasificación NO cierra puertas.
+Usa lenguaje de hipótesis: "Parece que...", "Sugiere que...", "Podría ser que..."
+Evita lenguaje determinista: "Es...", "Definitivamente...", "Sin duda..."
+3. Catálogo de Preguntas Ligeras (2-4 Máximo)
+Pregunta 7.1: Confirmación de Tipo de Escena
+Disparador: Si confianza < 80% O hay múltiples tipos posibles Pregunta: Parece que esto es principalmente una [tipo sugerido]. ¿Es correcto? ¿O hay algo más? Tipo de respuesta: Select + Texto abierto Opciones:
+Sí, es principalmente [tipo sugerido]
+No, es principalmente [otro tipo] (especificar)
+Es una combinación de [tipo 1] y [tipo 2]
+Pregunta 7.2: Confirmación de Posición en Cadena
+Disparador: Si posición es ambigua (hay dependencias previas Y posteriores) Pregunta: En el flujo, ¿dónde está esto? ¿Es el primer paso, un paso intermedio, o el último? Tipo de respuesta: Select (Opción única) Opciones:
+Es el primer paso (apertura)
+Es un paso intermedio
+Es el último paso (cierre)
+Pregunta 7.3: Aclaración de Función Regulatoria
+Disparador: Si hay señales cruzadas (múltiples funciones VSM con evidencia similar) Pregunta: Veo que hay [evidencia A] que sugiere [función 1], pero también hay [evidencia B] que sugiere [función 2]. ¿Cuál es la función PRINCIPAL? Tipo de respuesta: Select (Opción única) Opciones:
+Función 1: [descripción]
+Función 2: [descripción]
+Ambas son igual de importantes
+Pregunta 7.4: Corrección de Misión Sugerida
+Disparador: Si el usuario rechaza la misión sugerida O si hay ambigüedad en la clasificación funcional Pregunta: La misión que propongo es: "[misión sugerida]". ¿Es correcta? ¿O la cambiarías a algo diferente? Tipo de respuesta: Texto abierto Ejemplo de respuesta esperada: "No, la misión es más bien [misión alternativa]"
+4. Lógica de Disparo de Preguntas
+SI confidence_level = Alta Y no hay señales cruzadas relevantes ni ambigüedad estructural:
+→ NO dispara preguntas (solo lectura interna)
+SI confidence_level = Media O hay señales cruzadas O hay ambigüedad:
+→ Dispara Pregunta 7.1 (confirmación de tipo)
+→ SI hay ambigüedad en posición:
+→ Dispara Pregunta 7.2 (confirmación de posición)
+→ SI hay señales cruzadas en función:
+→ Dispara Pregunta 7.3 (aclaración de función)
+→ SI usuario rechaza misión sugerida:
+→ Dispara Pregunta 7.4 (corrección de misión)
+SI confidence_level = Baja:
+→ Dispara Pregunta 7.1 + 7.2 + 7.3 (máximo 3 preguntas)
+→ Marca para revisión manual por consultor
+5. Salida Canónica Esperada
+{
+"scene_id": "escena_X",
+"session_id": "sesion_Y",
+"preclassification_scene_type": "Transformación",
+"preclassification_chain_position": "Intermedia",
+"preclassification_vsm_role": "S1",
+"preclassification_mission_suggested": "Procesar y validar entrada de datos según regla operativa",
+"confidence_level": "Alta",
+"confidence_score": 85,
+"confidence_reasoning": "Evidencia clara de transformación de objeto (Bloque 2), posición intermedia (Bloque 4 con dependencias previas y posteriores), función S1 predominante (Bloque 3 con output_object). Sin señales cruzadas.",
+"questions_triggered": [],
+"user_confirmation": null,
+"user_correction": null,
+"user_clarification": null,
+"evidence_bundle_for_transduction": "Transformación de objeto con posición intermedia en flujo, función S1 predominante, misión de procesamiento y validación según regla operativa",
+"ready_for_transduction": true,
+"flagged_for_manual_review": false
+}
+Ejemplo con Microconfirmación:
+{
+"scene_id": "escena_Y",
+"session_id": "sesion_Z",
+"preclassification_scene_type": "Coordinación",
+"preclassification_chain_position": "Intermedia",
+"preclassification_vsm_role": "S2",
+"preclassification_mission_suggested": "Coordinar entrega entre área A y área B",
+"confidence_level": "Media",
+"confidence_score": 65,
+"confidence_reasoning": "Evidencia de coordinación (Bloque 4 con wait_pattern), pero también hay transformación de objeto (Bloque 2). Ambigüedad en función predominante.",
+"questions_triggered": ["7.1", "7.3"],
+"user_confirmation": "Sí, es principalmente una coordinación",
+"user_correction": null,
+"user_clarification": "La función principal es S2 (coordinación), pero hay también validación (S3*) de lo que llega",
+"evidence_bundle_for_transduction": "Coordinación entre áreas con validación, función S2 predominante con S3* secundaria, misión de coordinar entrega con verificación de calidad",
+"ready_for_transduction": true,
+"flagged_for_manual_review": false
+}
+6. Validación de Calidad (Checklist)
+✅ Bloque 7 es verificación ligera, no captura pesada:Solo 2-4 preguntas máximo, solo si aplica.✅Bloque 7 es interno por defecto:La lectura preliminar es automática, sin preguntas al usuario.✅Bloque 7 no contamina la evidencia:La preclasificación es una lectura sobre la evidencia, no una reinterpretación.✅Bloque 7 produce preclasificación asistida y trazable:Registra evidencia, razonamiento, confianza, correcciones.✅Bloque 7 prepara la transducción causal:Entrega tipo, posición, función, misión sin cerrar puertas.✅Bloque 7 respeta la regla: "Primero hecho, luego clasificación":La preclasificación es POSTERIOR a Bloques 0.5-6.✅Bloque 7 respeta la regla: "Verificación sin contaminación":Las correcciones del usuario se registran separadamente.✅Bloque 7 detecta ambigüedad y señales cruzadas:Dispara preguntas solo cuando hay necesidad real.✅Bloque 7 usa lenguaje de hipótesis:"Parece que...", "Sugiere que...", no "Es...".✅Bloque 7 es freno de seguridad: Evita sobre-determinación de clasificación.
+7. Diferenciación Crítica: Bloque 7 vs. Bloques Anteriores
+Aspecto
+Bloques 0.5-6
+Bloque 7
+Propósito
+Capturar evidencia
+Verificar lectura preliminar
+Contenido
+Hechos observables
+Inferencias sobre hechos
+Origen
+Usuario (respuestas)
+Sistema (análisis)
+Momento
+Primero a último
+Último (después de todo)
+Riesgo
+Interpretación temprana
+Sobre-determinación
+Freno
+Regla: "Primero hecho, luego clasificación"
+Regla: "Verificación sin contaminación"
+Preguntas
+Muchas, abiertas, exploratorias
+Pocas, cerradas, confirmatorias
+Salida
+Expediente estructural
+Preclasificación asistida
+8. Integración con Transducción Causal
+Bloque 7 prepara el input para la tabla de transducción causal:
+Variable de Bloque 7
+Uso en Transducción Causal
+preclassification_scene_type
+Identifica el tipo de nodo causal (transformación, coordinación, validación, etc.)
+preclassification_chain_position
+Identifica si es apertura, intermedia o cierre de cadena causal
+preclassification_vsm_role
+Mapea la función VSM predominante de la escena
+preclassification_ahe_signal
+Indica si la escena muestra compensación humana o absorción local de variedad residual
+preclassification_mission_suggested
+Define la intención preliminar del nodo en la película de inevitabilidad
+confidence_level
+Indica qué tan estable es la preclasificación y si requiere auditoría adicional
+evidence_bundle_for_transduction
+Proporciona el contexto para activar reglas de transducción
+9. Casos de Uso Ejemplares
+Caso 1: Confianza Alta (Sin Preguntas)
+Escena: Procesamiento de datos de entrada
+Bloque 2: Hay transformación clara de objeto (input_state → output_state)
+Bloque 3: Hay output_object bien definido
+Bloque 4: Hay dependencia posterior clara
+Bloque 6: No hay compensación significativa
+Resultado:
+Tipo: Transformación
+Posición: Intermedia
+Función: S1
+Confianza: Alta (85%)
+Preguntas: NINGUNA
+Salida: Lectura interna, lista para transducción
+Caso 2: Confianza Media (Con Microconfirmación)
+Escena: Coordinación con validación
+Bloque 3: Hay validación (validation_rule)
+Bloque 4: Hay wait_pattern (espera)
+Bloque 5: Hay audit_direct_source (auditoría)
+Señal cruzada: ¿Es S2 (coordinación) o S3* (auditoría)?
+Resultado:
+Tipo: Coordinación
+Posición: Intermedia
+Función: S2 (con S3* secundaria)
+Confianza: Media (65%)
+Preguntas: 7.1 (confirmación tipo) + 7.3 (aclaración función)
+Salida: Lectura interna + microconfirmación, lista para transducción
+Caso 3: Confianza Baja (Revisión Manual)
+Escena: Escena ambigua con múltiples interpretaciones
+Bloque 2: Hay transformación, pero débil
+Bloque 4: Hay loops y rebotes
+Bloque 6: Hay compensación significativa
+Múltiples interpretaciones posibles
+Resultado:
+Tipo: Ambiguo (Transformación vs. Compensación)
+Posición: Ambigua (Intermedia vs. Cierre)
+Función: Ambigua (S1 vs. AHE)
+Confianza: Baja (45%)
+Preguntas: 7.1 + 7.2 + 7.3 (máximo 3)
+Salida: Lectura interna + microconfirmación + FLAGGED FOR MANUAL REVIEW
+10. Recomendaciones de Implementación
+Para Cursor/Next.js:
+Crear componente PreclassificationEngine que ejecute las reglas de inferencia.
+Crear componente ConfidenceCalculator que calcule el nivel de confianza.
+Crear componente QuestionDispatcher que dispare preguntas ligeras según lógica.
+Crear componente EvidenceBundler que consolide la evidencia para transducción causal.
+Crear tabla scene_light_inferences en Supabase para persistencia de preclasificación, incluyendo:- función VSM predominante- señal AHE complementaria- nivel de confianza- razonamiento de inferencia- correcciones del usuario separadas de la evidencia original
+Para Motor de Tensiones:
+Usar preclassification_mission_suggested como input para activar reglas de transducción.
+Usar confidence_level para determinar si un nodo requiere auditoría adicional.
+Usar evidence_bundle_for_transduction como contexto para recorrer caminos de inevitabilidad.
+Nota epistemológica:La preclasificación de Bloque 7 no reemplaza la evidencia ni la narrativa diagnóstica final. Su función es estabilizar una lectura preliminar suficiente para la transducción causal, manteniendo separadas:1. la evidencia capturada,2. la inferencia automática,3. la microconfirmación del usuario,4. y la interpretación experta posterior.

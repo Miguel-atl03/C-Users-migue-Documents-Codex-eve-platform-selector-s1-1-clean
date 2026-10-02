@@ -1,0 +1,3533 @@
+{
+  "chip_id": "EVE-00-METHOD-KERNEL",
+  "chip_name": "00_method_kernel",
+  "version": "0.2.0",
+  "status": "corrected_platform_source_scope",
+  "language": "es-MX",
+  "generated_at": "2026-06-17T21:22:03Z",
+  "purpose": "Kernel metodologico MMABP para validar conformance y consistencia de PM, MoC, PF y OLC antes de cualquier diagnostico, salida estructural o consumo runtime.",
+  "authority": {
+    "type": "platform_rector_chip",
+    "stage": "00_method_kernel",
+    "primary_source": "D1 - Fundamentals of Business Architecture Modeling.pdf",
+    "compatibility_boundary_sources": [
+      "D4 - EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "D5 - Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx"
+    ],
+    "excluded_from_this_chip": [
+      "D2 - Tabla de Diagnostico de Inconsistencias Estructurales EVE.docx",
+      "D3 - EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+      "D6 - Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "D7 - Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+      "D8 - EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx"
+    ],
+    "assistant_internal_documents_excluded": [
+      "Instrucciones actualizadas para GPT personalizado.docx",
+      "Instrucciones_Maestras_y_Exhaustivas_para_IA_Arquitectura_Minima_de_Negocio_MMABP_y_Diagnostico_EVE.docx"
+    ],
+    "boundary_status": {
+      "D5": {
+        "status": "D5_BOUNDARY_VERIFIED",
+        "declared_source": "D5 - Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "declared_docx_found_in_repo": true,
+        "verified_source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "verified_as_boundary_source": true,
+        "role": "Runtime boundary source; does not redefine MMABP and does not replace D1",
+        "fnd_007_fnd_008_scope": "D4/D5 compatibility boundary only; not Runtime 40/20 gate implementations"
+      }
+    }
+  },
+  "runtime_boundary": {
+    "does": "valida metodo, conformance, consistencia y readiness metodologico",
+    "does_not": "no diagnostica patologias EVE, no produce IR, no exporta registry, no ejecuta Produccion Paralela, no reemplaza Runtime catalog, no reemplaza WorkMap, no decide seleccion primaria, no reemplaza B0, no bloquea UI directa antes de evidencia suficiente y no actua como Runtime readiness/reentry gate",
+    "allowed_states": [
+      "ready",
+      "ready_with_flags",
+      "blocked_by_missing_evidence",
+      "blocked_by_contradiction",
+      "manual_review_required",
+      "reentry_required"
+    ]
+  },
+  "model_quadrants": [
+    {
+      "model": "PM",
+      "name": "Process Map",
+      "view": "System View",
+      "category": "Acting",
+      "function": "intencion global, sincronizaciones y dependencias entre procesos"
+    },
+    {
+      "model": "MoC",
+      "name": "Model of Concepts",
+      "view": "System View",
+      "category": "Being",
+      "function": "ontologia de clases, relaciones, atributos, operaciones y reglas conceptuales"
+    },
+    {
+      "model": "PF",
+      "name": "Process Flow",
+      "view": "Detailed View",
+      "category": "Acting",
+      "function": "algoritmia detallada del proceso, eventos, tareas, estados de proceso y fines"
+    },
+    {
+      "model": "OLC",
+      "name": "Object Life Cycle",
+      "view": "Detailed View",
+      "category": "Being",
+      "function": "causalidad de un objeto: estados, transiciones, eventos y operaciones"
+    }
+  ],
+  "readiness_states": [
+    "ready",
+    "ready_with_flags",
+    "blocked_by_missing_evidence",
+    "blocked_by_contradiction",
+    "manual_review_required",
+    "reentry_required"
+  ],
+  "runtime_boundary_notes": [
+    "blocked_by_missing_canonical_route is a Runtime boundary concern, not an operative Method Kernel state.",
+    "D5_BOUNDARY_VERIFIED: D5 exists at docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx and is a Runtime boundary source only.",
+    "FND-007 and FND-008 use D4/D5 as compatibility boundary references only; they are not Runtime 40/20 gate implementations."
+  ],
+  "modules": {
+    "fundamentals_mmabp_rules": {
+      "role": "Invariantes metodologicos MMABP, frontera conceptual y orden de validacion.",
+      "rules": [
+        {
+          "id": "FND-001",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Realidad antes que implementacion",
+          "assertion": "El modelo conceptual debe representar la realidad del negocio antes de contaminarse con tecnologia, organigrama o detalles individuales de implementacion.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "real_world_fact",
+            "business_context",
+            "implementation_context_separated"
+          ],
+          "pass_condition": "El artefacto separa realidad del negocio de implementacion organizacional/tecnica.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:1.3.1",
+            "D1:FBA:1.3.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": "Si una regla nace de una herramienta o cargo, no entra como regla MMABP hasta que exista correspondencia factual."
+        },
+        {
+          "id": "FND-002",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Arquitectura minima completa y consistente",
+          "assertion": "La arquitectura minima debe ser pequena en modelos y elementos, pero completa, consistente, entendible y relativamente estable.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "pm_candidate",
+            "moc_candidate",
+            "pf_candidate",
+            "olc_candidate"
+          ],
+          "pass_condition": "Los cuatro modelos existen o hay evidencia explicita de por que un modelo permanece pendiente, sin sustituirlo por otro.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:1.3.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-003",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Cuatro vistas no jerarquicas",
+          "assertion": "PM, MoC, PF y OLC son vistas complementarias de una misma realidad; ninguna vista corrige a otra por autoridad.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "model_inventory",
+            "model_role_mapping"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:1.3.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-004",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Conformance antes que consistencia",
+          "assertion": "Primero se valida si cada modelo representa correctamente la realidad; despues se valida si los modelos no se contradicen entre si.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "conformance_results",
+            "consistency_results"
+          ],
+          "pass_condition": "No existe consistency_check ejecutado sobre modelos sin conformance_result individual.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.1",
+            "D1:FBA:4.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-005",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "No alineacion cosmetica",
+          "assertion": "Ante inconsistencia, no se fuerza un modelo a parecer consistente; se identifica cual representacion contradice la realidad factual y se corrige.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "inconsistency_record",
+            "factual_resolution_decision"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.7"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-006",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Tipos de consistencia",
+          "assertion": "La consistencia debe distinguir hechos, secuencia temporal y estructura; mezclar estos niveles produce falsos positivos.",
+          "severity": "blocker",
+          "check_type": "consistency",
+          "required_evidence": [
+            "factual_consistency_checks",
+            "temporal_consistency_checks",
+            "structural_consistency_checks"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.2",
+            "D1:FBA:4.3",
+            "D1:FBA:4.4",
+            "D1:FBA:4.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-007",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Bloqueo por soporte insuficiente",
+          "assertion": "Si una regla, modelo, estado, evento, clase u operacion no esta sustentada por evidencia factual o fuente metodologica permitida, el kernel debe bloquear o enviar a revision manual.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "source_ref",
+            "evidence_item",
+            "confidence_status"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D4:RUNTIME_TECH:Epistemologia explicita"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-008",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "MMABP antes que salida estructural",
+          "assertion": "Toda salida estructural debe pasar por candidatos, conformance, consistencia y readiness antes de registry, IR, export o consumo por Produccion Paralela.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "structural_candidate_record",
+            "conformance_results",
+            "consistency_results",
+            "readiness_decision"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D4:RUNTIME_TECH:Principios no negociables",
+            "D5:RUNTIME_CATALOG:Contrato de salida"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        }
+      ]
+    },
+    "pm_rules": {
+      "role": "Reglas de conformance para Process Map.",
+      "rules": [
+        {
+          "id": "PM-001",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Trigger y estado objetivo obligatorios",
+          "assertion": "Cada proceso de negocio debe tener al menos un evento disparador y exactamente un estado objetivo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process.triggering_events",
+            "process.target_state"
+          ],
+          "pass_condition": "triggering_events >= 1 y target_state_count == 1.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PM-002",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Nombre orientado al estado objetivo",
+          "assertion": "El proceso se nombra por la actividad que conduce al estado objetivo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process.name",
+            "process.target_state"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PM-003",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Proceso en una sola funcion",
+          "assertion": "Cada proceso pertenece como maximo a una funcion de negocio.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "business_function_membership"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PM-004",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Funciones sin solape",
+          "assertion": "Las funciones de negocio no deben solaparse ni duplicar contenido.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "business_function_definitions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PM-005",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Ciclo E2E desde necesidad hasta satisfaccion",
+          "assertion": "Cada proceso de negocio debe cubrir el ciclo completo desde la expresion de la necesidad del cliente hasta su satisfaccion.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "customer_need",
+            "customer_satisfaction_state",
+            "e2e_scope"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PM-006",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Outsourcing visible, no detallado",
+          "assertion": "Los procesos tercerizados se incluyen en el Process Map, pero no se describen en detalle dentro del sistema modelado.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "outsourced_processes"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PM-007",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Eventos como cambios significativos",
+          "assertion": "Los eventos se nombran como ocurrencia de un cambio significativo en el entorno del proceso: estado de objeto, estado de cosas o paso del tiempo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "event.name",
+            "event.kind"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PM-008",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Estado objetivo como estado de objeto",
+          "assertion": "Los estados objetivo se nombran como estados de un objeto, no como tareas, areas o deseos abstractos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "target_state",
+            "object_state_ref"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PM-009",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Soportes explicitos y recursivos",
+          "assertion": "Si un proceso usa servicios de procesos de soporte, esos soportes deben identificarse; la identificacion continua hasta procesos soporte elementales.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "support_process_links",
+            "support_function"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.5",
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PM-010",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "PM no es PF ni flujo de datos",
+          "assertion": "El Process Map captura sincronizaciones, dependencias e intencion global; no debe convertirse en diagrama de tareas ni flujo de datos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "diagram_elements",
+            "synchronization_patterns"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        }
+      ]
+    },
+    "moc_rules": {
+      "role": "Reglas de conformance para Model of Concepts.",
+      "rules": [
+        {
+          "id": "MOC-001",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Clases nombradas por lo que representan",
+          "assertion": "Toda clase se nombra conforme a lo que representa: generalizacion de objetos especificos o superclase de clases con propiedades comunes.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "class.name",
+            "class.definition"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "MOC-002",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Agregacion/composicion solo real",
+          "assertion": "Aggregation o composition se usa exclusivamente cuando existe agregacion real: un objeto X esta compuesto por objetos Y.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "relationship.kind",
+            "part_whole_evidence"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "MOC-003",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Tipo no es atributo",
+          "assertion": "La clasificacion de objetos en tipos se maneja por especializaciones o roles, no por un atributo 'tipo'.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "classification_basis",
+            "attribute_list",
+            "specialization_list"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "MOC-004",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Sin identificadores artificiales como atributos",
+          "assertion": "La clase no contiene identificadores o llaves artificiales como atributos conceptuales.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "attributes"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "MOC-005",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Atributos y operaciones relevantes",
+          "assertion": "Cada clase se caracteriza por atributos y operaciones relevantes a su contenido conceptual.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "attributes",
+            "operations",
+            "class_definition"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "MOC-006",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Roles correctamente modelados",
+          "assertion": "Si un objeto puede actuar en multiples roles simultaneos, se capturan roles en asociaciones; si los roles tienen atributos, se usa patron de especializaciones agregadas.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "role_evidence",
+            "role_attributes",
+            "association_roles"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "MOC-007",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Operaciones basadas en evidencia",
+          "assertion": "Las operaciones de clase se especifican desde evidencia, especialmente OLC del objeto y atributos/asociaciones del propio MoC.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "operation_source",
+            "olc_transition_ref",
+            "attribute_or_association_ref"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "MOC-008",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Generalizacion dinamica desde OLC",
+          "assertion": "Los estados del OLC se capturan en MoC como especializaciones con estereotipos phase para estados y end para pseudoestados finales.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "olc_states",
+            "dynamic_generalization",
+            "stereotype"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "MOC-009",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Relacion 1:N exige operaciones iterativas",
+          "assertion": "Una relacion 1:N requiere operaciones que permitan adicion y remocion iterativa de elementos del contenedor.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "relationship_multiplicity",
+            "add_operation",
+            "remove_operation"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "MOC-010",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "MoC no es base de datos",
+          "assertion": "El Model of Concepts representa clases reales y relaciones conceptuales; no debe reducirse a tabla, ID tecnico o esquema de persistencia.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "conceptual_class_evidence",
+            "technical_schema_noise"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        }
+      ]
+    },
+    "pf_rules": {
+      "role": "Reglas de conformance para Process Flow.",
+      "rules": [
+        {
+          "id": "PF-001",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Solo actividades intencionales del negocio modelado",
+          "assertion": "El PF contiene solo actividades intencionales del negocio modelado; actos del cliente, procesos tercerizados o entorno se representan como eventos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "activity_origin",
+            "event_origin"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-002",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Una tarea produce un estado de objeto",
+          "assertion": "Cada tarea se asigna a un solo estado de objeto que representa la meta de la tarea; si tiene metas alternativas, todas deben enumerarse.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "task",
+            "resulting_object_state"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-003",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Sincronizacion como Process State",
+          "assertion": "La sincronizacion con eventos del entorno se captura como Process State donde el proceso espera eventos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process_state",
+            "awaited_events"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-004",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Soporte conectado por sincronizacion",
+          "assertion": "La conexion entre proceso soportado y soporte se captura en el detalle del proceso soportado como Process State que sincroniza mediante eventos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "support_process_ref",
+            "supported_process_state",
+            "sync_event"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-005",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Gates AND OR XOR por logica",
+          "assertion": "AND, OR y XOR se usan conforme a su significado logico, incluyendo combinaciones validas de split y merge.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "gateway_type",
+            "gateway_condition"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-006",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Todo Process State con evento de tiempo",
+          "assertion": "Cuando se esperan eventos ad hoc, se debe manejar la posibilidad de que no ocurran mediante evento de tiempo o deadline.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process_state",
+            "timeout_event",
+            "deadline"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6",
+            "D5:RUNTIME_CATALOG:Process_State_Timer_Gates"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-007",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Evento nombrado como cambio externo",
+          "assertion": "El nombre del evento describe de forma breve y objetiva un cambio ocurrido fuera del proceso modelado.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "event.name",
+            "event.source"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-008",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Tareas nombradas como acciones hacia estado",
+          "assertion": "Las tareas se nombran como acciones que conducen al estado resultante del objeto asociado.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "task.name",
+            "resulting_object_state"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-009",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Condiciones completas de decision",
+          "assertion": "Para cada decision se listan las condiciones de todos los caminos posibles.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "decision_node",
+            "path_conditions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-010",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Split y merge solo con gates",
+          "assertion": "Cada division y union de flujo se modela usando gates, no otro mecanismo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "split_merge_element",
+            "gateway_type"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-011",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Inicio por trigger y fin por process ends",
+          "assertion": "Cada proceso inicia con evento disparador o conjunto logico de eventos y todos los flujos terminan en process ends.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "trigger_events",
+            "process_ends"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-012",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Detalle de process step cerrado",
+          "assertion": "Cada detalle de process step inicia con start point y todos sus flujos terminan con fin del process step.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process_step_detail",
+            "start_point",
+            "step_end"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-013",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Condiciones post-step coherentes",
+          "assertion": "Las condiciones de la decision posterior al process step deben corresponder con el detalle del process step.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "step_detail_outcomes",
+            "post_step_decision_conditions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-014",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "El detalle de tarea no espera entorno",
+          "assertion": "El detalle del process step no captura sincronizacion con el entorno mediante Process State.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process_step_detail",
+            "awaiting_state"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-015",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Normalizacion revela soportes ocultos",
+          "assertion": "La normalizacion del PF puede revelar procesos de soporte ocultos; si ocurre, se corrigen tanto PM como PF.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "normalization_result",
+            "hidden_support_process"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.5",
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "PF-016",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "PF sin contaminación organizacional",
+          "assertion": "El Process Flow debe modelar la algoritmia del proceso y su contexto de tarea; roles, cargos o carriles organizacionales no deben sustituir eventos, tareas, Process States ni objetos de datos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "diagram_structure",
+            "task_context",
+            "organizational_context_separated"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.3",
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        }
+      ]
+    },
+    "olc_rules": {
+      "role": "Reglas de conformance para Object Life Cycle.",
+      "rules": [
+        {
+          "id": "OLC-001",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Vida completa del objeto",
+          "assertion": "El OLC cubre todas las variaciones de la vida completa de un objeto, desde creacion hasta terminacion.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "object_class",
+            "initial_state",
+            "final_states",
+            "state_variants"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-002",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Estados relevantes completos",
+          "assertion": "El OLC captura todos los estados relevantes por los que un objeto de una clase puede pasar durante su vida.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "object_states",
+            "state_evidence"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-003",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Un solo objeto por ciclo",
+          "assertion": "Los estados se nombran como estados del objeto unico cuyo ciclo se modela; no se mezclan estados de otros objetos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "object_class",
+            "state_names"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-004",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Transicion con razon y operacion",
+          "assertion": "Todas las transiciones tienen razon de transicion y operacion, donde la operacion es propiedad del objeto.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "transition.reason",
+            "transition.operation",
+            "class.operations"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-005",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Razon como evento o expresion logica",
+          "assertion": "La razon de transicion es un evento o combinacion logica de eventos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "transition.reason",
+            "event_expression"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-006",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Un comienzo",
+          "assertion": "El ciclo de vida de un objeto tiene un solo comienzo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "initial_pseudostate"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-007",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Al menos un pseudoestado final",
+          "assertion": "El ciclo de vida de un objeto tiene al menos un pseudoestado final.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "final_pseudostates"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-008",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Dos salidas por estado interno",
+          "assertion": "Desde cada estado no final debe haber al menos dos transiciones salientes.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "state.outgoing_transitions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-009",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Al menos una salida garantizada",
+          "assertion": "Para cada estado no final, al menos una transicion hacia otro estado debe estar garantizada a ocurrir.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "state.outgoing_transitions",
+            "guaranteed_transition"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-010",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "No limitar al sistema electronico",
+          "assertion": "El OLC debe capturar la vida completa de la entidad, no solo su reflejo en un sistema de informacion.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "real_world_lifecycle_scope",
+            "it_scope_boundary"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-011",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Sin branching/merging symbols",
+          "assertion": "No se usan simbolos de branching/merging para partir transiciones; solo transiciones directas entre estados.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "transition_structure"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-012",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Causa externa o paso del tiempo",
+          "assertion": "La razon de una transicion debe ser un cambio en otro objeto/estado de cosas o el paso del tiempo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "transition.reason",
+            "external_event_or_time"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-013",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Operacion existente en clase",
+          "assertion": "La operacion especificada en la transicion debe existir como propiedad de la clase modelada.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "transition.operation",
+            "class.operation_list"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3",
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-014",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "No fusionar ciclos de clases distintas",
+          "assertion": "No se deben fusionar ciclos de vida de objetos de clases distintas en un solo OLC; el paralelismo puede revelar otro objeto.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "object_class",
+            "state_ownership"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-015",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "1:N reflejado como ciclo iterativo",
+          "assertion": "Cada relacion 1:N del MoC debe tener representacion iterativa en el OLC del objeto correspondiente.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "moc_relationship_multiplicity",
+            "olc_iteration_cycle"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3",
+            "D1:FBA:4.5.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-016",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Operacion ausente no permitida",
+          "assertion": "Las transiciones indican cuando una operacion puede ejecutarse; si no aparece en transiciones desde un estado, no esta permitida en ese estado.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "state",
+            "allowed_operations",
+            "transition.operation"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "OLC-017",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Cambios de atributos/enlaces deben estar en OLC",
+          "assertion": "Los cambios relevantes de atributos o relaciones del objeto deben estar cubiertos por transiciones del OLC, aunque no cambien el estado fundamental.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "attribute_change_operation",
+            "association_change_operation",
+            "transition_or_self_loop"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        }
+      ]
+    },
+    "consistency_rules": {
+      "role": "Reglas de consistencia factual, temporal, estructural y compuesta entre PM, MoC, PF y OLC.",
+      "rules": [
+        {
+          "id": "CONS-001",
+          "module": "consistency_rules",
+          "model": "PM↔MoC",
+          "label": "PM-MoC factual",
+          "assertion": "Los procesos y estados objetivo del PM deben referirse a objetos, estados y conceptos existentes o justificables en el MoC.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "pm.processes",
+            "pm.target_states",
+            "moc.classes",
+            "moc.phases"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.1"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-002",
+          "module": "consistency_rules",
+          "model": "PM↔PF",
+          "label": "PM-PF factual",
+          "assertion": "El PF de un proceso debe respetar los disparadores, fines/target states y relaciones de soporte declaradas en el PM.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "pm.triggering_events",
+            "pm.target_states",
+            "pf.triggering_events",
+            "pf.process_ends",
+            "support_sync"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.2",
+            "D1:FBA:4.8"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-003",
+          "module": "consistency_rules",
+          "model": "MoC↔PF",
+          "label": "MoC-PF factual",
+          "assertion": "El PF debe manipular objetos, estados y operaciones coherentes con las clases y propiedades definidas en el MoC.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "pf.task_object_states",
+            "moc.classes",
+            "moc.operations"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-004",
+          "module": "consistency_rules",
+          "model": "PF↔PF",
+          "label": "PF-PF factual",
+          "assertion": "Procesos que se sincronizan entre si deben usar eventos y estados compatibles entre el proceso soportado y el proceso soporte.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "support_process_trigger",
+            "supported_process_state",
+            "sync_events"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.4",
+            "D1:FBA:4.8"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-005",
+          "module": "consistency_rules",
+          "model": "PF↔OLC",
+          "label": "PF-OLC factual",
+          "assertion": "Los estados resultantes de tareas y las operaciones invocadas en PF deben existir y ser permitidas por el OLC correspondiente.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "pf.task_state",
+            "pf.action",
+            "olc.states",
+            "olc.transitions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.5",
+            "D1:FBA:4.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-006",
+          "module": "consistency_rules",
+          "model": "OLC↔MoC",
+          "label": "OLC-MoC factual",
+          "assertion": "El OLC debe usar atributos, relaciones, operaciones y estados que existan o esten reflejados en el MoC.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "olc.transition_reason",
+            "olc.operation",
+            "moc.attributes",
+            "moc.relationships",
+            "moc.operations"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.6",
+            "D1:FBA:4.5.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-007",
+          "module": "consistency_rules",
+          "model": "OLC↔OLC",
+          "label": "OLC-OLC factual",
+          "assertion": "Si una transicion OLC refiere el estado de otro objeto, ese estado debe existir en el OLC del objeto referenciado.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "olc.transition_reason_ref",
+            "referenced_olc.states"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.7"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-008",
+          "module": "consistency_rules",
+          "model": "PF↔OLC",
+          "label": "PF-OLC temporal",
+          "assertion": "La secuencia de estados impuesta por el PF no puede contradecir la secuencia causal definida en el OLC.",
+          "severity": "blocker",
+          "check_type": "temporal_consistency",
+          "required_evidence": [
+            "pf.event_action_state_sequence",
+            "olc.event_action_state_sequence"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-009",
+          "module": "consistency_rules",
+          "model": "PF↔OLC",
+          "label": "Tabla event/reason-action-state",
+          "assertion": "La evaluacion temporal debe comparar la sucesion event/reason -> action -> state entre PF y OLC.",
+          "severity": "blocker",
+          "check_type": "temporal_consistency",
+          "required_evidence": [
+            "consistency_table_rows"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-010",
+          "module": "consistency_rules",
+          "model": "PF↔OLC",
+          "label": "Alternativas PF-OLC",
+          "assertion": "Los estados de un objeto capturados como alternativas en PF deben ser alternativas en su OLC, y viceversa.",
+          "severity": "blocker",
+          "check_type": "structural_consistency",
+          "required_evidence": [
+            "pf.alternative_states",
+            "olc.alternative_states"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.5.1"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-011",
+          "module": "consistency_rules",
+          "model": "MoC↔OLC",
+          "label": "Multiplicidad MoC-OLC",
+          "assertion": "Cada asociacion 1:N del MoC debe reflejarse como ciclo iterativo en el OLC del objeto correspondiente.",
+          "severity": "blocker",
+          "check_type": "structural_consistency",
+          "required_evidence": [
+            "moc.multiplicity",
+            "olc.iteration_cycle"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.5.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-012",
+          "module": "consistency_rules",
+          "model": "MoC↔OLC",
+          "label": "Operaciones MoC-OLC",
+          "assertion": "Los cambios de atributos y relaciones definidos en MoC deben estar cubiertos por operaciones y transiciones del OLC.",
+          "severity": "blocker",
+          "check_type": "structural_consistency",
+          "required_evidence": [
+            "moc.attributes",
+            "moc.relationships",
+            "moc.operations",
+            "olc.transitions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.5.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-013",
+          "module": "consistency_rules",
+          "model": "PM↔MoC↔PF",
+          "label": "Consistencia compuesta PM-MoC-PF",
+          "assertion": "PM, MoC y PF deben contar la misma historia factual: proceso declarado, objetos definidos y ejecucion detallada no se contradicen.",
+          "severity": "blocker",
+          "check_type": "composite_consistency",
+          "required_evidence": [
+            "pm",
+            "moc",
+            "pf"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.7"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-014",
+          "module": "consistency_rules",
+          "model": "PM↔PF↔OLC",
+          "label": "Consistencia compuesta PM-PF-OLC",
+          "assertion": "La intencion del proceso, su ejecucion y la causalidad de los objetos deben ser temporalmente posibles.",
+          "severity": "blocker",
+          "check_type": "composite_consistency",
+          "required_evidence": [
+            "pm.target_state",
+            "pf.sequence",
+            "olc.sequence"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "CONS-015",
+          "module": "consistency_rules",
+          "model": "PM↔MoC↔PF↔OLC",
+          "label": "Consistencia total PM-MoC-PF-OLC",
+          "assertion": "Las cuatro vistas deben formar un unico modelo de sistema de negocio sin contradicciones factuales, temporales ni estructurales.",
+          "severity": "blocker",
+          "check_type": "composite_consistency",
+          "required_evidence": [
+            "pm",
+            "moc",
+            "pf",
+            "olc",
+            "consistency_results"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.7"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        }
+      ]
+    }
+  },
+  "rule_index_count": 76,
+  "rule_index": [
+    {
+      "id": "FND-001",
+      "module": "fundamentals_mmabp_rules",
+      "model": null,
+      "label": "Realidad antes que implementacion",
+      "assertion": "El modelo conceptual debe representar la realidad del negocio antes de contaminarse con tecnologia, organigrama o detalles individuales de implementacion.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "real_world_fact",
+        "business_context",
+        "implementation_context_separated"
+      ],
+      "pass_condition": "El artefacto separa realidad del negocio de implementacion organizacional/tecnica.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:1.3.1",
+        "D1:FBA:1.3.3"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": "Si una regla nace de una herramienta o cargo, no entra como regla MMABP hasta que exista correspondencia factual."
+    },
+    {
+      "id": "FND-002",
+      "module": "fundamentals_mmabp_rules",
+      "model": null,
+      "label": "Arquitectura minima completa y consistente",
+      "assertion": "La arquitectura minima debe ser pequena en modelos y elementos, pero completa, consistente, entendible y relativamente estable.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "pm_candidate",
+        "moc_candidate",
+        "pf_candidate",
+        "olc_candidate"
+      ],
+      "pass_condition": "Los cuatro modelos existen o hay evidencia explicita de por que un modelo permanece pendiente, sin sustituirlo por otro.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:1.3.3"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "FND-003",
+      "module": "fundamentals_mmabp_rules",
+      "model": null,
+      "label": "Cuatro vistas no jerarquicas",
+      "assertion": "PM, MoC, PF y OLC son vistas complementarias de una misma realidad; ninguna vista corrige a otra por autoridad.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "model_inventory",
+        "model_role_mapping"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:1.3.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "FND-004",
+      "module": "fundamentals_mmabp_rules",
+      "model": null,
+      "label": "Conformance antes que consistencia",
+      "assertion": "Primero se valida si cada modelo representa correctamente la realidad; despues se valida si los modelos no se contradicen entre si.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "conformance_results",
+        "consistency_results"
+      ],
+      "pass_condition": "No existe consistency_check ejecutado sobre modelos sin conformance_result individual.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.1",
+        "D1:FBA:4.2"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "FND-005",
+      "module": "fundamentals_mmabp_rules",
+      "model": null,
+      "label": "No alineacion cosmetica",
+      "assertion": "Ante inconsistencia, no se fuerza un modelo a parecer consistente; se identifica cual representacion contradice la realidad factual y se corrige.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "inconsistency_record",
+        "factual_resolution_decision"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.7"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "FND-006",
+      "module": "fundamentals_mmabp_rules",
+      "model": null,
+      "label": "Tipos de consistencia",
+      "assertion": "La consistencia debe distinguir hechos, secuencia temporal y estructura; mezclar estos niveles produce falsos positivos.",
+      "severity": "blocker",
+      "check_type": "consistency",
+      "required_evidence": [
+        "factual_consistency_checks",
+        "temporal_consistency_checks",
+        "structural_consistency_checks"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.2",
+        "D1:FBA:4.3",
+        "D1:FBA:4.4",
+        "D1:FBA:4.5"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "FND-007",
+      "module": "fundamentals_mmabp_rules",
+      "model": null,
+      "label": "Bloqueo por soporte insuficiente",
+      "assertion": "Si una regla, modelo, estado, evento, clase u operacion no esta sustentada por evidencia factual o fuente metodologica permitida, el kernel debe bloquear o enviar a revision manual.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "source_ref",
+        "evidence_item",
+        "confidence_status"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "manual_review_required",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D4:RUNTIME_TECH:Epistemologia explicita"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "FND-008",
+      "module": "fundamentals_mmabp_rules",
+      "model": null,
+      "label": "MMABP antes que salida estructural",
+      "assertion": "Toda salida estructural debe pasar por candidatos, conformance, consistencia y readiness antes de registry, IR, export o consumo por Produccion Paralela.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "structural_candidate_record",
+        "conformance_results",
+        "consistency_results",
+        "readiness_decision"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D4:RUNTIME_TECH:Principios no negociables",
+        "D5:RUNTIME_CATALOG:Contrato de salida"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PM-001",
+      "module": "pm_rules",
+      "model": "PM",
+      "label": "Trigger y estado objetivo obligatorios",
+      "assertion": "Cada proceso de negocio debe tener al menos un evento disparador y exactamente un estado objetivo.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "process.triggering_events",
+        "process.target_state"
+      ],
+      "pass_condition": "triggering_events >= 1 y target_state_count == 1.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.2.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PM-002",
+      "module": "pm_rules",
+      "model": "PM",
+      "label": "Nombre orientado al estado objetivo",
+      "assertion": "El proceso se nombra por la actividad que conduce al estado objetivo.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "process.name",
+        "process.target_state"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.2.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PM-003",
+      "module": "pm_rules",
+      "model": "PM",
+      "label": "Proceso en una sola funcion",
+      "assertion": "Cada proceso pertenece como maximo a una funcion de negocio.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "business_function_membership"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.2.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PM-004",
+      "module": "pm_rules",
+      "model": "PM",
+      "label": "Funciones sin solape",
+      "assertion": "Las funciones de negocio no deben solaparse ni duplicar contenido.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "business_function_definitions"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.2.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PM-005",
+      "module": "pm_rules",
+      "model": "PM",
+      "label": "Ciclo E2E desde necesidad hasta satisfaccion",
+      "assertion": "Cada proceso de negocio debe cubrir el ciclo completo desde la expresion de la necesidad del cliente hasta su satisfaccion.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "customer_need",
+        "customer_satisfaction_state",
+        "e2e_scope"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.2.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PM-006",
+      "module": "pm_rules",
+      "model": "PM",
+      "label": "Outsourcing visible, no detallado",
+      "assertion": "Los procesos tercerizados se incluyen en el Process Map, pero no se describen en detalle dentro del sistema modelado.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "outsourced_processes"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.2.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PM-007",
+      "module": "pm_rules",
+      "model": "PM",
+      "label": "Eventos como cambios significativos",
+      "assertion": "Los eventos se nombran como ocurrencia de un cambio significativo en el entorno del proceso: estado de objeto, estado de cosas o paso del tiempo.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "event.name",
+        "event.kind"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.2.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PM-008",
+      "module": "pm_rules",
+      "model": "PM",
+      "label": "Estado objetivo como estado de objeto",
+      "assertion": "Los estados objetivo se nombran como estados de un objeto, no como tareas, areas o deseos abstractos.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "target_state",
+        "object_state_ref"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.2.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PM-009",
+      "module": "pm_rules",
+      "model": "PM",
+      "label": "Soportes explicitos y recursivos",
+      "assertion": "Si un proceso usa servicios de procesos de soporte, esos soportes deben identificarse; la identificacion continua hasta procesos soporte elementales.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "support_process_links",
+        "support_function"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.2.5",
+        "D1:FBA:2.2.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PM-010",
+      "module": "pm_rules",
+      "model": "PM",
+      "label": "PM no es PF ni flujo de datos",
+      "assertion": "El Process Map captura sincronizaciones, dependencias e intencion global; no debe convertirse en diagrama de tareas ni flujo de datos.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "diagram_elements",
+        "synchronization_patterns"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.2"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "MOC-001",
+      "module": "moc_rules",
+      "model": "MoC",
+      "label": "Clases nombradas por lo que representan",
+      "assertion": "Toda clase se nombra conforme a lo que representa: generalizacion de objetos especificos o superclase de clases con propiedades comunes.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "class.name",
+        "class.definition"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.1.5"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "MOC-002",
+      "module": "moc_rules",
+      "model": "MoC",
+      "label": "Agregacion/composicion solo real",
+      "assertion": "Aggregation o composition se usa exclusivamente cuando existe agregacion real: un objeto X esta compuesto por objetos Y.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "relationship.kind",
+        "part_whole_evidence"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.1.5"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "MOC-003",
+      "module": "moc_rules",
+      "model": "MoC",
+      "label": "Tipo no es atributo",
+      "assertion": "La clasificacion de objetos en tipos se maneja por especializaciones o roles, no por un atributo 'tipo'.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "classification_basis",
+        "attribute_list",
+        "specialization_list"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.1.5"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "MOC-004",
+      "module": "moc_rules",
+      "model": "MoC",
+      "label": "Sin identificadores artificiales como atributos",
+      "assertion": "La clase no contiene identificadores o llaves artificiales como atributos conceptuales.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "attributes"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.1.5"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "MOC-005",
+      "module": "moc_rules",
+      "model": "MoC",
+      "label": "Atributos y operaciones relevantes",
+      "assertion": "Cada clase se caracteriza por atributos y operaciones relevantes a su contenido conceptual.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "attributes",
+        "operations",
+        "class_definition"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.1.5"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "MOC-006",
+      "module": "moc_rules",
+      "model": "MoC",
+      "label": "Roles correctamente modelados",
+      "assertion": "Si un objeto puede actuar en multiples roles simultaneos, se capturan roles en asociaciones; si los roles tienen atributos, se usa patron de especializaciones agregadas.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "role_evidence",
+        "role_attributes",
+        "association_roles"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.1.5"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "MOC-007",
+      "module": "moc_rules",
+      "model": "MoC",
+      "label": "Operaciones basadas en evidencia",
+      "assertion": "Las operaciones de clase se especifican desde evidencia, especialmente OLC del objeto y atributos/asociaciones del propio MoC.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "operation_source",
+        "olc_transition_ref",
+        "attribute_or_association_ref"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.1.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "MOC-008",
+      "module": "moc_rules",
+      "model": "MoC",
+      "label": "Generalizacion dinamica desde OLC",
+      "assertion": "Los estados del OLC se capturan en MoC como especializaciones con estereotipos phase para estados y end para pseudoestados finales.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "olc_states",
+        "dynamic_generalization",
+        "stereotype"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.1.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "MOC-009",
+      "module": "moc_rules",
+      "model": "MoC",
+      "label": "Relacion 1:N exige operaciones iterativas",
+      "assertion": "Una relacion 1:N requiere operaciones que permitan adicion y remocion iterativa de elementos del contenedor.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "relationship_multiplicity",
+        "add_operation",
+        "remove_operation"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.1.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "MOC-010",
+      "module": "moc_rules",
+      "model": "MoC",
+      "label": "MoC no es base de datos",
+      "assertion": "El Model of Concepts representa clases reales y relaciones conceptuales; no debe reducirse a tabla, ID tecnico o esquema de persistencia.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "conceptual_class_evidence",
+        "technical_schema_noise"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.1"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-001",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Solo actividades intencionales del negocio modelado",
+      "assertion": "El PF contiene solo actividades intencionales del negocio modelado; actos del cliente, procesos tercerizados o entorno se representan como eventos.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "activity_origin",
+        "event_origin"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-002",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Una tarea produce un estado de objeto",
+      "assertion": "Cada tarea se asigna a un solo estado de objeto que representa la meta de la tarea; si tiene metas alternativas, todas deben enumerarse.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "task",
+        "resulting_object_state"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-003",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Sincronizacion como Process State",
+      "assertion": "La sincronizacion con eventos del entorno se captura como Process State donde el proceso espera eventos.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "process_state",
+        "awaited_events"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-004",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Soporte conectado por sincronizacion",
+      "assertion": "La conexion entre proceso soportado y soporte se captura en el detalle del proceso soportado como Process State que sincroniza mediante eventos.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "support_process_ref",
+        "supported_process_state",
+        "sync_event"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-005",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Gates AND OR XOR por logica",
+      "assertion": "AND, OR y XOR se usan conforme a su significado logico, incluyendo combinaciones validas de split y merge.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "gateway_type",
+        "gateway_condition"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-006",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Todo Process State con evento de tiempo",
+      "assertion": "Cuando se esperan eventos ad hoc, se debe manejar la posibilidad de que no ocurran mediante evento de tiempo o deadline.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "process_state",
+        "timeout_event",
+        "deadline"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6",
+        "D5:RUNTIME_CATALOG:Process_State_Timer_Gates"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-007",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Evento nombrado como cambio externo",
+      "assertion": "El nombre del evento describe de forma breve y objetiva un cambio ocurrido fuera del proceso modelado.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "event.name",
+        "event.source"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-008",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Tareas nombradas como acciones hacia estado",
+      "assertion": "Las tareas se nombran como acciones que conducen al estado resultante del objeto asociado.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "task.name",
+        "resulting_object_state"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-009",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Condiciones completas de decision",
+      "assertion": "Para cada decision se listan las condiciones de todos los caminos posibles.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "decision_node",
+        "path_conditions"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-010",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Split y merge solo con gates",
+      "assertion": "Cada division y union de flujo se modela usando gates, no otro mecanismo.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "split_merge_element",
+        "gateway_type"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-011",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Inicio por trigger y fin por process ends",
+      "assertion": "Cada proceso inicia con evento disparador o conjunto logico de eventos y todos los flujos terminan en process ends.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "trigger_events",
+        "process_ends"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-012",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Detalle de process step cerrado",
+      "assertion": "Cada detalle de process step inicia con start point y todos sus flujos terminan con fin del process step.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "process_step_detail",
+        "start_point",
+        "step_end"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-013",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Condiciones post-step coherentes",
+      "assertion": "Las condiciones de la decision posterior al process step deben corresponder con el detalle del process step.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "step_detail_outcomes",
+        "post_step_decision_conditions"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-014",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "El detalle de tarea no espera entorno",
+      "assertion": "El detalle del process step no captura sincronizacion con el entorno mediante Process State.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "process_step_detail",
+        "awaiting_state"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-015",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "Normalizacion revela soportes ocultos",
+      "assertion": "La normalizacion del PF puede revelar procesos de soporte ocultos; si ocurre, se corrigen tanto PM como PF.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "normalization_result",
+        "hidden_support_process"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.5",
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "PF-016",
+      "module": "pf_rules",
+      "model": "PF",
+      "label": "PF sin contaminación organizacional",
+      "assertion": "El Process Flow debe modelar la algoritmia del proceso y su contexto de tarea; roles, cargos o carriles organizacionales no deben sustituir eventos, tareas, Process States ni objetos de datos.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "diagram_structure",
+        "task_context",
+        "organizational_context_separated"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:2.3.3",
+        "D1:FBA:2.3.6"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-001",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Vida completa del objeto",
+      "assertion": "El OLC cubre todas las variaciones de la vida completa de un objeto, desde creacion hasta terminacion.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "object_class",
+        "initial_state",
+        "final_states",
+        "state_variants"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-002",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Estados relevantes completos",
+      "assertion": "El OLC captura todos los estados relevantes por los que un objeto de una clase puede pasar durante su vida.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "object_states",
+        "state_evidence"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-003",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Un solo objeto por ciclo",
+      "assertion": "Los estados se nombran como estados del objeto unico cuyo ciclo se modela; no se mezclan estados de otros objetos.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "object_class",
+        "state_names"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-004",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Transicion con razon y operacion",
+      "assertion": "Todas las transiciones tienen razon de transicion y operacion, donde la operacion es propiedad del objeto.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "transition.reason",
+        "transition.operation",
+        "class.operations"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-005",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Razon como evento o expresion logica",
+      "assertion": "La razon de transicion es un evento o combinacion logica de eventos.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "transition.reason",
+        "event_expression"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-006",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Un comienzo",
+      "assertion": "El ciclo de vida de un objeto tiene un solo comienzo.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "initial_pseudostate"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-007",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Al menos un pseudoestado final",
+      "assertion": "El ciclo de vida de un objeto tiene al menos un pseudoestado final.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "final_pseudostates"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-008",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Dos salidas por estado interno",
+      "assertion": "Desde cada estado no final debe haber al menos dos transiciones salientes.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "state.outgoing_transitions"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-009",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Al menos una salida garantizada",
+      "assertion": "Para cada estado no final, al menos una transicion hacia otro estado debe estar garantizada a ocurrir.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "state.outgoing_transitions",
+        "guaranteed_transition"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-010",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "No limitar al sistema electronico",
+      "assertion": "El OLC debe capturar la vida completa de la entidad, no solo su reflejo en un sistema de informacion.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "real_world_lifecycle_scope",
+        "it_scope_boundary"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.3"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-011",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Sin branching/merging symbols",
+      "assertion": "No se usan simbolos de branching/merging para partir transiciones; solo transiciones directas entre estados.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "transition_structure"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.3"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-012",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Causa externa o paso del tiempo",
+      "assertion": "La razon de una transicion debe ser un cambio en otro objeto/estado de cosas o el paso del tiempo.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "transition.reason",
+        "external_event_or_time"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.3"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-013",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Operacion existente en clase",
+      "assertion": "La operacion especificada en la transicion debe existir como propiedad de la clase modelada.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "transition.operation",
+        "class.operation_list"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.3",
+        "D1:FBA:3.2.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-014",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "No fusionar ciclos de clases distintas",
+      "assertion": "No se deben fusionar ciclos de vida de objetos de clases distintas en un solo OLC; el paralelismo puede revelar otro objeto.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "object_class",
+        "state_ownership"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.3"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-015",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "1:N reflejado como ciclo iterativo",
+      "assertion": "Cada relacion 1:N del MoC debe tener representacion iterativa en el OLC del objeto correspondiente.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "moc_relationship_multiplicity",
+        "olc_iteration_cycle"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.3",
+        "D1:FBA:4.5.2"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-016",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Operacion ausente no permitida",
+      "assertion": "Las transiciones indican cuando una operacion puede ejecutarse; si no aparece en transiciones desde un estado, no esta permitida en ese estado.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "state",
+        "allowed_operations",
+        "transition.operation"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.3"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "OLC-017",
+      "module": "olc_rules",
+      "model": "OLC",
+      "label": "Cambios de atributos/enlaces deben estar en OLC",
+      "assertion": "Los cambios relevantes de atributos o relaciones del objeto deben estar cubiertos por transiciones del OLC, aunque no cambien el estado fundamental.",
+      "severity": "blocker",
+      "check_type": "conformance",
+      "required_evidence": [
+        "attribute_change_operation",
+        "association_change_operation",
+        "transition_or_self_loop"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:3.2.3"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-001",
+      "module": "consistency_rules",
+      "model": "PM↔MoC",
+      "label": "PM-MoC factual",
+      "assertion": "Los procesos y estados objetivo del PM deben referirse a objetos, estados y conceptos existentes o justificables en el MoC.",
+      "severity": "blocker",
+      "check_type": "factual_consistency",
+      "required_evidence": [
+        "pm.processes",
+        "pm.target_states",
+        "moc.classes",
+        "moc.phases"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.3.1"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-002",
+      "module": "consistency_rules",
+      "model": "PM↔PF",
+      "label": "PM-PF factual",
+      "assertion": "El PF de un proceso debe respetar los disparadores, fines/target states y relaciones de soporte declaradas en el PM.",
+      "severity": "blocker",
+      "check_type": "factual_consistency",
+      "required_evidence": [
+        "pm.triggering_events",
+        "pm.target_states",
+        "pf.triggering_events",
+        "pf.process_ends",
+        "support_sync"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.3.2",
+        "D1:FBA:4.8"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-003",
+      "module": "consistency_rules",
+      "model": "MoC↔PF",
+      "label": "MoC-PF factual",
+      "assertion": "El PF debe manipular objetos, estados y operaciones coherentes con las clases y propiedades definidas en el MoC.",
+      "severity": "blocker",
+      "check_type": "factual_consistency",
+      "required_evidence": [
+        "pf.task_object_states",
+        "moc.classes",
+        "moc.operations"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.3.3"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-004",
+      "module": "consistency_rules",
+      "model": "PF↔PF",
+      "label": "PF-PF factual",
+      "assertion": "Procesos que se sincronizan entre si deben usar eventos y estados compatibles entre el proceso soportado y el proceso soporte.",
+      "severity": "blocker",
+      "check_type": "factual_consistency",
+      "required_evidence": [
+        "support_process_trigger",
+        "supported_process_state",
+        "sync_events"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.3.4",
+        "D1:FBA:4.8"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-005",
+      "module": "consistency_rules",
+      "model": "PF↔OLC",
+      "label": "PF-OLC factual",
+      "assertion": "Los estados resultantes de tareas y las operaciones invocadas en PF deben existir y ser permitidas por el OLC correspondiente.",
+      "severity": "blocker",
+      "check_type": "factual_consistency",
+      "required_evidence": [
+        "pf.task_state",
+        "pf.action",
+        "olc.states",
+        "olc.transitions"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.3.5",
+        "D1:FBA:4.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-006",
+      "module": "consistency_rules",
+      "model": "OLC↔MoC",
+      "label": "OLC-MoC factual",
+      "assertion": "El OLC debe usar atributos, relaciones, operaciones y estados que existan o esten reflejados en el MoC.",
+      "severity": "blocker",
+      "check_type": "factual_consistency",
+      "required_evidence": [
+        "olc.transition_reason",
+        "olc.operation",
+        "moc.attributes",
+        "moc.relationships",
+        "moc.operations"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.3.6",
+        "D1:FBA:4.5.2"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-007",
+      "module": "consistency_rules",
+      "model": "OLC↔OLC",
+      "label": "OLC-OLC factual",
+      "assertion": "Si una transicion OLC refiere el estado de otro objeto, ese estado debe existir en el OLC del objeto referenciado.",
+      "severity": "blocker",
+      "check_type": "factual_consistency",
+      "required_evidence": [
+        "olc.transition_reason_ref",
+        "referenced_olc.states"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.3.7"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-008",
+      "module": "consistency_rules",
+      "model": "PF↔OLC",
+      "label": "PF-OLC temporal",
+      "assertion": "La secuencia de estados impuesta por el PF no puede contradecir la secuencia causal definida en el OLC.",
+      "severity": "blocker",
+      "check_type": "temporal_consistency",
+      "required_evidence": [
+        "pf.event_action_state_sequence",
+        "olc.event_action_state_sequence"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-009",
+      "module": "consistency_rules",
+      "model": "PF↔OLC",
+      "label": "Tabla event/reason-action-state",
+      "assertion": "La evaluacion temporal debe comparar la sucesion event/reason -> action -> state entre PF y OLC.",
+      "severity": "blocker",
+      "check_type": "temporal_consistency",
+      "required_evidence": [
+        "consistency_table_rows"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-010",
+      "module": "consistency_rules",
+      "model": "PF↔OLC",
+      "label": "Alternativas PF-OLC",
+      "assertion": "Los estados de un objeto capturados como alternativas en PF deben ser alternativas en su OLC, y viceversa.",
+      "severity": "blocker",
+      "check_type": "structural_consistency",
+      "required_evidence": [
+        "pf.alternative_states",
+        "olc.alternative_states"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.5.1"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-011",
+      "module": "consistency_rules",
+      "model": "MoC↔OLC",
+      "label": "Multiplicidad MoC-OLC",
+      "assertion": "Cada asociacion 1:N del MoC debe reflejarse como ciclo iterativo en el OLC del objeto correspondiente.",
+      "severity": "blocker",
+      "check_type": "structural_consistency",
+      "required_evidence": [
+        "moc.multiplicity",
+        "olc.iteration_cycle"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.5.2"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-012",
+      "module": "consistency_rules",
+      "model": "MoC↔OLC",
+      "label": "Operaciones MoC-OLC",
+      "assertion": "Los cambios de atributos y relaciones definidos en MoC deben estar cubiertos por operaciones y transiciones del OLC.",
+      "severity": "blocker",
+      "check_type": "structural_consistency",
+      "required_evidence": [
+        "moc.attributes",
+        "moc.relationships",
+        "moc.operations",
+        "olc.transitions"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.5.2"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-013",
+      "module": "consistency_rules",
+      "model": "PM↔MoC↔PF",
+      "label": "Consistencia compuesta PM-MoC-PF",
+      "assertion": "PM, MoC y PF deben contar la misma historia factual: proceso declarado, objetos definidos y ejecucion detallada no se contradicen.",
+      "severity": "blocker",
+      "check_type": "composite_consistency",
+      "required_evidence": [
+        "pm",
+        "moc",
+        "pf"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.7"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-014",
+      "module": "consistency_rules",
+      "model": "PM↔PF↔OLC",
+      "label": "Consistencia compuesta PM-PF-OLC",
+      "assertion": "La intencion del proceso, su ejecucion y la causalidad de los objetos deben ser temporalmente posibles.",
+      "severity": "blocker",
+      "check_type": "composite_consistency",
+      "required_evidence": [
+        "pm.target_state",
+        "pf.sequence",
+        "olc.sequence"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.4"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    },
+    {
+      "id": "CONS-015",
+      "module": "consistency_rules",
+      "model": "PM↔MoC↔PF↔OLC",
+      "label": "Consistencia total PM-MoC-PF-OLC",
+      "assertion": "Las cuatro vistas deben formar un unico modelo de sistema de negocio sin contradicciones factuales, temporales ni estructurales.",
+      "severity": "blocker",
+      "check_type": "composite_consistency",
+      "required_evidence": [
+        "pm",
+        "moc",
+        "pf",
+        "olc",
+        "consistency_results"
+      ],
+      "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+      "fail_state": "blocked_by_contradiction",
+      "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+      "source_refs": [
+        "D1:FBA:4.7"
+      ],
+      "eve_pathology_hint": null,
+      "operational_note": null
+    }
+  ],
+  "execution_pipeline": [
+    {
+      "step": 1,
+      "name": "source_authority_check",
+      "input": "claim_or_model_candidate",
+      "output": "source_ok | source_missing"
+    },
+    {
+      "step": 2,
+      "name": "model_inventory_check",
+      "input": "pm/moc/pf/olc candidates",
+      "output": "model_inventory"
+    },
+    {
+      "step": 3,
+      "name": "individual_conformance_gates",
+      "input": "one model + evidence",
+      "output": "conformance_result per model"
+    },
+    {
+      "step": 4,
+      "name": "factual_consistency_gates",
+      "input": "conformant or flagged models",
+      "output": "factual_consistency_result"
+    },
+    {
+      "step": 5,
+      "name": "temporal_consistency_gates",
+      "input": "PF and OLC sequences",
+      "output": "temporal_consistency_result"
+    },
+    {
+      "step": 6,
+      "name": "structural_consistency_gates",
+      "input": "PF/OLC alternatives and MoC/OLC multiplicities",
+      "output": "structural_consistency_result"
+    },
+    {
+      "step": 7,
+      "name": "composite_consistency_gate",
+      "input": "all model results",
+      "output": "architecture_story_result"
+    },
+    {
+      "step": 8,
+      "name": "readiness_decision",
+      "input": "gates + blockers + evidence gaps",
+      "output": "ready | ready_with_flags | blocked | manual_review | reentry"
+    }
+  ],
+  "source_policy": {
+    "rule": "Este chip 00 compila metodo MMABP. No compila instrucciones internas del asistente ni diagnostico patologico EVE.",
+    "allowed_compiled_sources": [
+      "D1"
+    ],
+    "allowed_boundary_sources": [
+      "D4",
+      "D5"
+    ],
+    "forbidden_source_labels": [
+      "internal_instruction_references",
+      "diagnostic_table_references"
+    ],
+    "diagnostic_output": "disabled_in_stage_00",
+    "runtime_output": "methodological_readiness_only_not_runtime_gate",
+    "boundary_notes": [
+      "D5_BOUNDARY_VERIFIED: D5 DOCX exists in repo and was verified as a Runtime boundary source; it does not redefine MMABP and does not replace D1.",
+      "D4 and D5 are compatibility boundary sources only, not methodological sources and not Runtime gate implementations."
+    ]
+  },
+  "change_log": [
+    {
+      "version": "0.2.0",
+      "date": "2026-06-17T21:22:03Z",
+      "changes": [
+        "Excluye documentos internos de instrucciones como fuentes compiladas.",
+        "Elimina referencias a documentos internos del indice de reglas.",
+        "Elimina referencias a la tabla diagnostica y hints patologicos de la etapa 00.",
+        "Conserva D1 como fuente metodologica primaria.",
+        "Mantiene D4 y D5 solo como frontera de compatibilidad runtime/readiness.",
+        "Reafirma que diagnostico EVE inicia en etapa 02, no en 00."
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "date": "2026-06-17T20:21:50",
+      "changes": [
+        "Primera generacion del kernel metodologico."
+      ]
+    }
+  ],
+  "source_registry": {
+    "D1": {
+      "file": "Fundamentals of Business Architecture Modeling.pdf",
+      "role": "Fuente primaria metodologica MMABP",
+      "compiled_in_stage_00": true
+    },
+    "D4": {
+      "file": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "role": "Frontera tecnica de readiness/gates; no redefine MMABP",
+      "compiled_in_stage_00": "boundary_only"
+    },
+    "D5": {
+      "file": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "role": "Frontera normativa Runtime; no redefine MMABP y no reemplaza D1",
+      "compiled_in_stage_00": "boundary_only",
+      "status": "D5_BOUNDARY_VERIFIED",
+      "declared_docx_found_in_repo": true,
+      "verified_source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "verified_as_boundary_source": true,
+      "fnd_007_fnd_008_scope": "D4/D5 como frontera de compatibilidad, no implementacion de gates Runtime"
+    }
+  }
+}

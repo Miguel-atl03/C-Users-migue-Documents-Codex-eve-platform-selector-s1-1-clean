@@ -1,0 +1,119 @@
+{
+  "instruction": "Codex 039-A - Cerrar la frontera gobernada desplegable, sin desplegarla",
+  "classification_final": "public_runtime_catalog_draft_governed_boundary_materialized_not_deployed",
+  "phase": "Fase 2 - Loader Catalogo Runtime",
+  "chip": "EVE-04 Runtime Catalog",
+  "deployed": false,
+  "staging_writes": "none",
+  "production_consulted": "no",
+  "remote_writes": "none",
+  "defects_closed": [
+    {
+      "defect": "boundary_hardcoded_local_disposable",
+      "correction": "targetEnvironment now transmits local_disposable or governed_staging to the CatalogLoader command; production remains blocked",
+      "files": [
+        "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-types.ts",
+        "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-canonical-catalog-draft-loader-types.ts",
+        "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-service.ts"
+      ]
+    },
+    {
+      "defect": "remote_persistence_absent",
+      "correction": "server-side Supabase RPC persistence port materialized through Runtime4020SupabaseRpcCatalogDraftPersistenceAdapter",
+      "files": [
+        "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load-postgres-server-adapter.ts"
+      ]
+    },
+    {
+      "defect": "remote_transaction_candidate_absent",
+      "correction": "single PostgreSQL RPC candidate over the nine authorized tables with draft-only guard, advisory xact lock, idempotent replay and content conflict blocking",
+      "files": [
+        "supabase/migrations/20260805174500_eve_runtime_40_20_governed_draft_load_rpc_candidate_039A.sql",
+        "docs/eve/runtime/materialized/runtime-40-20-governed-draft-load-rpc-candidate-039A.rollback.sql"
+      ]
+    },
+    {
+      "defect": "test_only_local_port",
+      "correction": "local disposable PostgreSQL validation now applies and calls the RPC candidate as service_role and verifies permissions, retry, drift, concurrency and rollback",
+      "files": [
+        "src/services/eve/runtime-40-20/catalog-loader/runtime-40-20-governed-catalog-draft-load.test.mjs"
+      ]
+    }
+  ],
+  "existing_boundary_pattern_reused": {
+    "service_role_server_side": "src/services/eve/official-control-panel/official-control-panel-service-role-client.ts",
+    "authorization_capability": "src/services/eve/platform-authorization/platform-capability-catalog.ts: load_runtime_catalog_draft",
+    "authorization_service": "src/services/eve/platform-authorization/runtime-catalog-draft-load-authorization.ts",
+    "authorization_rpc_and_audit": "src/services/eve/platform-authorization/platform-capability-supabase-adapter.ts and supabase/migrations/20260804113000_eve_platform_runtime_catalog_global_authorization.sql",
+    "postgres_pattern": "SECURITY DEFINER, explicit search_path, revoke public/anon/authenticated, grant execute to service_role"
+  },
+  "rpc_candidate": {
+    "function": "public.eve_runtime_40_20_load_catalog_draft(jsonb)",
+    "helper_function": "public.eve_runtime_40_20_catalog_draft_counts(text)",
+    "tables": [
+      "runtime_catalog_version",
+      "runtime_catalog_artifact_section",
+      "source_node_ref",
+      "runtime_interaction_def",
+      "runtime_interaction_mapping",
+      "runtime_subfield_schema",
+      "runtime_branching_rule",
+      "runtime_epistemic_rule",
+      "runtime_variable_map"
+    ],
+    "status_allowed": "draft",
+    "lock": "pg_advisory_xact_lock(hashtextextended(catalog_version_id, 4020))",
+    "idempotency": "idempotent_replay when existing content and counts match",
+    "conflict_blocker": "blocked_catalog_identity_content_conflict",
+    "activation": "not performed"
+  },
+  "local_rpc_validation": {
+    "status": "passed",
+    "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+    "counts": {
+      "artifact_sections": 33,
+      "source_nodes": 164,
+      "interaction_definitions": 60,
+      "interaction_mappings": 170,
+      "subfields": 57,
+      "branching_rules": 120,
+      "epistemic_rules": 300,
+      "variable_maps": 300,
+      "semantic_total": 720
+    },
+    "exact_retry": "idempotent_replay",
+    "same_count_conflict": "blocked_catalog_identity_content_conflict",
+    "missing_row_conflict": "blocked_catalog_identity_content_conflict",
+    "additional_row_conflict": "blocked_catalog_identity_content_conflict",
+    "concurrency_statuses": [
+      "draft_loaded",
+      "idempotent_replay"
+    ],
+    "anon_execute": "blocked",
+    "authenticated_execute": "blocked",
+    "active_status": "blocked_non_draft_status",
+    "rollback_total": true,
+    "b0_delta": 0
+  },
+  "file_sha256": {
+    "governed_types": "26a63f4cf5b6d5ecb17996e64812276bcdcc3c46e201b388985226d97abf05e7",
+    "governed_service": "6da488f9841b9b743f612ada9aaafdbab8852dba9d1bd9258f3d46638c9dda44",
+    "canonical_types": "fd1e65d833d7d486b4c95f4ca919930d5fb4183f58546082e2eacfaaf1f09141",
+    "server_adapter": "871f7e3e165499759d5cd50eac8e26432c9c652362caff833a0ade87f085954b",
+    "rpc_candidate": "33a79050484f07bc7fc6b820c8df57f25355462095fcf16f25c56403a206f9a7",
+    "rpc_rollback": "86455b24ff430cab482b979e5d3f49243052d68961a3af719c63d3b2971be56b",
+    "test": "03acc4deb7adf0f21a5d446b4b821a9e3aaf5855756936d5b8f004cae124977b"
+  },
+  "next_gap": "staging_schema_and_boundary_deployment_required",
+  "security": {
+    "staging_consulted": "SELECT only",
+    "staging_writes": "none",
+    "production_consulted": "no",
+    "remote_writes": "none",
+    "catalog_activated": "no",
+    "B0_modified": "no",
+    "B1_modified": "no",
+    "Gaby_modified": "no",
+    "commit_created": "no"
+  }
+}

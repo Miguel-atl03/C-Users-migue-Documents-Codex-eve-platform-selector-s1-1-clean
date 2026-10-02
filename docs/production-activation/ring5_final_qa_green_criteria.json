@@ -1,0 +1,116 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING5_FINAL_QA_GREEN_CRITERIA",
+  "generated_at": "2026-07-10T03:50:00.000Z",
+  "authorization_ref": "ring5-authorization-general-production-activation-gate-rerun-20260710",
+  "ring": 5,
+  "ring_name": "general_production_activation_gate",
+  "version": "1.0.0",
+  "qa_green_real_general_created": false,
+  "qa_green_real_general_allowed_at_authorization": false,
+  "criteria_defined_at_authorization": true,
+  "evaluation_requires_ring5_execution_authorization": true,
+  "criteria": [
+    {
+      "id": "R5-QA-01",
+      "criterion": "production_target_explicit_and_bound",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-QA-02",
+      "criterion": "production_target_not_unknown",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-QA-03",
+      "criterion": "ring4_execution_completed_and_no_go_clean_inherited",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "verified_from_ring4r",
+      "actual": true
+    },
+    {
+      "id": "R5-QA-04",
+      "criterion": "rls_security_final_checklist_passed",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-QA-05",
+      "criterion": "observability_slo_green",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-QA-06",
+      "criterion": "incident_response_ready",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-QA-07",
+      "criterion": "rollback_abort_final_checklist_passed",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-QA-08",
+      "criterion": "final_no_go_constraints_clean",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-QA-09",
+      "criterion": "human_s5_operator_final_signoff_recorded",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-QA-10",
+      "criterion": "mba_conformance_inherited_from_ring4",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "verified_from_ring4",
+      "evidence": "docs/production-activation/ring4_mba_conformance_report.json"
+    },
+    {
+      "id": "R5-QA-11",
+      "criterion": "structural_framework_coverage_inherited_from_ring4",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "verified_from_ring4",
+      "evidence": "docs/production-activation/ring4_structural_framework_coverage_report.json"
+    },
+    {
+      "id": "R5-QA-12",
+      "criterion": "diagnosis_export_parallel_policies_honored",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "constrained_blocked_until_separate_authorization"
+    },
+    {
+      "id": "R5-QA-13",
+      "criterion": "no_unrestricted_production_activation_without_all_criteria",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "enforced"
+    }
+  ],
+  "qa_green_real_general_requires": [
+    "all_blocking_criteria_passed",
+    "explicit_production_target_bound",
+    "human_s5_operator_final_signoff",
+    "separate_ring5_execution_authorization"
+  ],
+  "activation_allowed_general_production": false,
+  "note": "Criteria are defined at authorization; qa_green_real_general must not be created in this tramo"
+}

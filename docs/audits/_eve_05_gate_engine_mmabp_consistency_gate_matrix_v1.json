@@ -1,0 +1,54 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-RECORD-RULE-SOURCE-QA-V1",
+  "module": "mmabp_consistency_gate",
+  "dictamen": "GATE_ENGINE_RECORD_RULE_QA_BLOCKED",
+  "satisfactionStatus": "blocked",
+  "sourcesRequired": ["D2", "D1", "D5", "D8", "phase_dependencies"],
+  "sourcesRead": {
+    "D2": "docx_text_extracted",
+    "D1": "pdf_structural_read_only",
+    "D5": "docx_text_extracted",
+    "D8": "xlsx_workbook_read",
+    "phase_dependencies": "package_dependencies_read"
+  },
+  "itemsChecked": {
+    "engineRules": ["CONS-ENG-001", "CONS-ENG-002", "CONS-ENG-003", "CONS-ENG-004", "CONS-ENG-005", "CONS-ENG-006", "CONS-ENG-007", "CONS-ENG-008", "CONS-ENG-009", "CONS-ENG-010"],
+    "methodRules": ["CONS-001", "CONS-002", "CONS-003", "CONS-004", "CONS-005", "CONS-006", "CONS-007", "CONS-008", "CONS-009", "CONS-010", "CONS-011", "CONS-012", "CONS-013", "CONS-014", "CONS-015"],
+    "compartments": ["EVE02-CMP-001", "EVE02-CMP-002", "EVE02-CMP-003", "EVE02-CMP-004", "EVE02-CMP-005", "EVE02-CMP-006", "EVE02-CMP-007", "EVE02-CMP-008", "EVE02-CMP-009", "EVE02-CMP-010", "EVE02-CMP-011", "EVE02-CMP-012", "EVE02-CMP-013"]
+  },
+  "fieldsRequired": [
+    "compartimento -> regla",
+    "inconsistencia factual",
+    "inconsistencia temporal",
+    "inconsistencia estructural",
+    "inconsistencia semantica",
+    "contradiccion",
+    "manual review",
+    "reentry",
+    "no diagnostico final"
+  ],
+  "observations": {
+    "declaredEngineRulesCountMatches": true,
+    "declaredMethodRulesCountMatches": true,
+    "declaredCompartmentsCountMatches": true,
+    "allItemsHaveSourceRefs": true,
+    "D2TextContainsInconsistencySignals": true,
+    "diagnosticTranslationDisabledInPackage": true
+  },
+  "qaClassification": {
+    "exact_match": 0,
+    "normalized_equivalent": 0,
+    "controlled_transformation_with_source": 0,
+    "mismatch": 0,
+    "missing_in_chip": 0,
+    "missing_in_source": 0,
+    "pending_source_proof": 38,
+    "not_applicable_with_justification": 0
+  },
+  "blockers": [
+    "D1 PDF material comparison is unavailable.",
+    "D2 compartment-to-rule material mapping was not fully proven field by field.",
+    "No complete proof was produced for every inconsistency type, action, reentry/manual review condition and diagnostic boundary."
+  ],
+  "satisfactionStatusReason": "Counts and source refs are present, but D1/D2 material equivalence remains pending."
+}

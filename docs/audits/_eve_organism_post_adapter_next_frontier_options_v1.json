@@ -1,0 +1,57 @@
+{
+  "decision_id": "DECIDE_POST_ADAPTER_NEXT_FRONTIER_V1",
+  "options": [
+    {
+      "option_id": "OPTION_A",
+      "name": "LOCAL_E2E_BRIDGE_READER_ADAPTER_SYNTHETIC_EVIDENCE_V1",
+      "allowed_now": true,
+      "requires_db_connection": false,
+      "requires_supabase": false,
+      "requires_migration_execution": false,
+      "requires_real_source_connection": false,
+      "requires_observer": false,
+      "requires_gate2_closure": false,
+      "requires_gate3": false,
+      "requires_fase9": false,
+      "produces_incremental_evidence": true,
+      "preserves_authority_false": true,
+      "risk_level": "low",
+      "reason": "Uses local synthetic records with explicit shadowOutcome to test Bridge Reader plus Adapter integration without opening infrastructure boundaries."
+    },
+    {
+      "option_id": "OPTION_B",
+      "name": "SHADOW_OUTCOME_MIGRATION_NON_PRODUCTIVE_VALIDATION_PATH_V1",
+      "allowed_now": false,
+      "requires_db_connection": false,
+      "requires_supabase": false,
+      "requires_migration_execution": false,
+      "requires_real_source_connection": false,
+      "requires_observer": false,
+      "requires_gate2_closure": false,
+      "requires_gate3": false,
+      "requires_fase9": false,
+      "produces_incremental_evidence": true,
+      "preserves_authority_false": true,
+      "risk_level": "medium",
+      "reason": "Potentially useful later, but should wait for explicit safe non-productive/no-op validation path evidence before approaching migration validation."
+    },
+    {
+      "option_id": "OPTION_C",
+      "name": "HOLD_UNTIL_NON_PRODUCTIVE_DB_ENVIRONMENT_AVAILABLE_V1",
+      "allowed_now": true,
+      "requires_db_connection": false,
+      "requires_supabase": false,
+      "requires_migration_execution": false,
+      "requires_real_source_connection": false,
+      "requires_observer": false,
+      "requires_gate2_closure": false,
+      "requires_gate3": false,
+      "requires_fase9": false,
+      "produces_incremental_evidence": false,
+      "preserves_authority_false": true,
+      "risk_level": "low",
+      "reason": "Safe but unnecessarily stalls local E2E evidence that can be produced without physical schema."
+    }
+  ],
+  "selected_option_id": "OPTION_A"
+}

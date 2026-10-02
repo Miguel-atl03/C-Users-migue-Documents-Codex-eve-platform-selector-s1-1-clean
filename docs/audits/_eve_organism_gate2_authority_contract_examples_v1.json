@@ -1,0 +1,182 @@
+{
+  "examples_id": "eve_organism_gate2_authority_contract_examples_v1",
+  "generated_at": "2026-06-25T19:35:58.198Z",
+  "examples": [
+    {
+      "example_id": "EX-001",
+      "description": "gateAdvisory in SHADOW allowed offline",
+      "capability": "gateAdvisory",
+      "initial_state": "SHADOW",
+      "request": {
+        "action": "evaluate_gate",
+        "sideEffect": "LOCAL_AUDIT_RECORD"
+      },
+      "mba_anchor": "P-SUP-07/08 advisory only",
+      "expected_side_effect_decision": "ALLOW_OFFLINE_LOCAL",
+      "expected_state": "SHADOW",
+      "expected_no_go_ids": [],
+      "expected_ledger_records": [
+        "VALIDATION_DECISION"
+      ],
+      "expected_algedonic_action": "audit_only",
+      "observer_authorized": false,
+      "gate3_ready": false
+    },
+    {
+      "example_id": "EX-002",
+      "description": "gateEnforcement degraded to advisory",
+      "capability": "gateEnforcement",
+      "initial_state": "OFF",
+      "request": {
+        "action": "block_product_flow",
+        "sideEffect": "PRODUCT_STATE_WRITE"
+      },
+      "mba_anchor": "Gate 2 advisory only",
+      "expected_side_effect_decision": "DENY",
+      "expected_state": "DEGRADED",
+      "expected_no_go_ids": [
+        "AG-NG-002"
+      ],
+      "expected_ledger_records": [
+        "SIDE_EFFECT_DENIED"
+      ],
+      "expected_algedonic_action": "DEGRADE_CAPABILITY",
+      "observer_authorized": false,
+      "gate3_ready": false
+    },
+    {
+      "example_id": "EX-003",
+      "description": "finalExport requested in Gate 2",
+      "capability": "finalExport",
+      "initial_state": "OFF",
+      "request": {
+        "action": "export_final",
+        "sideEffect": "EXPORT_GENERATION"
+      },
+      "mba_anchor": "P-SUP-09 requires ACA [Satisfied] and is blocked in Gate 2",
+      "expected_side_effect_decision": "DENY_OR_QUARANTINE",
+      "expected_state": "QUARANTINED",
+      "expected_no_go_ids": [
+        "AG-NG-007",
+        "AG-NG-019"
+      ],
+      "expected_ledger_records": [
+        "SIDE_EFFECT_DENIED",
+        "NO_GO_DECISION"
+      ],
+      "expected_algedonic_action": "QUARANTINE_CAPABILITY",
+      "observer_authorized": false,
+      "gate3_ready": false
+    },
+    {
+      "example_id": "EX-004",
+      "description": "cross-tenant context",
+      "capability": "tenantContext",
+      "initial_state": "VALIDATED",
+      "request": {
+        "tenantId": "T1",
+        "candidateTenantId": "T2"
+      },
+      "mba_anchor": "tenant isolation",
+      "expected_side_effect_decision": "DENY",
+      "expected_state": "QUARANTINED",
+      "expected_no_go_ids": [
+        "AG-NG-014"
+      ],
+      "expected_ledger_records": [
+        "TENANT_BOUNDARY_FAILURE"
+      ],
+      "expected_algedonic_action": "TENANT_LEAK",
+      "observer_authorized": false,
+      "gate3_ready": false
+    },
+    {
+      "example_id": "EX-005",
+      "description": "B3 receiver_feedback without routeRef",
+      "capability": "candidateGeneration",
+      "initial_state": "VALIDATED",
+      "request": {
+        "receiver_feedback": "rejected",
+        "routeRef": null
+      },
+      "mba_anchor": "B3 requires route_ref 3.13a/OEE/MDSB",
+      "expected_side_effect_decision": "REQUIRE_MANUAL_REVIEW",
+      "expected_state": "DEGRADED",
+      "expected_no_go_ids": [
+        "AG-NG-011"
+      ],
+      "expected_ledger_records": [
+        "B3_ROUTE_FINDING"
+      ],
+      "expected_algedonic_action": "B3_ROUTE_MISSING",
+      "observer_authorized": false,
+      "gate3_ready": false
+    },
+    {
+      "example_id": "EX-006",
+      "description": "B7 used as structural fact",
+      "capability": "candidateGeneration",
+      "initial_state": "VALIDATED",
+      "request": {
+        "b7": "structural_fact"
+      },
+      "mba_anchor": "B7 non diagnostic metadata only",
+      "expected_side_effect_decision": "QUARANTINE",
+      "expected_state": "QUARANTINED",
+      "expected_no_go_ids": [
+        "AG-NG-012",
+        "AG-NG-013"
+      ],
+      "expected_ledger_records": [
+        "B7_BOUNDARY_FINDING"
+      ],
+      "expected_algedonic_action": "B7_BOUNDARY_VIOLATION",
+      "observer_authorized": false,
+      "gate3_ready": false
+    },
+    {
+      "example_id": "EX-007",
+      "description": "rollback request with ledger and manual review",
+      "capability": "parallelExecution",
+      "initial_state": "ROLLBACK_IN_PROGRESS",
+      "request": {
+        "rollbackRef": "RB-1",
+        "ledgerRef": "LED-1"
+      },
+      "mba_anchor": "rollback path and timer required",
+      "expected_side_effect_decision": "ALLOW_REVIEW_ONLY",
+      "expected_state": "ROLLBACK_IN_PROGRESS",
+      "expected_no_go_ids": [],
+      "expected_ledger_records": [
+        "ROLLBACK_REQUESTED",
+        "MANUAL_REVIEW_REQUESTED"
+      ],
+      "expected_algedonic_action": "ROLLBACK_FAILURE_IF_TIMEOUT",
+      "observer_authorized": false,
+      "gate3_ready": false
+    },
+    {
+      "example_id": "EX-008",
+      "description": "executor attempts to audit itself",
+      "capability": "governanceObserve",
+      "initial_state": "SHADOW",
+      "request": {
+        "executor": "EVE08",
+        "auditor": "EVE08"
+      },
+      "mba_anchor": "S3/S3* separation",
+      "expected_side_effect_decision": "DENY",
+      "expected_state": "QUARANTINED",
+      "expected_no_go_ids": [
+        "AG-NG-024"
+      ],
+      "expected_ledger_records": [
+        "NO_GO_DECISION",
+        "ALGEDONIC_EVENT"
+      ],
+      "expected_algedonic_action": "AUDITOR_EXECUTOR_COLLAPSE",
+      "observer_authorized": false,
+      "gate3_ready": false
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "GATE_ENGINE_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "gapStatus": "non_blocking_for_intake_blocking_for_certification",
+  "gaps": [
+    {
+      "id": "GAP-001",
+      "type": "record_rule_source_qa_pending",
+      "description": "Rule-level and field-level QA chip vs rector sources has not been performed.",
+      "blocks": ["COMPLETE", "CERTIFIED", "documentary_satisfaction_complete", "tests_from_content_claims"],
+      "recommendedNextStep": "EVE-05-GATE-ENGINE-RECORD-RULE-SOURCE-QA-V1"
+    },
+    {
+      "id": "GAP-002",
+      "type": "mapping_not_exhaustive",
+      "description": "Initial source-to-module mapping exists, but not exhaustive rule/campo mapping.",
+      "blocks": ["source_to_target_coverage_claim", "field_level_fidelity_claim"]
+    },
+    {
+      "id": "GAP-003",
+      "type": "pdf_content_units_not_exhaustively_extracted",
+      "description": "D1 and VSM1 were read physically as PDFs and inventoried initially, but detailed content-unit extraction remains pending.",
+      "blocks": ["methodological_content_fidelity_claim"]
+    },
+    {
+      "id": "GAP-004",
+      "type": "D2_consistency_compartment_qa_pending",
+      "description": "D2 is initially aligned as downstream consistency compartment reference, but each compartment-to-rule relation remains pending QA.",
+      "blocks": ["consistency_compartment_certification"]
+    },
+    {
+      "id": "GAP-005",
+      "type": "overreach_guards_require_qa",
+      "description": "D1, VSM1 and AHE1 overreach guards are registered but not exhaustively tested at record/rule level.",
+      "blocks": ["closed_diagnostic_guard_certification"]
+    },
+    {
+      "id": "GAP-006",
+      "type": "no_static_tests_created",
+      "description": "No tests were created in this intake audit by instruction.",
+      "blocks": ["static_test_protection_claim"]
+    },
+    {
+      "id": "GAP-007",
+      "type": "candidate_not_wired",
+      "description": "Package remains candidate not wired, with no runtime authority, registry write or EVE brain connection.",
+      "blocks": ["runtime_activation", "productive_runtime_use"]
+    }
+  ],
+  "notGaps": [
+    "No source read gap remains after preflight V0_1.",
+    "No SHA256 mismatch was detected for the ten sources.",
+    "No material internal identity mismatch was detected at intake level.",
+    "No runtimeAuthority, registry write or EVE brain connection was detected."
+  ],
+  "recommendation": "A. Ejecutar QA exhaustivo regla/campo chip vs rectores."
+}

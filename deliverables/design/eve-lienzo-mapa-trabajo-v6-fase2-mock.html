@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Mapa de trabajo · v6 fase 2 · redacción</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* v6 exacto — post confirmación, void ubicación vacío (catálogo oculto) */
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1200px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .mark {
+        position: absolute;
+        top: 40px;
+        left: 64px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .session {
+        position: absolute;
+        top: 40px;
+        right: 64px;
+        text-align: right;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 1.9;
+      }
+
+      .room {
+        position: absolute;
+        top: 108px;
+        left: 64px;
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+      }
+
+      .ubicacion {
+        position: absolute;
+        top: 148px;
+        left: 64px;
+        width: 340px;
+      }
+
+      .ubicacion-q {
+        margin: 0 0 24px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 34ch;
+      }
+
+      .ubicacion-area {
+        margin: 0 0 14px;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .ubicacion-area.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .ubicacion-area.is-focus {
+        font-weight: 700;
+      }
+
+      .ubicacion-more {
+        margin: 20px 0 0;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 45%, transparent);
+      }
+
+      .ubicacion-whisper {
+        margin: 28px 0 0;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        line-height: 1.75;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 52%, transparent);
+        max-width: 38ch;
+      }
+
+      .isla-activa {
+        position: absolute;
+        top: 480px;
+        left: 96px;
+        width: 440px;
+      }
+
+      .isla-q {
+        margin: 0 0 22px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 40ch;
+      }
+
+      .isla-resp {
+        margin: 0 0 48px;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.55;
+        color: var(--eve-ink);
+        max-width: 42ch;
+      }
+
+      .isla-acts-q {
+        margin: 0 0 24px;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .isla-act {
+        margin: 0 0 32px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+        max-width: 44ch;
+      }
+
+      .isla-act.is-empty {
+        margin-bottom: 20px;
+        font-weight: 400;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+      }
+
+      .isla-more {
+        margin: 0;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 48%, transparent);
+      }
+
+      .isla-latente {
+        position: absolute;
+        top: 720px;
+        right: 96px;
+        width: 280px;
+        text-align: right;
+      }
+
+      .isla-latente-name {
+        margin: 0 0 12px;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 78%, var(--eve-ink));
+      }
+
+      .isla-latente-q {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        line-height: 1.5;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+        max-width: 32ch;
+        margin-left: auto;
+      }
+
+      .footer {
+        position: absolute;
+        left: 96px;
+        right: 64px;
+        bottom: 52px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .need {
+        margin: 0;
+        max-width: 38ch;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        line-height: 1.65;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 52%, transparent);
+      }
+
+      .trace {
+        border: 0;
+        background: transparent;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 16px;
+        left: 64px;
+        font-size: 6px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 45%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Fase 2 — v6 post-confirmación">
+      <span class="mark">EVE<sup>™</sup></span>
+      <div class="session">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <p class="room">[ Mapa de tu trabajo ]</p>
+
+      <section class="ubicacion" aria-labelledby="ubicacion-q">
+        <h2 class="ubicacion-q" id="ubicacion-q">¿Dónde participa tu trabajo?</h2>
+        <p class="ubicacion-area is-on is-focus">Operaciones / Producción</p>
+        <p class="ubicacion-area is-on">Ventas / Comercial</p>
+        <p class="ubicacion-more">Otra área</p>
+        <p class="ubicacion-whisper">
+          No buscamos tu departamento formal. Buscamos en qué parte de la operación tu
+          trabajo realmente interviene.
+        </p>
+      </section>
+
+      <!-- void derecho vacío: catálogo oculto tras confirmar -->
+
+      <section class="isla-activa" aria-label="Operaciones / Producción">
+        <p class="isla-q">De qué respondes en Operaciones / Producción</p>
+        <p class="isla-resp">
+          Asegurar que la línea de ensamble cumpla el plan diario de producción sin
+          detener entregas.
+        </p>
+        <p class="isla-acts-q">Qué haces para cumplirlo</p>
+        <p class="isla-act">
+          1. Revisar el tablero de órdenes y liberar la secuencia del turno.
+        </p>
+        <p class="isla-act is-empty">2. Redacta una actividad concreta de tu trabajo</p>
+        <p class="isla-more">+ Agregar otra actividad</p>
+      </section>
+
+      <aside class="isla-latente" aria-label="Ventas / Comercial">
+        <p class="isla-latente-name">Ventas / Comercial</p>
+        <p class="isla-latente-q">De qué respondes en Ventas / Comercial</p>
+      </aside>
+
+      <footer class="footer">
+        <p class="need">
+          Escribe al menos una responsabilidad y dos actividades por cada área elegida.
+        </p>
+        <button class="trace" type="button">Guardar</button>
+      </footer>
+
+      <p class="proposal-tag">
+        Mock v6 · fase 2 · v6 intacto · void vacío · islas · copy oficial
+      </p>
+    </section>
+  </body>
+</html>

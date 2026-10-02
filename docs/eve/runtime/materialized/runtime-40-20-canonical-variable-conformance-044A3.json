@@ -1,0 +1,79 @@
+{
+  "instruction": "044-A.3",
+  "classification": "blocked_canonical_variable_execution_grammar_missing",
+  "production_consulted": false,
+  "gaby_touched": false,
+  "e2e_full_executed": false,
+  "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "renderer_regression": false,
+  "ingest_regression": false,
+  "materiality_before": "partial (mapVariableMapsToCandidates invented variable_name from field_name/raw_literal/var_${index}; catch→ok empty candidates)",
+  "materiality_after": "implemented_and_connected_fail_closed; FULL runtime_variable_map remains prose EAV without machine-readable evidence→variable grammar",
+  "executable_path": {
+    "entry": "advanceGovernedExecution(action=ingest_response)",
+    "organ": "createRuntime4020CanonicalVariableCandidatesLocal",
+    "organ_file": "src/services/eve/runtime-40-20/canonical-variable/runtime-40-20-canonical-variable-service.ts",
+    "connection_file": "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts",
+    "mapping_adapter": "mapVariableMapsToCandidates (JSON-only machine-readable)"
+  },
+  "source_tables": [
+    "runtime_variable_map",
+    "runtime_epistemic_rule",
+    "runtime_interaction_mapping",
+    "evidence_item",
+    "canonical_variable_record"
+  ],
+  "exact_mapping_used": "NONE against FULL active catalog. Staging runtime_variable_map is EAV prose (canonical_variables/required_variables/...). runtime_interaction_mapping.output_variable_name is null. 0 JSON literals with subfield_name+canonical_variable_name.",
+  "evidence_provenance": "Canonical records only from createRuntime4020CanonicalVariableCandidatesLocal with explicit JSON mapping (subfield_name + canonical_variable_id/name + source_node_ref). No answers-key inference.",
+  "inferential_paths_removed": [
+    "variable_name: row.field_name || row.raw_literal || `var_${index + 1}`",
+    "catch → canonical ok:true empty candidates",
+    "prose EAV → fabricated mapping candidates"
+  ],
+  "gate_findings": {
+    "gate1_materiality": {
+      "CanonicalVariableService": "implemented_and_connected",
+      "mapVariableMapsToCandidates_before": "partial (inventing)",
+      "runtime_variable_map_FULL": "specification_only (prose EAV, not executable mapping)",
+      "runtime_epistemic_rule_must_not_infer": "specification_only (prose literal)"
+    },
+    "gate4": "blocked_canonical_variable_execution_grammar_missing",
+    "gate6_secondary": "blocked_epistemic_execution_grammar_missing (must_not_infer prose)"
+  },
+  "scenarios": {
+    "A_FULL_mapping_machine_readable": "blocked_canonical_variable_execution_grammar_missing",
+    "B_extra_answer_key": "pass_0_vars_from_unauthorized_key",
+    "C_evidence_without_machine_readable_mapping": "pass_blocked_no_invented_var",
+    "D_induced_service_failure": "pass_blocked_real_canonical_variable_path_failed",
+    "E_no_answers_to_variables_path": "pass",
+    "F_must_not_infer": "blocked_epistemic_execution_grammar_missing"
+  },
+  "persistence": {
+    "on_grammar_missing": {
+      "response_record": 0,
+      "canonical_variable_record": 0,
+      "budget_delta": 0,
+      "state_advance": false
+    },
+    "on_service_failure": {
+      "classification": "blocked_real_canonical_variable_path_failed",
+      "canonical_variable_record": 0,
+      "budget_delta": 0,
+      "state_advance": false
+    }
+  },
+  "state_delta": false,
+  "budget_delta": 0,
+  "governing_source": "runtime_variable_map + runtime_epistemic_rule literals from FULL catalog; no legacy typed defaults as semantic authority; no invented parser",
+  "out_of_scope": [
+    "BranchingEngine",
+    "SEM/PST",
+    "Critical Routes",
+    "Readiness",
+    "Gaby",
+    "producción",
+    "E2E completo",
+    "045",
+    "commit"
+  ]
+}

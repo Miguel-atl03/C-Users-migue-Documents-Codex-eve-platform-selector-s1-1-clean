@@ -1,0 +1,85 @@
+{
+  "instruction": "Codex 040-A",
+  "classification": "blocked_staging_contract_semantic_conflict",
+  "classification_note_040B": "Historical 040-A classification preserved. Mapping-specific portion superseded by mapping_contract_authority_resolved in runtime-40-20-mapping-contract-authority-040B.json.",
+  "project_ref": "shrpiwkxcdgvbqymjecx",
+  "staging_consulted": "SELECT only",
+  "staging_writes": "none",
+  "production_consulted": "no",
+  "remote_writes": "none",
+  "catalog_loaded": "no",
+  "catalog_activated": "no",
+  "B0_modified": "no",
+  "B1_modified": "no",
+  "Gaby_modified": "no",
+  "commit_created": "no",
+  "contract_capture_file": "runtime-40-20-staging-core-contract-040A.json",
+  "projection_map_files": [
+    "runtime-40-20-staging-core-projection-map-040A.json",
+    "runtime-40-20-staging-core-projection-map-040A.md"
+  ],
+  "rpc_candidate_040A_created": false,
+  "rollback_040A_created": false,
+  "local_postgresql_validation": "not_run_blocked_before_rpc_creation",
+  "blocked_controls_historical_040A": [
+    {
+      "control": "mapping order preservation",
+      "source": "038-B loader creates mapping_ordinal=index+1; 039-A RPC references mapping_ordinal",
+      "remote_contract": "no mapping_ordinal column; unique key omits ordinal",
+      "decision": "blocked_staging_contract_semantic_conflict",
+      "errata_040B": "040B-FRAME-001 — absence is conformant under TR-028 / CATID-R1; classification technical_serialization_order; must_exist_in_staging=false"
+    },
+    {
+      "control": "mapping raw payload preservation",
+      "source": "038-B local adapter EXCEPT ALL includes mapping_payload; 039-A RPC references mapping_payload",
+      "remote_contract": "runtime_interaction_mapping has no jsonb payload/raw_row column",
+      "decision": "blocked_core_field_without_authorized_storage",
+      "errata_040B": "040B-FRAME-001 — 038B.json compared_fields exclude mapping_payload; payload duplicates lineage-031; must_exist_in_staging=false; classification redundant_technical_payload"
+    }
+  ],
+  "blocked_controls": [
+    {
+      "control": "mapping order preservation",
+      "source": "038-B loader creates mapping_ordinal=index+1; 039-A RPC references mapping_ordinal",
+      "remote_contract": "no mapping_ordinal column; unique key omits ordinal",
+      "decision_historical_040A": "blocked_staging_contract_semantic_conflict",
+      "decision_040B": "loader_only_not_required_in_staging",
+      "trace_id": "TR-028"
+    },
+    {
+      "control": "mapping raw payload preservation",
+      "source": "038-B local adapter EXCEPT ALL includes mapping_payload; 039-A RPC references mapping_payload (038B.json compared_fields do not)",
+      "remote_contract": "runtime_interaction_mapping has no jsonb payload/raw_row column",
+      "decision_historical_040A": "blocked_core_field_without_authorized_storage",
+      "decision_040B": "loader_only_not_required_in_staging",
+      "trace_id": "TR-028"
+    }
+  ],
+  "authorized_reconciliations": [
+    "artifact sheet metadata can remain inside payload_json/metadata_json under exact sheet payload preservation",
+    "interaction_group -> interaction_group_source (contract 040A public.runtime_interaction_def.columns.interaction_group_source; 031C interactions[].interaction_group)",
+    "group_normalized -> interaction_group_normalized (contract 040A column interaction_group_normalized; 031C interactions[].group_normalized)",
+    "function_name -> function_label (contract 040A column function_label; 031C interactions[].function_name)",
+    "raw_payload -> raw_row_json (contract 040A column raw_row_json; CatalogLoader 038-B)",
+    "subfield_ordinal -> ordinal (contract 040A public.runtime_subfield_schema.columns.ordinal; TR-005|TR-029)",
+    "subfield provenance/raw payload -> raw_row_json (contract 040A raw_row_json; TR-005|TR-029)"
+  ],
+  "traceability_controls_040B": {
+    "mappings": "TR-028",
+    "subfields": ["TR-005", "TR-029"],
+    "interactions_base": "TR-002",
+    "interactions_causal": "TR-003"
+  },
+  "next_gap_historical_040A": "remote_core_mapping_lineage_storage_decision_required",
+  "next_gap_040B": "align_governed_rpc_and_local_loader_diff_to_TR028_tuple_without_mapping_ordinal_or_mapping_payload",
+  "next_gap_040C": "corrected_staging_schema_and_boundary_deployment_authorization_required",
+  "closure_note_040C": "Local CatalogLoader/RPC/fixture aligned to eight real staging mapping columns without mapping_ordinal/mapping_payload; historical 039-A SQL unmodified; not deployed.",
+  "errata_040B_refs": [
+    "runtime-40-20-traceability-errata-040B.json",
+    "runtime-40-20-mapping-contract-authority-040B.json"
+  ],
+  "correction_040C_refs": [
+    "runtime-40-20-mapping-projection-correction-040C.json",
+    "runtime-40-20-local-boundary-validation-040C.json"
+  ]
+}

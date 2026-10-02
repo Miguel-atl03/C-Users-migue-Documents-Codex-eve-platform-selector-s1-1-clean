@@ -1,0 +1,299 @@
+{
+  "instruction": "045-R3A-X",
+  "gate": 2,
+  "classification": "b0_to_full_runtime_handoff_conformant_local_only",
+  "official_entry_route_today": "/",
+  "target_container": "OfficialCanvasExperience continuous sheet",
+  "sections": [
+    {
+      "id": "LOGIN",
+      "current_canvas_component": "OfficialLoginSection via OfficialCanvasExperience",
+      "current_legacy_component_route": "ClientAuthScreen @ `/` access_screen",
+      "business_function_purpose": "Authenticate participant; establish tenant/org identity",
+      "server_dependencies": [
+        "Supabase Auth",
+        "getAuthorizedClientCompanies (consultant branch)"
+      ],
+      "session_dependencies": [
+        "auth session",
+        "participant identity"
+      ],
+      "assistance_mechanisms": [],
+      "Runtime_dependency": "none",
+      "replacement_status": "official",
+      "legacy_retirement_status": "ClientAuthScreen deleted"
+    },
+    {
+      "id": "ESTADO_A",
+      "current_canvas_component": "OfficialEstadoASection + OfficialSessionResumeSection via OfficialCanvasExperience",
+      "current_legacy_component_route": "EmptyAssessmentState / ActiveAssessmentState @ `/` create_session",
+      "business_function_purpose": "Start or resume assessment; choose entry posture",
+      "server_dependencies": [
+        "/api/session/bootstrap",
+        "/api/session/restore",
+        "/api/participant/context"
+      ],
+      "session_dependencies": [
+        "sessionId",
+        "restore payload"
+      ],
+      "assistance_mechanisms": [],
+      "Runtime_dependency": "none (not a Runtime state)",
+      "replacement_status": "official",
+      "legacy_retirement_status": "ActiveAssessmentState deleted; EmptyAssessmentState retained for e2e-block0"
+    },
+    {
+      "id": "WORKMAP_EXPLANATION",
+      "current_canvas_component": "OfficialWorkMapExplanationSection via OfficialCanvasExperience mode=workmap",
+      "current_legacy_component_route": "partially embedded in WorkMapIntake guide rail / intro tutorial",
+      "business_function_purpose": "Pedagogical framing before building the map",
+      "server_dependencies": [],
+      "session_dependencies": [
+        "optional guideSeen"
+      ],
+      "assistance_mechanisms": [],
+      "Runtime_dependency": "none",
+      "replacement_status": "official",
+      "legacy_retirement_status": "orientative_section_ported; guide assistance lives on WORKMAP"
+    },
+    {
+      "id": "WORKMAP",
+      "current_canvas_component": "OfficialWorkMapSection → WorkMapEditor via OfficialCanvasExperience mode=workmap",
+      "current_legacy_component_route": "WorkMapIntake thin re-export; e2e-block0 still imports",
+      "business_function_purpose": "Capture responsibilities/activities; finalize → runtime session/run",
+      "server_dependencies": [
+        "/api/participant/workmap/finalize",
+        "PrimaryActivitySelectionPolicy",
+        "role_runtime_session / activity_runtime_run creation",
+        "/api/eve/runtime-40-20/client-bff/experience-event"
+      ],
+      "session_dependencies": [
+        "sessionId",
+        "workMap draft",
+        "auth"
+      ],
+      "assistance_mechanisms": [
+        "workmap_side_cognitive_guide",
+        "workmap_inline_blur_assist",
+        "workmap_formal_save_validation"
+      ],
+      "Runtime_dependency": "post-finalize frontdoor only",
+      "replacement_status": "official",
+      "legacy_retirement_status": "production redirected; file retained as re-export"
+    },
+    {
+      "id": "SIGNIFICADO_EXPLANATION",
+      "current_canvas_component": "OfficialSignificadoExplanationSection via OfficialCanvasExperience mode=significado",
+      "current_legacy_component_route": "implicit intro inside SignificadoDeTuTrabajo",
+      "business_function_purpose": "Orient user before Block 0 capture",
+      "server_dependencies": [],
+      "session_dependencies": [
+        "workMap context"
+      ],
+      "assistance_mechanisms": [],
+      "Runtime_dependency": "none",
+      "replacement_status": "official",
+      "legacy_retirement_status": "orientative_section_ported"
+    },
+    {
+      "id": "B0",
+      "current_canvas_component": "OfficialSignificadoSection → SignificadoEditor via OfficialCanvasExperience mode=significado",
+      "current_legacy_component_route": "SignificadoDeTuTrabajo thin re-export; e2e-block0/dev still import",
+      "business_function_purpose": "Block 0 semantic capture for selected activities",
+      "server_dependencies": [
+        "/api/significado/block0",
+        "/api/coach/operational-description*",
+        "workmap-to-block0-prefill"
+      ],
+      "session_dependencies": [
+        "sessionId",
+        "workMapActivityId",
+        "B0 draft"
+      ],
+      "assistance_mechanisms": [
+        "b0_help_text",
+        "b0_intro_example",
+        "b0_operational_description_coach",
+        "b0_boundary_confirmation",
+        "workmap_to_b0_prefill"
+      ],
+      "Runtime_dependency": "none as sequencer (must not reintroduce B0 legacy sequencer for Runtime FULL)",
+      "replacement_status": "official",
+      "legacy_retirement_status": "production redirected; B0→FULL progression semantics conformant local_only (X3-R)"
+    },
+    {
+      "id": "B05",
+      "current_canvas_component": "ComoOcurreSection + block05 reference (freeze/reference; not productive)",
+      "current_legacy_component_route": "RuntimeFullQuestionnaireRunner + RuntimeInteractionSheet OR LegacySceneQuestionnaireRunner",
+      "business_function_purpose": "Runtime Block 0.5 interactions",
+      "server_dependencies": [
+        "/api/eve/runtime-40-20/client-bff/interaction",
+        "/api/eve/runtime-40-20/client-bff/answer"
+      ],
+      "session_dependencies": [
+        "runtimeFull scope",
+        "activity_runtime_run"
+      ],
+      "assistance_mechanisms": [
+        "runtime_help_text",
+        "block05_fichas_reference"
+      ],
+      "Runtime_dependency": "authoritative",
+      "replacement_status": "block_specific_shell_in_progress",
+      "legacy_retirement_status": "still_required_legacy_flow"
+    },
+    {
+      "id": "B1",
+      "current_canvas_component": "not_materialized_as_specific_section",
+      "current_legacy_component_route": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "business_function_purpose": "Runtime Block 1",
+      "server_dependencies": [
+        "client-bff interaction/answer"
+      ],
+      "session_dependencies": [
+        "activity_runtime_run"
+      ],
+      "assistance_mechanisms": [
+        "runtime_help_text",
+        "runtime_microconfirmation_contract"
+      ],
+      "Runtime_dependency": "authoritative",
+      "replacement_status": "pending_block_specific_shell",
+      "legacy_retirement_status": "still_required_legacy_flow"
+    },
+    {
+      "id": "B2",
+      "current_canvas_component": "not_materialized_as_specific_section",
+      "current_legacy_component_route": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "business_function_purpose": "Runtime Block 2",
+      "server_dependencies": [
+        "client-bff interaction/answer"
+      ],
+      "session_dependencies": [
+        "activity_runtime_run"
+      ],
+      "assistance_mechanisms": [
+        "runtime_help_text"
+      ],
+      "Runtime_dependency": "authoritative",
+      "replacement_status": "pending_block_specific_shell",
+      "legacy_retirement_status": "still_required_legacy_flow"
+    },
+    {
+      "id": "B3",
+      "current_canvas_component": "not_materialized_as_specific_section",
+      "current_legacy_component_route": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "business_function_purpose": "Runtime Block 3",
+      "server_dependencies": [
+        "client-bff interaction/answer"
+      ],
+      "session_dependencies": [
+        "activity_runtime_run"
+      ],
+      "assistance_mechanisms": [
+        "runtime_help_text"
+      ],
+      "Runtime_dependency": "authoritative",
+      "replacement_status": "pending_block_specific_shell",
+      "legacy_retirement_status": "still_required_legacy_flow"
+    },
+    {
+      "id": "B4",
+      "current_canvas_component": "not_materialized_as_specific_section",
+      "current_legacy_component_route": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "business_function_purpose": "Runtime Block 4",
+      "server_dependencies": [
+        "client-bff interaction/answer"
+      ],
+      "session_dependencies": [
+        "activity_runtime_run"
+      ],
+      "assistance_mechanisms": [
+        "runtime_help_text"
+      ],
+      "Runtime_dependency": "authoritative",
+      "replacement_status": "pending_block_specific_shell",
+      "legacy_retirement_status": "still_required_legacy_flow"
+    },
+    {
+      "id": "B5",
+      "current_canvas_component": "not_materialized_as_specific_section",
+      "current_legacy_component_route": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "business_function_purpose": "Runtime Block 5",
+      "server_dependencies": [
+        "client-bff interaction/answer"
+      ],
+      "session_dependencies": [
+        "activity_runtime_run"
+      ],
+      "assistance_mechanisms": [
+        "runtime_help_text"
+      ],
+      "Runtime_dependency": "authoritative",
+      "replacement_status": "pending_block_specific_shell",
+      "legacy_retirement_status": "still_required_legacy_flow"
+    },
+    {
+      "id": "B6",
+      "current_canvas_component": "not_materialized_as_specific_section",
+      "current_legacy_component_route": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner",
+      "business_function_purpose": "Runtime Block 6",
+      "server_dependencies": [
+        "client-bff interaction/answer"
+      ],
+      "session_dependencies": [
+        "activity_runtime_run"
+      ],
+      "assistance_mechanisms": [
+        "runtime_help_text"
+      ],
+      "Runtime_dependency": "authoritative",
+      "replacement_status": "pending_block_specific_shell",
+      "legacy_retirement_status": "still_required_legacy_flow"
+    },
+    {
+      "id": "B7",
+      "current_canvas_component": "not_materialized_as_specific_section",
+      "current_legacy_component_route": "RuntimeInteractionSheet fallback / LegacySceneQuestionnaireRunner (+ microconfirmation contracts)",
+      "business_function_purpose": "Runtime Block 7 / confidence / microconfirmation",
+      "server_dependencies": [
+        "client-bff interaction/answer",
+        "b7 confidence organs"
+      ],
+      "session_dependencies": [
+        "activity_runtime_run"
+      ],
+      "assistance_mechanisms": [
+        "runtime_help_text",
+        "runtime_microconfirmation_contract"
+      ],
+      "Runtime_dependency": "authoritative",
+      "replacement_status": "pending_block_specific_shell",
+      "legacy_retirement_status": "still_required_legacy_flow"
+    },
+    {
+      "id": "READINESS",
+      "current_canvas_component": "not_materialized_as_canvas_section",
+      "current_legacy_component_route": "closure LoadingCard + MicroClarificationCard + ClientAssessmentComplete @ `/`",
+      "business_function_purpose": "Closure quality / clarification / intermediate output / complete",
+      "server_dependencies": [
+        "/api/diagnostics/session",
+        "/api/questionnaire/submit (CONSISTENCY_CLARIFICATION)",
+        "/api/session/intermediate-output"
+      ],
+      "session_dependencies": [
+        "session diagnostic state"
+      ],
+      "assistance_mechanisms": [
+        "consistency_micro_clarification"
+      ],
+      "Runtime_dependency": "readiness organs authoritative; UI must not invent readiness",
+      "replacement_status": "planned_canvas_section_reuse_contracts",
+      "legacy_retirement_status": "still_required_legacy_flow"
+    }
+  ],
+  "x1_status": "canvas_official_E2E_X1_login_estadoA_conformant_local_only",
+  "x2_status": "closed",
+  "x3_status": "blocked_b0_to_full_runtime_handoff",
+  "x3r_status": "b0_to_full_runtime_handoff_conformant_local_only"
+}

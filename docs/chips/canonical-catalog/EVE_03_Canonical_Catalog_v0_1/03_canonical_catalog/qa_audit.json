@@ -1,0 +1,164 @@
+[
+  {
+    "qa_id": "QA-001",
+    "check": "D8 original exists",
+    "expected": "true",
+    "actual": "true",
+    "status": "PASS",
+    "severity": "blocker",
+    "detail": "/mnt/data/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx"
+  },
+  {
+    "qa_id": "QA-002",
+    "check": "D8 checksum recorded",
+    "expected": "sha256",
+    "actual": "09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2",
+    "status": "PASS",
+    "severity": "high",
+    "detail": "Source frozen by checksum."
+  },
+  {
+    "qa_id": "QA-003",
+    "check": "Canonical nodes",
+    "expected": "164 unique",
+    "actual": "164 rows / 164 unique",
+    "status": "PASS",
+    "severity": "blocker",
+    "detail": "No node omitted."
+  },
+  {
+    "qa_id": "QA-004",
+    "check": "Original source codes",
+    "expected": "164 unique",
+    "actual": "164 rows / 164 unique",
+    "status": "PASS",
+    "severity": "blocker",
+    "detail": "Codes preserved exact."
+  },
+  {
+    "qa_id": "QA-005",
+    "check": "1:1 auxiliary joins",
+    "expected": "164 for source questions, epistemic, MMABP, canonical variables, VSM prep",
+    "actual": "164 each",
+    "status": "PASS",
+    "severity": "blocker",
+    "detail": "No missing or extra node keys."
+  },
+  {
+    "qa_id": "QA-006",
+    "check": "Critical routes",
+    "expected": "4 routes; all members resolve",
+    "actual": "4 routes / 18 members / 4 complete",
+    "status": "PASS",
+    "severity": "blocker",
+    "detail": "D8 and D6 route IDs/rules align."
+  },
+  {
+    "qa_id": "QA-007",
+    "check": "D6 runtime source references",
+    "expected": "60 interactions reference only D8 nodes/codes",
+    "actual": "60 interactions / 0 missing nodes / 0 missing codes",
+    "status": "PASS",
+    "severity": "high",
+    "detail": "40 base + 20 causal compatible with registry."
+  },
+  {
+    "qa_id": "QA-008",
+    "check": "Source variable inventory",
+    "expected": "all 246 rows preserved",
+    "actual": "246 rows / 223 unique variable names",
+    "status": "PASS_WITH_FLAGS",
+    "severity": "high",
+    "detail": "23 duplicated names in source; preserved as occurrences/variants."
+  },
+  {
+    "qa_id": "QA-009",
+    "check": "Referenced outputs defined",
+    "expected": "all output references defined or explicitly flagged",
+    "actual": "33 referenced variables missing from Variables_Canonicas_Source; 1 pattern reference",
+    "status": "FLAG",
+    "severity": "high",
+    "detail": "Included as pending_variable_definition; no silent invention."
+  },
+  {
+    "qa_id": "QA-010",
+    "check": "Source-defined variables referenced by node expression",
+    "expected": "informational cross-check",
+    "actual": "58 source-defined variables not explicitly named in node expressions",
+    "status": "INFO",
+    "severity": "medium",
+    "detail": "May be derived/bundle/preload variables; retained, not deleted."
+  },
+  {
+    "qa_id": "QA-011",
+    "check": "VSM boundaries",
+    "expected": "preparatory only",
+    "actual": "164 mappings preserved; 8 VSM guard rules",
+    "status": "PASS",
+    "severity": "blocker",
+    "detail": "No VSM diagnosis, recursion assignment or arquetype generated."
+  },
+  {
+    "qa_id": "QA-012",
+    "check": "Internal GPT instructions excluded",
+    "expected": "not compiled",
+    "actual": "excluded",
+    "status": "PASS",
+    "severity": "blocker",
+    "detail": "Only platform sources and VSM corpus source used."
+  },
+  {
+    "qa_id": "AUD-001",
+    "check": "conteo",
+    "expected": "source audit issue preserved",
+    "actual": "Catálogo madre contiene 164 nodos únicos. La estimación previa de ~163 se explica por la inclusión explícita de block0_entry_control como nodo de control runtime.",
+    "status": "SOURCE_ISSUE",
+    "severity": "info",
+    "detail": "Conservar como nodo de control, no pregunta visible."
+  },
+  {
+    "qa_id": "AUD-002",
+    "check": "corpus",
+    "expected": "source audit issue preserved",
+    "actual": "Bloque 7 rev3_auditado fue adjuntado junto con rev4_alineado.",
+    "status": "SOURCE_ISSUE",
+    "severity": "media",
+    "detail": "Usar rev4_alineado como fuente final; rev3 queda histórico."
+  },
+  {
+    "qa_id": "AUD-003",
+    "check": "duplicidad documental",
+    "expected": "source audit issue preserved",
+    "actual": "Bloque 1 contiene fichas duplicadas por código en el documento fuente; se deduplicó por código, conservando el primer registro canónico.",
+    "status": "SOURCE_ISSUE",
+    "severity": "media",
+    "detail": "Registrar en auditoría; no afecta códigos finales."
+  },
+  {
+    "qa_id": "AUD-004",
+    "check": "duplicidad documental",
+    "expected": "source audit issue preserved",
+    "actual": "Bloque 6 contiene duplicidad de fichas para 6.11 y 6.3a; se deduplicó por código y se preservó el orden del catálogo canónico.",
+    "status": "SOURCE_ISSUE",
+    "severity": "media",
+    "detail": "Registrar en auditoría; no afecta nodos finales."
+  },
+  {
+    "qa_id": "AUD-005",
+    "check": "ruta crítica",
+    "expected": "source audit issue preserved",
+    "actual": "Rutas 2.9/2.10 y 3.13a quedan blindadas como rutas canónicas críticas.",
+    "status": "SOURCE_ISSUE",
+    "severity": "alta",
+    "detail": "No convertir en inferencia libre ni omitir del runtime."
+  },
+  {
+    "qa_id": "AUD-006",
+    "check": "frontera epistemológica",
+    "expected": "source audit issue preserved",
+    "actual": "Bloque 7 produce preclasificación no diagnóstica; no debe proyectar inventario, registry, IR, export ni VSM/AHE cerrado.",
+    "status": "SOURCE_ISSUE",
+    "severity": "alta",
+    "detail": "Mantener como Readiness/VSM-AHE prep."
+  }
+]

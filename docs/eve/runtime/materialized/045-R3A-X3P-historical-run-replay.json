@@ -1,0 +1,19 @@
+{
+  "instruction": "045-R3A-X3-P",
+  "scenario": {
+    "run_A_created_with": "Catalog_V1",
+    "after_activation": {
+      "V1": "superseded",
+      "V2": "active"
+    },
+    "run_A_continues_on": "V1",
+    "run_B_created_with": "V2",
+    "existing_runs_updated": false
+  },
+  "assertions": [
+    "resolveExecutionCatalogAuthority(runA) === V1",
+    "readCatalog filters by V1",
+    "boundary returns V1",
+    "createInteractionInstance stamps V1"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "auditId": "CHIP-RECTOR-EVE-00-METHOD-KERNEL-OVERLAP-AUDIT-V1_1",
+  "dictamen": "METHOD_KERNEL_PACKAGE_INCONSISTENT",
+  "adjustments": [
+    {
+      "adjustmentId": "MK-V1_1-ADJ-001",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.manifest.json",
+      "changeType": "manifest_fix",
+      "reason": "Manifest module counts do not match JSON/MD counts.",
+      "riskIfNotAdjusted": "Package authority can be misread by module even though total count is 76.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-V1_1-ADJ-002",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+      "changeType": "json_fix",
+      "reason": "readiness_states includes blocked_by_missing_canonical_route but runtime_boundary.allowed_states does not.",
+      "riskIfNotAdjusted": "Consumers may receive a state not accepted by the declared boundary.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-V1_1-ADJ-003",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.ts",
+      "changeType": "ts_candidate_fix",
+      "reason": "TS EveGateState omits blocked_by_missing_canonical_route while exported object includes it.",
+      "riskIfNotAdjusted": "Type/runtime state vocabulary drift.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-V1_1-ADJ-004",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.ts",
+      "changeType": "ts_candidate_fix",
+      "reason": "EveMethodKernel type omits authority, model_quadrants, readiness_states, execution_pipeline, source_registry and change_log.",
+      "riskIfNotAdjusted": "The TS candidate can fail type checks or hide governance metadata from consumers.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-V1_1-ADJ-005",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.manifest.json",
+      "changeType": "source_policy_fix",
+      "reason": "D5 is declared as DOCX but only the XLSX near-match exists in repo.",
+      "riskIfNotAdjusted": "Boundary source traceability remains unresolved.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-V1_1-ADJ-006",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+      "changeType": "scope_boundary_fix",
+      "reason": "FND-007/FND-008 need stronger language that D4/D5 are boundary compatibility sources, not MMABP methodological sources and not Runtime gate implementations.",
+      "riskIfNotAdjusted": "The chip may invade Runtime 40/20 readiness/output authority.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    },
+    {
+      "adjustmentId": "MK-V1_1-ADJ-007",
+      "targetFile": "tests/regression/method-kernel-package-consistency.test.ts",
+      "changeType": "manual_review",
+      "reason": "No package-specific tests are available yet.",
+      "riskIfNotAdjusted": "State/count/source policy drift can reappear silently.",
+      "requiresMiguelApproval": true,
+      "shouldBeDoneBeforeWiring": true
+    }
+  ]
+}

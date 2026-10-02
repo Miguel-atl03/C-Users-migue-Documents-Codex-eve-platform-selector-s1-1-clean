@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Mapa de trabajo · mock v3 · loza / una franja abierta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+        Propuesta v3 — densidad alta sin romper el concepto EVE.
+        Estrategia: UNA FRANJA ABIERTA + CONTENIDO PERIFÉRICO + VOID CENTRAL.
+        - No listar 11 áreas en el plano principal (eso llena y vira a formulario).
+        - Áreas viven como ticks en el borde; solo las elegidas pesan.
+        - Solo una área se “grava” en la loza; la otra queda como presencia leve.
+        - ~75% del plano es vacío observacional.
+        Misma gramática: tokens, mist→ink, inscripción, copy oficial.
+      */
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1200px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .mark {
+        position: absolute;
+        top: 44px;
+        left: 64px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .session {
+        position: absolute;
+        top: 44px;
+        right: 64px;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        text-align: right;
+        line-height: 1.9;
+      }
+
+      /* Borde superior: áreas como ticks, no catálogo */
+      .edge-areas {
+        position: absolute;
+        top: 108px;
+        left: 64px;
+        right: 64px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid color-mix(in srgb, var(--eve-line) 70%, transparent);
+      }
+
+      .edge-areas .tick {
+        margin: 0;
+        flex: 0 1 auto;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+        max-width: 11ch;
+      }
+
+      .edge-areas .tick.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+        max-width: 22ch;
+      }
+
+      .edge-areas .tick.is-soft {
+        color: color-mix(in srgb, var(--eve-mist) 38%, transparent);
+      }
+
+      /* Contador de presencia — no progress bar */
+      .presence {
+        position: absolute;
+        top: 160px;
+        right: 64px;
+        margin: 0;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 65%, transparent);
+        text-align: right;
+      }
+
+      .presence span {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      /* Pregunta = inscripción de sala, no hero de presentación */
+      .slab-q {
+        position: absolute;
+        top: 280px;
+        left: 120px;
+        margin: 0;
+        max-width: 42ch;
+        font-family: var(--font-code);
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 1.45;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .slab-whisper {
+        position: absolute;
+        top: 320px;
+        left: 124px;
+        margin: 0;
+        max-width: 28ch;
+        font-size: 8px;
+        font-weight: 400;
+        letter-spacing: 0.14em;
+        line-height: 1.8;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 62%, transparent);
+      }
+
+      /* Una sola franja abierta — isla baja, no muro de formularios */
+      .open-band {
+        position: absolute;
+        left: 120px;
+        right: 280px;
+        bottom: 210px;
+      }
+
+      .open-area {
+        margin: 0 0 28px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-ink) 55%, var(--eve-mist));
+      }
+
+      .open-q {
+        margin: 0 0 20px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 48ch;
+      }
+
+      .engraving {
+        margin: 0 0 56px;
+        padding: 0 0 14px;
+        border-bottom: 1px solid var(--eve-ink);
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+        max-width: 54ch;
+      }
+
+      .acts-q {
+        margin: 0 0 26px;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      /* Dos actividades con aire entre ellas — no stack denso */
+      .act {
+        margin: 0;
+        padding: 0 0 12px;
+        border-bottom: 1px solid var(--eve-line);
+        font-size: 12px;
+        line-height: 1.45;
+        letter-spacing: 0.02em;
+        max-width: 48ch;
+      }
+
+      .act.is-on {
+        color: var(--eve-ink);
+        font-weight: 500;
+        border-bottom-color: var(--eve-ink);
+        margin-bottom: 40px;
+      }
+
+      .act.is-empty {
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+        font-weight: 400;
+        margin-bottom: 18px;
+      }
+
+      .more {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+
+      /* Segunda área: solo presencia al margen — no abre segunda columna de form */
+      .latent {
+        position: absolute;
+        right: 64px;
+        bottom: 280px;
+        width: 160px;
+        text-align: right;
+      }
+
+      .latent-k {
+        margin: 0 0 10px;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 50%, transparent);
+      }
+
+      .latent-name {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        line-height: 1.5;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 80%, var(--eve-ink));
+      }
+
+      .latent-line {
+        margin: 16px 0 0 auto;
+        width: 72px;
+        height: 1px;
+        background: var(--eve-line);
+      }
+
+      /* Pie mínimo */
+      .rule {
+        position: absolute;
+        left: 120px;
+        bottom: 72px;
+        margin: 0;
+        max-width: 36ch;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        line-height: 1.65;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+
+      .trace {
+        position: absolute;
+        right: 64px;
+        bottom: 72px;
+        border: 0;
+        border-bottom: 1px solid color-mix(in srgb, var(--eve-mist) 45%, var(--eve-line));
+        background: transparent;
+        color: color-mix(in srgb, var(--eve-mist) 70%, transparent);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0 0 5px;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 18px;
+        left: 64px;
+        font-size: 6px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 48%, transparent);
+      }
+
+      /* Señal casi invisible en el void — observación, no UI */
+      .void-mark {
+        position: absolute;
+        top: 52%;
+        left: 58%;
+        width: 9px;
+        height: 9px;
+        opacity: 0.28;
+        image-rendering: pixelated;
+        background:
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 0 0 / 3px 3px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 3px 0 / 3px 3px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 0 3px / 3px 3px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 0 6px / 3px 3px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 3px 6px / 3px 3px no-repeat;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Mock v3 — Mapa · loza con una franja abierta">
+      <span class="mark">EVE<sup>™</sup></span>
+      <div class="session">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <!-- Áreas en el borde: ticks, no menú. Elegidas en tinta; el resto susurra. -->
+      <div class="edge-areas" role="group" aria-label="Áreas de participación">
+        <p class="tick is-on">Operaciones / Producción</p>
+        <p class="tick is-soft">I+D</p>
+        <p class="tick is-soft">Logística</p>
+        <p class="tick is-on">Ventas / Comercial</p>
+        <p class="tick is-soft">Talento</p>
+        <p class="tick is-soft">Finanzas</p>
+        <p class="tick is-soft">Tecnología</p>
+        <p class="tick is-soft">Admin</p>
+        <p class="tick is-soft">Marketing</p>
+        <p class="tick is-soft">Estrategia</p>
+        <p class="tick">Otra área</p>
+      </div>
+
+      <p class="presence"><span>01</span> abierta · 02 elegida</p>
+
+      <span class="void-mark" aria-hidden="true"></span>
+
+      <h1 class="slab-q">¿Dónde participa tu trabajo?</h1>
+      <p class="slab-whisper">
+        No buscamos tu departamento formal. Buscamos en qué parte de la operación tu
+        trabajo realmente interviene.
+      </p>
+
+      <!-- Solo Operaciones se grava. Ventas existe como presencia, no como segundo form. -->
+      <section class="open-band">
+        <p class="open-area">Operaciones / Producción</p>
+        <p class="open-q">De qué respondes en Operaciones / Producción</p>
+        <p class="engraving">
+          Asegurar que la línea de ensamble cumpla el plan diario de producción sin
+          detener entregas.
+        </p>
+
+        <p class="acts-q">Qué haces para cumplirlo</p>
+        <p class="act is-on">
+          1. Revisar el tablero de órdenes y liberar la secuencia del turno.
+        </p>
+        <p class="act is-empty">2. Redacta una actividad concreta de tu trabajo</p>
+        <p class="more">+ Agregar otra actividad</p>
+      </section>
+
+      <aside class="latent" aria-label="Área elegida aún no abierta">
+        <p class="latent-k">02</p>
+        <p class="latent-name">Ventas / Comercial</p>
+        <div class="latent-line" aria-hidden="true"></div>
+      </aside>
+
+      <p class="rule">
+        Escribe al menos una responsabilidad y dos actividades por cada área elegida.
+      </p>
+      <button class="trace" type="button">Guardar</button>
+
+      <p class="proposal-tag">
+        Mock v3 · mapa · loza / una franja abierta · void central · copy oficial
+      </p>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "rollback_name": "ShadowOnlyRealObserverCreationPlanRollback",
+  "mode": "FUTURE_ROLLBACK_DESIGN_ONLY",
+  "rollback_trigger": [
+    "source_contract_mismatch",
+    "tenant_boundary_failure",
+    "provenance_failure",
+    "idempotency_or_replay_failure",
+    "physical_migration_validation_missing_without_waiver",
+    "authority_contamination"
+  ],
+  "rollback_scope": "future_observer_creation_attempt_only",
+  "rollback_preserves_evidence": true,
+  "rollback_does_not_write_product": true,
+  "rollback_restores_authority_false": true,
+  "rollback_does_not_close_gate2": true,
+  "rollback_does_not_enable_gate3": true,
+  "rollback_does_not_start_fase9": true,
+  "rollback_owner_required": true,
+  "rollback_validation_required": true,
+  "quarantine_required": true
+}

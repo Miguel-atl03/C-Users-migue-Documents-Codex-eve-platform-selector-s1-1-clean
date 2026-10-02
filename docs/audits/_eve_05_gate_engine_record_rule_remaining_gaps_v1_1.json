@@ -1,0 +1,56 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-RECORD-RULE-SOURCE-QA-V1_1",
+  "dictamen": "GATE_ENGINE_RECORD_RULE_QA_UNSATISFACTORY_RETURN_TO_WORKBENCH",
+  "gapStatus": "return_to_workbench_required",
+  "gaps": [
+    {
+      "id": "V1_1-GAP-001",
+      "type": "field_exact_proof_missing",
+      "description": "The material evidence matrix provides evidence packets, but not final field-exact classification for every source/target condition, action, severity, source authority, lineage and gate.",
+      "affected": [
+        "all modules"
+      ],
+      "requiredCorrection": "Produce or encode rule/field exact equivalence classifications."
+    },
+    {
+      "id": "V1_1-GAP-002",
+      "type": "atomic_rules_not_satisfactory",
+      "description": "130 atomic rules are listed with evidence, but remain pending_source_proof under V1_1 satisfaction rules.",
+      "affected": [
+        "atomic_rules_and_gate_definitions"
+      ],
+      "requiredCorrection": "Classify each atomic rule as exact_match, normalized_equivalent, or controlled_transformation_with_source, or correct the chip."
+    },
+    {
+      "id": "V1_1-GAP-003",
+      "type": "action_severity_not_fully_source_proven",
+      "description": "The V0 material matrix has entries with missing explicit target action or severity, preventing full action/severity source proof.",
+      "affected": [
+        "critical_route_gate",
+        "semantic_resolution_gate",
+        "process_state_timer_gate",
+        "failure_guards",
+        "consistency/conformance rules"
+      ],
+      "requiredCorrection": "Add/verify action and severity mapping for every applicable rule/guard/gate."
+    },
+    {
+      "id": "V1_1-GAP-004",
+      "type": "overreach_guards_not_finally_classified",
+      "description": "No overreach was detected, but D1/VSM1/AHE1 overreach protections were not finalized as per-rule material equivalence classifications.",
+      "affected": [
+        "D1",
+        "VSM1",
+        "AHE1"
+      ],
+      "requiredCorrection": "Classify overreach guard rules against extracted source passages."
+    }
+  ],
+  "notGaps": [
+    "No PDF text extraction block remains.",
+    "No source existence/readability block remains.",
+    "No runtimeAuthority, registry write or EVE brain connection detected.",
+    "No product files modified."
+  ],
+  "recommendation": "B. Regresar chip a mesa de trabajo con lista de correcciones obligatorias."
+}

@@ -1,0 +1,33 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P3R_SUPABASE_ENVIRONMENT_BINDING_MIGRATION_APPLICATION_COMPLETED",
+  "plan_phase": "Production activation — P3-R Supabase environment binding and migration application",
+  "generated_at": "2026-07-08T01:10:00-06:00",
+  "safe_target": "supabase_local_eve-platform",
+  "p3_migration_file": "supabase/migrations/20260708123000_eve_runtime_40_20_p3_schema_rls.sql",
+  "p3r_prerequisite_migration_file": "supabase/migrations/20260708122000_eve_p3r_capa1_auth_bridge_minimal.sql",
+  "p3r_prerequisite_reason": "P3 auth helpers reference public.usuarios and public.sesiones_llenado; minimal Capa 1 bridge required for local apply only.",
+  "application_method": "npx supabase start (initial) + npx supabase db reset (validated)",
+  "migrations_applied_in_local_db": [
+    "20260702120000_eve_registry_real_minimal.sql",
+    "20260702121000_eve_runtime_40_20_catalog_core.sql",
+    "20260702122000_eve_runtime_40_20_execution_core.sql",
+    "20260708122000_eve_p3r_capa1_auth_bridge_minimal.sql",
+    "20260708123000_eve_runtime_40_20_p3_schema_rls.sql"
+  ],
+  "schema_migrations_versions": [
+    "20260702120000",
+    "20260702121000",
+    "20260702122000",
+    "20260708122000",
+    "20260708123000"
+  ],
+  "migration_status": "applied_successfully",
+  "production_migration_applied": false,
+  "mcp_migration_applied": false,
+  "db_lint_status": "passed",
+  "notes": [
+    "First supabase start attempt failed on Docker registry rate limit for postgres image; retry succeeded after images cached.",
+    "Initial P3-only apply failed until P3-R Capa 1 bridge migration was added.",
+    "supabase/seed.sql not present; WARN only."
+  ]
+}

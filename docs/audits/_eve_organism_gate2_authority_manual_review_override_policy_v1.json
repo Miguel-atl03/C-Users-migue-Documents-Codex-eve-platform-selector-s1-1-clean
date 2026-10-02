@@ -1,0 +1,233 @@
+{
+  "policy_set_id": "eve_organism_gate2_authority_manual_review_override_policy_v1",
+  "generated_at": "2026-06-25T19:35:58.198Z",
+  "principles": {
+    "manual_review_grants_authority_automatically": false,
+    "override_request_and_decision_separate": true,
+    "critical_no_go_overridable": false,
+    "owner_reason_evidence_expiry_ledger_required": true,
+    "reviewer_cannot_be_executor": true,
+    "review_waits_require_timer": true,
+    "timeout_implies_approval": false
+  },
+  "policies": [
+    {
+      "policy_id": "MR-001",
+      "review_type": "promotion request",
+      "trigger": "promotion request",
+      "required_reviewer_role": "independent_human_reviewer",
+      "executor_separation_required": true,
+      "required_evidence": [
+        "source_artifact_hash",
+        "reason",
+        "owner",
+        "scope",
+        "expiry",
+        "ledger_ref"
+      ],
+      "timer_required": true,
+      "proposed_timer_name": "promotion_request_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "DEGRADED_OR_QUARANTINED",
+      "override_allowed": true,
+      "override_expiry_required": true,
+      "ledger_entries_required": [
+        "MANUAL_REVIEW_REQUESTED",
+        "MANUAL_REVIEW_DECIDED"
+      ],
+      "capability_state_effect": "DEGRADED",
+      "current_gate2_authorized": false
+    },
+    {
+      "policy_id": "MR-002",
+      "review_type": "quarantine release",
+      "trigger": "quarantine release",
+      "required_reviewer_role": "independent_human_reviewer",
+      "executor_separation_required": true,
+      "required_evidence": [
+        "source_artifact_hash",
+        "reason",
+        "owner",
+        "scope",
+        "expiry",
+        "ledger_ref"
+      ],
+      "timer_required": true,
+      "proposed_timer_name": "quarantine_release_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "DEGRADED_OR_QUARANTINED",
+      "override_allowed": true,
+      "override_expiry_required": true,
+      "ledger_entries_required": [
+        "MANUAL_REVIEW_REQUESTED",
+        "MANUAL_REVIEW_DECIDED"
+      ],
+      "capability_state_effect": "QUARANTINED",
+      "current_gate2_authorized": false
+    },
+    {
+      "policy_id": "MR-003",
+      "review_type": "rollback completion",
+      "trigger": "rollback completion",
+      "required_reviewer_role": "independent_human_reviewer",
+      "executor_separation_required": true,
+      "required_evidence": [
+        "source_artifact_hash",
+        "reason",
+        "owner",
+        "scope",
+        "expiry",
+        "ledger_ref"
+      ],
+      "timer_required": true,
+      "proposed_timer_name": "rollback_completion_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "REVOKED_OR_OFF",
+      "override_allowed": true,
+      "override_expiry_required": true,
+      "ledger_entries_required": [
+        "MANUAL_REVIEW_REQUESTED",
+        "MANUAL_REVIEW_DECIDED"
+      ],
+      "capability_state_effect": "DEGRADED",
+      "current_gate2_authorized": false
+    },
+    {
+      "policy_id": "MR-004",
+      "review_type": "override request",
+      "trigger": "override request",
+      "required_reviewer_role": "independent_human_reviewer",
+      "executor_separation_required": true,
+      "required_evidence": [
+        "source_artifact_hash",
+        "reason",
+        "owner",
+        "scope",
+        "expiry",
+        "ledger_ref"
+      ],
+      "timer_required": true,
+      "proposed_timer_name": "override_request_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "DEGRADED_OR_QUARANTINED",
+      "override_allowed": true,
+      "override_expiry_required": true,
+      "ledger_entries_required": [
+        "MANUAL_REVIEW_REQUESTED",
+        "MANUAL_REVIEW_DECIDED",
+        "OVERRIDE_REQUESTED",
+        "OVERRIDE_DECIDED"
+      ],
+      "capability_state_effect": "DEGRADED",
+      "current_gate2_authorized": false
+    },
+    {
+      "policy_id": "MR-005",
+      "review_type": "B3 route review",
+      "trigger": "B3 route review",
+      "required_reviewer_role": "independent_human_reviewer",
+      "executor_separation_required": true,
+      "required_evidence": [
+        "source_artifact_hash",
+        "reason",
+        "owner",
+        "scope",
+        "expiry",
+        "ledger_ref"
+      ],
+      "timer_required": true,
+      "proposed_timer_name": "B3_route_review_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "DEGRADED_OR_QUARANTINED",
+      "override_allowed": true,
+      "override_expiry_required": true,
+      "ledger_entries_required": [
+        "MANUAL_REVIEW_REQUESTED",
+        "MANUAL_REVIEW_DECIDED"
+      ],
+      "capability_state_effect": "DEGRADED",
+      "current_gate2_authorized": false
+    },
+    {
+      "policy_id": "MR-006",
+      "review_type": "B7 boundary review",
+      "trigger": "B7 boundary review",
+      "required_reviewer_role": "independent_human_reviewer",
+      "executor_separation_required": true,
+      "required_evidence": [
+        "source_artifact_hash",
+        "reason",
+        "owner",
+        "scope",
+        "expiry",
+        "ledger_ref"
+      ],
+      "timer_required": true,
+      "proposed_timer_name": "B7_boundary_review_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "DEGRADED_OR_QUARANTINED",
+      "override_allowed": false,
+      "override_expiry_required": true,
+      "ledger_entries_required": [
+        "MANUAL_REVIEW_REQUESTED",
+        "MANUAL_REVIEW_DECIDED"
+      ],
+      "capability_state_effect": "DEGRADED",
+      "current_gate2_authorized": false
+    },
+    {
+      "policy_id": "MR-007",
+      "review_type": "tenant/auth incident",
+      "trigger": "tenant/auth incident",
+      "required_reviewer_role": "security_boundary_owner",
+      "executor_separation_required": true,
+      "required_evidence": [
+        "source_artifact_hash",
+        "reason",
+        "owner",
+        "scope",
+        "expiry",
+        "ledger_ref"
+      ],
+      "timer_required": true,
+      "proposed_timer_name": "tenant/auth_incident_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "DEGRADED_OR_QUARANTINED",
+      "override_allowed": false,
+      "override_expiry_required": true,
+      "ledger_entries_required": [
+        "MANUAL_REVIEW_REQUESTED",
+        "MANUAL_REVIEW_DECIDED"
+      ],
+      "capability_state_effect": "DEGRADED",
+      "current_gate2_authorized": false
+    },
+    {
+      "policy_id": "MR-008",
+      "review_type": "ledger divergence",
+      "trigger": "ledger divergence",
+      "required_reviewer_role": "independent_human_reviewer",
+      "executor_separation_required": true,
+      "required_evidence": [
+        "source_artifact_hash",
+        "reason",
+        "owner",
+        "scope",
+        "expiry",
+        "ledger_ref"
+      ],
+      "timer_required": true,
+      "proposed_timer_name": "ledger_divergence_timer",
+      "timer_status": "proposed_not_authoritative",
+      "timeout_action": "DEGRADED_OR_QUARANTINED",
+      "override_allowed": true,
+      "override_expiry_required": true,
+      "ledger_entries_required": [
+        "MANUAL_REVIEW_REQUESTED",
+        "MANUAL_REVIEW_DECIDED"
+      ],
+      "capability_state_effect": "DEGRADED",
+      "current_gate2_authorized": false
+    }
+  ]
+}

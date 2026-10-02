@@ -1,0 +1,39 @@
+{
+  "auditId": "EVE-02-DIAGNOSTIC-ONTOLOGY-45-RULE-SOURCE-PROOF-MATRIX-V1",
+  "dictamen": "DIAGNOSTIC_ONTOLOGY_CONTENT_QA_READY_WITH_GAPS",
+  "resolvedGaps": [
+    {
+      "gapId": "FULL_45_RULE_SOURCE_PROOF_MATRIX_NOT_CREATED",
+      "status": "resolved",
+      "evidence": "Created docs/audits/_eve_02_diagnostic_ontology_45_rule_source_proof_matrix_v1.json with 45/45 rule rows."
+    }
+  ],
+  "livingGaps": [
+    {
+      "gapId": "FUNCTIONAL_INPUT_CONTRACT_NAMES_NOT_EXPLICIT",
+      "status": "minor_gap",
+      "classification": "minor_gap",
+      "reason": "The semantic contract exists through R019-R024 and output_contract.minimum_payload_fields, but the package lacks a dedicated input_contract section with exact requested names.",
+      "packageCorrectionRequiredBeforeStaticTests": false,
+      "recommendedFutureAction": "Add explicit input_contract section in a later correction task."
+    }
+  ],
+  "notGaps": [
+    {
+      "candidateGap": "sourceRef_missing",
+      "status": "not_gap",
+      "reason": "All 45 rules have source_refs or project_decision."
+    },
+    {
+      "candidateGap": "D2_source_access",
+      "status": "not_gap",
+      "reason": "D2 was read directly using NT path / 8.3 short name due Unicode path resolution issue; checksum matched manifest."
+    },
+    {
+      "candidateGap": "alias_as_14th_pathology",
+      "status": "not_gap",
+      "reason": "Esquizofrenia Organizacional is kept as alias under Incoherencia Sistémica Total."
+    }
+  ],
+  "recommendedNextStep": "Create static package tests."
+}

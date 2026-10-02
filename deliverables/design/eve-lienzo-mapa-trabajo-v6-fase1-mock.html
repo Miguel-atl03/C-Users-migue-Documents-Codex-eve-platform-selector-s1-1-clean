@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Mapa de trabajo · v6 fase 1 · catálogo en void v6</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* v6 intacto. Solo se agrega catálogo en el void a la derecha de ubicación. */
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1200px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .mark {
+        position: absolute;
+        top: 40px;
+        left: 64px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .session {
+        position: absolute;
+        top: 40px;
+        right: 64px;
+        text-align: right;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 1.9;
+      }
+
+      .room {
+        position: absolute;
+        top: 108px;
+        left: 64px;
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+      }
+
+      .ubicacion {
+        position: absolute;
+        top: 148px;
+        left: 64px;
+        width: 340px;
+      }
+
+      .ubicacion-q {
+        margin: 0 0 24px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 34ch;
+      }
+
+      .ubicacion-area {
+        margin: 0 0 14px;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .ubicacion-area.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .ubicacion-area.is-focus {
+        font-weight: 700;
+      }
+
+      .ubicacion-more {
+        margin: 20px 0 0;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 45%, transparent);
+      }
+
+      .ubicacion-whisper {
+        margin: 28px 0 0;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        line-height: 1.75;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 52%, transparent);
+        max-width: 38ch;
+      }
+
+      /*
+        Franja de inscripciones: solo el alto de pregunta + 2 ítems elegidos.
+        Distribución a lo ancho del void (404px → borde derecho), 3 columnas × 3 filas.
+      */
+      .void-catalogo {
+        position: absolute;
+        top: 148px;
+        left: 404px;
+        right: 64px;
+        height: 91px;
+      }
+
+      .catalog-item {
+        position: absolute;
+        margin: 0;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.07em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        max-width: 20ch;
+      }
+
+      /* Col 1 — cuadrantes izquierda del void */
+      .c1 {
+        top: 0;
+        left: 0;
+      }
+      .c4 {
+        top: 38px;
+        left: 4px;
+      }
+      .c7 {
+        top: 66px;
+        left: 12px;
+      }
+
+      /* Col 2 — cuadrantes centro */
+      .c2 {
+        top: 2px;
+        left: 33%;
+      }
+      .c5 {
+        top: 36px;
+        left: 32%;
+      }
+      .c8 {
+        top: 64px;
+        left: 33%;
+      }
+
+      /* Col 3 — cuadrantes derecha, a lo ancho */
+      .c3 {
+        top: 0;
+        left: 66%;
+        max-width: 18ch;
+      }
+      .c6 {
+        top: 40px;
+        left: 65%;
+      }
+
+      .confirm {
+        position: absolute;
+        bottom: 52px;
+        left: 96px;
+        border: 0;
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 16px;
+        left: 64px;
+        font-size: 6px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 45%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Fase 1 — v6 + catálogo en void ubicación">
+      <span class="mark">EVE<sup>™</sup></span>
+      <div class="session">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <p class="room">[ Mapa de tu trabajo ]</p>
+
+      <!-- v6 sin mover -->
+      <section class="ubicacion" aria-labelledby="ubicacion-q">
+        <h2 class="ubicacion-q" id="ubicacion-q">¿Dónde participa tu trabajo?</h2>
+        <p class="ubicacion-area is-on is-focus">Operaciones / Producción</p>
+        <p class="ubicacion-area is-on">Ventas / Comercial</p>
+        <p class="ubicacion-more">Otra área</p>
+        <p class="ubicacion-whisper">
+          No buscamos tu departamento formal. Buscamos en qué parte de la operación tu
+          trabajo realmente interviene.
+        </p>
+      </section>
+
+      <!-- Solo esto es nuevo: catálogo en el void v6 (elegidas ya no están aquí) -->
+      <div class="void-catalogo" role="group" aria-label="Catálogo de áreas">
+        <p class="catalog-item c1">I+D / Innovación</p>
+        <p class="catalog-item c2">Logística / Entrega</p>
+        <p class="catalog-item c3">Gestión de Talento (RRHH)</p>
+        <p class="catalog-item c4">Finanzas y Tesorería</p>
+        <p class="catalog-item c5">Tecnología e Infraestructura</p>
+        <p class="catalog-item c6">Administración / Legal</p>
+        <p class="catalog-item c7">Marketing Estratégico</p>
+        <p class="catalog-item c8">Planeación y Estrategia</p>
+      </div>
+
+      <button class="confirm" type="button">[ Estos son mis roles de trabajo ]</button>
+
+      <p class="proposal-tag">
+        Mock v6 · fase 1 · inscripciones en franja · copy oficial
+      </p>
+    </section>
+  </body>
+</html>

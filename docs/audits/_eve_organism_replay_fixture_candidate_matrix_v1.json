@@ -1,0 +1,775 @@
+{
+  "audit_id": "EVE_ORGANISM_REPLAY_FIXTURE_CANDIDATE_MATRIX_V1",
+  "scope": "fixture_replay_candidate_selection_only",
+  "safe_fixture_replay_total": 278,
+  "selection_basis": [
+    "docs/audits/_eve_organism_real_observation_signal_inventory_v1.json",
+    "docs/audits/_eve_organism_real_observation_entrypoint_decision_v1.json",
+    "docs/audits/_eve_organism_real_observation_gap_index_v1.json",
+    "docs/audits/_eve_organism_shadow_e2e_harness_v1.json",
+    "src/types/eve-organism-shadow-e2e.ts",
+    "src/services/eve-organism-shadow-e2e-adapter.ts",
+    "tests/regression/eve-organism-shadow-e2e-adapter.test.ts"
+  ],
+  "selected_fixtures": [
+    {
+      "fixture_id": "replay_fixture_001_workmap_activity",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_001_workmap_activity.json",
+      "source_signal_id": "ROSIG-0089",
+      "source_path": "src/services/primary-activity-selector.ts",
+      "source_kind": "service",
+      "evidence_locator": "src/services/primary-activity-selector.ts:17,148,164,168",
+      "tenantId_available": false,
+      "organizationId_available": false,
+      "sessionId_available": false,
+      "activityId_available": true,
+      "actorId_or_userId_available": false,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": false,
+      "correlationId_available": false,
+      "officialFlowRef_available": false,
+      "signalKind_to_use": "workmap_activity",
+      "expected_mapper_capability": "runtimeCapture",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_divergence_type": "unknown",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The inventory marks ROSIG-0089 as safe_for_fixture_replay and the source builds WorkMap candidates with activityId and provenance from WorkMap literal data.",
+      "gaps_this_fixture_tests": [
+        "WorkMap activity"
+      ],
+      "missing_in_source": [
+        "tenantId",
+        "organizationId",
+        "sessionId",
+        "actorId_or_userId",
+        "sourceTrace",
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "tenantId",
+        "organizationId",
+        "sessionId",
+        "actorId",
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef"
+      ],
+      "why_required": "The E2E replay contract requires context and trace fields that the WorkMap selection signal does not carry.",
+      "why_safe_for_fixture_only": "Values must be non-sensitive offline fixture identifiers and must preserve ROSIG-0089 as source trace justification."
+    },
+    {
+      "fixture_id": "replay_fixture_002_significado_intent",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_002_significado_intent.json",
+      "source_signal_id": "ROSIG-0099",
+      "source_path": "src/services/significado-activity-anchor-adapter.ts",
+      "source_kind": "service",
+      "evidence_locator": "src/services/significado-activity-anchor-adapter.ts:17,18,41,88,89,233,244",
+      "tenantId_available": false,
+      "organizationId_available": false,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": false,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": false,
+      "correlationId_available": false,
+      "officialFlowRef_available": false,
+      "signalKind_to_use": "significado_intent",
+      "expected_mapper_capability": "runtimeCapture",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_divergence_type": "unknown",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The adapter builds Significado submit payloads from WorkMap anchors, sessionId and activity provenance, matching the Significado intent replay category.",
+      "gaps_this_fixture_tests": [
+        "Significado intent"
+      ],
+      "missing_in_source": [
+        "tenantId",
+        "organizationId",
+        "actorId_or_userId",
+        "sourceTrace",
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "tenantId",
+        "organizationId",
+        "actorId",
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef"
+      ],
+      "why_required": "The source has session/activity and provenance but not full multi-tenant replay context.",
+      "why_safe_for_fixture_only": "Synthetic values stay local to offline replay and are not claimed as production observation."
+    },
+    {
+      "fixture_id": "replay_fixture_003_runtime_like_response",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_003_runtime_like_response.json",
+      "source_signal_id": "ROSIG-0091",
+      "source_path": "src/services/runtime-block0-response-model.ts",
+      "source_kind": "service",
+      "evidence_locator": "src/services/runtime-block0-response-model.ts:11,13,185,186,208,226,228",
+      "tenantId_available": false,
+      "organizationId_available": false,
+      "sessionId_available": false,
+      "activityId_available": true,
+      "actorId_or_userId_available": false,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": false,
+      "correlationId_available": false,
+      "officialFlowRef_available": false,
+      "signalKind_to_use": "runtime_like_response",
+      "expected_mapper_capability": "gateAdvisory",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_divergence_type": "unknown",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The source models RuntimeBlock0 interaction responses and provenance metadata without requiring DB writes.",
+      "gaps_this_fixture_tests": [
+        "runtime-like response"
+      ],
+      "missing_in_source": [
+        "tenantId",
+        "organizationId",
+        "sessionId",
+        "actorId_or_userId",
+        "sourceTrace",
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "tenantId",
+        "organizationId",
+        "sessionId",
+        "actorId",
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef"
+      ],
+      "why_required": "Runtime-like response source is service-local and does not include all replay envelope identifiers.",
+      "why_safe_for_fixture_only": "Offline-only IDs are enough to exercise the mapper without activating runtime."
+    },
+    {
+      "fixture_id": "replay_fixture_004_evidence_provenance",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_004_evidence_provenance.json",
+      "source_signal_id": "ROSIG-0146",
+      "source_path": "src/services/export/activity-collection-xlsx.ts",
+      "source_kind": "service",
+      "evidence_locator": "src/services/export/activity-collection-xlsx.ts:23,102,103,130,132,265,269",
+      "tenantId_available": false,
+      "organizationId_available": false,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": false,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": false,
+      "correlationId_available": false,
+      "officialFlowRef_available": false,
+      "signalKind_to_use": "evidence_capture",
+      "expected_mapper_capability": "runtimeCapture",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_divergence_type": "unknown",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The export service reads evidence provenance fields and session/activity traces, providing concrete repo evidence for a provenance-bearing replay payload.",
+      "gaps_this_fixture_tests": [
+        "evidence with provenance"
+      ],
+      "missing_in_source": [
+        "tenantId",
+        "organizationId",
+        "actorId_or_userId",
+        "sourceTrace",
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "tenantId",
+        "organizationId",
+        "actorId",
+        "idempotencyKey",
+        "correlationId",
+        "officialFlowRef"
+      ],
+      "why_required": "The export source exposes provenance but not the full offline harness envelope.",
+      "why_safe_for_fixture_only": "The fixture must not invoke export; it only replays the signal shape."
+    },
+    {
+      "fixture_id": "replay_fixture_005_candidate_source_trace",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_005_candidate_source_trace.json",
+      "source_signal_id": "ROSIG-0209",
+      "source_path": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+      "source_kind": "test",
+      "evidence_locator": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts:50,51,293,294,297",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": true,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "candidate_generation",
+      "expected_mapper_capability": "candidateGeneration",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_divergence_type": "none",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The approved offline harness test already asserts candidate_generation accepted with sourceTrace.",
+      "gaps_this_fixture_tests": [
+        "candidate with sourceTrace"
+      ],
+      "missing_in_source": [],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "all payload values are fixture-only test values"
+      ],
+      "why_required": "The source is itself an offline in-memory test and must not be treated as production observation.",
+      "why_safe_for_fixture_only": "The values are existing non-sensitive fixture identifiers."
+    },
+    {
+      "fixture_id": "replay_fixture_006_official_flow_ref",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_006_official_flow_ref.json",
+      "source_signal_id": "ROSIG-0209",
+      "source_path": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+      "source_kind": "test",
+      "evidence_locator": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts:84,110,207,304,306,307,308",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": true,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "official_flow_result",
+      "expected_mapper_capability": "governanceObserve",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_divergence_type": "none",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "Existing harness coverage verifies officialFlowRef preservation and no divergence when the shadow result is accepted.",
+      "gaps_this_fixture_tests": [
+        "official flow ref"
+      ],
+      "missing_in_source": [],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "officialFlowRef identifiers"
+      ],
+      "why_required": "The official flow reference is a fixture-only comparator, not a live official flow invocation.",
+      "why_safe_for_fixture_only": "The identifiers are non-production fixture strings."
+    },
+    {
+      "fixture_id": "replay_fixture_007_missing_context",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_007_missing_context.json",
+      "source_signal_id": "ROSIG-0209",
+      "source_path": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+      "source_kind": "test",
+      "evidence_locator": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts:90,142,268,270,271",
+      "tenantId_available": false,
+      "organizationId_available": true,
+      "sessionId_available": false,
+      "activityId_available": false,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": true,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "workmap_activity",
+      "expected_mapper_capability": "runtimeCapture",
+      "expected_status": "SHADOW_BLOCKED",
+      "expected_blockers": [
+        "OCR-BLK-001"
+      ],
+      "expected_divergence_type": "shadow_blocked",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "Existing test coverage intentionally blanks tenantId, sessionId and activityId and expects missing context blocker OCR-BLK-001.",
+      "gaps_this_fixture_tests": [
+        "missing tenant/session/activity"
+      ],
+      "missing_in_source": [
+        "tenantId",
+        "sessionId",
+        "activityId"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "remaining valid non-sensitive envelope values"
+      ],
+      "why_required": "The negative fixture needs controlled missing fields plus harmless context around them.",
+      "why_safe_for_fixture_only": "The missing identifiers are intentional blocker inputs for offline validation."
+    },
+    {
+      "fixture_id": "replay_fixture_008_missing_provenance",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_008_missing_provenance.json",
+      "source_signal_id": "ROSIG-0209",
+      "source_path": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+      "source_kind": "test",
+      "evidence_locator": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts:93,94,145,320,322,325,327",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": false,
+      "sourceTrace_available": true,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "evidence_capture",
+      "expected_mapper_capability": "runtimeCapture",
+      "expected_status": "SHADOW_DEGRADED",
+      "expected_blockers": [
+        "OCR-BLK-013"
+      ],
+      "expected_divergence_type": "provenance_gap",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "Existing tests define a signalMissingProvenance helper and assert OCR-BLK-013 plus provenance_gap.",
+      "gaps_this_fixture_tests": [
+        "missing provenance"
+      ],
+      "missing_in_source": [
+        "provenance"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "context identifiers around the missing provenance case"
+      ],
+      "why_required": "The blocker fixture needs controlled valid context while provenance is absent.",
+      "why_safe_for_fixture_only": "The omission is intentional and remains offline."
+    },
+    {
+      "fixture_id": "replay_fixture_009_missing_idempotency_correlation",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_009_missing_idempotency_correlation.json",
+      "source_signal_id": "ROSIG-0084",
+      "source_path": "src/services/eve-organism-shadow-e2e-adapter.ts",
+      "source_kind": "service",
+      "evidence_locator": "src/services/eve-organism-shadow-e2e-adapter.ts:60,61,113; tests/regression/eve-organism-shadow-e2e-adapter.test.ts:166,167,168",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": false,
+      "correlationId_available": false,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "workmap_activity",
+      "expected_mapper_capability": "runtimeCapture",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_divergence_type": "none",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The adapter explicitly defaults missing idempotencyKey and correlationId to empty strings; batch tests verify correlation propagation when present.",
+      "gaps_this_fixture_tests": [
+        "missing idempotency/correlation"
+      ],
+      "missing_in_source": [
+        "idempotencyKey",
+        "correlationId",
+        "sourceTrace"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "tenant/session/activity/context identifiers",
+        "officialFlowRef"
+      ],
+      "why_required": "The fixture needs to intentionally omit idempotencyKey and correlationId while preserving a valid replay envelope.",
+      "why_safe_for_fixture_only": "This tests mapper behavior and does not create any external correlation or idempotency record."
+    },
+    {
+      "fixture_id": "replay_fixture_010_missing_source_trace",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_010_missing_source_trace.json",
+      "source_signal_id": "ROSIG-0209",
+      "source_path": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+      "source_kind": "test",
+      "evidence_locator": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts:147,148,333,337,339",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "candidate_generation",
+      "expected_mapper_capability": "candidateGeneration",
+      "expected_status": "SHADOW_DEGRADED",
+      "expected_blockers": [
+        "OCR-BLK-014"
+      ],
+      "expected_divergence_type": "candidate_difference",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "Existing tests define signalMissingSourceTrace and assert blocker OCR-BLK-014 for candidate generation.",
+      "gaps_this_fixture_tests": [
+        "candidate without sourceTrace",
+        "non-critical divergence signal"
+      ],
+      "missing_in_source": [
+        "sourceTrace"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "context identifiers around the missing sourceTrace case"
+      ],
+      "why_required": "The negative fixture needs a candidate payload whose sourceTrace is deliberately absent.",
+      "why_safe_for_fixture_only": "The omission is a non-critical offline replay case."
+    },
+    {
+      "fixture_id": "replay_fixture_011_registry_export_attempt",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_011_registry_export_attempt.json",
+      "source_signal_id": "ROSIG-0084",
+      "source_path": "src/services/eve-organism-shadow-e2e-adapter.ts",
+      "source_kind": "service",
+      "evidence_locator": "src/services/eve-organism-shadow-e2e-adapter.ts:166,233; tests/regression/eve-organism-shadow-e2e-adapter.test.ts:98",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "registry_export_attempt",
+      "expected_mapper_capability": "registryWrite",
+      "expected_status": "SHADOW_BLOCKED",
+      "expected_blockers": [
+        "OCR-BLK-003",
+        "OCR-BLK-004"
+      ],
+      "expected_divergence_type": "no_go_triggered",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The adapter maps registry_export_attempt to registryWrite and blocks registry/export side effects.",
+      "gaps_this_fixture_tests": [
+        "registry/export attempt"
+      ],
+      "missing_in_source": [
+        "sourceTrace"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "offline context identifiers",
+        "provenance"
+      ],
+      "why_required": "The fixture must represent the forbidden attempt without performing it.",
+      "why_safe_for_fixture_only": "The adapter blocks the attempt and the fixture is data-only."
+    },
+    {
+      "fixture_id": "replay_fixture_012_tenant_leak_attempt",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_012_tenant_leak_attempt.json",
+      "source_signal_id": "ROSIG-0084",
+      "source_path": "src/services/eve-organism-shadow-e2e-adapter.ts",
+      "source_kind": "service",
+      "evidence_locator": "src/services/eve-organism-shadow-e2e-adapter.ts:167,247; tests/regression/eve-organism-shadow-e2e-adapter.test.ts:102,186,187,189",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "tenant_leak_signal",
+      "expected_mapper_capability": "governanceObserve",
+      "expected_status": "SHADOW_BLOCKED",
+      "expected_blockers": [
+        "OCR-BLK-008"
+      ],
+      "expected_divergence_type": "tenant_isolation_mismatch",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The adapter has explicit tenant_leak_signal handling and tests preserve tenant separation in batch replay.",
+      "gaps_this_fixture_tests": [
+        "tenant leak attempt"
+      ],
+      "missing_in_source": [
+        "sourceTrace"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "tenant-a/tenant-b style fixture identifiers"
+      ],
+      "why_required": "Tenant-leak validation requires two harmless tenant labels.",
+      "why_safe_for_fixture_only": "The labels are synthetic and no tenant data is read."
+    },
+    {
+      "fixture_id": "replay_fixture_013_gate_bypass_signal",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_013_gate_bypass_signal.json",
+      "source_signal_id": "ROSIG-0084",
+      "source_path": "src/services/eve-organism-shadow-e2e-adapter.ts",
+      "source_kind": "service",
+      "evidence_locator": "src/services/eve-organism-shadow-e2e-adapter.ts:164,178",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "gate_bypass_signal",
+      "expected_mapper_capability": "gateAdvisory",
+      "expected_status": "SHADOW_BLOCKED",
+      "expected_blockers": [
+        "OCR-BLK-009"
+      ],
+      "expected_divergence_type": "gate_bypass_attempt",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The adapter has explicit mapping for gate_bypass_signal and resolves it as ACTIVE, giving a concrete bypass attempt shape for a blocker fixture.",
+      "gaps_this_fixture_tests": [
+        "gate bypass signal"
+      ],
+      "missing_in_source": [
+        "sourceTrace"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "full offline replay envelope"
+      ],
+      "why_required": "The source provides bypass semantics, not a concrete production payload.",
+      "why_safe_for_fixture_only": "Replay remains advisory/offline and must not activate the gate."
+    },
+    {
+      "fixture_id": "replay_fixture_014_evidence_corruption_signal",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_014_evidence_corruption_signal.json",
+      "source_signal_id": "ROSIG-0154",
+      "source_path": "src/types/eve-organism-shadow-e2e.ts",
+      "source_kind": "type",
+      "evidence_locator": "src/types/eve-organism-shadow-e2e.ts:24,25,39,40,41; src/services/eve-organism-shadow-e2e-adapter.ts:165",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "evidence_corruption_signal",
+      "expected_mapper_capability": "governanceObserve",
+      "expected_status": "SHADOW_DEGRADED",
+      "expected_blockers": [
+        "OCR-BLK-010"
+      ],
+      "expected_divergence_type": "provenance_gap",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The E2E signal kind type declares evidence_corruption_signal and the adapter routes it to governanceObserve.",
+      "gaps_this_fixture_tests": [
+        "evidence corruption signal"
+      ],
+      "missing_in_source": [
+        "sourceTrace"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "corrupted evidence marker",
+        "offline context identifiers"
+      ],
+      "why_required": "The type declares the signal kind but does not include an instantiated corrupted evidence payload.",
+      "why_safe_for_fixture_only": "The corruption is simulated in fixture data and no real evidence is altered."
+    },
+    {
+      "fixture_id": "replay_fixture_015_no_go_critical_signal",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_015_no_go_critical_signal.json",
+      "source_signal_id": "ROSIG-0084",
+      "source_path": "src/services/eve-organism-shadow-e2e-adapter.ts",
+      "source_kind": "service",
+      "evidence_locator": "src/services/eve-organism-shadow-e2e-adapter.ts:200; tests/regression/eve-organism-shadow-e2e-adapter.test.ts:106,111,177",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "runtime_like_response",
+      "expected_mapper_capability": "databaseWrite",
+      "expected_status": "SHADOW_BLOCKED",
+      "expected_blockers": [
+        "OCR-BLK-007"
+      ],
+      "expected_divergence_type": "no_go_triggered",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The adapter marks databaseWrite as a forbidden side effect and tests exercise blocked databaseWrite requests.",
+      "gaps_this_fixture_tests": [
+        "no-go critical signal"
+      ],
+      "missing_in_source": [
+        "sourceTrace"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "requestedCapability databaseWrite payload context"
+      ],
+      "why_required": "The fixture must request a forbidden capability without touching a DB.",
+      "why_safe_for_fixture_only": "The adapter blocks the command before any external effect."
+    },
+    {
+      "fixture_id": "replay_fixture_016_non_critical_divergence_signal",
+      "proposed_fixture_file": "tests/fixtures/eve-organism-shadow-e2e/replay_fixture_016_non_critical_divergence_signal.json",
+      "source_signal_id": "ROSIG-0209",
+      "source_path": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+      "source_kind": "test",
+      "evidence_locator": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts:147,148,171,333,337,339",
+      "tenantId_available": true,
+      "organizationId_available": true,
+      "sessionId_available": true,
+      "activityId_available": true,
+      "actorId_or_userId_available": true,
+      "provenance_available": true,
+      "sourceTrace_available": false,
+      "idempotencyKey_available": true,
+      "correlationId_available": true,
+      "officialFlowRef_available": true,
+      "signalKind_to_use": "candidate_generation",
+      "expected_mapper_capability": "candidateGeneration",
+      "expected_status": "SHADOW_DEGRADED",
+      "expected_blockers": [
+        "OCR-BLK-014"
+      ],
+      "expected_divergence_type": "candidate_difference",
+      "expected_no_cableado": {
+        "runtime_connected": false,
+        "db_write": false,
+        "registry_write": false,
+        "export_produced": false,
+        "ui_touch": false
+      },
+      "exact_reason_for_selection": "The missing sourceTrace candidate produces a degraded non-critical divergence rather than a no-go critical block.",
+      "gaps_this_fixture_tests": [
+        "non-critical divergence signal"
+      ],
+      "missing_in_source": [
+        "sourceTrace"
+      ],
+      "synthetic_test_value_required": true,
+      "synthetic_field": [
+        "non-sensitive candidate payload around absent sourceTrace"
+      ],
+      "why_required": "The fixture needs a controlled degraded candidate signal.",
+      "why_safe_for_fixture_only": "The payload is offline and does not affect real candidate generation."
+    }
+  ]
+}

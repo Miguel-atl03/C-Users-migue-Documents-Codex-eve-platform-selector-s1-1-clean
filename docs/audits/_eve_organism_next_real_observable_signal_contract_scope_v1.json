@@ -1,0 +1,85 @@
+{
+  "audit_id": "EVE_ORGANISM_NEXT_REAL_OBSERVABLE_SIGNAL_CONTRACT_SCOPE_V1",
+  "generated_at": "2026-06-25T02:40:16.020Z",
+  "dictamen": "REPLAY_ONLY_CONTINUES_V2_READY_FOR_REAL_OBSERVABLE_SIGNAL_CONTRACT_DESIGN",
+  "selected_next_task": "REAL_OBSERVABLE_SIGNAL_CONTRACT_DESIGN_V1",
+  "reason": "A real observer cannot be designed yet. The safe next step is a documentary/technical contract that defines what a future real observable signal must prove before observation can be reconsidered.",
+  "task_type": "contract_design_only_no_observer",
+  "objective": "Define required fields, guarantees, boundaries, no-mutation constraints and future tests for a real observable signal.",
+  "explicit_non_authorizations": {
+    "implements_observer": false,
+    "touches_product": false,
+    "touches_WorkMap": false,
+    "touches_Significado": false,
+    "touches_DB": false,
+    "uses_Supabase": false,
+    "connects_runtime": false,
+    "writes_registry": false,
+    "produces_export": false
+  },
+  "future_contract_must_define": {
+    "identity_context": [
+      "tenantId real",
+      "organizationId real",
+      "sessionId real",
+      "activityId real",
+      "actorId/userId real"
+    ],
+    "traceability": [
+      "provenance real",
+      "sourceTrace real if candidate",
+      "idempotencyKey real",
+      "correlationId real",
+      "officialFlowRef real or explicitly approved equivalent"
+    ],
+    "no_mutation": [
+      "no UI touch",
+      "no WorkMap mutation",
+      "no Significado mutation",
+      "no DB write",
+      "no Supabase requirement or proven read-only boundary",
+      "no runtime mutation",
+      "no registry/export/diagnosis",
+      "no production authority"
+    ],
+    "security": [
+      "auth boundary",
+      "tenant isolation",
+      "RLS/read boundary if DB appears",
+      "no service_role for observer",
+      "no secrets/tokens"
+    ],
+    "tests": [
+      "fixture with complete real-shape signal",
+      "no mutation test",
+      "tenant isolation test",
+      "idempotency/correlation test",
+      "officialFlowRef test",
+      "provenance/sourceTrace test",
+      "no UI/DB/Supabase test",
+      "no registry/export/diagnosis test"
+    ]
+  },
+  "future_allowlist": [
+    "docs/audits/AUDIT_EVE_ORGANISM_REAL_OBSERVABLE_SIGNAL_CONTRACT_DESIGN_V1.md",
+    "docs/audits/_eve_organism_real_observable_signal_contract_design_v1.json",
+    "docs/audits/_eve_organism_real_observable_signal_required_fields_v1.json",
+    "docs/audits/_eve_organism_real_observable_signal_no_mutation_contract_v1.json",
+    "docs/audits/_eve_organism_real_observable_signal_test_requirements_v1.json"
+  ],
+  "future_forbidden": [
+    "src/**",
+    "tests/**",
+    "app/**",
+    "components/**",
+    "pages/**",
+    "docs/chips/**",
+    "docs/runtime/**",
+    "docs/organism/**",
+    "package.json",
+    "lockfiles",
+    "DB/Supabase/migrations",
+    "WorkMap/Significado/runtime productivo",
+    "registry/export"
+  ]
+}

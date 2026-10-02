@@ -1,0 +1,103 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P9B_RING0_ROLLBACK_ABORT_REQUIREMENTS",
+  "generated_at": "2026-07-08T21:19:00.000Z",
+  "authorization_ref": "p9b-ring0-authorization-20260708",
+  "ring0_scope": "internal_operator_with_controlled_fixtures",
+  "rollback_required": true,
+  "abort_required": true,
+  "p9a2_baseline": {
+    "rollback_drill_ref": "docs/production-activation/eve_production_activation_p9a2_rollback_drill_results.json",
+    "rollback_drill_passed": true,
+    "abort_path_drill_ref": "docs/production-activation/eve_production_activation_p9a2_abort_path_drill_results.json",
+    "abort_path_passed": true
+  },
+  "rollback_requirements": [
+    {
+      "id": "P9B-RB-01",
+      "requirement": "controlled_record_revert_capability",
+      "source": "p9a2_rollback_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    },
+    {
+      "id": "P9B-RB-02",
+      "requirement": "activation_allowed_remains_false_after_rollback",
+      "source": "p9a2_rollback_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    },
+    {
+      "id": "P9B-RB-03",
+      "requirement": "external_export_remains_false_after_rollback",
+      "source": "p9a2_rollback_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    },
+    {
+      "id": "P9B-RB-04",
+      "requirement": "real_client_access_remains_false_after_rollback",
+      "source": "p9a2_rollback_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    },
+    {
+      "id": "P9B-RB-05",
+      "requirement": "qa_green_real_remains_false_after_rollback",
+      "source": "p9a2_rollback_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    },
+    {
+      "id": "P9B-RB-06",
+      "requirement": "production_supabase_untouched_after_rollback",
+      "source": "p9a2_rollback_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    }
+  ],
+  "abort_requirements": [
+    {
+      "id": "P9B-AB-01",
+      "requirement": "dependency_blocked_path_observable",
+      "source": "p9a2_abort_path_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    },
+    {
+      "id": "P9B-AB-02",
+      "requirement": "consultant_packet_dependency_blocked",
+      "source": "p9a2_abort_path_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    },
+    {
+      "id": "P9B-AB-03",
+      "requirement": "no_go_technical_local_on_abort",
+      "source": "p9a2_abort_path_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    },
+    {
+      "id": "P9B-AB-04",
+      "requirement": "audit_trail_recorded_on_abort",
+      "source": "p9a2_abort_path_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    },
+    {
+      "id": "P9B-AB-05",
+      "requirement": "activation_allowed_remains_false_on_abort",
+      "source": "p9a2_abort_path_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    },
+    {
+      "id": "P9B-AB-06",
+      "requirement": "production_supabase_untouched_on_abort",
+      "source": "p9a2_abort_path_drill",
+      "mandatory_for_ring0": true,
+      "p9a2_passed": true
+    }
+  ],
+  "all_requirements_satisfied_at_authorization": true
+}

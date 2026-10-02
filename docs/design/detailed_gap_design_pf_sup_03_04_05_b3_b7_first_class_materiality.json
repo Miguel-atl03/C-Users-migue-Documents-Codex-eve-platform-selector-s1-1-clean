@@ -1,0 +1,2287 @@
+{
+  "audit_id": "DETAILED_GAP_DESIGN_PF_SUP_03_04_05_AND_B3_B7_FIRST_CLASS_MATERIALITY_V1",
+  "implementation_allowed": false,
+  "runtime_40_20_full_allowed": false,
+  "repo_visibility": "full",
+  "no_go_triggered": false,
+  "no_go_reasons": [],
+  "tree_branches_used": [
+    "Rector maestro / MMABP_Minimal_Business_Architecture_EVE_v1_1_B3_B7_alineado",
+    "Capa 1.0 / Ruta de Materializacion - tramo Capa 1 / OperationalExceptionEvidence",
+    "Capa 1.0 / Ruta de Materializacion - tramo Capa 1 / EvidenceBundle",
+    "Produccion Paralela / Ruta de Materializacion - Produccion Paralela / Fase 2 / ArchitectureConsistencyAssessment",
+    "Runtime 40/20",
+    "Fases 1-8 Runtime / F5 Object Inventory / Runtime Object Binding Service F5C",
+    "Sistema Regulatorio Implementado / Soft Governance & Security Control",
+    "Baseline de materialidad actual repo vs rector"
+  ],
+  "gap_families": {
+    "PF_SUP_03": {
+      "status": "partially_confirmed",
+      "current_materiality_level": "L2 vocabulary_only",
+      "target_design_level": "L4 contract_defined",
+      "objects_reviewed": [
+        "EvidenceBundle",
+        "ActoObservable",
+        "ElementoMMABP",
+        "HipotesisVSMPrimaria",
+        "InconsistenciaMMABP",
+        "NodoEVELocal",
+        "ActorFuncionalEVE",
+        "TraduccionAHEMaterial",
+        "EscenaEvidencial"
+      ],
+      "missing_services": [
+        "services/eve/transduction/evidential-scene-runner"
+      ],
+      "missing_contracts": [
+        "pf_sup_03_escena_evidencial_contract",
+        "pf_sup_03_acto_observable_contract"
+      ],
+      "missing_tests": [
+        "tests/pf-sup-03/evidential-scene-runner.test"
+      ],
+      "missing_markers": [
+        "PF_SUP_03_MATERIALITY_MARKER"
+      ],
+      "repo_evidence": [
+        "src/services/mba/domain-state-registry.mjs",
+        "src/services/mba/nonconformance-rules.mjs",
+        "tests/regression/mba-control-plane/mba-control-plane.test.mjs",
+        "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+        "docs/audit/moc_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+        "docs/audit/olc_gap_analysis_pf_sup_03_04_05_b3_b7.json"
+      ],
+      "findings": [
+        "Confirmed: EscenaEvidencial/EvidenceBundle state and gate vocabulary exists.",
+        "Confirmed: no dedicated PF-SUP-03 runner/test was found.",
+        "Confirmed: ActoObservable first-class materiality is absent.",
+        "Partially confirmed: ElementoMMABP/HipotesisVSMPrimaria/InconsistenciaMMABP/NodoEVELocal/ActorFuncionalEVE/TraduccionAHEMaterial appear as state/transition vocabulary, not owned objects."
+      ]
+    },
+    "PF_SUP_04": {
+      "status": "partially_confirmed",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "objects_reviewed": [
+        "SceneSet",
+        "AggregationIndex",
+        "PatronCausalMultirol",
+        "PeliculaCausalAgregada",
+        "SenalMonetizable",
+        "PerdidaMonetizable",
+        "BloqueoAHEAgregado"
+      ],
+      "missing_services": [
+        "services/eve/aggregation/causal-movie-aggregation-runner"
+      ],
+      "missing_contracts": [
+        "pf_sup_04_scene_set_contract",
+        "pf_sup_04_aggregation_index_contract",
+        "pf_sup_04_pelicula_causal_agregada_contract"
+      ],
+      "missing_tests": [
+        "tests/pf-sup-04/causal-movie-aggregation-runner.test"
+      ],
+      "missing_markers": [
+        "PF_SUP_04_MATERIALITY_MARKER"
+      ],
+      "repo_evidence": [
+        "src/services/mba/domain-state-registry.mjs",
+        "src/services/mba/nonconformance-rules.mjs",
+        "tests/regression/mba-control-plane/mba-control-plane.test.mjs",
+        "src/services/client-causal-aggregation-engine.ts",
+        "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+        "docs/audit/moc_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+        "docs/audit/olc_gap_analysis_pf_sup_03_04_05_b3_b7.json"
+      ],
+      "findings": [
+        "Confirmed: PeliculaCausalAgregada has state/guard/test evidence.",
+        "Confirmed: SceneSet, AggregationIndex and PatronCausalMultirol are not first-class service objects.",
+        "Confirmed: SenalMonetizable and BloqueoAHEAgregado are absent as first-class concepts.",
+        "Partially confirmed: existing causal aggregation services are adjacent but not PF-SUP-04 first-class materiality."
+      ]
+    },
+    "PF_SUP_05": {
+      "status": "partially_confirmed",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "objects_reviewed": [
+        "SynthesisCase",
+        "NarrativaFinalCliente",
+        "TeoremaInevitabilidad",
+        "RecomendacionConsultiva",
+        "DiagnosticoExpertoFinal"
+      ],
+      "missing_services": [
+        "services/eve/synthesis/expert-synthesis-contract-service"
+      ],
+      "missing_contracts": [
+        "pf_sup_05_synthesis_case_contract",
+        "delivery_boundary_contract"
+      ],
+      "missing_tests": [
+        "tests/pf-sup-05/expert-synthesis-contract.test"
+      ],
+      "missing_markers": [
+        "PF_SUP_05_MATERIALITY_MARKER"
+      ],
+      "repo_evidence": [
+        "src/services/mba/domain-state-registry.mjs",
+        "src/services/mba/nonconformance-rules.mjs",
+        "src/types/eve-organism-gate2-authority-guardrails.ts",
+        "tests/regression/eve-organism-gate2-authority-guardrails.test.ts",
+        "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+        "docs/audit/moc_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+        "docs/audit/olc_gap_analysis_pf_sup_03_04_05_b3_b7.json"
+      ],
+      "findings": [
+        "Confirmed: DiagnosticoExpertoFinal delivery is guarded.",
+        "Confirmed: SynthesisCase is absent.",
+        "Confirmed: narrative/theorem/recommendation are state vocabulary, not owned contract objects.",
+        "Confirmed: Delivered must remain unauthorized in this scope."
+      ]
+    },
+    "B3": {
+      "status": "partially_confirmed",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "objects_reviewed": [
+        "OutputHandoffRecord",
+        "ReceiverFeedbackObject",
+        "OperationalExceptionEvidence",
+        "CanonicalRouteException",
+        "GapObject",
+        "FlowNormalizationRecord",
+        "B3B7AlignmentDelta"
+      ],
+      "missing_services": [
+        "services/eve/capa1/b3-receiver-feedback-materializer",
+        "services/eve/capa1/b3-b7-alignment-delta-service"
+      ],
+      "missing_contracts": [
+        "b3_receiver_feedback_object_contract",
+        "b3_operational_exception_evidence_contract",
+        "b3_b7_alignment_delta_contract"
+      ],
+      "missing_tests": [
+        "tests/b3/receiver-feedback-materializer.test"
+      ],
+      "missing_markers": [
+        "B3_FIRST_CLASS_MATERIALITY_MARKER"
+      ],
+      "repo_evidence": [
+        "fixtures/canonical/capa-1/v2.1/question-catalog-v2-1.master.json",
+        "fixtures/canonical/capa-1/v2.1/canonical-dictionary-v2-1.json",
+        "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/EVE_04_Runtime_Catalog_v0_2.ts",
+        "src/services/eve-organism-gate2-signal-guardrails.ts",
+        "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json"
+      ],
+      "findings": [
+        "Confirmed: receiver_satisfaction != receiver_feedback is documented/guarded.",
+        "Confirmed: route 3.13a/C09 vocabulary exists.",
+        "Confirmed: ReceiverFeedbackObject first-class service/schema is absent.",
+        "Confirmed: OperationalExceptionEvidence is not sufficient as first-class materialized object.",
+        "Partially confirmed: route_missing/gap flags exist as vocabulary, not full object closure."
+      ]
+    },
+    "B7": {
+      "status": "partially_confirmed",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "objects_reviewed": [
+        "PreclassificationRecord",
+        "TransductionBlocker",
+        "GovernanceIssue",
+        "ExportBlocker",
+        "B3B7AlignmentDelta",
+        "no_render_zone"
+      ],
+      "missing_services": [
+        "services/eve/capa1/b7-preclassification-boundary-service",
+        "services/eve/capa1/b3-b7-alignment-delta-service"
+      ],
+      "missing_contracts": [
+        "b7_preclassification_record_contract",
+        "b3_b7_alignment_delta_contract",
+        "no_render_zone_contract"
+      ],
+      "missing_tests": [
+        "tests/b7/preclassification-boundary-service.test"
+      ],
+      "missing_markers": [
+        "B7_FIRST_CLASS_MATERIALITY_MARKER"
+      ],
+      "repo_evidence": [
+        "docs/chips/diagnostic-ontology/EVE_02_Diagnostic_Ontology_v0_1/EVE_02_Diagnostic_Ontology_v0_1.ts",
+        "src/app/api/scenes/runtime-contract-verify/route.ts",
+        "src/services/eve-organism-gate2-signal-guardrails.ts",
+        "tests/regression/eve-02-diagnostic-ontology-shadow-mode.test.ts",
+        "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json"
+      ],
+      "findings": [
+        "Confirmed: B7 diagnostic/export/registry boundary exists as guardrail logic.",
+        "Confirmed: PreclassificationRecord first-class contract is absent.",
+        "Confirmed: no_render_zone is not materialized as a contract.",
+        "Partially confirmed: transduction/export blockers appear in guardrails but not as B7-owned first-class closure."
+      ]
+    }
+  },
+  "gap_matrix": [
+    {
+      "gap_id": "GAP-PF03-001",
+      "gap_family": "PF_SUP_03",
+      "tree_branch": "Capa 1.0 / EvidenceBundle + Baseline de materialidad actual repo vs rector",
+      "affected_object": "EscenaEvidencial",
+      "affected_process": "P-SUP-03",
+      "current_materiality_level": "L2 vocabulary_only",
+      "target_design_level": "L4 contract_defined",
+      "repo_evidence_paths": [
+        "src/services/mba/domain-state-registry.mjs",
+        "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json"
+      ],
+      "missing_service": "services/eve/transduction/evidential-scene-runner",
+      "missing_schema_or_contract": "pf_sup_03_escena_evidencial_contract",
+      "missing_test": "tests/pf-sup-03/evidential-scene-runner.test",
+      "missing_marker": "PF_SUP_03_MATERIALITY_MARKER",
+      "missing_state_machine": "ActoObservable/ElementoMMABP/HipotesisVSMPrimaria/InconsistenciaMMABP/NodoEVELocal/TraduccionAHEMaterial first-class states",
+      "missing_rework_route": "insufficient causality -> GovernanceIssue -> EvidenceBundle rework",
+      "missing_boundary_guard": "B7 non-diagnostic inside transduction",
+      "no_go_if_ignored": "EscenaEvidencial over-claimed from state registry",
+      "dependency_moc": true,
+      "dependency_olc": true,
+      "dependency_pf": true,
+      "recommended_design_artifact": "PF-SUP-03 contract pack and runner interface spec",
+      "implementation_allowed_now": false
+    },
+    {
+      "gap_id": "GAP-PF04-001",
+      "gap_family": "PF_SUP_04",
+      "tree_branch": "PF-SUP-04 / causal aggregation object ownership",
+      "affected_object": "PeliculaCausalAgregada",
+      "affected_process": "P-SUP-04",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "repo_evidence_paths": [
+        "src/services/mba/domain-state-registry.mjs",
+        "src/services/mba/nonconformance-rules.mjs"
+      ],
+      "missing_service": "services/eve/aggregation/causal-movie-aggregation-runner",
+      "missing_schema_or_contract": "pf_sup_04_scene_set_contract, pf_sup_04_aggregation_index_contract, pf_sup_04_pelicula_causal_agregada_contract",
+      "missing_test": "tests/pf-sup-04/causal-movie-aggregation-runner.test",
+      "missing_marker": "PF_SUP_04_MATERIALITY_MARKER",
+      "missing_state_machine": "SceneSet/AggregationIndex/PatronCausalMultirol/SenalMonetizable/BloqueoAHEAgregado",
+      "missing_rework_route": "insufficient scenes -> GovernanceIssue -> PF-SUP-03",
+      "missing_boundary_guard": "no final diagnosis; monetizable signal remains candidate",
+      "no_go_if_ignored": "PeliculaCausalAgregada produced from summaries or guardrails",
+      "dependency_moc": true,
+      "dependency_olc": true,
+      "dependency_pf": true,
+      "recommended_design_artifact": "PF-SUP-04 aggregation contract pack",
+      "implementation_allowed_now": false,
+      "dependency_runtime_40_20": "downstream dependency only; not object owner"
+    },
+    {
+      "gap_id": "GAP-PF05-001",
+      "gap_family": "PF_SUP_05",
+      "tree_branch": "PF-SUP-05 / synthesis contract and delivery boundary ownership",
+      "affected_object": "SynthesisCase",
+      "affected_process": "P-SUP-05",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "repo_evidence_paths": [
+        "src/services/mba/domain-state-registry.mjs",
+        "src/services/mba/nonconformance-rules.mjs"
+      ],
+      "missing_service": "services/eve/synthesis/expert-synthesis-contract-service",
+      "missing_schema_or_contract": "pf_sup_05_synthesis_case_contract, delivery_boundary_contract",
+      "missing_test": "tests/pf-sup-05/expert-synthesis-contract.test",
+      "missing_marker": "PF_SUP_05_MATERIALITY_MARKER",
+      "missing_state_machine": "SynthesisCase + authorization_blocked delivery boundary",
+      "missing_rework_route": "weak traceability -> GovernanceIssue -> PF-SUP-04 recomposition",
+      "missing_boundary_guard": "Delivered blocked; no client narrative/recommendation generation",
+      "no_go_if_ignored": "final diagnosis or client narrative emitted without authorization",
+      "dependency_moc": true,
+      "dependency_olc": true,
+      "dependency_pf": true,
+      "recommended_design_artifact": "PF-SUP-05 contract-only synthesis boundary spec",
+      "implementation_allowed_now": false,
+      "dependency_sistema_regulatorio": "authorization/security boundary only; not object owner"
+    },
+    {
+      "gap_id": "GAP-B3-001",
+      "gap_family": "B3",
+      "tree_branch": "Capa 1.0 / OperationalExceptionEvidence",
+      "affected_object": "ReceiverFeedbackObject",
+      "affected_process": "B3/R9",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "repo_evidence_paths": [
+        "fixtures/canonical/capa-1/v2.1/question-catalog-v2-1.master.json",
+        "fixtures/canonical/capa-1/v2.1/canonical-dictionary-v2-1.json",
+        "src/services/eve-organism-gate2-signal-guardrails.ts"
+      ],
+      "missing_service": "services/eve/capa1/b3-receiver-feedback-materializer",
+      "missing_schema_or_contract": "b3_receiver_feedback_object_contract, b3_operational_exception_evidence_contract",
+      "missing_test": "tests/b3/receiver-feedback-materializer.test",
+      "missing_marker": "B3_FIRST_CLASS_MATERIALITY_MARKER",
+      "missing_state_machine": "Captured/RouteValidated/OperationallyRelevant/RejectedAsSatisfactionOnly/GapFlagged/ReworkTriggered",
+      "missing_rework_route": "route_missing -> CanonicalRouteException; delivery failure unknown -> GapObject",
+      "missing_boundary_guard": "receiver_satisfaction rejected as feedback",
+      "no_go_if_ignored": "receiver_satisfaction treated as receiver_feedback",
+      "dependency_moc": true,
+      "dependency_olc": true,
+      "dependency_pf": true,
+      "recommended_design_artifact": "B3 receiver feedback materiality contract pack",
+      "implementation_allowed_now": false
+    },
+    {
+      "gap_id": "GAP-B7-001",
+      "gap_family": "B7",
+      "tree_branch": "Capa 1.0 / B7 preclassification boundary object ownership",
+      "affected_object": "PreclassificationRecord",
+      "affected_process": "B7",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "repo_evidence_paths": [
+        "docs/chips/diagnostic-ontology/EVE_02_Diagnostic_Ontology_v0_1/EVE_02_Diagnostic_Ontology_v0_1.ts",
+        "src/app/api/scenes/runtime-contract-verify/route.ts",
+        "src/services/eve-organism-gate2-signal-guardrails.ts"
+      ],
+      "missing_service": "services/eve/capa1/b7-preclassification-boundary-service",
+      "missing_schema_or_contract": "b7_preclassification_record_contract, no_render_zone_contract",
+      "missing_test": "tests/b7/preclassification-boundary-service.test",
+      "missing_marker": "B7_FIRST_CLASS_MATERIALITY_MARKER",
+      "missing_state_machine": "Captured/BoundaryChecked/SignalOnlyAccepted/Rejected/ContaminationBlocked",
+      "missing_rework_route": "contamination attempt -> GovernanceIssue/TransductionBlocker",
+      "missing_boundary_guard": "no structural fact, registry, IR, export, OEE or diagnosis",
+      "no_go_if_ignored": "B7 promoted into downstream structural fact or diagnosis",
+      "dependency_moc": true,
+      "dependency_olc": true,
+      "dependency_pf": true,
+      "recommended_design_artifact": "B7 signal-only/no-render-zone contract pack",
+      "implementation_allowed_now": false,
+      "dependency_sistema_regulatorio": "contamination/export/diagnosis boundary only; not object owner"
+    }
+  ],
+  "materiality_markers": [
+    {
+      "marker_id": "PF_SUP_03_MATERIALITY_MARKER",
+      "scope": "PF-SUP-03 transduction",
+      "tree_branch": "Capa 1.0 / EvidenceBundle",
+      "required_service": "services/eve/transduction/evidential-scene-runner",
+      "required_schema": "pf_sup_03_escena_evidencial_contract",
+      "required_state_machine": "EvidenceBundle -> ActoObservable -> EscenaEvidencial",
+      "required_tests": [
+        "tests/pf-sup-03/evidential-scene-runner.test"
+      ],
+      "required_source_refs": true,
+      "required_derivation_refs": true,
+      "required_governance_issue_links": true,
+      "required_readiness_decision": true,
+      "required_allowed_consumers": [
+        "PF-SUP-04",
+        "ACA/readiness"
+      ],
+      "forbidden_outputs": [
+        "final VSM diagnosis",
+        "final AHE diagnosis",
+        "ExportCodePackage",
+        "DiagnosticoExpertoFinal Delivered"
+      ],
+      "materiality_level_when_absent": "L2 vocabulary_only",
+      "materiality_level_when_contract_defined": "L4 contract_defined",
+      "materiality_level_when_tested": "L7 tested_materiality",
+      "no_go_if_false_positive": "EscenaEvidencial over-claimed from vocabulary"
+    },
+    {
+      "marker_id": "PF_SUP_04_MATERIALITY_MARKER",
+      "scope": "PF-SUP-04 aggregation",
+      "tree_branch": "PF-SUP-04 / causal aggregation object ownership",
+      "required_service": "services/eve/aggregation/causal-movie-aggregation-runner",
+      "required_schema": "pf_sup_04_pelicula_causal_agregada_contract",
+      "required_state_machine": "SceneSet -> AggregationIndex -> PatronCausalMultirol -> PeliculaCausalAgregada",
+      "required_tests": [
+        "tests/pf-sup-04/causal-movie-aggregation-runner.test"
+      ],
+      "required_source_refs": true,
+      "required_derivation_refs": true,
+      "required_governance_issue_links": true,
+      "required_readiness_decision": true,
+      "required_allowed_consumers": [
+        "PF-SUP-05 contract service",
+        "ACA/readiness"
+      ],
+      "forbidden_outputs": [
+        "final diagnosis",
+        "client narrative",
+        "ExportCodePackage"
+      ],
+      "materiality_level_when_absent": "L3 guardrail_only",
+      "materiality_level_when_contract_defined": "L4 contract_defined",
+      "materiality_level_when_tested": "L7 tested_materiality",
+      "no_go_if_false_positive": "PeliculaCausalAgregada generated from summaries"
+    },
+    {
+      "marker_id": "PF_SUP_05_MATERIALITY_MARKER",
+      "scope": "PF-SUP-05 synthesis contract boundary",
+      "tree_branch": "PF-SUP-05 / synthesis contract and delivery boundary ownership",
+      "required_service": "services/eve/synthesis/expert-synthesis-contract-service",
+      "required_schema": "pf_sup_05_synthesis_case_contract",
+      "required_state_machine": "PeliculaCausalAgregada -> SynthesisCase -> authorization_blocked",
+      "required_tests": [
+        "tests/pf-sup-05/expert-synthesis-contract.test"
+      ],
+      "required_source_refs": true,
+      "required_derivation_refs": true,
+      "required_governance_issue_links": true,
+      "required_readiness_decision": true,
+      "required_allowed_consumers": [
+        "manual authorization boundary only"
+      ],
+      "forbidden_outputs": [
+        "DiagnosticoExpertoFinal Delivered",
+        "client narrative",
+        "recommendation",
+        "ExportCodePackage"
+      ],
+      "materiality_level_when_absent": "L3 guardrail_only",
+      "materiality_level_when_contract_defined": "L4 contract_defined",
+      "materiality_level_when_tested": "L7 tested_materiality",
+      "no_go_if_false_positive": "Delivered opened without authorization"
+    },
+    {
+      "marker_id": "B3_FIRST_CLASS_MATERIALITY_MARKER",
+      "scope": "B3 receiver feedback",
+      "tree_branch": "Capa 1.0 / OperationalExceptionEvidence",
+      "required_service": "services/eve/capa1/b3-receiver-feedback-materializer",
+      "required_schema": "b3_receiver_feedback_object_contract",
+      "required_state_machine": "ReceiverFeedbackObject -> OperationalExceptionEvidence or CanonicalRouteException/GapObject",
+      "required_tests": [
+        "tests/b3/receiver-feedback-materializer.test"
+      ],
+      "required_source_refs": true,
+      "required_derivation_refs": true,
+      "required_governance_issue_links": true,
+      "required_readiness_decision": true,
+      "required_allowed_consumers": [
+        "EvidenceBundle",
+        "MDSB candidate with route_validated",
+        "PF rework only after route validation"
+      ],
+      "forbidden_outputs": [
+        "receiver_satisfaction as feedback",
+        "diagnosis",
+        "ExportCodePackage"
+      ],
+      "materiality_level_when_absent": "L3 guardrail_only",
+      "materiality_level_when_contract_defined": "L4 contract_defined",
+      "materiality_level_when_tested": "L7 tested_materiality",
+      "no_go_if_false_positive": "satisfaction promoted to feedback"
+    },
+    {
+      "marker_id": "B7_FIRST_CLASS_MATERIALITY_MARKER",
+      "scope": "B7 preclassification boundary",
+      "tree_branch": "Capa 1.0 / B7 preclassification boundary object ownership",
+      "required_service": "services/eve/capa1/b7-preclassification-boundary-service",
+      "required_schema": "b7_preclassification_record_contract",
+      "required_state_machine": "PreclassificationRecord -> no_render_zone or GovernanceIssue/TransductionBlocker",
+      "required_tests": [
+        "tests/b7/preclassification-boundary-service.test"
+      ],
+      "required_source_refs": true,
+      "required_derivation_refs": true,
+      "required_governance_issue_links": true,
+      "required_readiness_decision": true,
+      "required_allowed_consumers": [
+        "EvidenceBundle summary only",
+        "QA restriction"
+      ],
+      "forbidden_outputs": [
+        "structural fact",
+        "registry record",
+        "IR node",
+        "IR edge",
+        "export element",
+        "diagnosis",
+        "OperationalExceptionEvidence"
+      ],
+      "materiality_level_when_absent": "L3 guardrail_only",
+      "materiality_level_when_contract_defined": "L4 contract_defined",
+      "materiality_level_when_tested": "L7 tested_materiality",
+      "no_go_if_false_positive": "B7 promoted downstream"
+    }
+  ],
+  "service_designs": [
+    {
+      "service_missing": true,
+      "recommended_path": "services/eve/transduction/evidential-scene-runner",
+      "minimum_responsibility": "contract-only runner spec from EvidenceBundle[ReadyForTransduction] to EscenaEvidencial candidate/validated/block",
+      "inputs": [
+        "EvidenceBundle[ReadyForTransduction/Frozen]",
+        "source_ref",
+        "derivation_ref"
+      ],
+      "outputs": [
+        "ActoObservable",
+        "EscenaEvidencial[Validated]",
+        "GovernanceIssue"
+      ],
+      "blocked_outputs": [
+        "final diagnosis",
+        "ExportCodePackage",
+        "final VSM/AHE diagnosis"
+      ],
+      "required_tests": [
+        "tests/pf-sup-03/evidential-scene-runner.test"
+      ]
+    },
+    {
+      "service_missing": true,
+      "recommended_path": "services/eve/aggregation/causal-movie-aggregation-runner",
+      "minimum_responsibility": "contract-only runner spec for validated scenes to causal movie materiality",
+      "inputs": [
+        "EscenaEvidencial[Validated] 2..*"
+      ],
+      "outputs": [
+        "SceneSet",
+        "AggregationIndex",
+        "PatronCausalMultirol",
+        "PeliculaCausalAgregada contract"
+      ],
+      "blocked_outputs": [
+        "DiagnosticoExpertoFinal",
+        "client narrative",
+        "ExportCodePackage"
+      ],
+      "required_tests": [
+        "tests/pf-sup-04/causal-movie-aggregation-runner.test"
+      ]
+    },
+    {
+      "service_missing": true,
+      "recommended_path": "services/eve/synthesis/expert-synthesis-contract-service",
+      "minimum_responsibility": "contract-only synthesis boundary that creates SynthesisCase and blocks Delivered",
+      "inputs": [
+        "PeliculaCausalAgregada[Aggregated]"
+      ],
+      "outputs": [
+        "SynthesisCase",
+        "authorization_blocked marker",
+        "GovernanceIssue"
+      ],
+      "blocked_outputs": [
+        "DiagnosticoExpertoFinal[Delivered]",
+        "NarrativaFinalCliente final",
+        "RecomendacionConsultiva final",
+        "ExportCodePackage"
+      ],
+      "required_tests": [
+        "tests/pf-sup-05/expert-synthesis-contract.test"
+      ]
+    },
+    {
+      "service_missing": true,
+      "recommended_path": "services/eve/capa1/b3-receiver-feedback-materializer",
+      "minimum_responsibility": "materialize receiver_feedback as first-class object only from 3.13a route",
+      "inputs": [
+        "B3/3.13a receiver_feedback",
+        "source_ref",
+        "derivation_ref",
+        "handoff_ref"
+      ],
+      "outputs": [
+        "ReceiverFeedbackObject",
+        "OperationalExceptionEvidence",
+        "CanonicalRouteException",
+        "GapObject"
+      ],
+      "blocked_outputs": [
+        "receiver_satisfaction as feedback",
+        "diagnosis"
+      ],
+      "required_tests": [
+        "tests/b3/receiver-feedback-materializer.test"
+      ]
+    },
+    {
+      "service_missing": true,
+      "recommended_path": "services/eve/capa1/b7-preclassification-boundary-service",
+      "minimum_responsibility": "materialize B7 signal-only boundary and no_render_zone contract",
+      "inputs": [
+        "7.0a/7.3a/C20 preclassification signal",
+        "source_ref"
+      ],
+      "outputs": [
+        "PreclassificationRecord",
+        "no_render_zone",
+        "GovernanceIssue",
+        "TransductionBlocker"
+      ],
+      "blocked_outputs": [
+        "structural fact",
+        "registry",
+        "IR",
+        "export",
+        "diagnosis",
+        "OEE"
+      ],
+      "required_tests": [
+        "tests/b7/preclassification-boundary-service.test"
+      ]
+    },
+    {
+      "service_missing": true,
+      "recommended_path": "services/eve/capa1/b3-b7-alignment-delta-service",
+      "minimum_responsibility": "control-only delta for B3 route and B7 boundary status",
+      "inputs": [
+        "ReceiverFeedbackObject candidate",
+        "PreclassificationRecord candidate"
+      ],
+      "outputs": [
+        "B3B7AlignmentDelta"
+      ],
+      "blocked_outputs": [
+        "client business fact",
+        "diagnosis"
+      ],
+      "required_tests": [
+        "B3/B7 alignment contamination regression"
+      ]
+    },
+    {
+      "service_missing": true,
+      "recommended_path": "services/eve/materiality/materiality-marker-evaluator",
+      "minimum_responsibility": "evaluate markers without mutating runtime readiness",
+      "inputs": [
+        "marker contracts",
+        "test evidence refs"
+      ],
+      "outputs": [
+        "materiality_level_report"
+      ],
+      "blocked_outputs": [
+        "readiness core mutation",
+        "registry write"
+      ],
+      "required_tests": [
+        "marker false-positive guard regression"
+      ]
+    }
+  ],
+  "schema_contract_designs": [
+    {
+      "contract_name": "pf_sup_03_escena_evidencial_contract",
+      "tree_branch": "Capa 1.0 / EvidenceBundle",
+      "object_owner": "EscenaEvidencial",
+      "source_inputs": [
+        "EvidenceBundle",
+        "ActoObservable"
+      ],
+      "required_fields": [
+        "evidential_scene_id",
+        "bundle_id",
+        "observable_act_refs",
+        "source_ref",
+        "derivation_ref",
+        "state",
+        "readiness_decision_ref"
+      ],
+      "state_machine": [
+        "Constructing",
+        "WithMMABPElements",
+        "WithVSMHypothesis",
+        "WithMMABPInconsistency",
+        "WithEVEManifestation",
+        "AHESituated",
+        "Validated",
+        "BlockedByInsufficientCausality"
+      ],
+      "allowed_consumers": [
+        "PF-SUP-04",
+        "ACA/readiness"
+      ],
+      "forbidden_consumers": [
+        "ExportCodePackage",
+        "DiagnosticoExpertoFinal"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "final diagnosis",
+        "export"
+      ],
+      "tests_required": [
+        "tests/pf-sup-03/evidential-scene-runner.test"
+      ]
+    },
+    {
+      "contract_name": "pf_sup_03_acto_observable_contract",
+      "tree_branch": "Capa 1.0 / Object Specification Pack",
+      "object_owner": "ActoObservable",
+      "source_inputs": [
+        "EvidenceBundle evidence item"
+      ],
+      "required_fields": [
+        "observable_act_id",
+        "bundle_id",
+        "actor_ref",
+        "source_ref",
+        "evidence_excerpt_ref",
+        "state"
+      ],
+      "state_machine": [
+        "Captured",
+        "EvidenceLinked",
+        "Accepted",
+        "Rejected"
+      ],
+      "allowed_consumers": [
+        "EscenaEvidencial"
+      ],
+      "forbidden_consumers": [
+        "registry",
+        "diagnosis"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "act without evidence"
+      ],
+      "tests_required": [
+        "blocks if observable act lacks evidence"
+      ]
+    },
+    {
+      "contract_name": "pf_sup_04_scene_set_contract",
+      "tree_branch": "PF-SUP-04 / causal aggregation object ownership",
+      "object_owner": "SceneSet",
+      "source_inputs": [
+        "EscenaEvidencial[Validated]"
+      ],
+      "required_fields": [
+        "scene_set_id",
+        "scene_refs",
+        "validated_scene_count",
+        "source_ref",
+        "state"
+      ],
+      "state_machine": [
+        "Collecting",
+        "AggregationEligible",
+        "BlockedByInsufficientScenes",
+        "Superseded"
+      ],
+      "allowed_consumers": [
+        "AggregationIndex"
+      ],
+      "forbidden_consumers": [
+        "DiagnosticoExpertoFinal"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "scene count below 2"
+      ],
+      "tests_required": [
+        "tests/pf-sup-04/causal-movie-aggregation-runner.test"
+      ]
+    },
+    {
+      "contract_name": "pf_sup_04_aggregation_index_contract",
+      "tree_branch": "PF-SUP-04 / causal aggregation object ownership",
+      "object_owner": "AggregationIndex",
+      "source_inputs": [
+        "SceneSet"
+      ],
+      "required_fields": [
+        "aggregation_index_id",
+        "scene_set_id",
+        "actor_index",
+        "node_index",
+        "artifact_index",
+        "signal_index",
+        "state"
+      ],
+      "state_machine": [
+        "Building",
+        "Built",
+        "Rejected",
+        "Superseded"
+      ],
+      "allowed_consumers": [
+        "PatronCausalMultirol"
+      ],
+      "forbidden_consumers": [
+        "diagnosis"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "index from summaries"
+      ],
+      "tests_required": [
+        "creates AggregationIndex from scenes not summaries"
+      ]
+    },
+    {
+      "contract_name": "pf_sup_04_pelicula_causal_agregada_contract",
+      "tree_branch": "PF-SUP-04 / causal aggregation object ownership",
+      "object_owner": "PeliculaCausalAgregada",
+      "source_inputs": [
+        "SceneSet",
+        "AggregationIndex",
+        "PatronCausalMultirol"
+      ],
+      "required_fields": [
+        "movie_id",
+        "scene_refs",
+        "pattern_refs",
+        "loss_refs",
+        "source_ref",
+        "derivation_ref",
+        "state"
+      ],
+      "state_machine": [
+        "ScenesReceived",
+        "AggregationEligible",
+        "IndexBuilt",
+        "PatternIdentified",
+        "LossEstimated",
+        "Composed",
+        "Aggregated",
+        "BlockedByInsufficientScenes"
+      ],
+      "allowed_consumers": [
+        "PF-SUP-05 contract service"
+      ],
+      "forbidden_consumers": [
+        "final diagnosis direct"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "less than 2 scenes"
+      ],
+      "tests_required": [
+        "PF-SUP-04 aggregation runner test"
+      ]
+    },
+    {
+      "contract_name": "pf_sup_05_synthesis_case_contract",
+      "tree_branch": "PF-SUP-05 / synthesis contract and delivery boundary ownership",
+      "object_owner": "SynthesisCase",
+      "source_inputs": [
+        "PeliculaCausalAgregada[Aggregated]"
+      ],
+      "required_fields": [
+        "synthesis_case_id",
+        "movie_id",
+        "traceability_status",
+        "authorization_status",
+        "state"
+      ],
+      "state_machine": [
+        "Creating",
+        "TraceabilityChecked",
+        "ReadyForExpertDraft",
+        "BlockedByWeakTraceability",
+        "AuthorizationBlocked"
+      ],
+      "allowed_consumers": [
+        "manual expert review boundary"
+      ],
+      "forbidden_consumers": [
+        "client UI",
+        "export",
+        "final diagnosis delivery"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "Delivered opened"
+      ],
+      "tests_required": [
+        "tests/pf-sup-05/expert-synthesis-contract.test"
+      ]
+    },
+    {
+      "contract_name": "b3_receiver_feedback_object_contract",
+      "tree_branch": "Capa 1.0 / OperationalExceptionEvidence",
+      "object_owner": "ReceiverFeedbackObject",
+      "source_inputs": [
+        "B3/3.13a receiver_feedback"
+      ],
+      "required_fields": [
+        "feedback_id",
+        "handoff_ref",
+        "receiver_actor_ref",
+        "feedback_type",
+        "route_ref",
+        "source_ref",
+        "derivation_ref",
+        "source_question_code",
+        "state"
+      ],
+      "state_machine": [
+        "Captured",
+        "RouteValidated",
+        "OperationallyRelevant",
+        "RejectedAsSatisfactionOnly",
+        "GapFlagged",
+        "ReworkTriggered"
+      ],
+      "allowed_consumers": [
+        "EvidenceBundle",
+        "PF rework when route_validated"
+      ],
+      "forbidden_consumers": [
+        "diagnosis",
+        "receiver_satisfaction path"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "receiver_satisfaction treated as feedback"
+      ],
+      "tests_required": [
+        "tests/b3/receiver-feedback-materializer.test"
+      ]
+    },
+    {
+      "contract_name": "b3_operational_exception_evidence_contract",
+      "tree_branch": "Capa 1.0 / OperationalExceptionEvidence",
+      "object_owner": "OperationalExceptionEvidence",
+      "source_inputs": [
+        "ReceiverFeedbackObject"
+      ],
+      "required_fields": [
+        "oee_id",
+        "feedback_id",
+        "exception_type",
+        "route_ref",
+        "source_ref",
+        "derivation_ref",
+        "state"
+      ],
+      "state_machine": [
+        "Candidate",
+        "Accepted",
+        "RoutedToPFEvent",
+        "Rejected",
+        "ReworkRequired"
+      ],
+      "allowed_consumers": [
+        "PF rework/block/handoff"
+      ],
+      "forbidden_consumers": [
+        "diagnosis"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "OEE from B7"
+      ],
+      "tests_required": [
+        "operational exception evidence regression"
+      ]
+    },
+    {
+      "contract_name": "b7_preclassification_record_contract",
+      "tree_branch": "Capa 1.0 / B7 preclassification boundary object ownership",
+      "object_owner": "PreclassificationRecord",
+      "source_inputs": [
+        "7.0a",
+        "7.3a",
+        "C20"
+      ],
+      "required_fields": [
+        "preclassification_id",
+        "scene_id",
+        "signal_type",
+        "interpretation_limit",
+        "non_diagnostic_signal_only",
+        "source_ref",
+        "state"
+      ],
+      "state_machine": [
+        "Captured",
+        "BoundaryChecked",
+        "SignalOnlyAccepted",
+        "Rejected",
+        "ContaminationBlocked"
+      ],
+      "allowed_consumers": [
+        "EvidenceBundle summary",
+        "QA restriction"
+      ],
+      "forbidden_consumers": [
+        "structural fact",
+        "registry",
+        "IR",
+        "export",
+        "diagnosis",
+        "OEE"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "B7 promoted downstream"
+      ],
+      "tests_required": [
+        "tests/b7/preclassification-boundary-service.test"
+      ]
+    },
+    {
+      "contract_name": "b3_b7_alignment_delta_contract",
+      "tree_branch": "Capa 1.0 / B3-B7 alignment control object ownership",
+      "object_owner": "B3B7AlignmentDelta",
+      "source_inputs": [
+        "ReceiverFeedbackObject",
+        "PreclassificationRecord"
+      ],
+      "required_fields": [
+        "delta_id",
+        "b3_status",
+        "b7_status",
+        "findings",
+        "readiness_effect"
+      ],
+      "state_machine": [
+        "Created",
+        "Checked",
+        "WithFindings",
+        "Satisfied",
+        "Blocked"
+      ],
+      "allowed_consumers": [
+        "ACA/readiness control"
+      ],
+      "forbidden_consumers": [
+        "client fact",
+        "diagnosis"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "control delta treated as business fact"
+      ],
+      "tests_required": [
+        "alignment delta boundary test"
+      ]
+    },
+    {
+      "contract_name": "no_render_zone_contract",
+      "tree_branch": "Capa 1.0 / B7 preclassification boundary object ownership",
+      "object_owner": "no_render_zone",
+      "source_inputs": [
+        "PreclassificationRecord"
+      ],
+      "required_fields": [
+        "zone_id",
+        "blocked_projection",
+        "source_ref",
+        "reason",
+        "state"
+      ],
+      "state_machine": [
+        "Created",
+        "Applied",
+        "ExpiredOrSuperseded"
+      ],
+      "allowed_consumers": [
+        "render/export blocker"
+      ],
+      "forbidden_consumers": [
+        "client visible export element"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "B7 rendered into export"
+      ],
+      "tests_required": [
+        "B7 blocks export render"
+      ]
+    },
+    {
+      "contract_name": "delivery_boundary_contract",
+      "tree_branch": "PF-SUP-05 / synthesis contract and delivery boundary ownership",
+      "object_owner": "PF-SUP-05 delivery boundary",
+      "source_inputs": [
+        "SynthesisCase"
+      ],
+      "required_fields": [
+        "delivery_boundary_id",
+        "authorization_status",
+        "blocked_outputs",
+        "governance_issue_ref"
+      ],
+      "state_machine": [
+        "ContractReady",
+        "AuthorizationBlocked",
+        "AuthorizedExternally"
+      ],
+      "allowed_consumers": [
+        "manual authorization process"
+      ],
+      "forbidden_consumers": [
+        "automatic Delivered"
+      ],
+      "governance_issue_refs": true,
+      "readiness_decision_ref_required": true,
+      "source_ref_required": true,
+      "derivation_ref_required": true,
+      "audit_log_required": true,
+      "no_go": [
+        "DiagnosticoExpertoFinal Delivered"
+      ],
+      "tests_required": [
+        "PF-SUP-05 blocks Delivered"
+      ]
+    }
+  ],
+  "test_designs": [
+    {
+      "test_path": "tests/pf-sup-03/evidential-scene-runner.test",
+      "status": "missing",
+      "must_cover": [
+        "rejects non-ready EvidenceBundle",
+        "creates ActoObservable with source_ref",
+        "blocks observable act without evidence",
+        "validates EscenaEvidencial only with traceability",
+        "routes insufficient causality to GovernanceIssue",
+        "preserves B7 non-diagnostic",
+        "no final diagnosis",
+        "no ExportCodePackage",
+        "audit trail/readiness decision"
+      ]
+    },
+    {
+      "test_path": "tests/pf-sup-04/causal-movie-aggregation-runner.test",
+      "status": "missing",
+      "must_cover": [
+        "rejects non-validated scenes",
+        "blocks below minimum SceneSet",
+        "creates SceneSet",
+        "creates AggregationIndex from scenes not summaries",
+        "creates PatronCausalMultirol from cross-scene evidence",
+        "monetizable signal candidate only",
+        "AHE blockage boundary-limited",
+        "rework to PF-SUP-03",
+        "no final diagnosis"
+      ]
+    },
+    {
+      "test_path": "tests/pf-sup-05/expert-synthesis-contract.test",
+      "status": "missing",
+      "must_cover": [
+        "creates SynthesisCase from aggregated movie only",
+        "rejects non-aggregated movie",
+        "blocks weak traceability",
+        "does not create Delivered",
+        "does not generate client narrative",
+        "does not generate recommendation",
+        "does not emit ExportCodePackage",
+        "authorization_blocked",
+        "GovernanceIssue on delivery attempt"
+      ]
+    },
+    {
+      "test_path": "tests/b3/receiver-feedback-materializer.test",
+      "status": "missing",
+      "must_cover": [
+        "rejects receiver_satisfaction as feedback",
+        "creates ReceiverFeedbackObject from 3.13a",
+        "creates OEE when operationally material",
+        "CanonicalRouteException on missing route",
+        "GapObject on unknown feedback",
+        "blocks PF/OLC candidate when route_missing",
+        "MDSB candidate only route_validated",
+        "allowed_consumers",
+        "source_ref and derivation_ref"
+      ]
+    },
+    {
+      "test_path": "tests/b7/preclassification-boundary-service.test",
+      "status": "missing",
+      "must_cover": [
+        "PreclassificationRecord signal-only",
+        "blocks structural fact",
+        "blocks registry",
+        "blocks IR",
+        "blocks export render",
+        "blocks diagnosis",
+        "emits no_render_zone",
+        "allows EvidenceBundle summary only",
+        "preserves source_ref",
+        "GovernanceIssue/TransductionBlocker on contamination"
+      ]
+    }
+  ],
+  "findings_summary": {
+    "critical": 0,
+    "high": 7,
+    "medium": 5,
+    "low": 2,
+    "info": 2
+  },
+  "final_dictum": "DETAILED_GAP_DESIGN_PF_SUP_03_04_05_AND_B3_B7_FIRST_CLASS_MATERIALITY_COMPLETED",
+  "next_authorization_required": true,
+  "object_groups_mece": {
+    "A_PF_SUP_03": {
+      "process": "P-SUP-03",
+      "objects": [
+        "EvidenceBundle",
+        "ActoObservable",
+        "ElementoMMABP",
+        "HipotesisVSMPrimaria",
+        "InconsistenciaMMABP",
+        "NodoEVELocal",
+        "ActorFuncionalEVE",
+        "TraduccionAHEMaterial",
+        "EscenaEvidencial"
+      ],
+      "mece_rule": "Transduction scene construction only; no aggregation, synthesis, B3 feedback, or B7 preclassification ownership."
+    },
+    "B_PF_SUP_04": {
+      "process": "P-SUP-04",
+      "objects": [
+        "SceneSet",
+        "AggregationIndex",
+        "PatronCausalMultirol",
+        "PeliculaCausalAgregada",
+        "SenalMonetizable",
+        "PerdidaMonetizable",
+        "BloqueoAHEAgregado"
+      ],
+      "mece_rule": "Causal aggregation only; Runtime 40/20 is downstream dependency, not object owner."
+    },
+    "C_PF_SUP_05": {
+      "process": "P-SUP-05",
+      "objects": [
+        "SynthesisCase",
+        "NarrativaFinalCliente",
+        "TeoremaInevitabilidad",
+        "RecomendacionConsultiva",
+        "DiagnosticoExpertoFinal"
+      ],
+      "mece_rule": "Expert synthesis contract boundary only; Sistema Regulatorio is authorization/security boundary, not owner."
+    },
+    "D_B3": {
+      "process": "B3",
+      "objects": [
+        "OutputHandoffRecord",
+        "ReceiverFeedbackObject",
+        "OperationalExceptionEvidence",
+        "CanonicalRouteException",
+        "GapObject",
+        "FlowNormalizationRecord",
+        "B3B7AlignmentDelta"
+      ],
+      "mece_rule": "Receiver feedback and operational exception materiality only; no B7 preclassification ownership."
+    },
+    "E_B7": {
+      "process": "B7",
+      "objects": [
+        "PreclassificationRecord",
+        "TransductionBlocker",
+        "GovernanceIssue",
+        "ExportBlocker",
+        "B3B7AlignmentDelta",
+        "no_render_zone"
+      ],
+      "mece_rule": "Signal-only preclassification boundary only; no structural fact, OEE, registry, IR, export, or diagnosis."
+    }
+  },
+  "mece_object_evaluation": [
+    {
+      "group": "A_PF_SUP_03",
+      "object": "EvidenceBundle",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / Ruta de Materializacion / EvidenceBundle",
+      "corrected_master_tree_location": "Capa 1.0 / EvidenceBundle / input object for PF-SUP-03 transduction",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "tests/regression/mba-control-plane/mba-control-plane.test.mjs",
+          "evidence_type": "regression_guard",
+          "value": "Control-plane regression evidence; not dedicated PF-SUP runner coverage."
+        },
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-PF03-001",
+      "current_materiality_level": "L2 vocabulary_or_state_trace",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Visible as state/input vocabulary; no dedicated contract pack establishing transduction ownership."
+    },
+    {
+      "group": "A_PF_SUP_03",
+      "object": "ActoObservable",
+      "repo_classification": "not_found",
+      "object_owner_branch": "Capa 1.0 / PF-SUP-03 transduction object specification",
+      "corrected_master_tree_location": "Capa 1.0 / PF-SUP-03 / ActoObservable extracted from EvidenceBundle item",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-PF03-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Required as atomic observable act; not found as first-class object or contract."
+    },
+    {
+      "group": "A_PF_SUP_03",
+      "object": "ElementoMMABP",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / PF-SUP-03 semantic mapping",
+      "corrected_master_tree_location": "Capa 1.0 / PF-SUP-03 / MMABP element derived from ActoObservable",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "docs/audit/moc_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "MoC dependency/gap trace."
+        }
+      ],
+      "gap_id": "GAP-PF03-001",
+      "current_materiality_level": "L2 vocabulary_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Appears as conceptual/state vocabulary but lacks owned schema/state machine."
+    },
+    {
+      "group": "A_PF_SUP_03",
+      "object": "HipotesisVSMPrimaria",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / PF-SUP-03 VSM hypothesis mapping",
+      "corrected_master_tree_location": "Capa 1.0 / PF-SUP-03 / primary VSM hypothesis derived from evidence",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-PF03-001",
+      "current_materiality_level": "L2 vocabulary_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Hypothesis concept is visible but not governed as an owned object."
+    },
+    {
+      "group": "A_PF_SUP_03",
+      "object": "InconsistenciaMMABP",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / PF-SUP-03 MMABP consistency mapping",
+      "corrected_master_tree_location": "Capa 1.0 / PF-SUP-03 / inconsistency detected from MMABP element mapping",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "docs/audit/moc_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "MoC dependency/gap trace."
+        }
+      ],
+      "gap_id": "GAP-PF03-001",
+      "current_materiality_level": "L2 vocabulary_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Inconsistency is present as vocabulary/control concern but not a first-class material object."
+    },
+    {
+      "group": "A_PF_SUP_03",
+      "object": "NodoEVELocal",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / PF-SUP-03 local EVE manifestation",
+      "corrected_master_tree_location": "Capa 1.0 / PF-SUP-03 / local node manifestation of evidence",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-PF03-001",
+      "current_materiality_level": "L2 vocabulary_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Local node appears conceptually; no owner contract or consumer boundary found."
+    },
+    {
+      "group": "A_PF_SUP_03",
+      "object": "ActorFuncionalEVE",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / PF-SUP-03 actor mapping",
+      "corrected_master_tree_location": "Capa 1.0 / PF-SUP-03 / functional actor from observable act",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "docs/audit/olc_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "OLC dependency/gap trace."
+        }
+      ],
+      "gap_id": "GAP-PF03-001",
+      "current_materiality_level": "L2 vocabulary_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Actor is inferable from flow evidence but not materialized as owned object."
+    },
+    {
+      "group": "A_PF_SUP_03",
+      "object": "TraduccionAHEMaterial",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / PF-SUP-03 AHE situated translation",
+      "corrected_master_tree_location": "Capa 1.0 / PF-SUP-03 / material AHE translation from scene evidence",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-PF03-001",
+      "current_materiality_level": "L2 vocabulary_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "AHE translation is conceptually visible but lacks contract/state coverage."
+    },
+    {
+      "group": "A_PF_SUP_03",
+      "object": "EscenaEvidencial",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / PF-SUP-03 evidential scene",
+      "corrected_master_tree_location": "Capa 1.0 / EvidenceBundle -> PF-SUP-03 / EscenaEvidencial",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "src/services/mba/nonconformance-rules.mjs",
+          "evidence_type": "guardrail_rule",
+          "value": "Nonconformance rules guard PF states; not first-class object contracts."
+        },
+        {
+          "path": "tests/regression/mba-control-plane/mba-control-plane.test.mjs",
+          "evidence_type": "regression_guard",
+          "value": "Control-plane regression evidence; not dedicated PF-SUP runner coverage."
+        },
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-PF03-001",
+      "current_materiality_level": "L2 vocabulary_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Core object is named/guarded but lacks runner, schema and dedicated test."
+    },
+    {
+      "group": "B_PF_SUP_04",
+      "object": "SceneSet",
+      "repo_classification": "not_found",
+      "object_owner_branch": "PF-SUP-04 aggregation input set",
+      "corrected_master_tree_location": "PF-SUP-04 / validated EscenaEvidencial collection for aggregation",
+      "evidence": [
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        },
+        {
+          "path": "docs/audit/olc_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "OLC dependency/gap trace."
+        }
+      ],
+      "gap_id": "GAP-PF04-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "No first-class collection contract found; Runtime 40/20 is only downstream dependency."
+    },
+    {
+      "group": "B_PF_SUP_04",
+      "object": "AggregationIndex",
+      "repo_classification": "not_found",
+      "object_owner_branch": "PF-SUP-04 aggregation index",
+      "corrected_master_tree_location": "PF-SUP-04 / index over scenes, actors, nodes, artifacts and signals",
+      "evidence": [
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        },
+        {
+          "path": "src/services/client-causal-aggregation-engine.ts",
+          "evidence_type": "adjacent_service",
+          "value": "Adjacent aggregation logic; not PF-SUP-04 owning materializer."
+        }
+      ],
+      "gap_id": "GAP-PF04-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Adjacent aggregation logic exists but no PF-SUP-04 owned index object."
+    },
+    {
+      "group": "B_PF_SUP_04",
+      "object": "PatronCausalMultirol",
+      "repo_classification": "not_found",
+      "object_owner_branch": "PF-SUP-04 causal pattern extraction",
+      "corrected_master_tree_location": "PF-SUP-04 / cross-scene multi-role causal pattern",
+      "evidence": [
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        },
+        {
+          "path": "src/services/client-causal-aggregation-engine.ts",
+          "evidence_type": "adjacent_service",
+          "value": "Adjacent aggregation logic; not PF-SUP-04 owning materializer."
+        }
+      ],
+      "gap_id": "GAP-PF04-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Pattern object not found as contract or state machine."
+    },
+    {
+      "group": "B_PF_SUP_04",
+      "object": "PeliculaCausalAgregada",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "PF-SUP-04 causal movie aggregation",
+      "corrected_master_tree_location": "PF-SUP-04 / PeliculaCausalAgregada from SceneSet + AggregationIndex + Pattern",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "src/services/mba/nonconformance-rules.mjs",
+          "evidence_type": "guardrail_rule",
+          "value": "Nonconformance rules guard PF states; not first-class object contracts."
+        },
+        {
+          "path": "tests/regression/mba-control-plane/mba-control-plane.test.mjs",
+          "evidence_type": "regression_guard",
+          "value": "Control-plane regression evidence; not dedicated PF-SUP runner coverage."
+        }
+      ],
+      "gap_id": "GAP-PF04-001",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Object is named and guarded; not supported by owning runner and contracts."
+    },
+    {
+      "group": "B_PF_SUP_04",
+      "object": "SenalMonetizable",
+      "repo_classification": "not_found",
+      "object_owner_branch": "PF-SUP-04 candidate signal output",
+      "corrected_master_tree_location": "PF-SUP-04 / monetizable signal candidate from aggregated movie",
+      "evidence": [
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-PF04-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "No first-class signal object found; must remain candidate, not diagnosis."
+    },
+    {
+      "group": "B_PF_SUP_04",
+      "object": "PerdidaMonetizable",
+      "repo_classification": "requires_manual_review",
+      "object_owner_branch": "PF-SUP-04 loss estimation candidate",
+      "corrected_master_tree_location": "PF-SUP-04 / optional loss estimate derived from causal movie",
+      "evidence": [
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-PF04-001",
+      "current_materiality_level": "L1 requires_manual_review",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Loss object needs rector confirmation before owned contract design; do not infer from Runtime."
+    },
+    {
+      "group": "B_PF_SUP_04",
+      "object": "BloqueoAHEAgregado",
+      "repo_classification": "not_found",
+      "object_owner_branch": "PF-SUP-04 AHE aggregate blockage",
+      "corrected_master_tree_location": "PF-SUP-04 / aggregated AHE blockage derived from multiple scenes",
+      "evidence": [
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-PF04-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "No dedicated object or state machine found."
+    },
+    {
+      "group": "C_PF_SUP_05",
+      "object": "SynthesisCase",
+      "repo_classification": "not_found",
+      "object_owner_branch": "PF-SUP-05 synthesis boundary",
+      "corrected_master_tree_location": "PF-SUP-05 / expert synthesis contract case",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "src/types/eve-organism-gate2-authority-guardrails.ts",
+          "evidence_type": "authority_guardrail",
+          "value": "Authority guardrail for delivery/authorization; boundary only."
+        },
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-PF05-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "SynthesisCase not found; Sistema Regulatorio is boundary, not owner."
+    },
+    {
+      "group": "C_PF_SUP_05",
+      "object": "NarrativaFinalCliente",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "PF-SUP-05 blocked client narrative output",
+      "corrected_master_tree_location": "PF-SUP-05 / blocked client-facing narrative output",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "src/types/eve-organism-gate2-authority-guardrails.ts",
+          "evidence_type": "authority_guardrail",
+          "value": "Authority guardrail for delivery/authorization; boundary only."
+        }
+      ],
+      "gap_id": "GAP-PF05-001",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Visible as guarded delivery vocabulary; must remain blocked until authorization."
+    },
+    {
+      "group": "C_PF_SUP_05",
+      "object": "TeoremaInevitabilidad",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "PF-SUP-05 blocked expert theorem output",
+      "corrected_master_tree_location": "PF-SUP-05 / blocked theorem output from synthesis case",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "src/types/eve-organism-gate2-authority-guardrails.ts",
+          "evidence_type": "authority_guardrail",
+          "value": "Authority guardrail for delivery/authorization; boundary only."
+        }
+      ],
+      "gap_id": "GAP-PF05-001",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Concept appears as synthesis vocabulary; no owned contract."
+    },
+    {
+      "group": "C_PF_SUP_05",
+      "object": "RecomendacionConsultiva",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "PF-SUP-05 blocked recommendation output",
+      "corrected_master_tree_location": "PF-SUP-05 / blocked consultative recommendation output",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "src/types/eve-organism-gate2-authority-guardrails.ts",
+          "evidence_type": "authority_guardrail",
+          "value": "Authority guardrail for delivery/authorization; boundary only."
+        }
+      ],
+      "gap_id": "GAP-PF05-001",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Guarded output vocabulary exists; not delivery-authorized materiality."
+    },
+    {
+      "group": "C_PF_SUP_05",
+      "object": "DiagnosticoExpertoFinal",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "PF-SUP-05 delivery boundary",
+      "corrected_master_tree_location": "PF-SUP-05 / final diagnosis delivery boundary, blocked in this scope",
+      "evidence": [
+        {
+          "path": "src/services/mba/domain-state-registry.mjs",
+          "evidence_type": "state_vocabulary",
+          "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+        },
+        {
+          "path": "src/services/mba/nonconformance-rules.mjs",
+          "evidence_type": "guardrail_rule",
+          "value": "Nonconformance rules guard PF states; not first-class object contracts."
+        },
+        {
+          "path": "src/types/eve-organism-gate2-authority-guardrails.ts",
+          "evidence_type": "authority_guardrail",
+          "value": "Authority guardrail for delivery/authorization; boundary only."
+        }
+      ],
+      "gap_id": "GAP-PF05-001",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined_boundary_only",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Delivery is guarded; no Delivered state authorized."
+    },
+    {
+      "group": "D_B3",
+      "object": "OutputHandoffRecord",
+      "repo_classification": "requires_manual_review",
+      "object_owner_branch": "Capa 1.0 / B3 handoff context",
+      "corrected_master_tree_location": "Capa 1.0 / B3 / handoff record feeding receiver feedback",
+      "evidence": [
+        {
+          "path": "fixtures/canonical/capa-1/v2.1/question-catalog-v2-1.master.json",
+          "evidence_type": "canonical_question_catalog",
+          "value": "B3/B7 canonical question route evidence."
+        },
+        {
+          "path": "fixtures/canonical/capa-1/v2.1/canonical-dictionary-v2-1.json",
+          "evidence_type": "canonical_dictionary",
+          "value": "Canonical term and route vocabulary."
+        },
+        {
+          "path": "docs/audit/olc_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "OLC dependency/gap trace."
+        }
+      ],
+      "gap_id": "GAP-B3-001",
+      "current_materiality_level": "L1 requires_manual_review",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Handoff context is implied by B3 routes but object ownership requires manual rector alignment."
+    },
+    {
+      "group": "D_B3",
+      "object": "ReceiverFeedbackObject",
+      "repo_classification": "not_found",
+      "object_owner_branch": "Capa 1.0 / B3 receiver feedback materiality",
+      "corrected_master_tree_location": "Capa 1.0 / B3 / ReceiverFeedbackObject from 3.13a route",
+      "evidence": [
+        {
+          "path": "fixtures/canonical/capa-1/v2.1/question-catalog-v2-1.master.json",
+          "evidence_type": "canonical_question_catalog",
+          "value": "B3/B7 canonical question route evidence."
+        },
+        {
+          "path": "fixtures/canonical/capa-1/v2.1/canonical-dictionary-v2-1.json",
+          "evidence_type": "canonical_dictionary",
+          "value": "Canonical term and route vocabulary."
+        },
+        {
+          "path": "src/services/eve-organism-gate2-signal-guardrails.ts",
+          "evidence_type": "guardrail_rule",
+          "value": "Gate 2 signal guardrails separate signal/feedback/diagnosis boundaries."
+        }
+      ],
+      "gap_id": "GAP-B3-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Rule exists that satisfaction is not feedback, but first-class feedback object is absent."
+    },
+    {
+      "group": "D_B3",
+      "object": "OperationalExceptionEvidence",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / OperationalExceptionEvidence",
+      "corrected_master_tree_location": "Capa 1.0 / B3 / OEE derived from route-validated ReceiverFeedbackObject",
+      "evidence": [
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        },
+        {
+          "path": "src/services/eve-organism-gate2-signal-guardrails.ts",
+          "evidence_type": "guardrail_rule",
+          "value": "Gate 2 signal guardrails separate signal/feedback/diagnosis boundaries."
+        }
+      ],
+      "gap_id": "GAP-B3-001",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "OEE appears as rector target/guarded concept but not sufficiently materialized from B3 object."
+    },
+    {
+      "group": "D_B3",
+      "object": "CanonicalRouteException",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / B3 route validation exception",
+      "corrected_master_tree_location": "Capa 1.0 / B3 / CanonicalRouteException when route_missing",
+      "evidence": [
+        {
+          "path": "fixtures/canonical/capa-1/v2.1/canonical-dictionary-v2-1.json",
+          "evidence_type": "canonical_dictionary",
+          "value": "Canonical term and route vocabulary."
+        },
+        {
+          "path": "src/services/eve-organism-gate2-signal-guardrails.ts",
+          "evidence_type": "guardrail_rule",
+          "value": "Gate 2 signal guardrails separate signal/feedback/diagnosis boundaries."
+        }
+      ],
+      "gap_id": "GAP-B3-001",
+      "current_materiality_level": "L2 vocabulary_or_flag",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Route-missing behavior exists as vocabulary/guardrail; no owned exception object."
+    },
+    {
+      "group": "D_B3",
+      "object": "GapObject",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / B3 gap handling",
+      "corrected_master_tree_location": "Capa 1.0 / B3 / GapObject for unknown delivery failure or unresolved feedback",
+      "evidence": [
+        {
+          "path": "fixtures/canonical/capa-1/v2.1/canonical-dictionary-v2-1.json",
+          "evidence_type": "canonical_dictionary",
+          "value": "Canonical term and route vocabulary."
+        },
+        {
+          "path": "src/services/eve-organism-gate2-signal-guardrails.ts",
+          "evidence_type": "guardrail_rule",
+          "value": "Gate 2 signal guardrails separate signal/feedback/diagnosis boundaries."
+        }
+      ],
+      "gap_id": "GAP-B3-001",
+      "current_materiality_level": "L2 vocabulary_or_flag",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Gap flags exist; no full object closure found."
+    },
+    {
+      "group": "D_B3",
+      "object": "FlowNormalizationRecord",
+      "repo_classification": "not_found",
+      "object_owner_branch": "Capa 1.0 / B3 flow normalization",
+      "corrected_master_tree_location": "Capa 1.0 / B3 / FlowNormalizationRecord for normalized receiver feedback route",
+      "evidence": [
+        {
+          "path": "fixtures/canonical/capa-1/v2.1/canonical-dictionary-v2-1.json",
+          "evidence_type": "canonical_dictionary",
+          "value": "Canonical term and route vocabulary."
+        },
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-B3-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "No normalized record contract found."
+    },
+    {
+      "group": "D_B3",
+      "object": "B3B7AlignmentDelta",
+      "repo_classification": "not_found",
+      "object_owner_branch": "Capa 1.0 / B3-B7 alignment control",
+      "corrected_master_tree_location": "Capa 1.0 / B3-B7 / alignment delta control object",
+      "evidence": [
+        {
+          "path": "src/services/eve-organism-gate2-signal-guardrails.ts",
+          "evidence_type": "guardrail_rule",
+          "value": "Gate 2 signal guardrails separate signal/feedback/diagnosis boundaries."
+        },
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-B3-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Alignment needs control object; no first-class delta found."
+    },
+    {
+      "group": "E_B7",
+      "object": "PreclassificationRecord",
+      "repo_classification": "not_found",
+      "object_owner_branch": "Capa 1.0 / B7 preclassification boundary",
+      "corrected_master_tree_location": "Capa 1.0 / B7 / PreclassificationRecord signal-only",
+      "evidence": [
+        {
+          "path": "docs/chips/diagnostic-ontology/EVE_02_Diagnostic_Ontology_v0_1/EVE_02_Diagnostic_Ontology_v0_1.ts",
+          "evidence_type": "ontology_boundary",
+          "value": "Diagnostic ontology boundary evidence; not object ownership."
+        },
+        {
+          "path": "src/services/eve-organism-gate2-signal-guardrails.ts",
+          "evidence_type": "guardrail_rule",
+          "value": "Gate 2 signal guardrails separate signal/feedback/diagnosis boundaries."
+        },
+        {
+          "path": "src/app/api/scenes/runtime-contract-verify/route.ts",
+          "evidence_type": "runtime_boundary_check",
+          "value": "Runtime contract verification endpoint evidence; dependency/frontier only."
+        }
+      ],
+      "gap_id": "GAP-B7-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Preclassification is guarded but not materialized; Sistema Regulatorio is a boundary only."
+    },
+    {
+      "group": "E_B7",
+      "object": "TransductionBlocker",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / B7 contamination blocker",
+      "corrected_master_tree_location": "Capa 1.0 / B7 / TransductionBlocker when signal crosses boundary",
+      "evidence": [
+        {
+          "path": "src/services/eve-organism-gate2-signal-guardrails.ts",
+          "evidence_type": "guardrail_rule",
+          "value": "Gate 2 signal guardrails separate signal/feedback/diagnosis boundaries."
+        },
+        {
+          "path": "src/app/api/scenes/runtime-contract-verify/route.ts",
+          "evidence_type": "runtime_boundary_check",
+          "value": "Runtime contract verification endpoint evidence; dependency/frontier only."
+        }
+      ],
+      "gap_id": "GAP-B7-001",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Blocker appears as guardrail behavior; no owned object contract."
+    },
+    {
+      "group": "E_B7",
+      "object": "GovernanceIssue",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Cross-family governance issue channel",
+      "corrected_master_tree_location": "Capa 1.0 / B7 / GovernanceIssue for contamination attempt",
+      "evidence": [
+        {
+          "path": "src/services/mba/nonconformance-rules.mjs",
+          "evidence_type": "guardrail_rule",
+          "value": "Nonconformance rules guard PF states; not first-class object contracts."
+        },
+        {
+          "path": "src/services/eve-organism-gate2-signal-guardrails.ts",
+          "evidence_type": "guardrail_rule",
+          "value": "Gate 2 signal guardrails separate signal/feedback/diagnosis boundaries."
+        }
+      ],
+      "gap_id": "GAP-B7-001",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Governance issue is visible as control concept but not B7-owned materiality."
+    },
+    {
+      "group": "E_B7",
+      "object": "ExportBlocker",
+      "repo_classification": "partially_confirmed",
+      "object_owner_branch": "Capa 1.0 / B7 export/render blocker",
+      "corrected_master_tree_location": "Capa 1.0 / B7 / ExportBlocker via no_render_zone",
+      "evidence": [
+        {
+          "path": "docs/chips/diagnostic-ontology/EVE_02_Diagnostic_Ontology_v0_1/EVE_02_Diagnostic_Ontology_v0_1.ts",
+          "evidence_type": "ontology_boundary",
+          "value": "Diagnostic ontology boundary evidence; not object ownership."
+        },
+        {
+          "path": "src/app/api/scenes/runtime-contract-verify/route.ts",
+          "evidence_type": "runtime_boundary_check",
+          "value": "Runtime contract verification endpoint evidence; dependency/frontier only."
+        }
+      ],
+      "gap_id": "GAP-B7-001",
+      "current_materiality_level": "L3 guardrail_only",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Export blocking exists as boundary behavior; needs no_render_zone contract."
+    },
+    {
+      "group": "E_B7",
+      "object": "B3B7AlignmentDelta",
+      "repo_classification": "not_found",
+      "object_owner_branch": "Capa 1.0 / B3-B7 alignment control",
+      "corrected_master_tree_location": "Capa 1.0 / B3-B7 / alignment delta control object",
+      "evidence": [
+        {
+          "path": "src/services/eve-organism-gate2-signal-guardrails.ts",
+          "evidence_type": "guardrail_rule",
+          "value": "Gate 2 signal guardrails separate signal/feedback/diagnosis boundaries."
+        },
+        {
+          "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+          "evidence_type": "prior_audit_trace",
+          "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+        }
+      ],
+      "gap_id": "GAP-B7-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "Same delta object needed from B7 side; not found."
+    },
+    {
+      "group": "E_B7",
+      "object": "no_render_zone",
+      "repo_classification": "not_found",
+      "object_owner_branch": "Capa 1.0 / B7 render/export suppression boundary",
+      "corrected_master_tree_location": "Capa 1.0 / B7 / no_render_zone contract",
+      "evidence": [
+        {
+          "path": "docs/chips/diagnostic-ontology/EVE_02_Diagnostic_Ontology_v0_1/EVE_02_Diagnostic_Ontology_v0_1.ts",
+          "evidence_type": "ontology_boundary",
+          "value": "Diagnostic ontology boundary evidence; not object ownership."
+        },
+        {
+          "path": "src/app/api/scenes/runtime-contract-verify/route.ts",
+          "evidence_type": "runtime_boundary_check",
+          "value": "Runtime contract verification endpoint evidence; dependency/frontier only."
+        }
+      ],
+      "gap_id": "GAP-B7-001",
+      "current_materiality_level": "L0 not_found",
+      "target_design_level": "L4 contract_defined",
+      "mece_scope": "single_object_no_overlap",
+      "rationale": "No contract found; must prevent render/export of B7 signals."
+    }
+  ],
+  "corrected_tree_ownership_rules": [
+    {
+      "correction_id": "TREE-CORR-001",
+      "previous_usage": "Runtime 40/20 used in PF-SUP-04 as apparent owner",
+      "corrected_usage": "PF-SUP-04 owns SceneSet/AggregationIndex/PeliculaCausalAgregada; Runtime 40/20 is downstream consumer/dependency only."
+    },
+    {
+      "correction_id": "TREE-CORR-002",
+      "previous_usage": "Sistema Regulatorio used in PF-SUP-05 as apparent owner",
+      "corrected_usage": "PF-SUP-05 owns SynthesisCase and delivery boundary; Sistema Regulatorio is authorization/security boundary only."
+    },
+    {
+      "correction_id": "TREE-CORR-003",
+      "previous_usage": "Sistema Regulatorio used in B7 as apparent owner",
+      "corrected_usage": "Capa 1.0 / B7 owns PreclassificationRecord/no_render_zone; Sistema Regulatorio is contamination/export/diagnosis boundary only."
+    }
+  ],
+  "granular_evidence_catalog": [
+    {
+      "path": "src/services/mba/domain-state-registry.mjs",
+      "evidence_type": "state_vocabulary",
+      "value": "PF object names/states appear as registry vocabulary; not an owning materializer."
+    },
+    {
+      "path": "src/services/mba/nonconformance-rules.mjs",
+      "evidence_type": "guardrail_rule",
+      "value": "Nonconformance rules guard PF states; not first-class object contracts."
+    },
+    {
+      "path": "tests/regression/mba-control-plane/mba-control-plane.test.mjs",
+      "evidence_type": "regression_guard",
+      "value": "Control-plane regression evidence; not dedicated PF-SUP runner coverage."
+    },
+    {
+      "path": "docs/audit/detailed_pf_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+      "evidence_type": "prior_audit_trace",
+      "value": "Prior gap analysis confirms missing first-class PF/B3/B7 materiality."
+    },
+    {
+      "path": "docs/audit/moc_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+      "evidence_type": "prior_audit_trace",
+      "value": "MoC dependency/gap trace."
+    },
+    {
+      "path": "docs/audit/olc_gap_analysis_pf_sup_03_04_05_b3_b7.json",
+      "evidence_type": "prior_audit_trace",
+      "value": "OLC dependency/gap trace."
+    },
+    {
+      "path": "fixtures/canonical/capa-1/v2.1/question-catalog-v2-1.master.json",
+      "evidence_type": "canonical_question_catalog",
+      "value": "B3/B7 canonical question route evidence."
+    },
+    {
+      "path": "fixtures/canonical/capa-1/v2.1/canonical-dictionary-v2-1.json",
+      "evidence_type": "canonical_dictionary",
+      "value": "Canonical term and route vocabulary."
+    },
+    {
+      "path": "src/services/eve-organism-gate2-signal-guardrails.ts",
+      "evidence_type": "guardrail_rule",
+      "value": "Gate 2 signal guardrails separate signal/feedback/diagnosis boundaries."
+    },
+    {
+      "path": "docs/chips/diagnostic-ontology/EVE_02_Diagnostic_Ontology_v0_1/EVE_02_Diagnostic_Ontology_v0_1.ts",
+      "evidence_type": "ontology_boundary",
+      "value": "Diagnostic ontology boundary evidence; not object ownership."
+    },
+    {
+      "path": "src/app/api/scenes/runtime-contract-verify/route.ts",
+      "evidence_type": "runtime_boundary_check",
+      "value": "Runtime contract verification endpoint evidence; dependency/frontier only."
+    },
+    {
+      "path": "src/types/eve-organism-gate2-authority-guardrails.ts",
+      "evidence_type": "authority_guardrail",
+      "value": "Authority guardrail for delivery/authorization; boundary only."
+    },
+    {
+      "path": "src/services/client-causal-aggregation-engine.ts",
+      "evidence_type": "adjacent_service",
+      "value": "Adjacent aggregation logic; not PF-SUP-04 owning materializer."
+    },
+    {
+      "path": "src/services/causal-transduction-engine.ts",
+      "evidence_type": "adjacent_service",
+      "value": "Adjacent transduction logic; not PF-SUP-03 owning materializer."
+    }
+  ],
+  "json_traceability_validation": {
+    "complete": true,
+    "includes_gap_matrix": true,
+    "includes_mece_object_evaluation": true,
+    "includes_repo_classification_by_object": true,
+    "includes_corrected_tree_location_by_object": true,
+    "includes_granular_evidence_by_path_and_type": true,
+    "includes_runtime_and_regulatory_owner_corrections": true,
+    "implementation_allowed": false,
+    "runtime_40_20_full_allowed": false
+  },
+  "completion_update": "Gap design completed with mandatory gap matrix, MECE A-E object evaluation, repo classification, corrected master tree ownership, granular evidence, JSON traceability validation, and Runtime/Sistema Regulatorio owner corrections.",
+  "repo_classification_enum": [
+    "confirmed_by_repo",
+    "partially_confirmed",
+    "not_found",
+    "contradicted_by_repo",
+    "requires_manual_review"
+  ],
+  "repo_classification_note": "All objects in groups A-E use one of these classifications. No object was classified as contradicted_by_repo in this documentary pass."
+}

@@ -1,0 +1,100 @@
+{
+  "audit_id": "eve_organism_real_observable_signal_contract_design_v1",
+  "created_at": "2026-06-25T04:42:31Z",
+  "dictamen": "REAL_OBSERVABLE_SIGNAL_CONTRACT_CONSOLIDATED_REPLAY_ONLY_CONTINUES",
+  "contract": {
+    "name": "REAL_OBSERVABLE_SIGNAL_CONTRACT",
+    "version": "V1",
+    "type": "artefacto_documental_de_control_gate2",
+    "purpose": "Definir la forma documental de una señal operacional futura observable, anclada a MMABP PM/MoC/PF/OLC y B3/B7, sin autorizar observer real ni mutación productiva.",
+    "observer_authorized": false,
+    "real_observation_authorized": false,
+    "read_only_observer_design_authorized": false,
+    "replay_only_continues": true,
+    "implementation_authorized": false
+  },
+  "mba_basis": {
+    "PM": "proceso, trigger, target state Object[State], sincronización",
+    "MoC": "clases reales y operaciones conceptuales, no DB",
+    "PF": "evento, process step/state, timer, data object, rework",
+    "OLC": "estado autorizado, transición, operación y final",
+    "B3_B7": "B3 con routeRef; B7 non_diagnostic_signal_only",
+    "ImplementationContract": "datos técnicos, eventos mínimos, No-Go y validaciones automáticas"
+  },
+  "required_sections_created": [
+    "identity",
+    "mba_anchor",
+    "operational_context",
+    "traceability",
+    "no_mutation_boundary",
+    "security_boundary",
+    "b3_b7_boundary",
+    "admissibility",
+    "evidence_requirements",
+    "no_go",
+    "future_test_requirements",
+    "audit_metadata"
+  ],
+  "counts": {
+    "allowed_events": {
+      "total": 12,
+      "future_observable_candidate": 7,
+      "control_only": 4,
+      "milestone_not_gate2_enabler": 1,
+      "blocked": 0,
+      "accepted_as_future_observable": 7,
+      "blocked_or_control_only": 5,
+      "architectureConsistencySatisfiedFutureCandidate": false,
+      "openedStatePresent": false
+    },
+    "no_go_total": 30,
+    "b3_b7_rows": 9,
+    "blockers_total": 10,
+    "blockers_closed_by_contract": 0,
+    "exit_conditions_total": 18,
+    "exit_conditions_closed_by_contract": 0,
+    "exit_conditions_operationally_closed": 0,
+    "exit_conditions_still_open_operationally": 18,
+    "future_test_requirements": 22,
+    "examples": 4
+  },
+  "causal_checks": {
+    "invalid_object_states_remaining": 0,
+    "pf_olc_violations_remaining": 0,
+    "opened_state_present": false,
+    "architectureConsistencySatisfiedFutureCandidate": false,
+    "b7StructuralFactAllowed": false
+  },
+  "no_modification_attestation": {
+    "src_modified": false,
+    "tests_modified": false,
+    "app_modified": false,
+    "db_modified": false,
+    "supabase_modified": false,
+    "workmap_modified": false,
+    "significado_modified": false,
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "commit_created": false,
+    "staged_changes": false
+  },
+  "consolidation": {
+    "source_bundles": [
+      "EVE_REAL_OBSERVABLE_SIGNAL_CONTRACT_DESIGN_V1_BUNDLE.zip",
+      "EVE_FIX_REAL_OBSERVABLE_SIGNAL_CONTRACT_EXHAUSTIVENESS_V1_BUNDLE.zip"
+    ],
+    "all_required_deliverables_present": true,
+    "changes_applied": [
+      "merged original and fix bundles",
+      "normalized exit conditions as structurally_defined_but_unproven AND still_open_operationally",
+      "expanded No-Go matrix to 30 rules",
+      "expanded test requirements to 22",
+      "added fourth example for fixture-as-real-evidence",
+      "ensured ArchitectureConsistencySatisfied is control_only",
+      "ensured no estado inválido previo de CasoDiagnosticoEVE remains"
+    ]
+  }
+}

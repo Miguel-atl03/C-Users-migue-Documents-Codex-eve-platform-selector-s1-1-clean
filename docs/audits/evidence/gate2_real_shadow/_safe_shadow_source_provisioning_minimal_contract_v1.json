@@ -1,0 +1,70 @@
+{
+  "dictamen": "GATE_2_SAFE_SHADOW_SOURCE_PROVISIONING_BLOCKED_BY_OWNER_OR_CREDENTIALS_REQUIRED",
+  "gate": "Gate 2 real-shadow",
+  "exercise": "provision_safe_shadow_source_minimal_contract",
+  "previous_discovery": "GATE_2_SAFE_SHADOW_SOURCE_EXISTS_AS_CONTRACT_NOT_PROVISIONED",
+  "source_contract": {
+    "source_name": "shadow_only_outbox_events",
+    "ddl_main": "sql/migrations/2026-06-27-create-shadow-only-outbox-events.sql",
+    "ddl_shadow_outcome": "sql/migrations/2026-06-28-add_shadow_outcome_to_shadow_only_outbox_events.sql",
+    "contract_found": true,
+    "append_only_guard_present": true,
+    "update_delete_blocked": true,
+    "tenant_scope_field_declared": true,
+    "correlation_field_declared": true,
+    "idempotency_field_declared": true,
+    "provenance_field_declared": true,
+    "official_outcome_field_declared": true,
+    "shadow_outcome_field_declared": true,
+    "replay_or_determinism_field_declared": true,
+    "created_or_occurred_at_field_declared": true,
+    "read_only_role_or_grant_declared": false,
+    "service_role_forbidden_or_not_used": true
+  },
+  "provisioning_status": {
+    "classification": "OWNER_OR_CREDENTIALS_REQUIRED",
+    "non_productive_target_available": false,
+    "authorization_to_apply_sql": false,
+    "separate_read_only_credential_declared": false,
+    "read_path_declared": false,
+    "write_count_guard_verifiable": false,
+    "can_execute_read_only_after_this_step": false
+  },
+  "if_blocked": {
+    "owner_action_required": true,
+    "missing_items": [
+      "current_non_productive_db_or_safe_shadow_target",
+      "authorization_to_apply_existing_ddl",
+      "separate_read_only_credential_or_role_name",
+      "adapter_read_path_without_secret_values",
+      "verifiable_write_count_guard"
+    ],
+    "blocking_summary": "The existing shadow_only_outbox_events contract is present, including append-only guards and required event metadata, but there is no current non-productive target, no separate read-only credential declaration, no connected read path and no verifiable write_count guard available without owner input or secrets."
+  },
+  "side_effects": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "writes_attempted": false,
+    "write_count": 0,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "runtime_mutated": false,
+    "object_inventory_mutated": false,
+    "mba_written": false,
+    "parallel_production_real_started": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false
+  },
+  "files_created": [
+    "docs/audits/evidence/gate2_real_shadow/safe_shadow_source_provisioning_required_owner_action_v1.md",
+    "docs/audits/evidence/gate2_real_shadow/_safe_shadow_source_provisioning_minimal_contract_v1.json"
+  ],
+  "next_step": "OWNER_PROVISION_SAFE_SHADOW_SOURCE_TARGET_AND_READONLY_CREDENTIALS_V1"
+}

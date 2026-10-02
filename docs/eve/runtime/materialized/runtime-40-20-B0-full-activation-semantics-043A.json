@@ -1,0 +1,73 @@
+{
+  "instruction": "043-A",
+  "phase": "B0_full_activation_semantics",
+  "generated_at_utc": "2026-08-06T23:30:00Z",
+  "sources": [
+    {
+      "id": "CATID-R1 §11",
+      "path": "docs/eve/runtime/rectors/Regla_Rectora_General_Identidad_Catalogo_Runtime_40_20_EVE_v1_0_APROBADA.md",
+      "verbatim_facts": [
+        "active: Activación autorizada; única versión elegible para nuevos runs. Una sola active; activated_at registrado.",
+        "superseded: Una nueva versión fue activada y la anterior la referencia. Sin nuevos runs; replay histórico intacto.",
+        "GATE > CHIP: EVE-04 puede cargar; EVE-05 decide si el contenido puede cambiar de estado. Ningún componente de ejecución debe saltar la transición frozen→active."
+      ]
+    },
+    {
+      "id": "CATID-R1 §15.1-15.2",
+      "verbatim_facts": [
+        "EVE_RUNTIME_40_20_B0_V1 permanece como identidad histórica específica. No se recalcula, no se renombra. Los runs y evidencias existentes mantienen su FK.",
+        "No se cambia el status de B0 dentro de la carga draft.",
+        "La activación futura deberá resolver la restricción de una sola versión active sin perder runs históricos.",
+        "Una futura reconciliación de B0 (checksums/QA/activated_at patológicos) es una operación gobernada separada."
+      ]
+    },
+    {
+      "id": "schema_one_active",
+      "path": "docs/eve/runtime/materialized/runtime-40-20-staging-core-contract-040A.json",
+      "verbatim_facts": [
+        "Index runtime_catalog_version_one_active_idx enforces at most one active catalog version."
+      ]
+    },
+    {
+      "id": "Spec §26 / status enum",
+      "verbatim_facts": [
+        "status CHECK IN ('draft','active','frozen','superseded','archived')",
+        "Si falla una prueba bloqueante, el catálogo no puede activarse."
+      ]
+    },
+    {
+      "id": "platform_authorization",
+      "path": "src/services/eve/platform-authorization/platform-capability-catalog.ts",
+      "verbatim_facts": [
+        "Only LOAD_RUNTIME_CATALOG_DRAFT capability is materialized.",
+        "No ACTIVATE_RUNTIME_CATALOG (or equivalent) capability exists."
+      ]
+    }
+  ],
+  "determined_semantics": {
+    "B0_remains_active_in_parallel_with_full": false,
+    "reason_not_parallel": "one_active_idx + CATID §11 unique active rule forbid two active versions.",
+    "full_activation_supersedes_B0": true,
+    "supersession_effect": {
+      "B0_status_after_full_activation": "superseded",
+      "B0_superseded_by_catalog_version_id": "full catalog_version_id being activated",
+      "B0_identity_renamed": false,
+      "existing_B0_runs_FK": "unchanged; replay histórico intacto",
+      "new_runs_use": "the single active catalog (full) after activation"
+    },
+    "required_transition_path": "draft → frozen → active (CATID GATE>CHIP forbids skipping frozen→active)",
+    "B0_pathology_reconciliation": "separate governed operation; not part of draft load; supersession on activation is allowed by §11/§15.2 without rewriting B0 identity"
+  },
+  "activation_authorization_status": {
+    "applicable_existing_capability": null,
+    "draft_load_capability_covers_activation": false,
+    "classification_if_attempting_activation_now": "blocked_activation_authorization_absent"
+  },
+  "semantics_resolution_status": "resolved_by_CATID_R1_sections_11_and_15_plus_one_active_index",
+  "activation_still_blocked_by": [
+    "blocked_activation_authorization_absent",
+    "missing_frozen_intermediate_state_on_current_draft",
+    "T-018 material negative proof requires activation boundary",
+    "staging live QA not yet executed this instruction"
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "audit_id": "EVE_ORGANISM_REAL_OBSERVATION_GAP_INDEX_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "REAL_OBSERVATION_PREFLIGHT_READY_WITH_FIXTURE_FIRST_ONLY",
+  "summary": {
+    "total": 11,
+    "critical": 0,
+    "high": 10,
+    "medium": 1
+  },
+  "gaps": [
+    {
+      "gap_id": "RO-GAP-001",
+      "type": "REAL_OBSERVATION_ENTRYPOINT_NOT_SAFE",
+      "severity": "high",
+      "affected_signal_or_entrypoint": "all_real_entrypoints",
+      "evidence_path": "src/services/eve-organism-shadow-e2e-adapter.ts",
+      "evidence_line": 35,
+      "why_it_blocks_or_conditions_real_observation": "No candidate proves all real-observation requirements without product-domain or UI/DB/Supabase risk.",
+      "next_evidence_needed": "Identify a service-level read-only signal with full context and trace fields."
+    },
+    {
+      "gap_id": "RO-GAP-002",
+      "type": "TENANT_CONTEXT_NOT_PROVEN",
+      "severity": "high",
+      "affected_signal_or_entrypoint": "service_level_candidates",
+      "evidence_path": "src/services/significado-activity-anchor-adapter.ts",
+      "evidence_line": 0,
+      "why_it_blocks_or_conditions_real_observation": "Most service candidates expose session/activity but not tenantId.",
+      "next_evidence_needed": "Find canonical tenant boundary source for real observed signal."
+    },
+    {
+      "gap_id": "RO-GAP-003",
+      "type": "SESSION_ACTIVITY_MAPPING_NOT_PROVEN",
+      "severity": "high",
+      "affected_signal_or_entrypoint": "event_or_audit_candidates",
+      "evidence_path": "src/services/mba/event-ledger.mjs",
+      "evidence_line": 71,
+      "why_it_blocks_or_conditions_real_observation": "Event-like signal has session/correlation but no activity mapping.",
+      "next_evidence_needed": "Prove session-to-activity mapping without DB mutation."
+    },
+    {
+      "gap_id": "RO-GAP-004",
+      "type": "PROVENANCE_NOT_PROVEN",
+      "severity": "high",
+      "affected_signal_or_entrypoint": "real_flow_candidates",
+      "evidence_path": "src/app/dev/e2e-block0/page.tsx",
+      "evidence_line": 13,
+      "why_it_blocks_or_conditions_real_observation": "UI/dev flows expose signal shape but provenance is not suitable for observer.",
+      "next_evidence_needed": "Find service payload with provenance/sourceTrace outside UI."
+    },
+    {
+      "gap_id": "RO-GAP-005",
+      "type": "IDEMPOTENCY_CORRELATION_NOT_PROVEN",
+      "severity": "high",
+      "affected_signal_or_entrypoint": "real_flow_candidates",
+      "evidence_path": "src/services/significado-activity-anchor-adapter.ts",
+      "evidence_line": 0,
+      "why_it_blocks_or_conditions_real_observation": "Most real candidates lack idempotencyKey/correlationId.",
+      "next_evidence_needed": "Define or locate existing correlation/idempotency source."
+    },
+    {
+      "gap_id": "RO-GAP-006",
+      "type": "OFFICIAL_FLOW_REF_NOT_PROVEN",
+      "severity": "high",
+      "affected_signal_or_entrypoint": "real_flow_candidates",
+      "evidence_path": "src/services/runtime-block0-response-model.ts",
+      "evidence_line": 0,
+      "why_it_blocks_or_conditions_real_observation": "No officialFlowRef is proven for real observed signal.",
+      "next_evidence_needed": "Locate official flow reference source without touching runtime."
+    },
+    {
+      "gap_id": "RO-GAP-007",
+      "type": "UI_TOUCH_RISK",
+      "severity": "high",
+      "affected_signal_or_entrypoint": "admin_and_dev_routes",
+      "evidence_path": "src/app/dev/e2e-block0/page.tsx",
+      "evidence_line": 13,
+      "why_it_blocks_or_conditions_real_observation": "Several rich candidates are in UI/app files, forbidden for observer implementation.",
+      "next_evidence_needed": "Move only future observer design to allowed service files after preflight."
+    },
+    {
+      "gap_id": "RO-GAP-008",
+      "type": "WORKMAP_TOUCH_RISK",
+      "severity": "high",
+      "affected_signal_or_entrypoint": "WorkMap candidates",
+      "evidence_path": "src/services/primary-activity-selector.ts",
+      "evidence_line": 17,
+      "why_it_blocks_or_conditions_real_observation": "WorkMap-shaped signals require touching WorkMap-related modules if used directly.",
+      "next_evidence_needed": "Use replay fixtures until read-only boundary is designed."
+    },
+    {
+      "gap_id": "RO-GAP-009",
+      "type": "SIGNIFICADO_TOUCH_RISK",
+      "severity": "high",
+      "affected_signal_or_entrypoint": "Significado candidates",
+      "evidence_path": "src/services/significado-activity-anchor-adapter.ts",
+      "evidence_line": 13,
+      "why_it_blocks_or_conditions_real_observation": "Significado-shaped signals require touching Significado-related modules if used directly.",
+      "next_evidence_needed": "Use replay fixtures until read-only boundary is designed."
+    },
+    {
+      "gap_id": "RO-GAP-010",
+      "type": "ONLY_FIXTURE_REPLAY_SAFE_FOR_NOW",
+      "severity": "high",
+      "affected_signal_or_entrypoint": "Gate 2",
+      "evidence_path": "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+      "evidence_line": 1,
+      "why_it_blocks_or_conditions_real_observation": "Current safe path is synthetic/in-memory fixture replay; real observation remains unproven.",
+      "next_evidence_needed": "Strengthen materialized replay fixtures before real observer."
+    },
+    {
+      "gap_id": "RO-GAP-011",
+      "type": "DIRTY_TREE_CONTEXT",
+      "severity": "medium",
+      "affected_signal_or_entrypoint": "repo",
+      "evidence_path": "",
+      "evidence_line": 0,
+      "why_it_blocks_or_conditions_real_observation": "Repo has dirty tree entries unrelated to this preflight.",
+      "next_evidence_needed": "Keep future staging surgical."
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "task_id": "APPLY_EVE04_SHADOW_CONNECTION_SERVICE_ONLY",
+  "dictamen": "SHADOW_CONNECTION_SERVICE_READY",
+  "git_context": "GIT_CONTEXT_BLOCKED",
+  "service_path": "src/services/eve-04-runtime-catalog-shadow-service.ts",
+  "exports": [
+    "loadEve04RuntimeCatalogActive",
+    "loadEve04RuntimeCatalogCandidate",
+    "validateEve04RuntimeCatalogCandidateShadow",
+    "compareEve04RuntimeCatalogActiveVsCandidate"
+  ],
+  "sources": {
+    "active_catalog": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1/EVE_04_Runtime_Catalog_v0_1.json",
+    "active_manifest": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1/EVE_04_Runtime_Catalog_v0_1.manifest.json",
+    "candidate_catalog": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1_1_candidate.json",
+    "candidate_manifest": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1_1_candidate.manifest.json"
+  },
+  "shadow_validation": {
+    "shadowMode": true,
+    "runtimeAuthority": false,
+    "productionPromotion": false,
+    "activeReplaced": false,
+    "candidateContainsB6Q38": true,
+    "candidateContainsB6_6_8": true,
+    "candidateContainsTrenchPhrase": true,
+    "ccov001Status": "RESOLVED_IN_CANDIDATE",
+    "cvar001Status": "OPEN_PENDING_SOURCE_GAP",
+    "readinessStatus": "READY_WITH_FLAGS",
+    "certificationStatus": "NOT_CERTIFIED",
+    "diagnosisEnabled": false,
+    "exportEnabled": false,
+    "transductionEnabled": false,
+    "registryEnabled": false,
+    "parallelProductionEnabled": false
+  },
+  "comparison": {
+    "pathsDistinct": true,
+    "candidateAddsB6_6_8ToB6Q38": true,
+    "candidateAddsTrenchPhraseToB6Q38": true,
+    "activeIntact": true,
+    "activeCatalogSha256": "df4674d5156d3747b6baf5906233c5b3d54378abd099870a5c0325f102c26dc0",
+    "candidateNotCertified": true,
+    "cvar001Open": true,
+    "ccov001ResolvedInCandidate": true
+  },
+  "files_created_or_modified": [
+    "src/services/eve-04-runtime-catalog-shadow-service.ts",
+    "tests/regression/eve-04-runtime-catalog-shadow-service.test.ts",
+    "docs/audits/EVE04_SHADOW_CONNECTION_SERVICE_ONLY.md",
+    "docs/audits/_eve04_shadow_connection_service_only.json"
+  ],
+  "tests": [
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-candidate-filenames.test.ts",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-shadow-candidate.test.ts",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-shadow-service.test.ts",
+      "exit_code": 0,
+      "result": "PASS"
+    }
+  ],
+  "no_contamination": {
+    "src_app_touched": false,
+    "apis_touched": false,
+    "runtime_productivo_touched": false,
+    "registry_productivo_touched": false,
+    "chip_activo_touched": false,
+    "candidate_touched": false,
+    "package_touched": false,
+    "docs_runtime_touched": false
+  },
+  "next_step_recommended": "SHADOW_QA_COMPARE"
+}

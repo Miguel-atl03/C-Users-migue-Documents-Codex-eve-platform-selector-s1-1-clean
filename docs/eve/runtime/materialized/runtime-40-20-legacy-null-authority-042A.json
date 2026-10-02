@@ -1,0 +1,255 @@
+{
+  "instruction": "042-A",
+  "decision": "branch_B_implementation_rule",
+  "approved_rector_requires_physical_null": false,
+  "approved_rector_rule": {
+    "file": "docs/eve/runtime/rectors/Regla_Rectora_General_Persistencia_Semantica_Runtime_40_20_EVE_v1_0_APROBADA.md",
+    "document_id": "EVE-RUNTIME-SEMPERSIST-R1",
+    "status": "APPROVED_GOVERNANCE_RULE",
+    "literal_authority": [
+      {
+        "section_or_line": "Section 4, lines 24-26",
+        "literal_text": "Los campos de branching pertenecen logicamente a runtime_branching_rule; los campos epistemicos y de carga pertenecen a runtime_epistemic_rule; los campos de variables pertenecen a runtime_variable_map.",
+        "authority": "rector_approved"
+      },
+      {
+        "section_or_line": "Section 8, lines 51-53",
+        "literal_text": "null solo significa ausencia literal en fuente, no autorizacion para inventar valor por narrativa.",
+        "authority": "rector_approved",
+        "interpretation": "This governs source-literal absence. It does not require physical NULL in legacy core columns."
+      },
+      {
+        "section_or_line": "Section 9, lines 55-57",
+        "literal_text": "Todo valor de los 12 campos debe persistirse o transportarse con raw_literal, source_file, source_sheet, source_row, source_column, trace_id y checksum de fuente.",
+        "authority": "rector_approved"
+      }
+    ],
+    "physical_null_requirement_found": false
+  },
+  "occurrences": [
+    {
+      "file": "docs/eve/runtime/materialized/runtime-40-20-semantic-schema-contract-037.md",
+      "section_or_line": "Legacy policy, line 32",
+      "literal_text": "las doce columnas legacy en runtime_interaction_def permanecen fisicamente sin cambios, quedan NULL para la fixture full catalog local y no son autoridad semantica para el catalogo completo.",
+      "document_status": "LOCAL_RECTOR_CONFORMANCE_SCHEMA_CONTRACT",
+      "authority": "test_assumption",
+      "reason": "The NULL statement is scoped to the disposable local fixture; the authoritative part is that legacy typed columns are non-authoritative."
+    },
+    {
+      "file": "docs/eve/runtime/materialized/runtime-40-20-semantic-schema-validation-037.json",
+      "section_or_line": "legacy_columns, lines 176-180",
+      "literal_text": "full_catalog_fixture_legacy_non_null_rows: 0; new_full_catalog_rows_use_explicit_null: true",
+      "document_status": "passed local disposable validation",
+      "authority": "test_assumption"
+    },
+    {
+      "file": "docs/eve/runtime/materialized/runtime-40-20-semantic-schema-contract-037.json",
+      "section_or_line": "legacy_policy, line 73",
+      "literal_text": "legacy_typed_columns_not_authoritative_for_full_catalog",
+      "document_status": "LOCAL_RECTOR_CONFORMANCE_SCHEMA_CONTRACT",
+      "authority": "implementation_rule",
+      "reason": "This establishes semantic authority separation but does not state physical NULL."
+    },
+    {
+      "file": "docs/eve/runtime/materialized/runtime-40-20-catalogloader-contract-038.json",
+      "section_or_line": "legacy_columns_policy, line 237",
+      "literal_text": "twelve incompatible legacy columns remain NULL for the full catalog version",
+      "document_status": "implementation contract",
+      "authority": "implementation_rule"
+    },
+    {
+      "file": "docs/eve/runtime/materialized/runtime-40-20-staging-boundary-traceability-039B.json",
+      "section_or_line": "semantic persistence trace item, line 337",
+      "literal_text": "draft full catalog leaves legacy columns NULL",
+      "document_status": "traceability evidence",
+      "authority": "historical_evidence",
+      "reason": "The traceability matrix/control cannot replace the approved rector and cites the 037 implementation contract."
+    },
+    {
+      "file": "docs/eve/runtime/materialized/runtime-40-20-phase2-boundary-final-040D.md",
+      "section_or_line": "Real core projections, line 35",
+      "literal_text": "Twelve organ-governed typed columns stay non-authoritative (empty defaults / NULL); raw literals live in organs",
+      "document_status": "final implementation candidate evidence",
+      "authority": "implementation_rule",
+      "reason": "This already recognizes physical defaults or NULL while preserving organ authority."
+    },
+    {
+      "file": "docs/eve/runtime/materialized/runtime-40-20-full-core-projection-040D.json",
+      "section_or_line": "note_semantic_organ_typed_columns, line 1279",
+      "literal_text": "Staging NOT NULL typed legacy columns receive empty defaults ([], {}, false) or NULL when nullable; raw literals are never copied into typed columns for the full catalog.",
+      "document_status": "final physical projection evidence",
+      "authority": "implementation_rule",
+      "reason": "This is the compatible physical rule consistent with the real staging contract."
+    },
+    {
+      "file": "docs/eve/runtime/materialized/runtime-40-20-staging-preload-snapshot-042.json",
+      "section_or_line": "legacy_semantic_column_contract, lines 94-120",
+      "literal_text": "required_by_042: all twelve columns NULL for the 60 full interactions",
+      "document_status": "preload gate snapshot",
+      "authority": "unsupported",
+      "reason": "The snapshot reports a later technical assumption and itself records that ten columns are NOT NULL with non-null defaults."
+    }
+  ],
+  "sources_reviewed_without_approved_physical_null_requirement": [
+    "EVE-RUNTIME-SEMPERSIST-R1 approved rector",
+    "runtime-40-20-semantic-persistence-rule-035.json",
+    "runtime-40-20-semantic-schema-contract-037.json and .md",
+    "runtime-40-20-semantic-schema-validation-037.json and .md",
+    "runtime-40-20 catalog loader and boundary deliverables 038 through 042",
+    "EVE-RUNTIME-CATID-R1",
+    "runtime-40-20-canonical-configuration-031.json",
+    "runtime-40-20 staging core contract 040-A",
+    "EVE Runtime 40/20 executable technical specification",
+    "Runtime 40/20 XLSX and Mother Catalog sources referenced by 035",
+    "Matriz_Trazabilidad_Rectora_Runtime_40_20_v1",
+    "Marco Estructural Maestro"
+  ],
+  "physical_compatibility_rule": {
+    "legacy_typed_columns_semantic_authority": false,
+    "payload_supplies_legacy_values": false,
+    "postgresql_defaults_are": "physical_compatibility_values",
+    "postgresql_defaults_are_not": [
+      "semantic source",
+      "rector content",
+      "meaning QA criterion",
+      "authorized branching, variable, or epistemic input"
+    ],
+    "authoritative_storage": [
+      "runtime_branching_rule",
+      "runtime_epistemic_rule",
+      "runtime_variable_map",
+      "runtime_interaction_def.raw_row_json"
+    ]
+  },
+  "default_contract_complete": true,
+  "defaults_source": {
+    "local_contract": "docs/eve/runtime/materialized/runtime-40-20-staging-core-contract-040A.json",
+    "remote_observation": "SELECT information_schema.columns on eve-staging-onboarding during 042-A",
+    "remote_project_ref": "shrpiwkxcdgvbqymjecx",
+    "production_consulted": false
+  },
+  "columns": [
+    {
+      "column_name": "opens_nodes",
+      "postgresql_type": "text[]",
+      "nullable": false,
+      "exact_default_expression": "'{}'::text[]",
+      "physical_value_expected_after_insert": [],
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_branching_rule",
+      "source_trace_id": ["TR-011", "TR-002", "TR-003"]
+    },
+    {
+      "column_name": "closes_nodes",
+      "postgresql_type": "text[]",
+      "nullable": false,
+      "exact_default_expression": "'{}'::text[]",
+      "physical_value_expected_after_insert": [],
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_branching_rule",
+      "source_trace_id": ["TR-011", "TR-002", "TR-003"]
+    },
+    {
+      "column_name": "mutual_exclusion_policy",
+      "postgresql_type": "jsonb",
+      "nullable": false,
+      "exact_default_expression": "'{}'::jsonb",
+      "physical_value_expected_after_insert": {},
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_epistemic_rule",
+      "source_trace_id": ["TR-012", "TR-002", "TR-003"]
+    },
+    {
+      "column_name": "free_text_weight",
+      "postgresql_type": "numeric",
+      "nullable": true,
+      "exact_default_expression": null,
+      "physical_value_expected_after_insert": null,
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_epistemic_rule",
+      "source_trace_id": ["TR-012", "TR-002", "TR-003"]
+    },
+    {
+      "column_name": "fatigue_policy",
+      "postgresql_type": "jsonb",
+      "nullable": false,
+      "exact_default_expression": "'{}'::jsonb",
+      "physical_value_expected_after_insert": {},
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_epistemic_rule",
+      "source_trace_id": ["TR-012", "TR-002", "TR-003"]
+    },
+    {
+      "column_name": "must_not_infer",
+      "postgresql_type": "boolean",
+      "nullable": false,
+      "exact_default_expression": "false",
+      "physical_value_expected_after_insert": false,
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_epistemic_rule",
+      "source_trace_id": ["TR-012", "TR-002", "TR-003"]
+    },
+    {
+      "column_name": "canonical_variables",
+      "postgresql_type": "text[]",
+      "nullable": false,
+      "exact_default_expression": "'{}'::text[]",
+      "physical_value_expected_after_insert": [],
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_variable_map",
+      "source_trace_id": ["TR-013", "TR-008"]
+    },
+    {
+      "column_name": "required_variables",
+      "postgresql_type": "text[]",
+      "nullable": false,
+      "exact_default_expression": "'{}'::text[]",
+      "physical_value_expected_after_insert": [],
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_variable_map",
+      "source_trace_id": ["TR-013", "TR-008"]
+    },
+    {
+      "column_name": "derived_variables",
+      "postgresql_type": "text[]",
+      "nullable": false,
+      "exact_default_expression": "'{}'::text[]",
+      "physical_value_expected_after_insert": [],
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_variable_map",
+      "source_trace_id": ["TR-013", "TR-008"]
+    },
+    {
+      "column_name": "optional_variables",
+      "postgresql_type": "text[]",
+      "nullable": false,
+      "exact_default_expression": "'{}'::text[]",
+      "physical_value_expected_after_insert": [],
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_variable_map",
+      "source_trace_id": ["TR-013", "TR-008"]
+    },
+    {
+      "column_name": "confirmation_weight",
+      "postgresql_type": "numeric",
+      "nullable": true,
+      "exact_default_expression": null,
+      "physical_value_expected_after_insert": null,
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_epistemic_rule",
+      "source_trace_id": ["TR-012", "TR-002", "TR-003"]
+    },
+    {
+      "column_name": "can_be_inferred_from",
+      "postgresql_type": "text[]",
+      "nullable": false,
+      "exact_default_expression": "'{}'::text[]",
+      "physical_value_expected_after_insert": [],
+      "semantic_authority": false,
+      "authoritative_organ": "runtime_variable_map",
+      "source_trace_id": ["TR-013", "TR-002", "TR-003"]
+    }
+  ],
+  "new_trace_ids_created": 0,
+  "classification": "legacy_null_is_implementation_rule_physical_defaults_authorized"
+}

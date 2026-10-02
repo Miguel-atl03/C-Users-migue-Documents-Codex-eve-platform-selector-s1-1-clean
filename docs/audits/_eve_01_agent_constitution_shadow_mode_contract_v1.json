@@ -1,0 +1,142 @@
+{
+  "contractStatus": "conceptual_design_only",
+  "mode": "constitutional_shadow",
+  "chipId": "EVE-01-AGENT-CONSTITUTION",
+  "version": "1.0",
+  "dependencyChips": [
+    "EVE-00-METHOD-KERNEL@0.2.0"
+  ],
+  "activation": {
+    "disabledByDefault": true,
+    "invocableBy": [
+      "future static tests",
+      "future dev harness"
+    ],
+    "productionFlowIntegration": false
+  },
+  "inputContract": {
+    "typeName": "AgentConstitutionEvaluationInput",
+    "requiredFields": [
+      "mode",
+      "requestedAction",
+      "inputClassification",
+      "evidenceItems",
+      "sourceTrace"
+    ],
+    "optionalFields": [
+      "methodKernelResult",
+      "runtimeContext",
+      "actorContext",
+      "targetBoundary",
+      "requestedOutputType"
+    ],
+    "evidenceItemFields": [
+      "evidenceItemId",
+      "value",
+      "provenanceType",
+      "sourceRefs",
+      "revision",
+      "epistemicStatus"
+    ],
+    "sourceTraceFields": [
+      "sourceId",
+      "ruleId",
+      "locator",
+      "authorityDomain"
+    ]
+  },
+  "forbiddenInputs": [
+    "free text without sourceTrace",
+    "unconfirmed AI evidence as captured_user_evidence",
+    "raw WorkMap draft as closed evidence",
+    "unconfirmed B0 prefill",
+    "action without scope",
+    "output request without requestedOutputType",
+    "diagnostic request without prior MMABP inconsistency",
+    "Produccion Paralela without readiness and authority chain"
+  ],
+  "outputContract": {
+    "typeName": "AgentConstitutionEvaluationResult",
+    "requiredFields": [
+      "version",
+      "mode",
+      "chipId",
+      "readinessState",
+      "decisionId",
+      "ruleIds",
+      "sourceTrace",
+      "inputClassification",
+      "allowedActions",
+      "blockedActions",
+      "requiredInputs",
+      "auditRequired",
+      "nextChipOrService",
+      "findings",
+      "auditEvents",
+      "safetyFlags"
+    ],
+    "allowedPreparedOutputs": [
+      "constitutionalDecisionCandidate",
+      "diagnosticPreclassificationCandidate",
+      "blockedAction",
+      "allowedAction",
+      "requiredInputs",
+      "auditRequired",
+      "sourceTrace",
+      "nextChipOrService"
+    ],
+    "forbiddenOutputs": [
+      "finalDiagnosis",
+      "final IR",
+      "registry export",
+      "production payload final",
+      "Runtime readiness final",
+      "user-facing decision final"
+    ]
+  },
+  "readinessStates": [
+    "capture_allowed",
+    "clarification_required",
+    "blocked_by_scope",
+    "blocked_by_missing_evidence",
+    "blocked_by_missing_canonical_route",
+    "blocked_by_contradiction",
+    "manual_review_required",
+    "ready_for_structural_candidate",
+    "ready_for_diagnostic_preclassification",
+    "ready_for_parallel_preview",
+    "export_blocked",
+    "audit_required"
+  ],
+  "safetyFlags": {
+    "canBlockUserFlow": false,
+    "canModifyPayload": false,
+    "canWriteRegistry": false,
+    "canTriggerFinalDiagnosis": false,
+    "canTriggerProduction": false,
+    "runtimeAuthority": false
+  },
+  "protectedBoundaries": [
+    "no final diagnosis from Capa 1",
+    "no raw_text_export",
+    "no untraceable_recommendation",
+    "no runtimeAuthority",
+    "no registry write",
+    "no Produccion Paralela real",
+    "no productive UI",
+    "no WorkMap mutation",
+    "no Significado mutation",
+    "no Runtime productivo mutation",
+    "no page.tsx",
+    "no Supabase",
+    "no SQL",
+    "no API side effects"
+  ],
+  "methodKernelRelationship": {
+    "EVE00Role": "validates methodological conformance and consistency",
+    "EVE01Role": "decides whether an agent action is constitutionally allowed",
+    "doesNotReplaceEVE00": true,
+    "methodKernelResultUse": "structural evidence only, not diagnosis",
+    "missingMethodKernelBehavior": "block or request evidence for diagnostic or structural outputs"
+  }
+}

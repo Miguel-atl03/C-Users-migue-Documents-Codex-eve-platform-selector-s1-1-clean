@@ -1,0 +1,70 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING5_DIAGNOSIS_EXPORT_POLICY_CONSTRAINTS",
+  "generated_at": "2026-07-10T03:50:00.000Z",
+  "authorization_ref": "ring5-authorization-general-production-activation-gate-rerun-20260710",
+  "ring": 5,
+  "ring_name": "general_production_activation_gate",
+  "version": "1.0.0",
+  "diagnosis_final_automatic_allowed": false,
+  "external_export_without_readiness_and_authority_allowed": false,
+  "diagnosis_created": false,
+  "export_real_external_executed": false,
+  "blocked_until_separate_authorization": true,
+  "constraints": [
+    {
+      "id": "R5-DE-01",
+      "constraint": "diagnosis_final_automatic_allowed",
+      "required_value": false,
+      "blocking": true,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "R5-DE-02",
+      "constraint": "diagnosis_created_at_authorization",
+      "required_value": false,
+      "blocking": true,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "R5-DE-03",
+      "constraint": "external_export_without_readiness_and_authority_allowed",
+      "required_value": false,
+      "blocking": true,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "R5-DE-04",
+      "constraint": "export_real_external_executed_at_authorization",
+      "required_value": false,
+      "blocking": true,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "R5-DE-05",
+      "constraint": "diagnosis_requires_separate_authority_and_readiness",
+      "required_value": true,
+      "blocking": true,
+      "authorization_satisfied": true
+    },
+    {
+      "id": "R5-DE-06",
+      "constraint": "external_export_requires_separate_authority_and_readiness",
+      "required_value": true,
+      "blocking": true,
+      "authorization_satisfied": true
+    },
+    {
+      "id": "R5-DE-07",
+      "constraint": "ring5_gate_authorization_does_not_imply_diagnosis_or_export_authority",
+      "required_value": true,
+      "blocking": true,
+      "authorization_satisfied": true
+    }
+  ],
+  "all_blocking_constraints_honored": true,
+  "note": "Diagnosis and external export remain blocked until separate readiness and authority beyond Ring 5 gate authorization"
+}

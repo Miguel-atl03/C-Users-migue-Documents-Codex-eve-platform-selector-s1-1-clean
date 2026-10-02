@@ -1,0 +1,452 @@
+{
+  "audit_id": "EVE-07-PARALLEL-PRODUCTION-INTERFACE-RECORD-RULE-SOURCE-QA-V1",
+  "dictamen": "PARALLEL_PRODUCTION_INTERFACE_RECORD_RULE_QA_UNSATISFACTORY_RETURN_TO_WORKBENCH",
+  "summary": {
+    "checked": 34,
+    "accepted": 34,
+    "EXB031_checked": true,
+    "EXB031_predicate": "Boolean(context.overrideRequested) && !context.overrideAudited",
+    "blockerBehaviorPendingTests": false
+  },
+  "rows": [
+    {
+      "blocker_code": "EXB-001",
+      "category": "missing_run_scope",
+      "trigger_condition": "run/case/role/activity scope incompleto",
+      "hard_block": true,
+      "source_refs": [
+        "D4:27",
+        "EVE06:ARR-004"
+      ],
+      "source_proof_id": "SPM-EXB-001",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-002",
+      "category": "catalog_version_mismatch",
+      "trigger_condition": "catalog_version_id no coincide con el run congelado",
+      "hard_block": true,
+      "source_refs": [
+        "D4:23",
+        "EVE06:ARR-003"
+      ],
+      "source_proof_id": "SPM-EXB-002",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-003",
+      "category": "B0_unconfirmed",
+      "trigger_condition": "actividad no confirmada o weak_context bloqueante",
+      "hard_block": true,
+      "source_refs": [
+        "D6!Critical_Routes:CR-B0"
+      ],
+      "source_proof_id": "SPM-EXB-003",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-004",
+      "category": "B2_route_missing",
+      "trigger_condition": "excepción de transformación sin ruta canónica 2.9/2.10",
+      "hard_block": true,
+      "source_refs": [
+        "D6!Critical_Routes:CR-B2"
+      ],
+      "source_proof_id": "SPM-EXB-004",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-005",
+      "category": "C09_route_missing",
+      "trigger_condition": "feedback textual sin C09 cerrada",
+      "hard_block": true,
+      "source_refs": [
+        "D5:6.2",
+        "D6!Critical_Routes:CR-B3"
+      ],
+      "source_proof_id": "SPM-EXB-005",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-006",
+      "category": "satisfaction_as_feedback",
+      "trigger_condition": "receiver_satisfaction usada como receiver_feedback",
+      "hard_block": true,
+      "source_refs": [
+        "D5:6.2"
+      ],
+      "source_proof_id": "SPM-EXB-006",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-007",
+      "category": "B7_direct_projection",
+      "trigger_condition": "B7/C20 intenta crear MoC/IR/registry/export/diagnóstico",
+      "hard_block": true,
+      "source_refs": [
+        "D5:6.3",
+        "D6!Critical_Routes:CR-B7"
+      ],
+      "source_proof_id": "SPM-EXB-007",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-008",
+      "category": "semantic_unresolved",
+      "trigger_condition": "SEM-001..007 no resuelto",
+      "hard_block": true,
+      "source_refs": [
+        "D6!Semantic_Resolution_Gates"
+      ],
+      "source_proof_id": "SPM-EXB-008",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-009",
+      "category": "process_state_without_timer",
+      "trigger_condition": "PST gate faltante",
+      "hard_block": true,
+      "source_refs": [
+        "D6!Process_State_Timer_Gates"
+      ],
+      "source_proof_id": "SPM-EXB-009",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-010",
+      "category": "conformance_failed",
+      "trigger_condition": "modelo candidate no representa realidad",
+      "hard_block": true,
+      "source_refs": [
+        "D1:4.1",
+        "EVE05:mmabp_conformance_gate"
+      ],
+      "source_proof_id": "SPM-EXB-010",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-011",
+      "category": "consistency_failed",
+      "trigger_condition": "inconsistencia factual/temporal/estructural/compuesta",
+      "hard_block": true,
+      "source_refs": [
+        "D1:4.2-4.5",
+        "EVE05:mmabp_consistency_gate"
+      ],
+      "source_proof_id": "SPM-EXB-011",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-012",
+      "category": "readiness_not_allowed",
+      "trigger_condition": "readiness state bloqueado/reentry/manual review",
+      "hard_block": true,
+      "source_refs": [
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "source_proof_id": "SPM-EXB-012",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-013",
+      "category": "gap_hidden",
+      "trigger_condition": "gap o flag existente omitido del payload",
+      "hard_block": true,
+      "source_refs": [
+        "D4:23",
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "source_proof_id": "SPM-EXB-013",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-014",
+      "category": "missing_provenance",
+      "trigger_condition": "evidence o variable sin provenance/epistemic status",
+      "hard_block": true,
+      "source_refs": [
+        "D4:23.2",
+        "EVE06:EVI-002",
+        "EVE06:CVR-003"
+      ],
+      "source_proof_id": "SPM-EXB-014",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-015",
+      "category": "unconfirmed_ai_as_evidence",
+      "trigger_condition": "inferencia IA no confirmada tratada como evidencia dura",
+      "hard_block": true,
+      "source_refs": [
+        "D4:1",
+        "D5:2"
+      ],
+      "source_proof_id": "SPM-EXB-015",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-016",
+      "category": "raw_text_projection",
+      "trigger_condition": "texto libre salta a structural candidate/IR/registry",
+      "hard_block": true,
+      "source_refs": [
+        "D4:1",
+        "D6!Parallel_Production_Contract"
+      ],
+      "source_proof_id": "SPM-EXB-016",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-017",
+      "category": "compound_answer_flattened",
+      "trigger_condition": "pregunta compuesta guardada como texto opaco",
+      "hard_block": true,
+      "source_refs": [
+        "D4:1",
+        "D5:4"
+      ],
+      "source_proof_id": "SPM-EXB-017",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-018",
+      "category": "stale_or_superseded_source",
+      "trigger_condition": "payload usa evidencia/candidate superseded",
+      "hard_block": true,
+      "source_refs": [
+        "D4:24",
+        "EVE06:EVI-014",
+        "EVE06:SCR-016"
+      ],
+      "source_proof_id": "SPM-EXB-018",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-019",
+      "category": "candidate_state_invalid",
+      "trigger_condition": "candidate blocked/stale/rejected usado como activo",
+      "hard_block": true,
+      "source_refs": [
+        "D4:21",
+        "EVE06:SCR-015"
+      ],
+      "source_proof_id": "SPM-EXB-019",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-020",
+      "category": "placeholder_payload",
+      "trigger_condition": "payload contiene placeholders/ellipsis",
+      "hard_block": true,
+      "source_refs": [
+        "D4:23",
+        "D4:28"
+      ],
+      "source_proof_id": "SPM-EXB-020",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-021",
+      "category": "checksum_missing",
+      "trigger_condition": "payload/candidate sin checksum",
+      "hard_block": true,
+      "source_refs": [
+        "D4:21",
+        "D4:23"
+      ],
+      "source_proof_id": "SPM-EXB-021",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-022",
+      "category": "source_genealogy_missing",
+      "trigger_condition": "source_node/source_code/evidence refs incompletos",
+      "hard_block": true,
+      "source_refs": [
+        "D8",
+        "EVE03:source_node_registry",
+        "EVE03:source_code_registry"
+      ],
+      "source_proof_id": "SPM-EXB-022",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-023",
+      "category": "unauthorized_actor",
+      "trigger_condition": "actor/sistema sin autoridad de export",
+      "hard_block": true,
+      "source_refs": [
+        "D4:27"
+      ],
+      "source_proof_id": "SPM-EXB-023",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-024",
+      "category": "cross_tenant_scope",
+      "trigger_condition": "case/tenant mismatch",
+      "hard_block": true,
+      "source_refs": [
+        "D4:27"
+      ],
+      "source_proof_id": "SPM-EXB-024",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-025",
+      "category": "active_registry_write",
+      "trigger_condition": "candidate intenta escribir registry activo",
+      "hard_block": true,
+      "source_refs": [
+        "D3:R4",
+        "D3!Table6",
+        "D3!Table10"
+      ],
+      "source_proof_id": "SPM-EXB-025",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-026",
+      "category": "production_promotion",
+      "trigger_condition": "shadow/rehearsal candidate intenta promoción productiva",
+      "hard_block": true,
+      "source_refs": [
+        "D3:R4",
+        "D3!Table10"
+      ],
+      "source_proof_id": "SPM-EXB-026",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-027",
+      "category": "final_export_requested",
+      "trigger_condition": "candidate_export se trata como ExportCodePackage final",
+      "hard_block": true,
+      "source_refs": [
+        "D3!Table5",
+        "D3!Table6"
+      ],
+      "source_proof_id": "SPM-EXB-027",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-028",
+      "category": "diagnosis_requested",
+      "trigger_condition": "payload intenta emitir diagnóstico EVE/VSM/AHE",
+      "hard_block": true,
+      "source_refs": [
+        "D3!Table6",
+        "D3!Table10",
+        "D3!Table11"
+      ],
+      "source_proof_id": "SPM-EXB-028",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-029",
+      "category": "internal_ui_leak",
+      "trigger_condition": "Object Inventory/Membrane/SG Shadow internals expuestos al cliente",
+      "hard_block": true,
+      "source_refs": [
+        "D3!Table11",
+        "D3:R7"
+      ],
+      "source_proof_id": "SPM-EXB-029",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-030",
+      "category": "manual_review_open",
+      "trigger_condition": "manual_review_required sin resolución autorizada",
+      "hard_block": true,
+      "source_refs": [
+        "D4:27",
+        "D6!Readiness_Gaps_Reentry"
+      ],
+      "source_proof_id": "SPM-EXB-030",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-031",
+      "category": "unaudited_override",
+      "trigger_condition": "overrideRequested=true y overrideAudited=false",
+      "hard_block": true,
+      "source_refs": [
+        "D4:27",
+        "D4!Table25"
+      ],
+      "source_proof_id": "SPM-EXB-031",
+      "qaStatus": "accepted",
+      "notes": "Predicate present and matches requested expression; future static tests still separate."
+    },
+    {
+      "blocker_code": "EXB-032",
+      "category": "budget_or_carry_forward_critical",
+      "trigger_condition": "gap crítico quedó como carry_forward por presupuesto",
+      "hard_block": true,
+      "source_refs": [
+        "D4:9",
+        "D6!Branching_Budget_Rules"
+      ],
+      "source_proof_id": "SPM-EXB-032",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-033",
+      "category": "IR_diagram_equivalence",
+      "trigger_condition": "MMABP-IR candidate tratado como diagrama final",
+      "hard_block": true,
+      "source_refs": [
+        "D3!Table5"
+      ],
+      "source_proof_id": "SPM-EXB-033",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    },
+    {
+      "blocker_code": "EXB-034",
+      "category": "MDSB_finality_violation",
+      "trigger_condition": "MDSB patch tratado como MDSB final/transducción final",
+      "hard_block": true,
+      "source_refs": [
+        "D3!Table6",
+        "D3!Table10",
+        "D3:R4"
+      ],
+      "source_proof_id": "SPM-EXB-034",
+      "qaStatus": "accepted",
+      "notes": "Blocker definition present and source-referenced."
+    }
+  ]
+}

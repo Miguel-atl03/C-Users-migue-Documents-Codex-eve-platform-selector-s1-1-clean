@@ -1,0 +1,71 @@
+{
+  "riskMatrixStatus": "conceptual_design_only",
+  "risks": [
+    {
+      "riskId": "RISK_FINAL_DIAGNOSIS_FROM_PRECLASSIFICATION",
+      "risk": "convertir preclassification en diagnosis final",
+      "mitigation": "safetyFlags.canTriggerFinalDiagnosis=false and finalDiagnosis is forbidden output",
+      "severity": "blocker"
+    },
+    {
+      "riskId": "RISK_DUPLICATE_METHOD_KERNEL",
+      "risk": "duplicar Method Kernel",
+      "mitigation": "EVE-01 consumes methodKernelResult as evidence and does not evaluate MMABP conformance itself",
+      "severity": "high"
+    },
+    {
+      "riskId": "RISK_DUPLICATE_RUNTIME_READINESS",
+      "risk": "duplicar Runtime readiness",
+      "mitigation": "shadow readiness states are internal constitutional signals, not productive gates",
+      "severity": "high"
+    },
+    {
+      "riskId": "RISK_D2_CREATES_MMABP_RULES",
+      "risk": "usar D2 para crear reglas MMABP",
+      "mitigation": "D2 only governs diagnostic vocabulary; D1/EVE-00 govern MMABP method",
+      "severity": "blocker"
+    },
+    {
+      "riskId": "RISK_D4_D5_RELAX_D1",
+      "risk": "usar D4/D5 para relajar D1",
+      "mitigation": "source authority order keeps D1 primary for MMABP method",
+      "severity": "blocker"
+    },
+    {
+      "riskId": "RISK_RAW_TEXT_EXPORT",
+      "risk": "permitir raw_text_export",
+      "mitigation": "raw_text_export remains forbidden output",
+      "severity": "blocker"
+    },
+    {
+      "riskId": "RISK_UNTRACEABLE_RECOMMENDATION",
+      "risk": "permitir untraceable recommendation",
+      "mitigation": "sourceTrace and auditEvents required for every decision",
+      "severity": "blocker"
+    },
+    {
+      "riskId": "RISK_INTERNAL_MACHINERY_IN_FINAL_UI",
+      "risk": "exponer maquinaria interna en UI final",
+      "mitigation": "future UI trace is dev harness only, not productive UI",
+      "severity": "medium"
+    },
+    {
+      "riskId": "RISK_RUNTIME_AUTHORITY_TOO_EARLY",
+      "risk": "registrar runtimeAuthority demasiado pronto",
+      "mitigation": "runtimeAuthority=false in safetyFlags and no registry integration",
+      "severity": "blocker"
+    },
+    {
+      "riskId": "RISK_REGISTRY_WRITE_FROM_SHADOW",
+      "risk": "escribir registry desde shadow mode",
+      "mitigation": "canWriteRegistry=false and registry export forbidden",
+      "severity": "blocker"
+    },
+    {
+      "riskId": "RISK_USER_BLOCKING_FROM_SHADOW",
+      "risk": "bloquear usuario desde shadow mode",
+      "mitigation": "canBlockUserFlow=false; blockedActions are advisory trace only",
+      "severity": "blocker"
+    }
+  ]
+}

@@ -1,0 +1,901 @@
+/*
+ * Bloque 2 · La pieza — port of deliverables/design/eve-b2-la-pieza-v1.html
+ * (frozen design reference on :4173). Tokens and grammar kept 1:1.
+ */
+
+.screen {
+  --eve-ink: #12141a;
+  --eve-sheet: #fafbfc;
+  --eve-mist: #9aa1ab;
+  --eve-mist-deep: #7a8190;
+  --eve-line: #d8dce2;
+  --pad-x: clamp(24px, 5vw, 72px);
+  --stage-h: clamp(600px, 66vh, 720px);
+  --cota-y: 40%;
+
+  position: relative;
+  display: flow-root;
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100svh;
+  margin: 0 auto;
+  background: var(--eve-sheet);
+  color: var(--eve-ink);
+  font-family: var(--font-eve-mono, "IBM Plex Mono", "Consolas", monospace);
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen *,
+.screen *::before,
+.screen *::after {
+  box-sizing: border-box;
+}
+
+@keyframes eveFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes eveCaret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Shell */
+.shellNav {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.phaseArrow {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+.phaseArrow:hover {
+  color: var(--eve-ink);
+}
+
+.phaseArrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.blockMarks {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.blockMark {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: inherit;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+.blockMark:hover,
+.blockMark.isCurrent {
+  color: var(--eve-ink);
+}
+
+.blockMark.isCurrent {
+  cursor: default;
+}
+
+.kickerBand {
+  position: absolute;
+  top: clamp(48px, 8vh, 88px);
+  left: 50%;
+  z-index: 6;
+  width: min(560px, 54vw);
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.blockMeta {
+  margin: 0 0 12px;
+  color: var(--eve-mist);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--eve-ink);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  line-height: 1.55;
+  text-transform: uppercase;
+}
+
+.madreHelp {
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--eve-mist);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  opacity: 0;
+  transition:
+    opacity 380ms ease,
+    max-height 380ms ease,
+    margin 280ms ease;
+}
+
+.madreHelp.isOpen {
+  max-height: 520px;
+  margin-top: 16px;
+  opacity: 1;
+}
+
+.madreHelp p {
+  margin: 0 0 6px;
+}
+
+/* Stage: el plano */
+.stage {
+  position: relative;
+  height: var(--stage-h);
+  margin: clamp(230px, 27vh, 300px) var(--pad-x) 0;
+}
+
+/* La cota: la línea del caso */
+.cota {
+  position: absolute;
+  top: var(--cota-y);
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 1px;
+  background: var(--eve-line);
+}
+
+.cota::before,
+.cota::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  width: 1px;
+  height: 13px;
+  background: var(--eve-mist);
+}
+
+.cota::before {
+  left: 0;
+}
+
+.cota::after {
+  right: 0;
+}
+
+.stage.isShadow .cota {
+  background: repeating-linear-gradient(90deg, var(--eve-mist) 0 5px, transparent 5px 11px);
+}
+
+/* Secciones del caso sobre la cota */
+.partTick {
+  position: absolute;
+  top: calc(var(--cota-y) - 10px);
+  z-index: 2;
+  width: 1px;
+  height: 21px;
+  background: var(--eve-line);
+  opacity: 0;
+  transition:
+    opacity 400ms ease,
+    background 300ms ease;
+}
+
+.partTick[data-at="haces"] {
+  left: 37%;
+}
+
+.partTick[data-at="queda"] {
+  left: 74%;
+}
+
+.partTick.isOn {
+  background: var(--eve-ink);
+}
+
+.partLabel {
+  position: absolute;
+  top: calc(var(--cota-y) + 28px);
+  z-index: 2;
+  margin: 0;
+  color: var(--eve-mist);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition:
+    opacity 400ms ease,
+    color 300ms ease;
+}
+
+.partLabel[data-part="antes"] {
+  left: 10px;
+}
+
+.partLabel[data-part="haces"] {
+  left: calc(37% + 10px);
+}
+
+.partLabel[data-part="queda"] {
+  right: 10px;
+}
+
+.partLabel.isCurrent {
+  color: var(--eve-ink);
+}
+
+.stage.isStory .partTick,
+.stage.isStory .partLabel {
+  opacity: 1;
+}
+
+.storyCols {
+  display: none;
+}
+
+.stage.isStory .storyCols {
+  display: block;
+}
+
+.storyCol {
+  position: absolute;
+  top: calc(var(--cota-y) - 20px);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin: 0;
+  padding: 0 14px;
+  overflow: hidden;
+  background: var(--eve-sheet);
+  white-space: nowrap;
+}
+
+.storyText {
+  overflow: hidden;
+  color: var(--eve-ink);
+  font-size: clamp(12px, 1.1vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-overflow: ellipsis;
+}
+
+.storyCol[data-part="antes"] {
+  left: 12px;
+  max-width: calc(37% - 24px);
+}
+
+.storyCol[data-part="haces"] {
+  left: calc(37% + 12px);
+  max-width: calc(37% - 24px);
+}
+
+.storyCol[data-part="queda"] {
+  right: 12px;
+  justify-content: flex-end;
+  max-width: calc(26% - 24px);
+}
+
+/* El caso: título del plano */
+.caso {
+  position: absolute;
+  bottom: calc(100% - var(--cota-y) + 64px);
+  left: 0;
+  z-index: 3;
+  max-width: min(640px, 62%);
+  margin: 0;
+  animation: eveFade 600ms ease both;
+}
+
+.casoMeta {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--eve-mist);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.casoText {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--eve-ink);
+  font-size: clamp(13px, 1.2vw, 16px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.stage.isShadow .casoText {
+  color: var(--eve-mist-deep);
+}
+
+/* Tramos e islas */
+.band {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: block;
+  animation: eveFade 600ms ease both;
+}
+
+.isle {
+  position: absolute;
+}
+
+.isle.top {
+  top: 0;
+}
+
+.isle.up {
+  bottom: calc(100% - var(--cota-y) + 64px);
+}
+
+.isle.down {
+  top: calc(var(--cota-y) + 64px);
+}
+
+.isle.down.far {
+  top: calc(var(--cota-y) + 124px);
+}
+
+.isle.l {
+  left: 0;
+}
+
+.isle.c2 {
+  left: 37%;
+}
+
+.isle.r {
+  right: 0;
+  text-align: right;
+}
+
+.isle.up::before,
+.isle.down::before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  background: var(--eve-line);
+}
+
+.isle.up::before {
+  top: calc(100% + 8px);
+  height: 48px;
+}
+
+.isle.down::before {
+  bottom: calc(100% + 8px);
+  height: 48px;
+}
+
+.isle.down.far::before {
+  height: 108px;
+}
+
+.isle.l::before,
+.isle.c2::before {
+  left: 0;
+}
+
+.isle.r::before {
+  right: 0;
+}
+
+.w34 {
+  width: min(440px, 34%);
+}
+
+.w40 {
+  width: min(520px, 40%);
+}
+
+.w44 {
+  width: min(580px, 44%);
+}
+
+/* Pregunta / respuesta (gramática del shell) */
+.qBlock + .qBlock {
+  margin-top: 36px;
+}
+
+.qCode {
+  margin: 0 0 8px;
+  color: var(--eve-mist);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.qHead {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.isle.r .qHead {
+  flex-direction: row-reverse;
+}
+
+.qLabel {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  color: var(--eve-ink);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.helpPlus {
+  flex: 0 0 auto;
+  margin: 1px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-ink);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 240ms ease,
+    opacity 240ms ease;
+}
+
+.helpPlus.isSeen {
+  color: var(--eve-mist);
+}
+
+.helpPlus:hover,
+.helpPlus.isOpen {
+  color: var(--eve-ink);
+}
+
+.gateHint {
+  max-height: 0;
+  margin: 8px 0 0;
+  overflow: hidden;
+  color: var(--eve-mist);
+  font-size: 7px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  opacity: 0;
+  transition:
+    opacity 240ms ease,
+    max-height 240ms ease,
+    color 240ms ease;
+}
+
+.gateHint.isVisible {
+  max-height: 3em;
+  opacity: 1;
+}
+
+.gateHint.isFlash {
+  color: var(--eve-ink);
+}
+
+.qWhisper {
+  margin: 10px 0 0;
+  color: var(--eve-mist);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.subLabel {
+  margin: 18px 0 0;
+  color: var(--eve-mist-deep);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.optList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.optList.isRow {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.isle.r .optList {
+  align-items: flex-end;
+}
+
+.isle.r .optList.isRow {
+  justify-content: flex-end;
+}
+
+.opt {
+  margin: 0;
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  text-align: inherit;
+  cursor: pointer;
+  transition:
+    color 280ms ease,
+    font-weight 180ms ease;
+}
+
+.opt:hover {
+  color: var(--eve-ink);
+}
+
+.opt.isActive {
+  color: var(--eve-ink);
+  font-weight: 700;
+}
+
+.rankNo {
+  display: inline-block;
+  min-width: 2.2em;
+  color: var(--eve-ink);
+  font-weight: 700;
+}
+
+.optList.isLocked,
+.scale.isLocked,
+.answerField.isLocked {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.optList.isCommitted .opt:not(.isActive) {
+  display: none;
+}
+
+.choiceBack {
+  display: block;
+  margin: 12px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.72;
+}
+
+.isle.r .choiceBack {
+  margin-left: auto;
+}
+
+.choiceBack:hover {
+  color: var(--eve-ink);
+  opacity: 1;
+}
+
+.answerField {
+  position: relative;
+  margin-top: 30px;
+}
+
+.answerField.isFollowup {
+  margin-top: 12px;
+}
+
+.qValue {
+  display: block;
+  width: 100%;
+  min-height: 3.2em;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: var(--eve-ink);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.55;
+  text-align: inherit;
+  white-space: pre-wrap;
+  word-break: break-word;
+  outline: none;
+  resize: none;
+  caret-color: var(--eve-ink);
+  cursor: text;
+}
+
+/* Caret latente cuando el campo está vacío y sin foco */
+.answerField.isEmpty:not(:focus-within)::before {
+  content: "";
+  position: absolute;
+  top: 0.2em;
+  left: 0;
+  width: 1.5px;
+  height: 1.05em;
+  background: var(--eve-ink);
+  animation: eveCaret 1s step-end infinite;
+  pointer-events: none;
+}
+
+.isle.r .answerField.isEmpty:not(:focus-within)::before {
+  right: 0;
+  left: auto;
+}
+
+.charCount {
+  margin: 6px 0 0;
+  color: var(--eve-mist);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+}
+
+/* Escala de magnitud inscrita en la cota */
+.scale {
+  position: absolute;
+  top: var(--cota-y);
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: 0;
+}
+
+.scaleFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--eve-ink);
+  transition: width 500ms ease;
+}
+
+.scaleMark {
+  position: absolute;
+  top: -9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.scaleTick {
+  width: 1px;
+  height: 19px;
+  background: var(--eve-mist);
+  transition:
+    background 300ms ease,
+    transform 300ms ease;
+}
+
+.scaleLabel {
+  color: var(--eve-mist);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  transition: color 280ms ease;
+}
+
+.scaleMark:hover .scaleLabel {
+  color: var(--eve-ink);
+}
+
+.scaleMark.isActive .scaleTick {
+  background: var(--eve-ink);
+  transform: scaleY(1.6);
+}
+
+.scaleMark.isActive .scaleLabel {
+  color: var(--eve-ink);
+  font-weight: 700;
+}
+
+/* Pie del plano: rótulo + acción */
+.sheetFoot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  margin: 48px var(--pad-x) 0;
+  padding-bottom: 88px;
+}
+
+.rotulo {
+  max-width: 46ch;
+  padding-top: 10px;
+  border-top: 1px solid var(--eve-line);
+}
+
+.rotuloMeta {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--eve-mist);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.rotuloText {
+  margin: 0;
+  color: var(--eve-mist-deep);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+}
+
+.closure {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.sceneToggle {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: inherit;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 220ms ease;
+}
+
+.sceneToggle.isReady {
+  color: var(--eve-ink);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.sceneToggle:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.closureHint {
+  margin: 0;
+  max-width: 40ch;
+  color: var(--eve-mist);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .stage {
+    height: auto !important;
+    margin-top: 240px;
+  }
+
+  .cota,
+  .partTick,
+  .partLabel,
+  .stage.isStory .storyCols,
+  .isle::before {
+    display: none;
+  }
+
+  .caso {
+    position: static;
+    max-width: none;
+    margin: 0 0 40px;
+  }
+
+  .band {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  .isle {
+    position: static;
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  .isle.r .qHead {
+    flex-direction: row;
+  }
+
+  .isle.r .optList,
+  .isle.r .optList.isRow {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .scale {
+    position: relative;
+    top: 0;
+    height: 64px;
+  }
+
+  .sheetFoot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

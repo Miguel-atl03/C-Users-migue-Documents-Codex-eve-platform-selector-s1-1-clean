@@ -1,0 +1,52 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-RECORD-RULE-SOURCE-QA-V1",
+  "dictamen": "GATE_ENGINE_RECORD_RULE_QA_BLOCKED",
+  "gapStatus": "blocking_for_documentary_satisfaction",
+  "gaps": [
+    {
+      "id": "RRQA-GAP-001",
+      "type": "pdf_material_extraction_blocked",
+      "description": "D1 and VSM1 were physically readable as PDFs, but no local PDF text extraction tooling or library was available for material rule-by-rule comparison.",
+      "affectedModules": ["mmabp_conformance_gate", "mmabp_consistency_gate", "D1/VSM1 overreach QA"],
+      "blocks": ["GATE_ENGINE_RECORD_RULE_QA_SATISFACTORY"]
+    },
+    {
+      "id": "RRQA-GAP-002",
+      "type": "field_level_equivalence_not_completed",
+      "description": "Every action, severity, condition, source authority, failure mode and gate field was not materially compared against exact rector source units.",
+      "affectedModules": ["critical_route_gate", "semantic_resolution_gate", "process_state_timer_gate", "failure_guards"],
+      "blocks": ["complete_documentary_satisfaction"]
+    },
+    {
+      "id": "RRQA-GAP-003",
+      "type": "atomic_rules_material_proof_pending",
+      "description": "The 130 atomic rules and gate definitions are present and source-referenced, but material equivalence proof remains pending.",
+      "affectedModules": ["all"],
+      "blocks": ["atomic_rules_and_gate_definitions_satisfactory"]
+    },
+    {
+      "id": "RRQA-GAP-004",
+      "type": "D2_compartment_to_rule_proof_pending",
+      "description": "D2 text was extracted and compartment signals were observed, but each consistency compartment has not been materially proven against exact D2 source units.",
+      "affectedModules": ["mmabp_consistency_gate"],
+      "blocks": ["consistency_gate_satisfactory"]
+    },
+    {
+      "id": "RRQA-GAP-005",
+      "type": "overreach_material_guard_proof_pending",
+      "description": "No overreach was detected in package declarations, but D1/VSM1/AHE1 overreach protections have not been exhaustively proven against original source text.",
+      "affectedModules": ["D1", "VSM1", "AHE1"],
+      "blocks": ["overreach_QA_satisfactory"]
+    }
+  ],
+  "notGaps": [
+    "All prerequisite closeouts exist and contain required dictamens.",
+    "All ten rector sources exist and were physically readable in previous preflight and this QA pass.",
+    "Package counts match expected counts.",
+    "All inspected rule groups have source_refs present.",
+    "No runtimeAuthority true was detected.",
+    "No registry write was detected.",
+    "No product wiring or EVE brain connection was created."
+  ],
+  "recommendedAction": "C. Resolver bloqueo de comparacion material."
+}

@@ -1,0 +1,28 @@
+{
+  "ledger_id": "eve_consultant_control_panel_boundary_ledger_v1",
+  "generated_at": "2026-07-10",
+  "assertions": {
+    "client_user_access_blocked": true,
+    "service_role_used_in_frontend": false,
+    "secrets_exposed": false,
+    "production_touched": false,
+    "sql_executed": false,
+    "migration_modified": false,
+    "diagnosis_final_automatic_created": false,
+    "productive_export_executed": false,
+    "activation_reopened": false,
+    "ring_5_recreated": false,
+    "belongs_to_closed_activation_process": false
+  },
+  "access_controls": {
+    "page_route": "/admin/consultant-control-panel",
+    "alias_route": "/consultant/control-panel",
+    "bff_guard": "assertConsultantControlPanelAccess",
+    "client_surface_header": "x-eve-surface=client → 403"
+  },
+  "notes": [
+    "Panel is post-activation operational governance, not a new activation ring.",
+    "Read-mode BFF returns empty-safe structures when no scoped runtime data is available.",
+    "Manual actions and downloads remain blocked until audited generators/endpoints exist."
+  ]
+}

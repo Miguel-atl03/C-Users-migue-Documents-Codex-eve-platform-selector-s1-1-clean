@@ -1,0 +1,17 @@
+{
+  "acceptance_criteria_defined": true,
+  "criteria": [
+    {"category": "environment identity", "accept": "Unique non-productive environment identity, owner, locator, and purpose are documented.", "reject": "Environment identity is missing, shared with production, or ambiguous."},
+    {"category": "non-productive classification", "accept": "Classification explicitly states dev/test/local/non-productive.", "reject": "Classification is missing or production-like."},
+    {"category": "production exclusion", "accept": "Production DB and productive Supabase are explicitly excluded.", "reject": "Production target remains possible."},
+    {"category": "credentials classification", "accept": "Credentials are non-productive and scoped to target only.", "reject": "Credentials are unclassified, broad, or productive."},
+    {"category": "production data exclusion", "accept": "Data is synthetic, fixture-only, or scrubbed with owner attestation.", "reject": "Production or sensitive data remains possible."},
+    {"category": "network isolation", "accept": "Network path does not require production reachability.", "reject": "Network isolation absent or production path reachable."},
+    {"category": "target DB/schema", "accept": "Target database and schema are named, non-productive, and reviewed.", "reject": "Target DB/schema unknown or production-like."},
+    {"category": "baseline plans", "accept": "Schema, RLS, and constraint baseline plans are documented.", "reject": "Any baseline plan is missing."},
+    {"category": "snapshot/rollback", "accept": "Snapshot and rollback procedures are documented and reviewable.", "reject": "Snapshot or rollback is missing."},
+    {"category": "approval path", "accept": "Explicit post-evidence approval path is defined.", "reject": "Approval is implicit or absent."},
+    {"category": "risk owner", "accept": "Risk owner is named and accountable.", "reject": "No accountable owner."},
+    {"category": "evidence ledger", "accept": "Ledger schema and storage path are defined before execution.", "reject": "Ledger is missing or undefined."}
+  ]
+}

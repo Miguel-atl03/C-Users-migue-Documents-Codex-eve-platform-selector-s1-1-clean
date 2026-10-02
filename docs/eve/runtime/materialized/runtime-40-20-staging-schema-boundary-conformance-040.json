@@ -1,0 +1,119 @@
+{
+  "instruction": "Codex 040",
+  "classification": "staging_schema_and_boundary_rolled_back",
+  "project_ref": "shrpiwkxcdgvbqymjecx",
+  "controls": {
+    "gate_039B_valid": true,
+    "artifact_hashes_valid": true,
+    "rollback_artifacts_available": true,
+    "semantic_organs_initially_absent": true,
+    "rpc_initially_absent": true,
+    "enums_matching": true,
+    "semantic_organs_applied": true,
+    "semantic_organs_empty_after_apply": true,
+    "semantic_organs_rls_enabled_after_apply": true,
+    "rpc_applied": true,
+    "rpc_execute_grants_after_apply": {
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": true
+    },
+    "catalog_payload_executed": false,
+    "catalog_data_written": false,
+    "B0_delta_detected": false,
+    "rollback_executed": true,
+    "rollback_verified": true
+  },
+  "blocking_conformance_issue": {
+    "status": "blocked_staging_contract_drift",
+    "detected_after_rpc_apply": true,
+    "reason": "The RPC candidate projection references columns that are not present in the observed staging core public.runtime_* contract.",
+    "examples": [
+      {
+        "table": "public.runtime_catalog_artifact_section",
+        "rpc_references": [
+          "sheet_index",
+          "source_file",
+          "headers",
+          "fingerprint"
+        ],
+        "observed_missing_in_staging": [
+          "sheet_index",
+          "source_file",
+          "headers",
+          "fingerprint"
+        ]
+      },
+      {
+        "table": "public.runtime_interaction_def",
+        "rpc_references": [
+          "interaction_group",
+          "group_normalized",
+          "function_name",
+          "raw_payload",
+          "source_row",
+          "trace_id"
+        ],
+        "observed_replacements_or_absences": [
+          "interaction_group_source",
+          "interaction_group_normalized",
+          "function_label",
+          "raw_row_json"
+        ]
+      },
+      {
+        "table": "public.runtime_interaction_mapping",
+        "rpc_references": [
+          "mapping_ordinal",
+          "mapping_payload"
+        ],
+        "observed_missing_in_staging": [
+          "mapping_ordinal",
+          "mapping_payload"
+        ]
+      },
+      {
+        "table": "public.runtime_subfield_schema",
+        "rpc_references": [
+          "subfield_ordinal",
+          "source_file",
+          "source_sheet",
+          "source_row",
+          "raw_payload",
+          "trace_id"
+        ],
+        "observed_missing_in_staging": [
+          "subfield_ordinal",
+          "source_file",
+          "source_sheet",
+          "source_row",
+          "raw_payload",
+          "trace_id"
+        ]
+      }
+    ],
+    "payload_full_execution_performed": false,
+    "operator_action_taken": "rollback_rpc_and_semantic_organs"
+  },
+  "final_remote_state": {
+    "semantic_organs_present": false,
+    "rpc_present": false,
+    "core_data_delta": 0,
+    "B0_delta": 0,
+    "catalog_activation_delta": 0
+  },
+  "security": {
+    "staging_consulted": true,
+    "staging_schema_writes": "authorized_then_rolled_back",
+    "staging_catalog_data_writes": "none",
+    "production_consulted": false,
+    "catalog_loaded": false,
+    "catalog_activated": false,
+    "B0_modified": false,
+    "B1_modified": false,
+    "Gaby_modified": false,
+    "commit_created": false
+  },
+  "next_gap": "staging_boundary_contract_reconciliation_required"
+}

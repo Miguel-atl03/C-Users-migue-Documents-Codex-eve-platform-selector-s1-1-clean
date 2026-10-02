@@ -1,0 +1,89 @@
+{
+  "instruction": "043-A",
+  "generated_at_utc": "2026-08-07T00:20:00Z",
+  "project": {
+    "name": "eve-staging-onboarding",
+    "project_ref": "shrpiwkxcdgvbqymjecx"
+  },
+  "catalog_conformance": {
+    "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+    "status": "draft",
+    "activated_at": null,
+    "precondition_passed": true,
+    "counts": {
+      "artifact_sections": 33,
+      "source_nodes": 164,
+      "interactions": 60,
+      "mappings": 170,
+      "subfields": 57,
+      "branching_rules": 120,
+      "epistemic_rules": 300,
+      "variable_maps": 300,
+      "semantic_total": 720
+    },
+    "catalog_modified_during_043A": false
+  },
+  "qa_conformance": {
+    "section26_materialized": true,
+    "section26_source_sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8",
+    "section26_rows": 20,
+    "runner": "Runtime4020QA T-001…T-020",
+    "technical_QA_against_staging_draft": true,
+    "technical_QA_result": {
+      "passed": 19,
+      "failed": 0,
+      "unresolved": 1,
+      "skipped": 0,
+      "blocking_failed": 1
+    },
+    "unresolved_tests": [
+      {
+        "test_id": "T-018",
+        "reason": "No server-side activation boundary/capability exists to materially prove QA-failure rejects activation"
+      }
+    ],
+    "rector_checklist": {
+      "rows": 12,
+      "evaluated": 0,
+      "status": "not_completed_due_to_technical_QA_not_20_20"
+    }
+  },
+  "B0_full_semantics": {
+    "resolved": true,
+    "policy": "full activation supersedes B0; B0 identity preserved; historical runs keep FK; one_active enforced",
+    "artifact": "runtime-40-20-B0-full-activation-semantics-043A.json"
+  },
+  "activation": {
+    "attempted": false,
+    "existing_activate_capability": false,
+    "existing_activate_rpc": false,
+    "T018_negative_proven": false,
+    "blocked_by": [
+      "blocked_runtime_QA_failed",
+      "blocked_activation_authorization_absent"
+    ]
+  },
+  "protected_state": {
+    "B0_status": "active",
+    "B0_delta": 0,
+    "Gaby": {
+      "activity_runtime_run": 32,
+      "runtime_interaction_instance": 4,
+      "response_record": 4,
+      "delta": 0
+    },
+    "new_sessions": 0,
+    "new_runs": 0,
+    "new_responses": 0
+  },
+  "security": {
+    "staging_consulted": true,
+    "production_consulted": false,
+    "credential_material_in_artifacts": false,
+    "commit_created": false
+  },
+  "phase2_closed": false,
+  "final_classification": "blocked_runtime_QA_failed",
+  "classification_reason": "T-001…T-020 did not reach 20/20. 19 passed; T-018 remains unresolved because activation rejection on QA failure cannot be demonstrated without an activation boundary. Catalog was not modified and was not activated.",
+  "next_gap_to_unblock": "Materialize authorized activation capability/RPC (draft→frozen→active with QA gate) so T-018 negative proof can run; then re-run 20/20 and only then activate under B0 supersession policy."
+}

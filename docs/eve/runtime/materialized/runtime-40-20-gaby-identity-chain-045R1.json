@@ -1,0 +1,122 @@
+{
+  "instruction": "045-R1",
+  "artifact": "runtime-40-20-gaby-identity-chain-045R1",
+  "audit_mode": "read_only_checkout",
+  "remote_contact": {
+    "staging_consulted": false,
+    "production_consulted": false
+  },
+  "identity_chain_status": "material_existing_but_not_runtime_40_20_complete",
+  "checkout_root": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform-operational-baseline-c312\\external-consumers\\eve-platform",
+  "identity_chain": [
+    {
+      "identity": "auth_user_id",
+      "material_source": "Bearer token validated by authenticateCommercialRequest",
+      "evidence": [
+        "src/lib/participant-context.ts:117-124",
+        "src/app/api/participant/workmap/finalize/route.ts:388-396"
+      ],
+      "runtime_status": "available_for_boundary"
+    },
+    {
+      "identity": "eve_user_id",
+      "material_source": "usuarios.id resolved by auth_user_id",
+      "evidence": [
+        "src/lib/participant-context.ts:124-151"
+      ],
+      "runtime_status": "available_for_boundary"
+    },
+    {
+      "identity": "case_id",
+      "material_source": "case_participants.case_id and sesiones_llenado.id",
+      "evidence": [
+        "src/lib/participant-context.ts:153-180",
+        "src/lib/participant-context.ts:205-217",
+        "src/app/page.tsx:610-628"
+      ],
+      "runtime_status": "available_for_boundary"
+    },
+    {
+      "identity": "case_participant_id",
+      "material_source": "case_participants.id for authenticated participant",
+      "evidence": [
+        "src/lib/participant-context.ts:153-180",
+        "src/lib/participant-context.ts:258-261"
+      ],
+      "runtime_status": "available_for_boundary"
+    },
+    {
+      "identity": "case_participant_profile_id",
+      "material_source": "case_participant_profiles.id for active functional profiles",
+      "evidence": [
+        "src/lib/participant-context.ts:193-199",
+        "src/lib/participant-context.ts:269-274",
+        "src/app/api/participant/workmap/finalize/route.ts:155-174"
+      ],
+      "runtime_status": "available_for_boundary_as_role_profile"
+    },
+    {
+      "identity": "role_runtime_session_id",
+      "material_source": "RPC create_role_runtime_session_for_profile and role_runtime_session readback",
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:177-229",
+        "src/app/api/participant/workmap/finalize/route.ts:440-446",
+        "src/app/api/participant/workmap/finalize/route.ts:517"
+      ],
+      "runtime_status": "material_created_before_significado"
+    },
+    {
+      "identity": "activity_runtime_run_id",
+      "material_source": "activity_runtime_run row ensured from selected primary activities",
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:320-383",
+        "src/app/api/participant/workmap/finalize/route.ts:461-466",
+        "src/app/api/participant/workmap/finalize/route.ts:518"
+      ],
+      "runtime_status": "material_created_before_significado"
+    },
+    {
+      "identity": "activity_id",
+      "material_source": "selected primary activity id from canonical activity selection and scene activity",
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:328-356",
+        "src/components/SceneQuestionnaireRunner.tsx:244-260"
+      ],
+      "runtime_status": "available_for_boundary"
+    },
+    {
+      "identity": "scene_id",
+      "material_source": "scene_registry.id created by bootstrapScenesFromLegacyActivities",
+      "evidence": [
+        "src/app/api/scenes/bootstrap/route.ts:38-48",
+        "src/services/scene-repository.ts:64-143",
+        "src/components/SceneQuestionnaireRunner.tsx:244-260"
+      ],
+      "runtime_status": "legacy_scene_domain_identity_not_runtime_interaction_id"
+    },
+    {
+      "identity": "runtime_interaction_id",
+      "material_source": "not passed by current Gaby scene runner; BFF candidate hardcodes local question/answer ids when enabled",
+      "evidence": [
+        "src/components/SceneQuestionnaireRunner.tsx:244-260",
+        "src/app/api/eve/runtime-40-20/client-bff/interaction/route.ts:85-102",
+        "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts:151-169"
+      ],
+      "runtime_status": "gap"
+    },
+    {
+      "identity": "tenant_id",
+      "material_source": "required by BFF scope, not carried by page scene submit path",
+      "evidence": [
+        "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff-types.ts:14-23",
+        "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff-service.ts:61-69",
+        "src/app/page.tsx:1977-2009"
+      ],
+      "runtime_status": "gap_for_runtime_bff"
+    }
+  ],
+  "decision": {
+    "complete_identity_chain_available_for_runtime_40_20": false,
+    "reason": "Gaby has case, participant, profile, runtime session, activity run, activity and scene identities, but the live question/answer UI does not carry tenant_id, runtime_interaction_id, catalog_version_id, or a governed BFF scope for Runtime 40/20."
+  }
+}

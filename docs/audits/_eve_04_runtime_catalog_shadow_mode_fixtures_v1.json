@@ -1,0 +1,180 @@
+{
+  "fixtureSetId": "EVE-04-RUNTIME-CATALOG-SHADOW-MODE-FIXTURES-V1",
+  "mode": "runtime_catalog_shadow",
+  "status": "design_only_future_fixtures",
+  "commonExpectedSafetyFlags": {
+    "canBlockUserFlow": false,
+    "canModifyPayload": false,
+    "canWriteRegistry": false,
+    "canModifyCatalog": false,
+    "canTriggerRuntime": false,
+    "canTriggerDiagnosis": false,
+    "canTriggerExport": false,
+    "canConnectEveBrain": false,
+    "runtimeAuthority": false
+  },
+  "fixtures": [
+    {
+      "fixtureId": "resolve_existing_base_interaction",
+      "inputSummary": {
+        "queryType": "resolve_base_interaction",
+        "runtimeInteractionId": "B6-Q38"
+      },
+      "expectedReadinessState": "runtime_catalog_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "runtime_interaction_base",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D6", "CCOV-001"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "resolve_missing_runtime_interaction",
+      "inputSummary": {
+        "queryType": "resolve_runtime_interaction",
+        "runtimeInteractionId": "MISSING-RUNTIME-ID"
+      },
+      "expectedReadinessState": "runtime_catalog_lookup_not_found",
+      "expectedResolved": false,
+      "expectedEntityKind": null,
+      "expectedGapFlags": ["runtime_interaction_not_found"],
+      "expectedRuleIdsOrSourceTrace": ["runtime_catalog_lookup"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "resolve_existing_causal_interaction",
+      "inputSummary": {
+        "queryType": "resolve_causal_interaction",
+        "runtimeInteractionId": "C20"
+      },
+      "expectedReadinessState": "runtime_catalog_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "runtime_interaction_causal",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D6", "runtime_interactions_causal_20"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "validate_ux_subfield_structure_valid",
+      "inputSummary": {
+        "queryType": "validate_ux_subfield_structure",
+        "runtimeInteractionId": "B6-Q38",
+        "sourceNodeId": "B6_6_8",
+        "sourceCode": "6.8"
+      },
+      "expectedReadinessState": "runtime_catalog_reference_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "ux_subfield_structure",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D6", "Phase3", "UP_B6"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "validate_b6_q38_trench_phrase_ccov",
+      "inputSummary": {
+        "queryType": "validate_ccov_001",
+        "runtimeInteractionId": "B6-Q38",
+        "sourceNodeId": "B6_6_8",
+        "sourceCode": "6.8"
+      },
+      "expectedReadinessState": "documentary_satisfaction_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "controlled_correction_ccov_001",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["CCOV-001", "Phase3", "UP_B6", "D6"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "validate_cvar_001_33_definitions",
+      "inputSummary": {
+        "queryType": "validate_cvar_001",
+        "variableId": "all_33_resolved_definitions"
+      },
+      "expectedReadinessState": "documentary_satisfaction_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "resolved_canonical_variable_definitions",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["CVAR-001", "UP_B0..UP_B7"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "validate_branching_rule_structural_evidence",
+      "inputSummary": {
+        "queryType": "validate_branching_rule",
+        "branchRuleId": "structural_evidence_required",
+        "context": "evidence_refs_present"
+      },
+      "expectedReadinessState": "branching_rule_allows",
+      "expectedResolved": true,
+      "expectedEntityKind": "branching_budget_rule",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D6", "branching_budget_rules"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "validate_branching_rule_curiosity_blocked",
+      "inputSummary": {
+        "queryType": "validate_branching_rule",
+        "branchRuleId": "curiosity_analytic_opening",
+        "context": "no_structural_evidence"
+      },
+      "expectedReadinessState": "branching_rule_blocks",
+      "expectedResolved": true,
+      "expectedEntityKind": "branching_budget_rule",
+      "expectedGapFlags": ["branching_blocked_by_curiosity"],
+      "expectedRuleIdsOrSourceTrace": ["D6", "branching_budget_rules"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "validate_causal_budget_available",
+      "inputSummary": {
+        "queryType": "validate_branching_score",
+        "context": "causal_questions_used_below_20"
+      },
+      "expectedReadinessState": "causal_budget_available",
+      "expectedResolved": true,
+      "expectedEntityKind": "branching_score",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D6", "branching_budget_rules"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "validate_causal_budget_exhausted",
+      "inputSummary": {
+        "queryType": "validate_branching_score",
+        "context": "causal_questions_used_equals_or_exceeds_20"
+      },
+      "expectedReadinessState": "causal_budget_exhausted",
+      "expectedResolved": true,
+      "expectedEntityKind": "branching_score",
+      "expectedGapFlags": ["causal_budget_exhausted"],
+      "expectedRuleIdsOrSourceTrace": ["D6", "branching_budget_rules"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "validate_readiness_reentry_state",
+      "inputSummary": {
+        "queryType": "validate_readiness_reentry",
+        "readinessState": "ready_with_flags"
+      },
+      "expectedReadinessState": "readiness_state_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "readiness_gaps_reentry_state",
+      "expectedGapFlags": ["not_final_runtime_readiness"],
+      "expectedRuleIdsOrSourceTrace": ["D6", "readiness_gaps_reentry"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    },
+    {
+      "fixtureId": "validate_no_runtime_authority",
+      "inputSummary": {
+        "queryType": "validate_no_runtime_authority",
+        "requestedOutputType": "shadow_trace_only"
+      },
+      "expectedReadinessState": "documentary_satisfaction_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "safety_guardrail",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D5", "D7", "static_package_tests"],
+      "expectedSafetyFlags": "commonExpectedSafetyFlags"
+    }
+  ]
+}

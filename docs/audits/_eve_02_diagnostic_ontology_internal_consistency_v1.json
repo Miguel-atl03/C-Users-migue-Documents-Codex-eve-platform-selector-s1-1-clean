@@ -1,0 +1,78 @@
+{
+  "auditId": "EVE-02-DIAGNOSTIC-ONTOLOGY-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "DIAGNOSTIC_ONTOLOGY_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "majorConsistencyStatus": "ok",
+  "checks": [
+    {"check": "same_chip_id_across_json_manifest_md_docx_ts", "status": "ok"},
+    {"check": "same_version_across_json_manifest_md_docx_ts", "status": "ok"},
+    {"check": "same_stage_across_json_manifest_md_docx_ts", "status": "ok"},
+    {"check": "compiled_sources_d1_d2_d4_d5_consistent", "status": "ok"},
+    {"check": "dependencies_eve_00_and_eve_01_consistent", "status": "ok"},
+    {"check": "counts_13_13_45_7_consistent", "status": "ok"},
+    {"check": "13_compartments_present", "status": "ok"},
+    {"check": "13_canonical_pathologies_present", "status": "ok"},
+    {"check": "45_rules_present", "status": "ok"},
+    {"check": "forbidden_outputs_declared", "status": "ok"},
+    {"check": "qa_expectations_final_diagnosis_enabled_false", "status": "ok"},
+    {"check": "runtimeAuthority_not_registered", "status": "ok"},
+    {"check": "ts_has_no_productive_imports", "status": "ok"},
+    {"check": "ts_has_no_ui_imports", "status": "ok"},
+    {"check": "ts_has_no_supabase_imports", "status": "ok"},
+    {"check": "ts_has_no_page_tsx_imports", "status": "ok"},
+    {"check": "no_registry_write_enabled", "status": "ok"},
+    {"check": "no_runtime_productive_wiring_detected", "status": "ok"}
+  ],
+  "functionalContract": {
+    "allowedOutputs": [
+      "diagnostic_preclassification_candidate",
+      "blocked_by_conformance_unchecked",
+      "blocked_by_consistency_unchecked",
+      "blocked_by_missing_evidence",
+      "blocked_by_semantic_ambiguity",
+      "manual_review_required",
+      "reentry_required"
+    ],
+    "forbiddenOutputs": [
+      "final_diagnosis",
+      "IR",
+      "registry_write",
+      "export_payload",
+      "monetization_decision",
+      "transduction",
+      "production_real"
+    ],
+    "minimumInputGap": "Package declares minimum_payload_fields and rule-level evidence requirements. It does not declare a separate input contract using exactly the requested names inconsistency_compartment, involved_models, conformance_status and consistency_status.",
+    "semanticCoverage": [
+      "EVE02-R019 requires involved model set",
+      "EVE02-R020 requires inconsistency class",
+      "EVE02-R021 requires source_trace",
+      "EVE02-R022 requires conformance status or blocks",
+      "EVE02-R023 requires consistency status or blocks"
+    ]
+  },
+  "diagnosticBoundaries": {
+    "doesNotDecideMmabpGoodOrBad": true,
+    "eve00OwnsConformanceConsistency": true,
+    "translatesValidatedMmabpInconsistencyToCandidatePathology": true,
+    "noFinalDiagnosis": true,
+    "noIR": true,
+    "noRegistry": true,
+    "noExport": true,
+    "noMonetization": true,
+    "noTransduction": true,
+    "noProductionReal": true,
+    "b7c20LowConfidencePreclassificationOnly": true,
+    "uiPathologyLabelsBlockedUnlessFutureExplicitDiagnosticSurface": true,
+    "downstreamReceivesGovernedEvidenceCandidatePayloads": true
+  },
+  "qaActivation": {
+    "Q01_exactly_13_compartments": true,
+    "Q02_each_compartment_required_fields": true,
+    "Q03_each_rule_source_refs_or_project_decision": true,
+    "Q04_no_internal_gpt_sources_as_compiled_source": true,
+    "Q05_final_diagnosis_enabled_false": true,
+    "Q06_output_contract_forbids_ir_registry_export_transduction_production_real": true,
+    "Q07_d1_d2_d4_d5_checksums_in_manifest": true
+  },
+  "noGoSignalsDetected": false
+}

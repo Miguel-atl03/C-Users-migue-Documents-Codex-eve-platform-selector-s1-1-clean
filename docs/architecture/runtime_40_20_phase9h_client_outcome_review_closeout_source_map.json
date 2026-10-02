@@ -1,0 +1,85 @@
+{
+  "source_map": [
+    {
+      "contract_or_type": "RuntimeClientOutcomeCandidate",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "F9-H - Local client outcome/review closeout candidate",
+      "source_element": "client_outcome_candidate != diagnosis final",
+      "extracted_for_platform_use": "Create local client outcome candidates that expose only safe review language and keep final diagnosis and readiness decision records out of the client outcome.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientReviewCloseoutCandidate",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "F9-H - Review closeout candidate boundary",
+      "source_element": "review_closeout_candidate != real review decision",
+      "extracted_for_platform_use": "Represent review closeout states as local candidates without creating real closeout persistence, manual review records or reentry interactions.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientNextActionCandidate",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "F9-H - Client next action candidate",
+      "source_element": "next_action_candidate != real workflow",
+      "extracted_for_platform_use": "Create client-safe next action candidates without starting real workflow, creating endpoint calls, touching Supabase or executing SQL.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientSafeCloseoutSummaryCandidate",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "F9-H - Client-safe closeout summary",
+      "source_element": "summary visible to client hides internals",
+      "extracted_for_platform_use": "Expose a safe closeout summary while hiding internal evidence, gates, chips, runtime tables, diagnosis and export state.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientCorrectionReentryHandoffCandidate",
+      "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "source_section": "Readiness_Gaps_Reentry",
+      "source_element": "correction/reentry handoff candidate != runtime_interaction_instance real",
+      "extracted_for_platform_use": "Create correction, reentry and clarification handoff candidates without creating runtime interaction instances, response records or subfield responses in real persistence.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientLocalCloseoutSnapshotCandidate",
+      "source_document": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "source_section": "Local snapshot and export boundary",
+      "source_element": "local_closeout_snapshot_candidate != export payload real",
+      "extracted_for_platform_use": "Create local closeout snapshot candidates while keeping real snapshot persistence, export payloads, registry and IR creation disabled.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientNoDiagnosisNoExportCloseoutGuardCandidate",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "Diagnosis and export boundary",
+      "source_element": "no diagnosis / no export guard",
+      "extracted_for_platform_use": "Enforce that F9-H creates no diagnosis, diagnostic label, pathology classification, final diagnosis visibility, export real, parallel export payload, registry or IR.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientNoActivationNoPhaseCloseGuardCandidate",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "Activation and phase close boundary",
+      "source_element": "no activation / no phase close guard",
+      "extracted_for_platform_use": "Enforce that F9-H does not allow activation, create QA green real, start Runtime 40/20 real, create endpoints or public routes, touch Supabase, execute SQL or close Phase 9.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientOutcomeCloseoutAuditCandidate",
+      "source_document": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "source_section": "Runtime audit and report-only boundary",
+      "source_element": "outcome_closeout_audit_candidate local != runtime_audit_trail real",
+      "extracted_for_platform_use": "Create local outcome closeout audit candidates for F9-H candidate creation actions without creating runtime_audit_trail real.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    }
+  ]
+}

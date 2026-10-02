@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Revelación por cuadrantes · mock v4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1100px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .registry {
+        position: absolute;
+        top: 36px;
+        left: 72px;
+        right: 72px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .registry-mark {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .registry-mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      /* Señal oculta en el void — el monumento habla en susurro */
+      .signal {
+        position: absolute;
+        top: 54%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(280px, 28vw);
+        text-align: center;
+        pointer-events: none;
+      }
+
+      .signal-glyph {
+        display: block;
+        width: 11px;
+        height: 11px;
+        margin: 0 auto 18px;
+        image-rendering: pixelated;
+        background:
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 0 0 / 4px 4px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 4px 0 / 4px 4px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 0 4px / 4px 4px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 0 8px / 4px 4px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 4px 8px / 4px 4px no-repeat;
+        opacity: 0.55;
+      }
+
+      .signal-copy {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 400;
+        letter-spacing: 0.18em;
+        line-height: 1.85;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 72%, transparent);
+      }
+
+      .signal-copy span {
+        display: block;
+      }
+
+      .monument {
+        position: absolute;
+        top: 148px;
+        left: 72px;
+        max-width: 420px;
+      }
+
+      .monument-line {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 52px;
+        font-weight: 600;
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+        color: var(--eve-ink);
+      }
+
+      .monument-line em {
+        display: block;
+        font-style: italic;
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+
+      .monument-sub {
+        margin: 22px 0 0;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .meta {
+        position: absolute;
+        top: 148px;
+        right: 72px;
+        text-align: right;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 2;
+      }
+
+      .room {
+        position: absolute;
+        top: 360px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-ink) 55%, var(--eve-mist));
+        white-space: nowrap;
+      }
+
+      /* Cuadrantes: una pregunta + pocas marcas por esquina; void en el cruce */
+      .quad {
+        position: absolute;
+        width: 420px;
+      }
+
+      .quad-q {
+        margin: 0 0 28px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 28ch;
+      }
+
+      .quad .mark {
+        margin: 0;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        max-width: 24ch;
+      }
+
+      .quad .mark.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      /* NW — participación (activo) */
+      .quad-nw {
+        top: 460px;
+        left: 72px;
+      }
+
+      .quad-nw .m1 {
+        margin-top: 0;
+      }
+
+      .quad-nw .m2 {
+        margin-top: 36px;
+        margin-left: 48px;
+      }
+
+      .quad-nw .m3 {
+        margin-top: 36px;
+        margin-left: 12px;
+      }
+
+      /* NE — decisiones (activo) */
+      .quad-ne {
+        top: 460px;
+        right: 72px;
+        text-align: right;
+      }
+
+      .quad-ne .quad-q {
+        margin-left: auto;
+      }
+
+      .quad-ne .m1 {
+        margin-left: auto;
+      }
+
+      .quad-ne .m2 {
+        margin-top: 40px;
+        margin-left: auto;
+        margin-right: 36px;
+      }
+
+      .quad-ne .m3 {
+        margin-top: 40px;
+        margin-left: auto;
+      }
+
+      /* SW — resto del papel, periférico */
+      .quad-sw {
+        top: 780px;
+        left: 72px;
+      }
+
+      .quad-sw .m1 {
+        margin-left: 24px;
+      }
+
+      .quad-sw .m2 {
+        margin-top: 32px;
+        margin-left: 0;
+      }
+
+      .quad-sw .m3 {
+        margin-top: 32px;
+        margin-left: 64px;
+      }
+
+      .quad-sw .m4 {
+        margin-top: 32px;
+        margin-left: 16px;
+      }
+
+      /* SE — resto decisiones */
+      .quad-se {
+        top: 780px;
+        right: 72px;
+        text-align: right;
+      }
+
+      .quad-se .m1 {
+        margin-left: auto;
+        margin-right: 20px;
+      }
+
+      .quad-se .m2 {
+        margin-top: 40px;
+        margin-left: auto;
+      }
+
+      .quad-se .m3 {
+        margin-top: 40px;
+        margin-left: auto;
+        margin-right: 28px;
+      }
+
+      .trace {
+        position: absolute;
+        bottom: 52px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 0;
+        border-bottom: 1px solid var(--eve-ink);
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 0 0 5px;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 18px;
+        left: 72px;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Mock — revelación por cuadrantes">
+      <header class="registry">
+        <span class="registry-mark">EVE<sup>™</sup></span>
+        <span>Strategic &amp; Operational Architecture / Enterprise Viability Engine</span>
+      </header>
+
+      <div class="monument">
+        <h1 class="monument-line">
+          Lo que sostiene
+          <em>no siempre se ve.</em>
+        </h1>
+        <p class="monument-sub">Una forma distinta de mirar.</p>
+      </div>
+
+      <div class="meta">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <p class="room">[ Comienza tu levantamiento ]</p>
+
+      <aside class="signal" aria-hidden="true">
+        <span class="signal-glyph"></span>
+        <p class="signal-copy">
+          <span>No pedimos un cargo.</span>
+          <span>Pedimos el lugar desde el que</span>
+          <span>se vuelve visible lo que sostiene.</span>
+        </p>
+      </aside>
+
+      <section class="quad quad-nw">
+        <p class="quad-q">¿Cuando el trabajo ocurre, qué papel sueles ocupar?</p>
+        <p class="mark m1 is-on">Defino el rumbo y las prioridades.</p>
+        <p class="mark m2">Dirijo una parte del trabajo o un área.</p>
+        <p class="mark m3">Coordino el trabajo de otras personas.</p>
+      </section>
+
+      <section class="quad quad-ne">
+        <p class="quad-q">Cuando hay que decidir algo, ¿qué suele pasar contigo?</p>
+        <p class="mark m1">Tomo la decisión y asumo la responsabilidad final.</p>
+        <p class="mark m2 is-on">Decido junto con otras personas.</p>
+        <p class="mark m3">Preparo opciones o recomendaciones; alguien más decide.</p>
+      </section>
+
+      <section class="quad quad-sw">
+        <p class="mark m1">Preparo información, análisis o alternativas.</p>
+        <p class="mark m2">Realizo el trabajo y entrego resultados.</p>
+        <p class="mark m3">Apoyo desde fuera de la empresa.</p>
+        <p class="mark m4">Otro.</p>
+      </section>
+
+      <section class="quad quad-se">
+        <p class="mark m1">Ejecuto una decisión que ya fue tomada.</p>
+        <p class="mark m2">Recibo sus efectos, pero no intervengo en ella.</p>
+        <p class="mark m3">Depende del tipo de situación.</p>
+      </section>
+
+      <button class="trace" type="button">Guardar</button>
+      <p class="proposal-tag">Mock v4 · cuadrantes · hero original</p>
+    </section>
+  </body>
+</html>

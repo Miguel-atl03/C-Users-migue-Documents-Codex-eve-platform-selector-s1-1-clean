@@ -1,0 +1,242 @@
+{
+  "audit_id": "EVE_ORGANISM_SHADOW_E2E_HARNESS_DESIGN_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "SHADOW_E2E_HARNESS_DESIGN_READY_FOR_OFFLINE_IMPLEMENTATION",
+  "phase_0_preflight": {
+    "head": "5b49fab855f1a6f71caa303d1c0636b61ccec83a",
+    "head_contains_commit_5b49fab": true,
+    "dirty_tree_count": 858,
+    "staged_count": 0,
+    "root_shadow_exists": true,
+    "gate_2_inventories_exist": true,
+    "preflight_dictamen": "SHADOW_E2E_PREFLIGHT_READY_WITH_GAPS",
+    "preflight_gaps_count": 13
+  },
+  "entrypoint": {
+    "recommended": "fixture/replay adapter",
+    "mode": "fixture",
+    "reason": "The adapter can feed the Composition Root Shadow with observed-signal-shaped fixtures while preserving no-cableado and avoiding DB, Supabase, UI, WorkMap, Significado, runtime, registry, export, and diagnosis wiring.",
+    "rejected_options_count": 6,
+    "decision_file": "docs/audits/_eve_organism_shadow_e2e_entrypoint_decision_v1.json"
+  },
+  "future_contracts": {
+    "EveOrganismShadowE2EObservedSignal": {
+      "observedSignalId": "string",
+      "observedAt": "string ISO-8601",
+      "sourceSystem": "string",
+      "sourcePath": "string",
+      "tenantId": "string",
+      "organizationId": "string",
+      "sessionId": "string",
+      "activityId": "string",
+      "actorId": "string",
+      "signalKind": "workmap_activity | significado_intent | runtime_response | audit_trace | admin_trace | synthetic_fixture | algedonic_no_go",
+      "clientIntent": "EveOrganismClientIntent",
+      "rawObservedPayload": "unknown",
+      "evidenceInputs": "EveOrganismEvidenceInput[]",
+      "candidateInputs": "EveOrganismCandidateInput[]",
+      "provenance": {
+        "sourceId": "string",
+        "sourcePath": "string",
+        "sourceLine": "number optional",
+        "observedBy": "fixture | replay | read_only_adapter"
+      },
+      "idempotencyKey": "string",
+      "correlationId": "string",
+      "officialFlowRef": {
+        "flowId": "string",
+        "tenantId": "string",
+        "sessionId": "string",
+        "activityId": "string",
+        "outcomeRef": "string optional",
+        "mutatedByShadow": false
+      },
+      "observationMode": [
+        "fixture",
+        "replay",
+        "read_only_observation"
+      ],
+      "sideEffectPolicy": [
+        "no_db_write",
+        "no_registry_write",
+        "no_export",
+        "no_ui_touch",
+        "no_diagnosis"
+      ]
+    },
+    "mapObservedSignalToShadowCommand": {
+      "input": "EveOrganismShadowE2EObservedSignal",
+      "output": "EveOrganismShadowCommand",
+      "mapping": {
+        "tenantId": "signal.tenantId",
+        "organizationId": "signal.organizationId",
+        "sessionId": "signal.sessionId",
+        "activityId": "signal.activityId",
+        "actorId": "signal.actorId",
+        "requestedCapability": "derived from signalKind and sideEffectPolicy; gateEnforcement must downgrade to gateAdvisory",
+        "requestedState": "SHADOW unless blocker/no-go fixture requests degraded/quarantine validation",
+        "clientIntent": "signal.clientIntent",
+        "evidenceInputs": "signal.evidenceInputs",
+        "candidateInputs": "signal.candidateInputs",
+        "overrideRequested": "derived from rawObservedPayload.overrideRequested",
+        "overrideAudited": "derived from provenance and rawObservedPayload.overrideAudited",
+        "idempotencyKey": "signal.idempotencyKey",
+        "correlationId": "signal.correlationId",
+        "dryRun": true
+      },
+      "expected_blocker_rules": {
+        "missing_tenant_session_activity": "OCR-BLK-001",
+        "missing_provenance": "OCR-BLK-013",
+        "missing_candidate_sourceTrace": "OCR-BLK-014",
+        "registry_final_export_diagnosis_never_allowed": [
+          "OCR-BLK-003",
+          "OCR-BLK-004",
+          "OCR-BLK-005"
+        ],
+        "gateEnforcement": "map to gateAdvisory"
+      }
+    },
+    "EveOrganismShadowE2EComparison": {
+      "comparisonId": "string",
+      "officialFlowRef": "signal.officialFlowRef",
+      "shadowTraceRef": "shadowResult.trace[0].correlationId",
+      "sameOutcome": "true | false | unknown",
+      "divergenceType": [
+        "none",
+        "missing_context",
+        "provenance_gap",
+        "semantic_gate_difference",
+        "candidate_difference",
+        "no_go_triggered",
+        "false_blocker_candidate",
+        "latency_or_replay_issue",
+        "tenant_boundary_risk",
+        "unknown"
+      ],
+      "divergenceSeverity": "none | low | medium | high | critical",
+      "blockers": "EveOrganismShadowBlocker[]",
+      "explanation": "string",
+      "reproducible": "boolean",
+      "requiresHumanReview": "boolean"
+    }
+  },
+  "scenarios": {
+    "planned_total": 30,
+    "scenario_plan_file": "docs/audits/_eve_organism_shadow_e2e_scenario_plan_v1.json",
+    "categories": [
+      "A_REPLAY_SEGURO",
+      "B_COMPARACION_OFICIAL_VS_SHADOW",
+      "C_NO_CABLEADO",
+      "D_CONTEXTO_Y_SEGURIDAD",
+      "E_ALGEDONIC_NO_GO"
+    ],
+    "no_cableado_covered": true,
+    "algedonic_covered": true,
+    "cross_tenant_covered": true
+  },
+  "no_cableado_design": {
+    "registry_write_allowed": false,
+    "final_export_allowed": false,
+    "diagnosis_allowed": false,
+    "db_write_allowed": false,
+    "ui_touch_allowed": false,
+    "production_authority_allowed": false,
+    "runtime_mutation_allowed": false,
+    "supabase_required": false
+  },
+  "future_allowlist_file": "docs/audits/_eve_organism_shadow_e2e_future_allowlist_v1.json",
+  "design_gaps": [
+    {
+      "gap_id": "DESIGN-GAP-001",
+      "type": "ENTRYPOINT_REQUIRES_FIXTURE_FIRST",
+      "severity": "high",
+      "status": "accepted_design_constraint"
+    },
+    {
+      "gap_id": "DESIGN-GAP-002",
+      "type": "REAL_FLOW_OBSERVATION_NOT_SAFE_YET",
+      "severity": "high",
+      "status": "deferred"
+    },
+    {
+      "gap_id": "DESIGN-GAP-003",
+      "type": "TENANT_CONTEXT_MAPPING_NEEDS_CONFIRMATION",
+      "severity": "high",
+      "status": "covered_by_fixture_scenarios"
+    },
+    {
+      "gap_id": "DESIGN-GAP-004",
+      "type": "SESSION_ACTIVITY_MAPPING_NEEDS_CONFIRMATION",
+      "severity": "high",
+      "status": "covered_by_fixture_scenarios"
+    },
+    {
+      "gap_id": "DESIGN-GAP-005",
+      "type": "PROVENANCE_COVERAGE_NEEDS_HARNESS",
+      "severity": "high",
+      "status": "covered_by_fixture_scenarios"
+    },
+    {
+      "gap_id": "DESIGN-GAP-006",
+      "type": "IDEMPOTENCY_CORRELATION_NEEDS_HARNESS",
+      "severity": "high",
+      "status": "covered_by_fixture_scenarios"
+    },
+    {
+      "gap_id": "DESIGN-GAP-007",
+      "type": "OFFICIAL_FLOW_COMPARISON_NOT_IMPLEMENTED",
+      "severity": "high",
+      "status": "to_implement_offline"
+    },
+    {
+      "gap_id": "DESIGN-GAP-008",
+      "type": "ALGEDONIC_SCENARIOS_NEED_FIXTURES",
+      "severity": "medium",
+      "status": "planned"
+    },
+    {
+      "gap_id": "DESIGN-GAP-009",
+      "type": "CROSS_TENANT_SCENARIO_NEEDS_FIXTURE",
+      "severity": "medium",
+      "status": "planned"
+    },
+    {
+      "gap_id": "DESIGN-GAP-010",
+      "type": "SUPABASE_FREE_HARNESS_REQUIRED",
+      "severity": "medium",
+      "status": "required_guard"
+    },
+    {
+      "gap_id": "DESIGN-GAP-011",
+      "type": "DIRTY_TREE_CONTEXT",
+      "severity": "medium",
+      "status": "observed_not_modified"
+    },
+    {
+      "gap_id": "DESIGN-GAP-012",
+      "type": "READY_FOR_OFFLINE_HARNESS_IMPLEMENTATION",
+      "severity": "info",
+      "status": "ready"
+    }
+  ],
+  "gap_summary": {
+    "total": 12,
+    "critical": 0,
+    "high": 7,
+    "medium": 4,
+    "info": 1
+  },
+  "no_modification_attestation": {
+    "src_modified": false,
+    "tests_modified": false,
+    "chips_modified": false,
+    "runtime_modified": false,
+    "package_json_modified": false,
+    "db_modified": false,
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "registry_written": false,
+    "commit_created": false
+  },
+  "next_step": "SHADOW_E2E_OFFLINE_HARNESS_IMPLEMENTATION_V1"
+}

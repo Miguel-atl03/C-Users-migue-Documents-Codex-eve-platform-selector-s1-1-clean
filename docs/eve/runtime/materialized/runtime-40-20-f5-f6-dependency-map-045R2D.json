@@ -1,0 +1,42 @@
+﻿{
+    "instruction":  "045-R2D",
+    "generated_at":  "2026-08-09T00:00:00-06:00",
+    "dependency_answers":  {
+                               "f6_needs_runtime_object_binding_for_target_consumer_scene":  "yes, or equivalent governed binding/resolver",
+                               "binding_exists":  "only partial local F5C binding; no real persisted binding",
+                               "emit_without_scene_id_and_resolve_later":  "not materially proven; no resolver/handoff/replay contract found",
+                               "scene_id_before_outbox":  "required in current checkout unless equivalent governed resolver is created first"
+                           },
+    "flow":  [
+                 {
+                     "edge":  "Gaby -\u003e Runtime run",
+                     "status":  "partial"
+                 },
+                 {
+                     "edge":  "Runtime run -\u003e ResponseIngest",
+                     "status":  "material"
+                 },
+                 {
+                     "edge":  "ResponseIngest -\u003e Runtime persistence",
+                     "status":  "material"
+                 },
+                 {
+                     "edge":  "Runtime persistence -\u003e object binding",
+                     "status":  "partial"
+                 },
+                 {
+                     "edge":  "object binding -\u003e runtime_event_outbox",
+                     "status":  "missing"
+                 },
+                 {
+                     "edge":  "runtime_event_outbox -\u003e Integration Membrane",
+                     "status":  "missing"
+                 },
+                 {
+                     "edge":  "Integration Membrane -\u003e scene projection",
+                     "status":  "missing"
+                 }
+             ],
+    "root_cause":  "F5 binding partial blocks governed F6 projection; F6 productive outbox is also absent.",
+    "final_classification_candidate":  "f5_binding_partial_blocks_f6"
+}

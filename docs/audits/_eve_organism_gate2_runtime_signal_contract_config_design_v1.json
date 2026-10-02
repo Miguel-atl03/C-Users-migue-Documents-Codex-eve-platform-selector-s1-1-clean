@@ -1,0 +1,107 @@
+{
+  "audit_id": "eve_organism_gate2_runtime_signal_contract_config_design_v1",
+  "designName": "GATE2_REAL_OBSERVABLE_SIGNAL_RUNTIME_CONTRACT_V1",
+  "created_at": "2026-06-25T07:54:42.724Z",
+  "dictamen": "GATE2_SIGNAL_GUARDRAILS_DESIGN_READY_REPLAY_ONLY_CONTINUES",
+  "designStatus": "design_defined",
+  "implementationStatus": "implementation_required",
+  "evidenceStatus": "evidence_required",
+  "contractVersion": "GATE2_REAL_OBSERVABLE_SIGNAL_RUNTIME_CONTRACT_V1",
+  "sourceCommit": [
+    "e11ac8b3577b3a5603bd69621136263f4a685071",
+    "7a13923e9a694d09c62cfe2d2896a984aa7eb952"
+  ],
+  "allowedObservationModes": [
+    "replay_only",
+    "offline_fixture",
+    "future_real_observable_candidate"
+  ],
+  "forbiddenObservationModes": [
+    "production_observer_active",
+    "mutating_observer",
+    "diagnostic_observer",
+    "autonomous_observer"
+  ],
+  "requiredSignalSections": [
+    "identity",
+    "operational_context",
+    "mba_anchor",
+    "traceability",
+    "no_mutation_boundary",
+    "security_boundary",
+    "b3_b7_boundary",
+    "admissibility"
+  ],
+  "requiredMBAAnchorFields": [
+    "pmProcessId",
+    "pfEvent",
+    "objectState",
+    "mocClass",
+    "mocOperation",
+    "olcTransitionEvent",
+    "pfTimerIfWaiting"
+  ],
+  "requiredEvidenceFields": [
+    "provenance",
+    "sourceTrace",
+    "sourceRef",
+    "evidenceRef",
+    "routeRef_if_B3",
+    "idempotencyKey",
+    "correlationId",
+    "officialFlowRef",
+    "auditRef"
+  ],
+  "requiredNoMutationFields": [
+    "uiTouchAllowed",
+    "workMapMutationAllowed",
+    "significadoMutationAllowed",
+    "dbWriteAllowed",
+    "supabaseWriteAllowed",
+    "runtimeMutationAllowed",
+    "registryWriteAllowed",
+    "exportAllowed",
+    "diagnosisAllowed"
+  ],
+  "requiredSecurityFields": [
+    "authBoundaryRequired",
+    "tenantIsolationRequired",
+    "rlsReadBoundaryRequiredIfDB",
+    "serviceRoleAllowed",
+    "secretsAllowed",
+    "tokenExposureAllowed"
+  ],
+  "requiredB3B7Fields": [
+    "receiverSatisfactionAllowedAsFeedback",
+    "receiverFeedbackRequiresRouteRef",
+    "b7DiagnosticUseAllowed",
+    "b7StructuralFactAllowed",
+    "b3b7AlignmentDeltaRequiredWhenApplicable"
+  ],
+  "admissibilityStatuses": [
+    "PASS_REPLAY_ONLY",
+    "BLOCKED_MISSING_CONTEXT",
+    "BLOCKED_MISSING_TRACEABILITY",
+    "BLOCKED_MISSING_MBA_ANCHOR",
+    "BLOCKED_MUTATION_RISK",
+    "BLOCKED_SECURITY_BOUNDARY",
+    "BLOCKED_B3_B7_VIOLATION",
+    "BLOCKED_FIXTURE_AS_REAL",
+    "REQUIRES_PRODUCT_OWNER_EVIDENCE",
+    "REQUIRES_FUTURE_READ_ONLY_INVENTORY"
+  ],
+  "forbiddenAdmissibilityStatuses": [
+    "OBSERVER_READY",
+    "PRODUCTION_READY",
+    "DIAGNOSIS_READY"
+  ],
+  "noGoReferences": "_eve_organism_gate2_signal_no_go_engine_design_v1.json",
+  "gate2AuthorityState": {
+    "observerAuthorized": false,
+    "realObservationAuthorized": false,
+    "readOnlyObserverDesignAuthorized": false,
+    "replayOnlyContinues": true,
+    "registryExportAllowed": false,
+    "diagnosisEnabled": false
+  }
+}

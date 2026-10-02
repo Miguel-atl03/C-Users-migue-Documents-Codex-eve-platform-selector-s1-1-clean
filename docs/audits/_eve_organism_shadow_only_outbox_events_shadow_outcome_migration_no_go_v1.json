@@ -1,0 +1,21 @@
+{
+  "no_go_id": "SHADOW_ONLY_OUTBOX_EVENTS_SHADOW_OUTCOME_MIGRATION_NO_GO_V1",
+  "rules_total": 15,
+  "rules": [
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-001", "condition": "Pobla shadow_outcome desde official_outcome.", "severity": "critical", "blocks_migration": true, "required_resolution": "Use exact non-productive shadow evaluation output only." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-002", "condition": "Pobla desde payload sin evaluacion shadow.", "severity": "critical", "blocks_migration": true, "required_resolution": "Require authorized shadow evaluation provenance." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-003", "condition": "Usa registry/export/diagnosis.", "severity": "critical", "blocks_migration": true, "required_resolution": "Remove registry/export/diagnosis dependency." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-004", "condition": "Requiere Gate 3.", "severity": "critical", "blocks_migration": true, "required_resolution": "Remove Gate 3 dependency." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-005", "condition": "Requiere Fase 9.", "severity": "critical", "blocks_migration": true, "required_resolution": "Remove Fase 9 dependency." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-006", "condition": "Requiere observer real productivo.", "severity": "critical", "blocks_migration": true, "required_resolution": "Remove productive observer dependency." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-007", "condition": "Permite UPDATE/DELETE en una fuente append-only.", "severity": "critical", "blocks_migration": true, "required_resolution": "Preserve append-only enforcement." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-008", "condition": "Omite provenance.", "severity": "high", "blocks_migration": true, "required_resolution": "Require shadow_outcome_provenance." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-009", "condition": "Omite checksum.", "severity": "high", "blocks_migration": true, "required_resolution": "Require shadow_outcome_checksum." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-010", "condition": "Omite schema_version.", "severity": "high", "blocks_migration": true, "required_resolution": "Require shadow_outcome_schema_version." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-011", "condition": "Permite producer productivo.", "severity": "critical", "blocks_migration": true, "required_resolution": "Allow only EVE_SHADOW_NON_PRODUCTIVE or approved equivalent." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-012", "condition": "Rompe tenant isolation.", "severity": "critical", "blocks_migration": true, "required_resolution": "Preserve tenant/session/activity boundary." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-013", "condition": "Relaja RLS.", "severity": "critical", "blocks_migration": true, "required_resolution": "Preserve fail-closed RLS boundary." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-014", "condition": "Requiere DB write en runtime del adapter.", "severity": "critical", "blocks_migration": true, "required_resolution": "Keep adapter read-only; writes only belong to approved future migration/provisioning scope." },
+    { "no_go_id": "SHADOW-OUTCOME-MIG-NG-015", "condition": "Concede autoridad productiva.", "severity": "critical", "blocks_migration": true, "required_resolution": "Keep all authority flags false." }
+  ]
+}

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Mapa de trabajo · mock v7 · catálogo en el void</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+        MOCK v7 — Catálogo EN el void (no periferia / no rompecabezas)
+
+        Fase de elección: las identidades viven en el void; pierde serenidad a propósito.
+        Tras elegir: elegidas permanecen ink en su sitio; resto → mist; el void regresa.
+
+        No: apilado vertical, grid simétrico, borde periférico tipo puzzle.
+        Sí: constelación tipográfica en el plano central, copy oficial, mist→ink.
+      */
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1200px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .mark {
+        position: absolute;
+        top: 40px;
+        left: 64px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .session {
+        position: absolute;
+        top: 40px;
+        right: 64px;
+        text-align: right;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 1.9;
+      }
+
+      .room {
+        position: absolute;
+        top: 108px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 65%, transparent);
+        white-space: nowrap;
+      }
+
+      .ubicacion-q {
+        position: absolute;
+        top: 168px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        text-align: center;
+        max-width: 36ch;
+      }
+
+      .whisper {
+        position: absolute;
+        top: 218px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        width: 40ch;
+        text-align: center;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        line-height: 1.75;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 50%, transparent);
+      }
+
+      /* Catálogo en el void — posiciones en el plano central, no borde */
+      .void-field {
+        position: absolute;
+        top: 280px;
+        left: 180px;
+        right: 180px;
+        bottom: 280px;
+      }
+
+      .area {
+        position: absolute;
+        margin: 0;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.07em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 38%, transparent);
+        max-width: 24ch;
+        transition: color 200ms ease, font-weight 200ms ease;
+      }
+
+      .area.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      /* Distribución orgánica dentro del void — no grid, no stack, no periferia */
+      .p1 {
+        top: 8%;
+        left: 18%;
+      }
+      .p2 {
+        top: 4%;
+        left: 44%;
+      }
+      .p3 {
+        top: 12%;
+        right: 16%;
+        text-align: right;
+      }
+      .p4 {
+        top: 28%;
+        left: 6%;
+      }
+      .p5 {
+        top: 32%;
+        left: 38%;
+      }
+      .p6 {
+        top: 24%;
+        right: 8%;
+        text-align: right;
+      }
+      .p7 {
+        top: 48%;
+        left: 22%;
+      }
+      .p8 {
+        top: 52%;
+        left: 58%;
+      }
+      .p9 {
+        top: 44%;
+        right: 14%;
+        text-align: right;
+      }
+      .p10 {
+        top: 68%;
+        left: 10%;
+      }
+      .p11 {
+        top: 72%;
+        left: 42%;
+      }
+      .p12 {
+        top: 64%;
+        right: 20%;
+        text-align: right;
+      }
+
+      /* Isla activa — debajo del void-field, cuando ya hay elección */
+      .isla {
+        position: absolute;
+        bottom: 120px;
+        left: 120px;
+        width: 460px;
+      }
+
+      .isla-q {
+        margin: 0 0 16px;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 40ch;
+      }
+
+      .isla-resp {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--eve-ink);
+        max-width: 44ch;
+      }
+
+      .latent {
+        position: absolute;
+        bottom: 132px;
+        right: 120px;
+        text-align: right;
+      }
+
+      .latent-name {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 72%, var(--eve-ink));
+      }
+
+      .footer {
+        position: absolute;
+        left: 120px;
+        right: 64px;
+        bottom: 48px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .need {
+        margin: 0;
+        max-width: 38ch;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        line-height: 1.65;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 52%, transparent);
+      }
+
+      .trace {
+        border: 0;
+        background: transparent;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 16px;
+        left: 64px;
+        font-size: 6px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 45%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Mock v7 — catálogo en el void, mist tras elegir">
+      <span class="mark">EVE<sup>™</sup></span>
+      <div class="session">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <p class="room">[ Mapa de tu trabajo ]</p>
+      <h2 class="ubicacion-q">¿Dónde participa tu trabajo?</h2>
+      <p class="whisper">
+        No buscamos tu departamento formal. Buscamos en qué parte de la operación tu
+        trabajo realmente interviene.
+      </p>
+
+      <!-- Catálogo en el void: elegidas ink en su sitio; resto mist → void regresa -->
+      <div class="void-field" role="group" aria-label="Áreas de participación">
+        <p class="area p1 is-on">Operaciones / Producción</p>
+        <p class="area p2">I+D / Innovación</p>
+        <p class="area p3">Logística / Entrega</p>
+        <p class="area p4 is-on">Ventas / Comercial</p>
+        <p class="area p5">Gestión de Talento (RRHH)</p>
+        <p class="area p6">Finanzas y Tesorería</p>
+        <p class="area p7">Tecnología e Infraestructura</p>
+        <p class="area p8">Administración / Legal</p>
+        <p class="area p9">Marketing Estratégico</p>
+        <p class="area p10">Planeación y Estrategia</p>
+        <p class="area p11">Otra área</p>
+      </div>
+
+      <!-- Redacción: isla activa + latente (v6 logic, debajo del void-field) -->
+      <section class="isla" aria-label="Operaciones / Producción">
+        <p class="isla-q">De qué respondes en Operaciones / Producción</p>
+        <p class="isla-resp">
+          Asegurar que la línea de ensamble cumpla el plan diario de producción sin
+          detener entregas.
+        </p>
+      </section>
+
+      <aside class="latent">
+        <p class="latent-name">De qué respondes en Ventas / Comercial</p>
+      </aside>
+
+      <footer class="footer">
+        <p class="need">
+          Escribe al menos una responsabilidad y dos actividades por cada área elegida.
+        </p>
+        <button class="trace" type="button">Guardar</button>
+      </footer>
+
+      <p class="proposal-tag">
+        Mock v7 · catálogo en void · ink en sitio · resto mist · copy oficial
+      </p>
+    </section>
+  </body>
+</html>

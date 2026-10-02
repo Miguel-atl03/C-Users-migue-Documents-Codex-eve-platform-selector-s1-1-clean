@@ -1,0 +1,79 @@
+[
+  {
+    "input": "PM.customer_need_id",
+    "requiredEntity": "CustomerNeed",
+    "requiredSource": "ClientNeed, engagement, or explicit need evidence promoted from governed Runtime evidence.",
+    "producerRef": "src/services/eve/mmabp-upstream-seeding/pm-upstream-runtime-source-producer.mjs",
+    "sourceStatus": "SOURCE_NOT_MATERIALIZED",
+    "sourceRows": [],
+    "blockingReasons": [
+      "customer_need_runtime_evidence_missing"
+    ]
+  },
+  {
+    "input": "PM.process_id",
+    "requiredEntity": "BusinessProcess",
+    "requiredSource": "Semantically resolved process candidate backed by Runtime evidence and structural candidate gate.",
+    "producerRef": "src/services/eve/mmabp-upstream-seeding/pm-upstream-runtime-source-producer.mjs",
+    "sourceStatus": "SOURCE_NOT_MATERIALIZED",
+    "sourceRows": [],
+    "blockingReasons": [
+      "process_candidate_not_semantically_resolved"
+    ]
+  },
+  {
+    "input": "PM.process_kind",
+    "requiredEntity": "ProcessKind",
+    "requiredSource": "Derived from structural relation: directly satisfies client need => key; supports another process => support.",
+    "producerRef": "src/services/eve/mmabp-upstream-seeding/pm-upstream-runtime-source-producer.mjs",
+    "sourceStatus": "SOURCE_NOT_MATERIALIZED",
+    "sourceRows": [],
+    "blockingReasons": [
+      "process_kind_relation_not_derived"
+    ]
+  },
+  {
+    "input": "PM.trigger_event_id",
+    "requiredEntity": "TriggerEvent",
+    "requiredSource": "B1 evidence for source, signal, precondition, and start event.",
+    "producerRef": "src/services/eve/mmabp-upstream-seeding/pm-upstream-runtime-source-producer.mjs",
+    "sourceStatus": "SOURCE_NOT_MATERIALIZED",
+    "sourceRows": [],
+    "blockingReasons": [
+      "b1_trigger_event_evidence_missing"
+    ]
+  },
+  {
+    "input": "PM.dependency_id",
+    "requiredEntity": "ProcessDependency",
+    "requiredSource": "Evidence-backed dependency relation between processes.",
+    "producerRef": "src/services/eve/mmabp-upstream-seeding/pm-upstream-runtime-source-producer.mjs",
+    "sourceStatus": "SOURCE_NOT_MATERIALIZED",
+    "sourceRows": [],
+    "blockingReasons": [
+      "process_dependency_relation_missing"
+    ]
+  },
+  {
+    "input": "PM.supported_process_id",
+    "requiredEntity": "ProcessSupportRelationship",
+    "requiredSource": "Support process discovered through milestones and a support relation.",
+    "producerRef": "src/services/eve/mmabp-upstream-seeding/pm-upstream-runtime-source-producer.mjs",
+    "sourceStatus": "SOURCE_NOT_MATERIALIZED",
+    "sourceRows": [],
+    "blockingReasons": [
+      "supported_process_relation_missing"
+    ]
+  },
+  {
+    "input": "PM.synchronization_id",
+    "requiredEntity": "ProcessSynchronization",
+    "requiredSource": "Causal synchronization pattern with real events and states.",
+    "producerRef": "src/services/eve/mmabp-upstream-seeding/pm-upstream-runtime-source-producer.mjs",
+    "sourceStatus": "SOURCE_NOT_MATERIALIZED",
+    "sourceRows": [],
+    "blockingReasons": [
+      "synchronization_pattern_missing"
+    ]
+  }
+]

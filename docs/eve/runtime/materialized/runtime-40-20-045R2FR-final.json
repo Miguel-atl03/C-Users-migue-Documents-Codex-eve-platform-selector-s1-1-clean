@@ -1,0 +1,55 @@
+{
+    "instruction":  "045-R2F-R",
+    "classification":  "runtime_40_20_f5_staging_conformant",
+    "blocked_f5_staging_loader":  "resolved",
+    "counts":  {
+                   "duplicate_definition_keys":  0,
+                   "smoke_events":  4,
+                   "duplicate_state_keys":  0,
+                   "definitions":  69,
+                   "smoke_bindings":  4,
+                   "states":  459
+               },
+    "tests":  [
+                  {
+                      "result":  "passed 20/20",
+                      "name":  "adapter focal"
+                  },
+                  {
+                      "result":  "blocked by missing xlsx module",
+                      "name":  "historical loader focal"
+                  },
+                  {
+                      "result":  "blocked by missing historical import path",
+                      "name":  "historical binding service focal"
+                  },
+                  {
+                      "result":  "failed preexisting global lint",
+                      "name":  "lint"
+                  },
+                  {
+                      "result":  "passed",
+                      "name":  "build"
+                  },
+                  {
+                      "result":  "passed",
+                      "name":  "typecheck after build"
+                  },
+                  {
+                      "result":  "passed with line-ending warnings",
+                      "name":  "git diff --check"
+                  }
+              ],
+    "security":  {
+                     "production_consulted":  "no",
+                     "B0_modified":  "no",
+                     "B1_modified":  "no",
+                     "remote_migrations":  "none",
+                     "staging_writes":  "F5 data + authorized pre-membrane smoke only",
+                     "catalog_activated":  "no",
+                     "staging_consulted":  "yes",
+                     "Gaby_modified":  "no",
+                     "commit_created":  "no"
+                 },
+    "breach_next":  "045-R2G = F6 Integration Membrane"
+}

@@ -1,0 +1,38 @@
+{
+  "audit_id": "EVE_ORGANISM_TRACEABILITY_BLOCKER_STATUS_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "TRACEABILITY_FIELDS_PARTIAL_REQUIRE_HUMAN_CONFIRMATION",
+  "blockers": [
+    {
+      "blocker_id": "ROB-004",
+      "previous_status": "open",
+      "new_status": "ready_for_human_review",
+      "evidence_found": [
+        "src/types/eve-organism-composition-root.ts",
+        "src/services/mba/adapters/capa1-observer.mjs"
+      ],
+      "remaining_gap": "Need explicit real idempotencyKey/correlationId or human-approved equivalents in one safe non-mutating real signal.",
+      "recommended_next_step": "HUMAN_CONFIRM_TRACEABILITY_EQUIVALENCES_V1"
+    },
+    {
+      "blocker_id": "ROB-005",
+      "previous_status": "open",
+      "new_status": "open",
+      "evidence_found": [
+        "src/services/eve-organism-shadow-e2e-adapter.ts"
+      ],
+      "remaining_gap": "Need explicit real officialFlowRef or human-approved official flow/result reference that does not execute or mutate official flow.",
+      "recommended_next_step": "HUMAN_CONFIRM_TRACEABILITY_EQUIVALENCES_V1"
+    },
+    {
+      "blocker_id": "ROB-008",
+      "previous_status": "open",
+      "new_status": "open",
+      "evidence_found": [
+        "docs/audits/_eve_organism_shadow_e2e_replay_fixtures_v1.json"
+      ],
+      "remaining_gap": "Synthetic fixture values remain fixture-only and cannot become real evidence without replacement by real runtime contract fields.",
+      "recommended_next_step": "REPLAY_ONLY_CONTINUES_V1"
+    }
+  ]
+}

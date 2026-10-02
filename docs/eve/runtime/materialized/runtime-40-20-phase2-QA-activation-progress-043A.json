@@ -1,0 +1,36 @@
+{
+  "instruction": "043-A",
+  "generated_at_utc": "2026-08-06T23:35:00Z",
+  "progress": {
+    "phase_1_section26_materialized": true,
+    "section26_rows": 20,
+    "section26_unique_ids": 20,
+    "section26_invented": 0,
+    "section26_absent": 0,
+    "source_sha256_match": true,
+    "phase_2_reconciliation_recorded": true,
+    "exact_reusable": 8,
+    "requires_correction_or_conflict_or_missing": 12,
+    "phase_3_runner_connected_to_staging": false,
+    "phase_4_draft_revalidated_live": false,
+    "phase_5_QA_executed": false,
+    "phase_6_rector_checklist_evaluated": false,
+    "phase_7_B0_full_semantics_resolved": true,
+    "phase_8_activation_boundary": "authorization_absent",
+    "phase_9_T018_negative": false,
+    "phase_10_activated": false
+  },
+  "primary_spec": {
+    "file": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+    "sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8",
+    "bytes": 61827
+  },
+  "blocking_now": [
+    "staging_credential_or_MCP_SQL_unavailable_for_live_draft_QA",
+    "blocked_activation_authorization_absent"
+  ],
+  "note": "Fase 1 y reconciliación §26 completas. Semántica B0↔full resuelta por CATID-R1 §11/§15 + one_active_idx. No existe capability de activación (solo load_runtime_catalog_draft). Sin EVE_STAGING_SUPABASE_DB_URL ni MCP SQL no se puede ejecutar Fases 4–6 contra el draft real. No se inventa capability. No se activa.",
+  "classification_emitted": "blocked_activation_authorization_absent",
+  "classification_reason": "After §26 recovery and B0/full semantics resolution, the first terminal activation blocker in the authorized list is the absence of any applicable activate capability. Live staging QA remains pending transport, but inventing an activate capability is forbidden.",
+  "next_user_action_required": "Set EVE_STAGING_SUPABASE_DB_URL (User env, rotated password only; do not paste in chat) and reply listo to run Fases 4–6. Separately authorize an activate capability if Phase 2 activation is still required."
+}

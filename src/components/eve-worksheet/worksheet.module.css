@@ -1,0 +1,289 @@
+.worksheetShell {
+  --ws-ink: #121417;
+  --ws-mist: #6b7280;
+  --ws-line: #e5e7eb;
+  --ws-sheet: #fbfbf8;
+  --ws-font-display: inherit;
+  --ws-font-body: inherit;
+  width: min(100%, 1100px);
+  margin: 0 auto;
+  padding: 28px 8px 40px;
+  color: var(--ws-ink);
+}
+
+.worksheetHeader {
+  max-width: 720px;
+  margin: 0 0 28px;
+}
+
+.worksheetKicker {
+  margin: 0 0 10px;
+  color: var(--ws-ink);
+  font-family: var(--ws-font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.worksheetTitle {
+  margin: 0;
+  font-family: var(--ws-font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.worksheetLead {
+  margin: 14px 0 0;
+  max-width: 560px;
+  color: var(--ws-mist);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.worksheetBody {
+  display: grid;
+  gap: 0;
+}
+
+.worksheetWrap {
+  border-top: 1px solid var(--ws-line);
+  padding-top: 8px;
+}
+
+.runtimeBand {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 40px;
+  padding: 28px 0 32px;
+  border-bottom: 1px solid var(--ws-line);
+}
+
+.runtimeSideMeta {
+  padding-top: 4px;
+}
+
+.runtimeSideMeta p {
+  margin: 10px 0 0;
+  max-width: 190px;
+  color: var(--ws-mist);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.runtimeBandBody {
+  max-width: 680px;
+}
+
+.runtimeQuestion {
+  margin: 0 0 18px;
+  font-family: var(--ws-font-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+}
+
+.runtimeSlots {
+  display: grid;
+  gap: 14px;
+}
+
+.runtimeField {
+  display: grid;
+  gap: 8px;
+}
+
+.runtimeField span {
+  color: var(--ws-mist);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.runtimeHelp {
+  margin: 0 0 14px;
+  max-width: 560px;
+  color: var(--ws-mist);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.runtimeFallbackNote {
+  margin: 0 0 12px;
+  color: var(--ws-mist);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.runtimeMetaLine {
+  margin: 8px 0 0 !important;
+  font-size: 11px !important;
+}
+
+.runtimeField select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--ws-line);
+  background: #fff;
+  color: var(--ws-ink);
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+.runtimeField textarea {
+  width: 100%;
+  min-height: 96px;
+  resize: vertical;
+  border: 1px solid var(--ws-line);
+  background: #fff;
+  color: var(--ws-ink);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.45;
+  padding: 12px 14px;
+  outline: none;
+}
+
+.runtimeField textarea:focus {
+  border-color: color-mix(in srgb, var(--ws-ink) 45%, var(--ws-line));
+}
+
+.runtimeMessage {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-left: 2px solid #d97706;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.runtimeActions {
+  margin-top: 18px;
+}
+
+.sheetAdvanceQuiet {
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--ws-ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  padding: 0;
+}
+
+.sheetAdvanceQuiet:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.sheetMarquee {
+  position: relative;
+  overflow: hidden;
+  margin: 8px 0 18px;
+  padding: 10px 0;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.sheetMarqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: wsMarquee 42s linear infinite;
+}
+
+.sheetMarqueeItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding-right: 28px;
+  color: color-mix(in srgb, var(--ws-ink) 72%, var(--ws-mist));
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.sheetMarqueeDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ws-ink) 35%, transparent);
+  flex-shrink: 0;
+}
+
+@keyframes wsMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.motionReveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--motion-delay, 0ms);
+}
+
+.motionRevealTitle {
+  transform: translateY(28px) scale(0.985);
+  filter: blur(5px);
+}
+
+.motionRevealBand {
+  transform: translateY(26px);
+}
+
+.motionRevealIn {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.motionStagger > * {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.motionRevealIn.motionStagger > * {
+  animation: wsFadeUp 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.motionRevealIn.motionStagger > *:nth-child(1) { animation-delay: 40ms; }
+.motionRevealIn.motionStagger > *:nth-child(2) { animation-delay: 100ms; }
+.motionRevealIn.motionStagger > *:nth-child(3) { animation-delay: 160ms; }
+.motionRevealIn.motionStagger > *:nth-child(4) { animation-delay: 220ms; }
+
+@keyframes wsFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheetMarqueeTrack { animation: none; flex-wrap: wrap; width: auto; }
+  .sheetMarquee { mask-image: none; overflow: visible; }
+  .motionReveal,
+  .motionRevealTitle,
+  .motionRevealBand {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .runtimeBand {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}

@@ -1,0 +1,398 @@
+{
+  "audit_id": "eve_organism_real_observable_signal_allowed_events_matrix_v1",
+  "created_at": "2026-06-25T04:42:31Z",
+  "dictamen": "REAL_OBSERVABLE_SIGNAL_CONTRACT_CONSOLIDATED_REPLAY_ONLY_CONTINUES",
+  "summary": {
+    "total": 12,
+    "future_observable_candidate": 7,
+    "control_only": 4,
+    "milestone_not_gate2_enabler": 1,
+    "blocked": 0,
+    "accepted_as_future_observable": 7,
+    "blocked_or_control_only": 5,
+    "architectureConsistencySatisfiedFutureCandidate": false,
+    "openedStatePresent": false
+  },
+  "matrix": [
+    {
+      "eventName": "SolicitudDiagnosticaAceptada",
+      "eventSourceInMBA": "24. Contrato de eventos mínimo para orquestación / 6.2 PF-CORE-01 / 7.1 OLC CasoDiagnosticoEVE",
+      "emitter": "Cliente/Front interno",
+      "receiver": "PF-CORE-01",
+      "pmProcess": "P-CORE-01 Producir diagnóstico causal EVE trazable",
+      "pfProcess": "PF-CORE-01",
+      "objectStateObserved": "CasoDiagnosticoEVE [InDiagnosticProduction]",
+      "isMilestone": false,
+      "isControlEvent": false,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": true,
+      "allowedOnlyAsControlSignal": false,
+      "forbiddenAsDiagnosticTrigger": true,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "tenantId",
+        "organizationId",
+        "caseId",
+        "pmTargetState",
+        "pfEvent",
+        "mocClass",
+        "mocOperation",
+        "olcToState",
+        "provenance",
+        "correlationId",
+        "idempotencyKey",
+        "officialFlowRef"
+      ],
+      "noGoIfMissing": [
+        "missing_tenantId",
+        "missing_organizationId",
+        "missing_provenance",
+        "missing_idempotencyKey",
+        "missing_correlationId",
+        "missing_officialFlowRef_or_approved_equivalent",
+        "object_state_not_in_olc"
+      ],
+      "notes": "Estado corregido: no usar estado inválido previo de CasoDiagnosticoEVE. El OLC autoriza Requested -> InDiagnosticProduction mediante abrirCaso()."
+    },
+    {
+      "eventName": "SceneCanonicalRecordConsolidated",
+      "eventSourceInMBA": "24. Contrato de eventos mínimo / 6.3 PF-SUP-01 / 7.2 OLC SceneCanonicalRecord",
+      "emitter": "PF-SUP-01",
+      "receiver": "PF-SUP-02 y PF-CORE-01",
+      "pmProcess": "P-SUP-01 Consolidar escena operativa regulada",
+      "pfProcess": "PF-SUP-01",
+      "objectStateObserved": "SceneCanonicalRecord [Consolidated]",
+      "isMilestone": true,
+      "isControlEvent": false,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": true,
+      "allowedOnlyAsControlSignal": false,
+      "forbiddenAsDiagnosticTrigger": true,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "tenantId",
+        "organizationId",
+        "caseId",
+        "sessionId",
+        "provenance",
+        "sourceTrace",
+        "evidenceRef",
+        "officialFlowRef",
+        "correlationId",
+        "idempotencyKey"
+      ],
+      "noGoIfMissing": [
+        "missing_provenance",
+        "missing_sourceTrace_when_required",
+        "object_state_not_in_olc"
+      ],
+      "notes": "Capa 1.0 no produce diagnóstico, nodo EVE ni monetización."
+    },
+    {
+      "eventName": "EvidenceBundleReadyForTransduction",
+      "eventSourceInMBA": "24 / 6.4 PF-SUP-02 / 7.3 OLC EvidenceBundle",
+      "emitter": "PF-SUP-02",
+      "receiver": "PF-SUP-03 y PF-CORE-01",
+      "pmProcess": "P-SUP-02 Preparar EvidenceBundle para transducción",
+      "pfProcess": "PF-SUP-02",
+      "objectStateObserved": "EvidenceBundle [ReadyForTransduction]",
+      "isMilestone": true,
+      "isControlEvent": false,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": true,
+      "allowedOnlyAsControlSignal": false,
+      "forbiddenAsDiagnosticTrigger": true,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "tenantId",
+        "organizationId",
+        "caseId",
+        "bundleId",
+        "recordRefs",
+        "provenance",
+        "sourceTrace",
+        "traceability_status",
+        "officialFlowRef",
+        "correlationId",
+        "idempotencyKey"
+      ],
+      "noGoIfMissing": [
+        "missing_provenance",
+        "missing_sourceTrace_when_required",
+        "missing_officialFlowRef_or_approved_equivalent"
+      ],
+      "notes": "TransductionReadinessAssessment satisface readiness, pero no reemplaza el target state EvidenceBundle [ReadyForTransduction]."
+    },
+    {
+      "eventName": "EscenaEvidencialValidated",
+      "eventSourceInMBA": "24 / 6.5 PF-SUP-03 / 7.4 OLC EscenaEvidencial",
+      "emitter": "PF-SUP-03",
+      "receiver": "PF-SUP-04 y PF-CORE-01",
+      "pmProcess": "P-SUP-03 Transducir evidencia por rol funcional",
+      "pfProcess": "PF-SUP-03",
+      "objectStateObserved": "EscenaEvidencial [Validated]",
+      "isMilestone": true,
+      "isControlEvent": false,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": true,
+      "allowedOnlyAsControlSignal": false,
+      "forbiddenAsDiagnosticTrigger": false,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "tenantId",
+        "organizationId",
+        "caseId",
+        "sessionId",
+        "activityId",
+        "actorId",
+        "provenance",
+        "sourceTrace",
+        "officialFlowRef",
+        "correlationId",
+        "idempotencyKey"
+      ],
+      "noGoIfMissing": [
+        "missing_sessionId_when_required",
+        "missing_activityId_when_required",
+        "missing_actor_or_user_when_required"
+      ],
+      "notes": "Escena evidencial validada sí puede ser señal futura, pero la observación no debe producir diagnóstico ni mutar transducción."
+    },
+    {
+      "eventName": "PeliculaCausalAggregated",
+      "eventSourceInMBA": "24 / 6.6 PF-SUP-04 / 7.5 OLC PeliculaCausalAgregada",
+      "emitter": "PF-SUP-04",
+      "receiver": "PF-SUP-05 y PF-CORE-01",
+      "pmProcess": "P-SUP-04 Agregar causalidad empresarial",
+      "pfProcess": "PF-SUP-04",
+      "objectStateObserved": "PeliculaCausalAgregada [Aggregated]",
+      "isMilestone": true,
+      "isControlEvent": false,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": true,
+      "allowedOnlyAsControlSignal": false,
+      "forbiddenAsDiagnosticTrigger": false,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "tenantId",
+        "organizationId",
+        "caseId",
+        "movieId",
+        "sceneRefs",
+        "provenance",
+        "sourceTrace",
+        "officialFlowRef",
+        "correlationId",
+        "idempotencyKey"
+      ],
+      "noGoIfMissing": [
+        "missing_provenance",
+        "missing_sourceTrace_when_required"
+      ],
+      "notes": "La agregación requiere 2..* EscenaEvidencial [Validated]."
+    },
+    {
+      "eventName": "DiagnosticoExpertoFinalDelivered",
+      "eventSourceInMBA": "24 / 6.7 PF-SUP-05 / 7.6 OLC DiagnosticoExpertoFinal",
+      "emitter": "PF-SUP-05",
+      "receiver": "PF-CORE-01 y PF-CLIENT-01",
+      "pmProcess": "P-SUP-05 Componer síntesis experta",
+      "pfProcess": "PF-SUP-05",
+      "objectStateObserved": "DiagnosticoExpertoFinal [Delivered]",
+      "isMilestone": true,
+      "isControlEvent": false,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": true,
+      "allowedOnlyAsControlSignal": false,
+      "forbiddenAsDiagnosticTrigger": false,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "tenantId",
+        "organizationId",
+        "caseId",
+        "diagnosisId",
+        "movieId",
+        "provenance",
+        "sourceTrace",
+        "officialFlowRef",
+        "correlationId",
+        "idempotencyKey"
+      ],
+      "noGoIfMissing": [
+        "missing_provenance",
+        "missing_sourceTrace_when_required"
+      ],
+      "notes": "DiagnosticoExpertoFinal [Delivered] no cierra CasoDiagnosticoEVE directamente; requiere confirmación de cierre."
+    },
+    {
+      "eventName": "GapOrInconsistencyDetected",
+      "eventSourceInMBA": "24 / 6.9 PF-SUP-07/08 / 17 Rework",
+      "emitter": "PF-SUP-07/08",
+      "receiver": "PF-SUP-06",
+      "pmProcess": "P-SUP-07/08 Resolver gaps y validar conformance/consistency",
+      "pfProcess": "PF-SUP-07/08",
+      "objectStateObserved": "ArchitectureConsistencyAssessment [WithFindings]",
+      "isMilestone": false,
+      "isControlEvent": true,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": true,
+      "allowedOnlyAsControlSignal": false,
+      "forbiddenAsDiagnosticTrigger": true,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "tenantId",
+        "organizationId",
+        "caseId",
+        "assessmentId",
+        "inventoryRef",
+        "irRef",
+        "findingRef",
+        "provenance",
+        "officialFlowRef",
+        "correlationId",
+        "idempotencyKey"
+      ],
+      "noGoIfMissing": [
+        "architecture_consistency_assessment_bypass",
+        "pf_event_not_mapped"
+      ],
+      "notes": "Debe devolver rework a P-SUP-06, nunca al core."
+    },
+    {
+      "eventName": "ArchitectureConsistencySatisfied",
+      "eventSourceInMBA": "24 / 6.9 PF-SUP-07/08 / 7.8 OLC ACA",
+      "emitter": "PF-SUP-07/08",
+      "receiver": "PF-SUP-09",
+      "pmProcess": "P-SUP-07/08 Resolver gaps y validar conformance/consistency",
+      "pfProcess": "PF-SUP-07/08",
+      "objectStateObserved": "ArchitectureConsistencyAssessment [Satisfied]",
+      "isMilestone": true,
+      "isControlEvent": true,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": false,
+      "allowedOnlyAsControlSignal": true,
+      "forbiddenAsDiagnosticTrigger": true,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "assessmentId",
+        "inventoryRef",
+        "irRef",
+        "provenance",
+        "officialFlowRef"
+      ],
+      "noGoIfMissing": [
+        "architecture_consistency_assessment_bypass"
+      ],
+      "notes": "Control-only: puede observarse como hito de QA, pero no puede ser fabricado por observer ni habilitar exportación desde Gate 2."
+    },
+    {
+      "eventName": "ExportCodePackageGenerated",
+      "eventSourceInMBA": "24 / 6.10 PF-SUP-09 / 7.9 OLC ExportCodePackage",
+      "emitter": "PF-SUP-09",
+      "receiver": "Repositorio técnico/Front interno",
+      "pmProcess": "P-SUP-09 Generar código exportable",
+      "pfProcess": "PF-SUP-09",
+      "objectStateObserved": "ExportCodePackage [Generated]",
+      "isMilestone": true,
+      "isControlEvent": false,
+      "isExportEvent": true,
+      "allowedForFutureObservableSignal": false,
+      "allowedOnlyAsControlSignal": false,
+      "forbiddenAsDiagnosticTrigger": true,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "assessmentId",
+        "exportId",
+        "provenance",
+        "officialFlowRef"
+      ],
+      "noGoIfMissing": [
+        "export_without_assessment_satisfied",
+        "registry_export_diagnosis_risk"
+      ],
+      "notes": "Milestone observable pero no habilitador Gate 2. Gate 2 no genera export."
+    },
+    {
+      "eventName": "B3RouteChecked",
+      "eventSourceInMBA": "24 / 27 Enmienda B3/B7 / 18 CHK-B3",
+      "emitter": "P-SUP-07/08",
+      "receiver": "P-SUP-06 / Inventario / Registry",
+      "pmProcess": "P-SUP-07/08 Resolver gaps y validar conformance/consistency",
+      "pfProcess": "PF-SUP-07/08",
+      "objectStateObserved": "ArchitectureConsistencyAssessment [B3RouteChecked]",
+      "isMilestone": false,
+      "isControlEvent": true,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": false,
+      "allowedOnlyAsControlSignal": true,
+      "forbiddenAsDiagnosticTrigger": true,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "routeRef",
+        "sourceQuestionCode",
+        "handoffRef",
+        "provenance",
+        "sourceTrace"
+      ],
+      "noGoIfMissing": [
+        "receiver_feedback_without_routeRef",
+        "receiver_satisfaction_used_as_feedback"
+      ],
+      "notes": "Control-only. B3 puede producir evento operacional solo con receiver_feedback trazado y ruta canónica."
+    },
+    {
+      "eventName": "B7BoundaryChecked",
+      "eventSourceInMBA": "24 / 27 Enmienda B3/B7 / 18 CHK-B7",
+      "emitter": "P-SUP-07/08",
+      "receiver": "P-SUP-06 / IR / Export",
+      "pmProcess": "P-SUP-07/08 Resolver gaps y validar conformance/consistency",
+      "pfProcess": "PF-SUP-07/08",
+      "objectStateObserved": "ArchitectureConsistencyAssessment [B7BoundaryChecked]",
+      "isMilestone": false,
+      "isControlEvent": true,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": false,
+      "allowedOnlyAsControlSignal": true,
+      "forbiddenAsDiagnosticTrigger": true,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "interpretation_limit",
+        "provenance",
+        "sourceTrace"
+      ],
+      "noGoIfMissing": [
+        "b7_used_as_diagnostic_signal",
+        "b7_used_as_structural_fact"
+      ],
+      "notes": "Control-only. B7 permanece metadata no diagnóstica y nunca structural fact."
+    },
+    {
+      "eventName": "B3B7AlignmentBlocked",
+      "eventSourceInMBA": "24 / 27 Enmienda B3/B7",
+      "emitter": "P-SUP-07/08",
+      "receiver": "P-SUP-06 / P-SUP-01 / P-SUP-02",
+      "pmProcess": "P-SUP-07/08 Resolver gaps y validar conformance/consistency",
+      "pfProcess": "PF-SUP-07/08",
+      "objectStateObserved": "ArchitectureConsistencyAssessment [Blocked] o [WithFindings]",
+      "isMilestone": false,
+      "isControlEvent": true,
+      "isExportEvent": false,
+      "allowedForFutureObservableSignal": false,
+      "allowedOnlyAsControlSignal": true,
+      "forbiddenAsDiagnosticTrigger": true,
+      "forbiddenAsMutationTrigger": true,
+      "requiredContractFields": [
+        "issueRefs",
+        "provenance",
+        "sourceTrace",
+        "b3_status",
+        "b7_status"
+      ],
+      "noGoIfMissing": [
+        "receiver_feedback_without_routeRef",
+        "b7_used_as_structural_fact"
+      ],
+      "notes": "Control-only. Implica bloqueo/rework, no avance."
+    }
+  ]
+}

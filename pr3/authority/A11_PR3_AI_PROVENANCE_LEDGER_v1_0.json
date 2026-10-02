@@ -1,0 +1,77 @@
+{
+  "artifact_id": "A11-PR3-AI-PROVENANCE-LEDGER-v1.0",
+  "state": "LOGICAL_AND_PHYSICAL_PERSISTENCE_READY__NO_REAL_MODEL_CALLS",
+  "authority": [
+    "PROMPT PR3 v1.2.1",
+    "EVE Arquitectura Transversal IA v1.2.1",
+    "A06 PR3 v1.4",
+    "B0 promoted AI contract",
+    "B2 promoted AI/evaluator contract"
+  ],
+  "separation_rules": {
+    "generator": "AIOperation + AIProposal",
+    "evaluator": "EvaluatorAuthority + EvaluationRecord",
+    "admission": "AdmissionDecision",
+    "user_evidence": "ResponseEvent/EvidenceItem only after user action; AI proposal never self-promotes"
+  },
+  "required_provenance": {
+    "provider": [
+      "provider_ref",
+      "provider_request_id"
+    ],
+    "model": [
+      "model_id",
+      "model_version"
+    ],
+    "prompt": [
+      "prompt_profile_ref",
+      "prompt_profile_revision",
+      "instructions_sha256"
+    ],
+    "schema": [
+      "response_schema_ref"
+    ],
+    "context": [
+      "context_revision",
+      "context_sources",
+      "input_payload_sha256"
+    ],
+    "intent": [
+      "intent_ref",
+      "operation",
+      "profile_ref"
+    ],
+    "result": [
+      "status",
+      "requested_at",
+      "completed_at",
+      "failure_code",
+      "usage"
+    ]
+  },
+  "live_target": {
+    "project_ref": "keqrkyumfyhfivllvdbl",
+    "schema": "eve_pr3",
+    "a_i_operation_fields": 23,
+    "evaluator_authority_fields": 24
+  },
+  "current_counts": {
+    "real_ai_operations": 0,
+    "real_ai_proposals": 0,
+    "evaluator_authority_records": 1,
+    "qualified_evaluators": 0
+  },
+  "candidate_evaluator": {
+    "id": "EVE-B2-EVALUATOR-AUTHORITY-CANDIDATE-v0.2.1",
+    "status": "CANDIDATE",
+    "qualification_determination": "INSUFFICIENT_EVIDENCE",
+    "authorized_evaluator": "NOT_AVAILABLE",
+    "automatic_admission": false
+  },
+  "does_not_close": [
+    "A08",
+    "A09",
+    "P3",
+    "A10"
+  ]
+}

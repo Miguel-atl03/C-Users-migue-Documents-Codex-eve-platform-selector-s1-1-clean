@@ -1,0 +1,1045 @@
+{
+  "chip_id": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+  "package_id": "EVE_02_Diagnostic_Ontology_v0_1",
+  "version": "0.1.0",
+  "stage": "02_diagnostic_ontology",
+  "created_at": "2026-06-18",
+  "status": "draft_ready_for_review",
+  "not_a_prompt": true,
+  "purpose": "Convert the EVE structural inconsistency table into an executable diagnostic ontology that maps validated MMABP inconsistencies to EVE pathology preclassification candidates.",
+  "compiled_sources": {
+    "primary": [
+      "D2"
+    ],
+    "methodological_guard": [
+      "D1"
+    ],
+    "runtime_boundaries": [
+      "D4",
+      "D5"
+    ],
+    "excluded_internal_sources": [
+      "Instrucciones actualizadas para GPT personalizado.docx",
+      "Instrucciones_Maestras_y_Exhaustivas_para_IA_Arquitectura_Mínima_de_Negocio_(MMABP)_y_Diagnóstico_EVE™.docx"
+    ],
+    "not_used_in_this_stage": [
+      "D3",
+      "D6",
+      "D7",
+      "D8"
+    ]
+  },
+  "dependencies": [
+    {
+      "chip_id": "EVE-00-METHOD-KERNEL",
+      "version": "0.2.0",
+      "role": "confirms conformance and consistency before diagnosis"
+    },
+    {
+      "chip_id": "EVE-01-AGENT-CONSTITUTION",
+      "version": "0.1.0",
+      "role": "enforces platform boundaries and no final diagnosis in Capa 1"
+    }
+  ],
+  "sources": {
+    "D1": {
+      "filename": "Fundamentals of Business Architecture Modeling.pdf",
+      "path": "/mnt/data/Fundamentals of Business Architecture Modeling.pdf",
+      "role": "methodological_guard",
+      "authority": "MMABP consistency/conformance defines whether a technical inconsistency exists before EVE pathology mapping.",
+      "sha256": "3dd3485afa518244cb600b4c479cad0ea11f242e88e4204b9422739ddf843147",
+      "exists": true,
+      "size_bytes": 24865282
+    },
+    "D2": {
+      "filename": "Tabla de Diagnóstico de Inconsistencias Estructurales EVE.docx",
+      "path": "/mnt/data/Tabla de Diagnóstico de Inconsistencias Estructurales EVE.docx",
+      "role": "primary_pathology_source",
+      "authority": "Defines the diagnostic compartments and maps each MMABP inconsistency to a potential EVE pathology.",
+      "sha256": "3e5f5278872c5790b81931c6c765b4633139a348c0489d26599885997b12f0ca",
+      "exists": true,
+      "size_bytes": 19620
+    },
+    "D4": {
+      "filename": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "path": "/mnt/data/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "role": "technical_boundary",
+      "authority": "Capa 1 evidence/readiness boundary; no final diagnosis, no IR/export from free text.",
+      "sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8",
+      "exists": true,
+      "size_bytes": 61827
+    },
+    "D5": {
+      "filename": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "path": "/mnt/data/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "role": "runtime_governance_boundary",
+      "authority": "Runtime normative rules, B7/C20 non-diagnostic boundary, SEM/PST gates, readiness.",
+      "sha256": "fcda44fc8990ef0d19379c3425afb4a69186f6961a6f99d541d170826da1e318",
+      "exists": true,
+      "size_bytes": 56011
+    }
+  },
+  "modules": [
+    "diagnostic_authority_rules",
+    "inconsistency_compartment_catalog",
+    "evidence_input_contract",
+    "classification_rules",
+    "output_contract_rules",
+    "runtime_boundary_rules",
+    "audit_qa_rules"
+  ],
+  "compartments": [
+    {
+      "id": "EVE02-CMP-001",
+      "name": "PM_MoC_Factual",
+      "inconsistency_type": "Factual",
+      "models": [
+        "PM",
+        "MoC"
+      ],
+      "models_implicated": "PM ↔ MoC",
+      "diagnostic_question": "¿Los procesos hablan de objetos que no hemos definido, o hemos definido objetos que ningún proceso utiliza?",
+      "pathology": "Esquizofrenia Ontológica",
+      "pathology_statement": "La empresa opera con un lenguaje dual, uno oficial y otro real.",
+      "trigger_condition": "pm_moc_factual_inconsistency_detected",
+      "evidence_required": [
+        "process_references_object_not_in_moc",
+        "or_moc_object_unused_by_processes"
+      ],
+      "blocked_if": [
+        "pm_not_conformant",
+        "moc_not_conformant",
+        "missing_pm_moc_evidence"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-002",
+      "name": "PM_PF_Factual",
+      "inconsistency_type": "Factual",
+      "models": [
+        "PM",
+        "PF"
+      ],
+      "models_implicated": "PM ↔ PF",
+      "diagnostic_question": "¿El proceso real (PF) sigue el camino declarado en el mapa (PM)? ¿Los disparadores y resultados coinciden?",
+      "pathology": "Brecha Intencional",
+      "pathology_statement": "La narrativa oficial (PM) es una fachada que oculta una ejecución caótica o extractiva (PF).",
+      "trigger_condition": "pm_pf_factual_inconsistency_detected",
+      "evidence_required": [
+        "trigger_mismatch",
+        "target_result_mismatch",
+        "declared_path_not_executed"
+      ],
+      "blocked_if": [
+        "pm_not_conformant",
+        "pf_not_conformant",
+        "missing_pm_pf_evidence"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-003",
+      "name": "MoC_PF_Factual",
+      "inconsistency_type": "Factual",
+      "models": [
+        "MoC",
+        "PF"
+      ],
+      "models_implicated": "MoC ↔ PF",
+      "diagnostic_question": "¿El proceso (PF) utiliza y manipula los objetos (MoC) de forma coherente con su definición?",
+      "pathology": "Anarquía Operacional",
+      "pathology_statement": "Los operadores ignoran la definición formal de los datos para cumplir metas locales.",
+      "trigger_condition": "moc_pf_factual_inconsistency_detected",
+      "evidence_required": [
+        "pf_uses_object_outside_moc_definition",
+        "pf_manipulates_undefined_operation_or_relation"
+      ],
+      "blocked_if": [
+        "moc_not_conformant",
+        "pf_not_conformant",
+        "missing_moc_pf_evidence"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-004",
+      "name": "PF_OLC_Factual",
+      "inconsistency_type": "Factual",
+      "models": [
+        "PF",
+        "OLC"
+      ],
+      "models_implicated": "PF ↔ OLC",
+      "diagnostic_question": "¿El flujo del proceso (PF) respeta las leyes físicas del objeto (OLC)? ¿Intenta forzar estados inválidos?",
+      "pathology": "Violación Causal",
+      "pathology_statement": "El proceso, para acelerar o cortar esquinas, corrompe la integridad de los objetos de negocio.",
+      "trigger_condition": "pf_olc_factual_inconsistency_detected",
+      "evidence_required": [
+        "pf_forces_invalid_state",
+        "pf_transition_absent_in_olc",
+        "pf_task_output_state_not_allowed"
+      ],
+      "blocked_if": [
+        "pf_not_conformant",
+        "olc_not_conformant",
+        "missing_pf_olc_evidence"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-005",
+      "name": "OLC_MoC_Factual",
+      "inconsistency_type": "Factual",
+      "models": [
+        "OLC",
+        "MoC"
+      ],
+      "models_implicated": "OLC ↔ MoC",
+      "diagnostic_question": "¿El ciclo de vida (OLC) es consistente con la estructura del objeto (MoC)? ¿Todas las operaciones están en el OLC?",
+      "pathology": "Amnesia Estructural",
+      "pathology_statement": "El ciclo de vida del objeto ignora sus propias capacidades o relaciones estructurales.",
+      "trigger_condition": "olc_moc_factual_inconsistency_detected",
+      "evidence_required": [
+        "olc_operation_missing_from_moc",
+        "moc_operation_absent_from_olc",
+        "olc_ignores_structural_relation"
+      ],
+      "blocked_if": [
+        "olc_not_conformant",
+        "moc_not_conformant",
+        "missing_olc_moc_evidence"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-006",
+      "name": "PF_OLC_Temporal",
+      "inconsistency_type": "Temporal",
+      "models": [
+        "PF",
+        "OLC"
+      ],
+      "models_implicated": "PF ↔ OLC",
+      "diagnostic_question": "¿La secuencia de estados que impone el proceso (PF) es una secuencia válida y lógica según el ciclo de vida del objeto (OLC)?",
+      "pathology": "Tortura Causal",
+      "pathology_statement": "El proceso fuerza al objeto a pasar por una secuencia de estados ilógica, generando ineficiencias y errores.",
+      "trigger_condition": "pf_olc_temporal_inconsistency_detected",
+      "evidence_required": [
+        "pf_sequence_contradicts_olc_order",
+        "pf_skips_required_causal_state",
+        "pf_repeats_invalid_transition"
+      ],
+      "blocked_if": [
+        "pf_not_conformant",
+        "olc_not_conformant",
+        "missing_temporal_sequence_evidence"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-007",
+      "name": "PF_OLC_Structural_Alternatives",
+      "inconsistency_type": "StructuralAlternatives",
+      "models": [
+        "PF",
+        "OLC"
+      ],
+      "models_implicated": "PF ↔ OLC",
+      "diagnostic_question": "¿Las alternativas y decisiones en el proceso (PF) se corresponden con las alternativas causales reales del objeto (OLC)?",
+      "pathology": "Falsa Elección",
+      "pathology_statement": "El proceso ofrece decisiones que son irrelevantes o ignoran las verdaderas bifurcaciones en la vida del objeto.",
+      "trigger_condition": "pf_olc_structural_alternatives_inconsistency_detected",
+      "evidence_required": [
+        "pf_xor_has_no_olc_alternative",
+        "olc_alternative_missing_from_pf",
+        "gateway_does_not_match_causal_branch"
+      ],
+      "blocked_if": [
+        "pf_not_conformant",
+        "olc_not_conformant",
+        "missing_gateway_or_olc_branch_evidence"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-008",
+      "name": "OLC_MoC_Structural_Iterations",
+      "inconsistency_type": "StructuralIterations",
+      "models": [
+        "OLC",
+        "MoC"
+      ],
+      "models_implicated": "OLC ↔ MoC",
+      "diagnostic_question": "¿Una relación 1:N en el modelo de conceptos (MoC) se refleja como un ciclo iterativo en el ciclo de vida (OLC)?",
+      "pathology": "Incapacidad de Gestión de Conjuntos",
+      "pathology_statement": "El sistema no está diseñado para manejar la complejidad de las relaciones múltiples.",
+      "trigger_condition": "olc_moc_structural_iteration_inconsistency_detected",
+      "evidence_required": [
+        "moc_one_to_many_relation",
+        "olc_missing_iteration_for_collection",
+        "olc_treats_set_as_singleton"
+      ],
+      "blocked_if": [
+        "moc_not_conformant",
+        "olc_not_conformant",
+        "missing_cardinality_or_iteration_evidence"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-009",
+      "name": "PM_MoC_PF_Composite_Factual",
+      "inconsistency_type": "CompositeFactual",
+      "models": [
+        "PM",
+        "MoC",
+        "PF"
+      ],
+      "models_implicated": "PM ↔ MoC ↔ PF",
+      "diagnostic_question": "¿El proceso declarado en el mapa (PM), los objetos que dice manipular (MoC) y la forma en que realmente se ejecuta (PF) cuentan la misma historia?",
+      "pathology": "Arquitectura Fantasma",
+      "pathology_statement": "Existen estructuras formales completas que en la ejecución real son letra muerta.",
+      "trigger_condition": "pm_moc_pf_composite_factual_inconsistency_detected",
+      "evidence_required": [
+        "pm_declares_process",
+        "moc_defines_object",
+        "pf_never_instantiates_or_touches_object"
+      ],
+      "blocked_if": [
+        "missing_any_pm_moc_pf_model",
+        "conformance_unchecked",
+        "missing_cross_model_trace"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-010",
+      "name": "PM_PF_OLC_Temporal_Intentional",
+      "inconsistency_type": "TemporalIntentional",
+      "models": [
+        "PM",
+        "PF",
+        "OLC"
+      ],
+      "models_implicated": "PM ↔ PF ↔ OLC",
+      "diagnostic_question": "¿La intención del proceso (PM), su ejecución paso a paso (PF) y las leyes causales de los objetos que manipula (OLC) son temporalmente coherentes?",
+      "pathology": "Promesa Imposible",
+      "pathology_statement": "La empresa declara una intención que el flujo intenta lograr pero que el ciclo de vida del objeto prohíbe en esa secuencia.",
+      "trigger_condition": "pm_pf_olc_temporal_intentional_inconsistency_detected",
+      "evidence_required": [
+        "pm_promises_target",
+        "pf_attempts_target",
+        "olc_prohibits_sequence_or_minimum_path"
+      ],
+      "blocked_if": [
+        "missing_pm_pf_olc_model",
+        "conformance_unchecked",
+        "temporal_evidence_missing"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-011",
+      "name": "PM_MoC_OLC_Structural_Ontological",
+      "inconsistency_type": "StructuralOntological",
+      "models": [
+        "PM",
+        "MoC",
+        "OLC"
+      ],
+      "models_implicated": "PM ↔ MoC ↔ OLC",
+      "diagnostic_question": "¿Los procesos declarados (PM) son coherentes con la ontología (MoC) y con las leyes causales (OLC) de los objetos que dicen gestionar?",
+      "pathology": "Identidad Disociada",
+      "pathology_statement": "La empresa cree tener una función que su ontología y causalidad no reconocen.",
+      "trigger_condition": "pm_moc_olc_structural_ontological_inconsistency_detected",
+      "evidence_required": [
+        "pm_declares_function_or_process",
+        "moc_lacks_required_object_property_or_operation",
+        "olc_lacks_target_state_or_transition"
+      ],
+      "blocked_if": [
+        "missing_pm_moc_olc_model",
+        "conformance_unchecked",
+        "ontology_or_lifecycle_trace_missing"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-012",
+      "name": "MoC_PF_OLC_Causal_Operational",
+      "inconsistency_type": "CausalOperational",
+      "models": [
+        "MoC",
+        "PF",
+        "OLC"
+      ],
+      "models_implicated": "MoC ↔ PF ↔ OLC",
+      "diagnostic_question": "¿La estructura del objeto (MoC), la forma en que el proceso lo manipula (PF) y las leyes de su propia vida (OLC) son mutuamente consistentes?",
+      "pathology": "Competencia Causal",
+      "pathology_statement": "La estructura dice que el objeto puede, la causalidad dice que ahora no, y el proceso fuerza la operación fuera de contexto.",
+      "trigger_condition": "moc_pf_olc_causal_operational_inconsistency_detected",
+      "evidence_required": [
+        "moc_allows_operation",
+        "olc_forbids_operation_in_current_state",
+        "pf_executes_operation_anyway"
+      ],
+      "blocked_if": [
+        "missing_moc_pf_olc_model",
+        "conformance_unchecked",
+        "state_context_missing"
+      ]
+    },
+    {
+      "id": "EVE02-CMP-013",
+      "name": "PM_MoC_PF_OLC_Systemic_Total",
+      "inconsistency_type": "SystemicTotal",
+      "models": [
+        "PM",
+        "MoC",
+        "PF",
+        "OLC"
+      ],
+      "models_implicated": "PM ↔ MoC ↔ PF ↔ OLC",
+      "diagnostic_question": "¿La totalidad del sistema — su intención (PM), su ontología (MoC), su ejecución (PF) y su causalidad (OLC) — cuenta una historia coherente?",
+      "pathology": "Incoherencia Sistémica Total",
+      "aliases": [
+        "Esquizofrenia Organizacional"
+      ],
+      "pathology_statement": "Los cuatro modelos revelan fragmentación estructural completa y múltiples arquitecturas contradictorias coexistiendo.",
+      "trigger_condition": "systemic_total_inconsistency_detected",
+      "evidence_required": [
+        "pm_mismatch",
+        "moc_mismatch",
+        "pf_mismatch",
+        "olc_mismatch",
+        "cascading_cross_model_contradiction"
+      ],
+      "blocked_if": [
+        "any_core_model_missing",
+        "conformance_unchecked",
+        "contradiction_chain_not_evidenced"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "EVE02-R001",
+      "module": "diagnostic_authority_rules",
+      "title": "D2 is primary pathology map",
+      "rule": "The chip may map a technical inconsistency to an EVE pathology only when the mapping exists in D2 or in a later approved diagnostic ontology source.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R002",
+      "module": "diagnostic_authority_rules",
+      "title": "D1 validates inconsistency before diagnosis",
+      "rule": "A pathology candidate must not be emitted until the relevant MMABP inconsistency has been established by conformance/consistency logic governed by D1 and Stage 00.",
+      "severity": "blocking",
+      "source_refs": [
+        "D1",
+        "EVE-00"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R003",
+      "module": "diagnostic_authority_rules",
+      "title": "No final diagnosis in Capa 1",
+      "rule": "The chip emits diagnostic preclassification candidates only; it does not produce final diagnosis, IR, registry, export, monetization or transduction.",
+      "severity": "blocking",
+      "source_refs": [
+        "D4",
+        "D5",
+        "EVE-01"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R004",
+      "module": "diagnostic_authority_rules",
+      "title": "No cosmetic alignment",
+      "rule": "If models contradict each other, the chip must require return to factual evidence and must not recommend cosmetic alignment of models.",
+      "severity": "blocking",
+      "source_refs": [
+        "D1",
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R005",
+      "module": "diagnostic_authority_rules",
+      "title": "No pathology from text alone",
+      "rule": "Textual narrative without model evidence, source trace and inconsistency compartment is insufficient for pathology mapping.",
+      "severity": "blocking",
+      "source_refs": [
+        "D4",
+        "D5"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R006",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-001 maps to Esquizofrenia Ontológica",
+      "rule": "When pm_moc_factual_inconsistency_detected is present and not blocked, emit pathology_candidate=Esquizofrenia Ontológica for PM ↔ MoC.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R007",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-002 maps to Brecha Intencional",
+      "rule": "When pm_pf_factual_inconsistency_detected is present and not blocked, emit pathology_candidate=Brecha Intencional for PM ↔ PF.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R008",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-003 maps to Anarquía Operacional",
+      "rule": "When moc_pf_factual_inconsistency_detected is present and not blocked, emit pathology_candidate=Anarquía Operacional for MoC ↔ PF.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R009",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-004 maps to Violación Causal",
+      "rule": "When pf_olc_factual_inconsistency_detected is present and not blocked, emit pathology_candidate=Violación Causal for PF ↔ OLC.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R010",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-005 maps to Amnesia Estructural",
+      "rule": "When olc_moc_factual_inconsistency_detected is present and not blocked, emit pathology_candidate=Amnesia Estructural for OLC ↔ MoC.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R011",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-006 maps to Tortura Causal",
+      "rule": "When pf_olc_temporal_inconsistency_detected is present and not blocked, emit pathology_candidate=Tortura Causal for PF ↔ OLC.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R012",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-007 maps to Falsa Elección",
+      "rule": "When pf_olc_structural_alternatives_inconsistency_detected is present and not blocked, emit pathology_candidate=Falsa Elección for PF ↔ OLC.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R013",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-008 maps to Incapacidad de Gestión de Conjuntos",
+      "rule": "When olc_moc_structural_iteration_inconsistency_detected is present and not blocked, emit pathology_candidate=Incapacidad de Gestión de Conjuntos for OLC ↔ MoC.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R014",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-009 maps to Arquitectura Fantasma",
+      "rule": "When pm_moc_pf_composite_factual_inconsistency_detected is present and not blocked, emit pathology_candidate=Arquitectura Fantasma for PM ↔ MoC ↔ PF.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R015",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-010 maps to Promesa Imposible",
+      "rule": "When pm_pf_olc_temporal_intentional_inconsistency_detected is present and not blocked, emit pathology_candidate=Promesa Imposible for PM ↔ PF ↔ OLC.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R016",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-011 maps to Identidad Disociada",
+      "rule": "When pm_moc_olc_structural_ontological_inconsistency_detected is present and not blocked, emit pathology_candidate=Identidad Disociada for PM ↔ MoC ↔ OLC.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R017",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-012 maps to Competencia Causal",
+      "rule": "When moc_pf_olc_causal_operational_inconsistency_detected is present and not blocked, emit pathology_candidate=Competencia Causal for MoC ↔ PF ↔ OLC.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R018",
+      "module": "inconsistency_compartment_catalog",
+      "title": "Compartment EVE02-CMP-013 maps to Incoherencia Sistémica Total",
+      "rule": "When systemic_total_inconsistency_detected is present and not blocked, emit pathology_candidate=Incoherencia Sistémica Total for PM ↔ MoC ↔ PF ↔ OLC.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R019",
+      "module": "evidence_input_contract",
+      "title": "Evidence must identify models",
+      "rule": "Every diagnostic input must declare the model set involved: PM, MoC, PF, OLC or a cross-model combination.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R020",
+      "module": "evidence_input_contract",
+      "title": "Evidence must identify inconsistency class",
+      "rule": "Every diagnostic input must declare inconsistency class: factual, temporal, structural alternatives, structural iterations, composite factual, temporal-intentional, structural-ontological, causal-operational or systemic total.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R021",
+      "module": "evidence_input_contract",
+      "title": "Evidence must include source_trace",
+      "rule": "Every diagnostic candidate must preserve source_trace to the evidence item, model element, gate output or structural candidate that triggered it.",
+      "severity": "blocking",
+      "source_refs": [
+        "D4",
+        "D5"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R022",
+      "module": "evidence_input_contract",
+      "title": "Conformance status required",
+      "rule": "If any involved model lacks conformance status, the candidate must be blocked_by_conformance_unchecked.",
+      "severity": "blocking",
+      "source_refs": [
+        "D1"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R023",
+      "module": "evidence_input_contract",
+      "title": "Consistency status required",
+      "rule": "If the cross-model inconsistency has not been evaluated by the corresponding consistency compartment, the candidate must be blocked_by_consistency_unchecked.",
+      "severity": "blocking",
+      "source_refs": [
+        "D1",
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R024",
+      "module": "evidence_input_contract",
+      "title": "Ambiguity routes to manual review",
+      "rule": "If evidence is semantically ambiguous, route to manual_review_required instead of forcing a pathology mapping.",
+      "severity": "blocking",
+      "source_refs": [
+        "D4",
+        "D5"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R025",
+      "module": "classification_rules",
+      "title": "Single strongest compartment",
+      "rule": "When multiple compartments fire, preserve all candidates but identify a primary_candidate only if one has higher evidence_strength and broader model coverage.",
+      "severity": "advisory",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R026",
+      "module": "classification_rules",
+      "title": "Systemic total requires cascade evidence",
+      "rule": "Incoherencia Sistémica Total requires contradiction evidence across all four views, not merely two isolated inconsistencies.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R027",
+      "module": "classification_rules",
+      "title": "Temporal PF-OLC distinction",
+      "rule": "Tortura Causal requires sequence/order violation; Violación Causal requires forcing an invalid state or transition. Do not collapse them.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2",
+        "D1"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R028",
+      "module": "classification_rules",
+      "title": "Structural PF-OLC distinction",
+      "rule": "Falsa Elección requires mismatch between PF alternatives/gateways and OLC causal alternatives. Do not classify every PF/OLC issue as Falsa Elección.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2",
+        "D1"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R029",
+      "module": "classification_rules",
+      "title": "MoC-PF-OLC causal operational distinction",
+      "rule": "Competencia Causal requires the object operation to be structurally allowed by MoC but causally unauthorized by OLC at that state while PF executes it.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R030",
+      "module": "classification_rules",
+      "title": "Aliases are not new pathologies",
+      "rule": "Aliases such as Esquizofrenia Organizacional must be stored as aliases of an approved pathology label, not as independent ontology entries unless a source explicitly authorizes it.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R031",
+      "module": "output_contract_rules",
+      "title": "Output type is diagnostic_preclassification_candidate",
+      "rule": "The only runtime output of this chip is diagnostic_preclassification_candidate or blocked/manual_review state.",
+      "severity": "blocking",
+      "source_refs": [
+        "D4",
+        "D5"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R032",
+      "module": "output_contract_rules",
+      "title": "Output must include method trace",
+      "rule": "Each output must include method_trace with involved models, inconsistency_type, compartment_id, evidence_refs and source_refs.",
+      "severity": "blocking",
+      "source_refs": [
+        "D1",
+        "D2",
+        "D4"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R033",
+      "module": "output_contract_rules",
+      "title": "Output must include pathology trace",
+      "rule": "Each output must include pathology_trace with pathology label, diagnostic question, pathology statement and source D2 row.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R034",
+      "module": "output_contract_rules",
+      "title": "Output must include correction boundary",
+      "rule": "The chip may recommend that the architecture return to factual evidence; it must not directly rewrite models or align them cosmetically.",
+      "severity": "blocking",
+      "source_refs": [
+        "D1",
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R035",
+      "module": "output_contract_rules",
+      "title": "Output must include readiness boundary",
+      "rule": "Output must expose whether it is ready_for_parallel_production_prep, ready_with_flags, blocked, reentry_required or manual_review_required.",
+      "severity": "blocking",
+      "source_refs": [
+        "D4",
+        "D5"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R036",
+      "module": "runtime_boundary_rules",
+      "title": "B7/C20 non-diagnostic boundary",
+      "rule": "B7/C20 signals may prepare low-confidence preclassification but must not generate IR, registry, export or final diagnosis.",
+      "severity": "blocking",
+      "source_refs": [
+        "D5",
+        "D4"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R037",
+      "module": "runtime_boundary_rules",
+      "title": "SEM gate before MoC/OLC pathology",
+      "rule": "If the inconsistency depends on object/state/class/attribute ambiguity, the Semantic Resolution Gate must close before mapping a pathology candidate.",
+      "severity": "blocking",
+      "source_refs": [
+        "D5"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R038",
+      "module": "runtime_boundary_rules",
+      "title": "PST gate before PF/OLC pathology",
+      "rule": "If the inconsistency depends on waits, blocking or timers, the Process State/Timer Gate must close before mapping PF/OLC temporal or causal pathology.",
+      "severity": "blocking",
+      "source_refs": [
+        "D5"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R039",
+      "module": "runtime_boundary_rules",
+      "title": "No exposure of internal diagnosis to UI",
+      "rule": "The UI may show sober user-facing continuity language; it must not expose pathology labels unless a later explicit diagnostic surface authorizes it.",
+      "severity": "blocking",
+      "source_refs": [
+        "D4",
+        "D5"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R040",
+      "module": "runtime_boundary_rules",
+      "title": "Production Paralela consumes governed candidates only",
+      "rule": "Downstream consumers must receive governed evidence/candidate payloads, not raw text or unvalidated pathology labels.",
+      "severity": "blocking",
+      "source_refs": [
+        "D4",
+        "D5"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R041",
+      "module": "audit_qa_rules",
+      "title": "Manifest must count compartments",
+      "rule": "Manifest must report exactly 13 diagnostic compartments for v0.1 unless a later approved source changes the ontology.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R042",
+      "module": "audit_qa_rules",
+      "title": "Manifest must count pathologies",
+      "rule": "Manifest must report 13 canonical pathology mappings for v0.1; aliases do not increase canonical count.",
+      "severity": "blocking",
+      "source_refs": [
+        "D2"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R043",
+      "module": "audit_qa_rules",
+      "title": "No internal GPT instructions compiled",
+      "rule": "Instrucciones Maestras and Instrucciones Actualizadas are not compiled as platform sources in this chip; they remain assistant-internal context only.",
+      "severity": "blocking",
+      "source_refs": [
+        "project_decision"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R044",
+      "module": "audit_qa_rules",
+      "title": "No generated rules without source",
+      "rule": "Every rule must carry at least one source_ref or explicitly mark project_decision for governance decisions made in this conversation.",
+      "severity": "blocking",
+      "source_refs": [
+        "D1",
+        "D2",
+        "D4",
+        "D5"
+      ],
+      "guard_kind": "normative"
+    },
+    {
+      "id": "EVE02-R045",
+      "module": "audit_qa_rules",
+      "title": "Source checksums recorded",
+      "rule": "All source documents used by the chip must have existence, size and sha256 recorded in manifest.",
+      "severity": "blocking",
+      "source_refs": [
+        "D4"
+      ],
+      "guard_kind": "normative"
+    }
+  ],
+  "output_contract": {
+    "allowed_outputs": [
+      "diagnostic_preclassification_candidate",
+      "blocked_by_conformance_unchecked",
+      "blocked_by_consistency_unchecked",
+      "blocked_by_missing_evidence",
+      "blocked_by_semantic_ambiguity",
+      "manual_review_required",
+      "reentry_required"
+    ],
+    "forbidden_outputs": [
+      "final_diagnosis",
+      "IR",
+      "registry_write",
+      "export_payload",
+      "monetization_decision",
+      "transduction",
+      "production_real"
+    ],
+    "minimum_payload_fields": [
+      "candidate_id",
+      "compartment_id",
+      "models_implicated",
+      "inconsistency_type",
+      "diagnostic_question",
+      "pathology_candidate",
+      "pathology_statement",
+      "evidence_refs",
+      "source_trace",
+      "method_trace",
+      "readiness_state",
+      "blocked_if",
+      "confidence",
+      "review_required"
+    ]
+  },
+  "qa_expectations": {
+    "compartment_count": 13,
+    "canonical_pathology_count": 13,
+    "rule_count": 45,
+    "all_rules_have_source_refs": true,
+    "internal_instruction_docs_compiled": false,
+    "final_diagnosis_enabled": false
+  },
+  "input_contract": {
+    "inconsistency_compartment": {
+      "required": true,
+      "meaning": "Identifica el compartimento EVE02-CMP-001..EVE02-CMP-013 que se eval?a.",
+      "blocked_if_missing": "blocked_by_missing_evidence",
+      "source_support": [
+        "D2",
+        "EVE02-R019",
+        "EVE02-R020",
+        "EVE02-R023"
+      ]
+    },
+    "involved_models": {
+      "required": true,
+      "meaning": "Lista los modelos implicados: PM, MoC, PF, OLC o combinaci?n v?lida.",
+      "blocked_if_missing": "blocked_by_missing_evidence",
+      "source_support": [
+        "D2",
+        "EVE02-R019"
+      ]
+    },
+    "conformance_status": {
+      "required": true,
+      "meaning": "Estado de conformance de los modelos implicados; si falta, bloquear con blocked_by_conformance_unchecked.",
+      "blocked_if_missing": "blocked_by_conformance_unchecked",
+      "source_support": [
+        "D1",
+        "EVE-00",
+        "EVE02-R022"
+      ]
+    },
+    "consistency_status": {
+      "required": true,
+      "meaning": "Estado de consistency del compartimento; si falta, bloquear con blocked_by_consistency_unchecked.",
+      "blocked_if_missing": "blocked_by_consistency_unchecked",
+      "source_support": [
+        "D1",
+        "D2",
+        "EVE-00",
+        "EVE02-R023"
+      ]
+    },
+    "evidence_refs": {
+      "required": true,
+      "meaning": "Referencias a evidencia, model element, gate output o candidate estructural; si faltan, bloquear con blocked_by_missing_evidence.",
+      "blocked_if_missing": "blocked_by_missing_evidence",
+      "source_support": [
+        "D4",
+        "D5",
+        "EVE02-R005",
+        "EVE02-R021"
+      ]
+    },
+    "source_trace": {
+      "required": true,
+      "meaning": "Trazabilidad a D2/D1/D4/D5 y/o dependency guard EVE-00/EVE-01; si falta, bloquear con blocked_by_missing_evidence o manual_review_required seg?n caso.",
+      "blocked_if_missing": "blocked_by_missing_evidence_or_manual_review_required",
+      "source_support": [
+        "D1",
+        "D2",
+        "D4",
+        "D5",
+        "EVE-00",
+        "EVE-01",
+        "EVE02-R021",
+        "EVE02-R024"
+      ]
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "dictamen": "EVE_POST_RING4_CONSULTANT_EXPERT_CONTROL_MODEL",
+  "generated_at": "2026-07-10T06:45:00.000Z",
+  "package_ref": "EVE_POST_RING4_REAL_OPERATION_DECISION_SERVICE_EVE_V1",
+  "consultant_expert_control_required": true,
+  "control_model": "consultant_accountable_supervision_with_platform_infrastructure",
+  "accountability": {
+    "consultant_expert_named_per_case": true,
+    "consultant_expert_authorizes_case_start": true,
+    "consultant_expert_authorizes_material_state_transitions": true,
+    "consultant_expert_authorizes_client_visible_release": true,
+    "consultant_expert_authorizes_download_and_export": true
+  },
+  "control_surfaces": {
+    "preferred": "consultant_expert_control_panel",
+    "acceptable_alternative": "documented_manual_equivalent_with_full_audit_trail"
+  },
+  "supervision_domains": [
+    {
+      "domain": "case_scope",
+      "consultant_controls": ["tenant", "case", "role", "activity", "operating_target"]
+    },
+    {
+      "domain": "runtime_state",
+      "consultant_controls": ["session_state", "readiness", "gaps", "reentry"]
+    },
+    {
+      "domain": "evidence_and_variables",
+      "consultant_controls": ["canonical_variables", "evidence_items", "inference_provenance"]
+    },
+    {
+      "domain": "gates_and_readiness",
+      "consultant_controls": ["gate_status", "readiness_decisions", "No-Go_blocks"]
+    },
+    {
+      "domain": "review_and_release",
+      "consultant_controls": ["manual_review", "client_safe_result_release", "consultant_packet_approval"]
+    },
+    {
+      "domain": "outputs",
+      "consultant_controls": ["authorized_download", "authorized_export", "parallel_production_rehearsal_only_unless_authorized"]
+    },
+    {
+      "domain": "incident_and_recovery",
+      "consultant_controls": ["rollback", "abort", "incident_escalation"]
+    }
+  ],
+  "inherited_from_ring_chain": {
+    "ring0_internal_operator_supervision": true,
+    "ring1_limited_client_supervision": true,
+    "ring2_pilot_supervision_and_consent": true,
+    "ring3_controlled_production_supervision": true,
+    "ring4_expanded_production_scale_governance_supervision": true
+  },
+  "blocks_without_control": [
+    "unrestricted_real_case_operation",
+    "unsupervised_client_safe_release",
+    "export_without_consultant_signoff"
+  ],
+  "control_panel_requirement_ref": "docs/production-activation/post_ring4_consultant_control_panel_requirement.json"
+}

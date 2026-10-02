@@ -1,0 +1,76 @@
+{
+  "instruction": "044-A.6R",
+  "material_test": {
+    "gate": "CR-B2",
+    "condition": "transformation_exception_exists=true without required canonical description/route",
+    "gate_failure_count": 1,
+    "readiness_gap_count": 1,
+    "readiness_decision_count": 1,
+    "terminal_state": "blocked",
+    "readiness_state": "blocked",
+    "dominant_gate": "CR-B2",
+    "gap_records": [
+      {
+        "readiness_gap_id": "e8fd812e-507e-47b9-ad7b-070e0798fb96",
+        "gap_type": "missing_canonical_route",
+        "gap_code": "transformation_exception_route_unresolved",
+        "route_id": "CR-B2",
+        "reentry_target": "CR-B2",
+        "severity": "high",
+        "description": "transformation_exception_route_unresolved",
+        "metadata_json": {
+          "synthetic": true,
+          "instruction": "044-A.6R",
+          "affected_route": "CR-B2",
+          "evidence_basis": {
+            "b2": {
+              "finding_code": "transformation_exception_route_unresolved",
+              "source_trace": {
+                "organ": "regulatory_layer",
+                "instruction": "044-A.5B-R",
+                "source_sheet": "regulatory_layer_044A5BR",
+                "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+                "source_row_number": 1
+              },
+              "blocking_reasons": [],
+              "b2_gate_candidate_ref": "synthetic:044A6R:C-2026-08-09T07-23-05-904Z:B2:1:transformation_exception_gate_candidate",
+              "protected_object_hint": "TransformationExceptionEvidence / CanonicalRouteException",
+              "route_gap_candidate_created": false,
+              "transformation_exception_type": "Sí, falla regularmente",
+              "transformation_exception_route": "CR-B2",
+              "transformation_exception_exists": true,
+              "transformation_exception_description": "",
+              "closed_variable_from_free_text_created": false,
+              "pf_olc_projection_without_closed_route": false,
+              "readiness_gap_record_candidate_created": false,
+              "transformation_exception_route_unresolved": true,
+              "textual_exception_separated_from_closed_route": true,
+              "textual_exception_without_closed_route_blocked": false,
+              "blocked_by_missing_canonical_route_candidate_created": false
+            },
+            "organ": "evaluateB2TransformationExceptionGateLocally"
+          },
+          "blocking_outcome": "blocked",
+          "isolated_from_gaby": true,
+          "regulatory_blocking": [
+            "cr_b2_failed",
+            "PST-001_failed",
+            "PST-002_failed",
+            "PST-003_failed",
+            "PST-004_failed",
+            "PST-005_failed",
+            "PST-006_failed"
+          ]
+        }
+      }
+    ],
+    "cr_b2_failed": true,
+    "gap_has_evidence": true,
+    "not_ready": true
+  },
+  "independent_force_ready_probe": {
+    "readinessError": "Error: caller_forced_ready_rejected",
+    "caller_forced_ready_rejected": true,
+    "note": "Separate from material CR-B2 fail-closed; must not be the sole proof."
+  }
+}

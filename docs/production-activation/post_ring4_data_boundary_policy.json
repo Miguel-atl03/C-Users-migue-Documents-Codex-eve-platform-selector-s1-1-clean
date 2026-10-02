@@ -1,0 +1,41 @@
+{
+  "dictamen": "EVE_POST_RING4_DATA_BOUNDARY_POLICY",
+  "generated_at": "2026-07-10T06:45:00.000Z",
+  "package_ref": "EVE_POST_RING4_REAL_OPERATION_DECISION_SERVICE_EVE_V1",
+  "policy_scope": "real_case_operation_post_ring4",
+  "inherits_from": [
+    "docs/production-activation/ring1_data_boundary_policy.json",
+    "docs/production-activation/ring2_data_consent_boundary_policy.json",
+    "docs/production-activation/ring3_production_data_boundary_policy.json",
+    "docs/production-activation/ring4_production_data_boundary_policy.json"
+  ],
+  "data_boundary_required": true,
+  "tenant_isolation_required": true,
+  "case_isolation_required": true,
+  "run_boundary_required": true,
+  "tenant_allowlist_required_for_production_scope": true,
+  "case_allowlist_required_for_production_scope": true,
+  "rls_required": true,
+  "audit_trail_required": true,
+  "consent_or_service_authorization_required": true,
+  "no_unscoped_data_access": true,
+  "no_service_role_in_client": true,
+  "real_external_client_data_rules": {
+    "allowed": "conditional",
+    "requires_case_scope": true,
+    "requires_consultant_authorization": true,
+    "requires_client_consent_or_service_authorization": true,
+    "requires_data_boundary_documentation": true,
+    "requires_no_go_clean": true
+  },
+  "synthetic_data_rules": {
+    "allowed_for_rehearsal_and_validation": true,
+    "must_not_be_labeled_as_real_client_data": true
+  },
+  "production_supabase_rules": {
+    "production_supabase_touch_at_post_ring4_decision_step": false,
+    "production_data_access_only_under_ring_chain_policies_and_case_authorization": true
+  },
+  "boundary_violations_block_case": true,
+  "rollback_and_abort_on_boundary_breach": true
+}

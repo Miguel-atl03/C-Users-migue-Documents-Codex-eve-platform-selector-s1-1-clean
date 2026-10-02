@@ -1,0 +1,89 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING2_SUPERVISION_POLICY",
+  "generated_at": "2026-07-09T01:09:00.000Z",
+  "authorization_ref": "ring2-authorization-authorized-pilot-client-20260709",
+  "ring": 2,
+  "ring_name": "authorized_pilot_client_scoped_supervised",
+  "human_supervision_required": true,
+  "consultant_review_required": true,
+  "consultant_supervision_required": true,
+  "no_unsupervised_diagnosis": true,
+  "supervision_model": {
+    "pilot_session_requires_human_oversight": true,
+    "consultant_must_review_before_client_delivery": true,
+    "consultant_packet_mandatory": true,
+    "automatic_diagnosis_final_prohibited": true,
+    "client_safe_result_only": true,
+    "escalation_path_defined": true
+  },
+  "supervision_requirements": [
+    {
+      "id": "R2-SV-01",
+      "requirement": "authorized_pilot_client_explicitly_registered",
+      "mandatory_for_ring2": true
+    },
+    {
+      "id": "R2-SV-02",
+      "requirement": "consultant_assigned_or_available_for_pilot_case",
+      "mandatory_for_ring2": true
+    },
+    {
+      "id": "R2-SV-03",
+      "requirement": "pilot_scope_reviewed_before_session_start",
+      "mandatory_for_ring2": true
+    },
+    {
+      "id": "R2-SV-04",
+      "requirement": "data_consent_verified_before_pilot_data_capture",
+      "mandatory_for_ring2": true
+    },
+    {
+      "id": "R2-SV-05",
+      "requirement": "consultant_review_packet_generated_for_supervised_review",
+      "mandatory_for_ring2": true
+    },
+    {
+      "id": "R2-SV-06",
+      "requirement": "client_visible_state_limited_to_safe_result_states",
+      "mandatory_for_ring2": true
+    },
+    {
+      "id": "R2-SV-07",
+      "requirement": "no_automatic_diagnosis_final_without_consultant_review",
+      "mandatory_for_ring2": true
+    },
+    {
+      "id": "R2-SV-08",
+      "requirement": "supervision_audit_trail_maintained",
+      "mandatory_for_ring2": true
+    },
+    {
+      "id": "R2-SV-09",
+      "requirement": "abort_or_rollback_triggers_consultant_notification_path",
+      "mandatory_for_ring2": true
+    },
+    {
+      "id": "R2-SV-10",
+      "requirement": "no_go_violation_blocks_unsupervised_continuation",
+      "mandatory_for_ring2": true
+    }
+  ],
+  "prohibited_unsupervised_actions": [
+    "diagnosis_final_release",
+    "external_export_release",
+    "produccion_paralela_productiva_release",
+    "public_client_onboarding",
+    "scope_expansion_without_authorization",
+    "production_supabase_modification"
+  ],
+  "ring1_supervision_baseline": {
+    "ring1_consultant_packet_passed": true,
+    "ring1_client_safe_result_passed": true,
+    "ring1_consultant_packet_ref": "docs/production-activation/ring1_consultant_packet_results.json"
+  },
+  "mba_constraints": {
+    "b7_no_diagnosis_ir_registry_export": true,
+    "no_causal_jump_capture_to_diagnosis": true,
+    "consultant_review_not_automatic_diagnosis": true
+  }
+}

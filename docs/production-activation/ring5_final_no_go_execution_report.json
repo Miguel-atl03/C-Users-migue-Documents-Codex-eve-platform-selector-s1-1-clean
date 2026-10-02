@@ -1,0 +1,70 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING5_FINAL_NO_GO_EXECUTION",
+  "generated_at": "2026-07-10T05:00:00.000Z",
+  "execution_ref": "EVE_PRODUCTION_ACTIVATION_RING5_FINAL_GENERAL_PRODUCTION_ACTIVATION_EXECUTION_V1",
+  "status": "BLOCKED_PENDING_FINAL_PRODUCTION_TARGET_OR_SIGNOFF",
+  "constraints_defined": true,
+  "constraints_path": "docs/production-activation/ring5_final_no_go_constraints.json",
+  "approval_artifact_path": "docs/production-activation/ring5_final_no_go_approval.json",
+  "approval_artifact_exists": false,
+  "approval_artifact_valid": false,
+  "final_no_go_clean": false,
+  "no_go_execution_completed": false,
+  "validation_passed": false,
+  "blocking_findings": [
+    {
+      "id": "R5-NG-EXEC-01",
+      "finding": "final_production_target_manifest_missing",
+      "blocking": true
+    },
+    {
+      "id": "R5-NG-EXEC-02",
+      "finding": "final_human_s5_operator_signoff_missing",
+      "blocking": true
+    },
+    {
+      "id": "R5-NG-EXEC-03",
+      "finding": "final_rls_security_approval_missing",
+      "blocking": true
+    },
+    {
+      "id": "R5-NG-EXEC-04",
+      "finding": "final_observability_slo_approval_missing",
+      "blocking": true
+    },
+    {
+      "id": "R5-NG-EXEC-05",
+      "finding": "final_rollback_approval_missing",
+      "blocking": true
+    },
+    {
+      "id": "R5-NG-EXEC-06",
+      "finding": "final_abort_approval_missing",
+      "blocking": true
+    },
+    {
+      "id": "R5-NG-EXEC-07",
+      "finding": "final_incident_response_assignment_missing",
+      "blocking": true
+    },
+    {
+      "id": "R5-NG-EXEC-08",
+      "finding": "final_no_go_approval_missing",
+      "blocking": true
+    }
+  ],
+  "boundary_constraints_still_clean": {
+    "production_supabase_touched": false,
+    "sql_executed_against_production": false,
+    "production_public_access_enabled": false,
+    "broad_production_access_enabled": false,
+    "automatic_scale_up_allowed": false,
+    "diagnosis_created": false,
+    "export_real_external_executed": false,
+    "produccion_paralela_productiva_started": false,
+    "activation_allowed_general_production": false,
+    "qa_green_real_general_created": false
+  },
+  "blocking_reason": "Final No-Go approval artifact missing and multiple activation prerequisites unmet; No-Go cannot be declared clean for general production activation",
+  "note": "Authorization-time No-Go constraints remain defined; execution-time final No-Go approval was not issued"
+}

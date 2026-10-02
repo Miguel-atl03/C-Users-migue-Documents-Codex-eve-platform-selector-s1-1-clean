@@ -1,0 +1,51 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P3R_SUPABASE_ENVIRONMENT_BINDING_MIGRATION_APPLICATION_COMPLETED",
+  "plan_phase": "Production activation — P3-R Supabase environment binding and migration application",
+  "generated_at": "2026-07-08T01:10:00-06:00",
+  "ready_for_p4_runtime_real_behind_significado": true,
+  "ready_for_production_activation": false,
+  "next_authorization_required": true,
+  "next_tree_point": "P4 — Runtime 40/20 real behind Significado, only after P3-R accepted",
+  "no_go_items": [
+    {
+      "id": "production_remote_apply_p3",
+      "blocked": true,
+      "reason": "Remote bwflscplkjohdhkiqqoc.supabase.co classified unknown/production-final; schema drift documented; no DDL authorized."
+    },
+    {
+      "id": "runtime_real_start",
+      "blocked": true,
+      "reason": "P4 authorization required before real Runtime 40/20 execution."
+    },
+    {
+      "id": "bff_real_persistence_writes",
+      "blocked": true,
+      "reason": "BFF remains dependency_blocked for real record writes until P4 wiring."
+    },
+    {
+      "id": "activation_allowed",
+      "blocked": true,
+      "reason": "Production activation gate not open."
+    },
+    {
+      "id": "qa_green_real",
+      "blocked": true,
+      "reason": "Not authorized in P3-R."
+    },
+    {
+      "id": "real_client_access",
+      "blocked": true,
+      "reason": "Not authorized in P3-R."
+    }
+  ],
+  "cleared_for_p4_prerequisites": [
+    "local_supabase_schema_matches_p3_contract",
+    "local_rls_enabled_and_tenant_case_policies_present",
+    "service_role_not_exposed_to_client",
+    "static_validators_passed",
+    "typecheck_passed",
+    "build_passed_short_path",
+    "bff_security_tests_passed",
+    "membrane_tests_passed"
+  ]
+}

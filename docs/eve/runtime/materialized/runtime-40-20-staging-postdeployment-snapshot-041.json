@@ -1,0 +1,131 @@
+{
+  "instruction": "Codex 041",
+  "snapshot": "postdeployment",
+  "project": {
+    "name": "eve-staging-onboarding",
+    "project_ref": "shrpiwkxcdgvbqymjecx",
+    "verification_method": "Supabase MCP get_project_url + SELECT/apply_migration"
+  },
+  "captured_at_utc": "2026-08-06T06:10:00.000Z",
+  "production_consulted": false,
+  "allowed_differences_vs_predeployment": [
+    "three_semantic_organs_present",
+    "governed_rpc_040D_present",
+    "auxiliary_count_function_present",
+    "two_final_migrations_in_history"
+  ],
+  "forbidden_differences_observed_none": [
+    "new_catalog_rows",
+    "semantic_organ_rows",
+    "B0_delta",
+    "Gaby_delta",
+    "catalog_activation",
+    "production_changes"
+  ],
+  "semantic_organs_postdeployment": {
+    "runtime_branching_rule": {
+      "exists": true,
+      "rls_enabled": true,
+      "row_count": 0,
+      "fk_count": 2,
+      "authenticated_privileges": [
+        "SELECT"
+      ],
+      "anon_privileges": []
+    },
+    "runtime_epistemic_rule": {
+      "exists": true,
+      "rls_enabled": true,
+      "row_count": 0,
+      "fk_count": 2,
+      "authenticated_privileges": [
+        "SELECT"
+      ],
+      "anon_privileges": []
+    },
+    "runtime_variable_map": {
+      "exists": true,
+      "rls_enabled": true,
+      "row_count": 0,
+      "fk_count": 2,
+      "authenticated_privileges": [
+        "SELECT"
+      ],
+      "anon_privileges": []
+    }
+  },
+  "rpc_postdeployment": {
+    "eve_runtime_40_20_load_catalog_draft(jsonb)": {
+      "exists": true,
+      "security_definer": true,
+      "search_path": "public",
+      "execute": {
+        "anon": false,
+        "authenticated": false,
+        "public": false,
+        "service_role": true
+      }
+    },
+    "eve_runtime_40_20_catalog_draft_counts(text)": {
+      "exists": true,
+      "security_definer": true,
+      "search_path": "public",
+      "execute": {
+        "anon": false,
+        "authenticated": false,
+        "service_role": true
+      }
+    }
+  },
+  "negative_tests_non_persistent": {
+    "anon_execute_denied": true,
+    "authenticated_execute_denied": true,
+    "empty_payload": "rejected:blocked_remote_transaction_contract_incomplete: catalog_version_id required",
+    "missing_catalog_version_id": "rejected:blocked_remote_transaction_contract_incomplete: catalog_version_id required",
+    "status_active": "rejected:blocked_non_draft_status",
+    "missing_records": "rejected:blocked_remote_transaction_contract_incomplete: catalog_version_id mismatch",
+    "canonical_031C_payload_invoked": false
+  },
+  "postdeployment_counts": {
+    "catalog_versions_total": 1,
+    "non_b0_versions": 0,
+    "artifact_sections_total": 0,
+    "source_nodes_total": 0,
+    "interaction_defs_total": 4,
+    "mappings_total": 0,
+    "subfields_total": 0,
+    "branching_rules": 0,
+    "epistemic_rules": 0,
+    "variable_maps": 0
+  },
+  "B0_observable_state": {
+    "catalog_version_id": "EVE_RUNTIME_40_20_B0_V1",
+    "status": "active",
+    "observable_checksum": "9cd3a5ae1b534a326fc08213663d13a3",
+    "delta_vs_predeployment": 0
+  },
+  "gaby_run_state": {
+    "activity_runtime_runs": 32,
+    "interaction_instances": 4,
+    "delta_vs_predeployment": 0
+  },
+  "migrations_applied_final": [
+    {
+      "name": "eve_runtime_40_20_semantic_organs_final_041",
+      "apply_result": "success",
+      "local_path": "supabase/migrations/20260805220000_eve_runtime_40_20_semantic_organs_final_041.sql",
+      "sha256": "3dcfd662947538945cc211c53f9883a66a9b2de4acbd5da28d6ae7f29bf8737d"
+    },
+    {
+      "name": "eve_runtime_40_20_governed_draft_load_rpc_final_041",
+      "apply_result": "success",
+      "local_path": "supabase/migrations/20260805221000_eve_runtime_40_20_governed_draft_load_rpc_final_041.sql",
+      "sha256": "46b1719ff03c46fc916cb5af3b746d7838af05e2eba0b3734dd8fe932c6ea158"
+    }
+  ],
+  "historical_candidates_executable_path": false,
+  "catalog_loaded": false,
+  "catalog_activated": false,
+  "mcp_final_requery_note": "After successful organs+RPC verification and negative payload tests, MCP execute_sql began timing out; post counts/grants/RPC privileges above are from successful SELECT/privilege checks immediately after deployment and negative tests prior to timeout. No catalog payload was invoked.",
+  "remote_writes_performed_by_snapshot": false
+}

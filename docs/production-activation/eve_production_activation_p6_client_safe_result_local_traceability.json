@@ -1,0 +1,34 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P6_CLIENT_SAFE_RESULT_LOCAL_TRACEABILITY",
+  "generated_at": "2026-07-08T17:00:57.000Z",
+  "plan_phase": "Production activation — P6 client safe result local",
+  "entry_conditions": {
+    "p0_p1r_accepted": true,
+    "p2_bff_accepted": true,
+    "p3_p3r_accepted": true,
+    "p4_runtime_real_local_accepted": true,
+    "p5_gates_readiness_local_accepted": true
+  },
+  "artifacts": {
+    "client_result_types": "src/services/eve/runtime-40-20/client-result/runtime-40-20-client-result-types.ts",
+    "client_result_service": "src/services/eve/runtime-40-20/client-result/runtime-40-20-client-result-service.ts",
+    "client_result_tests": "src/services/eve/runtime-40-20/client-result/runtime-40-20-client-result.test.mjs",
+    "bff_review_route": "src/app/api/eve/runtime-40-20/client-bff/review/route.ts",
+    "smoke_script": "scripts/eve/production-activation/p6-client-safe-result-local-smoke.mjs"
+  },
+  "readiness_to_client_mapping": {
+    "ready": "informacion_en_revision",
+    "ready_with_flags": "resultado_en_revision",
+    "blocked": "bloqueado_seguro",
+    "reentry_required": "necesitamos_aclarar_algo",
+    "manual_review_required": "informacion_en_revision"
+  },
+  "feature_flags": {
+    "EVE_RUNTIME_40_20_LOCAL_ENABLED": true,
+    "EVE_GATES_READINESS_LOCAL_ENABLED": true,
+    "EVE_CLIENT_SAFE_RESULT_LOCAL_ENABLED": true
+  },
+  "activation_allowed": false,
+  "production_supabase_touched": false,
+  "ready_for_p7_consultor_result": false
+}

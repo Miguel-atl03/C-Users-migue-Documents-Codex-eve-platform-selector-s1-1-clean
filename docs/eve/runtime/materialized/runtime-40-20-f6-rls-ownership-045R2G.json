@@ -1,0 +1,37 @@
+{
+  "instruction": "045-R2G",
+  "rls_probe_result": 2,
+  "probes": [
+    {
+      "probe_type": "own_read",
+      "target_table": "runtime_event_outbox",
+      "expected_result": "allow",
+      "actual_result": "allow",
+      "actual_count": 2,
+      "pass_fail": "pass",
+      "activity_runtime_run_id": "a5382e2c-030f-4899-bead-8985833825ab",
+      "role_runtime_session_id": "13fdbec5-b649-4fd7-be05-3708f40fabe7"
+    },
+    {
+      "probe_type": "foreign_read",
+      "target_table": "runtime_event_outbox",
+      "expected_result": "deny",
+      "actual_result": "deny",
+      "actual_count": 0,
+      "pass_fail": "pass",
+      "activity_runtime_run_id": "a5382e2c-030f-4899-bead-8985833825ab",
+      "role_runtime_session_id": "13fdbec5-b649-4fd7-be05-3708f40fabe7"
+    }
+  ],
+  "rls_enabled_tables": [
+    "control_plane_projection_job",
+    "export_boundary_check",
+    "handoff_patch_record",
+    "no_go_evaluation_result",
+    "no_go_status_snapshot",
+    "review_control_event",
+    "rls_probe_result",
+    "runtime_event_outbox",
+    "runtime_state_snapshot"
+  ]
+}

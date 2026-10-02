@@ -1,0 +1,57 @@
+{
+  "dictamen": "GATE_2_PRACTICALLY_CLOSED_WITH_INFRASTRUCTURE_RISK_ACCEPTED_BY_OWNER",
+  "gate": "Gate 2 real-shadow",
+  "closure_type": "practical_closeout_with_residual_risk",
+  "owner_risk_acceptance": true,
+  "validated": {
+    "bridge_reader_exists": true,
+    "real_source_adapter_exists": true,
+    "shadow_only_outbox_sql_contract_exists": true,
+    "shadow_outcome_ddl_exists": true,
+    "local_regression_passed": true,
+    "local_regression_tests_passed": 36,
+    "writes_attempted": false,
+    "write_count": 0,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false
+  },
+  "not_validated": {
+    "real_shadow_events_observed": true,
+    "tenant_isolation_real": true,
+    "replay_real": true,
+    "provenance_real": true,
+    "divergence_report_real": true,
+    "physical_write_guard_real": true
+  },
+  "residual_risks": [
+    {
+      "risk_id": "G2-RISK-001",
+      "risk": "No real non-productive shadow events were observed because the safe shadow target was not provisioned.",
+      "impact": "Gate 3 must not authorize irreversible writes or client exposure based on untested physical shadow behavior.",
+      "mitigation": "Gate 3 starts restricted; physical real-shadow validation remains required before Gate 4 or Gate 5."
+    }
+  ],
+  "gate3_constraints": {
+    "gate3_can_start_restricted": true,
+    "irreversible_writes_allowed": false,
+    "client_pilot_allowed": false,
+    "gate4_allowed": false,
+    "gate5_allowed": false
+  },
+  "side_effects": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "runtime_mutated": false,
+    "object_inventory_mutated": false,
+    "mba_written": false,
+    "parallel_production_real_started": false,
+    "fase9_started": false
+  },
+  "next_step": "OPEN_GATE_3_RESTRICTED_INTERNAL_SUPERVISED_ACTIVATION_V1"
+}

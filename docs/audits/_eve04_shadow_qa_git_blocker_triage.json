@@ -1,0 +1,52 @@
+{
+  "dictamen": "GIT_BLOCKER_CONFIRMED_EXTERNAL",
+  "blockedFile": "src/app/admin/runtime-vsm/page.tsx",
+  "classification": {
+    "preExistingAndExternalToEve04": true,
+    "createdByEve04ShadowTask": false,
+    "belongsToOtherWorkFront": true,
+    "otherWorkFront": "Significado/admin trace",
+    "blocksPromotionUntilHumanCleanup": true
+  },
+  "diffSummary": {
+    "observedChange": "Adds a Runtime VSM admin link to /admin/significado-trace with label Trazabilidad Significado.",
+    "containsEve04References": false,
+    "containsCandidateReferences": false,
+    "containsRegistryPromotion": false,
+    "containsRuntimeManifestPromotion": false
+  },
+  "shadowEve04": {
+    "valid": true,
+    "promotionAllowed": false,
+    "reason": "Shadow QA compare passes, but the mandatory shadow-service test fails on a Git allowlist check because the workspace contains an external tracked diff in src/app/admin/runtime-vsm/page.tsx."
+  },
+  "commands": [
+    { "command": "pwd", "exitCode": 0 },
+    { "command": "git status --short", "exitCode": 0 },
+    { "command": "git diff --name-only", "exitCode": 0 },
+    { "command": "git diff -- src/app/admin/runtime-vsm/page.tsx", "exitCode": 0 },
+    { "command": "git log --oneline -5", "exitCode": 0 },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-shadow-qa-compare.test.ts",
+      "exitCode": 0,
+      "result": "PASS 6/6"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-shadow-service.test.ts",
+      "exitCode": 1,
+      "result": "FAIL 1/10; git diff allowlist detected src/app/admin/runtime-vsm/page.tsx"
+    }
+  ],
+  "recommendation": "HUMAN_CLEAN_WORKTREE_REQUIRED",
+  "noMutation": {
+    "codeModified": false,
+    "reset": false,
+    "stash": false,
+    "commit": false,
+    "checkout": false,
+    "runtimeVsmTouched": false,
+    "eve04Promoted": false,
+    "registryTouched": false,
+    "runtimeProductiveTouched": false
+  }
+}

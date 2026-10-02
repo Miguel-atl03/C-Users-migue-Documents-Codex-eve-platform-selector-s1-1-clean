@@ -1,0 +1,142 @@
+{
+  "auditId": "EVE-00-METHOD-KERNEL-PACKAGE-ADJUST-V1",
+  "dictamen": "METHOD_KERNEL_PACKAGE_ADJUSTED_READY_FOR_REAUDIT",
+  "modifiedPackageFiles": [
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.manifest.json",
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.ts",
+    "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.md"
+  ],
+  "createdFiles": [
+    "tests/regression/eve-00-method-kernel-package.test.ts",
+    "docs/audits/AUDIT_EVE_00_METHOD_KERNEL_PACKAGE_ADJUST_V1.md",
+    "docs/audits/CLOSEOUT_EVE_00_METHOD_KERNEL_PACKAGE_ADJUST_V1.md",
+    "docs/audits/_eve_00_method_kernel_package_adjust_diff_v1.json",
+    "docs/audits/_eve_00_method_kernel_package_post_adjust_consistency_v1.json"
+  ],
+  "changes": [
+    {
+      "changeId": "ADJ-001",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.manifest.json",
+      "changeType": "manifest_fix",
+      "before": {
+        "pm_rules": 12,
+        "moc_rules": 13,
+        "olc_rules": 12
+      },
+      "after": {
+        "pm_rules": 10,
+        "moc_rules": 10,
+        "olc_rules": 17
+      },
+      "reason": "Manifest must reflect the actual JSON/MD package rules instead of forcing the package to match manifest."
+    },
+    {
+      "changeId": "ADJ-002",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+      "changeType": "json_fix",
+      "before": {
+        "readiness_states_included": [
+          "blocked_by_missing_canonical_route"
+        ]
+      },
+      "after": {
+        "readiness_states_removed": [
+          "blocked_by_missing_canonical_route"
+        ],
+        "runtime_boundary_note_added": true
+      },
+      "reason": "blocked_by_missing_canonical_route is a Runtime boundary concern, not an operative Method Kernel state."
+    },
+    {
+      "changeId": "ADJ-003",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.ts",
+      "changeType": "ts_candidate_fix",
+      "before": {
+        "EveMethodKernelTypeCovered": [
+          "chip_id",
+          "chip_name",
+          "version",
+          "status",
+          "language",
+          "generated_at",
+          "purpose",
+          "source_policy",
+          "runtime_boundary",
+          "modules",
+          "rule_index_count",
+          "rule_index"
+        ],
+        "missingFromType": [
+          "authority",
+          "model_quadrants",
+          "readiness_states",
+          "execution_pipeline",
+          "source_registry",
+          "change_log"
+        ]
+      },
+      "after": {
+        "addedTypes": [
+          "EveSourceAuthority",
+          "EveModelQuadrant",
+          "EveExecutionPipelineStep",
+          "EveChangeLogEntry"
+        ],
+        "EveMethodKernelCoversExportedObject": true
+      },
+      "reason": "The TS candidate should faithfully represent its exported package object without wiring it into src."
+    },
+    {
+      "changeId": "ADJ-004",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+      "changeType": "source_policy_fix",
+      "before": {
+        "D5_status": "declared_boundary_docx_without_unresolved_status"
+      },
+      "after": {
+        "D5_status": "unresolved",
+        "declared_docx_found_in_repo": false,
+        "xlsx_near_match_found": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+        "requires_miguel_decision_before_certification_or_cabling": true
+      },
+      "reason": "Do not invent D5 DOCX existence or silently substitute XLSX without Miguel approval."
+    },
+    {
+      "changeId": "ADJ-005",
+      "targetFile": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.md",
+      "changeType": "scope_boundary_fix",
+      "before": {
+        "boundaryNotes": "minimal"
+      },
+      "after": {
+        "nonWiringBoundariesAdded": [
+          "no diagnostica patologias EVE",
+          "no produce IR",
+          "no exporta registry",
+          "no ejecuta Produccion Paralela",
+          "no reemplaza Runtime catalog",
+          "no reemplaza WorkMap",
+          "no decide seleccion primaria",
+          "no reemplaza B0",
+          "no bloquea UI directa antes de evidencia suficiente",
+          "no actua como Runtime readiness/reentry gate"
+        ]
+      },
+      "reason": "Make the candidate package safe for re-audit without cabling."
+    },
+    {
+      "changeId": "ADJ-006",
+      "targetFile": "tests/regression/eve-00-method-kernel-package.test.ts",
+      "changeType": "static_package_test",
+      "before": {
+        "packageSpecificTest": "not_present"
+      },
+      "after": {
+        "packageSpecificTest": "created",
+        "runtimeImports": false
+      },
+      "reason": "Protect package consistency without importing or cabling product runtime."
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "permissions_model_id": "EVE_ORGANISM_OPTION_A_SHADOW_ONLY_OUTBOX_PERMISSIONS_MODEL_V1",
+  "spec_id": "OPTION_A_SHADOW_ONLY_OUTBOX_PROVISIONING_SPEC_V1",
+  "roles_total": 5,
+  "roles": [
+    {
+      "role": "official_event_emitter",
+      "future_role_only": true,
+      "created_now": false,
+      "can": ["emit controlled copy to approved boundary"],
+      "cannot": ["read shadow evaluations", "read divergence reports", "write registry", "export", "diagnose", "execute bridge"]
+    },
+    {
+      "role": "shadow_outbox_writer",
+      "future_role_only": true,
+      "created_now": false,
+      "can": ["append-only in ShadowOnlyOutbox"],
+      "cannot": ["update", "delete", "destructive upsert", "read product secrets", "use productive service_role", "write productive tables", "write registry", "export", "diagnose"]
+    },
+    {
+      "role": "shadow_bridge_reader",
+      "future_role_only": true,
+      "created_now": false,
+      "can": ["read shadow-only outbox in future approved phase"],
+      "cannot": ["write outbox", "write product", "write registry", "export", "diagnose", "grant Gate 3"]
+    },
+    {
+      "role": "s3_star_auditor",
+      "future_role_only": true,
+      "created_now": false,
+      "can": ["review divergences", "review evidence package", "review checksum chain", "review replay"],
+      "cannot": ["operate productive flow", "mutate outbox", "execute EVE shadow", "approve self"]
+    },
+    {
+      "role": "eve08_governance",
+      "future_role_only": true,
+      "created_now": false,
+      "can": ["record audit", "block", "require review", "degrade or quarantine capability"],
+      "cannot": ["operate audited flow", "produce final diagnosis", "write registry or export for convenience"]
+    }
+  ],
+  "credential_boundary": {
+    "credentials_created_now": false,
+    "separate_credentials_by_role_required": true,
+    "read_only_credentials_for_bridge_reader_required": true,
+    "append_only_constrained_credentials_for_writer_required_if_applicable": true,
+    "service_role_productive_forbidden": true,
+    "write_capable_adapters_forbidden": true,
+    "registry_writer_forbidden": true,
+    "export_writer_forbidden": true,
+    "diagnosis_finalizer_forbidden": true,
+    "tenant_boundary_proof_required": true,
+    "auth_boundary_proof_required": true,
+    "rls_read_boundary_proof_required_if_applicable": true,
+    "secret_ownership_required": true,
+    "rotation_policy_required": true,
+    "credential_use_audited_required": true
+  },
+  "tenant_session_activity_isolation": {
+    "tenant_id_required": true,
+    "session_id_required": true,
+    "activity_id_required": true,
+    "actor_ref_required": true,
+    "officialFlowRef_required": true,
+    "correlationId_required": true,
+    "idempotencyKey_required": true,
+    "missing_tenant_id": "reject",
+    "missing_session_id": "reject",
+    "missing_activity_id": "reject",
+    "cross_tenant_detected": "algedonic_alert_and_quarantine",
+    "session_activity_inconsistent": "reject_and_governance_finding",
+    "correlationId_inconsistent": "reject",
+    "idempotencyKey_duplicate_different_payload": "replay_poisoning_no_go"
+  }
+}

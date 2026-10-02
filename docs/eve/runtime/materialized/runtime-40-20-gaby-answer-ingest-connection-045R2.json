@@ -1,0 +1,25 @@
+﻿{
+    "instruction":  "045-R2",
+    "status":  "blocked",
+    "classification":  "blocked_gaby_runtime_contract_field_missing",
+    "current_answer_endpoint":  "src/app/api/scenes/answers/route.ts",
+    "current_persistence":  "saveSceneQuestionAnswers -\u003e scene_question_answers",
+    "current_payload":  [
+                            "mode",
+                            "sessionId",
+                            "sceneId",
+                            "answers"
+                        ],
+    "runtime_ingest_required":  [
+                                    "case_id",
+                                    "runtime_interaction_id",
+                                    "interaction_instance_id_preview",
+                                    "idempotency_key",
+                                    "response_revision_number",
+                                    "source_trace",
+                                    "subfield_answers[].source_trace",
+                                    "subfield_answers[].provenance_type"
+                                ],
+    "atomicity":  "not proven for Runtime ingest because the endpoint does not call the Runtime 40/20 response ingest service",
+    "decision":  "Do not route live answers into Runtime until missing identifiers are supplied and the secure server boundary is authorized."
+}

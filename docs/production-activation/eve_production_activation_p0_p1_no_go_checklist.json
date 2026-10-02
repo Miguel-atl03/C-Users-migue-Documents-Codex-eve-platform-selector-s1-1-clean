@@ -1,0 +1,71 @@
+{
+  "execution_id": "EVE_PRODUCTION_ACTIVATION_P0_P1_BASELINE_AND_CLIENT_UI_FINAL_QA_V1",
+  "checklist_date": "2026-07-07",
+  "activation_allowed": false,
+  "items": [
+    {
+      "id": "NOGO-001",
+      "check": "P0 typecheck clean",
+      "required": true,
+      "status": "fail",
+      "evidence": "npx tsc --noEmit exit 2 with 11 errors in runtime-40-20-client-membrane-service.ts"
+    },
+    {
+      "id": "NOGO-002",
+      "check": "P0 production build clean",
+      "required": true,
+      "status": "fail",
+      "evidence": "npm run build exit 1 — Turbopack path length exceeded on Windows for long repo path"
+    },
+    {
+      "id": "NOGO-003",
+      "check": "Client membrane local test suite green",
+      "required": true,
+      "status": "pass",
+      "evidence": "885/885 tests passed in runtime-40-20-client-membrane.test.mjs"
+    },
+    {
+      "id": "NOGO-004",
+      "check": "All required client screens present in primary route",
+      "required": true,
+      "status": "pass",
+      "evidence": "Login, Estado A/B, WorkMap, Significado, Preguntas, Resultado seguro found in src/app/page.tsx wiring"
+    },
+    {
+      "id": "NOGO-005",
+      "check": "No internal jargon exposed on active client surface",
+      "required": true,
+      "status": "fail",
+      "evidence": "User-visible strings include Capa 1, transduccion causal, readiness, expediente estructural, WorkMap in primary client flow components"
+    },
+    {
+      "id": "NOGO-006",
+      "check": "Client browser/UI e2e executed",
+      "required": true,
+      "status": "not_run",
+      "evidence": "No client UI e2e runner in package.json; audit constraints prohibit real runtime/client activation"
+    },
+    {
+      "id": "NOGO-007",
+      "check": "Real BFF / production security contract",
+      "required": true,
+      "status": "not_started",
+      "evidence": "Deferred to P2 authorization"
+    },
+    {
+      "id": "NOGO-008",
+      "check": "Supabase/SQL/runtime real/export/diagnosis activation",
+      "required": true,
+      "status": "pass",
+      "evidence": "Not executed; boundary ledger confirms all false"
+    }
+  ],
+  "blockers_open": [
+    "NOGO-001",
+    "NOGO-002",
+    "NOGO-005",
+    "NOGO-006"
+  ],
+  "next_authorization_required": true,
+  "next_tree_point": "P2 — BFF real design and security contract, only if P0/P1 completed"
+}

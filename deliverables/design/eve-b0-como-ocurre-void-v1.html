@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+      FREEZE APROBADO · BUILD 3.13
+      B0 · Sección 2 · Cómo ocurre
+      Portado a: LocalB0ComoOcurreSection (lienzo local).
+      Memoria: labels + mist examples (palabra → rachas, async).
+      Ir a escena 1 → void + typewriter lento + persist.
+      Editar → edita redacción; Guardar → segunda persistencia.
+    -->
+    <title>EVE — B0 · Cómo ocurre · Void v3.13 (APROBADO)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #9aa1ab;
+        --eve-mist-dim: #c5c9d1;
+        --eve-line: #d8dce2;
+        --font-mono: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-mono);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .build {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 30;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .error {
+        position: fixed;
+        top: 40px;
+        right: 20px;
+        z-index: 30;
+        max-width: 42ch;
+        color: #8a2f2f;
+        font-size: 10px;
+        line-height: 1.4;
+        display: none;
+      }
+
+      .error.is-visible {
+        display: block;
+      }
+
+      .screen {
+        position: relative;
+        width: 100%;
+        max-width: 1440px;
+        min-height: calc(
+          clamp(280px, 32vh, 360px) + clamp(480px, 52vh, 580px) +
+            clamp(64px, 6vh, 88px)
+        );
+        margin: 0 auto;
+        padding-bottom: clamp(64px, 6vh, 88px);
+        background: var(--eve-sheet);
+      }
+
+      .field {
+        position: absolute;
+        top: clamp(200px, 24vh, 280px);
+        left: clamp(24px, 5vw, 72px);
+        right: clamp(24px, 5vw, 72px);
+        min-height: clamp(480px, 52vh, 580px);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(180px, 24vw, 360px);
+        align-items: start;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 900ms ease,
+          visibility 900ms ease;
+      }
+
+      .field.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .field.is-materializing-memory {
+        /* Durante la memoria: sin fade que compita con el blur de labels */
+        transition: none;
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .column {
+        min-width: 0;
+        max-width: 16ch;
+      }
+
+      .columnLeft {
+        display: flex;
+        flex-direction: column;
+        gap: 56px;
+        justify-self: start;
+      }
+
+      .columnRight {
+        text-align: right;
+        justify-self: end;
+      }
+
+      /*
+        Intro: esquina superior · tipografía triángulo
+        lead 10/500 · ask 11/600 · IBM Plex Mono · mist.
+      */
+      .intro-corner {
+        position: absolute;
+        top: 12px;
+        left: clamp(24px, 5vw, 72px);
+        right: clamp(24px, 5vw, 72px);
+        max-width: 46ch;
+        z-index: 3;
+        text-align: left;
+        font-family: var(--font-mono);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 700ms ease,
+          visibility 700ms ease;
+      }
+
+      .intro-corner.is-active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .stage-intro-lead {
+        margin: 0 0 18px;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.55;
+        color: #7a8190;
+      }
+
+      .stage-intro-ask {
+        margin: 0;
+        min-height: 1.6em;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        line-height: 1.55;
+        color: #7a8190;
+      }
+
+      /*
+        Señal anidada en el void entre islas
+        (ejemplos / redacción).
+      */
+      .signal {
+        position: absolute;
+        top: clamp(320px, 36vh, 420px);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(260px, 24vw);
+        min-height: 0;
+        text-align: center;
+        z-index: 2;
+        pointer-events: none;
+        font-family: var(--font-mono);
+      }
+
+      .signal.is-interactive {
+        pointer-events: auto;
+      }
+
+      .signal.is-narrative {
+        width: min(420px, 38vw);
+        max-width: 52ch;
+      }
+
+      .stage-panel {
+        display: none;
+        opacity: 0;
+        transition: opacity 700ms ease;
+      }
+
+      .stage-panel.is-active {
+        display: block;
+        opacity: 1;
+      }
+
+      .stage-examples-title {
+        margin: 0 0 14px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 80%, transparent);
+      }
+
+      .stage-examples-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-align: left;
+        max-height: min(42vh, 360px);
+        overflow-y: auto;
+      }
+
+      .stage-examples-list li {
+        margin: 0 0 10px;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        line-height: 1.45;
+        color: var(--eve-mist);
+      }
+
+      .stage-examples-list li::before {
+        content: "• ";
+      }
+
+      /* Misma tipografía que intro-lead (triángulo / memoria operativa) */
+      .stage-narrative-text {
+        margin: 0;
+        text-align: left;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.55;
+        color: #7a8190;
+        outline: none;
+      }
+
+      .stage-narrative-text.is-editing {
+        cursor: text;
+        color: var(--eve-ink);
+        min-height: 4.5em;
+      }
+
+      .signal.is-editing-narrative {
+        pointer-events: auto;
+      }
+
+      .q-block {
+        max-width: 16ch;
+        width: 100%;
+      }
+
+      .columnRight .q-block {
+        margin-left: auto;
+      }
+
+      .scene-toggle {
+        display: block;
+        width: 100%;
+        margin: 28px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        line-height: 1.45;
+        color: var(--eve-mist);
+        text-align: right;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          color 220ms ease,
+          opacity 400ms ease;
+      }
+
+      .scene-toggle.is-ready {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .scene-toggle.is-active {
+        color: var(--eve-ink);
+      }
+
+      .scene-toggle.is-save {
+        color: var(--eve-ink);
+      }
+
+      .scene-toggle:hover {
+        color: var(--eve-ink);
+      }
+
+      .scene-toggle:disabled {
+        cursor: default;
+        opacity: 0.35;
+      }
+
+      /*
+        Escena 1: islas de captura se desvanecen;
+        queda void + interruptor Editar/Guardar en su sitio.
+      */
+      .field.is-scene-void .columnLeft,
+      .field.is-scene-void .columnRight .q-block {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 780ms ease,
+          visibility 780ms ease;
+      }
+
+      .field.is-scene-void .scene-toggle {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .screen.is-scene-void .intro-corner {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 780ms ease,
+          visibility 780ms ease;
+      }
+
+      .q-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin: 0;
+      }
+
+      .columnRight .q-head {
+        flex-direction: row-reverse;
+      }
+
+      /* Misma tipografía que labels S1: I · Qué haces… */
+      .q-label {
+        margin: 0;
+        flex: 1;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        line-height: 1.45;
+        color: var(--eve-ink);
+        white-space: normal;
+      }
+
+      .q-label.is-materializing {
+        opacity: 1;
+      }
+
+      .q-label.is-sharp {
+        opacity: 1;
+      }
+
+      /* Unidades de memoria: aparecen enteras (no typewriter + blur) */
+      .q-label .mem-unit,
+      .q-field-example .mem-unit {
+        display: inline;
+        opacity: 0;
+      }
+
+      .q-label .mem-unit.is-in,
+      .q-field-example .mem-unit.is-in {
+        opacity: 1;
+        transition: opacity 520ms ease;
+      }
+
+      .q-plus {
+        flex-shrink: 0;
+        margin-top: -1px;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: var(--eve-mist);
+        cursor: pointer;
+        padding: 0 2px;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          color 220ms ease,
+          opacity 400ms ease;
+      }
+
+      .q-plus.is-ready {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .q-plus.is-open {
+        color: var(--eve-ink);
+      }
+
+      .q-plus:hover {
+        color: var(--eve-ink);
+      }
+
+      .q-field {
+        position: relative;
+        margin-top: 20px;
+        min-height: 3em;
+      }
+
+      /* Ejemplo mist en campo (≠ ejemplos del void) */
+      .q-field-example {
+        position: absolute;
+        inset: 0;
+        margin: 0;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-mist);
+        pointer-events: none;
+        opacity: 1;
+        transition: opacity 480ms ease;
+        text-align: inherit;
+      }
+
+      .columnRight .q-field-example {
+        text-align: right;
+      }
+
+      .q-field-example.is-hidden,
+      .q-field-example.is-rising {
+        opacity: 0;
+      }
+
+      /*
+        Cursor guía en P1: indica captura en el campo
+        (el ejemplo mist no es la respuesta).
+        Solo se oculta al escribir.
+      */
+      .q-field-prompt-cursor {
+        position: absolute;
+        left: 0;
+        top: 0.12em;
+        z-index: 2;
+        display: block;
+        width: 1px;
+        height: 0.95em;
+        background: var(--eve-ink);
+        pointer-events: none;
+        animation: blink 900ms step-end infinite;
+      }
+
+      .q-field-prompt-cursor.is-hidden {
+        display: none;
+      }
+
+      .q-value {
+        position: relative;
+        z-index: 1;
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+        width: 100%;
+        min-height: 3em;
+        outline: none;
+        resize: none;
+        text-align: inherit;
+        transition: color 220ms ease;
+      }
+
+      .columnRight .q-value {
+        text-align: right;
+      }
+
+      .q-value.is-editing {
+        cursor: text;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 1px;
+        height: 0.95em;
+        margin-left: 1px;
+        background: currentColor;
+        vertical-align: text-bottom;
+        animation: blink 900ms step-end infinite;
+      }
+
+      .cursor.is-hidden {
+        display: none;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .ops-notify {
+        position: fixed;
+        left: 24px;
+        bottom: 24px;
+        max-width: 48ch;
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 400ms ease;
+        z-index: 20;
+      }
+
+      .ops-notify.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .replay {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 400ms ease,
+          color 200ms ease;
+        z-index: 20;
+      }
+
+      .replay.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 900px) {
+        .screen {
+          min-height: auto;
+          padding: 72px 24px 120px;
+        }
+
+        .field,
+        .signal {
+          position: static;
+          transform: none;
+          width: auto;
+          margin: 0 0 40px;
+        }
+
+        .field {
+          display: block;
+          min-height: 0;
+        }
+
+        .columnRight {
+          text-align: left;
+          margin-top: 48px;
+        }
+
+        .columnRight .q-block {
+          margin-left: 0;
+        }
+
+        .columnRight .q-head {
+          flex-direction: row;
+        }
+
+        .columnRight .q-value,
+        .columnRight .q-field-example {
+          text-align: left;
+        }
+
+        .scene-toggle {
+          text-align: left;
+        }
+
+        .signal {
+          width: auto;
+          max-width: 42ch;
+          margin: 32px auto;
+        }
+
+        .signal.is-narrative {
+          width: auto;
+          max-width: 52ch;
+        }
+
+        .intro-corner {
+          position: static;
+          margin: 0 0 24px;
+          max-width: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .field,
+        .stage-panel,
+        .intro-corner,
+        .cursor,
+        .q-field-prompt-cursor {
+          transition: none !important;
+          animation: none !important;
+        }
+
+        .q-label .mem-unit,
+        .q-label .mem-unit.is-in,
+        .q-field-example .mem-unit,
+        .q-field-example .mem-unit.is-in {
+          filter: none !important;
+          opacity: 1 !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="build" id="build">BUILD 3.13 · ESCENA + GUARDAR</p>
+    <p class="error" id="error" role="alert"></p>
+
+    <main class="screen" aria-label="B0 sección 2 · cómo ocurre">
+      <header class="intro-corner" id="stage-intro" data-stage="intro" aria-live="polite">
+        <p class="stage-intro-lead" id="intro-lead">
+          Tu memoria operativa está creada en base a la reaccion emocional causada por tu actividad.
+        </p>
+        <p class="stage-intro-ask" id="intro-ask"></p>
+      </header>
+
+      <div class="signal" id="signal" aria-live="polite">
+        <div class="stage-panel" id="stage-void" data-stage="void"></div>
+        <div class="stage-panel" id="stage-examples" data-stage="examples">
+          <p class="stage-examples-title">Ejemplos</p>
+          <ul class="stage-examples-list" id="examples-list"></ul>
+        </div>
+        <div class="stage-panel" id="stage-narrative" data-stage="narrative">
+          <p class="stage-narrative-text" id="narrative-text"></p>
+        </div>
+      </div>
+
+      <section class="field" id="field">
+        <div class="column columnLeft" aria-label="Preguntas 1 y 2">
+          <article class="q-block" data-q="1">
+            <div class="q-head">
+              <p class="q-label" id="label-1"></p>
+              <button
+                class="q-plus"
+                id="plus-1"
+                type="button"
+                aria-label="Ver ejemplos del void"
+                aria-expanded="false"
+              >
+                +
+              </button>
+            </div>
+            <div class="q-field">
+              <p class="q-field-example" id="field-example-1" aria-hidden="true"></p>
+              <span
+                class="q-field-prompt-cursor is-hidden"
+                id="prompt-cursor-1"
+                aria-hidden="true"
+              ></span>
+              <div
+                class="q-value"
+                id="value-1"
+                role="textbox"
+                aria-multiline="true"
+              ></div>
+            </div>
+          </article>
+          <article class="q-block" data-q="2">
+            <div class="q-head">
+              <p class="q-label" id="label-2"></p>
+              <button
+                class="q-plus"
+                id="plus-2"
+                type="button"
+                aria-label="Ver ejemplos del void"
+                aria-expanded="false"
+              >
+                +
+              </button>
+            </div>
+            <div class="q-field">
+              <p class="q-field-example" id="field-example-2" aria-hidden="true"></p>
+              <div
+                class="q-value"
+                id="value-2"
+                role="textbox"
+                aria-multiline="true"
+              ></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="column columnRight" aria-label="Pregunta 3">
+          <article class="q-block" data-q="3">
+            <div class="q-head">
+              <p class="q-label" id="label-3"></p>
+              <button
+                class="q-plus"
+                id="plus-3"
+                type="button"
+                aria-label="Ver ejemplos del void"
+                aria-expanded="false"
+              >
+                +
+              </button>
+            </div>
+            <div class="q-field">
+              <p class="q-field-example" id="field-example-3" aria-hidden="true"></p>
+              <div
+                class="q-value"
+                id="value-3"
+                role="textbox"
+                aria-multiline="true"
+              ></div>
+            </div>
+          </article>
+          <button
+            class="scene-toggle"
+            id="scene-toggle"
+            type="button"
+            aria-pressed="false"
+            disabled
+          >
+            Ir a escena 1
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <p class="ops-notify" id="ops-notify" role="status" aria-live="polite"></p>
+    <button class="replay" id="replay" type="button">Repetir secuencia</button>
+
+    <script>
+      const BUILD = "3.13";
+      const STORAGE_KEY = "eve-b0-como-ocurre-void-v3";
+      const INTRO_ASK_TEXT = "Observa la escena, dinos como se desarrolla…";
+      const TYPE_ASK_MS = 72;
+      const VOID_BEFORE_ASK_MS = 2000;
+      const SCENE_TOGGLE_IDLE = "Ir a escena 1";
+      const SCENE_TOGGLE_EDIT = "editar";
+      const SCENE_TOGGLE_SAVE = "guardar";
+      /** Cadencia lenta de redacción con suficiencia */
+      const NARRATIVE_TYPE_MS = 64;
+      const SCENE_FADE_MS = 820;
+      /* Memoria: palabra → rachas (sin letras). Más lento + desincronizado. */
+      const MEMORY_WORD_HOLD_MIN = 380;
+      const MEMORY_WORD_HOLD_MAX = 620;
+      const MEMORY_BURST_HOLD_MIN = 480;
+      const MEMORY_BURST_HOLD_MAX = 780;
+      const MEMORY_PHASE_PAUSE_MIN = 640;
+      const MEMORY_PHASE_PAUSE_MAX = 1100;
+      const MEMORY_START_STAGGER_MAX = 520;
+
+      /**
+       * Contexto B0-Q01 heredado (D2/D4 + acción/objeto).
+       * No inventa evidencia; solo alimenta la composición.
+       */
+      const INHERITED = {
+        action: "comparo",
+        object: "el gasto",
+        how: "comparando el gasto real contra Oracle",
+        output: "reportes de desviaciones con análisis de causa raíz",
+      };
+
+      /**
+       * fieldExample → mist en el campo de respuesta
+       * voidExamples → centro (lista al abrir + / −)
+       */
+      const Q_DEFS = [
+        {
+          id: 1,
+          labelText:
+            "¿Qué evento, condición, solicitud, información o estado dispara esta actividad?",
+          fieldExample:
+            "Ej. Pedido disponible, pago final confirmado y opciones reales de cuadrilla y fecha.",
+          voidExamples: [
+            "Cuando se recibe una solicitud del cliente.",
+            "El pedido cuenta con la condición de toda la información requerida.",
+            "Un usuario solicita la actualización de sus datos.",
+            "Se recibe información de la orden de compra aprobada.",
+          ],
+        },
+        {
+          id: 2,
+          labelText: "¿Qué criterio utilizas y qué información dejas fuera?",
+          fieldExample:
+            "Ej. No se confirma fecha tentativa; fecha y condiciones deben estar confirmadas por las partes.",
+          voidExamples: [
+            "Prioridad de atención: Considero el impacto en la continuidad, los compromisos vigentes y la capacidad disponible; excluyo solicitudes sin efecto operativo inmediato o que requieren otra autoridad.",
+            "Validación de propuestas: Considero los requerimientos confirmados, las restricciones técnicas y los recursos disponibles; excluyo supuestos, preferencias no acordadas y alternativas inviables.",
+            "Autorización de compras: Considero la necesidad operativa, el presupuesto y las condiciones de suministro; excluyo opciones que incumplen especificaciones, carecen de justificación o implican riesgos no aceptados.",
+          ],
+        },
+        {
+          id: 3,
+          labelText:
+            "¿A quién, a qué área o a qué sistema pasa el resultado?",
+          fieldExample:
+            "Ej. Compras o ruta de entrega, según anticipo o finiquito.",
+          voidExamples: [
+            "El resultado pasa al rol que valida la propuesta y decide si puede avanzar a la siguiente etapa.",
+            "El resultado pasa al área que lo utiliza para programar sus recursos y coordinar la ejecución.",
+            "El resultado pasa al sistema de información donde se registra, actualiza el estado y habilita las actividades posteriores.",
+            "El resultado pasa al rol que integra la información de distintas fuentes para tomar una decisión de coordinación.",
+          ],
+        },
+      ];
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("how")) INHERITED.how = params.get("how").trim();
+      if (params.get("output")) INHERITED.output = params.get("output").trim();
+      if (params.get("action")) INHERITED.action = params.get("action").trim();
+      if (params.get("object")) INHERITED.object = params.get("object").trim();
+      const AUTO = {
+        1: (params.get("auto_trigger") || "").trim(),
+        2: (params.get("auto_criterion") || "").trim(),
+        3: (params.get("auto_handoff") || "").trim(),
+      };
+
+      const questions = Q_DEFS.map((def) => ({
+        ...def,
+        block: document.querySelector('[data-q="' + def.id + '"]'),
+        label: document.getElementById("label-" + def.id),
+        value: document.getElementById("value-" + def.id),
+        plus: document.getElementById("plus-" + def.id),
+        fieldExampleEl: document.getElementById("field-example-" + def.id),
+        promptCursor: document.getElementById("prompt-cursor-" + def.id),
+      }));
+
+      const fieldEl = document.getElementById("field");
+      const screenEl = document.querySelector("main.screen");
+      const signalEl = document.getElementById("signal");
+      const introAskEl = document.getElementById("intro-ask");
+      const stageIntro = document.getElementById("stage-intro");
+      const stageVoid = document.getElementById("stage-void");
+      const stageExamples = document.getElementById("stage-examples");
+      const stageNarrative = document.getElementById("stage-narrative");
+      const examplesList = document.getElementById("examples-list");
+      const narrativeText = document.getElementById("narrative-text");
+      const sceneToggleEl = document.getElementById("scene-toggle");
+      const errorEl = document.getElementById("error");
+      const replayEl = document.getElementById("replay");
+      const buildEl = document.getElementById("build");
+      const opsNotifyEl = document.getElementById("ops-notify");
+
+      const stagePanels = {
+        void: stageVoid,
+        examples: stageExamples,
+        narrative: stageNarrative,
+      };
+
+      let runId = 0;
+      let busy = false;
+      let stageMode = "void";
+      let openExamplesFor = null;
+      /**
+       * idle  → captura (Ir a escena 1)
+       * view  → redacción en void (Editar) — 1ª persistencia hecha
+       * edit  → redacción editable (Guardar) — 2ª persistencia al guardar
+       */
+      let sceneMode = "idle";
+      let sceneConfirmedText = "";
+      let narrativeTypeId = 0;
+
+      function showError(message) {
+        errorEl.textContent = message;
+        errorEl.classList.add("is-visible");
+        console.error(message);
+      }
+
+      const missing = questions.filter(
+        (q) =>
+          !q.block || !q.label || !q.value || !q.plus || !q.fieldExampleEl,
+      );
+      if (missing.length || questions.length !== 3) {
+        showError("BUILD " + BUILD + " incompleto: faltan nodos DOM.");
+      }
+
+      function prefersReducedMotion() {
+        return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      }
+
+      function sleep(ms, token) {
+        return new Promise((resolve) => {
+          window.setTimeout(() => resolve(token === runId), ms);
+        });
+      }
+
+      function makeCursor() {
+        const cursor = document.createElement("span");
+        cursor.className = "cursor";
+        cursor.setAttribute("aria-hidden", "true");
+        return cursor;
+      }
+
+      async function typewriter(target, text, speed, token) {
+        if (!target) return false;
+        if (prefersReducedMotion()) {
+          target.textContent = text;
+          return token === runId;
+        }
+        target.textContent = "";
+        const cursor = makeCursor();
+        target.appendChild(cursor);
+        for (let i = 0; i < text.length; i += 1) {
+          if (token !== runId) return false;
+          cursor.insertAdjacentText("beforebegin", text.charAt(i));
+          const alive = await sleep(speed, token);
+          if (!alive) return false;
+        }
+        cursor.classList.add("is-hidden");
+        return token === runId;
+      }
+
+      function showOpsNotify(message) {
+        opsNotifyEl.textContent = message;
+        opsNotifyEl.classList.add("is-visible");
+      }
+
+      function syncFieldExample(q) {
+        const has = (q.value.textContent || "").trim().length > 0;
+        q.fieldExampleEl.classList.toggle("is-hidden", has);
+        q.fieldExampleEl.setAttribute("aria-hidden", has ? "true" : "false");
+        if (q.promptCursor) {
+          const captureOn = q.value.isContentEditable;
+          q.promptCursor.classList.toggle("is-hidden", has || !captureOn);
+        }
+      }
+
+      function clearPlusOpenState() {
+        questions.forEach((q) => {
+          q.plus.classList.remove("is-open");
+          q.plus.textContent = "+";
+          q.plus.setAttribute("aria-expanded", "false");
+          q.plus.setAttribute("aria-label", "Ver ejemplos del void");
+        });
+        openExamplesFor = null;
+      }
+
+      function setPlusOpen(q, open) {
+        q.plus.classList.toggle("is-open", open);
+        q.plus.textContent = open ? "−" : "+";
+        q.plus.setAttribute("aria-expanded", open ? "true" : "false");
+        q.plus.setAttribute(
+          "aria-label",
+          open ? "Cerrar ejemplos del void" : "Ver ejemplos del void",
+        );
+      }
+
+      /**
+       * Centro: solo desocupa cuando otro texto reclama el espacio.
+       * Cerrar ejemplos → vuelve a intro (si existía) o void vacío.
+       */
+      function setStage(mode, options) {
+        const opts = options || {};
+        Object.keys(stagePanels).forEach((key) => {
+          stagePanels[key].classList.remove("is-active");
+        });
+        stageIntro.classList.remove("is-active");
+
+        if (mode !== "examples") clearPlusOpenState();
+
+        stageMode = mode;
+        signalEl.classList.toggle("is-interactive", mode === "examples");
+        signalEl.classList.toggle("is-narrative", mode === "narrative");
+        signalEl.classList.toggle(
+          "is-editing-narrative",
+          mode === "narrative" && sceneMode === "edit",
+        );
+
+        if (mode === "intro") {
+          stageIntro.classList.add("is-active");
+          buildEl.textContent = "BUILD " + BUILD + " · intro · triángulo";
+          return;
+        }
+
+        const panel = stagePanels[mode];
+        if (!panel) return;
+
+        if (mode === "examples" && opts.questionId) {
+          const q = questions.find((item) => item.id === opts.questionId);
+          if (!q) return;
+          openExamplesFor = q.id;
+          examplesList.innerHTML = "";
+          const lines = q.voidExamples || [];
+          lines.forEach((line) => {
+            const li = document.createElement("li");
+            li.textContent = line;
+            examplesList.appendChild(li);
+          });
+          questions.forEach((item) => {
+            setPlusOpen(item, item.id === q.id);
+          });
+        }
+
+        if (mode === "narrative") {
+          if (opts.narrative !== undefined) {
+            narrativeText.textContent = opts.narrative;
+          } else if (!opts.deferFill) {
+            narrativeText.textContent = composeNarrative() || "—";
+          }
+        }
+
+        panel.classList.add("is-active");
+        buildEl.textContent = "BUILD " + BUILD + " · señal · " + mode;
+      }
+
+      function restoreIntroOrVoid() {
+        if (sceneMode !== "idle" && sceneConfirmedText) {
+          setStage("narrative", { narrative: sceneConfirmedText });
+          showOpsNotify("Ops · centro · escena 1");
+          return;
+        }
+        setStage("void");
+        showOpsNotify("Ops · centro · void");
+      }
+
+      function toggleExamples(questionId) {
+        if (stageMode === "examples" && openExamplesFor === questionId) {
+          restoreIntroOrVoid();
+          return;
+        }
+        setStage("examples", { questionId: questionId });
+        showOpsNotify("Ops · void examples P" + questionId);
+      }
+
+      function readValues() {
+        return questions.map((q) => ({
+          id: q.id,
+          label: q.labelText,
+          value: (q.value.textContent || "").trim(),
+        }));
+      }
+
+      function cleanText(value) {
+        return String(value || "")
+          .trim()
+          .replace(/\s+/g, " ");
+      }
+
+      function stripBoundaryPunctuation(value) {
+        return cleanText(value).replace(/[.,;:\s]+$/g, "");
+      }
+
+      function isNotApplicable(value) {
+        return /^(?:no aplica|n\/a|na|no pasa|no se entrega|no lo entrego|no pasa a otro actor|no pasa a otra persona|no pasa a otro sistema)$/i.test(
+          cleanText(value),
+        );
+      }
+
+      function firstToken(value) {
+        const match = cleanText(value).match(/^[\p{L}\p{N}.&_-]+/u);
+        return match ? match[0] : "";
+      }
+
+      function uppercaseInitial(value) {
+        const text = stripBoundaryPunctuation(value);
+        const token = firstToken(text);
+        if (!token) return text;
+        return (
+          token.charAt(0).toLocaleUpperCase("es-MX") +
+          token.slice(1) +
+          text.slice(token.length)
+        );
+      }
+
+      function lowercaseInitial(value) {
+        const text = stripBoundaryPunctuation(value);
+        const token = firstToken(text);
+        if (!token) return text;
+        return (
+          token.toLocaleLowerCase("es-MX") + text.slice(token.length)
+        );
+      }
+
+      function normalizeNarrativePunctuation(value) {
+        return value
+          .replace(/,\s*;/g, ";")
+          .replace(/\s+([,;.])/g, "$1")
+          .replace(/([,;])\s*([,;.])/g, "$1")
+          .replace(/\.{2,}/g, ".")
+          .replace(/\s{2,}/g, " ")
+          .trim();
+      }
+
+      function composeHandoffConnector(rawHandoff) {
+        const handoff = stripBoundaryPunctuation(rawHandoff)
+          .replace(/^Al\b/u, "al")
+          .replace(/^A\b/u, "a");
+        if (!handoff || isNotApplicable(handoff)) return "";
+        if (/^al\s+área\b/i.test(handoff) || /^a\s+/i.test(handoff)) {
+          return "El resultado pasa " + handoff;
+        }
+        return "El resultado pasa a " + lowercaseInitial(handoff);
+      }
+
+      /**
+       * Composición determinista (informe B0-Q02):
+       * Cuando <D1>, <acción> <objeto> <D2>.
+       * <D3>. Al terminar, queda <D4>. El resultado pasa a <D5>.
+       * No inventa dimensiones faltantes.
+       */
+      function composeNarrative() {
+        const vals = readValues();
+        const trigger = stripBoundaryPunctuation(vals[0].value);
+        const criterion = stripBoundaryPunctuation(vals[1].value);
+        const handoff = stripBoundaryPunctuation(vals[2].value);
+        const how = stripBoundaryPunctuation(INHERITED.how);
+        const output = stripBoundaryPunctuation(INHERITED.output);
+        const action = stripBoundaryPunctuation(INHERITED.action);
+        const object = stripBoundaryPunctuation(INHERITED.object);
+        const sentences = [];
+
+        let triggerClause = "";
+        if (trigger) {
+          triggerClause =
+            /^(?:cuando|al recibir|al tener|al contar con|una vez que|después de que|despues de que|cada vez que)\b/i.test(
+              trigger,
+            )
+              ? trigger
+              : "Cuando " + trigger;
+        }
+
+        const baseAction = [action, object].filter(Boolean).join(" ");
+        const actionClause = how || baseAction;
+        if (actionClause) {
+          const normalizedAction = triggerClause
+            ? lowercaseInitial(actionClause)
+            : uppercaseInitial(actionClause);
+          sentences.push(
+            triggerClause
+              ? triggerClause + ", " + normalizedAction + "."
+              : normalizedAction + ".",
+          );
+        }
+
+        if (criterion && !isNotApplicable(criterion)) {
+          sentences.push(uppercaseInitial(criterion) + ".");
+        }
+
+        if (output) {
+          sentences.push(
+            "Al terminar, queda " + lowercaseInitial(output) + ".",
+          );
+        }
+
+        if (handoff && !isNotApplicable(handoff)) {
+          const handoffSentence = composeHandoffConnector(handoff);
+          if (handoffSentence) {
+            sentences.push(
+              /[.!?]$/.test(handoffSentence)
+                ? handoffSentence
+                : handoffSentence + ".",
+            );
+          }
+        }
+
+        const narrative = normalizeNarrativePunctuation(sentences.join(" "));
+        if (!narrative) return "";
+        return /[.!?]$/.test(narrative)
+          ? narrative
+          : stripBoundaryPunctuation(narrative) + ".";
+      }
+
+      function syncSceneToggle() {
+        if (!sceneToggleEl) return;
+        const preview = composeNarrative();
+        const canShow = Boolean(preview) || sceneMode !== "idle";
+        sceneToggleEl.classList.add("is-ready");
+        sceneToggleEl.classList.remove("is-active", "is-save");
+
+        if (sceneMode === "edit") {
+          sceneToggleEl.textContent = SCENE_TOGGLE_SAVE;
+          sceneToggleEl.classList.add("is-save");
+          sceneToggleEl.disabled = false;
+          sceneToggleEl.setAttribute("aria-pressed", "true");
+          sceneToggleEl.setAttribute(
+            "aria-label",
+            "Guardar redacción con suficiencia de la escena 1",
+          );
+          return;
+        }
+
+        if (sceneMode === "view") {
+          sceneToggleEl.textContent = SCENE_TOGGLE_EDIT;
+          sceneToggleEl.classList.add("is-active");
+          sceneToggleEl.disabled = false;
+          sceneToggleEl.setAttribute("aria-pressed", "true");
+          sceneToggleEl.setAttribute(
+            "aria-label",
+            "Editar redacción con suficiencia de la escena 1",
+          );
+          return;
+        }
+
+        sceneToggleEl.textContent = SCENE_TOGGLE_IDLE;
+        sceneToggleEl.disabled = !canShow;
+        sceneToggleEl.setAttribute("aria-pressed", "false");
+        sceneToggleEl.setAttribute(
+          "aria-label",
+          "Ir a escena 1 y mostrar redacción con suficiencia",
+        );
+      }
+
+      function cancelNarrativeTypewriter() {
+        narrativeTypeId += 1;
+      }
+
+      function fadeCaptureForScene() {
+        if (screenEl) screenEl.classList.add("is-scene-void");
+        fieldEl.classList.add("is-scene-void");
+        questions.forEach((q) => {
+          q.value.contentEditable = "false";
+          q.value.classList.remove("is-editing");
+          q.plus.classList.remove("is-ready", "is-open");
+          q.plus.textContent = "+";
+          q.plus.setAttribute("aria-expanded", "false");
+        });
+        openExamplesFor = null;
+        if (stageMode === "examples") {
+          setStage("void");
+        }
+      }
+
+      async function typeNarrativeText(text) {
+        const id = ++narrativeTypeId;
+        if (!narrativeText) return false;
+        if (prefersReducedMotion()) {
+          narrativeText.textContent = text;
+          return id === narrativeTypeId;
+        }
+        narrativeText.textContent = "";
+        const cursor = makeCursor();
+        narrativeText.appendChild(cursor);
+        for (let i = 0; i < text.length; i += 1) {
+          if (id !== narrativeTypeId || sceneMode === "idle") return false;
+          cursor.insertAdjacentText("beforebegin", text.charAt(i));
+          await new Promise((resolve) => {
+            window.setTimeout(resolve, NARRATIVE_TYPE_MS);
+          });
+          if (id !== narrativeTypeId || sceneMode === "idle") return false;
+        }
+        cursor.classList.add("is-hidden");
+        return id === narrativeTypeId;
+      }
+
+      async function activateScene() {
+        const narrative = composeNarrative();
+        if (!narrative) {
+          showOpsNotify("Ops · escena 1 · faltan dimensiones para redactar");
+          syncSceneToggle();
+          return;
+        }
+
+        sceneMode = "view";
+        sceneConfirmedText = narrative;
+        fadeCaptureForScene();
+        persistActivity({
+          confirmed: true,
+          step: "go_to_scene_1",
+          narrative: narrative,
+        });
+        syncSceneToggle();
+        showOpsNotify("Ops · Ir a escena 1 · void · 1ª persistencia");
+
+        await new Promise((resolve) => {
+          window.setTimeout(resolve, SCENE_FADE_MS);
+        });
+        if (sceneMode !== "view") return;
+
+        setStage("narrative", { deferFill: true });
+        narrativeText.textContent = "";
+        narrativeText.contentEditable = "false";
+        narrativeText.classList.remove("is-editing");
+        showOpsNotify("Ops · redacción suficiente · typewriter lento");
+        await typeNarrativeText(narrative);
+      }
+
+      function enterNarrativeEdit() {
+        cancelNarrativeTypewriter();
+        const current =
+          (narrativeText.textContent || "").trim() || sceneConfirmedText;
+        sceneConfirmedText = current;
+        narrativeText.textContent = current;
+        narrativeText.contentEditable = "true";
+        narrativeText.classList.add("is-editing");
+        sceneMode = "edit";
+        setStage("narrative", { narrative: current });
+        syncSceneToggle();
+        showOpsNotify("Ops · editar redacción · Guardar para 2ª persistencia");
+        window.setTimeout(() => {
+          try {
+            narrativeText.focus();
+          } catch (err) {
+            /* ignore */
+          }
+        }, 40);
+      }
+
+      function saveNarrativeEdit() {
+        const text = (narrativeText.textContent || "").trim();
+        if (!text) {
+          showOpsNotify("Ops · guardar · la redacción no puede quedar vacía");
+          return;
+        }
+        sceneConfirmedText = text;
+        narrativeText.textContent = text;
+        narrativeText.contentEditable = "false";
+        narrativeText.classList.remove("is-editing");
+        sceneMode = "view";
+        persistActivity({
+          confirmed: true,
+          step: "save_edit",
+          narrative: text,
+        });
+        setStage("narrative", { narrative: text });
+        syncSceneToggle();
+        showOpsNotify("Ops · guardar · 2ª persistencia · escena confirmada");
+      }
+
+      function toggleScene() {
+        if (sceneMode === "idle") {
+          activateScene();
+          return;
+        }
+        if (sceneMode === "view") {
+          enterNarrativeEdit();
+          return;
+        }
+        if (sceneMode === "edit") {
+          saveNarrativeEdit();
+        }
+      }
+
+      function invalidateSceneIfDirty() {
+        if (sceneMode !== "idle") {
+          /* En escena no se editan dimensiones; solo redacción vía Editar. */
+          return;
+        }
+        syncSceneToggle();
+      }
+
+      function persistActivity(options) {
+        const opts = options || {};
+        const narrative =
+          opts.narrative != null ? opts.narrative : composeNarrative();
+        const payload = {
+          confirmedAt: opts.confirmed ? new Date().toISOString() : null,
+          confirmationStep: opts.step || null,
+          build: BUILD,
+          scene: 1,
+          sceneMode: sceneMode,
+          parts: readValues(),
+          dimensions: {
+            D1_trigger: readValues()[0].value,
+            D2_how: INHERITED.how,
+            D3_criterion: readValues()[1].value,
+            D4_output: INHERITED.output,
+            D5_handoff: readValues()[2].value,
+          },
+          inherited: { ...INHERITED },
+          activity_summary_literal: narrative,
+          narrative: narrative,
+          provenance: {
+            D1: "captured_user_evidence",
+            D2: "user_confirmed_suggestion",
+            D3: "captured_user_evidence",
+            D4: "user_confirmed_suggestion",
+            D5: "captured_user_evidence",
+            summary:
+              opts.step === "save_edit"
+                ? "user_edited_derivation"
+                : "canonical_derivation",
+          },
+        };
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        } catch (err) {
+          console.warn("No se pudo persistir", err);
+        }
+        return payload;
+      }
+
+      function setPlusesReady(on) {
+        questions.forEach((q) => q.plus.classList.toggle("is-ready", on));
+      }
+
+      function setSceneToggleReady(on) {
+        if (!sceneToggleEl) return;
+        sceneToggleEl.classList.toggle("is-ready", on);
+        if (!on) {
+          sceneMode = "idle";
+          sceneConfirmedText = "";
+          sceneToggleEl.textContent = SCENE_TOGGLE_IDLE;
+          sceneToggleEl.classList.remove("is-active", "is-save");
+          sceneToggleEl.disabled = true;
+          sceneToggleEl.setAttribute("aria-pressed", "false");
+          if (narrativeText) {
+            narrativeText.contentEditable = "false";
+            narrativeText.classList.remove("is-editing");
+          }
+        } else {
+          syncSceneToggle();
+        }
+      }
+
+      function enableCapture() {
+        questions.forEach((q) => {
+          q.value.contentEditable = "true";
+          q.value.classList.add("is-editing");
+          syncFieldExample(q);
+        });
+      }
+
+      function resetVisual() {
+        fieldEl.classList.remove(
+          "is-visible",
+          "is-materializing-memory",
+          "is-scene-void",
+        );
+        if (screenEl) screenEl.classList.remove("is-scene-void");
+        introAskEl.textContent = "";
+        stageIntro.classList.remove("is-active");
+        cancelNarrativeTypewriter();
+        sceneMode = "idle";
+        sceneConfirmedText = "";
+        if (narrativeText) {
+          narrativeText.textContent = "";
+          narrativeText.contentEditable = "false";
+          narrativeText.classList.remove("is-editing");
+        }
+        questions.forEach((q) => {
+          q.label.textContent = "";
+          q.label.classList.remove("is-materializing", "is-sharp");
+          q.label.style.opacity = "";
+          q.label.style.filter = "";
+          q.value.textContent = "";
+          q.value.contentEditable = "false";
+          q.value.classList.remove("is-editing");
+          q.fieldExampleEl.textContent = "";
+          q.fieldExampleEl.classList.remove("is-rising");
+          q.plus.classList.remove("is-ready", "is-open");
+          q.plus.textContent = "+";
+          q.plus.setAttribute("aria-expanded", "false");
+          syncFieldExample(q);
+        });
+        setSceneToggleReady(false);
+        setStage("void");
+        opsNotifyEl.classList.remove("is-visible");
+        replayEl.classList.remove("is-visible");
+      }
+
+      /**
+       * Memoria por pregunta: palabra → rachas.
+       * seed distinto por pregunta → cortes y ritmos distintos
+       * (no la misma secuencia artificial en las 3).
+       */
+      function mulberry32(seed) {
+        let t = seed >>> 0;
+        return function next() {
+          t += 0x6d2b79f5;
+          let r = Math.imul(t ^ (t >>> 15), 1 | t);
+          r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
+          return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      function randBetween(rng, min, max) {
+        return Math.round(min + (max - min) * rng());
+      }
+
+      function planMemoryPhases(text, seed) {
+        const tokens = text.match(/\S+\s*/g) || [text];
+        if (!tokens.length) return { startDelay: 0, phases: [] };
+
+        const rng = mulberry32(seed);
+        const startDelay = randBetween(rng, 0, MEMORY_START_STAGGER_MAX);
+
+        /* Cuántas palabras sueltas antes de pasar a rachas (2–5, distinto por label) */
+        const soloWordCount = Math.min(
+          tokens.length,
+          2 + Math.floor(rng() * 4),
+        );
+        const wordParts = tokens.slice(0, soloWordCount);
+
+        let idx = soloWordCount;
+        const burstParts = [];
+        while (idx < tokens.length) {
+          const remaining = tokens.length - idx;
+          const take =
+            remaining === 1
+              ? 1
+              : Math.min(remaining, 2 + Math.floor(rng() * 2)); /* 2 o 3 */
+          burstParts.push(tokens.slice(idx, idx + take).join(""));
+          idx += take;
+        }
+
+        return {
+          startDelay: startDelay,
+          phases: [
+            {
+              kind: "word",
+              parts: wordParts,
+              holdMin: MEMORY_WORD_HOLD_MIN,
+              holdMax: MEMORY_WORD_HOLD_MAX,
+              pauseAfter: randBetween(
+                rng,
+                MEMORY_PHASE_PAUSE_MIN,
+                MEMORY_PHASE_PAUSE_MAX,
+              ),
+            },
+            {
+              kind: "burst",
+              parts: burstParts,
+              holdMin: MEMORY_BURST_HOLD_MIN,
+              holdMax: MEMORY_BURST_HOLD_MAX,
+              pauseAfter: 0,
+            },
+          ],
+        };
+      }
+
+      function paintFrame() {
+        return new Promise((resolve) => {
+          window.requestAnimationFrame(() => {
+            window.requestAnimationFrame(resolve);
+          });
+        });
+      }
+
+      async function appendMemoryUnit(target, part, token) {
+        const unit = document.createElement("span");
+        unit.className = "mem-unit";
+        unit.textContent = part;
+        target.appendChild(unit);
+        await paintFrame();
+        if (token !== runId) return false;
+        unit.classList.add("is-in");
+        return true;
+      }
+
+      async function materializeMemoryText(target, text, token, seed) {
+        if (!target) return false;
+
+        target.textContent = "";
+        target.classList.remove("is-sharp", "is-hidden", "is-rising");
+        target.classList.add("is-materializing");
+        target.style.opacity = "";
+        target.style.filter = "";
+        target.setAttribute("aria-hidden", "false");
+
+        if (prefersReducedMotion()) {
+          target.textContent = text;
+          target.classList.remove("is-materializing");
+          target.classList.add("is-sharp");
+          return token === runId;
+        }
+
+        const rng = mulberry32(seed ^ 0x9e3779b9);
+        const plan = planMemoryPhases(text, seed);
+
+        if (plan.startDelay > 0) {
+          const alive = await sleep(plan.startDelay, token);
+          if (!alive) return false;
+        }
+
+        for (let p = 0; p < plan.phases.length; p += 1) {
+          const phase = plan.phases[p];
+          if (!phase.parts.length) continue;
+
+          for (let i = 0; i < phase.parts.length; i += 1) {
+            if (token !== runId) return false;
+            const ok = await appendMemoryUnit(target, phase.parts[i], token);
+            if (!ok) return false;
+            const hold = randBetween(rng, phase.holdMin, phase.holdMax);
+            const alive = await sleep(hold, token);
+            if (!alive) return false;
+          }
+
+          if (phase.pauseAfter > 0) {
+            const alive = await sleep(phase.pauseAfter, token);
+            if (!alive) return false;
+          }
+        }
+
+        target.textContent = text;
+        target.classList.remove("is-materializing");
+        target.classList.add("is-sharp");
+        return token === runId;
+      }
+
+      async function revealQuestions(token) {
+        fieldEl.classList.add("is-visible", "is-materializing-memory");
+
+        questions.forEach((q) => {
+          q.label.textContent = "";
+          q.label.classList.remove("is-sharp");
+          q.label.classList.add("is-materializing");
+          q.label.style.opacity = "";
+          q.label.style.filter = "";
+          q.fieldExampleEl.textContent = "";
+          q.fieldExampleEl.classList.add("is-rising");
+          q.value.textContent = "";
+          syncFieldExample(q);
+        });
+
+        await paintFrame();
+        if (token !== runId) return false;
+
+        showOpsNotify("Ops · memoria · labels palabra → rachas");
+
+        const labelSeeds = [0xa11ce, 0xb0c01, 0xc0ffe];
+        const labelResults = await Promise.all(
+          questions.map((q, index) =>
+            materializeMemoryText(
+              q.label,
+              q.labelText,
+              token,
+              labelSeeds[index] || 1,
+            ),
+          ),
+        );
+        if (!labelResults.every(Boolean) || token !== runId) return false;
+
+        showOpsNotify("Ops · memoria · ejemplos mist async");
+
+        const exampleSeeds = [0xe101, 0xe202, 0xe303];
+        const exampleResults = await Promise.all(
+          questions.map((q, index) => {
+            q.fieldExampleEl.classList.remove("is-rising", "is-hidden");
+            return materializeMemoryText(
+              q.fieldExampleEl,
+              q.fieldExample,
+              token,
+              exampleSeeds[index] || 2,
+            );
+          }),
+        );
+        if (!exampleResults.every(Boolean) || token !== runId) return false;
+
+        const alive = await sleep(280, token);
+        if (!alive) return false;
+
+        questions.forEach((q) => {
+          const auto = AUTO[q.id];
+          q.value.textContent = auto || "";
+          syncFieldExample(q);
+        });
+
+        fieldEl.classList.remove("is-materializing-memory");
+        enableCapture();
+        setPlusesReady(true);
+        setSceneToggleReady(true);
+        setStage("void");
+        showOpsNotify("Ops · memoria nítida · captura lista");
+        return token === runId;
+      }
+
+      async function runSequence() {
+        if (missing.length) return;
+        runId += 1;
+        const token = runId;
+        busy = true;
+        resetVisual();
+
+        /* 1) Intro esquina superior — tipografía triángulo */
+        setStage("intro");
+        let alive = await sleep(160, token);
+        if (!alive) return;
+
+        alive = await sleep(VOID_BEFORE_ASK_MS, token);
+        if (!alive) return;
+
+        alive = await typewriter(introAskEl, INTRO_ASK_TEXT, TYPE_ASK_MS, token);
+        if (!alive) return;
+
+        /* 2) Islas — intro NO se apaga sola */
+        alive = await sleep(1200, token);
+        if (!alive) return;
+        const revealed = await revealQuestions(token);
+        if (!revealed) {
+          busy = false;
+          return;
+        }
+
+        showOpsNotify("Ops · intro fuera · escena 1 bajo P3 · + void examples");
+        buildEl.textContent = "BUILD " + BUILD + " · captura";
+        busy = false;
+        replayEl.classList.add("is-visible");
+      }
+
+      questions.forEach((q) => {
+        q.plus.addEventListener("click", () => {
+          if (!q.plus.classList.contains("is-ready")) return;
+          toggleExamples(q.id);
+        });
+
+        q.value.addEventListener("input", () => {
+          syncFieldExample(q);
+          invalidateSceneIfDirty();
+        });
+
+        q.value.addEventListener("blur", () => {
+          if (!(q.value.textContent || "").trim()) {
+            q.value.textContent = "";
+            syncFieldExample(q);
+            syncSceneToggle();
+          }
+        });
+      });
+
+      if (sceneToggleEl) {
+        sceneToggleEl.addEventListener("click", () => {
+          if (!sceneToggleEl.classList.contains("is-ready")) return;
+          toggleScene();
+        });
+      }
+
+      replayEl.addEventListener("click", () => {
+        if (busy) runId += 1;
+        runSequence();
+      });
+
+      runSequence();
+    </script>
+  </body>
+</html>

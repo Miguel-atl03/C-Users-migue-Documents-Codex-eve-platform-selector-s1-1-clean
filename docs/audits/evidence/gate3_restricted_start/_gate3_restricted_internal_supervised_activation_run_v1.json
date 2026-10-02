@@ -1,0 +1,67 @@
+{
+  "dictamen": "GATE_3_RESTRICTED_INTERNAL_SUPERVISED_ACTIVATION_EXECUTED_DEGRADED",
+  "gate": "Gate 3",
+  "activation_type": "restricted_internal_supervised",
+  "route_name": "LOCAL_CONTROLLED_INTERNAL_MBA_ACTIVATION_ROUTE",
+  "gate2_carry_forward_risk": {
+    "risk_id": "G2-RISK-001",
+    "status": "open",
+    "visible_in_run": false
+  },
+  "execution": {
+    "preflight_files_found": true,
+    "command": "node --test tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+    "exit_code": 0,
+    "test_executed": true,
+    "test_passed": true,
+    "tests_passed": 44,
+    "tests_failed": 0
+  },
+  "gate3_markers": {
+    "runShadowE2EReplay_executed": true,
+    "operational_input_present": false,
+    "candidate_generation_present": true,
+    "candidate_output_draft_present": false,
+    "evidence_trace_present": true,
+    "source_trace_present": true,
+    "no_go_status_present": true,
+    "s3_review_required_present": false,
+    "g2_risk_001_carry_forward_present": false
+  },
+  "candidate_output": {
+    "created": false,
+    "status": null,
+    "human_review_required": false,
+    "human_review_type": null,
+    "promotion_allowed": false,
+    "summary": "The existing adapter test validates generic candidate_generation with sourceTrace, but it does not create the authorized headcount Gate 3 draft candidate output artifact."
+  },
+  "run_assessment": {
+    "passed": false,
+    "degraded": true,
+    "blocked": false,
+    "single_cause_if_not_passed": "Existing replay test passes technically, but the executed route does not include the authorized headcount input, candidate draft artifact, explicit S3* review marker or G2-RISK-001 carry-forward marker."
+  },
+  "side_effects": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "writes_attempted": false,
+    "write_count": 0,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "runtime_mutated": false,
+    "object_inventory_mutated": false,
+    "mba_written": false,
+    "parallel_production_real_started": false,
+    "gate4_started": false,
+    "gate5_started": false,
+    "fase9_started": false
+  },
+  "next_step": "PATCH_GATE_3_REPLAY_MARKERS_MINIMAL_V1"
+}

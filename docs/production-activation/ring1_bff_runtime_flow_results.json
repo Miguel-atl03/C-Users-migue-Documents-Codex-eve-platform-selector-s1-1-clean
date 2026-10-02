@@ -1,0 +1,197 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING1_BFF_RUNTIME_FLOW",
+  "generated_at": "2026-07-10T03:12:13.567Z",
+  "ring1_scope": "internal_test_tenant_limited_client",
+  "supabase_local_available": true,
+  "test_tenant": {
+    "dictamen": "EVE_PRODUCTION_ACTIVATION_RING1_TEST_TENANT_MANIFEST",
+    "generated_at": "2026-07-10T03:12:04.313Z",
+    "authorization_ref": "ring1-authorization-internal-test-tenant-20260708",
+    "test_tenant_id": "4bb807b6-3d63-42ce-9e9e-66fb284823e5",
+    "test_case_id": "127fae6d-e4a6-4429-b296-fa9cf57d4f87",
+    "test_role_id": "cff29aed-d457-476d-9c03-99fdf681a365",
+    "test_activity_id": "62448566-2db8-40b3-a4c6-81e599bdfc20",
+    "test_run_id": "e5f261d5-1c31-480c-8f7a-5635b5be5709",
+    "controlled_test_data": true,
+    "real_external_client_data": false,
+    "public_access": false,
+    "diagnosis_allowed": false,
+    "external_export_allowed": false,
+    "production_public_allowed": false,
+    "ring1_scope": "internal_test_tenant_limited_client",
+    "metadata": {
+      "ring": "ring1",
+      "test_tenant": true,
+      "internal_test_client": true,
+      "controlled_test_data": true,
+      "real_external_client_data": false
+    },
+    "feature_flags": {
+      "EVE_RUNTIME_40_20_LOCAL_ENABLED": "true",
+      "EVE_GATES_READINESS_LOCAL_ENABLED": "true",
+      "EVE_CLIENT_SAFE_RESULT_LOCAL_ENABLED": "true",
+      "EVE_CONSULTANT_REVIEW_PACKET_LOCAL_ENABLED": "true",
+      "EVE_PARALLEL_PRODUCTION_LOCAL_ENABLED": "true",
+      "EVE_RING1_INTERNAL_TEST_TENANT_ENABLED": "true"
+    },
+    "ring0_chain_context_ref": "eve-local-activation-chain-eb11721c-9429-4317-a231-904ec986983e"
+  },
+  "internal_client": {
+    "dictamen": "EVE_PRODUCTION_ACTIVATION_RING1_INTERNAL_TEST_CLIENT_MANIFEST",
+    "generated_at": "2026-07-10T03:12:04.314Z",
+    "authorization_ref": "ring1-authorization-internal-test-tenant-20260708",
+    "internal_test_client_id": "ring1-internal-client-1783653124313",
+    "test_tenant_id": "4bb807b6-3d63-42ce-9e9e-66fb284823e5",
+    "test_case_id": "127fae6d-e4a6-4429-b296-fa9cf57d4f87",
+    "allowed_user_type": "internal_test_client",
+    "real_external_client_access_enabled": false,
+    "production_public_access_enabled": false,
+    "client_ui_mode": "limited_safe_client",
+    "bff_mode": "client_safe_bff_local_or_staging",
+    "controlled_test_data": true,
+    "real_external_client_data": false,
+    "metadata": {
+      "ring": "ring1",
+      "test_tenant": true,
+      "internal_test_client": true,
+      "controlled_test_data": true,
+      "real_external_client_data": false
+    }
+  },
+  "pipeline": {
+    "p4": {
+      "script": "validate:p4",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_ms": 1876,
+      "stderr_tail": ""
+    },
+    "p5": {
+      "script": "validate:p5",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_ms": 2033,
+      "stderr_tail": ""
+    }
+  },
+  "pipeline_passed": true,
+  "chain_context_present": true,
+  "causal_chain": [
+    {
+      "id": "R1-CC-01",
+      "name": "internal_test_client_access",
+      "passed": true,
+      "evidence": {
+        "internal_test_client_id": "ring1-internal-client-1783653124313"
+      }
+    },
+    {
+      "id": "R1-CC-02",
+      "name": "test_tenant_scope",
+      "passed": true,
+      "evidence": {
+        "test_tenant_id": "4bb807b6-3d63-42ce-9e9e-66fb284823e5"
+      }
+    },
+    {
+      "id": "R1-CC-03",
+      "name": "activity primary selection",
+      "passed": true,
+      "evidence": {
+        "activity_id": "bd2524b7-63b1-4f24-b3a2-0ddf5b854541"
+      }
+    },
+    {
+      "id": "R1-CC-04",
+      "name": "role_runtime_session",
+      "passed": true,
+      "evidence": {
+        "role_runtime_session_id": "1d6e5611-023e-4688-9ae6-9d61933b0045"
+      }
+    },
+    {
+      "id": "R1-CC-05",
+      "name": "activity_runtime_run",
+      "passed": true,
+      "evidence": {
+        "run_id": "a92b788b-4d67-4c6f-abdd-4f81b5ec80d3"
+      }
+    },
+    {
+      "id": "R1-CC-06",
+      "name": "runtime_interaction_instance",
+      "passed": true,
+      "evidence": {
+        "count": 1
+      }
+    },
+    {
+      "id": "R1-CC-07",
+      "name": "runtime_subfield_response",
+      "passed": true,
+      "evidence": {
+        "count": 1
+      }
+    },
+    {
+      "id": "R1-CC-08",
+      "name": "evidence_item",
+      "passed": true,
+      "evidence": {
+        "note": "evidence via subfield/gap chain in local smoke"
+      }
+    },
+    {
+      "id": "R1-CC-09",
+      "name": "canonical_variable_record or readiness_gap_record",
+      "passed": true,
+      "evidence": {
+        "readiness_gap": 1,
+        "canonical": 0
+      }
+    },
+    {
+      "id": "R1-CC-10",
+      "name": "gate evaluation",
+      "passed": true,
+      "evidence": {
+        "gate_evaluations": {
+          "B0": true,
+          "B2": true,
+          "B3_C09": false,
+          "B7_C20": true
+        }
+      }
+    },
+    {
+      "id": "R1-CC-11",
+      "name": "readiness_decision_record",
+      "passed": true,
+      "evidence": {
+        "readiness_decision_record_id": "76a3836c-a58a-4e0b-9fdc-047a8b5381bb"
+      }
+    },
+    {
+      "id": "R1-CC-12",
+      "name": "bff secure scope",
+      "passed": true,
+      "evidence": {
+        "supabase_local_available": true
+      }
+    },
+    {
+      "id": "R1-CC-13",
+      "name": "runtime_audit_trail",
+      "passed": true,
+      "evidence": {
+        "count": 1
+      }
+    }
+  ],
+  "causal_chain_intact": true,
+  "bff_runtime_flow_passed": true,
+  "diagnosis_created": false,
+  "export_real_created": false,
+  "activation_allowed_general_production": false,
+  "production_supabase_touched": false
+}

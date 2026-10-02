@@ -1,0 +1,152 @@
+{
+  "fixtureSetStatus": "conceptual_design_only",
+  "mode": "constitutional_shadow",
+  "fixtures": [
+    {
+      "fixtureId": "capture_allowed_traced_evidence",
+      "requestedAction": "capture_evidence",
+      "expectedReadinessState": "capture_allowed",
+      "expectedAllowedActions": [
+        "capture_evidence",
+        "emit_source_trace"
+      ],
+      "expectedBlockedActions": [],
+      "expectedRuleIds": [
+        "SCP-002",
+        "SRC-008"
+      ],
+      "expectedSafetyFlags": {
+        "canBlockUserFlow": false,
+        "canModifyPayload": false,
+        "canWriteRegistry": false,
+        "canTriggerFinalDiagnosis": false,
+        "canTriggerProduction": false,
+        "runtimeAuthority": false
+      }
+    },
+    {
+      "fixtureId": "missing_source_trace",
+      "requestedAction": "create_structural_candidate",
+      "expectedReadinessState": "blocked_by_missing_evidence",
+      "expectedAllowedActions": [
+        "request_missing_evidence"
+      ],
+      "expectedBlockedActions": [
+        "create_structural_candidate"
+      ],
+      "expectedRuleIds": [
+        "SRC-008",
+        "EPI-001"
+      ],
+      "expectedSafetyFlags": {
+        "canBlockUserFlow": false,
+        "canModifyPayload": false,
+        "canWriteRegistry": false,
+        "canTriggerFinalDiagnosis": false,
+        "canTriggerProduction": false,
+        "runtimeAuthority": false
+      }
+    },
+    {
+      "fixtureId": "scope_blocked_final_diagnosis",
+      "requestedAction": "emit_final_diagnosis_from_Capa1",
+      "expectedReadinessState": "blocked_by_scope",
+      "expectedAllowedActions": [
+        "emit_blocked_action",
+        "request_authorized_review"
+      ],
+      "expectedBlockedActions": [
+        "finalDiagnosis"
+      ],
+      "expectedRuleIds": [
+        "SCP-001",
+        "DGN-001"
+      ],
+      "expectedSafetyFlags": {
+        "canBlockUserFlow": false,
+        "canModifyPayload": false,
+        "canWriteRegistry": false,
+        "canTriggerFinalDiagnosis": false,
+        "canTriggerProduction": false,
+        "runtimeAuthority": false
+      }
+    },
+    {
+      "fixtureId": "diagnostic_preclassification_candidate",
+      "requestedAction": "prepare_diagnostic_preclassification",
+      "expectedReadinessState": "ready_for_diagnostic_preclassification",
+      "expectedAllowedActions": [
+        "emit_diagnostic_candidate",
+        "route_to_diagnostic_ontology"
+      ],
+      "expectedBlockedActions": [
+        "emit_final_diagnosis_without_structural_inconsistency"
+      ],
+      "expectedRuleIds": [
+        "SRC-002",
+        "DGN-002"
+      ],
+      "expectedSafetyFlags": {
+        "canBlockUserFlow": false,
+        "canModifyPayload": false,
+        "canWriteRegistry": false,
+        "canTriggerFinalDiagnosis": false,
+        "canTriggerProduction": false,
+        "runtimeAuthority": false
+      }
+    },
+    {
+      "fixtureId": "parallel_preview_blocked_missing_readiness",
+      "requestedAction": "prepare_parallel_export_preview",
+      "expectedReadinessState": "export_blocked",
+      "expectedAllowedActions": [
+        "emit_required_inputs",
+        "audit_payload_block"
+      ],
+      "expectedBlockedActions": [
+        "registry export",
+        "production payload final",
+        "Produccion Paralela real"
+      ],
+      "expectedRuleIds": [
+        "PPI-001",
+        "PPI-002",
+        "PPI-005"
+      ],
+      "expectedSafetyFlags": {
+        "canBlockUserFlow": false,
+        "canModifyPayload": false,
+        "canWriteRegistry": false,
+        "canTriggerFinalDiagnosis": false,
+        "canTriggerProduction": false,
+        "runtimeAuthority": false
+      }
+    },
+    {
+      "fixtureId": "audit_required_incomplete_source_trace",
+      "requestedAction": "resolve_authority_conflict",
+      "expectedReadinessState": "audit_required",
+      "expectedAllowedActions": [
+        "write_audit_trace",
+        "request_complete_source_trace"
+      ],
+      "expectedBlockedActions": [
+        "opaque_decision",
+        "untraceable_recommendation"
+      ],
+      "expectedRuleIds": [
+        "SRC-006",
+        "SRC-008",
+        "AUD-006"
+      ],
+      "expectedSafetyFlags": {
+        "canBlockUserFlow": false,
+        "canModifyPayload": false,
+        "canWriteRegistry": false,
+        "canTriggerFinalDiagnosis": false,
+        "canTriggerProduction": false,
+        "runtimeAuthority": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "purpose": "Run catalog authority audit",
+  "classification": "blocked_runtime_run_catalog_selection_authority",
+  "active_full_catalog": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "evidence": [
+    "src/app/api/participant/workmap/finalize/route.ts reads role_runtime_session.catalog_version_id and copies it into activity_runtime_run.catalog_version_id",
+    "supabase/migrations/20260727103000_lock_runtime_session_creation_authority.sql creates role_runtime_session without assigning catalog_version_id",
+    "staging information_schema shows role_runtime_session.catalog_version_id nullable with no default",
+    "staging information_schema shows activity_runtime_run.catalog_version_id nullable with no default"
+  ]
+}

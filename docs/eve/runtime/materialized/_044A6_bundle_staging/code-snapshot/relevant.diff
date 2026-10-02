@@ -1,0 +1,498 @@
+diff --git a/external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-service.ts b/external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-service.ts
+index f2510a1..9e9f040 100644
+--- a/external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-service.ts
++++ b/external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-service.ts
+@@ -23,9 +23,15 @@ const ALLOWED_OPERATORS: RuntimeBranchingRuleOperator[] = [
+   "is_present",
+   "is_absent",
+   "contains_exact",
++  "contains_exact_option",
++  "does_not_contain_exclusive_option",
++  "multi_select_count_gte",
+   "greater_than",
++  "greater_than_or_equal",
+   "less_than",
++  "less_than_or_equal",
+   "in_set",
++  "not_in_set",
+ ];
+ 
+ export function createRuntime4020BranchingCandidatesLocal(
+@@ -69,6 +75,10 @@ export function createRuntime4020BranchingCandidatesLocal(
+       );
+       continue;
+     }
++    if (evaluation.evaluation_status === "pending_governed_signal") {
++      // Do not treat as false / not_opened — A5 must materialize the signal.
++      continue;
++    }
+     if (evaluation.evaluation_status === "blocked_missing_variable_candidate") {
+       branchingStatus = firstBlockingStatus(
+         branchingStatus,
+@@ -204,6 +214,11 @@ function createRuleEvaluation(
+   }
+ 
+   if (!variableCandidate) {
++    const pending =
++      rule.signal_materiality === "pending_A5" ||
++      rule.predicate_status === "exact_predicate_signal_pending_A5" ||
++      rule.raw_row?.signal_materiality === "pending_A5" ||
++      rule.raw_row?.predicate_status === "exact_predicate_signal_pending_A5";
+     return {
+       evaluation_id: evaluationId,
+       branching_rule_id: rule.branching_rule_id,
+@@ -211,7 +226,9 @@ function createRuleEvaluation(
+       trigger_operator: rule.trigger_operator,
+       evaluated: false,
+       matched: false,
+-      evaluation_status: "blocked_missing_variable_candidate",
++      evaluation_status: pending
++        ? "pending_governed_signal"
++        : "blocked_missing_variable_candidate",
+       source_trace: createRuleSourceTrace(rule),
+       free_inference_used: false,
+       semantic_fallback_used: false,
+@@ -229,6 +246,10 @@ function createRuleEvaluation(
+       variableCandidate.value,
+       rule.trigger_operator as RuntimeBranchingRuleOperator,
+       rule.trigger_value,
++      rule.exclusive_negative ??
++        (typeof rule.raw_row?.exclusive_negative === "string"
++          ? rule.raw_row.exclusive_negative
++          : null),
+     ),
+     evaluation_status: "evaluation_ready",
+     source_trace: createRuleSourceTrace(rule),
+@@ -242,8 +263,12 @@ function evaluateRuleValue(
+   candidateValue: unknown,
+   operator: RuntimeBranchingRuleOperator,
+   triggerValue: unknown,
++  exclusiveNegative?: string | null,
+ ): boolean {
+-  if (operator === "equals") return candidateValue === triggerValue;
++  if (operator === "equals") {
++    // Strict equality — boolean true does not match string "Sí".
++    return candidateValue === triggerValue;
++  }
+   if (operator === "not_equals") return candidateValue !== triggerValue;
+   if (operator === "is_present") return isPresent(candidateValue);
+   if (operator === "is_absent") return !isPresent(candidateValue);
+@@ -252,25 +277,87 @@ function evaluateRuleValue(
+       ? candidateValue.some((value) => value === triggerValue)
+       : candidateValue === triggerValue;
+   }
++  if (operator === "contains_exact_option") {
++    const allowed = Array.isArray(triggerValue) ? triggerValue : [triggerValue];
++    const selected = normalizeToOptionList(candidateValue);
++    if (exclusiveNegative != null) {
++      const onlyExclusive =
++        selected.length === 1 && selected[0] === exclusiveNegative;
++      if (onlyExclusive) return false;
++      if (selected.includes(exclusiveNegative) && selected.length === 1) return false;
++    }
++    return selected.some((opt) => allowed.some((a) => a === opt));
++  }
++  if (operator === "does_not_contain_exclusive_option") {
++    const exclusive =
++      typeof triggerValue === "string" ? triggerValue : exclusiveNegative;
++    if (exclusive == null) return false;
++    const selected = normalizeToOptionList(candidateValue);
++    return !selected.includes(exclusive);
++  }
++  if (operator === "multi_select_count_gte") {
++    const min =
++      typeof triggerValue === "number" ? triggerValue : Number(triggerValue);
++    if (!Number.isFinite(min)) return false;
++    return normalizeToOptionList(candidateValue).length >= min;
++  }
+   if (operator === "greater_than") {
+     return typeof candidateValue === "number" && typeof triggerValue === "number"
+       ? candidateValue > triggerValue
+       : false;
+   }
++  if (operator === "greater_than_or_equal") {
++    const left = typeof candidateValue === "number" ? candidateValue : Number(candidateValue);
++    const right = typeof triggerValue === "number" ? triggerValue : Number(triggerValue);
++    return Number.isFinite(left) && Number.isFinite(right) ? left >= right : false;
++  }
+   if (operator === "less_than") {
+     return typeof candidateValue === "number" && typeof triggerValue === "number"
+       ? candidateValue < triggerValue
+       : false;
+   }
++  if (operator === "less_than_or_equal") {
++    const left = typeof candidateValue === "number" ? candidateValue : Number(candidateValue);
++    const right = typeof triggerValue === "number" ? triggerValue : Number(triggerValue);
++    return Number.isFinite(left) && Number.isFinite(right) ? left <= right : false;
++  }
+   if (operator === "in_set") {
+-    return Array.isArray(triggerValue)
+-      ? triggerValue.some((value) => value === candidateValue)
+-      : false;
++    if (!Array.isArray(triggerValue)) return false;
++    // Exact membership only — no fuzzy/NLP/truthiness coercion.
++    return triggerValue.some(
++      (value) => Object.is(value, candidateValue) || value === candidateValue,
++    );
++  }
++  if (operator === "not_in_set") {
++    if (!Array.isArray(triggerValue)) return false;
++    return !triggerValue.some(
++      (value) => Object.is(value, candidateValue) || value === candidateValue,
++    );
+   }
+ 
+   return false;
+ }
+ 
++function normalizeToOptionList(value: unknown): string[] {
++  if (value == null) return [];
++  if (Array.isArray(value)) {
++    return value
++      .map((v) => (typeof v === "string" ? v : String(v)))
++      .filter((v) => v.length > 0);
++  }
++  if (typeof value === "string") {
++    const trimmed = value.trim();
++    if (!trimmed) return [];
++    // Hybrid multi may arrive as "A / B" — only split when slash-separated lists
++    // match rector hybrid presentation; single options with commas stay intact.
++    if (trimmed.includes(" / ")) {
++      return trimmed.split(" / ").map((x) => x.trim()).filter(Boolean);
++    }
++    return [trimmed];
++  }
++  return [String(value)];
++}
++
+ function isPresent(value: unknown): boolean {
+   if (value === null || value === undefined) return false;
+   if (typeof value === "string") return value.trim().length > 0;
+@@ -283,9 +370,15 @@ function findVariableCandidate(
+   candidates: RuntimeCanonicalVariableRecordCandidate[],
+   canonicalVariableId: string,
+ ): RuntimeCanonicalVariableRecordCandidate | undefined {
+-  return candidates.find(
+-    (candidate) => candidate.canonical_variable_id === canonicalVariableId,
+-  );
++  return candidates.find((candidate) => {
++    const id = String(candidate.canonical_variable_id ?? "");
++    const name = String(
++      (candidate as { variable_name?: string }).variable_name ??
++        (candidate as { canonical_variable_name?: string }).canonical_variable_name ??
++        "",
++    );
++    return id === canonicalVariableId || name === canonicalVariableId;
++  });
+ }
+ 
+ function findTargetCausalInteraction(
+diff --git a/external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-types.ts b/external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-types.ts
+index 63b4543..a0020cc 100644
+--- a/external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-types.ts
++++ b/external-consumers/eve-platform/src/services/eve/runtime-40-20/branching/runtime-40-20-branching-types.ts
+@@ -19,9 +19,15 @@ export type RuntimeBranchingRuleOperator =
+   | "is_present"
+   | "is_absent"
+   | "contains_exact"
++  | "contains_exact_option"
++  | "does_not_contain_exclusive_option"
++  | "multi_select_count_gte"
+   | "greater_than"
++  | "greater_than_or_equal"
+   | "less_than"
+-  | "in_set";
++  | "less_than_or_equal"
++  | "in_set"
++  | "not_in_set";
+ 
+ export interface RuntimeBranchingRuleInput {
+   branching_rule_id: string;
+@@ -35,6 +41,11 @@ export interface RuntimeBranchingRuleInput {
+   trigger_value?: unknown;
+   target_causal_interaction_id: string;
+   budget_bucket: "causal_20";
++  logical_group?: string;
++  critical_route_ref?: string | null;
++  predicate_status?: string;
++  signal_materiality?: string;
++  exclusive_negative?: string | null;
+ }
+ 
+ export interface RuntimeBranchingRuleEvaluation {
+@@ -47,6 +58,7 @@ export interface RuntimeBranchingRuleEvaluation {
+   evaluation_status:
+     | "evaluation_ready"
+     | "blocked_missing_variable_candidate"
++    | "pending_governed_signal"
+     | "manual_review_required_unknown_operator";
+   source_trace: {
+     source_node_ref: string;
+diff --git a/external-consumers/eve-platform/src/services/eve/runtime-40-20/canonical-variable/runtime-40-20-canonical-variable-service.ts b/external-consumers/eve-platform/src/services/eve/runtime-40-20/canonical-variable/runtime-40-20-canonical-variable-service.ts
+index 9cebcdf..ab1e810 100644
+--- a/external-consumers/eve-platform/src/services/eve/runtime-40-20/canonical-variable/runtime-40-20-canonical-variable-service.ts
++++ b/external-consumers/eve-platform/src/services/eve/runtime-40-20/canonical-variable/runtime-40-20-canonical-variable-service.ts
+@@ -82,7 +82,17 @@ export function createRuntime4020CanonicalVariableCandidatesLocal(
+   const blockers: RuntimeCanonicalVariableServiceStatus[] = [];
+ 
+   for (const subfieldCandidate of input.ingest_result.subfield_response_candidates) {
+-    const mapping = findExactMapping(input.canonical_variable_mappings, subfieldCandidate);
++    const allMappings = findAllExactMappings(
++      input.canonical_variable_mappings,
++      subfieldCandidate,
++    );
++    // Capture-only slots (answered but no authorized mapping) are not
++    // fail-closed: never invent variables; skip without blocking peers.
++    if (allMappings.length === 0) {
++      continue;
++    }
++
++    for (const mapping of allMappings) {
+     const evidenceCandidate = findEvidenceCandidate(
+       input.ingest_result.evidence_item_candidates,
+       subfieldCandidate,
+@@ -175,6 +185,7 @@ export function createRuntime4020CanonicalVariableCandidatesLocal(
+         mapping,
+       ),
+     );
++    } // end mappingsToProcess
+   }
+ 
+   const uniqueBlockers = [...new Set(blockers)];
+@@ -316,11 +327,11 @@ function getIngestBlocker(
+   return undefined;
+ }
+ 
+-function findExactMapping(
++function findAllExactMappings(
+   mappings: RuntimeCanonicalVariableMapCandidate[],
+   subfieldCandidate: RuntimeSubfieldResponseCandidate,
+-): RuntimeCanonicalVariableMapCandidate | undefined {
+-  return mappings.find((mapping) => {
++): RuntimeCanonicalVariableMapCandidate[] {
++  return mappings.filter((mapping) => {
+     const runtimeInteractionId = getStringMappingValue(mapping, "runtime_interaction_id");
+     const subfieldName = getStringMappingValue(mapping, "subfield_name");
+ 
+diff --git a/external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-canonicalization/runtime-40-20-catalog-canonicalization-service.ts b/external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-canonicalization/runtime-40-20-catalog-canonicalization-service.ts
+index 1816cbb..bb88d46 100644
+--- a/external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-canonicalization/runtime-40-20-catalog-canonicalization-service.ts
++++ b/external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-canonicalization/runtime-40-20-catalog-canonicalization-service.ts
+@@ -81,9 +81,9 @@ const CRITICAL_COLUMNS_BY_SHEET: Record<string, string[]> = {
+   Critical_Routes: ["critical_route_id"],
+   Semantic_Resolution_Gates: ["gate_id"],
+   Process_State_Timer_Gates: ["gate_id"],
+-  QA_Checklist: ["qa_id"],
++  QA_Checklist: ["criterio", "prueba", "umbral_de_aceptacion", "estado_esperado"],
+   Catalogo_Madre_Nodos: ["capture_node_id"],
+-  Source_Question_Registry: ["capture_node_id"],
++  Source_Question_Registry: ["source_question_code_intact"],
+   MMABP_Mapping: ["capture_node_id"],
+ };
+ 
+@@ -234,6 +234,7 @@ function sourceNodeRegistry(
+         extract.raw_row.capture_node_id,
+         extract.raw_row.source_node_ref,
+         extract.raw_row.node_id,
++        extract.raw_row.source_question_code_intact,
+       );
+       const blockers = sourceNodeRef ? [] : ["source_node_ref_missing"];
+ 
+@@ -427,9 +428,13 @@ function qaRules(extracts: RuntimeGenericSheetExtract[]): RuntimeQARuleCandidate
+     .filter((extract) => extract.extract_kind === "qa_rule")
+     .map((extract) => ({
+       ...canonicalTrace(extract, "normalized", [], []),
+-      qa_id: stringFromAny(extract.raw_row.qa_id, extract.raw_row.test_id),
+-      qa_name: stringFromAny(extract.raw_row.qa_name, extract.raw_row.test_name),
+-      blocking: /blocking|bloqueante|alta/i.test(rowText(extract.raw_row)),
++      qa_id: undefined,
++      qa_name: stringFromAny(
++        extract.raw_row.criterio,
++        extract.raw_row.qa_name,
++        extract.raw_row.test_name,
++      ),
++      blocking: /blocking|bloqueante|alta|block/i.test(rowText(extract.raw_row)),
+     }));
+ }
+ 
+diff --git a/external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-canonicalization/runtime-40-20-catalog-canonicalization.test.mjs b/external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-canonicalization/runtime-40-20-catalog-canonicalization.test.mjs
+index c603736..1e42a84 100644
+--- a/external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-canonicalization/runtime-40-20-catalog-canonicalization.test.mjs
++++ b/external-consumers/eve-platform/src/services/eve/runtime-40-20/catalog-canonicalization/runtime-40-20-catalog-canonicalization.test.mjs
+@@ -69,6 +69,25 @@ test("produces QA rules", () => {
+   assert.ok(run().canonical_model.qa_rules.length > 0);
+ });
+ 
++test("preserves literal QA rows without synthetic qa_id", () => {
++  const qa = run().canonical_model.qa_rules[0];
++
++  assert.equal(qa.qa_id, undefined);
++  assert.equal(qa.qa_name, "Conteo base");
++  assert.equal(qa.source_sheet, "QA_Checklist");
++  assert.equal(qa.source_row_number, 2);
++});
++
++test("uses Source_Question_Registry source code without requiring capture_node_id", () => {
++  const source = run().canonical_model.source_node_registry.find(
++    (item) => item.source_sheet === "Source_Question_Registry",
++  );
++
++  assert.ok(source);
++  assert.equal(source.source_node_ref, "0.1");
++  assert.equal(source.source_question_code, "0.1");
++});
++
+ test("passes T-003 for complete source refs", () => {
+   assertGate(run(), "T-003", true);
+ });
+@@ -285,9 +304,10 @@ function loaderResult() {
+       rule: "local only",
+     }),
+     runtimeGeneric("qa_rule", "QA_Checklist", 2, {
+-      qa_id: "T-003",
+-      qa_name: "source refs completos",
+-      severity: "blocking",
++      criterio: "Conteo base",
++      prueba: "Contar filas Runtime_Interactions_Base_40.",
++      umbral_de_aceptacion: "Exactamente 40 interacciones.",
++      estado_esperado: "pass",
+     }),
+     runtimeGeneric("implementation_dictionary", "Implementation_Dictionaries", 2, {
+       Dictionary: "node_type",
+@@ -315,9 +335,17 @@ function loaderResult() {
+       node_label: "Confirmación de actividad",
+     }),
+     motherGeneric("source_question", "Source_Question_Registry", 2, {
+-      capture_node_id: "B0_0_1",
++      source_block: "0",
++      block_sequence: 1,
+       source_question_code_intact: "0.1",
+-      visible_question_text: "Pregunta fuente",
++      original_catalog_question_text: "Pregunta fuente",
++      catalog_condition: "always",
++      source_document: "Catalogo Madre",
++      source_table_index: "Source_Question_Registry",
++      field_type: "text",
++      answer_mode: "free_text",
++      options: "",
++      allows_free_text: true,
+     }),
+     motherGeneric("runtime_classification", "Runtime_Classification", 2, {
+       capture_node_id: "B0_0_1",
+diff --git a/external-consumers/eve-platform/src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-service.ts b/external-consumers/eve-platform/src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-service.ts
+index 5e6fe67..7c97497 100644
+--- a/external-consumers/eve-platform/src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-service.ts
++++ b/external-consumers/eve-platform/src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-service.ts
+@@ -36,6 +36,9 @@ import type { NextInteractionDecision } from "../orchestrator/runtime-40-20-acti
+ const ALLOWED_UI_COMPONENTS: RuntimeUIComponent[] = [
+   "confirmation_card_with_correction",
+   "compound_card",
++  "compound_card_with_separable_subfields",
++  "guided_textarea_or_choice_plus_text",
++  "conditional_probe_card",
+   "single_choice",
+   "hybrid_choice_text",
+   "causal_probe_card",
+@@ -686,9 +689,25 @@ function createForbiddenUserLanguageCheck(
+ }
+ 
+ function containsForbiddenTerm(value: string, term: string): boolean {
+-  return normalizeForForbiddenLanguage(value).includes(
+-    normalizeForForbiddenLanguage(term),
+-  );
++  const normalizedValue = normalizeForForbiddenLanguage(value);
++  const normalizedTerm = normalizeForForbiddenLanguage(term);
++  if (!normalizedValue.includes(normalizedTerm)) return false;
++
++  // Catalog-authorized non-diagnostic wording must not self-block
++  // (e.g. C20: "sin emitir diagnóstico").
++  const negationWindows = [
++    `sin emitir ${normalizedTerm}`,
++    `sin ${normalizedTerm}`,
++    `no emitir ${normalizedTerm}`,
++    `no produce ${normalizedTerm}`,
++    `sin producir ${normalizedTerm}`,
++    `non ${normalizedTerm}`,
++    `no ${normalizedTerm}`,
++  ];
++  if (negationWindows.some((w) => normalizedValue.includes(w))) {
++    return false;
++  }
++  return true;
+ }
+ 
+ function normalizeForForbiddenLanguage(value: string): string {
+@@ -994,6 +1013,27 @@ function createCardComponentLocalContract(
+     };
+   }
+ 
++  // FULL catalog-native components (immutable catalog vocabulary).
++  if (
++    component === "compound_card_with_separable_subfields" ||
++    component === "guided_textarea_or_choice_plus_text" ||
++    component === "conditional_probe_card"
++  ) {
++    return {
++      component,
++      local_actions:
++        component === "conditional_probe_card" ? ["probe", "defer"] : [],
++      semantic_subfields_preserved: semanticSubfields,
++      multiple_subfields_preserved: subfields.length > 1,
++      subfields_collapsed_to_free_text: false,
++      captured_user_evidence_created: false,
++      runtime_subfield_response_real_created: false,
++      response_persisted_real: false,
++      evidence_item_real_created: false,
++      canonical_variable_record_real_created: false,
++    };
++  }
++
+   return undefined;
+ }
+ 
+diff --git a/external-consumers/eve-platform/src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-types.ts b/external-consumers/eve-platform/src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-types.ts
+index 058e78e..4e73ac9 100644
+--- a/external-consumers/eve-platform/src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-types.ts
++++ b/external-consumers/eve-platform/src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-types.ts
+@@ -11,6 +11,9 @@ import type {
+ export type RuntimeUIComponent =
+   | "confirmation_card_with_correction"
+   | "compound_card"
++  | "compound_card_with_separable_subfields"
++  | "guided_textarea_or_choice_plus_text"
++  | "conditional_probe_card"
+   | "single_choice"
+   | "hybrid_choice_text"
+   | "causal_probe_card"
+@@ -99,9 +102,13 @@ export interface RuntimeInteractionSourceTraceViewContract {
+ export interface RuntimeCardComponentLocalContract {
+   component: Extract<
+     RuntimeUIComponent,
+-    "confirmation_card_with_correction" | "compound_card"
++    | "confirmation_card_with_correction"
++    | "compound_card"
++    | "compound_card_with_separable_subfields"
++    | "guided_textarea_or_choice_plus_text"
++    | "conditional_probe_card"
+   >;
+-  local_actions: Array<"confirm" | "correct">;
++  local_actions: Array<"confirm" | "correct" | "probe" | "defer">;
+   semantic_subfields_preserved: string[];
+   multiple_subfields_preserved: boolean;
+   subfields_collapsed_to_free_text: false;
+diff --git a/external-consumers/eve-platform/src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-service.ts b/external-consumers/eve-platform/src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-service.ts
+index 5b98344..b7827ab 100644
+--- a/external-consumers/eve-platform/src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-service.ts
++++ b/external-consumers/eve-platform/src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-service.ts
+@@ -331,6 +331,11 @@ function hasSubfieldCollapse(input: RuntimeResponseIngestLocalInput): boolean {
+ }
+ 
+ function hasMissingB0Q01Subfield(input: RuntimeResponseIngestLocalInput): boolean {
++  const vm = input.interaction_view_model as {
++    source_capture_binding?: boolean;
++  };
++  // 044-A.3M: when source-capture slots are bound, UX B0Q01 names are not authority.
++  if (vm.source_capture_binding === true) return false;
+   const present = new Set(input.response_payload.answers.map((answer) => answer.subfield_name));
+   return B0Q01_REQUIRED_SUBFIELDS.some((subfieldName) => !present.has(subfieldName));
+ }

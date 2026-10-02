@@ -1,0 +1,126 @@
+{
+  "audit_id": "EVE_ORGANISM_SHADOW_E2E_HARNESS_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "SHADOW_E2E_OFFLINE_HARNESS_PASSED_WITH_NON_BLOCKING_WARNINGS",
+  "design_basis": {
+    "dictamen": "SHADOW_E2E_HARNESS_DESIGN_READY_FOR_OFFLINE_IMPLEMENTATION",
+    "design_audit": "docs/audits/AUDIT_EVE_ORGANISM_SHADOW_E2E_HARNESS_DESIGN_V1.md",
+    "entrypoint_decision": "docs/audits/_eve_organism_shadow_e2e_entrypoint_decision_v1.json",
+    "scenario_plan": "docs/audits/_eve_organism_shadow_e2e_scenario_plan_v1.json",
+    "future_allowlist": "docs/audits/_eve_organism_shadow_e2e_future_allowlist_v1.json"
+  },
+  "entrypoint": {
+    "mode": "fixture_replay_adapter",
+    "adapter": "src/services/eve-organism-shadow-e2e-adapter.ts",
+    "traffic_real": false,
+    "workmap_connected": false,
+    "significado_connected": false,
+    "runtime_productivo_connected": false
+  },
+  "files_created_or_modified": [
+    "src/types/eve-organism-shadow-e2e.ts",
+    "src/services/eve-organism-shadow-e2e-adapter.ts",
+    "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+    "docs/audits/AUDIT_EVE_ORGANISM_SHADOW_E2E_HARNESS_V1.md",
+    "docs/audits/_eve_organism_shadow_e2e_harness_v1.json"
+  ],
+  "fixtures": {
+    "fixtures_used": false,
+    "fixtures_mode": "in_memory_synthetic_fixture_replay",
+    "fixtures_created": []
+  },
+  "scenarios_total": 40,
+  "scenarios_passed": 40,
+  "scenarios_failed": 0,
+  "categories": {
+    "replay_seguro": 6,
+    "mapper": 6,
+    "comparacion_oficial_vs_shadow": 8,
+    "no_cableado": 8,
+    "blockers_heredados": 7,
+    "batch_replay": 5
+  },
+  "blockers_validated": [
+    "OCR-BLK-001",
+    "OCR-BLK-003",
+    "OCR-BLK-004",
+    "OCR-BLK-005",
+    "OCR-BLK-009",
+    "OCR-BLK-013",
+    "OCR-BLK-014"
+  ],
+  "blockers_not_directly_targeted_by_this_harness": [
+    "OCR-BLK-002",
+    "OCR-BLK-006",
+    "OCR-BLK-007",
+    "OCR-BLK-008",
+    "OCR-BLK-010",
+    "OCR-BLK-011",
+    "OCR-BLK-012",
+    "OCR-BLK-015"
+  ],
+  "mapper": {
+    "passed": true,
+    "summary": "Signal kinds map to runtimeCapture, gateAdvisory, candidateGeneration, governanceObserve, or blocked productive capabilities; gateEnforcement is downgraded to gateAdvisory."
+  },
+  "comparison": {
+    "passed": true,
+    "summary": "Official flow comparison supports unknown, none, missing_context, provenance_gap, no_go_triggered, tenant_boundary_risk, and immutable officialFlowRef."
+  },
+  "batch": {
+    "passed": true,
+    "summary": "Batch replay preserves order, correlationId, result count, tenant boundaries, and no-cableado."
+  },
+  "no_cableado": {
+    "passed": true,
+    "registry_write_allowed": false,
+    "final_export_allowed": false,
+    "diagnosis_allowed": false,
+    "db_write_allowed": false,
+    "ui_touch_allowed": false,
+    "production_authority_allowed": false,
+    "runtime_mutation_allowed": false,
+    "supabase_required": false,
+    "official_flow_untouched": true
+  },
+  "forbidden_import_scan": {
+    "passed": true,
+    "details": "Simple-match scan over adapter, type file, and regression test found no forbidden imports or direct side-effect APIs."
+  },
+  "test_command": "node --test tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+  "test_result": {
+    "passed": true,
+    "summary": "44 passed / 0 failed; includes 40 required E2E fixture scenarios plus direct comparison, no-cableado, and forbidden-import checks.",
+    "non_blocking_warning": "Node emitted MODULE_TYPELESS_PACKAGE_JSON because package.json has no type: module; package.json was not modified."
+  },
+  "tsc_result": {
+    "status": "not_run",
+    "command": "npx tsc --noEmit",
+    "summary": "Not run because it was optional and this task is scoped to the targeted node --test command without package or lockfile changes."
+  },
+  "gaps": [
+    {
+      "gap_id": "E2E-HARNESS-GAP-001",
+      "type": "REAL_FLOW_OBSERVATION_NOT_CONNECTED",
+      "severity": "medium",
+      "status": "expected_by_scope"
+    },
+    {
+      "gap_id": "E2E-HARNESS-GAP-002",
+      "type": "FIXTURES_NOT_MATERIALIZED_ON_DISK",
+      "severity": "low",
+      "status": "non_blocking_in_memory_fixtures_used"
+    },
+    {
+      "gap_id": "E2E-HARNESS-GAP-003",
+      "type": "TSC_NOT_RUN",
+      "severity": "low",
+      "status": "optional_not_executed"
+    }
+  ],
+  "forbidden_file_changes": {
+    "passed": true,
+    "details": "Scoped git status shows only allowed implementation files before audit creation; audit files are allowed."
+  },
+  "next_step": "REPO_COMMIT_SHADOW_E2E_OFFLINE_HARNESS_V1"
+}

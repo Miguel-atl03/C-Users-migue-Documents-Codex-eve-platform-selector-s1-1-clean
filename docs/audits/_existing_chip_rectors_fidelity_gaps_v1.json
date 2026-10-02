@@ -1,0 +1,66 @@
+[
+  {
+    "chipRectorId": "runtime_40_20_full_catalog",
+    "sourceDocument": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+    "gapType": "pending_block",
+    "severity": "high",
+    "description": "Only Block0 is materially represented; B0.5 through B7, causal 20, gates, readiness and production contracts remain not fully machine-readable.",
+    "recommendedAction": "Keep Runtime 40/20 as TRANSDUCTION_PARTIAL and continue block-by-block transduction."
+  },
+  {
+    "chipRectorId": "runtime_40_20_full_catalog",
+    "sourceDocument": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+    "gapType": "partial_mapping",
+    "severity": "high",
+    "description": "DOCX architecture has 280 non-empty paragraphs and implementation rules; current manifest is a high-level partial map, not a full transduction.",
+    "recommendedAction": "Create detailed DOCX section-to-target mapping before declaring any complete runtime catalog."
+  },
+  {
+    "chipRectorId": "runtime_block0_catalog",
+    "sourceDocument": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+    "gapType": "partial_mapping",
+    "severity": "medium",
+    "description": "B0-Q01..B0-Q04 are represented, but this sweep did not prove 100% row/column coverage across all workbook sheets that influence B0.",
+    "recommendedAction": "Complete B0 row/column mapping against Runtime_Interactions_Base_40, UX_Subfield_Structure, Technical_Metadata_Map and related source sheets."
+  },
+  {
+    "chipRectorId": "runtime_block0_catalog",
+    "sourceDocument": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+    "gapType": "missing_column_mapping",
+    "severity": "medium",
+    "description": "Known source columns are represented in destination concepts, but no formal matrix proves every relevant source column is preserved or intentionally excluded.",
+    "recommendedAction": "Create a dedicated B0 XLSX row/column coverage pass."
+  },
+  {
+    "chipRectorId": "rector_docs_registry",
+    "sourceDocument": "src/config/rector-docs-registry.ts",
+    "gapType": "not_a_transduction",
+    "severity": "low",
+    "description": "Registry is a governance index and must not be treated as a full transduction of any Office source.",
+    "recommendedAction": "Keep registry as governance_registry; add entries for ASRO/WorkMap only as non-runtime authority if requested later."
+  },
+  {
+    "chipRectorId": "asro_operational_description",
+    "sourceDocument": "docs/significado/canon/Descripción_Operativa_cerebro AI.docx",
+    "gapType": "registry_gap",
+    "severity": "medium",
+    "description": "ASRO has DOCX, MD and TS canon, but no entry in rector-docs-registry.ts.",
+    "recommendedAction": "Add a registry entry in a separate approved task, likely without declaring broad runtimeAuthority beyond the B0-Q02 coach/canon scope."
+  },
+  {
+    "chipRectorId": "asro_operational_description",
+    "sourceDocument": "docs/significado/canon/Descripción_Operativa_cerebro AI.docx",
+    "gapType": "partial_mapping",
+    "severity": "medium",
+    "description": "The DOCX was read and mapped at section level, but no exhaustive paragraph-level source-to-target matrix exists.",
+    "recommendedAction": "Create ASRO-specific coverage report before calling it complete."
+  },
+  {
+    "chipRectorId": "workmap_writing_assistance",
+    "sourceDocument": "docs/workmap/source/GUIA_DE_REDACCION_DE_RESPONSABILIDADES_Y_ACTIVIDADES_DE_UN_ROL_FUNCIONAL.docx",
+    "gapType": "not_wired_by_design",
+    "severity": "low",
+    "description": "WorkMap Writing Assistance is documented from original source and explicitly not wired.",
+    "recommendedAction": "Do not convert to runtimeAuthority; keep documented-not-wired until visual/functional equivalence pass."
+  }
+]

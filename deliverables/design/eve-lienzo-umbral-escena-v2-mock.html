@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Umbral · Memoria → Escena v2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-accent: #5c7d8f;
+        --font-body: "Source Sans 3", "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1100px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .registry {
+        position: absolute;
+        top: 36px;
+        left: 72px;
+        right: 72px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+
+      .registry-mark {
+        color: color-mix(in srgb, var(--eve-ink) 35%, var(--eve-mist));
+      }
+
+      .stack {
+        position: absolute;
+        top: 168px;
+        left: 50%;
+        width: min(680px, 78%);
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .inscription {
+        margin: 0;
+        width: 100%;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        line-height: 1.75;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .inscription-observe,
+      .inscription-activity,
+      .inscription-persistence {
+        margin-top: 56px;
+      }
+
+      .cta {
+        position: absolute;
+        left: 50%;
+        bottom: 72px;
+        transform: translateX(-50%);
+        margin: 0;
+        color: var(--eve-accent);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+      }
+
+      body[data-frame="1"] .inscription-observe,
+      body[data-frame="1"] .inscription-activity,
+      body[data-frame="1"] .inscription-persistence,
+      body[data-frame="1"] .cta {
+        display: none;
+      }
+
+      body[data-frame="2"] .inscription-activity,
+      body[data-frame="2"] .inscription-persistence,
+      body[data-frame="2"] .cta {
+        display: none;
+      }
+
+      body[data-frame="3"] .inscription-persistence,
+      body[data-frame="3"] .cta {
+        display: none;
+      }
+    </style>
+  </head>
+  <body data-frame="4">
+    <div class="screen" role="img" aria-label="EVE — Umbral Memoria a Escena">
+      <header class="registry">
+        <span class="registry-mark">EVE</span>
+        <span>UMBRAL · MEMORIA → ESCENA</span>
+      </header>
+
+      <div class="stack">
+        <p class="inscription inscription-memory">
+          Tus memorias operativas se componen de las actividades que has vivido una y
+          otra vez en tu trabajo — en meses o años.
+        </p>
+        <p class="inscription inscription-observe">
+          Observa lo que has hecho detenidamente
+        </p>
+        <p class="inscription inscription-activity">
+          Comunico el avance al cliente mediante correo, WhatsApp o llamada, utilizando
+          únicamente las fechas y condiciones confirmadas por las áreas responsables, para
+          generar una Actualización Comercial trazable y evitar promesas no respaldadas.
+        </p>
+        <p class="inscription inscription-persistence">
+          Lo que haces no desaparece, sino que persiste a través del tiempo
+        </p>
+      </div>
+
+      <p class="cta">Ahora, mira desde adentro tu propia historia - Escena 1</p>
+    </div>
+  </body>
+</html>

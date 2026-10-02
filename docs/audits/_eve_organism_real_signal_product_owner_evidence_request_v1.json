@@ -1,0 +1,822 @@
+{
+  "dictamen": "REAL_SIGNAL_EVIDENCE_COLLECTION_PLAN_SPECIFICITY_FIXED_REPLAY_ONLY_CONTINUES",
+  "generated_at": "2026-06-25T06:29:30.090Z",
+  "specificityFixApplied": true,
+  "planStatus": "specificity_fixed_replay_only_continues",
+  "observerAuthorized": false,
+  "realObservationAuthorized": false,
+  "readOnlyObserverDesignAuthorized": false,
+  "blockersClosedByPlan": 0,
+  "exitConditionsClosedByPlan": 0,
+  "operationallyClosedExitConditions": 0,
+  "evidencePriorityOrder": [
+    "P0_tenant_auth_isolation",
+    "P1_no_mutation_boundary",
+    "P2_provenance_sourceTrace",
+    "P3_idempotency_correlation_officialFlowRef",
+    "P4_mba_anchor_PM_MoC_PF_OLC",
+    "P5_b3_b7_boundary"
+  ],
+  "productOwnerEvidenceResponseRequiredFields": [
+    "evidence_id",
+    "evidence_owner",
+    "evidence_locator",
+    "source_system",
+    "source_environment",
+    "timestamp_or_version",
+    "proof_type",
+    "redaction_status",
+    "why_not_fixture",
+    "related_contract_field",
+    "related_blocker",
+    "related_exit_condition"
+  ],
+  "nonAcceptableEvidence": [
+    "narrative_only_answer_without_locator",
+    "screenshot_without_source_path_or_timestamp",
+    "fixture",
+    "synthetic_field",
+    "test_only_payload",
+    "replay_only_output",
+    "verbal_confirmation_without_artifact",
+    "code_comment_without_runtime_evidence",
+    "unversioned_document",
+    "unowned_evidence"
+  ],
+  "gate2": {
+    "replay_only_continues": true,
+    "observer_authorized": false,
+    "real_observation_authorized": false,
+    "read_only_observer_design_authorized": false
+  },
+  "audit_id": "eve_organism_real_signal_product_owner_evidence_request_v1",
+  "questions_total": 14,
+  "questions": [
+    {
+      "questionId": "PO-Q01",
+      "question": "Donde se ve tenantId y organizationId?",
+      "priority": "P0_tenant_auth_isolation",
+      "relatedEvidenceIds": [
+        "EV-P0-001",
+        "EV-P0-002"
+      ],
+      "relatedContractFields": [
+        "operational_context.tenantId",
+        "operational_context.organizationId"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-002",
+      "relatedExitCondition": [
+        "EC-01",
+        "EC-02"
+      ]
+    },
+    {
+      "questionId": "PO-Q02",
+      "question": "Que prueba demuestra auth, tenant isolation y RLS/read boundary si DB aparece?",
+      "priority": "P0_tenant_auth_isolation",
+      "relatedEvidenceIds": [
+        "EV-P0-003",
+        "EV-P0-004",
+        "EV-P0-005",
+        "EV-P0-006",
+        "EV-P0-007"
+      ],
+      "relatedContractFields": [
+        "security_boundary.authBoundaryRequired",
+        "security_boundary.tenantIsolationRequired",
+        "security_boundary.rlsReadBoundaryRequiredIfDB",
+        "security_boundary.serviceRoleAllowed",
+        "security_boundary.secretsAllowed"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-007",
+      "relatedExitCondition": [
+        "EC-15",
+        "EC-18"
+      ]
+    },
+    {
+      "questionId": "PO-Q03",
+      "question": "Que prueba demuestra no UI touch?",
+      "priority": "P1_no_mutation_boundary",
+      "relatedEvidenceIds": [
+        "EV-P1-001"
+      ],
+      "relatedContractFields": [
+        "no_mutation_boundary.uiTouchAllowed"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-006",
+      "relatedExitCondition": [
+        "EC-13"
+      ]
+    },
+    {
+      "questionId": "PO-Q04",
+      "question": "Que prueba demuestra no WorkMap mutation?",
+      "priority": "P1_no_mutation_boundary",
+      "relatedEvidenceIds": [
+        "EV-P1-002"
+      ],
+      "relatedContractFields": [
+        "no_mutation_boundary.workMapMutationAllowed"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-006",
+      "relatedExitCondition": [
+        "EC-14"
+      ]
+    },
+    {
+      "questionId": "PO-Q05",
+      "question": "Que prueba demuestra no Significado mutation?",
+      "priority": "P1_no_mutation_boundary",
+      "relatedEvidenceIds": [
+        "EV-P1-003"
+      ],
+      "relatedContractFields": [
+        "no_mutation_boundary.significadoMutationAllowed"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-006",
+      "relatedExitCondition": [
+        "EC-14"
+      ]
+    },
+    {
+      "questionId": "PO-Q06",
+      "question": "Que prueba demuestra no DB write?",
+      "priority": "P1_no_mutation_boundary",
+      "relatedEvidenceIds": [
+        "EV-P1-004"
+      ],
+      "relatedContractFields": [
+        "no_mutation_boundary.dbWriteAllowed"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-007",
+      "relatedExitCondition": [
+        "EC-15"
+      ]
+    },
+    {
+      "questionId": "PO-Q07",
+      "question": "Que prueba demuestra no Supabase write/read boundary?",
+      "priority": "P1_no_mutation_boundary",
+      "relatedEvidenceIds": [
+        "EV-P1-005",
+        "EV-P0-005"
+      ],
+      "relatedContractFields": [
+        "no_mutation_boundary.supabaseWriteAllowed",
+        "security_boundary.rlsReadBoundaryRequiredIfDB"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-007",
+      "relatedExitCondition": [
+        "EC-15"
+      ]
+    },
+    {
+      "questionId": "PO-Q08",
+      "question": "Que prueba demuestra no runtime mutation?",
+      "priority": "P1_no_mutation_boundary",
+      "relatedEvidenceIds": [
+        "EV-P1-006"
+      ],
+      "relatedContractFields": [
+        "no_mutation_boundary.runtimeMutationAllowed"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-010",
+      "relatedExitCondition": [
+        "EC-16"
+      ]
+    },
+    {
+      "questionId": "PO-Q09",
+      "question": "Donde se ve provenance/sourceTrace?",
+      "priority": "P2_provenance_sourceTrace",
+      "relatedEvidenceIds": [
+        "EV-P2-001",
+        "EV-P2-002",
+        "EV-P2-003",
+        "EV-P2-004",
+        "EV-P2-005"
+      ],
+      "relatedContractFields": [
+        "traceability.provenance",
+        "traceability.sourceTrace",
+        "traceability.sourceRef",
+        "traceability.evidenceRef",
+        "traceability.auditRef"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-003",
+      "relatedExitCondition": [
+        "EC-04",
+        "EC-05"
+      ]
+    },
+    {
+      "questionId": "PO-Q10",
+      "question": "Donde se ve idempotencyKey/correlationId?",
+      "priority": "P3_idempotency_correlation_officialFlowRef",
+      "relatedEvidenceIds": [
+        "EV-P3-001",
+        "EV-P3-002"
+      ],
+      "relatedContractFields": [
+        "traceability.idempotencyKey",
+        "traceability.correlationId"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-004",
+      "relatedExitCondition": [
+        "EC-06",
+        "EC-07"
+      ]
+    },
+    {
+      "questionId": "PO-Q11",
+      "question": "Donde se ve officialFlowRef o equivalente aprobado?",
+      "priority": "P3_idempotency_correlation_officialFlowRef",
+      "relatedEvidenceIds": [
+        "EV-P3-003"
+      ],
+      "relatedContractFields": [
+        "traceability.officialFlowRef"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-005",
+      "relatedExitCondition": [
+        "EC-08"
+      ]
+    },
+    {
+      "questionId": "PO-Q12",
+      "question": "Que evidencia prueba MBA Object[State] y PF event?",
+      "priority": "P4_mba_anchor_PM_MoC_PF_OLC",
+      "relatedEvidenceIds": [
+        "EV-P4-001",
+        "EV-P4-002",
+        "EV-P4-003",
+        "EV-P4-004",
+        "EV-P4-005",
+        "EV-P4-006"
+      ],
+      "relatedContractFields": [
+        "mba_anchor.pmProcessId",
+        "mba_anchor.pfEvent",
+        "mba_anchor.objectState",
+        "mba_anchor.mocClass",
+        "mba_anchor.olcTransitionEvent",
+        "mba_anchor.pfTimerIfWaiting"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-008",
+      "relatedExitCondition": [
+        "EC-09",
+        "EC-10",
+        "EC-11",
+        "EC-12"
+      ]
+    },
+    {
+      "questionId": "PO-Q13",
+      "question": "Que prueba demuestra B3 receiver_feedback routeRef y separacion receiver_satisfaction?",
+      "priority": "P5_b3_b7_boundary",
+      "relatedEvidenceIds": [
+        "EV-P5-001",
+        "EV-P5-002"
+      ],
+      "relatedContractFields": [
+        "b3_b7_boundary.receiverSatisfactionAllowedAsFeedback",
+        "b3_b7_boundary.receiverFeedbackRequiresRouteRef"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-001",
+      "relatedExitCondition": [
+        "EC-18"
+      ]
+    },
+    {
+      "questionId": "PO-Q14",
+      "question": "Que prueba demuestra B7 interpretation_limit y no diagnostic use?",
+      "priority": "P5_b3_b7_boundary",
+      "relatedEvidenceIds": [
+        "EV-P5-003",
+        "EV-P5-004",
+        "EV-P5-005",
+        "EV-P5-006"
+      ],
+      "relatedContractFields": [
+        "b3_b7_boundary.b7InterpretationLimitRequired",
+        "b3_b7_boundary.b7DiagnosticUseAllowed",
+        "b3_b7_boundary.b7StructuralFactAllowed",
+        "b3_b7_boundary.b3b7AlignmentDeltaRequiredIfApplicable"
+      ],
+      "requiredResponseFormat": {
+        "evidence_id": "required",
+        "evidence_owner": "required",
+        "evidence_locator": "required",
+        "source_system": "required",
+        "source_environment": "required",
+        "timestamp_or_version": "required",
+        "proof_type": "required",
+        "redaction_status": "required",
+        "why_not_fixture": "required",
+        "related_contract_field": "required",
+        "related_blocker": "required",
+        "related_exit_condition": "required"
+      },
+      "acceptableProofTypes": [
+        "product_artifact_with_locator",
+        "audit_log_with_timestamp",
+        "runtime_inventory_readonly",
+        "versioned_configuration",
+        "source_trace_record",
+        "security_policy_or_rls_policy_with_locator",
+        "manual_review_record_with_owner"
+      ],
+      "unacceptableAnswers": [
+        "yes_no_without_artifact",
+        "narrative_without_locator",
+        "screenshot_without_timestamp",
+        "fixture",
+        "synthetic_payload",
+        "test_only_payload",
+        "replay_output_only",
+        "verbal_confirmation"
+      ],
+      "cannotCloseByAnswerAlone": true,
+      "relatedBlocker": "ROB-001",
+      "relatedExitCondition": [
+        "EC-18"
+      ]
+    }
+  ],
+  "requiredResponseFormat": {
+    "evidence_id": "required",
+    "evidence_owner": "required",
+    "evidence_locator": "required",
+    "source_system": "required",
+    "source_environment": "required",
+    "timestamp_or_version": "required",
+    "proof_type": "required",
+    "redaction_status": "required",
+    "why_not_fixture": "required",
+    "related_contract_field": "required",
+    "related_blocker": "required",
+    "related_exit_condition": "required"
+  },
+  "acceptableProofTypes": [
+    "product_artifact_with_locator",
+    "audit_log_with_timestamp",
+    "runtime_inventory_readonly",
+    "versioned_configuration",
+    "source_trace_record",
+    "security_policy_or_rls_policy_with_locator",
+    "manual_review_record_with_owner"
+  ],
+  "unacceptableAnswers": [
+    "yes_no_without_artifact",
+    "narrative_without_locator",
+    "screenshot_without_timestamp",
+    "fixture",
+    "synthetic_payload",
+    "test_only_payload",
+    "replay_output_only",
+    "verbal_confirmation"
+  ]
+}

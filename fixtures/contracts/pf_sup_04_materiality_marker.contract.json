@@ -1,0 +1,31 @@
+{
+  "marker_id": "PF_SUP_04_MATERIALITY_MARKER",
+  "scope": "PF-SUP-04 aggregation",
+  "tree_branch": "PF-SUP-04 / causal aggregation object ownership",
+  "required_service_contract": "services/eve/aggregation/causal-movie-aggregation-runner",
+  "required_schema_contracts": [
+    "pf_sup_04_scene_set.schema.json",
+    "pf_sup_04_aggregation_index.schema.json",
+    "pf_sup_04_pelicula_causal_agregada.schema.json"
+  ],
+  "required_state_machines": [
+    "SceneSet",
+    "AggregationIndex",
+    "PeliculaCausalAgregada"
+  ],
+  "required_test_contract": "tests/pf-sup-04/causal-movie-aggregation-runner.test",
+  "required_source_refs": true,
+  "required_derivation_refs": true,
+  "required_governance_issue_links": true,
+  "required_readiness_decision": true,
+  "required_allowed_consumers": true,
+  "forbidden_outputs": [
+    "final_diagnosis",
+    "client_narrative",
+    "export_code_package_generated"
+  ],
+  "materiality_level_when_absent": "L0 absent",
+  "materiality_level_when_contract_defined": "L4 contract_defined",
+  "materiality_level_when_tested": "L7 tested_materiality",
+  "no_go_if_false_positive": "PeliculaCausalAgregada claimed from guardrail or Runtime dependency."
+}

@@ -1,0 +1,76 @@
+{
+  "version": "1",
+  "generatedAt": "2026-07-15",
+  "policy": "Canonical Amber identity from repository evidence only. No name inference. No participant empresa as case company.",
+  "canonical": {
+    "companyId": "5c08029f-15e9-4bbd-b13e-0ff4765e23b8",
+    "caseId": "19fc9eff-4219-43f0-854c-e2b3350f23f2",
+    "relationshipId": "7c499a1c-31c6-4fc9-8b20-2fd8cdc57043",
+    "companyDisplayName": "Cervecería Amber",
+    "caseDisplayName": "Caso INC16 Cervecería Amber Ancestral",
+    "relationshipDisplayName": "Relación activa de Cervecería Amber",
+    "estadoActual": null,
+    "estadoActualNote": "No disponible en artefactos canónicos del repositorio (mba test, INC16 script, matriz auditoría no declaran estado_actual)."
+  },
+  "excluded": {
+    "duplicateCompanyId": "e6cdd265-b0a7-441d-a3b0-e0d7fdc842cf",
+    "duplicateCaseId": "cc983357-dd4a-42e9-b2f7-fa54364184df",
+    "reason": "Documented as non-canonical Amber pair in STAGING_AMBER_CANONICAL.md"
+  },
+  "localOnly": {
+    "consultantEmail": "unit2b-consultant@example.invalid",
+    "participantId": "5a830545-d8a7-4a4f-b727-629d3c6e3751",
+    "participantEmail": "amber-canonical-participant@example.invalid",
+    "assignmentId": "173bcb79-b607-464e-8180-9b2f7b15432a"
+  },
+  "repositorySources": [
+    {
+      "file": "tests/regression/mba-control-plane/mba-control-plane.test.mjs",
+      "lines": "1015-1016",
+      "authority": "canonical",
+      "declares": { "caseId": "19fc9eff-4219-43f0-854c-e2b3350f23f2" }
+    },
+    {
+      "file": "run-inc16-runtime-validation-v2.ps1",
+      "lines": "14-15",
+      "authority": "canonical",
+      "declares": { "caseId": "19fc9eff-4219-43f0-854c-e2b3350f23f2", "runPrefix": "INC16" }
+    },
+    {
+      "file": "docs/audits/_eve_organism_real_signal_field_occurrence_matrix_v1.json",
+      "lines": "~55210",
+      "authority": "canonical",
+      "declares": { "session_id": "19fc9eff-4219-43f0-854c-e2b3350f23f2" }
+    },
+    {
+      "file": "docs/eve/panel-control/STAGING_AMBER_CANONICAL.md",
+      "authority": "canonical",
+      "declares": {
+        "companyId": "5c08029f-15e9-4bbd-b13e-0ff4765e23b8",
+        "caseId": "19fc9eff-4219-43f0-854c-e2b3350f23f2",
+        "note": "Company UUID derived by documentary correlation to case UUID in canonical test sources"
+      }
+    },
+    {
+      "file": "docs/eve/panel-control/STAGING_ADMIN_DRY_RUN.md",
+      "authority": "auxiliary",
+      "declares": {
+        "relationshipId": "7c499a1c-31c6-4fc9-8b20-2fd8cdc57043",
+        "caseDisplayName": "Caso INC16 Cerveceria Ambar Ancestral",
+        "assignmentId": "173bcb79-b607-464e-8180-9b2f7b15432a"
+      }
+    },
+    {
+      "file": "tests/e2e/official-consultant-control-panel-unit2b.spec.ts",
+      "authority": "auxiliary",
+      "declares": { "companyUILabel": "Cervecería Amber" }
+    },
+    {
+      "file": "tests/e2e/setup/prepare-official-control-panel-unit2b.mjs",
+      "authority": "descartada",
+      "declares": {
+        "note": "Uses non-canonical UUIDs 12000000/42000000 for local e2e; superseded by amber recovery seed"
+      }
+    }
+  ]
+}

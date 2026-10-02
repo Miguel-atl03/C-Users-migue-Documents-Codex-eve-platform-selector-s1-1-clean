@@ -1,0 +1,126 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-DEV-HARNESS-VISUAL-V1",
+  "route": "/dev/eve-05-gate-engine-shadow",
+  "traceCases": [
+    {
+      "fixtureId": "resolve_existing_gate",
+      "queryType": "resolve_gate",
+      "expectedReadinessState": "gate_engine_lookup_ready",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "MATCH expected/actual", "sourceTrace", "evidenceRefs"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "resolve_missing_gate",
+      "queryType": "resolve_gate",
+      "expectedReadinessState": "gate_engine_lookup_not_found",
+      "expectedResolved": false,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "missingReferences", "gapFlags", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "resolve_existing_rule",
+      "queryType": "resolve_rule",
+      "expectedReadinessState": "gate_engine_lookup_ready",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "resolvedEntity", "sourceTrace", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "validate_critical_route_gate_valid",
+      "queryType": "validate_critical_route_gate",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "resolvedEntity", "allowedActions", "blockedActions", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "validate_semantic_resolution_gate_valid",
+      "queryType": "validate_semantic_resolution_gate",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "resolvedEntity", "sourceTrace", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "validate_process_state_timer_gate_valid",
+      "queryType": "validate_process_state_timer_gate",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "resolvedEntity", "auditEvents", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "validate_mmabp_conformance_gate_valid",
+      "queryType": "validate_mmabp_conformance_gate",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "resolvedEntity", "findings", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "validate_mmabp_consistency_gate_valid",
+      "queryType": "validate_mmabp_consistency_gate",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "resolvedEntity", "requiredInputs", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "validate_failure_guard_valid",
+      "queryType": "validate_failure_guard",
+      "expectedReadinessState": "gate_engine_reference_valid",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "resolvedEntity", "gapFlags", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "validate_atomic_rule_source_proof",
+      "queryType": "validate_atomic_rule",
+      "expectedReadinessState": "documentary_satisfaction_confirmed",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "documentarySatisfaction", "sourceTrace", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "validate_no_overreach_d1_vsm1_ahe1",
+      "queryType": "validate_no_overreach",
+      "expectedReadinessState": "no_overreach_confirmed",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "resolvedEntity", "safetyFlags", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    },
+    {
+      "fixtureId": "validate_no_runtime_authority",
+      "queryType": "validate_no_runtime_authority",
+      "expectedReadinessState": "documentary_satisfaction_confirmed",
+      "expectedResolved": true,
+      "visualPanelsCovered": ["fixture selector", "input", "output", "safetyFlags", "blockedActions", "MATCH expected/actual"],
+      "safetyFlagsVisible": true,
+      "documentarySatisfactionVisible": true,
+      "matchExpectedActualVisible": true
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "audit_id": "EVE_ORGANISM_REAL_SIGNAL_BOUNDARY_EVIDENCE_REQUEST_V1",
+  "generated_at": "2026-06-25T02:23:38.498Z",
+  "dictamen": "BOUNDARY_EVIDENCE_PARTIAL_REPLAY_ONLY_CONTINUES",
+  "matrix": [
+    {
+      "file_path": "src/lib/supabase.ts",
+      "line_number": 9,
+      "line_excerpt": "? createClient(supabaseUrl!, supabaseAnonKey!)",
+      "client_type": "browser_client",
+      "operation": "unknown",
+      "read_only_possible": "unknown",
+      "write_risk": "unknown",
+      "rls_visible": false,
+      "tenant_filter_visible": false,
+      "safe_for_observer": false,
+      "reason": "Browser Supabase client is configured from env; no read-only capability restriction is visible."
+    },
+    {
+      "file_path": "src/lib/supabase-server.ts",
+      "line_number": 46,
+      "line_excerpt": "export function createAuthenticatedServerSupabaseClient(accessToken: string) {",
+      "client_type": "server_client",
+      "operation": "auth",
+      "read_only_possible": "unknown",
+      "write_risk": "unknown",
+      "rls_visible": false,
+      "tenant_filter_visible": false,
+      "safe_for_observer": false,
+      "reason": "Authenticated client exists but read-only wrapper/capability restriction is not present."
+    },
+    {
+      "file_path": "src/lib/session-boundary.ts",
+      "line_number": 70,
+      "line_excerpt": "const { data, error } = await supabaseServer.auth.getUser(token);",
+      "client_type": "server_client",
+      "operation": "auth",
+      "read_only_possible": true,
+      "write_risk": false,
+      "rls_visible": "unknown",
+      "tenant_filter_visible": "partial",
+      "safe_for_observer": false,
+      "reason": "Auth/user lookup is visible, but not enough to prove observer-safe tenant/RLS boundary."
+    },
+    {
+      "file_path": "src/lib/session-boundary.ts",
+      "line_number": 161,
+      "line_excerpt": ".eq(\"usuario_id\", eveUser.user.eveUserId)",
+      "client_type": "server_client",
+      "operation": "select",
+      "read_only_possible": true,
+      "write_risk": false,
+      "rls_visible": "unknown",
+      "tenant_filter_visible": true,
+      "safe_for_observer": false,
+      "reason": "Session ownership filter is explicit, but applies to product session access, not a dedicated observer boundary."
+    },
+    {
+      "file_path": "src/app/api/runtime/observability/route.ts",
+      "line_number": 111,
+      "line_excerpt": ".in(\"scene_id\", sceneIds),",
+      "client_type": "server_client",
+      "operation": "select",
+      "read_only_possible": true,
+      "write_risk": false,
+      "rls_visible": "unknown",
+      "tenant_filter_visible": false,
+      "safe_for_observer": false,
+      "reason": "Read-only query shape is visible, but Supabase requirement and tenant/auth/RLS proof remain incomplete."
+    },
+    {
+      "file_path": "src/app/api/intake/triple/route.ts",
+      "line_number": 53,
+      "line_excerpt": ".delete()",
+      "client_type": "server_client",
+      "operation": "delete",
+      "read_only_possible": false,
+      "write_risk": true,
+      "rls_visible": "unknown",
+      "tenant_filter_visible": true,
+      "safe_for_observer": false,
+      "reason": "Product write/delete path proves mutation risk exists in nearby platform API layer."
+    },
+    {
+      "file_path": "src/services/scene-repository.ts",
+      "line_number": 225,
+      "line_excerpt": ".insert(answerRows)",
+      "client_type": "server_client",
+      "operation": "insert",
+      "read_only_possible": false,
+      "write_risk": true,
+      "rls_visible": "unknown",
+      "tenant_filter_visible": true,
+      "safe_for_observer": false,
+      "reason": "Scene answer persistence writes answers and provenance rows."
+    }
+  ]
+}

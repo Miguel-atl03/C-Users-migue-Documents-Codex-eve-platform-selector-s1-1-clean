@@ -1,0 +1,156 @@
+{
+  "audit_id": "EVE_ORGANISM_REAL_OBSERVATION_EXIT_CONDITIONS_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "REAL_OBSERVATION_BLOCKERS_REGISTERED_REPLAY_ONLY_AUTHORIZED",
+  "total": 18,
+  "must_clear_before_real_observation": 18,
+  "conditions": [
+    {
+      "condition_id": "ROEC-001",
+      "title": "tenantId real",
+      "required_evidence": "Real tenantId is present in a safe observed signal.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-002",
+      "title": "organizationId real",
+      "required_evidence": "Real organizationId is present in a safe observed signal.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-003",
+      "title": "sessionId real",
+      "required_evidence": "Real sessionId is present in a safe observed signal.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-004",
+      "title": "activityId real",
+      "required_evidence": "Real activityId is present in a safe observed signal.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-005",
+      "title": "actorId/userId real",
+      "required_evidence": "Real actorId or userId is present without leaking personal data.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-006",
+      "title": "provenance real",
+      "required_evidence": "Real provenance includes stable source identity/path/locator.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-007",
+      "title": "sourceTrace real if candidates",
+      "required_evidence": "Candidate signals preserve sourceTrace from real non-mutating evidence.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-008",
+      "title": "idempotencyKey real",
+      "required_evidence": "Real idempotencyKey is present or safely derived read-only.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-009",
+      "title": "correlationId real",
+      "required_evidence": "Real correlationId is present or safely derived read-only.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-010",
+      "title": "officialFlowRef real",
+      "required_evidence": "Real officialFlowRef exists without executing or mutating official flow.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-011",
+      "title": "proof no UI touch",
+      "required_evidence": "Observer does not import, mount, hook or mutate UI/app/components/pages.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-012",
+      "title": "proof no WorkMap mutation",
+      "required_evidence": "Observer does not write or mutate WorkMap state or files.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-013",
+      "title": "proof no Significado mutation",
+      "required_evidence": "Observer does not write or mutate Significado state or files.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-014",
+      "title": "proof no DB write",
+      "required_evidence": "No insert/update/delete/query execution with write authority.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-015",
+      "title": "proof no Supabase requirement or controlled read boundary",
+      "required_evidence": "No Supabase dependency, or fully proven read-only boundary.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-016",
+      "title": "proof no runtime mutation",
+      "required_evidence": "No productive runtime state mutation.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-017",
+      "title": "proof no registry/export/diagnosis",
+      "required_evidence": "No registry write, final export, or diagnosis enablement.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    },
+    {
+      "condition_id": "ROEC-018",
+      "title": "proof RLS/auth/tenant isolation if DB/read boundary appears",
+      "required_evidence": "If DB read ever appears, RLS/auth/tenant isolation must be proven before preflight retry.",
+      "current_status": "not_satisfied",
+      "must_clear_before_real_observation": true
+    }
+  ],
+  "policy": {
+    "while_open_only_allowed": [
+      "replay fixtures",
+      "fixture strengthening",
+      "adapter offline",
+      "audit/preflight",
+      "documentary design",
+      "offline tests without DB/Supabase/UI"
+    ],
+    "while_open_forbidden": [
+      "real observer adapter",
+      "UI hook",
+      "WorkMap hook",
+      "Significado hook",
+      "runtime connector",
+      "DB observer",
+      "Supabase read",
+      "registry/export candidate real",
+      "productive shadow activation"
+    ]
+  }
+}

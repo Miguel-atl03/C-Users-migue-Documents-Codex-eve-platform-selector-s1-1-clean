@@ -1,0 +1,93 @@
+{
+  "designId": "EVE-02-DIAGNOSTIC-ONTOLOGY-SHADOW-MODE-DESIGN-V1",
+  "fixtures": [
+    {
+      "fixtureId": "valid_pm_moc_to_esquizofrenia_ontologica",
+      "inputSummary": "EVE02-CMP-001 with PM/MoC, EVE-00 conformance/consistency validated, D2 source trace and structural evidence present.",
+      "expectedReadinessState": "diagnostic_preclassification_candidate",
+      "expectedCompartmentId": "EVE02-CMP-001",
+      "expectedPathologyCandidate": "Esquizofrenia Ontológica",
+      "expectedAllowedActions": ["emit_shadow_candidate", "write_audit_trace"],
+      "expectedBlockedActions": ["final_diagnosis", "registry_write", "export_payload", "production_real"],
+      "expectedRuleIds": ["EVE02-R001", "EVE02-R002", "EVE02-R006", "EVE02-R021", "EVE02-R031"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "blocked_conformance_unchecked",
+      "inputSummary": "Valid compartment and evidence, but conformance_status missing or unchecked.",
+      "expectedReadinessState": "blocked_by_conformance_unchecked",
+      "expectedCompartmentId": "EVE02-CMP-001",
+      "expectedPathologyCandidate": null,
+      "expectedAllowedActions": ["write_audit_trace"],
+      "expectedBlockedActions": ["emit_shadow_candidate", "final_diagnosis", "registry_write"],
+      "expectedRuleIds": ["EVE02-R002", "EVE02-R022"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "blocked_consistency_unchecked",
+      "inputSummary": "Valid compartment and conformance, but consistency_status missing or unchecked.",
+      "expectedReadinessState": "blocked_by_consistency_unchecked",
+      "expectedCompartmentId": "EVE02-CMP-002",
+      "expectedPathologyCandidate": null,
+      "expectedAllowedActions": ["write_audit_trace"],
+      "expectedBlockedActions": ["emit_shadow_candidate", "final_diagnosis", "registry_write"],
+      "expectedRuleIds": ["EVE02-R002", "EVE02-R023"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "blocked_missing_evidence_refs",
+      "inputSummary": "Valid compartment and EVE-00 statuses, but no evidence_refs.",
+      "expectedReadinessState": "blocked_by_missing_evidence",
+      "expectedCompartmentId": "EVE02-CMP-003",
+      "expectedPathologyCandidate": null,
+      "expectedAllowedActions": ["write_audit_trace"],
+      "expectedBlockedActions": ["emit_shadow_candidate", "final_diagnosis", "registry_write"],
+      "expectedRuleIds": ["EVE02-R005", "EVE02-R021"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "blocked_semantic_ambiguity_sem_gate_open",
+      "inputSummary": "MoC/OLC ambiguity with SEM gate open.",
+      "expectedReadinessState": "blocked_by_semantic_ambiguity",
+      "expectedCompartmentId": "EVE02-CMP-005",
+      "expectedPathologyCandidate": null,
+      "expectedAllowedActions": ["write_audit_trace", "request_semantic_resolution"],
+      "expectedBlockedActions": ["emit_shadow_candidate", "final_diagnosis", "registry_write"],
+      "expectedRuleIds": ["EVE02-R024", "EVE02-R037"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "manual_review_multiple_compartments_low_confidence",
+      "inputSummary": "Multiple compartments fire with low confidence and no dominant evidence strength.",
+      "expectedReadinessState": "manual_review_required",
+      "expectedCompartmentId": null,
+      "expectedPathologyCandidate": null,
+      "expectedAllowedActions": ["write_audit_trace", "manual_review_required"],
+      "expectedBlockedActions": ["force_primary_candidate", "final_diagnosis", "registry_write"],
+      "expectedRuleIds": ["EVE02-R024", "EVE02-R025"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "blocked_final_diagnosis_request",
+      "inputSummary": "Input requests final_diagnosis as output type.",
+      "expectedReadinessState": "manual_review_required",
+      "expectedCompartmentId": "EVE02-CMP-004",
+      "expectedPathologyCandidate": null,
+      "expectedAllowedActions": ["write_audit_trace"],
+      "expectedBlockedActions": ["final_diagnosis", "IR", "registry_write", "export_payload", "production_real"],
+      "expectedRuleIds": ["EVE02-R003", "EVE02-R031", "EVE02-R036"],
+      "expectedSafetyFlags": "all_false"
+    },
+    {
+      "fixtureId": "systemic_total_requires_four_views",
+      "inputSummary": "EVE02-CMP-013 only emits candidate if PM/MoC/PF/OLC evidence exists; otherwise blocked by missing evidence.",
+      "expectedReadinessState": "diagnostic_preclassification_candidate_or_blocked_by_missing_evidence",
+      "expectedCompartmentId": "EVE02-CMP-013",
+      "expectedPathologyCandidate": "Incoherencia Sistémica Total",
+      "expectedAllowedActions": ["emit_shadow_candidate_if_four_views_present", "write_audit_trace"],
+      "expectedBlockedActions": ["emit_candidate_with_partial_views", "final_diagnosis", "registry_write"],
+      "expectedRuleIds": ["EVE02-R018", "EVE02-R026", "EVE02-R042"],
+      "expectedSafetyFlags": "all_false"
+    }
+  ]
+}

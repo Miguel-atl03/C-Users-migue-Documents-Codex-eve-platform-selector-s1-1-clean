@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "capa1_phase1_fixture_set_v1",
+  "fixtures": [
+    {
+      "id": "A",
+      "name": "Escena simple consistente",
+      "expected": {
+        "confidenceLevel": "high",
+        "preclassificationReadiness": "ready_for_transduction",
+        "sessionReadyImpact": "supports_true"
+      }
+    },
+    {
+      "id": "B",
+      "name": "Falla de handoff con impacto aguas abajo y compensacion del receptor",
+      "expected": {
+        "requiredBundleSections": ["handoff_evidence", "flow_evidence", "compensation_evidence"],
+        "readinessCanBe": ["needs_micro_confirmation", "needs_manual_review"]
+      }
+    },
+    {
+      "id": "C",
+      "name": "Workaround y falta de informacion con derivaciones de Bloque 6",
+      "expected": {
+        "requiredVariables": ["workaround_used", "missing_information", "compensation_primary_mechanism"],
+        "requiredBundles": ["compensation_bundle", "ahe_observation_bundle"]
+      }
+    },
+    {
+      "id": "D",
+      "name": "Huella interpersonal fuerte",
+      "expected": {
+        "mustEvaluate": "7.3a",
+        "interpersonalSignals": ["pursuit", "informal_support", "relational_buffering", "cross_area_friction", "mixed"]
+      }
+    },
+    {
+      "id": "E",
+      "name": "Contradiccion entre evidencia capturada y preclasificacion",
+      "expected": {
+        "confidenceAction": "reduce_or_manual_review",
+        "manualReview": true
+      }
+    },
+    {
+      "id": "F",
+      "name": "Sesion con escena profunda ready, abreviada y reentrada pendiente",
+      "expected": {
+        "sessionOutputIncludes": ["deep", "abbreviated", "support", "pending"],
+        "mustNotFalseReady": true
+      }
+    }
+  ]
+}

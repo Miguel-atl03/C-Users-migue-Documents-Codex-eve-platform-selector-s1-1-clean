@@ -1,0 +1,506 @@
+[
+  {
+    "id": "B0-Q01",
+    "sourceNodes": [
+      "0.0",
+      "0.1",
+      "0.1a",
+      "0.D"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre al abrir actividad. Si llega de WorkMapIntake, se prellena; si llega incompleta, se reconstruye sin inventar.",
+    "mandatoryClosureRule": "Debe cerrar activity_name_user_confirmed y semantic_confirmation_status. Prefill no confirmado queda ai_inferred_unconfirmed.",
+    "failureBlockRule": "Si falta confirmación o corrección: blocked_by_missing_evidence o reentry a B0.",
+    "reviewActionLabel": "Reingresar a B0 y completar la evidencia o ruta faltante.",
+    "functionLabel": "Confirmación/corrección de actividad"
+  },
+  {
+    "id": "B0-Q02",
+    "sourceNodes": [
+      "0.2",
+      "0.A",
+      "0.C"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre, salvo que la descripción previa tenga alta confianza y el usuario la confirme.",
+    "mandatoryClosureRule": "Debe capturar activity_summary_literal o reconstrucción guiada con proveniencia.",
+    "failureBlockRule": "Si queda genérica o fuera de escala: reentry/clarification B0.",
+    "reviewActionLabel": "Reingresar a B0 y completar la evidencia o ruta faltante.",
+    "functionLabel": "Descripción operativa mínima"
+  },
+  {
+    "id": "B0-Q03",
+    "sourceNodes": [
+      "0.3",
+      "0.4",
+      "0.5_actor_scope"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; permite estimar carga plausible sin convertir B0 en medición de capacidad.",
+    "mandatoryClosureRule": "Debe cerrar frecuencia, contexto típico y actor_scope; si hay variación activa C01.",
+    "failureBlockRule": "Si falta contexto/frecuencia/actor: activity_anchor_gap_flag.",
+    "reviewActionLabel": "Mantener el gap/flag visible, completar evidencia y reevaluar cierre.",
+    "functionLabel": "Frecuencia, contexto y actor inmediato"
+  },
+  {
+    "id": "B0-Q04",
+    "sourceNodes": [
+      "0.6",
+      "0.7",
+      "0.B"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si inicio y cierre se mezclan, dispara aclaración B0.B.",
+    "mandatoryClosureRule": "Debe cerrar start_condition_hint y end_result_hint confirmados o corregidos.",
+    "failureBlockRule": "No pasar a B0.5 si falta inicio, cierre o escala suficiente.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Inicio y cierre de actividad"
+  },
+  {
+    "id": "B05-Q05",
+    "sourceNodes": [
+      "0.5.1",
+      "0.5.1a",
+      "0.5.1_rel",
+      "0.5.1c",
+      "0.5.1d"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; bloquea PM si no hay cliente funcional o actor afectado razonablemente claros.",
+    "mandatoryClosureRule": "Debe cerrar beneficiario, afectado, relación valor/daño y claridad. Si hay asimetría/ambigüedad activa C02.",
+    "failureBlockRule": "Si falta: PM sin cliente/daño; scene_frame_readiness con flag o reentry.",
+    "reviewActionLabel": "Mantener el gap/flag visible, completar evidencia y reevaluar cierre.",
+    "functionLabel": "Beneficiario funcional y actor afectado"
+  },
+  {
+    "id": "B05-Q06",
+    "sourceNodes": [
+      "0.5.2",
+      "0.5.B"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si queda demasiado amplio o pegado a tarea, reentra por aclaración.",
+    "mandatoryClosureRule": "Debe cerrar scene_macro_process o marcar No estoy seguro con flag.",
+    "failureBlockRule": "Si falta proceso contenedor: escena flotante; reentry B0.5.",
+    "reviewActionLabel": "Reingresar a B0.5 y completar la evidencia o ruta faltante.",
+    "functionLabel": "Proceso contenedor"
+  },
+  {
+    "id": "B05-Q07",
+    "sourceNodes": [
+      "0.5.3",
+      "0.5.4",
+      "0.5.4a"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; separa objetivo de proceso, urgencia y prioridad real.",
+    "mandatoryClosureRule": "Debe cerrar milestone y priority_source/displacement_source.",
+    "failureBlockRule": "Si hito solo repite tarea local: 0.5.C o gap.",
+    "reviewActionLabel": "Mantener el gap/flag visible, completar evidencia y reevaluar cierre.",
+    "functionLabel": "Hito habilitado y prioridad"
+  },
+  {
+    "id": "B1-Q08",
+    "sourceNodes": [
+      "1.1",
+      "1.5"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si hay fuentes contradictorias, puede abrir B1.C.",
+    "mandatoryClosureRule": "Debe cerrar trigger_source y trigger_channel; si múltiples fuentes/canales puede activar C03/1.C.",
+    "failureBlockRule": "Si falta origen/canal: inicio sin interfaz explícita; reentry B1.",
+    "reviewActionLabel": "Reingresar a B1 y completar la evidencia o ruta faltante.",
+    "functionLabel": "Fuente y canal del disparador"
+  },
+  {
+    "id": "B1-Q09",
+    "sourceNodes": [
+      "1.2",
+      "1.3"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si hay ambigüedad, puede abrir B1.A.",
+    "mandatoryClosureRule": "Debe cerrar trigger_type y trigger_clarity; ambigüedad activa C03/1.A.",
+    "failureBlockRule": "Si falta: no distinguir régimen planificado/reactivo ni claridad de inicio.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Tipo y claridad del disparador"
+  },
+  {
+    "id": "B1-Q10",
+    "sourceNodes": [
+      "1.4"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; alimenta capacidad y patrón de carga.",
+    "mandatoryClosureRule": "Debe cerrar trigger_frequency y trigger_pattern.",
+    "failureBlockRule": "Si falta: no comparar previsibilidad con carga real.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Frecuencia y patrón del disparador"
+  },
+  {
+    "id": "B1-Q11",
+    "sourceNodes": [
+      "1.6",
+      "1.7"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si existe excepción de inicio, abre causal B1-C03.",
+    "mandatoryClosureRule": "Debe cerrar trigger_preconditions y trigger_exception_exists. Si hay excepción activa C03/1.8.",
+    "failureBlockRule": "Si falta: no separar inicio válido de inicio improvisado.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Precondiciones y excepción de inicio"
+  },
+  {
+    "id": "B2-Q12",
+    "sourceNodes": [
+      "2.1",
+      "2.1a",
+      "2.1b",
+      "2.1c"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si hay varias dimensiones, abre causal B2-C04.",
+    "mandatoryClosureRule": "Debe cerrar transformation_primary_dimensions y entidad concreta. Si mezcla dimensiones activa C04.",
+    "failureBlockRule": "Si falta: transformación ontológicamente borrosa; no avanzar a B5.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Objeto, sujeto o acción principal"
+  },
+  {
+    "id": "B2-Q13",
+    "sourceNodes": [
+      "2.2_obj",
+      "2.2_suj",
+      "2.2_acc"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre que exista objeto/sujeto/acción identificable; si no, reentrada a B2-Q12.",
+    "mandatoryClosureRule": "Debe cerrar atributos/cualidades que cambian según entidad seleccionada.",
+    "failureBlockRule": "Si falta: no se identifica qué muta.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Propiedades que cambian"
+  },
+  {
+    "id": "B2-Q14",
+    "sourceNodes": [
+      "2.4a",
+      "2.4b"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; conecta transformación con evento y evita lista de tareas sin causalidad.",
+    "mandatoryClosureRule": "Debe cerrar transformation_causality_action y transformation_causality_trigger.",
+    "failureBlockRule": "Si falta: no hay causalidad directa de cambio.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Acción transformadora y causa inmediata"
+  },
+  {
+    "id": "B2-Q15",
+    "sourceNodes": [
+      "2.5",
+      "2.6"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; bloquea OLC/PF si no hay estado inicial y final.",
+    "mandatoryClosureRule": "Debe cerrar transformation_state_initial y transformation_state_final.",
+    "failureBlockRule": "Si falta: no hay base para OLC ni PF→OLC.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Estado inicial y estado final"
+  },
+  {
+    "id": "B2-Q16",
+    "sourceNodes": [
+      "2.3",
+      "2.7"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si hay varios ciclos, abre B2-C07.",
+    "mandatoryClosureRule": "Debe cerrar magnitude e iteration regime. Múltiples ciclos activan C07.",
+    "failureBlockRule": "Si falta: se subcaptura complejidad y capacidad.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Magnitud e iteración de transformación"
+  },
+  {
+    "id": "B2-Q17",
+    "sourceNodes": [
+      "2.9",
+      "2.11"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; ruta crítica B2. Si hay falla, abre B2-C05; si hay cambio oculto, abre B2-C06.",
+    "mandatoryClosureRule": "Debe cerrar transformation_exception_exists e hidden_changes. Falla activa C05; cambio oculto activa C06.",
+    "failureBlockRule": "Si evidencia textual no cierra ruta 2.9/2.10: blocked_by_missing_canonical_route.",
+    "reviewActionLabel": "Completar la ruta canónica; si no es posible, reentry o revisión manual.",
+    "functionLabel": "Excepción y cambio oculto de transformación"
+  },
+  {
+    "id": "B3-Q18",
+    "sourceNodes": [
+      "3.1",
+      "3.2",
+      "3.A"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si receptor directo vs acceso secundario queda ambiguo, abre aclaración.",
+    "mandatoryClosureRule": "Debe cerrar output_object y primary_receiver.",
+    "failureBlockRule": "Si falta: handoff sin destinatario.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Salida y receptor directo"
+  },
+  {
+    "id": "B3-Q19",
+    "sourceNodes": [
+      "3.3",
+      "3.4",
+      "3.5"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; conecta handoff con dependencia y siguiente paso.",
+    "mandatoryClosureRule": "Debe cerrar receiver_type, dependency e impact/next step.",
+    "failureBlockRule": "Si falta: no se sabe qué se rompe aguas abajo.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Naturaleza, dependencia e impacto del receptor"
+  },
+  {
+    "id": "B3-Q20",
+    "sourceNodes": [
+      "3.7",
+      "3.8",
+      "3.9",
+      "3.B"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; separa calidad, canal y frecuencia.",
+    "mandatoryClosureRule": "Debe cerrar quality_criteria, delivery_mechanism y frequency.",
+    "failureBlockRule": "Si falta: handoff sin estándar verificable.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Criterios y mecanismo de entrega"
+  },
+  {
+    "id": "B3-Q21",
+    "sourceNodes": [
+      "3.10"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; ruta crítica B3. Si sí, abre B3-C08 y B3-C09.",
+    "mandatoryClosureRule": "Debe cerrar delivery_exception_exists. Si sí, activa C08 y puede activar C09.",
+    "failureBlockRule": "Si falta: no se detecta handoff defectuoso.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Falla de entrega"
+  },
+  {
+    "id": "B3-Q22",
+    "sourceNodes": [
+      "3.13",
+      "3.14"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; no sustituye feedback operativo. Si hay aviso/rechazo/devolución, abre B3-C09.",
+    "mandatoryClosureRule": "Debe cerrar receiver_satisfaction y recent_delivery_changes sin absorber feedback operativo. Si hay rechazo/corrección operativa, activa C09.",
+    "failureBlockRule": "Si mezcla satisfacción con feedback: receiver_feedback_route_missing.",
+    "reviewActionLabel": "Completar la ruta canónica; si no es posible, reentry o revisión manual.",
+    "functionLabel": "Aceptación del receptor y cambios recientes"
+  },
+  {
+    "id": "B4-Q23",
+    "sourceNodes": [
+      "4.1",
+      "4.2",
+      "4.A"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; base de PF y sincronizaciones.",
+    "mandatoryClosureRule": "Debe cerrar dependency_previous y dependency_next.",
+    "failureBlockRule": "Si falta: flujo sin dirección causal.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Dependencias anterior y posterior"
+  },
+  {
+    "id": "B4-Q24",
+    "sourceNodes": [
+      "4.3",
+      "4.4",
+      "4.5"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si hay bloqueo sin resolución, abre B4-C11.",
+    "mandatoryClosureRule": "Debe cerrar wait_time, time_event y deadlock_risk. Bloqueo/espera fuerte activa C11 y Process State/Timer Gate.",
+    "failureBlockRule": "Sin event/timer/resolution: PF incompleto y deadlock_risk.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Espera, tiempo y bloqueo"
+  },
+  {
+    "id": "B4-Q25",
+    "sourceNodes": [
+      "4.6"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si se repite, abre B4-C12.",
+    "mandatoryClosureRule": "Debe cerrar iteration_pattern. Repetición activa C12.",
+    "failureBlockRule": "Si falta: no distinguir flujo lineal de recurrente.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Iteración del flujo"
+  },
+  {
+    "id": "B4-Q26",
+    "sourceNodes": [
+      "4.7"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si sí, abre B4-C13.",
+    "mandatoryClosureRule": "Debe cerrar route_alternatives. Si sí, activa C13.",
+    "failureBlockRule": "Si falta: alternativas sin condición causal.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Caminos alternativos"
+  },
+  {
+    "id": "B4-Q27",
+    "sourceNodes": [
+      "4.8",
+      "4.9"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si hay pasos extras, abre B4-C14.",
+    "mandatoryClosureRule": "Debe cerrar parallelism_type y hidden_subprocess. Pasos ocultos activan C14.",
+    "failureBlockRule": "Si falta: proceso real queda oficialista.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Paralelismo y pasos no oficiales"
+  },
+  {
+    "id": "B4-Q28",
+    "sourceNodes": [
+      "4.10",
+      "4.11",
+      "4.12",
+      "4.13"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; protege PF real frente al proceso declarado.",
+    "mandatoryClosureRule": "Debe cerrar real_vs_official_sequence, blockage_impact, bottleneck y deviation_frequency. Secuencia alterada activa C14.",
+    "failureBlockRule": "Si falta: no se ubica el punto de fricción real.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Secuencia real, impacto y atasco"
+  },
+  {
+    "id": "B5-Q29",
+    "sourceNodes": [
+      "5.0",
+      "5.0_auto",
+      "5.1",
+      "5.2",
+      "5.3"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; debe heredar dimensión dominante desde B2.",
+    "mandatoryClosureRule": "Debe cerrar capacidad nominal/real en misma métrica y calcular brecha.",
+    "failureBlockRule": "Si no hay comparabilidad: blocked_by_metric_incomparability/reentry B2.",
+    "reviewActionLabel": "Reingresar a B2 y completar la evidencia o ruta faltante.",
+    "functionLabel": "Métrica de capacidad y brecha"
+  },
+  {
+    "id": "B5-Q30",
+    "sourceNodes": [
+      "5.4",
+      "5.5",
+      "5.6"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; separa recursos asignados de capacidad real.",
+    "mandatoryClosureRule": "Debe cerrar personas, sistemas/herramientas y tiempo oficial.",
+    "failureBlockRule": "Si falta: no hay contexto de capacidad real.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Recursos disponibles"
+  },
+  {
+    "id": "B5-Q31",
+    "sourceNodes": [
+      "5.7",
+      "5.8"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; mide brecha operativa no solo volumen.",
+    "mandatoryClosureRule": "Debe cerrar personas/tiempo requeridos para operar sin sacrificio recurrente.",
+    "failureBlockRule": "Si falta: no se puede leer déficit de bargain.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Recursos requeridos"
+  },
+  {
+    "id": "B5-Q32",
+    "sourceNodes": [
+      "5.9",
+      "5.10"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; conecta capacidad con margen regulatorio.",
+    "mandatoryClosureRule": "Debe cerrar libertad de decisión y límites duros.",
+    "failureBlockRule": "Si falta: no se evalúa subsidiariedad/discrecionalidad.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Discrecionalidad y restricciones"
+  },
+  {
+    "id": "B5-Q33",
+    "sourceNodes": [
+      "5.11",
+      "5.12",
+      "5.14"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si algo se escapa o no es sostenible, abre B5-C15.",
+    "mandatoryClosureRule": "Debe cerrar compensación estructural, residual variety y resource_bargain. Si escape/tensión activa C15.",
+    "failureBlockRule": "Si falta: VSM/resource bargain queda débil.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Sacrificio, variedad residual y sostenibilidad"
+  },
+  {
+    "id": "B6-Q34",
+    "sourceNodes": [
+      "6.1"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; capta soporte oculto o reparación local.",
+    "mandatoryClosureRule": "Debe cerrar workaround_used y workaround_types.",
+    "failureBlockRule": "Si falta: se pierde parche local que sostiene la escena.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Workaround principal"
+  },
+  {
+    "id": "B6-Q35",
+    "sourceNodes": [
+      "6.2"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si sí, abre B6-C16.",
+    "mandatoryClosureRule": "Debe cerrar rework_present. Si sí, activa C16.",
+    "failureBlockRule": "Si falta: loops/rebotes ocultos no quedan trazados.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Retrabajo"
+  },
+  {
+    "id": "B6-Q36",
+    "sourceNodes": [
+      "6.3",
+      "6.4"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si existe, abre B6-C17.",
+    "mandatoryClosureRule": "Debe cerrar missing_information e informal_rule_present. Si hay carencia/regla activa C17.",
+    "failureBlockRule": "Si falta: se pierde falla de coordinación/regla real.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Información faltante y regla informal"
+  },
+  {
+    "id": "B6-Q37",
+    "sourceNodes": [
+      "6.5",
+      "6.6",
+      "6.7"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si hay desgaste o costo normalizado, abre B6-C18.",
+    "mandatoryClosureRule": "Debe cerrar human_sacrifice, wear_accumulated y effort_cost. Si negativo/alto activa C18.",
+    "failureBlockRule": "Si falta: AHE prep pierde costo humano.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Sacrificio, desgaste y costo de esfuerzo"
+  },
+  {
+    "id": "B6-Q38",
+    "sourceNodes": [
+      "6.9",
+      "6.10",
+      "6.11"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Siempre; si hay patrón recurrente, abre B6-C19.",
+    "mandatoryClosureRule": "Debe cerrar repetitive_failure_pattern, residual_variety_absorption y compensation_primary_mechanism. Si hay patrón activa C19.",
+    "failureBlockRule": "Si falta: no hay mecanismo de compensación consolidado.",
+    "reviewActionLabel": "Aclarar o completar el dato faltante y reevaluar la interacción.",
+    "functionLabel": "Patrón repetitivo y mecanismo de compensación"
+  },
+  {
+    "id": "B7-Q39",
+    "sourceNodes": [
+      "7.0",
+      "7.1",
+      "7.4"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Microconfirmación gobernada; visible solo si la preclasificación tiene confianza suficiente o necesita corrección breve.",
+    "mandatoryClosureRule": "Debe consolidar preclassification/readiness sin generar diagnóstico, IR, registry o export directo.",
+    "failureBlockRule": "Si confianza media/baja sin microconfirmación: needs_microconfirmation/manual_review.",
+    "reviewActionLabel": "Enviar a revisión manual y registrar la decisión.",
+    "functionLabel": "Confirmación de lectura preliminar"
+  },
+  {
+    "id": "B7-Q40",
+    "sourceNodes": [
+      "7.0a",
+      "7.2",
+      "7.3",
+      "7.3a"
+    ],
+    "catalogSelectionReason": "Regla de catálogo: Microconfirmación gobernada; no diagnostica AHE/VSM. Si persiste ambigüedad, reentry o manual review.",
+    "mandatoryClosureRule": "Debe cerrar chain_position/tensión cruzada solo como señal preclasificatoria no diagnóstica. Puede activar C20 si baja confianza.",
+    "failureBlockRule": "Si señales cruzadas quedan abiertas: needs_manual_review/reentry.",
+    "reviewActionLabel": "Enviar a revisión manual y registrar la decisión.",
+    "functionLabel": "Microconfirmación de posición o tensión cruzada"
+  }
+]

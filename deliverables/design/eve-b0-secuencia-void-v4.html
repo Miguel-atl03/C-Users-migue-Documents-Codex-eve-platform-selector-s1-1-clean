@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+      FREEZE APROBADO · BUILD 4.3
+      Lienzo local: LocalB0MemoriaOperativaSection (tras Umbral)
+      Ruta: /dev/ui-posicion-workmap
+      No editar este HTML como fuente de verdad de producto; el React es la integración.
+    -->
+    <title>EVE — B0 · Secuencia void v4 · FREEZE 4.3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-kicker: "IBM Plex Mono", "Consolas", monospace;
+        --font-activity: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-kicker);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .build {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 20;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .error {
+        position: fixed;
+        top: 40px;
+        right: 20px;
+        z-index: 20;
+        max-width: 42ch;
+        color: #8a2f2f;
+        font-size: 10px;
+        line-height: 1.4;
+        display: none;
+      }
+
+      .error.is-visible {
+        display: block;
+      }
+
+      .void {
+        position: relative;
+        min-height: 100svh;
+        width: min(1440px, 100%);
+        margin: 0 auto;
+        padding: 88px 72px 120px;
+      }
+
+      .intro {
+        margin: 0 0 56px;
+        max-width: 260px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        opacity: 0;
+        transition: color 900ms ease, opacity 900ms ease;
+      }
+
+      .intro.is-visible {
+        opacity: 1;
+      }
+
+      .intro.is-mist {
+        color: var(--eve-mist);
+      }
+
+      .memory-band {
+        transition: color 700ms ease;
+      }
+
+      .memory-band.is-mist .step-label,
+      .memory-band.is-mist .step-value {
+        color: var(--eve-mist) !important;
+        transition: color 700ms ease;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(20px, 3.5vw, 56px);
+        align-items: start;
+        min-height: 160px;
+      }
+
+      .flow-step {
+        min-width: 0;
+        max-width: 34ch;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .flow-step.is-active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .step-label {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        min-height: 1.4em;
+        white-space: nowrap;
+        transition: color 700ms ease;
+      }
+
+      .step-value {
+        display: block;
+        margin: 20px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font-family: var(--font-activity);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+        max-width: 44ch;
+        min-height: 3em;
+        outline: none;
+        resize: none;
+        width: 100%;
+        transition: color 700ms ease;
+      }
+
+      .step-value.is-editing {
+        color: var(--eve-ink) !important;
+        cursor: text;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 1px;
+        height: 0.95em;
+        margin-left: 1px;
+        background: currentColor;
+        vertical-align: text-bottom;
+        animation: blink 900ms step-end infinite;
+      }
+
+      .cursor.is-hidden {
+        display: none;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* Isla de confirmación — debajo del flujo */
+      .confirm-island {
+        margin-top: 72px;
+        max-width: 520px;
+        min-height: 88px;
+      }
+
+      .confirm-question {
+        margin: 0;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .confirm-question.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .confirm-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0;
+        margin-top: 28px;
+        min-height: 1.6em;
+      }
+
+      .confirm-choice {
+        border: 0;
+        background: transparent;
+        padding: 4px 0;
+        font-family: var(--font-kicker);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: var(--eve-ink);
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: color 500ms ease, opacity 400ms ease;
+      }
+
+      .confirm-choice.is-ready {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .confirm-choice.is-selected {
+        font-weight: 700;
+      }
+
+      .confirm-choice.is-mist {
+        color: var(--eve-mist);
+      }
+
+      .confirm-choice:hover {
+        color: var(--eve-ink);
+      }
+
+      .confirm-sep {
+        display: inline-block;
+        width: 28px;
+        height: 1px;
+        margin: 0 18px;
+        background: var(--eve-line);
+        opacity: 0;
+        visibility: hidden;
+        flex-shrink: 0;
+      }
+
+      .confirm-sep.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .confirm-hint {
+        margin: 14px 0 0;
+        font-size: 8px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        opacity: 0;
+      }
+
+      .confirm-hint.is-visible {
+        opacity: 1;
+      }
+
+      /* Notificación operativa interna — sin sección UI siguiente */
+      .ops-notify {
+        position: fixed;
+        left: 24px;
+        bottom: 24px;
+        max-width: 42ch;
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 400ms ease;
+        z-index: 20;
+      }
+
+      .ops-notify.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .replay {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: var(--font-kicker);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 400ms ease, color 200ms ease;
+      }
+
+      .replay.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 900px) {
+        .void {
+          padding: 72px 24px 96px;
+        }
+
+        .flow {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="build" id="build">BUILD 4.3 · pregunta 3s · notify interno</p>
+    <p class="error" id="error" role="alert"></p>
+
+    <main class="void" aria-label="B0 secuencia void monumental">
+      <p class="intro" id="intro">Miremos de cerca…</p>
+
+      <div class="memory-band" id="memory-band">
+        <section class="flow" aria-label="Flujo horizontal">
+          <div class="flow-step" id="step-1">
+            <p class="step-label" id="label-1"></p>
+            <div class="step-value" id="value-1"></div>
+          </div>
+          <div class="flow-step" id="step-2">
+            <p class="step-label" id="label-2"></p>
+            <div class="step-value" id="value-2"></div>
+          </div>
+          <div class="flow-step" id="step-3">
+            <p class="step-label" id="label-3"></p>
+            <div class="step-value" id="value-3"></div>
+          </div>
+          <div class="flow-step" id="step-4">
+            <p class="step-label" id="label-4"></p>
+            <div class="step-value" id="value-4"></div>
+          </div>
+        </section>
+      </div>
+
+      <section class="confirm-island" id="confirm-island" aria-label="Confirmación memoria operativa">
+        <p class="confirm-question" id="confirm-question">
+          ¿Así es como se desarrolla tu memoria operativa?
+        </p>
+        <div class="confirm-actions" id="confirm-actions">
+          <button class="confirm-choice" id="choice-asi" type="button"></button>
+          <span class="confirm-sep" id="confirm-sep" aria-hidden="true"></span>
+          <button class="confirm-choice" id="choice-editar" type="button"></button>
+        </div>
+        <p class="confirm-hint" id="confirm-hint">
+          Edita las piezas y confirma con Así es para continuar.
+        </p>
+      </section>
+    </main>
+
+    <p class="ops-notify" id="ops-notify" role="status" aria-live="polite"></p>
+
+    <button class="replay" id="replay" type="button">Repetir secuencia</button>
+
+    <script>
+      const BUILD = "4.3";
+      const STORAGE_KEY = "eve-b0-memory-v4";
+
+      const STEP_DEFS = [
+        {
+          id: 1,
+          labelText: "I · Qué haces",
+          valueText:
+            "Analizo la proyección mensual de erogaciones comparando el gasto real contra Oracle para generar reportes de desviaciones con análisis de causa raíz.",
+        },
+        {
+          id: 2,
+          labelText: "II · Sobre qué trabajas",
+          valueText: "la proyección mensual de erogaciones",
+        },
+        {
+          id: 3,
+          labelText: "III · Pasos del recorrido",
+          valueText: "comparando el gasto real contra Oracle",
+        },
+        {
+          id: 4,
+          labelText: "IV · Qué queda listo",
+          valueText: "reportes de desviaciones con análisis de causa raíz",
+        },
+      ];
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("actividad")) STEP_DEFS[0].valueText = params.get("actividad").trim();
+      if (params.get("objeto")) STEP_DEFS[1].valueText = params.get("objeto").trim();
+      if (params.get("pasos")) STEP_DEFS[2].valueText = params.get("pasos").trim();
+      if (params.get("resultado")) STEP_DEFS[3].valueText = params.get("resultado").trim();
+
+      const introEl = document.getElementById("intro");
+      const memoryBandEl = document.getElementById("memory-band");
+      const errorEl = document.getElementById("error");
+      const replayEl = document.getElementById("replay");
+      const buildEl = document.getElementById("build");
+      const questionEl = document.getElementById("confirm-question");
+      const choiceAsi = document.getElementById("choice-asi");
+      const choiceEditar = document.getElementById("choice-editar");
+      const confirmSep = document.getElementById("confirm-sep");
+      const hintEl = document.getElementById("confirm-hint");
+      const opsNotifyEl = document.getElementById("ops-notify");
+
+      const steps = STEP_DEFS.map((def) => {
+        const el = document.getElementById("step-" + def.id);
+        const label = document.getElementById("label-" + def.id);
+        const value = document.getElementById("value-" + def.id);
+        return { ...def, el, label, value };
+      });
+
+      function showError(message) {
+        errorEl.textContent = message;
+        errorEl.classList.add("is-visible");
+        console.error(message);
+      }
+
+      const missing = steps.filter((s) => !s.el || !s.label || !s.value);
+      if (missing.length || steps.length !== 4) {
+        showError("BUILD " + BUILD + " incompleto: faltan nodos DOM.");
+      }
+
+      let runId = 0;
+      let busy = false;
+      let editing = false;
+      let confirmed = false;
+
+      function sleep(ms, token) {
+        return new Promise((resolve) => {
+          window.setTimeout(() => resolve(token === runId), ms);
+        });
+      }
+
+      function makeCursor() {
+        const cursor = document.createElement("span");
+        cursor.className = "cursor";
+        cursor.setAttribute("aria-hidden", "true");
+        return cursor;
+      }
+
+      async function typewriter(target, text, speed, token) {
+        if (!target) return false;
+        target.textContent = "";
+        const cursor = makeCursor();
+        target.appendChild(cursor);
+
+        for (let i = 0; i < text.length; i += 1) {
+          if (token !== runId) return false;
+          cursor.insertAdjacentText("beforebegin", text.charAt(i));
+          const alive = await sleep(speed, token);
+          if (!alive) return false;
+        }
+
+        cursor.classList.add("is-hidden");
+        return token === runId;
+      }
+
+      function readValues() {
+        return steps.map((step) => ({
+          id: step.id,
+          label: step.labelText,
+          value: (step.value.textContent || "").trim(),
+        }));
+      }
+
+      function persistActivity() {
+        const payload = {
+          confirmedAt: new Date().toISOString(),
+          build: BUILD,
+          parts: readValues(),
+        };
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        } catch (err) {
+          console.warn("No se pudo persistir en localStorage", err);
+        }
+        return payload;
+      }
+
+      function showOpsNotify(message) {
+        opsNotifyEl.textContent = message;
+        opsNotifyEl.classList.add("is-visible");
+      }
+
+      function hideOpsNotify() {
+        opsNotifyEl.classList.remove("is-visible");
+        opsNotifyEl.textContent = "";
+      }
+
+      function setEditing(on) {
+        editing = on;
+        hintEl.classList.toggle("is-visible", on);
+
+        if (on) {
+          // Segunda edición: sale del mist → ink
+          memoryBandEl.classList.remove("is-mist");
+          introEl.classList.remove("is-mist");
+          choiceEditar.classList.remove("is-mist");
+          choiceAsi.classList.remove("is-mist");
+          choiceAsi.classList.remove("is-selected");
+        } else if (confirmed) {
+          memoryBandEl.classList.add("is-mist");
+          introEl.classList.add("is-mist");
+          choiceEditar.classList.add("is-mist");
+        }
+
+        for (const step of steps) {
+          step.value.contentEditable = on ? "true" : "false";
+          step.value.classList.toggle("is-editing", on);
+          step.value.style.removeProperty("color");
+        }
+
+        if (on) {
+          choiceAsi.classList.add("is-ready");
+          choiceEditar.classList.add("is-ready");
+          showOpsNotify("Ops · reeditando · mist → ink · pendiente Así es");
+          steps[0].value.focus();
+        }
+      }
+
+      function confirmAndContinue() {
+        editing = false;
+        confirmed = true;
+
+        for (const step of steps) {
+          step.value.contentEditable = "false";
+          step.value.classList.remove("is-editing");
+          step.value.style.removeProperty("color");
+        }
+
+        persistActivity();
+        memoryBandEl.classList.add("is-mist");
+        introEl.classList.add("is-mist");
+
+        choiceAsi.classList.add("is-ready", "is-selected");
+        choiceAsi.classList.remove("is-mist");
+        // Editar permanece visible, en mist, habilitado para reabrir
+        choiceEditar.classList.add("is-ready", "is-mist");
+        choiceEditar.classList.remove("is-selected");
+        choiceEditar.style.pointerEvents = "";
+        choiceEditar.style.opacity = "";
+
+        hintEl.classList.remove("is-visible");
+        showOpsNotify(
+          "Ops · confirmado · persistido · mist activo · siguiente sección lista (interna)",
+        );
+        buildEl.textContent = "BUILD " + BUILD + " · confirmado · Editar en mist";
+        replayEl.classList.add("is-visible");
+      }
+
+      function resetConfirmUi() {
+        confirmed = false;
+        editing = false;
+        questionEl.classList.remove("is-visible");
+        choiceAsi.textContent = "";
+        choiceEditar.textContent = "";
+        choiceAsi.classList.remove("is-ready", "is-selected", "is-mist");
+        choiceEditar.classList.remove("is-ready", "is-selected", "is-mist");
+        choiceEditar.style.pointerEvents = "";
+        choiceEditar.style.opacity = "";
+        confirmSep.classList.remove("is-visible");
+        hintEl.classList.remove("is-visible");
+        hideOpsNotify();
+        memoryBandEl.classList.remove("is-mist");
+        for (const step of steps) {
+          step.value.contentEditable = "false";
+          step.value.classList.remove("is-editing");
+          step.value.style.removeProperty("color");
+        }
+      }
+
+      function resetVisual() {
+        introEl.classList.remove("is-visible", "is-mist");
+        for (const step of steps) {
+          if (!step.el) continue;
+          step.el.classList.remove("is-active");
+          step.label.textContent = "";
+          step.value.textContent = "";
+        }
+        resetConfirmUi();
+        replayEl.classList.remove("is-visible");
+      }
+
+      async function playStep(step, token, gapBeforeMs) {
+        if (!step.el || !step.label || !step.value) {
+          showError("Paso " + step.id + " sin DOM — abortando.");
+          return false;
+        }
+
+        if (gapBeforeMs > 0) {
+          const alive = await sleep(gapBeforeMs, token);
+          if (!alive) return false;
+        }
+
+        step.el.classList.add("is-active");
+        buildEl.textContent = "BUILD " + BUILD + " · " + step.labelText;
+
+        let ok = await typewriter(step.label, step.labelText, 48, token);
+        if (!ok) return false;
+
+        ok = await sleep(2000, token);
+        if (!ok) return false;
+
+        ok = await typewriter(step.value, step.valueText, 36, token);
+        return ok;
+      }
+
+      async function playConfirmation(token) {
+        // Void 2s entre el último paso (IV) y la pregunta
+        let alive = await sleep(2000, token);
+        if (!alive) return false;
+
+        // Pregunta: aparece sin motion
+        questionEl.classList.add("is-visible");
+        buildEl.textContent = "BUILD " + BUILD + " · pregunta de confirmación";
+
+        alive = await sleep(3000, token);
+        if (!alive) return false;
+
+        // Desaparece
+        questionEl.classList.remove("is-visible");
+
+        alive = await sleep(300, token);
+        if (!alive) return false;
+
+        // Typewriter de opciones + barra espaciadora entre ellas
+        choiceAsi.classList.add("is-ready");
+        let ok = await typewriter(choiceAsi, "Así es", 48, token);
+        if (!ok) return false;
+
+        alive = await sleep(280, token);
+        if (!alive) return false;
+        confirmSep.classList.add("is-visible");
+
+        alive = await sleep(280, token);
+        if (!alive) return false;
+
+        choiceEditar.classList.add("is-ready");
+        ok = await typewriter(choiceEditar, "Editar", 48, token);
+        return ok;
+      }
+
+      async function runSequence() {
+        if (missing.length) return;
+
+        runId += 1;
+        const token = runId;
+        busy = true;
+        resetVisual();
+        buildEl.textContent = "BUILD " + BUILD + " · secuencia I–IV";
+
+        let alive = await sleep(120, token);
+        if (!alive) return;
+        introEl.classList.add("is-visible");
+
+        alive = await sleep(3000, token);
+        if (!alive) return;
+        introEl.classList.add("is-mist");
+
+        alive = await sleep(400, token);
+        if (!alive) return;
+
+        for (let i = 0; i < steps.length; i += 1) {
+          // Void 2s entre el fin del paso anterior y la entrada del siguiente label
+          const ok = await playStep(steps[i], token, i === 0 ? 0 : 2000);
+          if (!ok) {
+            if (token === runId) {
+              showError("La secuencia se detuvo en el paso " + steps[i].id);
+            }
+            busy = false;
+            return;
+          }
+        }
+
+        if (token !== runId) return;
+
+        const confirmOk = await playConfirmation(token);
+        if (!confirmOk) {
+          busy = false;
+          return;
+        }
+
+        buildEl.textContent = "BUILD " + BUILD + " · espera confirmación";
+        busy = false;
+        replayEl.classList.add("is-visible");
+      }
+
+      choiceAsi.addEventListener("click", () => {
+        if (!choiceAsi.classList.contains("is-ready")) return;
+        // Si ya estaba confirmado y no está editando, no hace falta re-confirmar
+        if (confirmed && !editing) return;
+        confirmAndContinue();
+      });
+
+      choiceEditar.addEventListener("click", () => {
+        if (!choiceEditar.classList.contains("is-ready")) return;
+        setEditing(true);
+        buildEl.textContent =
+          "BUILD " + BUILD + " · editando en ink · confirma con Así es";
+      });
+
+      replayEl.addEventListener("click", () => {
+        if (busy) runId += 1;
+        runSequence();
+      });
+
+      runSequence();
+    </script>
+  </body>
+</html>

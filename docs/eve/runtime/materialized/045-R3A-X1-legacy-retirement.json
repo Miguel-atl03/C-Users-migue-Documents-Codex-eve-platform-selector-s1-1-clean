@@ -1,0 +1,35 @@
+{
+  "instruction": "045-R3A-X1",
+  "sequence": [
+    "FREEZE",
+    "PORT",
+    "REDIRECT",
+    "TEST",
+    "DELETE"
+  ],
+  "artifacts": [
+    {
+      "artifact": "src/components/client/ClientAuthScreen.tsx",
+      "classification": "safe_to_delete",
+      "action": "deleted",
+      "reason": "0 productive callers after OfficialLoginSection redirect"
+    },
+    {
+      "artifact": "src/components/client/ActiveAssessmentState.tsx",
+      "classification": "safe_to_delete",
+      "action": "deleted",
+      "reason": "0 productive callers after OfficialSessionResumeSection"
+    },
+    {
+      "artifact": "src/components/client/EmptyAssessmentState.tsx",
+      "classification": "still_required_elsewhere",
+      "action": "retained",
+      "reason": "still imported by /dev/e2e-block0 harness"
+    },
+    {
+      "artifact": "auth/session/bootstrap/start-position domain",
+      "classification": "still_required_non_UI",
+      "action": "retained"
+    }
+  ]
+}

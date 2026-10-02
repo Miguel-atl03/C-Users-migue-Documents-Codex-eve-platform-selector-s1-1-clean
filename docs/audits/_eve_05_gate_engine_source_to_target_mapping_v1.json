@@ -1,0 +1,88 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "GATE_ENGINE_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "mappingKind": "initial_non_exhaustive_source_to_module",
+  "sourceToTargetMappingCreated": true,
+  "sourceToTargetMappingExhaustive": false,
+  "mappings": [
+    {
+      "targetModule": "critical_route_gate",
+      "initialSources": ["D6", "D8"],
+      "initialSourceUnits": ["D6!Critical_Routes", "D8!Critical_Routes", "D8!Catalogo_Madre_Nodos"],
+      "declaredTargetUnits": {
+        "routes": 4,
+        "rules": 10
+      },
+      "status": "initially_mapped_pending_rule_level_qa"
+    },
+    {
+      "targetModule": "semantic_resolution_gate",
+      "initialSources": ["D6", "D5", "D4"],
+      "initialSourceUnits": ["D6!Semantic_Resolution_Gates", "D5 gates/fronteras/QA", "D4 technical gate contract"],
+      "declaredTargetUnits": {
+        "gates": 7,
+        "rules": 8
+      },
+      "status": "initially_mapped_pending_rule_level_qa"
+    },
+    {
+      "targetModule": "process_state_timer_gate",
+      "initialSources": ["D6", "D5", "D4"],
+      "initialSourceUnits": ["D6!Process_State_Timer_Gates", "D5 runtime gate governance", "D4 runtime states/recompute"],
+      "declaredTargetUnits": {
+        "gates": 6,
+        "rules": 9
+      },
+      "status": "initially_mapped_pending_rule_level_qa"
+    },
+    {
+      "targetModule": "mmabp_conformance_gate",
+      "initialSources": ["D1", "D5", "D7", "D8"],
+      "initialSourceUnits": ["D1 MMABP PM/MoC/PF/OLC", "D5 runtime governance", "D7 architecture 40+20", "D8 MMABP_Mapping / Canonical_Variables"],
+      "declaredTargetUnits": {
+        "engine_rules": 8,
+        "model_rules": 53
+      },
+      "status": "initially_mapped_pending_model_rule_qa"
+    },
+    {
+      "targetModule": "mmabp_consistency_gate",
+      "initialSources": ["D2", "D1", "D5", "D8", "phase_dependencies"],
+      "initialSourceUnits": ["D2 inconsistency compartments", "D1 conformance/consistency method", "D5 runtime QA/fronteras", "D8 canonical genealogy", "phase dependency: conformance before consistency"],
+      "declaredTargetUnits": {
+        "engine_rules": 10,
+        "method_rules": 15,
+        "compartments": 13
+      },
+      "status": "initially_mapped_pending_compartment_and_rule_qa"
+    },
+    {
+      "targetModule": "methodological_guard_vsm",
+      "initialSources": ["VSM1"],
+      "initialSourceUnits": ["VSM identity / recursion / variety guard"],
+      "status": "guard_only_not_runtime_gate",
+      "overreachGuard": "No closed VSM diagnosis and no automatic S1-S5 classification."
+    },
+    {
+      "targetModule": "interpretive_guard_ahe",
+      "initialSources": ["AHE1"],
+      "initialSourceUnits": ["AHE observation / interpretation / diagnostic frontier"],
+      "status": "guard_only_not_runtime_gate",
+      "overreachGuard": "No AHE closed diagnosis and no substitution of MMABP or VSM."
+    },
+    {
+      "targetModule": "downstream_boundary",
+      "initialSources": ["D3"],
+      "initialSourceUnits": ["Produccion Paralela", "export boundary", "diagnostic boundary"],
+      "status": "boundary_only_not_operational_gate_source",
+      "overreachGuard": "D3 must not be used as primary operational source for gate rules."
+    }
+  ],
+  "mappingLimits": [
+    "No exhaustive rule-level mapping was claimed.",
+    "No field-level mapping was claimed.",
+    "No content fidelity coverage report was created.",
+    "No COMPLETE or CERTIFIED status was claimed.",
+    "Record/rule/source QA remains pending."
+  ]
+}

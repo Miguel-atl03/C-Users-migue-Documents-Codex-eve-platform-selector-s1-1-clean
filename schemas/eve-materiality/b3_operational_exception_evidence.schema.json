@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "B3 OperationalExceptionEvidence Contract",
+  "type": "object",
+  "required": [
+    "id",
+    "case_id",
+    "state",
+    "source_ref",
+    "derivation_ref",
+    "governance_issue_refs",
+    "readiness_decision_ref",
+    "allowed_consumers",
+    "forbidden_consumers",
+    "audit_log"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "detected",
+        "route_checked",
+        "derived",
+        "unresolved",
+        "classified",
+        "linked_to_issue",
+        "ready_for_bundle",
+        "frozen",
+        "archived"
+      ]
+    },
+    "source_ref": {
+      "type": "string"
+    },
+    "derivation_ref": {
+      "type": "string"
+    },
+    "governance_issue_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "readiness_decision_ref": {
+      "type": "string"
+    },
+    "allowed_consumers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_consumers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audit_log": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "implementation_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "materiality_level": {
+      "type": "string",
+      "enum": [
+        "L0 absent",
+        "L1 documented_only",
+        "L2 vocabulary_only",
+        "L3 guardrail_only",
+        "L4 contract_defined",
+        "L5 schema_present",
+        "L6 service_present",
+        "L7 tested_materiality",
+        "L8 executable_materiality"
+      ],
+      "const": "L4 contract_defined"
+    },
+    "materiality_rationale": {
+      "type": "string"
+    },
+    "exception_evidence_id": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "subtype": {
+      "type": "string",
+      "enum": [
+        "transformation_exception",
+        "receiver_feedback"
+      ]
+    },
+    "scene_id": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "block_id": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "route_code": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "canonical_value": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "literal_evidence": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "severity": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,164 @@
+## TABLE 1 rows=10
+Variable Canónica | Tipo | Propósito | Mapeo
+trigger_source | Enum | De dónde viene el estímulo | S1 autonomía, S2 handoff, S3 orden
+trigger_type | Enum | Naturaleza (planificado vs reactivo) | S3* auditoría, AHE carga
+trigger_frequency | Enum | Frecuencia de ocurrencia | S3 capacidad, S4 cambio
+trigger_pattern | Boolean | ¿Hay patrón predecible? | S2 coordinación, S4 adaptación
+trigger_clarity | Enum | ¿Está claro cuándo comienza? | Algedónico dolor, AHE ambigüedad
+trigger_channel | Enum | Medio de comunicación | S2 interfaz, S4 evolución
+trigger_preconditions | Text | ¿Qué debe ocurrir antes? | PM precondiciones, PF entrada
+trigger_exception_exists | Boolean | ¿Hay excepciones? | S3* realidad no filtrada
+trigger_exception_description | Text | ¿Cuáles son? | Algedónico, AHE sacrificio
+## TABLE 2 rows=12
+Variable Canónica | Tipo | Propósito | Mapeo
+transformation_object | Text/Enum | ¿Qué objeto se transforma? | MoC clase, OLC objeto
+transformation_attributes | Multi-select | ¿Qué atributos cambian? | MoC propiedades
+transformation_magnitude | Enum | ¿Cuán grande es el cambio? | S1 variedad, S3 complejidad
+transformation_causality | Enum | ¿Quién causa el cambio? | S1 capacidad, S3 estándar
+transformation_state_initial | Text | ¿Cuál es el estado inicial? | OLC estado inicial
+transformation_state_final | Text | ¿Cuál es el estado final? | OLC estado final
+transformation_iterations | Boolean | ¿Hay ciclos? | PF loops, S1 repetición
+transformation_iteration_count | Number | Si hay ciclos, ¿cuántos? | S1 capacidad, S3 estándar
+transformation_exception_exists | Boolean | ¿Hay excepciones? | S3* realidad, Algedónico
+transformation_exception_type | Enum | ¿Qué tipo? | Algedónico dolor específico
+transformation_hidden_changes | Boolean | ¿Hay cambios ocultos? | S3* auditoría, AHE sacrificio
+## TABLE 3 rows=8
+Combinación | Subpreguntas Disparadas | Pregunta de Relación
+Solo A | 2.1a | NO
+Solo B | 2.1b | NO
+Solo C | 2.1c | NO
+A + B | 2.1a, 2.1b | 2.1_AB_Relacion (¿cuál limita?)
+A + C | 2.1a, 2.1c | 2.1_AC_Relacion (¿cuál limita?)
+B + C | 2.1b, 2.1c | 2.1_BC_Relacion (¿cuál limita?)
+A + B + C | 2.1a, 2.1b, 2.1c | 2.1_ABC_Relacion + 2.1_ABC_Prioridad
+## TABLE 4 rows=8
+Tipo de 2.1 | Pregunta 2.2 | Ejemplos de Atributos
+Solo Objeto | 2.2 Objeto | Estado, Monto, Validación, Información
+Solo Sujeto | 2.2 Sujeto | Estado, Información, Relación, Clasificación
+Solo Acción | 2.2 Acción | Frecuencia, Complejidad, Duración, Resultado
+Objeto + Sujeto | 2.2 Objeto + 2.2 Sujeto | Ambas preguntas
+Objeto + Acción | 2.2 Objeto + 2.2 Acción | Ambas preguntas
+Sujeto + Acción | 2.2 Sujeto + 2.2 Acción | Ambas preguntas
+Objeto + Sujeto + Acción | 2.2 Objeto + 2.2 Sujeto + 2.2 Acción | Las tres preguntas
+## TABLE 5 rows=13
+Variable Canónica | Tipo | Propósito | Mapeo
+output_object | Text | ¿Qué es lo que se entrega? | PM hito, PF entrada siguiente
+primary_receiver | Text/Enum | ¿Quién es el receptor inmediato? | PM siguiente actor, S2 handoff
+receiver_type | Enum | ¿Qué tipo de receptor? | MoC actor, S1 interdependencia
+receiver_dependency | Enum | ¿Qué tan crítico es? | S3 prioridad, Algedónico impacto
+receiver_impact | Text | ¿Qué hace el receptor? | PF tarea siguiente, S1 capacidad
+secondary_receivers | Multi-select | ¿Hay otros receptores? | PM actores secundarios, S2 coordinación
+quality_criteria | Text | ¿Qué criterios debe cumplir? | S3 estándares, S3* auditoría
+delivery_mechanism | Enum | ¿Cómo se entrega? | S2 interfaz, PM canal
+delivery_frequency | Enum | ¿Con qué frecuencia? | S3 cadencia, S4 cambios
+delivery_exception_exists | Boolean | ¿Hay excepciones? | S3* realidad, Algedónico
+delivery_exception_type | Enum | ¿Qué tipo de excepción? | Algedónico dolor específico
+receiver_satisfaction | Enum | ¿El receptor está satisfecho? | Algedónico feedback, AHE compensación
+## TABLE 6 rows=11
+# | Variable | Descripción | Tipo
+1 | Dependencia previa crítica | ¿Qué debe ocurrir ANTES? | Enum/Text
+2 | Dependencia posterior crítica | ¿Quién DEPENDE de que esto termine? | Enum/Text
+3 | Espera típica | Tiempo que pasa entre fin y siguiente inicio | Enum
+4 | Evento de tiempo | ¿Hay un momento específico que gatilla? | Enum/Text
+5 | Deadlock potencial | ¿Riesgo de bloqueo sin salida? | Boolean/Text
+6 | Iteración | ¿Se repite? ¿Cuántas veces? | Enum
+7 | Alternativa | ¿Hay caminos paralelos o decisiones? | Boolean/Text
+8 | Paralelismo | ¿Corre en paralelo con otras cosas? | Enum
+9 | Subproceso oculto | ¿Hay pasos no oficiales? | Boolean/Text
+10 | Secuencia real vs oficial | ¿El orden real es diferente? | Boolean/Text
+## TABLE 7 rows=11
+# | Variable | Descripción | Tipo | Origen
+1 | Dimensión dominante | Qué limita: Objeto, Sujeto, Acción | Enum | De 2.1 (ranking)
+2 | Capacidad nominal | Lo que debería poder hacer (en dimensión dominante) | Number/Enum | 5.1
+3 | Capacidad real | Lo que realmente puede hacer (en dimensión dominante) | Number/Enum | 5.2
+4 | Brecha de capacidad | Diferencia entre nominal y real | Calculated | 5.3
+5 | Recursos asignados | Lo que la organización le dio (personas, sistemas, tiempo) | Multi-select | 5.4, 5.5, 5.6
+6 | Recursos requeridos | Lo que necesitaría para hacer bien | Multi-select | 5.7, 5.8
+7 | Discrecionalidad | Margen de decisión en la dimensión dominante | Multi-select | 5.9
+8 | Constreñimientos | Límites duros que no puede cruzar | Multi-select | 5.10
+9 | Compensación | Qué sacrifica para hacer esto | Multi-select | 5.11
+10 | Resource bargain | ¿Es un pacto justo? | Enum | 5.14
+## TABLE 8 rows=11
+# | Variable | Descripción | Tipo
+1 | Workaround | Parche local utilizado | Text
+2 | Retrabajo | Trabajo que se repite | Boolean + Text
+3 | Información faltante | Qué no llega cuando debería | Text
+4 | Regla informal | Qué se hace sin autorización | Text
+5 | Sacrificio humano | Qué se entrega personalmente | Multi-select
+6 | Desgaste | Costo acumulado en el tiempo | Text
+7 | Costo percibido | Lo que cuesta hacer esto | Text
+8 | Frase de trinchera | Evidencia textual literal | Text
+9 | Patrón repetitivo | Qué falla siempre | Text
+10 | Absorción de variedad residual | Cómo se maneja lo que no entra | Text
+## TABLE 9 rows=8
+Aspecto | Bloque 5 (Capacidad y Discrecionalidad) | Bloque 6 (Compensación y Variedad Residual)
+Pregunta Central | ¿Con qué recursos cuentas? ¿Dónde tienes libertad? | ¿Cómo lo haces funcionar cuando no alcanza?
+Nivel de Realidad | Recursos disponibles vs. requeridos | Mecanismos de absorción de variedad
+Foco | Brecha entre nominal y real | Cómo se compensa la brecha
+Salida | Resource bargain (¿es justo?) | Huella de compensación (¿es sostenible?)
+Mapeo VSM | S1, S3, Tabla Recursión | S1, S2, S3, S3*, S4, S5, Algedónico, AHE
+Mapeo MMABP | PM (recursos), Tabla Recursión | PF (loops, waits), OLC (ciclos), PM (flujo real)
+Skill Primario | Tabla Recursión/Función | Viplan (Ingeniería de Variedad)
+## TABLE 10 rows=8
+# | Variable | Descripción | Origen | Tipo
+1 | Tipo de escena | Qué tipo de actividad es | Inferencia interna | Enum
+2 | Posición en cadena | Dónde está en el flujo | Inferencia interna | Enum
+3 | Función regulatoria predominante | Qué función VSM o canal especial predomina en la escena | Inferencia interna | Enum
+4 | Misión sugerida | Clasificación funcional preliminar | Inferencia interna | Text
+5 | Nivel de confianza | Qué tan seguro está el sistema | Cálculo automático | Enum
+6 | Confirmación del usuario | ¿Estoy en lo correcto? | Pregunta ligera (si aplica) | Boolean
+7 | Necesidad de aclaración | ¿Hay ambigüedad, señales cruzadas o compensación que requiere revisión? | Pregunta ligera (si aplica) | Boolean
+## TABLE 11 rows=9
+Evidencia | Tipo de Escena | Lógica
+Cambio de objeto, atributo o estado | Transformación | Bloque 2: hay transformación_type = "Transformar"
+Handoff, espera, coordinación entre actores | Coordinación | Bloque 3: hay receptor_inmediato distinto del actor; Bloque 4: hay wait_pattern
+Revisión, control, auditoría, validación | Validación | Bloque 3: hay validation_rule; Bloque 5: hay audit_direct_source
+Decisión, prioridad, asignación de recursos | Decisión | Bloque 5: hay priority_source, resource_bargain_source
+Rediseño, aprendizaje, adaptación al futuro | Adaptación | Bloque 5: hay adaptation_source
+Política, identidad, trade-offs, límites | Política | Bloque 0.5: hay identidad implícita; Bloque 5: hay policy_source
+Escalamiento informal, dolor crónico, algedónico | Escalamiento | Bloque 6: hay frase_trinchera sobre dolor; Bloque 4: hay deadlock_risk
+Workaround, sacrificio, compensación humana | Compensación | Bloque 6: hay workaround_used, sacrificio_humano, desgaste_acumulado
+## TABLE 12 rows=4
+Evidencia | Posición | Lógica
+Es el primer paso, disparador inicial | Apertura | Bloque 1: trigger_event es el inicio; Bloque 0.5: es el primer hito
+Hay dependencias previas Y posteriores | Intermedia | Bloque 4: dependency_previous Y dependency_next ambas presentes
+Es el último paso, entrega final, cierre | Cierre | Bloque 3: target_state_expected es final; Bloque 4: no hay dependency_next
+## TABLE 13 rows=8
+Evidencia | Función predominante | Lógica
+Transformación operativa de objeto | S1 | Bloque 2: hay transformación clara del objeto;Bloque 3: hay output_object
+Coordinación, handoff, espera, interfaz | S2 | Bloque 4: hay wait_pattern, interfaz o dependencia cruzada;Bloque 3: hay receiver_immediate
+Decisión, asignación, prioridad, control | S3 | Bloque 5: hay priority_source, resource_bargain_source; Bloque 3: hay validation_rule
+Auditoría directa, observación no filtrada | S3* | Bloque 5: hay audit_direct_source; Bloque 3: hay validación que contradice lo reportado
+Adaptación, rediseño, futuro | S4 | Bloque 0.5: hay criterio identitario o político; Bloque 5: hay policy_source
+Política, identidad, límites | S5 | Bloque 0.5: hay identidad implícita; Bloque 5: hay policy_source
+Escalamiento informal, dolor que rebasa canales ordinarios | Algedónico | Bloque 6: hay dolor crónico, escalamiento informal o deadlock_risk en Bloque 4
+## TABLE 14 rows=10
+Tipo + Función | Misión Sugerida
+Transformación + S1 | "Procesar/transformar [objeto] según [regla operativa]"
+Coordinación + S2 | "Coordinar entrega entre [actor A] y [actor B]"
+Validación + S3 | "Validar que [objeto] cumple [criterio]"
+Validación + S3* | "Verificar realidad operativa de [objeto]"
+Decisión + S3 | "Decidir sobre [prioridad/asignación/trade-off]"
+Adaptación + S4 | "Rediseñar [proceso/estructura] para [futuro]"
+Política + S5 | "Definir [límite/identidad/criterio último]"
+Escalamiento + Algedónico | "Escalar [problema] que rebasa canales ordinarios"
+Escena con señal AHE alta | "Absorber [variedad residual] mediante [mecanismo compensatorio]"
+## TABLE 15 rows=9
+Aspecto | Bloques 0.5-6 | Bloque 7
+Propósito | Capturar evidencia | Verificar lectura preliminar
+Contenido | Hechos observables | Inferencias sobre hechos
+Origen | Usuario (respuestas) | Sistema (análisis)
+Momento | Primero a último | Último (después de todo)
+Riesgo | Interpretación temprana | Sobre-determinación
+Freno | Regla: "Primero hecho, luego clasificación" | Regla: "Verificación sin contaminación"
+Preguntas | Muchas, abiertas, exploratorias | Pocas, cerradas, confirmatorias
+Salida | Expediente estructural | Preclasificación asistida
+## TABLE 16 rows=8
+Variable de Bloque 7 | Uso en Transducción Causal
+preclassification_scene_type | Identifica el tipo de nodo causal (transformación, coordinación, validación, etc.)
+preclassification_chain_position | Identifica si es apertura, intermedia o cierre de cadena causal
+preclassification_vsm_role | Mapea la función VSM predominante de la escena
+preclassification_ahe_signal | Indica si la escena muestra compensación humana o absorción local de variedad residual
+preclassification_mission_suggested | Define la intención preliminar del nodo en la película de inevitabilidad
+confidence_level | Indica qué tan estable es la preclasificación y si requiere auditoría adicional
+evidence_bundle_for_transduction | Proporciona el contexto para activar reglas de transducción

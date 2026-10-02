@@ -1,0 +1,147 @@
+{
+  "execution_id": "EVE_PRODUCTION_ACTIVATION_P0_P1_BASELINE_AND_CLIENT_UI_FINAL_QA_V1",
+  "traceability_date": "2026-07-07",
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P0_P1_BASELINE_AND_CLIENT_UI_FINAL_QA_BLOCKED",
+  "plan_phase": "Production activation — P0 baseline + P1 client final UI/front-end QA",
+  "scope": {
+    "code_modified": false,
+    "supabase_touched": false,
+    "runtime_real_started": false,
+    "client_browser_qa_executed": false
+  },
+  "baseline_traceability": [
+    {
+      "artifact": "eve_production_activation_p0_p1_command_results.json",
+      "captures": ["tsc", "build", "client_membrane_test", "package_scripts"]
+    },
+    {
+      "artifact": "eve_production_activation_p0_p1_boundary_ledger.json",
+      "captures": ["no_activation_boundary", "files_created", "guides_not_used"]
+    },
+    {
+      "artifact": "eve_production_activation_p0_p1_no_go_checklist.json",
+      "captures": ["blockers", "next_authorization"]
+    }
+  ],
+  "client_ui_traceability": [
+    {
+      "screen": "login_access",
+      "evidence_files": [
+        "src/app/page.tsx",
+        "src/components/client/ClientAuthScreen.tsx"
+      ]
+    },
+    {
+      "screen": "estado_a",
+      "evidence_files": [
+        "src/app/page.tsx",
+        "src/components/client/EmptyAssessmentState.tsx"
+      ]
+    },
+    {
+      "screen": "estado_b",
+      "evidence_files": [
+        "src/app/page.tsx",
+        "src/components/client/ActiveAssessmentState.tsx"
+      ]
+    },
+    {
+      "screen": "work_map",
+      "evidence_files": [
+        "src/app/page.tsx",
+        "src/components/WorkMapIntake.tsx"
+      ]
+    },
+    {
+      "screen": "significado",
+      "evidence_files": [
+        "src/app/page.tsx",
+        "src/components/significado/SignificadoDeTuTrabajo.tsx",
+        "src/features/significado/significado-copy.ts"
+      ]
+    },
+    {
+      "screen": "preguntas_por_actividad",
+      "evidence_files": [
+        "src/app/page.tsx",
+        "src/components/SceneQuestionnaireRunner.tsx"
+      ]
+    },
+    {
+      "screen": "resultado_seguro",
+      "evidence_files": [
+        "src/app/page.tsx",
+        "src/components/client/ClientAssessmentComplete.tsx",
+        "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane.test.mjs"
+      ]
+    }
+  ],
+  "leakage_scan_traceability": [
+    {
+      "term": "MMABP",
+      "exposed_to_client_primary_flow": false,
+      "notes": "Present in admin/dev/services only; DiagnosticDashboard not mounted in page.tsx"
+    },
+    {
+      "term": "VSM",
+      "exposed_to_client_primary_flow": false,
+      "notes": "Admin runtime-vsm page only in client-adjacent audit"
+    },
+    {
+      "term": "AHE",
+      "exposed_to_client_primary_flow": false
+    },
+    {
+      "term": "Gate",
+      "exposed_to_client_primary_flow": false,
+      "notes": "Internal identifiers only (submitGate, evaluateSignificadoSubmitGate)"
+    },
+    {
+      "term": "Chip",
+      "exposed_to_client_primary_flow": false,
+      "notes": "UI selection chips use trench language ('Desde tu mapa', 'Sugerencia'); no internal Chip architecture label rendered"
+    },
+    {
+      "term": "Runtime table",
+      "exposed_to_client_primary_flow": false
+    },
+    {
+      "term": "Diagnosis",
+      "exposed_to_client_primary_flow": false,
+      "notes": "Diagnostic state internal; completion screen uses 'Levantamiento completo'"
+    },
+    {
+      "term": "Export",
+      "exposed_to_client_primary_flow": false
+    },
+    {
+      "term": "Internal organs / layer jargon",
+      "exposed_to_client_primary_flow": true,
+      "evidence": [
+        {
+          "file": "src/components/SceneQuestionnaireRunner.tsx",
+          "lines": [315, 377, 434],
+          "strings": ["Capa 1", "expediente estructural"]
+        },
+        {
+          "file": "src/app/page.tsx",
+          "lines": [1432, 1437, 1448, 1451],
+          "strings": ["Capa 1", "readiness", "transduccion causal"]
+        },
+        {
+          "file": "src/features/significado/significado-copy.ts",
+          "lines": [28, 32],
+          "strings": ["WorkMap"]
+        }
+      ]
+    }
+  ],
+  "readiness": {
+    "p0_baseline_passed": false,
+    "p1_client_ui_qa_passed": false,
+    "ready_for_p2_bff_real_design": false,
+    "ready_for_production_activation": false
+  },
+  "next_authorization_required": true,
+  "next_tree_point": "P2 — BFF real design and security contract, only if P0/P1 completed"
+}

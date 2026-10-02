@@ -1,0 +1,142 @@
+{
+  "audit_id": "RUNTIME_40_20_PHASE10_READINESS_AGGREGATION_DECISION_RECORD_LOCAL_CONTRACT_V1",
+  "plan_phase": {
+    "part": "PARTE 2",
+    "phase": "FASE 10",
+    "phase_name": "Readiness + Reentry",
+    "tree_points": [
+      "10.14 Readiness gap aggregation",
+      "10.15 Critical route readiness aggregation",
+      "10.16 Semantic / PST readiness aggregation",
+      "10.17 Budget readiness aggregation",
+      "10.18 Readiness decision record candidate"
+    ]
+  },
+  "new_functionality_implemented": true,
+  "phase9_closed_local": true,
+  "ready_for_phase10_authorization": true,
+  "phase10_started_local": true,
+  "phase10_closed_local": false,
+  "ready_for_phase11_authorization": false,
+  "control_de_fuente_no_inferencia": {
+    "rector_documents_referenced": true,
+    "content_traceable_to_documents_or_instruction": true,
+    "free_inference_detected": false,
+    "unauthorized_expansion_detected": false
+  },
+  "readiness_gap_aggregation": {
+    "readiness_gap_aggregation_candidates_created": true,
+    "missing_evidence_gaps_aggregated": true,
+    "contradiction_gaps_aggregated": true,
+    "missing_canonical_route_gaps_aggregated": true,
+    "semantic_ambiguity_gaps_aggregated": true,
+    "process_state_without_timer_gaps_aggregated": true,
+    "budget_exhausted_gaps_aggregated": true,
+    "manual_review_gaps_aggregated": true,
+    "carry_forward_gaps_aggregated": true,
+    "duplicate_gaps_merged_by_source_trace": true,
+    "gap_severity_rollup_supported": true,
+    "blocking_vs_non_blocking_classification_supported": true,
+    "source_trace_preserved": true,
+    "blocking_gap_hidden": false,
+    "invented_gap_created": false
+  },
+  "critical_route_readiness_aggregation": {
+    "critical_route_readiness_candidates_created": true,
+    "b0_status_supported": true,
+    "b2_status_supported": true,
+    "b3_status_supported": true,
+    "b7_status_supported": true,
+    "route_closed_supported": true,
+    "route_missing_supported": true,
+    "route_blocked_supported": true,
+    "route_manual_review_required_supported": true,
+    "route_reentry_required_supported": true,
+    "route_source_trace_required": true,
+    "ready_when_critical_route_blocked": false,
+    "ready_with_flags_when_blocking_critical_route_missing": false,
+    "route_status_closed_from_satisfaction_or_free_text": false
+  },
+  "semantic_pst_readiness_aggregation": {
+    "semantic_pst_readiness_candidates_created": true,
+    "sem_blockers_open_supported": true,
+    "sem_blockers_resolved_candidate_supported": true,
+    "pst_blockers_open_supported": true,
+    "pst_blockers_resolved_candidate_supported": true,
+    "process_state_without_timer_gap_supported": true,
+    "semantic_ambiguity_gap_supported": true,
+    "deadlock_risk_supported": true,
+    "source_trace_required": true,
+    "ready_when_sem_blocks_projection_true": false,
+    "ready_when_pst_blocking_gap_open": false,
+    "semantic_temporal_resolution_inferred": false
+  },
+  "budget_readiness_aggregation": {
+    "budget_readiness_candidates_created": true,
+    "base_budget_state_supported": true,
+    "causal_budget_state_supported": true,
+    "reentry_budget_state_supported": true,
+    "budget_exhausted_gaps_supported": true,
+    "budget_exhausted_non_blocking_supported": true,
+    "budget_exhausted_blocking_supported": true,
+    "carry_forward_gap_refs_supported": true,
+    "source_trace_required": true,
+    "more_causals_opened": false,
+    "budget_override_automatic_created": false,
+    "export_allowed_when_budget_hides_blocking_gap": false
+  },
+  "readiness_decision_record_candidate": {
+    "readiness_decision_record_candidates_created": true,
+    "readiness_decision_record_real_created": false,
+    "run_id_supported": true,
+    "readiness_state_supported": true,
+    "readiness_reason_required": true,
+    "blocking_gap_refs_supported": true,
+    "non_blocking_gap_refs_supported": true,
+    "manual_review_refs_supported": true,
+    "reentry_refs_supported": true,
+    "gate_result_refs_supported": true,
+    "semantic_event_refs_supported": true,
+    "pst_event_refs_supported": true,
+    "carry_forward_gap_refs_supported": true,
+    "source_trace_required": true,
+    "decision_timestamp_preview_supported": true,
+    "audit_candidate_ref_supported": true,
+    "db_write_created": false,
+    "export_preview_created": false
+  },
+  "boundary": {
+    "readiness_engine_real_executed": false,
+    "readiness_decision_record_real_created": false,
+    "ready_final_created": false,
+    "ready_with_flags_final_created": false,
+    "blocked_final_created": false,
+    "manual_review_request_real_created": false,
+    "reentry_interactions_real_created": false,
+    "budget_ledger_real_updated": false,
+    "export_preview_created": false,
+    "parallel_export_payload_created": false,
+    "produccion_paralela_started": false,
+    "runtime_40_20_started": false,
+    "supabase_touched": false,
+    "sql_executed": false,
+    "endpoint_created": false,
+    "phase11_started": false
+  },
+  "files_created": [
+    "docs/implementation/runtime_40_20_phase10_readiness_aggregation_decision_record_local_contract_closeout.md",
+    "docs/implementation/runtime_40_20_phase10_readiness_aggregation_decision_record_local_contract_traceability.json"
+  ],
+  "files_modified": [
+    "src/services/eve/runtime-40-20/readiness-reentry/runtime-40-20-readiness-reentry-types.ts",
+    "src/services/eve/runtime-40-20/readiness-reentry/runtime-40-20-readiness-reentry-service.ts",
+    "src/services/eve/runtime-40-20/readiness-reentry/runtime-40-20-readiness-reentry.test.mjs"
+  ],
+  "test_execution": {
+    "command": "node --test src/services/eve/runtime-40-20/readiness-reentry/runtime-40-20-readiness-reentry.test.mjs",
+    "status": "passed",
+    "reason": "275 tests passed, 0 failed"
+  },
+  "next_tree_point": "10.19 Readiness audit candidates + 10.20 Phase 11 export-preview boundary + 10.21 Phase 12 QA boundary + 10.22 Supersession / recompute boundary + 10.23 Persistence boundary",
+  "next_authorization_required": true
+}

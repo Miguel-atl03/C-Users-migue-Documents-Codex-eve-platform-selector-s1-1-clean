@@ -1,0 +1,113 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING4_PRODUCTION_EXPANSION_POLICY",
+  "generated_at": "2026-07-09T07:48:00.000Z",
+  "authorization_ref": "ring4-authorization-expanded-production-scale-governance-20260709",
+  "ring": 4,
+  "ring_name": "expanded_production_scale_governance",
+  "version": "1.0.0",
+  "expansion_model": "phased_supervised_expansion",
+  "expansion_requires_execution_authorization": true,
+  "expansion_requires_ring3_acceptance": true,
+  "expansion_requires_no_go_clean": true,
+  "expansion_requires_observability_green": true,
+  "expansion_requires_human_authorization": true,
+  "expansion_requires_consultant_review": true,
+  "public_access_expansion_allowed": false,
+  "broad_access_expansion_allowed": false,
+  "general_production_activation_allowed": false,
+  "expansion_phases": [
+    {
+      "id": "R4-PE-01",
+      "phase": "baseline_controlled_production_inherited_from_ring3",
+      "description": "Ring 3 controlled production scope remains baseline; no expansion until execution authorization",
+      "automatic": false,
+      "requires_human_authorization": false,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-PE-02",
+      "phase": "initial_expanded_traffic_ramp",
+      "description": "First phased traffic increase within documented allowlist and ramp policy",
+      "automatic": false,
+      "requires_human_authorization": true,
+      "requires_no_go_clean": true,
+      "requires_observability_green": true
+    },
+    {
+      "id": "R4-PE-03",
+      "phase": "tenant_allowlist_expansion",
+      "description": "Add tenants to allowlist under supervision and documented boundary",
+      "automatic": false,
+      "requires_human_authorization": true,
+      "requires_consultant_review": true
+    },
+    {
+      "id": "R4-PE-04",
+      "phase": "case_allowlist_expansion",
+      "description": "Add cases to allowlist under supervision and documented boundary",
+      "automatic": false,
+      "requires_human_authorization": true,
+      "requires_consultant_review": true
+    },
+    {
+      "id": "R4-PE-05",
+      "phase": "subsequent_traffic_ramp_increments",
+      "description": "Additional traffic percentage increases only after prior phase stable",
+      "automatic": false,
+      "requires_human_authorization": true,
+      "requires_no_go_clean": true,
+      "requires_observability_green": true,
+      "requires_error_budget_available": true
+    }
+  ],
+  "expansion_constraints": [
+    {
+      "id": "R4-PEC-01",
+      "constraint": "no_public_access_expansion",
+      "required_value": true,
+      "blocking": true
+    },
+    {
+      "id": "R4-PEC-02",
+      "constraint": "no_broad_access_expansion",
+      "required_value": true,
+      "blocking": true
+    },
+    {
+      "id": "R4-PEC-03",
+      "constraint": "no_unsupervised_diagnosis_expansion",
+      "required_value": true,
+      "blocking": true
+    },
+    {
+      "id": "R4-PEC-04",
+      "constraint": "no_external_export_without_policy",
+      "required_value": true,
+      "blocking": true
+    },
+    {
+      "id": "R4-PEC-05",
+      "constraint": "no_produccion_paralela_productiva_without_policy",
+      "required_value": true,
+      "blocking": true
+    },
+    {
+      "id": "R4-PEC-06",
+      "constraint": "activation_allowed_general_production",
+      "required_value": false,
+      "blocking": true
+    },
+    {
+      "id": "R4-PEC-07",
+      "constraint": "qa_green_real_general_created",
+      "required_value": false,
+      "blocking": true
+    }
+  ],
+  "ring3_baseline": {
+    "ring3_controlled_production_scope_manifest_ref": "docs/production-activation/ring3_controlled_production_scope_manifest.json",
+    "controlled_target_verified": true,
+    "controlled_production_scope_created": true,
+    "supervisor_assigned": true
+  }
+}

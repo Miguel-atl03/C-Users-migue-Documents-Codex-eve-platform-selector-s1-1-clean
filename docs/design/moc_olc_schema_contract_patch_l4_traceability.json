@@ -1,0 +1,629 @@
+{
+  "audit_id": "MOC_OLC_SCHEMA_CONTRACT_PATCH_L4_FOR_PF_SUP_03_04_05_AND_B3_B7_V1",
+  "dictamen": "MOC_OLC_SCHEMA_CONTRACT_PATCH_L4_FOR_PF_SUP_03_04_05_AND_B3_B7_COMPLETED",
+  "source_gap_design": "docs/design/detailed_gap_design_pf_sup_03_04_05_b3_b7_first_class_materiality.json",
+  "source_gap_design_dictum": "DETAILED_GAP_DESIGN_PF_SUP_03_04_05_AND_B3_B7_FIRST_CLASS_MATERIALITY_COMPLETED",
+  "implementation_allowed": false,
+  "runtime_40_20_full_allowed": false,
+  "materiality_target": "L4 contract_defined",
+  "materiality_enum": [
+    "L0 absent",
+    "L1 documented_only",
+    "L2 vocabulary_only",
+    "L3 guardrail_only",
+    "L4 contract_defined",
+    "L5 schema_present",
+    "L6 service_present",
+    "L7 tested_materiality",
+    "L8 executable_materiality"
+  ],
+  "materiality_enum_normalized": true,
+  "contract_markdown_files": [
+    "docs/design/contracts/pf_sup_03_escena_evidencial_contract.md",
+    "docs/design/contracts/pf_sup_03_acto_observable_contract.md",
+    "docs/design/contracts/pf_sup_04_scene_set_contract.md",
+    "docs/design/contracts/pf_sup_04_aggregation_index_contract.md",
+    "docs/design/contracts/pf_sup_04_pelicula_causal_agregada_contract.md",
+    "docs/design/contracts/pf_sup_05_synthesis_case_contract.md",
+    "docs/design/contracts/b3_receiver_feedback_object_contract.md",
+    "docs/design/contracts/b3_operational_exception_evidence_contract.md",
+    "docs/design/contracts/b7_preclassification_record_contract.md",
+    "docs/design/contracts/b3_b7_alignment_delta_contract.md",
+    "docs/design/contracts/no_render_zone_contract.md",
+    "docs/design/contracts/delivery_boundary_contract.md"
+  ],
+  "schema_json_files": [
+    "schemas/eve-materiality/pf_sup_03_escena_evidencial.schema.json",
+    "schemas/eve-materiality/pf_sup_03_acto_observable.schema.json",
+    "schemas/eve-materiality/pf_sup_04_scene_set.schema.json",
+    "schemas/eve-materiality/pf_sup_04_aggregation_index.schema.json",
+    "schemas/eve-materiality/pf_sup_04_pelicula_causal_agregada.schema.json",
+    "schemas/eve-materiality/pf_sup_05_synthesis_case.schema.json",
+    "schemas/eve-materiality/b3_receiver_feedback_object.schema.json",
+    "schemas/eve-materiality/b3_operational_exception_evidence.schema.json",
+    "schemas/eve-materiality/b7_preclassification_record.schema.json",
+    "schemas/eve-materiality/b3_b7_alignment_delta.schema.json",
+    "schemas/eve-materiality/no_render_zone.schema.json",
+    "schemas/eve-materiality/delivery_boundary.schema.json"
+  ],
+  "marker_fixture_files": [
+    "fixtures/contracts/pf_sup_03_materiality_marker.contract.json",
+    "fixtures/contracts/pf_sup_04_materiality_marker.contract.json",
+    "fixtures/contracts/pf_sup_05_materiality_marker.contract.json",
+    "fixtures/contracts/b3_first_class_materiality_marker.contract.json",
+    "fixtures/contracts/b7_first_class_materiality_marker.contract.json"
+  ],
+  "service_contracts": {
+    "pf03": {
+      "p": "services/eve/transduction/evidential-scene-runner",
+      "b": "Capa 1.0 / Ruta de Materializacion / EvidenceBundle -> PF-SUP-03",
+      "i": [
+        "EvidenceBundle ready_for_transduction",
+        "ActoObservable candidates",
+        "source_ref",
+        "derivation_ref"
+      ],
+      "oa": [
+        "ActoObservable",
+        "EscenaEvidencial",
+        "GovernanceIssue"
+      ],
+      "ob": [
+        "diagnosis",
+        "export",
+        "registry",
+        "final_client_narrative"
+      ],
+      "sm": [
+        "ActoObservable",
+        "EscenaEvidencial"
+      ],
+      "gi": [
+        "insufficient_causality",
+        "missing_traceability"
+      ],
+      "t": "tests/pf-sup-03/evidential-scene-runner.test",
+      "m": "PF_SUP_03_MATERIALITY_MARKER"
+    },
+    "pf04": {
+      "p": "services/eve/aggregation/causal-movie-aggregation-runner",
+      "b": "PF-SUP-04 / causal aggregation object ownership",
+      "i": [
+        "EscenaEvidencial validated collection",
+        "SceneSet",
+        "source_ref",
+        "derivation_ref"
+      ],
+      "oa": [
+        "SceneSet",
+        "AggregationIndex",
+        "PeliculaCausalAgregada",
+        "GovernanceIssue"
+      ],
+      "ob": [
+        "final_diagnosis",
+        "client_narrative",
+        "export_code_package_generated"
+      ],
+      "sm": [
+        "SceneSet",
+        "AggregationIndex",
+        "PeliculaCausalAgregada"
+      ],
+      "gi": [
+        "insufficient_scenes",
+        "index_from_summary_attempt"
+      ],
+      "t": "tests/pf-sup-04/causal-movie-aggregation-runner.test",
+      "m": "PF_SUP_04_MATERIALITY_MARKER"
+    },
+    "pf05": {
+      "p": "services/eve/synthesis/expert-synthesis-contract-service",
+      "b": "PF-SUP-05 / synthesis contract and delivery boundary ownership",
+      "i": [
+        "PeliculaCausalAgregada aggregated",
+        "traceability_manifest",
+        "authorization_boundary_ref"
+      ],
+      "oa": [
+        "SynthesisCase",
+        "DeliveryBoundary",
+        "GovernanceIssue"
+      ],
+      "ob": [
+        "delivered_diagnosis",
+        "client_delivery",
+        "export_code_package_generated"
+      ],
+      "sm": [
+        "SynthesisCase",
+        "DeliveryBoundary"
+      ],
+      "gi": [
+        "weak_traceability",
+        "delivery_attempt_without_authorization"
+      ],
+      "t": "tests/pf-sup-05/expert-synthesis-contract.test",
+      "m": "PF_SUP_05_MATERIALITY_MARKER"
+    },
+    "b3": {
+      "p": "services/eve/capa1/b3-receiver-feedback-materializer",
+      "b": "Capa 1.0 / B3 receiver feedback materiality",
+      "i": [
+        "B3 route 3.13a receiver feedback evidence",
+        "output_handoff_ref",
+        "source_ref",
+        "derivation_ref"
+      ],
+      "oa": [
+        "ReceiverFeedbackObject",
+        "OperationalExceptionEvidence",
+        "CanonicalRouteException",
+        "GapObject"
+      ],
+      "ob": [
+        "receiver_satisfaction_as_feedback",
+        "diagnosis",
+        "export"
+      ],
+      "sm": [
+        "ReceiverFeedbackObject",
+        "OperationalExceptionEvidence"
+      ],
+      "gi": [
+        "receiver_satisfaction_misuse",
+        "missing_canonical_route"
+      ],
+      "t": "tests/b3/receiver-feedback-materializer.test",
+      "m": "B3_FIRST_CLASS_MATERIALITY_MARKER"
+    },
+    "b7": {
+      "p": "services/eve/capa1/b7-preclassification-boundary-service",
+      "b": "Capa 1.0 / B7 preclassification boundary object ownership",
+      "i": [
+        "B7 source signal",
+        "source_ref",
+        "interpretation_limit"
+      ],
+      "oa": [
+        "PreclassificationRecord",
+        "NoRenderZone",
+        "GovernanceIssue",
+        "TransductionBlocker"
+      ],
+      "ob": [
+        "structural_fact",
+        "registry",
+        "IR",
+        "export",
+        "diagnosis",
+        "OperationalExceptionEvidence"
+      ],
+      "sm": [
+        "PreclassificationRecord",
+        "NoRenderZone"
+      ],
+      "gi": [
+        "b7_contamination_attempt",
+        "render_attempt_blocked"
+      ],
+      "t": "tests/b7/preclassification-boundary-service.test",
+      "m": "B7_FIRST_CLASS_MATERIALITY_MARKER"
+    },
+    "delta": {
+      "p": "services/eve/capa1/b3-b7-alignment-delta-service",
+      "b": "Capa 1.0 / B3-B7 alignment control object ownership",
+      "i": [
+        "ReceiverFeedbackObject candidate",
+        "PreclassificationRecord candidate"
+      ],
+      "oa": [
+        "B3B7AlignmentDelta",
+        "GovernanceIssue"
+      ],
+      "ob": [
+        "client_business_fact",
+        "diagnosis",
+        "export"
+      ],
+      "sm": [
+        "B3B7AlignmentDelta"
+      ],
+      "gi": [
+        "b3_b7_boundary_mismatch"
+      ],
+      "t": "B3/B7 alignment contamination regression contract",
+      "m": "B3_FIRST_CLASS_MATERIALITY_MARKER and B7_FIRST_CLASS_MATERIALITY_MARKER"
+    },
+    "marker": {
+      "p": "services/eve/materiality/materiality-marker-evaluator",
+      "b": "Baseline de materialidad actual repo vs rector",
+      "i": [
+        "materiality marker contracts",
+        "schema contract refs",
+        "test contract refs"
+      ],
+      "oa": [
+        "materiality_level_report"
+      ],
+      "ob": [
+        "readiness_core_mutation",
+        "registry_write",
+        "runtime_activation"
+      ],
+      "sm": [
+        "none_executable"
+      ],
+      "gi": [
+        "false_positive_materiality_claim"
+      ],
+      "t": "marker false-positive guard regression contract",
+      "m": "all five marker contracts"
+    }
+  },
+  "test_contracts": [
+    {
+      "test_name": "tests/pf-sup-03/evidential-scene-runner.test",
+      "required_cases": [
+        "rejects non-ready EvidenceBundle",
+        "creates ActoObservable",
+        "validates EscenaEvidencial"
+      ],
+      "blocked_cases": [
+        "diagnosis",
+        "export",
+        "B7 diagnostic promotion"
+      ],
+      "required_assertions": [
+        "source_ref required",
+        "derivation_ref required",
+        "GovernanceIssue linkage"
+      ],
+      "no_go_assertions": [
+        "no executable test created",
+        "no executable service created"
+      ],
+      "expected_materiality_level_if_passing": "L7 tested_materiality",
+      "implementation_status": "not_created_in_this_tramo"
+    },
+    {
+      "test_name": "tests/pf-sup-04/causal-movie-aggregation-runner.test",
+      "required_cases": [
+        "creates SceneSet",
+        "creates AggregationIndex",
+        "creates PeliculaCausalAgregada"
+      ],
+      "blocked_cases": [
+        "summary aggregation",
+        "final diagnosis",
+        "client narrative"
+      ],
+      "required_assertions": [
+        "source_ref required",
+        "derivation_ref required",
+        "GovernanceIssue linkage"
+      ],
+      "no_go_assertions": [
+        "no executable test created",
+        "no executable service created"
+      ],
+      "expected_materiality_level_if_passing": "L7 tested_materiality",
+      "implementation_status": "not_created_in_this_tramo"
+    },
+    {
+      "test_name": "tests/pf-sup-05/expert-synthesis-contract.test",
+      "required_cases": [
+        "creates SynthesisCase",
+        "blocks weak traceability",
+        "blocks delivery"
+      ],
+      "blocked_cases": [
+        "Delivered",
+        "client delivery",
+        "export package"
+      ],
+      "required_assertions": [
+        "source_ref required",
+        "derivation_ref required",
+        "GovernanceIssue linkage"
+      ],
+      "no_go_assertions": [
+        "no executable test created",
+        "no executable service created"
+      ],
+      "expected_materiality_level_if_passing": "L7 tested_materiality",
+      "implementation_status": "not_created_in_this_tramo"
+    },
+    {
+      "test_name": "tests/b3/receiver-feedback-materializer.test",
+      "required_cases": [
+        "rejects satisfaction as feedback",
+        "creates ReceiverFeedbackObject",
+        "creates OEE from route validated feedback"
+      ],
+      "blocked_cases": [
+        "receiver_satisfaction_as_feedback",
+        "missing route accepted",
+        "diagnosis"
+      ],
+      "required_assertions": [
+        "source_ref required",
+        "derivation_ref required",
+        "GovernanceIssue linkage"
+      ],
+      "no_go_assertions": [
+        "no executable test created",
+        "no executable service created"
+      ],
+      "expected_materiality_level_if_passing": "L7 tested_materiality",
+      "implementation_status": "not_created_in_this_tramo"
+    },
+    {
+      "test_name": "tests/b7/preclassification-boundary-service.test",
+      "required_cases": [
+        "creates PreclassificationRecord",
+        "creates no_render_zone",
+        "blocks contamination"
+      ],
+      "blocked_cases": [
+        "structural_fact",
+        "registry",
+        "IR",
+        "export",
+        "diagnosis",
+        "OEE"
+      ],
+      "required_assertions": [
+        "source_ref required",
+        "derivation_ref required",
+        "GovernanceIssue linkage"
+      ],
+      "no_go_assertions": [
+        "no executable test created",
+        "no executable service created"
+      ],
+      "expected_materiality_level_if_passing": "L7 tested_materiality",
+      "implementation_status": "not_created_in_this_tramo"
+    }
+  ],
+  "object_contracts": [
+    {
+      "contract_name": "pf_sup_03_escena_evidencial_contract",
+      "family": "PF-SUP-03",
+      "tree_branch": "Capa 1.0 / Ruta de Materializacion / EvidenceBundle -> PF-SUP-03 / EscenaEvidencial",
+      "schema": "schemas/eve-materiality/pf_sup_03_escena_evidencial.schema.json",
+      "markdown": "docs/design/contracts/pf_sup_03_escena_evidencial_contract.md",
+      "states": [
+        "constructing",
+        "with_observable_acts",
+        "with_mmabp_elements",
+        "with_vsm_primary_hypothesis",
+        "with_mmabp_inconsistency",
+        "with_eve_manifestation",
+        "ahe_situated",
+        "validated",
+        "blocked_by_insufficient_causality",
+        "manual_review_required",
+        "superseded",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "pf_sup_03_acto_observable_contract",
+      "family": "PF-SUP-03",
+      "tree_branch": "Capa 1.0 / Ruta de Materializacion / EvidenceBundle -> PF-SUP-03 / ActoObservable",
+      "schema": "schemas/eve-materiality/pf_sup_03_acto_observable.schema.json",
+      "markdown": "docs/design/contracts/pf_sup_03_acto_observable_contract.md",
+      "states": [
+        "captured",
+        "evidence_linked",
+        "accepted",
+        "rejected",
+        "requires_review",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "pf_sup_04_scene_set_contract",
+      "family": "PF-SUP-04",
+      "tree_branch": "PF-SUP-04 / causal aggregation object ownership",
+      "schema": "schemas/eve-materiality/pf_sup_04_scene_set.schema.json",
+      "markdown": "docs/design/contracts/pf_sup_04_scene_set_contract.md",
+      "states": [
+        "collecting",
+        "aggregation_eligible",
+        "blocked_by_insufficient_scenes",
+        "superseded",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "pf_sup_04_aggregation_index_contract",
+      "family": "PF-SUP-04",
+      "tree_branch": "PF-SUP-04 / causal aggregation object ownership",
+      "schema": "schemas/eve-materiality/pf_sup_04_aggregation_index.schema.json",
+      "markdown": "docs/design/contracts/pf_sup_04_aggregation_index_contract.md",
+      "states": [
+        "building",
+        "built",
+        "rejected",
+        "superseded",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "pf_sup_04_pelicula_causal_agregada_contract",
+      "family": "PF-SUP-04",
+      "tree_branch": "PF-SUP-04 / causal aggregation object ownership",
+      "schema": "schemas/eve-materiality/pf_sup_04_pelicula_causal_agregada.schema.json",
+      "markdown": "docs/design/contracts/pf_sup_04_pelicula_causal_agregada_contract.md",
+      "states": [
+        "scenes_received",
+        "aggregation_eligible",
+        "index_built",
+        "pattern_identified",
+        "loss_estimated",
+        "composed",
+        "aggregated",
+        "blocked_by_insufficient_scenes",
+        "manual_review_required",
+        "superseded",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "pf_sup_05_synthesis_case_contract",
+      "family": "PF-SUP-05",
+      "tree_branch": "PF-SUP-05 / synthesis contract and delivery boundary ownership",
+      "schema": "schemas/eve-materiality/pf_sup_05_synthesis_case.schema.json",
+      "markdown": "docs/design/contracts/pf_sup_05_synthesis_case_contract.md",
+      "states": [
+        "creating",
+        "traceability_checked",
+        "ready_for_expert_draft",
+        "blocked_by_weak_traceability",
+        "manual_review_required",
+        "authorization_blocked",
+        "superseded",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "b3_receiver_feedback_object_contract",
+      "family": "B3",
+      "tree_branch": "Capa 1.0 / B3 receiver feedback materiality",
+      "schema": "schemas/eve-materiality/b3_receiver_feedback_object.schema.json",
+      "markdown": "docs/design/contracts/b3_receiver_feedback_object_contract.md",
+      "states": [
+        "captured",
+        "route_validated",
+        "operationally_relevant",
+        "rejected_as_satisfaction_only",
+        "gap_flagged",
+        "rework_triggered",
+        "blocked_by_missing_canonical_route",
+        "frozen",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "b3_operational_exception_evidence_contract",
+      "family": "B3",
+      "tree_branch": "Capa 1.0 / OperationalExceptionEvidence",
+      "schema": "schemas/eve-materiality/b3_operational_exception_evidence.schema.json",
+      "markdown": "docs/design/contracts/b3_operational_exception_evidence_contract.md",
+      "states": [
+        "detected",
+        "route_checked",
+        "derived",
+        "unresolved",
+        "classified",
+        "linked_to_issue",
+        "ready_for_bundle",
+        "frozen",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "b7_preclassification_record_contract",
+      "family": "B7",
+      "tree_branch": "Capa 1.0 / B7 preclassification boundary object ownership",
+      "schema": "schemas/eve-materiality/b7_preclassification_record.schema.json",
+      "markdown": "docs/design/contracts/b7_preclassification_record_contract.md",
+      "states": [
+        "captured",
+        "boundary_checked",
+        "signal_only_accepted",
+        "rejected",
+        "contamination_blocked",
+        "manual_review_required",
+        "frozen",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "b3_b7_alignment_delta_contract",
+      "family": "B3/B7",
+      "tree_branch": "Capa 1.0 / B3-B7 alignment control object ownership",
+      "schema": "schemas/eve-materiality/b3_b7_alignment_delta.schema.json",
+      "markdown": "docs/design/contracts/b3_b7_alignment_delta_contract.md",
+      "states": [
+        "created",
+        "checked",
+        "with_findings",
+        "satisfied",
+        "blocked",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "no_render_zone_contract",
+      "family": "B7",
+      "tree_branch": "Capa 1.0 / B7 render/export suppression boundary",
+      "schema": "schemas/eve-materiality/no_render_zone.schema.json",
+      "markdown": "docs/design/contracts/no_render_zone_contract.md",
+      "states": [
+        "created",
+        "attached_to_ir_or_export_boundary",
+        "active",
+        "superseded",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    },
+    {
+      "contract_name": "delivery_boundary_contract",
+      "family": "PF-SUP-05",
+      "tree_branch": "PF-SUP-05 / synthesis contract and delivery boundary ownership",
+      "schema": "schemas/eve-materiality/delivery_boundary.schema.json",
+      "markdown": "docs/design/contracts/delivery_boundary_contract.md",
+      "states": [
+        "created",
+        "authorization_checked",
+        "delivery_blocked",
+        "delivery_authorized",
+        "manual_review_required",
+        "archived"
+      ],
+      "materiality_level": "L4 contract_defined",
+      "implementation_allowed": false
+    }
+  ],
+  "validations": {
+    "summary_file_created": true,
+    "traceability_file_created": true,
+    "findings_file_created": true,
+    "contract_markdown_files_created": 12,
+    "schema_json_files_created": 12,
+    "marker_fixtures_created": 5,
+    "executable_services_created": 0,
+    "executable_tests_created": 0,
+    "sql_migrations_created": 0,
+    "no_src_files_created": true,
+    "no_tests_files_created": true,
+    "no_sql_files_created": true,
+    "all_contracts_declare_implementation_allowed_false": true,
+    "runtime_40_20_full_remains_unauthorized": true
+  }
+}

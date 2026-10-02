@@ -1,0 +1,185 @@
+/**
+ * Umbral Memoria → Escena — void blanco, cadencia lenta, motion mixto.
+ */
+
+.sceneEntryScreen {
+  --eve-ink: #12141a;
+  --eve-sheet: #fafbfc;
+  --eve-mist: #7a8190;
+  --eve-font-body: var(--font-eve-body, "Segoe UI"), sans-serif;
+  --scene-entry-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --scene-entry-fade-ms: 1600ms;
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--eve-sheet);
+  color: var(--eve-ink);
+  font-family: var(--eve-font-body);
+}
+
+.sceneEntryRegistry {
+  position: absolute;
+  top: 36px;
+  left: 72px;
+  right: 72px;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+}
+
+.sceneEntryRegistryMark {
+  color: color-mix(in srgb, var(--eve-ink) 35%, var(--eve-mist));
+}
+
+.sceneEntryStack {
+  position: absolute;
+  top: 88px;
+  left: 50%;
+  width: min(680px, 78%);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.sceneEntryInscription {
+  margin: 0;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  line-height: 1.75;
+  text-transform: uppercase;
+  color: var(--eve-mist);
+  white-space: pre-wrap;
+}
+
+.sceneEntryInscriptionObserve {
+  margin-top: 56px;
+}
+
+.sceneEntryInscriptionActivity {
+  margin-top: 56px;
+}
+
+.sceneEntryInscriptionPersistence {
+  margin-top: 56px;
+}
+
+.sceneEntryInscriptionFade {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.sceneEntryFadeVisible {
+  animation: sceneEntrySolemnFadeIn var(--scene-entry-fade-ms) var(--scene-entry-ease) forwards;
+}
+
+@keyframes sceneEntrySolemnFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sceneEntryCaret {
+  display: inline-block;
+  margin-left: 0.08em;
+  color: color-mix(in srgb, var(--eve-mist) 82%, var(--eve-ink));
+  animation: sceneEntryCaretBlink 1.15s step-end infinite;
+}
+
+@keyframes sceneEntryCaretBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.sceneEntryFooter {
+  position: absolute;
+  left: 50%;
+  bottom: 72px;
+  z-index: 3;
+  transform: translateX(-50%);
+  min-width: min(520px, 88vw);
+  text-align: center;
+}
+
+.sceneEntryCtaButton {
+  min-height: 48px;
+  min-width: 48px;
+  border: 0;
+  background: transparent;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-body);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.sceneEntryCtaButton.sceneEntryFadeVisible {
+  animation: sceneEntrySolemnFadeIn var(--scene-entry-fade-ms) var(--scene-entry-ease) forwards;
+}
+
+.sceneEntryCtaButton:hover,
+.sceneEntryCtaButton:focus-visible {
+  color: var(--eve-ink);
+}
+
+.sceneEntryCompleteNote {
+  margin: 0;
+  max-width: 420px;
+  text-align: center;
+  color: var(--eve-mist);
+  font-size: 11px;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 960px) {
+  .sceneEntryRegistry {
+    left: 28px;
+    right: 28px;
+  }
+
+  .sceneEntryStack {
+    top: 72px;
+    width: min(680px, 92%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sceneEntryInscriptionFade,
+  .sceneEntryFadeVisible,
+  .sceneEntryCtaButton {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .sceneEntryCaret {
+    animation: none;
+    opacity: 0;
+  }
+}

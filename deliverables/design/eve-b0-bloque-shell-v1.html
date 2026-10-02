@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+      HTML DE PRUEBA · BUILD 2.0
+      B0 · Bloque completo sobre el shell general (void)
+
+      Fuente de contenido y secuencia visible:
+        Bloque_0_Documento_Madre_Capa1_v2_1_EVE_rev5_ajuste_controlado_02_07_08.docx
+        Secuencia visible: 0.1 → 0.1a → [0.2 y 0.7 internas] → 0.3 → 0.3a → 0.4 → 0.5_actor_scope
+                           → 0.6 → 0.8 → 0.8a → aclaraciones 0.A/0.B/0.C/0.D por flags
+      Agrupación Runtime (Arquitectura_Runtime_40_20_EVE_MMABP_B05_Need_Contribution_Controlado.docx):
+        Tramo "Confirmar actividad"  B0-Q01  0.0 · 0.1 · 0.1a · 0.D   (+ derivación interna 0.2 / 0.7)
+        Tramo "Aclarar actividad"    B0-Q02  0.A · 0.C               solo por flag de genericidad o escala
+        Tramo "Frecuencia…"          B0-Q03  0.3 · 0.3a · 0.4 · 0.5_actor_scope
+        Tramo "Para empezar…"        B0-Q04  0.6 · 0.B  + C01 0.8 · 0.8a
+      Shell: gramática de eve-b05-cliente-funcional-void-v1.html (1440 + void monumental).
+
+      Parámetros de revisión:
+        ?entry=partial   preload con estructura incompleta → activa 0.D
+        ?memory=texto    literal de actividad sin componentes → activa 0.D
+        ?band=aclarar|frecuencia|borde   saltar a un tramo (solo revisión)
+        ?activity=2      sin compuerta "Abre + antes de responder"
+        ?codes=0         ocultar códigos Madre
+    -->
+    <title>EVE — B0 · Bloque · shell v2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #9aa1ab;
+        --eve-mist-deep: #7a8190;
+        --eve-line: #d8dce2;
+        --font-mono: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-mono);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .build {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 30;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      /* Shell estándar: 1440 + void monumental */
+      .screen {
+        position: relative;
+        width: 100%;
+        max-width: 1440px;
+        min-height: max(
+          100svh,
+          calc(
+            clamp(280px, 32vh, 360px) + clamp(480px, 52vh, 580px) +
+              clamp(320px, 40vh, 480px) + clamp(64px, 6vh, 88px)
+          )
+        );
+        margin: 0 auto;
+        padding-bottom: clamp(64px, 6vh, 88px);
+        overflow: visible;
+        background: var(--eve-sheet);
+      }
+
+      .phase-arrow {
+        position: absolute;
+        top: 16px;
+        left: 20px;
+        z-index: 20;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        line-height: 1;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 320ms ease,
+          color 200ms ease;
+      }
+
+      .phase-arrow.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .phase-arrow:hover {
+        color: var(--eve-ink);
+      }
+
+      .block-mark {
+        position: absolute;
+        top: 18px;
+        left: 48px;
+        z-index: 20;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      /* Banda superior del shell: título del tramo + help Madre (void del shell) */
+      .kicker-band {
+        position: absolute;
+        top: clamp(48px, 8vh, 88px);
+        left: 50%;
+        z-index: 3;
+        width: min(520px, 52vw);
+        max-width: 56ch;
+        text-align: center;
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      .kicker {
+        margin: 0;
+        color: var(--eve-ink);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        line-height: 1.55;
+        opacity: 0;
+        transition: opacity 700ms ease;
+      }
+
+      .kicker.is-visible {
+        opacity: 1;
+      }
+
+      .madre-help {
+        margin: 16px 0 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.45;
+        text-align: center;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition:
+          opacity 380ms ease,
+          max-height 380ms ease,
+          margin 280ms ease;
+      }
+
+      .madre-help.is-open {
+        max-height: 480px;
+        opacity: 1;
+        margin-top: 16px;
+        pointer-events: auto;
+      }
+
+      .madre-help-p {
+        margin: 0;
+        color: inherit;
+        font: inherit;
+        letter-spacing: inherit;
+        line-height: inherit;
+      }
+
+      .madre-help-examples {
+        margin: 8px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .madre-help-examples li {
+        margin: 0 0 5px;
+        color: inherit;
+        font: inherit;
+        opacity: 0.92;
+        line-height: 1.45;
+      }
+
+      /* Centro del void: memoria operativa (no se reemplaza nunca) */
+      .signal {
+        position: absolute;
+        top: clamp(320px, 36vh, 420px);
+        left: 50%;
+        z-index: 2;
+        width: min(420px, 38vw);
+        max-width: 52ch;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+
+      .memory-meta {
+        display: block;
+        margin: 0 0 10px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 600ms ease;
+      }
+
+      .memory-meta.is-visible {
+        opacity: 1;
+      }
+
+      .memory {
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.55;
+        text-align: center;
+        opacity: 0;
+        transition:
+          opacity 800ms ease 120ms,
+          color 400ms ease;
+      }
+
+      .memory.is-visible {
+        opacity: 1;
+      }
+
+      /* Tramos: misma gramática absoluta en todos */
+      .band {
+        display: none;
+        position: absolute;
+        top: clamp(200px, 24vh, 280px);
+        left: clamp(24px, 5vw, 72px);
+        right: clamp(24px, 5vw, 72px);
+        z-index: 4;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 600ms ease,
+          visibility 600ms ease;
+      }
+
+      .band.is-active.is-visible {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .band-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(180px, 24vw, 360px);
+        align-items: start;
+        min-height: clamp(480px, 52vh, 580px);
+      }
+
+      .column {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 56px;
+        min-width: 0;
+        max-width: 28ch;
+      }
+
+      .column-left {
+        justify-self: start;
+      }
+
+      .column-right {
+        justify-self: end;
+        align-items: flex-end;
+        text-align: right;
+      }
+
+      .q-block {
+        width: 100%;
+        max-width: 28ch;
+      }
+
+      .q-code {
+        margin: 0 0 8px;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .hide-codes .q-code {
+        display: none;
+      }
+
+      .q-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .column-right .q-head {
+        flex-direction: row-reverse;
+      }
+
+      .q-label {
+        flex: 1;
+        min-width: 0;
+        margin: 0;
+        color: var(--eve-ink);
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+
+      .column-right .q-label {
+        text-align: right;
+      }
+
+      .help-plus {
+        flex: 0 0 auto;
+        margin: 1px 0 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1;
+        cursor: pointer;
+        transition:
+          color 240ms ease,
+          opacity 240ms ease;
+      }
+
+      .help-plus.is-mist {
+        color: var(--eve-mist);
+        opacity: 0.7;
+      }
+
+      .help-plus:hover,
+      .help-plus.is-gate {
+        color: var(--eve-ink);
+        opacity: 1;
+      }
+
+      .gate-hint {
+        margin: 8px 0 0;
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        line-height: 1.4;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition:
+          opacity 240ms ease,
+          max-height 240ms ease;
+      }
+
+      .gate-hint.is-visible {
+        max-height: 3em;
+        opacity: 1;
+      }
+
+      /* Partes de la actividad entendida (0.1) */
+      .part-value {
+        margin: 12px 0 0;
+        color: var(--eve-mist-deep);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.55;
+        transition: opacity 380ms ease;
+      }
+
+      .part-value.is-missing {
+        color: var(--eve-mist);
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .band.is-superseded .part-value {
+        opacity: 0.38;
+      }
+
+      /* Opciones */
+      .opt-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .column-right .opt-list {
+        align-items: flex-end;
+      }
+
+      .opt {
+        margin: 0;
+        padding: 2px 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        line-height: 1.4;
+        text-align: inherit;
+        cursor: pointer;
+        transition:
+          color 280ms ease,
+          font-weight 180ms ease;
+      }
+
+      .opt:hover {
+        color: var(--eve-ink);
+      }
+
+      .opt.is-active {
+        color: var(--eve-ink);
+        font-weight: 700;
+      }
+
+      .opt:disabled {
+        cursor: default;
+        opacity: 0.5;
+      }
+
+      .opt-list.is-locked {
+        opacity: 0.38;
+        pointer-events: none;
+      }
+
+      /* Respuesta abierta: separada de la pregunta + barra de escritura */
+      .answer-field {
+        margin-top: 26px;
+        padding-top: 12px;
+        border-top: 1px solid color-mix(in srgb, var(--eve-line) 88%, transparent);
+      }
+
+      .answer-field.is-followup {
+        margin-top: 18px;
+      }
+
+      .answer-field.is-locked {
+        opacity: 0.38;
+        pointer-events: none;
+      }
+
+      .q-value {
+        display: block;
+        width: 100%;
+        min-height: 3.2em;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.55;
+        text-align: inherit;
+        white-space: pre-wrap;
+        word-break: break-word;
+        outline: none;
+        caret-color: var(--eve-ink);
+        cursor: text;
+      }
+
+      .q-value[contenteditable="false"] {
+        cursor: default;
+      }
+
+      .q-value.is-empty[contenteditable="true"]:not(:focus)::before {
+        content: "";
+        display: inline-block;
+        width: 1.5px;
+        height: 1.05em;
+        background: var(--eve-ink);
+        vertical-align: -0.18em;
+        animation: eve-caret 1s step-end infinite;
+      }
+
+      @keyframes eve-caret {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .followup,
+      .clarify-slot {
+        display: none;
+      }
+
+      .followup.is-open,
+      .clarify-slot.is-open {
+        display: block;
+      }
+
+      /* Micro-aclaración en lenguaje de trinchera */
+      .trench {
+        margin: 0 0 18px;
+      }
+
+      .trench-lead {
+        margin: 0 0 10px;
+        color: var(--eve-ink);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .trench-landing {
+        margin: 0 0 10px;
+        color: var(--eve-mist-deep);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .trench-example {
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .echo {
+        margin: 14px 0 0;
+        color: var(--eve-mist-deep);
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .echo strong {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      /* Capa inferior del shell: confirmaciones y aclaraciones */
+      .rel-layer {
+        position: absolute;
+        top: clamp(560px, 68vh, 780px);
+        left: 50%;
+        z-index: 5;
+        width: min(380px, 42vw);
+        max-width: 38ch;
+        text-align: center;
+        transform: translateX(-50%);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 500ms ease,
+          visibility 500ms ease;
+      }
+
+      .rel-layer.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .rel-panel {
+        display: none;
+      }
+
+      .rel-panel.is-active {
+        display: block;
+      }
+
+      .rel-panel + .rel-panel.is-active {
+        margin-top: 40px;
+      }
+
+      .rel-layer .q-block {
+        margin: 0 auto;
+      }
+
+      .rel-layer .q-head {
+        justify-content: center;
+      }
+
+      .rel-layer .q-label {
+        flex: 0 1 auto;
+        text-align: center;
+      }
+
+      .rel-layer .opt-list {
+        align-items: center;
+      }
+
+      .rel-layer .opt,
+      .rel-layer .q-code,
+      .rel-layer .gate-hint {
+        text-align: center;
+      }
+
+      .rel-layer .clarify-slot {
+        margin-top: 32px;
+      }
+
+      /* Cierre del tramo */
+      .closure {
+        position: absolute;
+        right: clamp(24px, 5vw, 72px);
+        bottom: clamp(48px, 7vh, 88px);
+        z-index: 6;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 400ms ease,
+          visibility 400ms ease;
+      }
+
+      .closure.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .scene-toggle {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 220ms ease;
+      }
+
+      .scene-toggle.is-ready {
+        color: var(--eve-ink);
+      }
+
+      .scene-toggle:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      .closure-hint,
+      .saved-mark {
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 7px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-align: right;
+        opacity: 0;
+      }
+
+      .closure-hint.is-visible,
+      .saved-mark.is-visible {
+        opacity: 1;
+      }
+
+      .ops-notify {
+        position: fixed;
+        left: 24px;
+        bottom: 24px;
+        z-index: 20;
+        max-width: 52ch;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 400ms ease;
+      }
+
+      .ops-notify.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .replay {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 20;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 400ms ease,
+          color 200ms ease;
+      }
+
+      .replay.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 900px) {
+        .screen {
+          min-height: auto;
+          padding: 72px 24px 120px;
+        }
+
+        .kicker-band,
+        .signal,
+        .band,
+        .rel-layer,
+        .closure {
+          position: static;
+          width: auto;
+          max-width: none;
+          margin: 0 0 36px;
+          transform: none;
+        }
+
+        .band-grid {
+          display: block;
+          min-height: 0;
+        }
+
+        .column,
+        .q-block {
+          max-width: none;
+        }
+
+        .column-right {
+          align-items: flex-start;
+          margin-top: 40px;
+          text-align: left;
+        }
+
+        .column-right .q-head {
+          flex-direction: row;
+        }
+
+        .column-right .q-label,
+        .column-right .opt-list {
+          align-items: flex-start;
+          text-align: left;
+        }
+
+        .closure,
+        .closure-hint,
+        .saved-mark {
+          align-items: flex-start;
+          text-align: left;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .kicker,
+        .memory,
+        .memory-meta,
+        .band,
+        .rel-layer,
+        .opt,
+        .ops-notify,
+        .replay,
+        .closure,
+        .phase-arrow,
+        .madre-help {
+          transition: none !important;
+        }
+
+        .q-value.is-empty[contenteditable="true"]:not(:focus)::before {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="build" id="build">BUILD 1.0 · B0</p>
+
+    <main class="screen" id="screen" aria-label="Bloque 0">
+      <button class="phase-arrow" id="phase-back" type="button" aria-label="Tramo anterior">←</button>
+      <p class="block-mark" id="block-mark">Bloque 0</p>
+
+      <div class="kicker-band">
+        <p class="kicker" id="kicker">Confirmar actividad</p>
+        <div class="madre-help" id="madre-help" aria-live="polite" hidden></div>
+      </div>
+
+      <div class="signal" aria-live="polite">
+        <span class="memory-meta" id="memory-meta">Memoria operativa</span>
+        <p class="memory" id="memory"></p>
+      </div>
+
+      <!-- B0-Q01 · 0.1 (partes de la actividad entendida) -->
+      <section class="band" id="band-actividad" data-band="actividad" aria-label="Confirmar actividad">
+        <div class="band-grid">
+          <div class="column column-left">
+            <article class="q-block">
+              <p class="q-label">I · Qué haces</p>
+              <p class="part-value" data-part="action_verb"></p>
+            </article>
+            <article class="q-block">
+              <p class="q-label">II · Sobre qué trabajas</p>
+              <p class="part-value" data-part="input_object"></p>
+            </article>
+          </div>
+          <div class="column column-right">
+            <article class="q-block">
+              <p class="q-label">III · Con qué criterio</p>
+              <p class="part-value" data-part="procedure_standard"></p>
+            </article>
+            <article class="q-block">
+              <p class="q-label">IV · Qué queda listo</p>
+              <p class="part-value" data-part="product_output"></p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- B0-Q02 · 0.A · 0.C (0.2 es derivación interna, nunca visible) -->
+      <section class="band" id="band-aclarar" data-band="aclarar" aria-label="Aclarar actividad">
+        <div class="band-grid">
+          <div class="column column-left">
+            <div class="clarify-slot" id="slot-0A">
+              <article class="q-block">
+                <div class="trench" id="trench-0A"></div>
+                <p class="q-code">0.A</p>
+                <div class="q-head">
+                  <p class="q-label">El nombre suena amplio. ¿Qué distingue esta actividad de otras parecidas?</p>
+                  <button class="help-plus" type="button" data-field="0.A" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="0.A">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="0.A" role="textbox" aria-label="Qué distingue esta actividad"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column column-right">
+            <div class="clarify-slot" id="slot-0C">
+              <article class="q-block">
+                <div class="trench" id="trench-0C"></div>
+                <p class="q-code">0.C</p>
+                <div class="q-head">
+                  <p class="q-label">Esta descripción parece muy grande o muy pequeña. ¿Qué parte concreta conviene revisar de inicio a fin?</p>
+                  <button class="help-plus" type="button" data-field="0.C" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="0.C">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="0.C" role="textbox" aria-label="Parte concreta a revisar de inicio a fin"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- B0-Q03 · 0.3 · 0.3a · 0.4 · 0.5_actor_scope -->
+      <section class="band" id="band-frecuencia" data-band="frecuencia" aria-label="Frecuencia, situación y quién la sostiene">
+        <div class="band-grid">
+          <div class="column column-left">
+            <article class="q-block">
+              <p class="q-code">0.3</p>
+              <div class="q-head">
+                <p class="q-label">¿Con qué frecuencia haces esta actividad?</p>
+                <button class="help-plus" type="button" data-field="0.3" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.3">Abre + antes de responder</p>
+              <div class="opt-list" data-choice="0.3" role="radiogroup" aria-label="Frecuencia"></div>
+            </article>
+            <article class="q-block" id="block-03a">
+              <p class="q-code">0.3a</p>
+              <div class="q-head">
+                <p class="q-label">Si cambia la frecuencia, ¿qué la hace más probable?</p>
+                <button class="help-plus" type="button" data-field="0.3a" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.3a">Abre + antes de responder</p>
+              <div class="opt-list" data-choice="0.3a" role="radiogroup" aria-label="Qué la activa más"></div>
+              <div class="followup" id="followup-03a">
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="0.3a" role="textbox" aria-label="Especificar qué la activa"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="column column-right">
+            <article class="q-block">
+              <p class="q-code">0.4</p>
+              <div class="q-head">
+                <p class="q-label">¿En qué situación suele aparecer esta actividad?</p>
+                <button class="help-plus" type="button" data-field="0.4" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.4">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="0.4" role="textbox" aria-label="Situación típica"></div>
+              </div>
+            </article>
+            <article class="q-block">
+              <p class="q-code">0.5_actor_scope</p>
+              <div class="q-head">
+                <p class="q-label">¿Quién la hace normalmente o sobre quién recae directamente?</p>
+                <button class="help-plus" type="button" data-field="0.5_actor_scope" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.5_actor_scope">Abre + antes de responder</p>
+              <div class="opt-list" data-choice="0.5_actor_scope" role="radiogroup" aria-label="Quién la sostiene"></div>
+              <div class="followup" id="followup-actor">
+                <div class="answer-field is-followup">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="0.5_actor_scope" role="textbox" aria-label="Especificar quién la sostiene"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- B0-Q04 · 0.6 · 0.B (0.7 derivación interna) + C01 · 0.8 · 0.8a -->
+      <section class="band" id="band-borde" data-band="borde" aria-label="Para empezar y variación">
+        <div class="band-grid">
+          <div class="column column-left">
+            <article class="q-block">
+              <p class="q-code">0.6 · Para empezar</p>
+              <div class="q-head">
+                <p class="q-label">¿Qué recibes, ves o necesitas para empezar esta actividad?</p>
+                <button class="help-plus" type="button" data-field="0.6" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.6">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="0.6" role="textbox" aria-label="Qué necesitas para empezar"></div>
+              </div>
+            </article>
+          </div>
+          <div class="column column-right">
+            <article class="q-block">
+              <p class="q-code">0.8</p>
+              <div class="q-head">
+                <p class="q-label">¿La haces casi siempre igual o cambia según el caso?</p>
+                <button class="help-plus" type="button" data-field="0.8" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.8">Abre + antes de responder</p>
+              <div class="opt-list" data-choice="0.8" role="radiogroup" aria-label="Variación"></div>
+            </article>
+            <div class="clarify-slot" id="slot-08a">
+              <article class="q-block">
+                <p class="q-code">0.8a</p>
+                <div class="q-head">
+                  <p class="q-label">¿Cuál es el cambio o caso especial más común?</p>
+                  <button class="help-plus" type="button" data-field="0.8a" aria-label="Abrir ayuda">+</button>
+                </div>
+                <p class="gate-hint" data-gate-for="0.8a">Abre + antes de responder</p>
+                <div class="answer-field">
+                  <div class="q-value is-empty" contenteditable="true" data-answer="0.8a" role="textbox" aria-label="Caso especial más común"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Capa inferior: 0.D · 0.1 / 0.1a · 0.B -->
+      <section class="rel-layer" id="rel-layer" aria-label="Confirmación y aclaraciones">
+        <div class="rel-panel" id="rel-0D">
+          <article class="q-block">
+            <div class="trench" id="trench-0D"></div>
+            <p class="q-code">0.D</p>
+            <div class="q-head">
+              <p class="q-label">La estructura parece incompleta. ¿Qué falta: sobre qué trabajas, con qué criterio o qué queda listo?</p>
+              <button class="help-plus" type="button" data-field="0.D" aria-label="Abrir ayuda">+</button>
+            </div>
+            <p class="gate-hint" data-gate-for="0.D">Abre + antes de responder</p>
+            <div class="opt-list" data-choice="0.D" role="radiogroup" aria-label="Qué falta"></div>
+            <div class="followup" id="followup-0D">
+              <div class="answer-field is-followup">
+                <div class="q-value is-empty" contenteditable="true" data-answer="0.D" role="textbox" aria-label="Completar lo que falta"></div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="rel-panel" id="rel-01">
+          <article class="q-block">
+            <p class="q-code">0.1</p>
+            <div class="q-head">
+              <p class="q-label">Esto es lo que entendimos de esta actividad. ¿Está correcto?</p>
+              <button class="help-plus" type="button" data-field="0.1" aria-label="Abrir ayuda">+</button>
+            </div>
+            <p class="gate-hint" data-gate-for="0.1">Abre + antes de responder</p>
+            <div class="opt-list" data-choice="0.1" role="radiogroup" aria-label="Confirmar actividad"></div>
+          </article>
+          <div class="clarify-slot" id="slot-01a">
+            <article class="q-block">
+              <p class="q-code">0.1a</p>
+              <div class="q-head">
+                <p class="q-label">Corrige la frase para que diga claramente qué haces, sobre qué trabajas y qué queda listo.</p>
+                <button class="help-plus" type="button" data-field="0.1a" aria-label="Abrir ayuda">+</button>
+              </div>
+              <p class="gate-hint" data-gate-for="0.1a">Abre + antes de responder</p>
+              <div class="answer-field">
+                <div class="q-value is-empty" contenteditable="true" data-answer="0.1a" role="textbox" aria-label="Corregir actividad"></div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="rel-panel" id="rel-0B">
+          <article class="q-block">
+            <div class="trench" id="trench-0B"></div>
+            <p class="q-code">0.B</p>
+            <div class="q-head">
+              <p class="q-label">Parece que el inicio y el cierre se mezclan. Completa: empieza cuando ___ y termina cuando ___.</p>
+              <button class="help-plus" type="button" data-field="0.B" aria-label="Abrir ayuda">+</button>
+            </div>
+            <p class="gate-hint" data-gate-for="0.B">Abre + antes de responder</p>
+            <div class="answer-field">
+              <div class="q-value is-empty" contenteditable="true" data-answer="0.B" role="textbox" aria-label="Aclarar inicio y cierre"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer class="closure" id="closure">
+        <p class="saved-mark" id="saved-mark" aria-hidden="true">Bloque 0 guardado · local</p>
+        <button class="scene-toggle" id="scene-toggle" type="button" disabled>Continuar →</button>
+        <p class="closure-hint" id="closure-hint">Completa lo que falta para continuar</p>
+      </footer>
+    </main>
+
+    <p class="ops-notify" id="ops-notify" role="status" aria-live="polite"></p>
+    <button class="replay" id="replay" type="button">Reiniciar bloque</button>
+
+    <script>
+      const BUILD = "2.0";
+      const STORAGE_KEY = "eve-b0-bloque-shell-v1";
+
+      const params = new URLSearchParams(window.location.search);
+      const ACTIVITY_INDEX = Math.max(
+        1,
+        Number.parseInt(params.get("activity") || "1", 10) || 1,
+      );
+      const HELP_GATE_ENABLED = ACTIVITY_INDEX === 1;
+      const SHOW_CODES = params.get("codes") !== "0";
+      const START_BAND = params.get("band");
+      const MEMORY_OVERRIDE = (params.get("memory") || "").trim();
+
+      /**
+       * 0.0 · internal_preload (fixture de prueba: literal WorkMap + componentes semánticos sugeridos).
+       * Proveniencia: source_reference / ai_inferred_unconfirmed hasta que 0.1 lo confirme.
+       */
+      const FIXTURE_PRELOAD = {
+        literal:
+          "Atiendo las guardias y eventos comerciales mediante la recepción del visitante, preguntas sobre su necesidad, demostración de productos y registro de sus datos de contacto, para generar un Contacto Comercial calificado o una Venta de Exhibición atendida.",
+        action_verb: "Atiendo guardias y eventos comerciales",
+        input_object: "El visitante y sus datos de contacto",
+        procedure_standard:
+          "Recepción, preguntas sobre su necesidad, demostración de productos y registro",
+        product_output:
+          "Contacto comercial calificado o venta de exhibición atendida",
+      };
+
+      const PRELOAD = MEMORY_OVERRIDE
+        ? {
+            literal: MEMORY_OVERRIDE,
+            action_verb: "",
+            input_object: "",
+            procedure_standard: "",
+            product_output: "",
+          }
+        : params.get("entry") === "partial"
+          ? { ...FIXTURE_PRELOAD, procedure_standard: "" }
+          : { ...FIXTURE_PRELOAD };
+
+      const PART_KEYS = [
+        "action_verb",
+        "input_object",
+        "procedure_standard",
+        "product_output",
+      ];
+      const GAP_LABELS = {
+        action_verb: "qué haces",
+        input_object: "sobre qué trabajas",
+        procedure_standard: "con qué criterio",
+        product_output: "qué queda listo",
+      };
+
+      /** help_text de las fichas canónicas Madre B0. Se muestra solo en la banda del shell. */
+      const MADRE_HELP = {
+        "0.1": {
+          explanation:
+            "Revísalo rápido. Si algo no representa tu trabajo, corrígelo.",
+          examples: [
+            "“Revisar facturas con soporte incompleto hasta dejarlas listas para pago”.",
+          ],
+        },
+        "0.1a": {
+          explanation: "Usa una frase simple.",
+          examples: [
+            "“Confirmar stock de pedidos urgentes antes de liberarlos”.",
+            "“Reagendar una cita cancelada hasta dejarla confirmada”.",
+          ],
+        },
+        "0.D": {
+          explanation:
+            "Ayúdanos a completar la frase. Debe quedar claro qué haces, sobre qué trabajas y qué resultado dejas.",
+        },
+        "0.A": {
+          explanation:
+            "Por ejemplo, “dar seguimiento” puede significar muchas cosas. Dinos seguimiento a qué, con qué propósito y hasta qué queda listo.",
+        },
+        "0.C": {
+          explanation:
+            "No buscamos algo tan grande como “gestionar compras” ni tan pequeño como “dar clic en aprobar”. Buscamos una unidad intermedia: “revisar una factura con incidencia antes de enviarla a pago”.",
+        },
+        "0.3": {
+          explanation:
+            "Elige lo que más se parece a una semana o mes normal. No pasa nada si es irregular.",
+        },
+        "0.3a": {
+          explanation:
+            "Ejemplos: cierre de mes, volumen alto, errores, urgencias, solicitudes externas, auditorías o cambios de turno.",
+        },
+        "0.4": {
+          explanation:
+            "Ejemplos: al iniciar el turno, cuando entra una solicitud, al cierre de mes, después de una aprobación, cuando falta información o cuando alguien pide corrección.",
+        },
+        "0.5_actor_scope": {
+          explanation:
+            "Puede ser tú, tu equipo, otra persona, otro equipo o un sistema con intervención humana. Aquí no preguntamos todavía por beneficiario final.",
+        },
+        "0.6": {
+          explanation:
+            "Piensa en la señal mínima. Ejemplos: llega una solicitud, aparece una factura, recibes una alerta, se aprueba un caso, alguien te pide corrección.",
+        },
+        "0.B": {
+          explanation:
+            "Buscamos el borde práctico de la actividad, no una explicación perfecta.",
+          examples: [
+            "“empieza cuando recibo la factura; termina cuando queda marcada para pago”.",
+          ],
+        },
+        "0.8": {
+          explanation:
+            "Piensa en cómo ocurre realmente, no en cómo debería ocurrir en el procedimiento ideal.",
+        },
+        "0.8a": {
+          explanation: "Describe solo el caso más típico.",
+          examples: [
+            "“cambia cuando falta soporte”.",
+            "“cambia si el pedido es urgente”.",
+            "“cambia si el sistema no actualiza”.",
+          ],
+        },
+      };
+
+      /** Opciones canónicas Madre. */
+      const OPTIONS = {
+        "0.1": [
+          { id: "si", label: "Sí, está correcto" },
+          { id: "corregir", label: "Quiero corregirlo" },
+          { id: "no_corresponde", label: "No corresponde a esta actividad" },
+        ],
+        "0.D": [
+          { id: "objeto", label: "Falta sobre qué trabajo", part: "input_object" },
+          { id: "criterio", label: "Falta criterio o estándar", part: "procedure_standard" },
+          { id: "salida", label: "Falta qué queda listo", part: "product_output" },
+          { id: "varias", label: "Falta más de una cosa", part: null },
+        ],
+        "0.3": [
+          { id: "varias_dia", label: "Varias veces al día" },
+          { id: "diaria", label: "Diaria" },
+          { id: "varias_semana", label: "Varias veces por semana" },
+          { id: "semanal", label: "Semanal" },
+          { id: "varias_mes", label: "Varias veces al mes" },
+          { id: "mensual", label: "Mensual" },
+          { id: "cierre", label: "Solo en cierre" },
+          { id: "contingencias", label: "Solo ante contingencias" },
+          { id: "irregular", label: "Irregular" },
+          { id: "estacional", label: "Estacional" },
+        ],
+        "0.3a": [
+          { id: "volumen", label: "Depende del volumen" },
+          { id: "cierre", label: "Depende de fechas de cierre" },
+          { id: "urgencias", label: "Depende de urgencias" },
+          { id: "errores", label: "Depende de errores o retrabajos" },
+          { id: "externas", label: "Depende de solicitudes externas" },
+          { id: "otro", label: "Otro" },
+        ],
+        "0.5_actor_scope": [
+          { id: "yo", label: "Yo mismo" },
+          { id: "equipo", label: "Mi equipo" },
+          { id: "otra_persona", label: "Otra persona del equipo" },
+          { id: "otro_equipo", label: "Otro equipo" },
+          { id: "sistema", label: "Un sistema con intervención humana" },
+          { id: "compartida", label: "Es compartida" },
+          { id: "otro", label: "Otro" },
+        ],
+        "0.8": [
+          { id: "igual", label: "Casi siempre igual" },
+          { id: "menores", label: "Tiene variaciones menores" },
+          { id: "relevantes", label: "Tiene variaciones relevantes" },
+          { id: "mucho", label: "Cambia mucho según el caso" },
+          { id: "no_seguro", label: "No estoy seguro" },
+        ],
+      };
+
+      const FREQ_VARIABLE_IDS = ["cierre", "contingencias", "irregular", "estacional"];
+      const ACTOR_SPEC_IDS = ["sistema", "compartida", "otro"];
+      const VARIATION_HIGH_IDS = ["relevantes", "mucho"];
+
+      const BAND_META = {
+        actividad: { kicker: "Confirmar actividad", runtime: "B0-Q01" },
+        aclarar: { kicker: "Aclarar actividad", runtime: "B0-Q02" },
+        frecuencia: {
+          kicker: "Cada cuánto, en qué situación y quién la sostiene",
+          runtime: "B0-Q03",
+        },
+        borde: { kicker: "Para empezar · Variación", runtime: "B0-Q04 · C01" },
+      };
+
+      /** Variables canónicas Madre por código (para el payload). */
+      const CANONICAL_OUTPUT = {
+        "0.1": "activity_name_user_confirmed + semantic_confirmation_status",
+        "0.1a": "activity_name_user_confirmed + activity_semantic_structure_corrected",
+        "0.D": "activity_semantic_completion / semantic_gap_unresolved",
+        "0.2": "activity_summary_literal / scene_summary_literal",
+        "0.A": "activity_name_disambiguation",
+        "0.C": "activity_scale_adjustment",
+        "0.3": "activity_frequency_base / scene_frequency_base",
+        "0.3a": "activity_frequency_pattern_hint",
+        "0.4": "activity_typical_context / scene_typical_context",
+        "0.5_actor_scope": "activity_primary_actor_scope / scene_primary_actor_scope",
+        "0.6": "activity_start_condition_hint / scene_boundary_start_hint",
+        "0.7": "activity_end_result_hint / scene_boundary_end_hint",
+        "0.B": "activity_boundary_clarification",
+        "0.8": "activity_variation_mode / scene_variation_mode",
+        "0.8a": "activity_exception_signature / scene_exception_signature",
+      };
+
+      const state = {
+        band: "actividad",
+        choice: {},
+        text: {},
+        open: { "0.A": false, "0.C": false, "0.B": false },
+        scaleIssue: null,
+        includeAclarar: false,
+        activityCommitted: PRELOAD.literal,
+        saved: false,
+      };
+      const helpViewed = Object.create(null);
+      let openHelpField = null;
+
+      const buildEl = document.getElementById("build");
+      const kickerEl = document.getElementById("kicker");
+      const madreHelpEl = document.getElementById("madre-help");
+      const memoryMetaEl = document.getElementById("memory-meta");
+      const memoryEl = document.getElementById("memory");
+      const relLayer = document.getElementById("rel-layer");
+      const rel0D = document.getElementById("rel-0D");
+      const rel01 = document.getElementById("rel-01");
+      const rel0B = document.getElementById("rel-0B");
+      const closureEl = document.getElementById("closure");
+      const sceneToggle = document.getElementById("scene-toggle");
+      const closureHint = document.getElementById("closure-hint");
+      const savedMark = document.getElementById("saved-mark");
+      const opsNotify = document.getElementById("ops-notify");
+      const replayEl = document.getElementById("replay");
+      const phaseBack = document.getElementById("phase-back");
+
+      const bandEls = {
+        actividad: document.getElementById("band-actividad"),
+        aclarar: document.getElementById("band-aclarar"),
+        frecuencia: document.getElementById("band-frecuencia"),
+        borde: document.getElementById("band-borde"),
+      };
+
+      /* ---------- utilidades ---------- */
+
+      function prefersReducedMotion() {
+        return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      }
+
+      function sleep(ms) {
+        if (prefersReducedMotion()) return Promise.resolve();
+        return new Promise((resolve) => window.setTimeout(resolve, ms));
+      }
+
+      function read(el) {
+        return (el.textContent || "").replace(/\u200b/g, "").trim();
+      }
+
+      function syncEmpty(el) {
+        el.classList.toggle("is-empty", read(el).length === 0);
+      }
+
+      function wordCount(text) {
+        return (text || "").trim().split(/\s+/).filter(Boolean).length;
+      }
+
+      function short(text, max = 90) {
+        const clean = (text || "").trim().replace(/\s+/g, " ");
+        return clean.length > max ? `${clean.slice(0, max - 1).trim()}…` : clean;
+      }
+
+      function joinList(items) {
+        if (items.length <= 1) return items.join("");
+        return `${items.slice(0, -1).join(", ")} y ${items[items.length - 1]}`;
+      }
+
+      function labelOf(field, id) {
+        return OPTIONS[field]?.find((o) => o.id === id)?.label || "";
+      }
+
+      let notifyTimer = 0;
+      function setNotify(text, hold = 0) {
+        window.clearTimeout(notifyTimer);
+        opsNotify.textContent = text;
+        opsNotify.classList.toggle("is-visible", Boolean(text));
+        if (text && hold) {
+          notifyTimer = window.setTimeout(() => setNotify(""), hold);
+        }
+      }
+
+      /* ---------- reglas Madre / Runtime ---------- */
+
+      function gapParts() {
+        return PART_KEYS.filter((key) => !(PRELOAD[key] || "").trim());
+      }
+
+      function gapFlag() {
+        return gapParts().length > 0;
+      }
+
+      function effectiveParts() {
+        const parts = {};
+        PART_KEYS.forEach((key) => {
+          parts[key] = (PRELOAD[key] || "").trim();
+        });
+        const pick = OPTIONS["0.D"].find((o) => o.id === state.choice["0.D"]);
+        const filled = (state.text["0.D"] || "").trim();
+        if (gapFlag() && pick?.part && filled) parts[pick.part] = filled;
+        return parts;
+      }
+
+      function needs01a() {
+        return ["corregir", "no_corresponde"].includes(state.choice["0.1"]);
+      }
+
+      /**
+       * 0.7 interna (Madre rev5): copia sin reinterpretar el componente "qué queda listo"
+       * de la actividad confirmada (0.1) o corregida (0.1a). Si no existe, queda gap.
+       */
+      function extractOutputFragment(text) {
+        const match = (text || "").match(
+          /(?:hasta\s+(?:dejar(?:la|lo|las|los)?|que\s+quede[n]?)|para\s+(?:dejar(?:la|lo|las|los)?|generar|obtener|que\s+quede[n]?)|y\s+dejar(?:la|lo|las|los)?)\s+(.+)$/i,
+        );
+        return match ? match[1].replace(/[.\s]+$/, "").trim() : "";
+      }
+
+      function derivedEnd() {
+        if (state.choice["0.1"] === "si") return effectiveParts().product_output || "";
+        if (needs01a()) return extractOutputFragment(state.text["0.1a"]);
+        return "";
+      }
+
+      /** 0.2 interna (Madre rev5): resumen fiel a la frase confirmada/corregida, sin hechos nuevos. */
+      function derivedSummary() {
+        if (!state.choice["0.1"]) return "";
+        return (state.activityCommitted || "").trim();
+      }
+
+      function needsActorSpec() {
+        return ACTOR_SPEC_IDS.includes(state.choice["0.5_actor_scope"]);
+      }
+
+      function freqVariable() {
+        return FREQ_VARIABLE_IDS.includes(state.choice["0.3"]);
+      }
+
+      function needs08a() {
+        return VARIATION_HIGH_IDS.includes(state.choice["0.8"]);
+      }
+
+      /** Madre 0.A: gestionar, apoyar, revisar, coordinar, dar seguimiento… sin objeto/salida. */
+      function isGenericName(name) {
+        const t = (name || "").trim().toLowerCase();
+        if (!t) return false;
+        const generic =
+          /^(gestionar|gestiono|apoyar|apoyo|revisar|reviso|coordinar|coordino|dar seguimiento|doy seguimiento|administrar|administro|dar soporte|doy soporte|hacer|hago)\b/.test(
+            t,
+          );
+        const anchored =
+          /\b(para|hasta|antes de|dejar|dejo|queda|listo|lista|liberad[oa]|confirmad[oa]|enviad[oa]|validad[oa])\b/.test(
+            t,
+          );
+        return generic && (wordCount(t) <= 5 || !anchored);
+      }
+
+      /** Madre 0.C: 0.1/0.1a o la 0.2 derivada muestran macroproceso o microacción. */
+      function scaleIssue(text) {
+        const t = (text || "").trim().toLowerCase();
+        if (!t) return null;
+        const n = wordCount(t);
+        if (n <= 2) return "micro";
+        if (n <= 6 && /^(dar clic|doy clic|clic|click)\b/.test(t)) return "micro";
+        if (
+          /\b(todo el|toda la|todos los|todas las|todo lo relacionado|el área completa|el proceso completo|gestiono el área|administro el área)\b/.test(
+            t,
+          )
+        ) {
+          return "macro";
+        }
+        return null;
+      }
+
+      function normalize(text) {
+        return (text || "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9ñ\s]/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      /** Madre C3 / 0.B: 0.6 y 0.7 iguales, contenidos o casi idénticos. */
+      function boundaryMix(start, end) {
+        const a = normalize(start);
+        const b = normalize(end);
+        if (!a || !b) return false;
+        if (a === b || a.includes(b) || b.includes(a)) return true;
+        const tokensA = new Set(a.split(" ").filter((t) => t.length > 2));
+        const tokensB = b.split(" ").filter((t) => t.length > 2);
+        if (!tokensA.size || !tokensB.length) return false;
+        const overlap = tokensB.filter((t) => tokensA.has(t)).length;
+        return overlap / Math.max(tokensA.size, tokensB.length) >= 0.7;
+      }
+
+      /* ---------- completitud ---------- */
+
+      function isFieldAnswered(field) {
+        const choice = state.choice[field];
+        const text = (state.text[field] || "").trim();
+        switch (field) {
+          case "0.1":
+          case "0.3":
+          case "0.8":
+            return Boolean(choice);
+          case "0.D":
+            return Boolean(choice) && Boolean(text);
+          case "0.5_actor_scope":
+            return Boolean(choice) && (!needsActorSpec() || Boolean(text));
+          case "0.3a":
+            return Boolean(choice) && (choice !== "otro" || Boolean(text));
+          default:
+            return Boolean(text);
+        }
+      }
+
+      function bandComplete(band) {
+        switch (band) {
+          case "actividad":
+            return (
+              (!gapFlag() || isFieldAnswered("0.D")) &&
+              isFieldAnswered("0.1") &&
+              (!needs01a() || isFieldAnswered("0.1a"))
+            );
+          case "aclarar":
+            return (
+              (!state.open["0.A"] || isFieldAnswered("0.A")) &&
+              (!state.open["0.C"] || isFieldAnswered("0.C"))
+            );
+          case "frecuencia":
+            return (
+              isFieldAnswered("0.3") &&
+              (!freqVariable() || isFieldAnswered("0.3a")) &&
+              isFieldAnswered("0.4") &&
+              isFieldAnswered("0.5_actor_scope")
+            );
+          case "borde":
+            return (
+              isFieldAnswered("0.6") &&
+              isFieldAnswered("0.8") &&
+              (!needs08a() || isFieldAnswered("0.8a")) &&
+              (!state.open["0.B"] || isFieldAnswered("0.B"))
+            );
+          default:
+            return false;
+        }
+      }
+
+      function bandSequence() {
+        const seq = ["actividad"];
+        if (state.includeAclarar) seq.push("aclarar");
+        seq.push("frecuencia", "borde");
+        return seq;
+      }
+
+      function isLastBand() {
+        return state.band === "borde";
+      }
+
+      function aclararKicker() {
+        const labels = [];
+        if (state.open["0.A"]) labels.push("Aclarar actividad");
+        if (state.open["0.C"]) labels.push("Ajustar tamaño");
+        return labels.join(" · ") || BAND_META.aclarar.kicker;
+      }
+
+      /* ---------- help en la banda del shell ---------- */
+
+      function helpHasContent(field) {
+        const entry = MADRE_HELP[field];
+        if (!entry) return false;
+        return Boolean(
+          (entry.explanation || "").trim() ||
+            (Array.isArray(entry.examples) && entry.examples.length),
+        );
+      }
+
+      function canAnswerField(field) {
+        if (state.saved) return false;
+        if (!HELP_GATE_ENABLED) return true;
+        if (!helpHasContent(field)) return true;
+        return Boolean(helpViewed[field]);
+      }
+
+      function renderMadreHelp(field) {
+        const entry = MADRE_HELP[field];
+        madreHelpEl.replaceChildren();
+        if (!entry) return;
+        if ((entry.explanation || "").trim()) {
+          const p = document.createElement("p");
+          p.className = "madre-help-p";
+          p.textContent = entry.explanation;
+          madreHelpEl.appendChild(p);
+        }
+        if (Array.isArray(entry.examples) && entry.examples.length) {
+          const list = document.createElement("ul");
+          list.className = "madre-help-examples";
+          entry.examples.forEach((example) => {
+            const li = document.createElement("li");
+            const text = String(example || "").trim();
+            li.textContent = /^ej\./i.test(text) ? text : `Ej. ${text}`;
+            list.appendChild(li);
+          });
+          madreHelpEl.appendChild(list);
+        }
+      }
+
+      function closeMadreHelp() {
+        openHelpField = null;
+        madreHelpEl.classList.remove("is-open");
+        madreHelpEl.hidden = true;
+        madreHelpEl.replaceChildren();
+      }
+
+      function openMadreHelp(field) {
+        if (!helpHasContent(field)) return;
+        openHelpField = field;
+        helpViewed[field] = true;
+        madreHelpEl.hidden = false;
+        renderMadreHelp(field);
+        void madreHelpEl.offsetWidth;
+        madreHelpEl.classList.add("is-open");
+        madreHelpEl.scrollIntoView({
+          block: "nearest",
+          behavior: prefersReducedMotion() ? "auto" : "smooth",
+        });
+      }
+
+      /* ---------- micro-aclaraciones (trinchera + aterrizaje + ejemplo) ---------- */
+
+      function renderTrench(id, lead, landing, example) {
+        const el = document.getElementById(id);
+        el.replaceChildren();
+        [
+          ["trench-lead", lead],
+          ["trench-landing", landing],
+          ["trench-example", example],
+        ].forEach(([className, text]) => {
+          const p = document.createElement("p");
+          p.className = className;
+          p.textContent = text;
+          el.appendChild(p);
+        });
+      }
+
+      function renderTrench0D() {
+        const missing = joinList(gapParts().map((key) => GAP_LABELS[key]));
+        const known = PRELOAD.action_verb || PRELOAD.literal;
+        renderTrench(
+          "trench-0D",
+          "Nos falta una pieza para entender bien esta actividad.",
+          `A lo que me refiero es: en lo que entendimos no queda claro ${missing}.`,
+          `Por ejemplo: sabemos que “${short(known, 70)}”, pero no aparece ${missing}.`,
+        );
+      }
+
+      function renderTrench0A() {
+        renderTrench(
+          "trench-0A",
+          "Nos falta una precisión para entender bien esta actividad.",
+          "A lo que me refiero es: el nombre suena amplio y podría describir varias actividades distintas.",
+          `Por ejemplo: “${short(state.activityCommitted, 70)}” puede significar muchas cosas; dinos a qué se aplica, con qué propósito y hasta qué queda listo.`,
+        );
+      }
+
+      function renderTrench0C() {
+        const landing =
+          state.scaleIssue === "micro"
+            ? "A lo que me refiero es: lo que describes suena a un paso suelto, más pequeño que una actividad completa."
+            : "A lo que me refiero es: lo que describes suena más grande que una sola actividad.";
+        renderTrench(
+          "trench-0C",
+          "Aquí hay una mezcla que no nos termina de cerrar.",
+          landing,
+          `Por ejemplo: en “${short(state.activityCommitted, 70)}” buscamos la parte concreta que tú recorres de inicio a fin: ni todo el proceso, ni un clic suelto.`,
+        );
+      }
+
+      function renderTrench0B() {
+        const start = short(state.text["0.6"], 60);
+        const end = derivedEnd();
+        if (!end) {
+          renderTrench(
+            "trench-0B",
+            "Nos falta una precisión para entender bien esta actividad.",
+            "A lo que me refiero es: ya sabemos cómo empieza, pero con lo que confirmaste no queda claro qué queda listo para darla por terminada.",
+            `Por ejemplo: empiezas con “${start}”, pero en “${short(state.activityCommitted, 60)}” no aparece dónde termina.`,
+          );
+          return;
+        }
+        renderTrench(
+          "trench-0B",
+          "Nos está saliendo cruzada esta actividad.",
+          "A lo que me refiero es: lo que necesitas para empezar y lo que queda listo al terminar se parecen tanto que no se distingue dónde empieza ni dónde termina.",
+          `Por ejemplo: pusiste que empiezas con “${start}” y la actividad que confirmaste termina en “${short(end, 60)}”; así no se ve qué cambia entre el inicio y el cierre.`,
+        );
+      }
+
+      /* ---------- render ---------- */
+
+      function mountOptions() {
+        document.querySelectorAll("[data-choice]").forEach((container) => {
+          const field = container.dataset.choice;
+          container.replaceChildren();
+          (OPTIONS[field] || []).forEach((option) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "opt";
+            btn.textContent = option.label;
+            btn.dataset.id = option.id;
+            btn.setAttribute("role", "radio");
+            btn.setAttribute("aria-checked", "false");
+            container.appendChild(btn);
+          });
+        });
+      }
+
+      function refreshChoices() {
+        document.querySelectorAll("[data-choice]").forEach((container) => {
+          const selected = state.choice[container.dataset.choice];
+          container.querySelectorAll(".opt").forEach((btn) => {
+            const on = btn.dataset.id === selected;
+            btn.classList.toggle("is-active", on);
+            btn.setAttribute("aria-checked", on ? "true" : "false");
+          });
+        });
+      }
+
+      function refreshBandContent() {
+        const parts = effectiveParts();
+        document.querySelectorAll("[data-part]").forEach((el) => {
+          const value = parts[el.dataset.part];
+          el.textContent = value || "Por completar";
+          el.classList.toggle("is-missing", !value);
+        });
+        bandEls.actividad.classList.toggle("is-superseded", needs01a());
+
+        document.getElementById("slot-0A").classList.toggle("is-open", state.open["0.A"]);
+        document.getElementById("slot-0C").classList.toggle("is-open", state.open["0.C"]);
+
+        document
+          .getElementById("followup-actor")
+          .classList.toggle("is-open", needsActorSpec());
+
+        document.getElementById("block-03a").hidden = !freqVariable();
+        document
+          .getElementById("followup-03a")
+          .classList.toggle("is-open", state.choice["0.3a"] === "otro");
+        document.getElementById("slot-08a").classList.toggle("is-open", needs08a());
+
+        document
+          .getElementById("followup-0D")
+          .classList.toggle("is-open", Boolean(state.choice["0.D"]));
+        document.getElementById("slot-01a").classList.toggle("is-open", needs01a());
+      }
+
+      function refreshRel() {
+        const onActividad = state.band === "actividad";
+        const show0D = onActividad && gapFlag();
+        const show01 = onActividad && (!gapFlag() || isFieldAnswered("0.D"));
+        const show0B = state.band === "borde" && state.open["0.B"];
+        rel0D.classList.toggle("is-active", show0D);
+        rel01.classList.toggle("is-active", show01);
+        rel0B.classList.toggle("is-active", show0B);
+        relLayer.classList.toggle("is-visible", show0D || show01 || show0B);
+      }
+
+      function refreshLocks() {
+        document.querySelectorAll("[data-choice]").forEach((container) => {
+          const locked = !canAnswerField(container.dataset.choice);
+          container.classList.toggle("is-locked", locked && !state.saved);
+          container.querySelectorAll(".opt").forEach((btn) => {
+            btn.disabled = state.saved || locked;
+          });
+        });
+        document.querySelectorAll("[data-answer]").forEach((el) => {
+          const locked = !canAnswerField(el.dataset.answer);
+          const editable = state.saved || locked ? "false" : "true";
+          if (el.getAttribute("contenteditable") !== editable) {
+            el.setAttribute("contenteditable", editable);
+          }
+          el.closest(".answer-field")?.classList.toggle(
+            "is-locked",
+            locked && !state.saved,
+          );
+        });
+        document.querySelectorAll("[data-gate-for]").forEach((hint) => {
+          const field = hint.dataset.gateFor;
+          hint.classList.toggle(
+            "is-visible",
+            HELP_GATE_ENABLED &&
+              helpHasContent(field) &&
+              !helpViewed[field] &&
+              !state.saved,
+          );
+        });
+      }
+
+      function refreshHelpPlus() {
+        document.querySelectorAll(".help-plus").forEach((btn) => {
+          const field = btn.dataset.field;
+          btn.hidden = !helpHasContent(field);
+          btn.disabled = state.saved;
+          btn.classList.toggle("is-mist", isFieldAnswered(field));
+          btn.classList.toggle(
+            "is-gate",
+            HELP_GATE_ENABLED &&
+              helpHasContent(field) &&
+              !helpViewed[field] &&
+              !state.saved,
+          );
+          btn.setAttribute("aria-expanded", openHelpField === field ? "true" : "false");
+        });
+      }
+
+      function refreshClosure() {
+        const complete = bandComplete(state.band);
+        sceneToggle.textContent = isLastBand() ? "Guardar bloque" : "Continuar →";
+        sceneToggle.disabled = state.saved || !complete;
+        sceneToggle.classList.toggle("is-ready", complete && !state.saved);
+        closureHint.classList.toggle("is-visible", !complete && !state.saved);
+        savedMark.classList.toggle("is-visible", state.saved);
+        phaseBack.classList.toggle(
+          "is-visible",
+          !state.saved && bandSequence().indexOf(state.band) > 0,
+        );
+        buildEl.textContent = `BUILD ${BUILD} · B0 · ${BAND_META[state.band].runtime}${state.saved ? " · GUARDADO" : ""}`;
+      }
+
+      function refreshAll() {
+        refreshChoices();
+        refreshBandContent();
+        refreshRel();
+        refreshLocks();
+        refreshHelpPlus();
+        refreshClosure();
+      }
+
+      function setBand(next) {
+        state.band = next;
+        closeMadreHelp();
+        Object.entries(bandEls).forEach(([key, el]) => {
+          const on = key === next;
+          el.classList.toggle("is-active", on);
+          el.classList.toggle("is-visible", on);
+        });
+        kickerEl.textContent =
+          next === "aclarar" ? aclararKicker() : BAND_META[next].kicker;
+        refreshAll();
+        window.scrollTo({
+          top: 0,
+          behavior: prefersReducedMotion() ? "auto" : "smooth",
+        });
+      }
+
+      /* ---------- flujo ---------- */
+
+      function commitActivity() {
+        state.activityCommitted = needs01a()
+          ? (state.text["0.1a"] || "").trim()
+          : PRELOAD.literal;
+        memoryEl.textContent = state.activityCommitted;
+        state.open["0.A"] = isGenericName(state.activityCommitted);
+        state.scaleIssue = scaleIssue(state.activityCommitted);
+        state.open["0.C"] = Boolean(state.scaleIssue);
+        if (state.open["0.A"]) renderTrench0A();
+        if (state.open["0.C"]) renderTrench0C();
+        state.includeAclarar = state.open["0.A"] || state.open["0.C"];
+      }
+
+      function advanceOrSave() {
+        if (state.saved || !bandComplete(state.band)) return;
+
+        if (state.band === "actividad") {
+          commitActivity();
+          if (state.includeAclarar) {
+            setBand("aclarar");
+            setNotify("Nos falta una precisión antes de seguir", 1800);
+            return;
+          }
+          setBand("frecuencia");
+          return;
+        }
+
+        if (state.band === "aclarar") {
+          setBand("frecuencia");
+          return;
+        }
+
+        if (state.band === "frecuencia") {
+          setBand("borde");
+          return;
+        }
+
+        if (state.band === "borde") {
+          const end = derivedEnd();
+          if (!state.open["0.B"] && (!end || boundaryMix(state.text["0.6"], end))) {
+            state.open["0.B"] = true;
+            renderTrench0B();
+            refreshAll();
+            setNotify("Nos falta una precisión antes de seguir", 1800);
+            return;
+          }
+          saveBlock();
+        }
+      }
+
+      function goBack() {
+        if (state.saved) return;
+        const seq = bandSequence();
+        const index = seq.indexOf(state.band);
+        if (index > 0) setBand(seq[index - 1]);
+      }
+
+      function entry(field, value, provenance, extra = {}) {
+        return {
+          code: field,
+          value,
+          provenance,
+          canonical_variable_output: CANONICAL_OUTPUT[field],
+          ...extra,
+        };
+      }
+
+      function payload() {
+        const answers = [];
+        const confirmation = state.choice["0.1"];
+
+        answers.push({
+          code: "0.0",
+          value: { ...PRELOAD },
+          provenance: "source_reference / ai_inferred_unconfirmed",
+          block0_entry_mode: gapFlag() ? "complete_partial_activity" : "complete_activity",
+          semantic_component_gap: gapParts(),
+        });
+        if (gapFlag()) {
+          answers.push(
+            entry("0.D", (state.text["0.D"] || "").trim(), "clarification / user_corrected_evidence", {
+              option: labelOf("0.D", state.choice["0.D"]),
+            }),
+          );
+        }
+        answers.push(
+          entry("0.1", labelOf("0.1", confirmation), confirmation === "si"
+            ? "user_confirmed_evidence"
+            : confirmation === "corregir"
+              ? "user_corrected_evidence"
+              : "reconstructed_user_evidence", {
+            activity_name_user_confirmed: state.activityCommitted,
+            activity_semantic_structure_confirmed:
+              confirmation === "si" ? effectiveParts() : null,
+            semantic_confirmation_status:
+              confirmation === "si"
+                ? "user_confirmed"
+                : confirmation === "corregir"
+                  ? "user_corrected"
+                  : "reconstructed",
+          }),
+        );
+        if (needs01a()) {
+          answers.push(
+            entry(
+              "0.1a",
+              (state.text["0.1a"] || "").trim(),
+              confirmation === "corregir"
+                ? "user_corrected_evidence"
+                : "reconstructed_user_evidence",
+            ),
+          );
+        }
+        const derivationSource =
+          confirmation === "si"
+            ? "user_confirmed_evidence"
+            : confirmation === "corregir"
+              ? "user_corrected_evidence"
+              : "reconstructed_user_evidence";
+        const summary = derivedSummary();
+        answers.push(
+          entry("0.2", summary || null, "canonical_derivation", {
+            visible: false,
+            derived_from: `0.1/0.1a · ${derivationSource}`,
+            ...(summary ? {} : { gap: "missing_activity_summary" }),
+          }),
+        );
+        if (state.open["0.A"]) {
+          answers.push(entry("0.A", (state.text["0.A"] || "").trim(), "clarification"));
+        }
+        if (state.open["0.C"]) {
+          answers.push(
+            entry("0.C", (state.text["0.C"] || "").trim(), "clarification", {
+              scale_issue: state.scaleIssue,
+            }),
+          );
+        }
+        answers.push(
+          entry("0.3", labelOf("0.3", state.choice["0.3"]), "captured_user_evidence"),
+        );
+        if (freqVariable()) {
+          answers.push(
+            entry(
+              "0.3a",
+              labelOf("0.3a", state.choice["0.3a"]),
+              "captured_user_evidence",
+              state.choice["0.3a"] === "otro"
+                ? { specification: (state.text["0.3a"] || "").trim() }
+                : {},
+            ),
+          );
+        }
+        const end = derivedEnd();
+        answers.push(
+          entry("0.4", (state.text["0.4"] || "").trim(), "captured_user_evidence"),
+          entry(
+            "0.5_actor_scope",
+            labelOf("0.5_actor_scope", state.choice["0.5_actor_scope"]),
+            "captured_user_evidence",
+            needsActorSpec()
+              ? { specification: (state.text["0.5_actor_scope"] || "").trim() }
+              : {},
+          ),
+          entry("0.6", (state.text["0.6"] || "").trim(), "captured_user_evidence"),
+          entry(
+            "0.7",
+            end || null,
+            state.open["0.B"]
+              ? "canonical_derivation / clarification_override"
+              : "canonical_derivation",
+            {
+              visible: false,
+              derived_from:
+                confirmation === "si"
+                  ? "0.1 · product_output confirmado"
+                  : "0.1a · fragmento de salida en la corrección",
+              ...(end ? {} : { gap: "missing_end_result" }),
+              ...(state.open["0.B"]
+                ? { clarification_override: (state.text["0.B"] || "").trim() }
+                : {}),
+            },
+          ),
+        );
+        if (state.open["0.B"]) {
+          answers.push(entry("0.B", (state.text["0.B"] || "").trim(), "clarification"));
+        }
+        answers.push(
+          entry("0.8", labelOf("0.8", state.choice["0.8"]), "captured_user_evidence"),
+        );
+        if (needs08a()) {
+          answers.push(
+            entry("0.8a", (state.text["0.8a"] || "").trim(), "captured_user_evidence"),
+          );
+        }
+
+        const flags = {
+          semantic_component_gap_flag: gapFlag(),
+          activity_name_generic_flag: state.open["0.A"],
+          activity_scale_issue_flag: state.open["0.C"],
+          activity_boundary_blur_flag: state.open["0.B"],
+          activity_anchor_gap_flag: !summary || (!end && !state.open["0.B"]),
+        };
+        const anyFlag = Object.values(flags).some(Boolean);
+
+        return {
+          block_id: "0",
+          build: BUILD,
+          madre_source: "Bloque_0_Documento_Madre_Capa1_v2_1_EVE_rev5_ajuste_controlado_02_07_08",
+          saved_at: new Date().toISOString(),
+          runtime_interactions: [
+            "B0-Q01",
+            ...(state.includeAclarar ? ["B0-Q02"] : []),
+            "B0-Q03",
+            "B0-Q04",
+            "C01",
+          ],
+          answers,
+          flags,
+          activity_anchor_readiness: anyFlag ? "ready_with_flags" : "ready",
+        };
+      }
+
+      function saveBlock() {
+        if (state.saved) return;
+        const data = payload();
+        state.saved = true;
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (_) {
+          /* best-effort */
+        }
+        closeMadreHelp();
+        refreshAll();
+        setNotify("Bloque 0 guardado · listo para Bloque 0.5");
+        console.info("[B0 bloque]", data);
+      }
+
+      /* ---------- eventos ---------- */
+
+      function bindChoices() {
+        document.querySelectorAll("[data-choice]").forEach((container) => {
+          container.addEventListener("click", (event) => {
+            const btn = event.target.closest(".opt");
+            if (!btn || btn.disabled) return;
+            const field = container.dataset.choice;
+            if (!canAnswerField(field)) return;
+            state.choice[field] = btn.dataset.id;
+            if (openHelpField === field && isFieldAnswered(field)) closeMadreHelp();
+            refreshAll();
+          });
+        });
+      }
+
+      function bindAnswers() {
+        document.querySelectorAll("[data-answer]").forEach((el) => {
+          const apply = () => {
+            const field = el.dataset.answer;
+            if (!canAnswerField(field)) return;
+            state.text[field] = read(el);
+            syncEmpty(el);
+            refreshAll();
+          };
+          el.addEventListener("input", apply);
+          el.addEventListener("blur", apply);
+        });
+      }
+
+      function bindHelpPlus() {
+        document.querySelectorAll(".help-plus").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            if (btn.disabled) return;
+            const field = btn.dataset.field;
+            if (openHelpField === field) closeMadreHelp();
+            else openMadreHelp(field);
+            refreshAll();
+          });
+        });
+      }
+
+      async function boot() {
+        if (!SHOW_CODES) document.body.classList.add("hide-codes");
+        mountOptions();
+        bindChoices();
+        bindAnswers();
+        bindHelpPlus();
+        sceneToggle.addEventListener("click", advanceOrSave);
+        phaseBack.addEventListener("click", goBack);
+        replayEl.addEventListener("click", () => {
+          try {
+            localStorage.removeItem(STORAGE_KEY);
+          } catch (_) {
+            /* ignore */
+          }
+          window.location.reload();
+        });
+
+        memoryEl.textContent = PRELOAD.literal;
+        if (gapFlag()) renderTrench0D();
+
+        await sleep(80);
+        kickerEl.classList.add("is-visible");
+        await sleep(220);
+        memoryMetaEl.classList.add("is-visible");
+        memoryEl.classList.add("is-visible");
+        await sleep(360);
+        setBand("actividad");
+        closureEl.classList.add("is-visible");
+        replayEl.classList.add("is-visible");
+
+        if (START_BAND && BAND_META[START_BAND] && START_BAND !== "actividad") {
+          if (START_BAND === "aclarar") {
+            state.open["0.A"] = true;
+            state.open["0.C"] = true;
+            state.scaleIssue = "macro";
+            renderTrench0A();
+            renderTrench0C();
+          }
+          state.includeAclarar = state.open["0.A"] || state.open["0.C"];
+          setBand(START_BAND);
+        }
+      }
+
+      boot();
+    </script>
+  </body>
+</html>

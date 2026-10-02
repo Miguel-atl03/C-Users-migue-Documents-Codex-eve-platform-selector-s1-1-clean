@@ -1,0 +1,105 @@
+{
+  "audit_id": "RUNTIME_40_20_PHASE12B_EXTERNAL_TYPECHECK_DEBT_MATERIALITY_AND_SCOPE_DECISION_PATCH_V1",
+  "previous_patch_referenced": "RUNTIME_40_20_PHASE12B_CANONICAL_SHADOW_SERVICE_AND_UNSAFE_IMPORT_DECISION_PATCH_PARTIAL_REMEDIATION_STILL_BLOCKED",
+  "plan_phase": {
+    "part": "PARTE 2",
+    "phase": "FASE 12",
+    "phase_name": "QA + shadow pilot",
+    "patch_scope": "12-B external typecheck debt materiality and scope decision only"
+  },
+  "control_de_fuente_no_inferencia": {
+    "blocked_dictamen_referenced": true,
+    "previous_patches_referenced": true,
+    "error_inventory_referenced": true,
+    "rector_documents_referenced": true,
+    "content_traceable_to_errors_or_instruction": true,
+    "free_inference_detected": false,
+    "unauthorized_expansion_detected": false
+  },
+  "typecheck_debt_inventory": {
+    "inventory_created": true,
+    "initial_remaining_error_count": 138,
+    "final_remaining_error_count": 138,
+    "runtime_40_20_blocking_count": 0,
+    "qa_shadow_error_count": 0,
+    "phase12B_material_blocking_count": 0,
+    "external_preexisting_non_runtime_count": 37,
+    "external_next_route_typing_count": 1,
+    "external_ui_or_app_layer_count": 2,
+    "external_generated_artifact_non_runtime_count": 16,
+    "external_legacy_service_count": 5,
+    "external_missing_module_non_runtime_count": 0,
+    "external_tsconfig_policy_count": 77,
+    "unsafe_requires_architectural_decision_count": 0,
+    "unclassified_remaining_count": 0
+  },
+  "materiality_decision": {
+    "phase12B_local_material_gate_passed": true,
+    "repo_wide_typecheck_status": "failed",
+    "repo_wide_typecheck_debt_registered": true,
+    "repo_wide_typecheck_required_before_real_activation": true,
+    "phase12B_can_be_completed_locally": true,
+    "activation_real_blocked": true,
+    "qa_green_real_created": false
+  },
+  "safe_remediation": {
+    "safe_fixes_applied": false,
+    "files_modified": [],
+    "semantic_catalog_change_detected": false,
+    "runtime_contract_relaxed": false,
+    "tests_relaxed": false,
+    "ts_ignore_or_nocheck_added": false,
+    "src_excluded_from_typecheck": false,
+    "stubs_created": false
+  },
+  "typecheck_after_patch": {
+    "command": "npx.cmd tsc --noEmit --pretty false",
+    "status": "failed",
+    "remaining_error_count": 138
+  },
+  "build_after_patch": {
+    "command": "npm run build",
+    "status": "environment_blocked_non_code_path_length",
+    "environment_blocked_reason": "Turbopack path length failure under .next/server/chunks/ssr on Windows.",
+    "activation_real_blocked_if_environment_blocked": true
+  },
+  "qa_shadow_test": {
+    "command": "node --test src/services/eve/runtime-40-20/qa-shadow/runtime-40-20-qa-shadow.test.mjs",
+    "status": "passed",
+    "test_count": 174,
+    "failed_count": 0
+  },
+  "phase12_status": {
+    "phase12_started_local": true,
+    "phase12_B_status_after_fourth_patch": "completed_with_external_typecheck_debt",
+    "phase12_closed_local": false,
+    "ready_for_real_activation_authorization": false
+  },
+  "boundary": {
+    "qa_green_real_created": false,
+    "shadow_pilot_real_started": false,
+    "runtime_40_20_started": false,
+    "catalog_activated": false,
+    "export_real_created": false,
+    "parallel_export_payload_real_created": false,
+    "produccion_paralela_started": false,
+    "supabase_touched": false,
+    "sql_executed": false,
+    "endpoint_created": false,
+    "registry_created": false,
+    "ir_created": false,
+    "diagnosis_created": false,
+    "control_plane_real_created": false,
+    "mba_write_detected": false,
+    "scene_write_detected": false,
+    "parallel_production_runtime_artifacts_write_detected": false
+  },
+  "files_created": [
+    "docs/implementation/runtime_40_20_phase12b_external_typecheck_debt_materiality_and_scope_decision_patch_closeout.md",
+    "docs/implementation/runtime_40_20_phase12b_external_typecheck_debt_materiality_and_scope_decision_patch_traceability.json",
+    "docs/implementation/runtime_40_20_phase12b_external_typecheck_debt_inventory.json"
+  ],
+  "files_modified": [],
+  "next_tree_point": "12.13 Security / scope / RLS QA + 12.14 No-write boundary QA + 12.15 Shadow pilot scope contract + 12.16 Shadow pilot dataset / fixtures + 12.17 Shadow pilot run rehearsal + 12.18 Shadow pilot observability",
+  "next_authorization_required": true
+}

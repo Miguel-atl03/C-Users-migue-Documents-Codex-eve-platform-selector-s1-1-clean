@@ -1,0 +1,31 @@
+{
+  "boundary_design_id": "EVE_ORGANISM_OPTION_A_SHADOW_ONLY_OUTBOX_REAL_MIGRATION_BOUNDARY_DESIGN_V1",
+  "real_migration_design_id": "OPTION_A_SHADOW_ONLY_OUTBOX_REAL_MIGRATION_DESIGN_V1",
+  "rls_read_boundary_design_present": true,
+  "rls_policy_created": false,
+  "supabase_policy_created": false,
+  "rls_read_boundary_if_applicable": {
+    "tenant_id_scopes_reads": true,
+    "bridge_reader_reads_only_shadow_only_outbox_events": true,
+    "bridge_reader_cannot_insert_update_delete": true,
+    "writer_can_append_only": true,
+    "no_cross_tenant_read": true,
+    "no_service_role_productive": true,
+    "no_rls_bypass": true,
+    "all_reads_audited": true,
+    "all_append_attempts_audited": true,
+    "cross_tenant_attempt_triggers_quarantine": true,
+    "service_role_attempt_triggers_quarantine": true
+  },
+  "rollback_design_present": true,
+  "degrade_quarantine_design_present": true,
+  "rollback_if_future_migration_fails": [
+    "stop provisioning",
+    "do not create bridge",
+    "preserve audit evidence",
+    "mark capability DEGRADED or QUARANTINED",
+    "require S3* review",
+    "require EVE-08 governance review",
+    "require Miguel decision before retry"
+  ]
+}

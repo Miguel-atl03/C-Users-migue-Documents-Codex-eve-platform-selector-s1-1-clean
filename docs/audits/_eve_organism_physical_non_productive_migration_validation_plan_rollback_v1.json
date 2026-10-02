@@ -1,0 +1,25 @@
+{
+  "rollback_name": "PhysicalNonProductiveMigrationValidationPlanRollback",
+  "mode": "FUTURE_ROLLBACK_DESIGN_ONLY",
+  "rollback_trigger": [
+    "target_not_non_productive",
+    "production_credentials_detected",
+    "migration_failure",
+    "schema_mismatch",
+    "constraint_scope_failure",
+    "rls_relaxation_detected",
+    "dml_or_backfill_detected",
+    "authority_contamination"
+  ],
+  "rollback_scope": "non_productive_validation_environment_only",
+  "rollback_environment_non_productive_only": true,
+  "rollback_preserves_evidence": true,
+  "rollback_restores_schema_or_validates_safe_forward": true,
+  "rollback_does_not_touch_production": true,
+  "rollback_does_not_create_observer": true,
+  "rollback_does_not_close_gate2": true,
+  "rollback_does_not_enable_gate3": true,
+  "rollback_does_not_start_fase9": true,
+  "rollback_owner_required": true,
+  "rollback_validation_required": true
+}

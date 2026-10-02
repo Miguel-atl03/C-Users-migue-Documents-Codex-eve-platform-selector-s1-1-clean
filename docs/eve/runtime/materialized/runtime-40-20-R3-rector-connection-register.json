@@ -1,0 +1,52 @@
+{
+  "instruction": "045-R3",
+  "created_at_utc": "2026-08-10T18:06:59.912Z",
+  "classification": "blocked_gaby_runtime_reentry",
+  "connections": [
+    {
+      "connection_id": "gaby_frontdoor_to_runtime_renderer",
+      "rector_source": "Runtime 40/20 + 045-R3 Gate 4",
+      "rector_section": "Next Interaction debe ser Runtime",
+      "material_source": "SceneQuestionnaireRunner uses capa1-runtime-manifest",
+      "conformance_status": "blocked",
+      "implementation_action": "none",
+      "test_evidence": "legacy catalog import and client canonicalVariable present"
+    },
+    {
+      "connection_id": "gaby_answer_to_runtime_ingest",
+      "rector_source": "045-R3 Gates 5-8 + 045-R2A",
+      "rector_section": "Binding opaco minimo/server resolution",
+      "material_source": "client-bff answer route + scenes answers route",
+      "conformance_status": "blocked",
+      "implementation_action": "none",
+      "test_evidence": "direct Supabase import, local adapter, Object.entries semantic mapping"
+    },
+    {
+      "connection_id": "gaby_b0_reentry_to_full_runtime",
+      "rector_source": "045-R3 Gate 3",
+      "rector_section": "No repetir B0",
+      "material_source": "staging activity_runtime_run",
+      "conformance_status": "blocked",
+      "implementation_action": "none",
+      "test_evidence": "controlled Gaby run remains B0; FULL runs are synthetic"
+    },
+    {
+      "connection_id": "runtime_to_scene_authority",
+      "rector_source": "045-R3 Gate 12",
+      "rector_section": "Autoridad de Scene",
+      "material_source": "staging scene_registry/activity_runtime_run",
+      "conformance_status": "blocked",
+      "implementation_action": "none",
+      "test_evidence": "scene_registry=0; no run has scene_id"
+    },
+    {
+      "connection_id": "panel_same_run_observability",
+      "rector_source": "045-R3 Gates 18-21",
+      "rector_section": "Panel same run/security",
+      "material_source": "Panel BFF routes exist but no same Gaby FULL run",
+      "conformance_status": "blocked_downstream",
+      "implementation_action": "none",
+      "test_evidence": "same-run test cannot run without real Gaby FULL run"
+    }
+  ]
+}

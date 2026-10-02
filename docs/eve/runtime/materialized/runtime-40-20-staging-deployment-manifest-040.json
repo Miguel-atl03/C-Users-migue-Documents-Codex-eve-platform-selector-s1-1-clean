@@ -1,0 +1,57 @@
+{
+  "instruction": "Codex 040",
+  "project_ref": "shrpiwkxcdgvbqymjecx",
+  "project_name": "eve-staging-onboarding",
+  "production_project_ref": "bwflscplkjohdhkiqqoc",
+  "production_consulted": false,
+  "actor_technical": "Codex via Supabase connector",
+  "deployment_started_after_preflight": true,
+  "predeployment_snapshot": {
+    "path": "docs/eve/runtime/materialized/runtime-40-20-staging-predeployment-snapshot-040.json"
+  },
+  "deployment_gate": {
+    "path": "docs/eve/runtime/materialized/runtime-40-20-staging-deployment-gate-039B.json",
+    "sha256": "c4f702366a7b9b5b0efc48519a983df6dd78d8d5af5617428b1f3a1790509200",
+    "staging_deployment_authorized": true
+  },
+  "ordered_artifacts": [
+    {
+      "order": 1,
+      "kind": "semantic_organs_schema",
+      "path": "supabase/migrations/20260805173000_eve_runtime_40_20_semantic_organs_candidate_039.sql",
+      "sha256": "48c2457ea0fdb637bc5871408294e679451595b36476fdef699d1ce1a2e3194e",
+      "applied_to_staging": true,
+      "rollback_path": "docs/eve/runtime/materialized/runtime-40-20-semantic-organs-candidate-039.rollback.sql",
+      "rollback_sha256": "15028b09033f3d50551956fcd5191207cc436bee3e77348e2e18006457f1fa30"
+    },
+    {
+      "order": 2,
+      "kind": "governed_draft_load_rpc",
+      "path": "supabase/migrations/20260805174500_eve_runtime_40_20_governed_draft_load_rpc_candidate_039A.sql",
+      "sha256": "33a79050484f07bc7fc6b820c8df57f25355462095fcf16f25c56403a206f9a7",
+      "applied_to_staging": true,
+      "rollback_path": "docs/eve/runtime/materialized/runtime-40-20-governed-draft-load-rpc-candidate-039A.rollback.sql",
+      "rollback_sha256": "86455b24ff430cab482b979e5d3f49243052d68961a3af719c63d3b2971be56b"
+    }
+  ],
+  "trace_controls": [
+    "EVE-RUNTIME-CATID-R1",
+    "EVE-RUNTIME-SEMPERSIST-R1",
+    "runtime-40-20-staging-boundary-traceability-039B"
+  ],
+  "authorizations": {
+    "staging_schema_writes": true,
+    "catalog_load_authorized": false,
+    "catalog_activation_authorized": false,
+    "production_authorized": false,
+    "B0_modification_authorized": false,
+    "Gaby_continuation_authorized": false
+  },
+  "deployment_result": {
+    "semantic_organs_apply_success": true,
+    "governed_rpc_apply_success": true,
+    "post_apply_conformance": "failed_due_to_staging_contract_drift",
+    "rollback_executed": true,
+    "rollback_result": "restored_predeployment_schema_boundary"
+  }
+}

@@ -1,0 +1,155 @@
+[
+  {
+    "critical_route_id": "CR-B0-WorkMapIntake-semantic-entry",
+    "route_expression": "0.0 → 0.1 → 0.1a/0.D",
+    "source_codes": [
+      "0.0",
+      "0.1",
+      "0.1a",
+      "0.D",
+      "block0_entry_control"
+    ],
+    "source_node_ids": [
+      "B0_0_0",
+      "B0_0_1",
+      "B0_0_1a",
+      "B0_0_D",
+      "B0_block0_entry_control"
+    ],
+    "rule": "Entrada robusta desde WorkMapIntake. Si la actividad llega parcial o fallida, Bloque 0 reconstruye sin inventar estructura.",
+    "block_if_failed": "No consolidar actividad como evidencia dura; conservar weak_context o activar reconstrucción guiada.",
+    "downstream": "SceneCanonicalRecord; EvidenceBundle; MDSB",
+    "member_count": 5,
+    "all_members_resolved": true,
+    "canonical_variable_refs": [
+      "activity_name_user_confirmed",
+      "activity_semantic_*",
+      "activity_semantic_completion",
+      "activity_semantic_structure_corrected",
+      "block0_entry_mode",
+      "reconstructed_activity_minimum",
+      "semantic_confirmation_status",
+      "semantic_gap_unresolved",
+      "semantic_preload_used",
+      "semantic_review_attempt_count"
+    ],
+    "pending_variable_definitions": [
+      "activity_semantic_completion",
+      "activity_semantic_structure_corrected"
+    ],
+    "route_authority": "D8.Critical_Routes",
+    "runtime_boundary": "close only through canonical evidence; no free-text inference",
+    "source_row_fingerprint_sha256": "2dd7bd2956507951ed6eba04a1fd400e5909798bc9f118fabf5fe1914c442b18"
+  },
+  {
+    "critical_route_id": "CR-B2-V3-transformation_exception",
+    "route_expression": "2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description",
+    "source_codes": [
+      "2.9",
+      "2.10",
+      "2.11",
+      "2.12"
+    ],
+    "source_node_ids": [
+      "B2_2_9",
+      "B2_2_10",
+      "B2_2_11",
+      "B2_2_12"
+    ],
+    "rule": "La excepción de transformación se captura/deriva solo por ruta canónica; no desde texto libre sin trazabilidad.",
+    "block_if_failed": "CanonicalRouteException / ready_with_flags; no generar candidato PF/OLC si falta ruta.",
+    "downstream": "OperationalExceptionEvidence; EvidenceBundle; MDSB; Inventory/Registry",
+    "member_count": 4,
+    "all_members_resolved": true,
+    "canonical_variable_refs": [
+      "transformation_exception_description",
+      "transformation_exception_exists",
+      "transformation_exception_type",
+      "transformation_hidden_changes",
+      "transformation_hidden_changes_description"
+    ],
+    "pending_variable_definitions": [],
+    "route_authority": "D8.Critical_Routes",
+    "runtime_boundary": "close only through canonical evidence; no free-text inference",
+    "source_row_fingerprint_sha256": "93261702d20625acfc30fdd2c4b77889d58ea9ab1c2158057d2e758b9dfc8441"
+  },
+  {
+    "critical_route_id": "CR-B3-R9-receiver_feedback",
+    "route_expression": "3.10 → 3.13 → 3.13a → receiver_feedback_exists → receiver_feedback",
+    "source_codes": [
+      "3.10",
+      "3.13",
+      "3.13a",
+      "3.D"
+    ],
+    "source_node_ids": [
+      "B3_3_10",
+      "B3_3_13",
+      "B3_3_13a",
+      "B3_3_D"
+    ],
+    "rule": "receiver_satisfaction no equivale a receiver_feedback. El feedback operativo exige señal de aviso, rechazo, devolución, corrección, recontacto o bloqueo.",
+    "block_if_failed": "receiver_feedback_route_missing / CanonicalRouteException / no crear rework desde satisfacción subjetiva.",
+    "downstream": "OperationalExceptionEvidence; EvidenceBundle; MDSB; Inventory/Registry PF/OLC",
+    "member_count": 4,
+    "all_members_resolved": true,
+    "canonical_variable_refs": [
+      "delivery_exception_exists",
+      "receiver_feedback",
+      "receiver_feedback_exists",
+      "receiver_feedback_gap_flag",
+      "receiver_satisfaction"
+    ],
+    "pending_variable_definitions": [],
+    "route_authority": "D8.Critical_Routes",
+    "runtime_boundary": "close only through canonical evidence; no free-text inference",
+    "source_row_fingerprint_sha256": "187766730af048707d014083211c0ef77ed4155bfac90a492335edba9e792a5c"
+  },
+  {
+    "critical_route_id": "CR-B7-AHE-boundary_guard",
+    "route_expression": "7.0 → 7.0a → 7.3 → 7.3a → 7.4",
+    "source_codes": [
+      "7.0",
+      "7.0a",
+      "7.3",
+      "7.3a",
+      "7.4"
+    ],
+    "source_node_ids": [
+      "B7_7_0",
+      "B7_7_0a",
+      "B7_7_3",
+      "B7_7_3a",
+      "B7_7_4"
+    ],
+    "rule": "B7 transporta señal preclasificatoria no diagnóstica; no produce inventario, IR, export, VSM/AHE cerrado ni diagnóstico.",
+    "block_if_failed": "ManualReviewRequest / EvidenceInsufficiency / TransductionBlocker según caso.",
+    "downstream": "EvidenceBundle; Capa 2.0/2.5 prep",
+    "member_count": 5,
+    "all_members_resolved": true,
+    "canonical_variable_refs": [
+      "confidence_level",
+      "confidence_reasoning",
+      "confidence_score",
+      "evidence_bundle_for_transduction",
+      "preclassification_ahe_bundle_refined",
+      "preclassification_ahe_level_dominant",
+      "preclassification_ahe_note",
+      "preclassification_ahe_signal",
+      "preclassification_chain_position",
+      "preclassification_interpersonal_confirmation",
+      "preclassification_interpersonal_note",
+      "preclassification_interpersonal_signal",
+      "preclassification_mission_suggested",
+      "preclassification_readiness",
+      "preclassification_scene_type",
+      "preclassification_vsm_role",
+      "user_clarification",
+      "user_correction"
+    ],
+    "pending_variable_definitions": [],
+    "route_authority": "D8.Critical_Routes",
+    "runtime_boundary": "close only through canonical evidence; no free-text inference",
+    "source_row_fingerprint_sha256": "17147df122ac39180d6a013b7336c67fdc04f1161c437df3fd0fb6d553293e59"
+  }
+]

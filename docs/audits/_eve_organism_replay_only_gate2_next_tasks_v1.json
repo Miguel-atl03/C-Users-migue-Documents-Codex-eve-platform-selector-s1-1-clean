@@ -1,0 +1,84 @@
+{
+  "audit_id": "EVE_ORGANISM_REPLAY_ONLY_GATE2_NEXT_TASKS_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "REPLAY_ONLY_GATE2_CONTINUATION_PLAN_READY",
+  "selected_task": "REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1",
+  "selection_reason": "The blockers are now formalized and the main unknown is exact real-field proof. This task gathers documentary evidence without implementing observer or touching production, and directly targets ROB-002 through ROB-005 and ROB-008.",
+  "tasks": [
+    {
+      "task_id": "RFG2-TASK-001",
+      "name": "REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1",
+      "selected": true,
+      "allowed_files": [
+        "docs/audits/AUDIT_EVE_ORGANISM_REAL_SIGNAL_FIELD_PROOF_INVENTORY_V1.md",
+        "docs/audits/_eve_organism_real_signal_field_proof_inventory_v1.json",
+        "docs/audits/_eve_organism_real_signal_field_proof_gap_matrix_v1.json"
+      ],
+      "required_inputs": [
+        "docs/audits/_eve_organism_real_observation_blockers_register_v1.json",
+        "docs/audits/_eve_organism_real_observation_exit_conditions_v1.json",
+        "docs/audits/_eve_organism_real_signal_vs_replay_fixture_matrix_v1.json",
+        "docs/audits/_eve_organism_real_observation_signal_inventory_v1.json"
+      ],
+      "expected_output": "Documentary inventory of real-field proof gaps without implementing observer or touching product files.",
+      "blocker_reduced": [
+        "ROB-002",
+        "ROB-003",
+        "ROB-004",
+        "ROB-005",
+        "ROB-008"
+      ],
+      "still_not_real_observation": true
+    },
+    {
+      "task_id": "RFG2-TASK-002",
+      "name": "REPLAY_FIXTURE_VARIATION_EXPANSION_V1",
+      "selected": false,
+      "allowed_files": [
+        "tests/fixtures/eve-organism-shadow-e2e/*.json",
+        "tests/regression/eve-organism-shadow-e2e-replay-fixtures.test.ts",
+        "docs/audits/AUDIT_EVE_ORGANISM_REPLAY_FIXTURE_VARIATION_EXPANSION_V1.md",
+        "docs/audits/_eve_organism_replay_fixture_variation_expansion_v1.json"
+      ],
+      "required_inputs": [
+        "docs/audits/_eve_organism_shadow_e2e_replay_fixtures_v1.json"
+      ],
+      "expected_output": "More tenant/session/activity and divergence variations for replay-only confidence.",
+      "blocker_reduced": [
+        "ROB-010"
+      ],
+      "still_not_real_observation": true
+    },
+    {
+      "task_id": "RFG2-TASK-003",
+      "name": "AUTH_TENANT_BOUNDARY_PROOF_PREFLIGHT_V1",
+      "selected": false,
+      "allowed_files": [
+        "docs/audits/AUDIT_EVE_ORGANISM_AUTH_TENANT_BOUNDARY_PROOF_PREFLIGHT_V1.md",
+        "docs/audits/_eve_organism_auth_tenant_boundary_proof_preflight_v1.json"
+      ],
+      "required_inputs": [
+        "docs/audits/_eve_organism_real_observation_exit_conditions_v1.json"
+      ],
+      "expected_output": "Documentary proof plan for auth/RLS/tenant isolation if a future DB/read boundary appears.",
+      "blocker_reduced": [
+        "ROB-007"
+      ],
+      "still_not_real_observation": true
+    },
+    {
+      "task_id": "RFG2-TASK-004",
+      "name": "STOP_GATE2_UNTIL_PRODUCT_OWNER_APPROVAL",
+      "selected": false,
+      "allowed_files": [
+        "docs/audits/CLOSEOUT_GATE2_REPLAY_ONLY_PAUSE_V1.md"
+      ],
+      "required_inputs": [
+        "docs/audits/_eve_organism_real_observation_blockers_register_v1.json"
+      ],
+      "expected_output": "Pause record requiring product owner decision before further Gate 2 work.",
+      "blocker_reduced": [],
+      "still_not_real_observation": true
+    }
+  ]
+}

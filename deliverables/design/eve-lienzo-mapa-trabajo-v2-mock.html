@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Mapa de trabajo · mock v2 · franjas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+        Propuesta v2 — misma gramática EVE, composición propia del Mapa.
+        No reutiliza: hero de marca, cuadrantes, glifo central, GUARDAR centrado.
+        Sí: tokens, mist→ink, tipografía, void, anotación con línea, copy oficial.
+        Metáfora: índice marginal + franjas de escritura (plano / partitura).
+      */
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1200px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      /* Solo marca — sin strapline repetido en cada sala */
+      .mark {
+        position: absolute;
+        top: 40px;
+        left: 56px;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .session {
+        position: absolute;
+        top: 40px;
+        right: 56px;
+        text-align: right;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 1.9;
+      }
+
+      /* Columna índice izquierda — identidad de sala, no monumento de marca */
+      .spine {
+        position: absolute;
+        top: 140px;
+        left: 56px;
+        width: 28px;
+        height: 920px;
+      }
+
+      .spine-label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 920px;
+        transform: rotate(-90deg);
+        transform-origin: 14px 14px;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-ink) 50%, var(--eve-mist));
+        white-space: nowrap;
+      }
+
+      .sheet {
+        position: absolute;
+        top: 120px;
+        left: 120px;
+        right: 56px;
+        bottom: 48px;
+      }
+
+      /* Pregunta de sala = inscripción, no hero (el hero solo vive al inicio del lienzo) */
+      .room-q {
+        margin: 0 0 28px;
+        max-width: 42ch;
+        font-family: var(--font-code);
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 1.45;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      /* Friso horizontal de áreas — una sola línea tipográfica, no grid de Estado A */
+      .frieze {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 10px 28px;
+        max-width: 1180px;
+        margin: 0 0 28px;
+        padding: 0 0 22px;
+      }
+
+      .frieze .area {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        white-space: nowrap;
+      }
+
+      .frieze .area.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .frieze-note {
+        margin: 0 0 56px;
+        max-width: 52ch;
+        font-size: 8px;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        line-height: 1.7;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 75%, transparent);
+      }
+
+      /* Franjas de escritura — cada área es una banda estructural */
+      .band {
+        position: relative;
+        margin: 0 0 48px;
+        padding: 28px 0 36px 0;
+      }
+
+      .band.is-latent {
+        opacity: 0.55;
+        padding-top: 22px;
+        padding-bottom: 18px;
+      }
+
+      .band-index {
+        position: absolute;
+        left: 0;
+        top: 28px;
+        width: 160px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        line-height: 1.5;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .band.is-latent .band-index {
+        color: var(--eve-mist);
+        font-weight: 500;
+      }
+
+      .band-body {
+        margin-left: 200px;
+        max-width: 920px;
+      }
+
+      .band-q {
+        margin: 0 0 18px;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .band.is-latent .band-q {
+        color: var(--eve-mist);
+        font-weight: 500;
+      }
+
+      .write {
+        margin: 0 0 8px;
+        padding: 0 0 12px;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.45;
+        color: var(--eve-ink);
+        max-width: 68ch;
+      }
+
+      .write.is-empty {
+        color: color-mix(in srgb, var(--eve-mist) 72%, transparent);
+        font-weight: 400;
+        font-size: 12px;
+      }
+
+      /* Actividades: columna secundaria que cuelga bajo la responsabilidad */
+      .acts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px 48px;
+        margin-top: 36px;
+        padding-left: 48px;
+      }
+
+      .acts-head {
+        grid-column: 1 / -1;
+        margin: 0 0 4px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-ink) 70%, var(--eve-mist));
+      }
+
+      .act {
+        margin: 0;
+        padding: 0 0 10px;
+        font-size: 11px;
+        line-height: 1.45;
+        letter-spacing: 0.02em;
+        color: var(--eve-ink);
+        font-weight: 500;
+      }
+
+      .act.is-empty {
+        color: color-mix(in srgb, var(--eve-mist) 70%, transparent);
+        font-weight: 400;
+      }
+
+      .more {
+        grid-column: 1 / -1;
+        margin: 8px 0 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 78%, transparent);
+      }
+
+      /* Pie: validación a la izquierda, traza a la derecha — no centro Estado A */
+      .footer {
+        position: absolute;
+        left: 120px;
+        right: 56px;
+        bottom: 36px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .rule {
+        margin: 0;
+        max-width: 42ch;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        line-height: 1.65;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 70%, transparent);
+      }
+
+      .trace {
+        border: 0;
+        background: transparent;
+        color: color-mix(in srgb, var(--eve-mist) 78%, transparent);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 14px;
+        left: 56px;
+        font-size: 6px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 50%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Mock v2 — Mapa de trabajo · franjas de escritura">
+      <span class="mark">EVE<sup>™</sup></span>
+      <div class="session">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <aside class="spine" aria-hidden="true">
+        <span class="spine-label">[ Mapa de tu trabajo ]</span>
+      </aside>
+
+      <div class="sheet">
+        <h1 class="room-q">¿Dónde participa tu trabajo?</h1>
+
+        <div class="frieze" role="group" aria-label="Áreas de participación">
+          <p class="area is-on">Operaciones / Producción</p>
+          <p class="area">I+D / Innovación</p>
+          <p class="area">Logística / Entrega</p>
+          <p class="area is-on">Ventas / Comercial</p>
+          <p class="area">Gestión de Talento (RRHH)</p>
+          <p class="area">Finanzas y Tesorería</p>
+          <p class="area">Tecnología e Infraestructura</p>
+          <p class="area">Administración / Legal</p>
+          <p class="area">Marketing Estratégico</p>
+          <p class="area">Planeación y Estrategia</p>
+          <p class="area">Otra área</p>
+        </div>
+
+        <p class="frieze-note">
+          No buscamos tu departamento formal. Buscamos en qué parte de la operación
+          tu trabajo realmente interviene.
+        </p>
+
+        <!-- Franja activa: Operaciones -->
+        <article class="band">
+          <p class="band-index">01 · Operaciones / Producción</p>
+          <div class="band-body">
+            <p class="band-q">De qué respondes en Operaciones / Producción</p>
+            <p class="write">
+              Asegurar que la línea de ensamble cumpla el plan diario de producción sin
+              detener entregas.
+            </p>
+
+            <div class="acts">
+              <p class="acts-head">Qué haces para cumplirlo</p>
+              <p class="act">
+                1. Revisar el tablero de órdenes y liberar la secuencia del turno.
+              </p>
+              <p class="act is-empty">
+                2. Redacta una actividad concreta de tu trabajo
+              </p>
+              <p class="more">+ Agregar otra actividad</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Franja latente: Ventas — elegida, aún sin escritura -->
+        <article class="band is-latent">
+          <p class="band-index">02 · Ventas / Comercial</p>
+          <div class="band-body">
+            <p class="band-q">De qué respondes en Ventas / Comercial</p>
+            <p class="write is-empty">Describe la responsabilidad principal</p>
+          </div>
+        </article>
+      </div>
+
+      <footer class="footer">
+        <p class="rule">
+          Escribe al menos una responsabilidad y dos actividades por cada área elegida.
+        </p>
+        <button class="trace" type="button">Guardar</button>
+      </footer>
+
+      <p class="proposal-tag">Mock v2 · mapa · franjas · sin líneas · copy oficial</p>
+    </section>
+  </body>
+</html>

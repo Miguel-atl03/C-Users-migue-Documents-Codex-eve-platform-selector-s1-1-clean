@@ -1,0 +1,347 @@
+{
+  "instruction": "044-A.4R",
+  "classification": "branching_predicates_rector_complete_local_only",
+  "counts": {
+    "causals": 20,
+    "exact_executable_now": 20,
+    "exact_predicate_signal_pending_A5": 0,
+    "rector_semantics_truly_unresolved": 0,
+    "rules": 34,
+    "authority_conflict": 0
+  },
+  "decision_input": [
+    "persisted_canonical_variables",
+    "typed_branching_authority_crosswalk_044A4R"
+  ],
+  "forbidden": [
+    "generic_truthiness_si_true",
+    "answerBlob",
+    "regex_Cxx",
+    "NLP",
+    "fuzzy",
+    "default_is_present"
+  ],
+  "outcomes": [
+    "opened",
+    "not_opened",
+    "pending_governed_signal",
+    "unresolved_authority"
+  ],
+  "table": [
+    {
+      "causal": "C01",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "activity_frequency_base in_set [\"Irregular\",\"Estacional\"]"
+      ],
+      "signal": [
+        "activity_frequency_base:available"
+      ],
+      "source": [
+        "B0-Q03"
+      ],
+      "reason": "B0-Q03/0.3 activity_frequency_base has explicit Irregular/Estacional options; Runtime branching activates densification on variable frequency."
+    },
+    {
+      "causal": "C02",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "relacion_beneficiario_afectado_0_5_1_rel equals \"Son actores distintos\"",
+        "claridad_beneficiario_0_5_1c in_set [\"Poco claro\",\"No lo tengo claro\"]",
+        "claridad_afectado_0_5_1d in_set [\"Poco claro\",\"No lo tengo claro\"]"
+      ],
+      "signal": [
+        "relacion_beneficiario_afectado_0_5_1_rel:available",
+        "claridad_beneficiario_0_5_1c:available",
+        "claridad_afectado_0_5_1d:available"
+      ],
+      "source": [
+        "B05-Q05"
+      ],
+      "reason": "B05-Q05 enums close beneficiario≠afectado and low clarity without free-text inference of 'solo la tarea'."
+    },
+    {
+      "causal": "C03",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "trigger_clarity in_set [\"Ambiguo\",\"Muy ambiguo\"]",
+        "trigger_exception_exists in_set [\"Sí, a veces ocurre pero es raro\",\"Sí, ocurre regularmente\",\"Sí, ocurre frecuentemente\"]"
+      ],
+      "signal": [
+        "trigger_clarity:available",
+        "trigger_exception_exists:available"
+      ],
+      "source": [
+        "B1-Q09",
+        "B1-Q11"
+      ],
+      "reason": "trigger_clarity Ambiguo/Muy ambiguo and trigger_exception_exists affirmative options are rector enums."
+    },
+    {
+      "causal": "C04",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "transformation_primary_dimensions multi_select_count_gte 2"
+      ],
+      "signal": [
+        "transformation_primary_dimensions:available"
+      ],
+      "source": [
+        "B2-Q12"
+      ],
+      "reason": "B2-Q12/2.1 multi_choice: open when more than one dimension selected (Runtime branching)."
+    },
+    {
+      "causal": "C05",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "transformation_exception_type in_set [\"Sí, a veces falla pero es raro\",\"Sí, falla regularmente\",\"Sí, falla frecuentemente\"]"
+      ],
+      "signal": [
+        "transformation_exception_type:available"
+      ],
+      "source": [
+        "B2-Q17"
+      ],
+      "reason": "Uses transformation_exception_type affirmative option literals from 2.9 — not generic truthiness."
+    },
+    {
+      "causal": "C06",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "transformation_hidden_changes in_set [\"Sí, a veces ocurren cambios no autorizados\",\"Sí, ocurren frecuentemente\"]"
+      ],
+      "signal": [
+        "transformation_hidden_changes:available"
+      ],
+      "source": [
+        "B2-Q17"
+      ],
+      "reason": "transformation_hidden_changes affirmative options from 2.11."
+    },
+    {
+      "causal": "C07",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "transformation_iterations in_set [\"Pocas veces\",\"Muchas veces\",\"Continuo\"]"
+      ],
+      "signal": [
+        "transformation_iterations:available"
+      ],
+      "source": [
+        "B2-Q16"
+      ],
+      "reason": "transformation_iterations enum closes multiple cycles: Pocas veces / Muchas veces / Continuo."
+    },
+    {
+      "causal": "C08",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "delivery_exception_exists in_set [\"Sí, a veces hay problemas pero es raro\",\"Sí, hay problemas regularmente\",\"Sí, hay problemas frecuentemente\"]",
+        "receiver_satisfaction in_set [\"Pide correcciones con cierta frecuencia\",\"Frecuentemente lo rechaza o lo devuelve\"]"
+      ],
+      "signal": [
+        "delivery_exception_exists:available",
+        "receiver_satisfaction:available"
+      ],
+      "source": [
+        "B3-Q21",
+        "B3-Q22"
+      ],
+      "reason": "delivery_exception_exists uses 3.10 affirmative option literals."
+    },
+    {
+      "causal": "C09",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "delivery_exception_exists in_set [\"Sí, a veces hay problemas pero es raro\",\"Sí, hay problemas regularmente\",\"Sí, hay problemas frecuentemente\"]",
+        "receiver_satisfaction in_set [\"Pide correcciones con cierta frecuencia\",\"Frecuentemente lo rechaza o lo devuelve\"]"
+      ],
+      "signal": [
+        "delivery_exception_exists:available",
+        "receiver_satisfaction:available"
+      ],
+      "source": [
+        "B3-Q21",
+        "B3-Q22"
+      ],
+      "reason": "Open on delivery failure / satisfaction adjustment enums. receiver_feedback_exists NLP derivation remains score/route pending_A5 — satisfaction ≠ feedback not inferred from free text."
+    },
+    {
+      "causal": "C10",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "primary_receiver in_set [\"Múltiples receptores\",\"Otro equipo o departamento\"]",
+        "receiver_type equals \"Múltiples tipos\""
+      ],
+      "signal": [
+        "primary_receiver:available",
+        "receiver_type:available"
+      ],
+      "source": [
+        "B3-Q18",
+        "B3-Q19"
+      ],
+      "reason": "primary_receiver / receiver_type enums for multiple/lateral impact — not string non-empty."
+    },
+    {
+      "causal": "C11",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "deadlock_risk in_set [\"Sí, a veces queda bloqueada y tengo que ir a preguntar\",\"Sí, frecuentemente queda bloqueada y nadie se da cuenta\",\"Sí, hay momentos donde el sistema se queda en un ciclo infinito\"]"
+      ],
+      "signal": [
+        "deadlock_risk:available"
+      ],
+      "source": [
+        "B4-Q24"
+      ],
+      "reason": "deadlock_risk affirmative options exclude explicit negative timeout option."
+    },
+    {
+      "causal": "C12",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "iteration_pattern in_set [\"Sí, pero el número de repeticiones varía mucho\",\"Sí, típicamente se repite 2-5 veces\",\"Sí, típicamente se repite 6-20 veces\",\"Sí, típicamente se repite más de 20 veces\"]"
+      ],
+      "signal": [
+        "iteration_pattern:available"
+      ],
+      "source": [
+        "B4-Q25"
+      ],
+      "reason": "iteration_pattern repetition options; excludes 'No, se hace una sola vez'."
+    },
+    {
+      "causal": "C13",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "route_alternatives contains_exact_option [\"Sí, según el tipo de cliente o proyecto\",\"Sí, según el monto o importancia\",\"Sí, según si hay errores o excepciones\",\"Sí, según una decisión de mi jefe\",\"Sí, según una regla o política\"]"
+      ],
+      "signal": [
+        "route_alternatives:available"
+      ],
+      "source": [
+        "B4-Q26"
+      ],
+      "reason": "route_alternatives multi_choice: any affirmative option; exclusive negative 'No, siempre es el mismo camino'."
+    },
+    {
+      "causal": "C14",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "hidden_subprocess equals \"Sí, hay pasos que hago para que funcione\"",
+        "real_vs_official_sequence equals \"Sí, hay pasos que hago en diferente orden\"",
+        "parallelism_type in_set [\"Otras actividades avanzan en paralelo y luego se integran con esta\",\"Hay dependencias cruzadas entre equipos y a veces terminamos esperándonos mutuamente\"]"
+      ],
+      "signal": [
+        "hidden_subprocess:available",
+        "real_vs_official_sequence:available",
+        "parallelism_type:available"
+      ],
+      "source": [
+        "B4-Q27",
+        "B4-Q28"
+      ],
+      "reason": "hidden_subprocess / real_vs_official_sequence / parallelism_type use rector enums — no free-text 'paralelismo confuso'."
+    },
+    {
+      "causal": "C15",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "variedad_residual_5_12 contains_exact_option [\"Casos excepcionales\",\"Urgencias sin aviso\",\"Cambios de requisitos\",\"Volumen inesperado\",\"Problemas de calidad\",\"Otro\"]",
+        "resource_bargain_5_14 in_set [\"Se cumple, pero a costa de sacrificios frecuentes\",\"Es insostenible en el tiempo\"]"
+      ],
+      "signal": [
+        "variedad_residual_5_12:available",
+        "resource_bargain_5_14:available"
+      ],
+      "source": [
+        "B5-Q33"
+      ],
+      "reason": "variedad_residual_5_12 and resource_bargain_5_14 enums close residual/bargain. brecha_capacidad_5_3 calculation is pending_A5 signal (not required to open)."
+    },
+    {
+      "causal": "C16",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "rework_present equals \"Sí\""
+      ],
+      "signal": [
+        "rework_present:available"
+      ],
+      "source": [
+        "B6-Q35"
+      ],
+      "reason": "rework_present exact option 'Sí' — not boolean truthiness."
+    },
+    {
+      "causal": "C17",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "missing_information contains_exact_option [\"No me llega aprobación\",\"No me llega info del cliente\",\"No me llega info de otro equipo\",\"No me llega claridad\",\"No me llega feedback\",\"No me llega actualización\",\"Otro\"]",
+        "informal_rule_present in_set [\"Sí, lo hago y mi jefe lo sabe y está de acuerdo\",\"Sí, lo hago pero mi jefe no lo sabe o no está de acuerdo\"]"
+      ],
+      "signal": [
+        "missing_information:available",
+        "informal_rule_present:available"
+      ],
+      "source": [
+        "B6-Q36"
+      ],
+      "reason": "missing_information excludes 'No me falta información'; informal_rule excludes manual-only option."
+    },
+    {
+      "causal": "C18",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "human_sacrifice contains_exact_option [\"Tiempo personal\",\"Calidad del sueño o descanso\",\"Salud mental o estrés\",\"Relaciones personales\",\"Calidad en otras responsabilidades\",\"Desarrollo profesional\",\"Autonomía o libertad\",\"Otro\"]",
+        "wear_accumulated contains_exact_option [\"Agotamiento\",\"Pérdida de motivación\",\"Sensación de insuficiencia\",\"Deterioro de calidad\",\"Ganas de irme\",\"Cinismo o desconexión\",\"Otro\"]",
+        "effort_cost greater_than_or_equal 7"
+      ],
+      "signal": [
+        "human_sacrifice:available",
+        "wear_accumulated:available",
+        "effort_cost:available"
+      ],
+      "source": [
+        "B6-Q37"
+      ],
+      "reason": "human_sacrifice / wear_accumulated exclusive negatives; effort_cost scale >= 7 rector threshold."
+    },
+    {
+      "causal": "C19",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "repetitive_failure_pattern equals \"Sí\"",
+        "residual_variety_absorption contains_exact_option [\"Me quedo después de horario\",\"Las hago en paralelo\",\"Las improviso\",\"Las dejo para después\",\"Las delego informalmente\",\"Las ignoro\",\"Otro\"]",
+        "compensation_primary_mechanism contains_exact_option [\"Trabajo extra\",\"Improvisación y creatividad\",\"Sacrificio de calidad\",\"Apoyo informal de colegas\",\"Automatización personal\",\"Aceptación silenciosa\",\"Otro\"]"
+      ],
+      "signal": [
+        "repetitive_failure_pattern:available",
+        "residual_variety_absorption:available",
+        "compensation_primary_mechanism:available"
+      ],
+      "source": [
+        "B6-Q38"
+      ],
+      "reason": "repetitive_failure_pattern equals 'Sí'; residual_variety_absorption / compensation_primary_mechanism option membership."
+    },
+    {
+      "causal": "C20",
+      "classification": "exact_executable_now",
+      "predicate": [
+        "confidence_level in_set [\"medium\",\"low\"]"
+      ],
+      "signal": [
+        "confidence_level:available"
+      ],
+      "source": [
+        "B7-Q39"
+      ],
+      "reason": "044-A.5B-R/044-A.6: confidence_level material via B7ConfidenceService"
+    }
+  ],
+  "historical_a4_preserved": true,
+  "crosswalk_sha256": "b95ba4a60d2720371b0f44d827b89fc9ea1405f53f041e678c4f21e68bc5dd15"
+}

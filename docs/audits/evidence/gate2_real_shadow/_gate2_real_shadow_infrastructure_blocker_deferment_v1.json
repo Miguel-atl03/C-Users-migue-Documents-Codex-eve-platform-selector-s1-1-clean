@@ -1,0 +1,65 @@
+{
+  "dictamen": "GATE_2_REAL_SHADOW_FORMALLY_DEFERRED_BY_INFRASTRUCTURE_BLOCKER",
+  "gate": "Gate 2 real-shadow",
+  "status": "deferred_blocked_by_infrastructure",
+  "not_closed_as_passed": true,
+  "validated_prior_results": {
+    "bridge_reader_exists": true,
+    "real_source_adapter_exists": true,
+    "shadow_only_outbox_adapter_exists": true,
+    "local_regression_passed": true,
+    "local_regression_tests_passed": 36,
+    "local_regression_tests_failed": 0,
+    "shadow_only_outbox_sql_contract_exists": true,
+    "shadow_outcome_ddl_exists": true,
+    "owner_confirmed_target_missing": true,
+    "owner_confirmed_sql_authorization_missing": true,
+    "owner_confirmed_readonly_credential_missing": true,
+    "owner_confirmed_read_path_missing": true,
+    "owner_confirmed_write_guard_missing": true
+  },
+  "blocker": {
+    "blocker_type": "infrastructure_owner_target_missing",
+    "current_non_productive_db_or_safe_shadow_target": false,
+    "authorization_to_apply_existing_ddl": false,
+    "separate_read_only_credential_or_role_name": false,
+    "adapter_read_path_without_secret_values": false,
+    "verifiable_write_count_guard": false
+  },
+  "not_equivalent_to": {
+    "gate2_closed": false,
+    "gate3_authorized": false,
+    "fase9_started": false,
+    "production": false,
+    "real_writes_enabled": false
+  },
+  "reentry_conditions": [
+    "current_non_productive_db_or_safe_shadow_target",
+    "authorization_to_apply_existing_ddl",
+    "separate_read_only_credential_or_role_name",
+    "adapter_read_path_without_secret_values",
+    "verifiable_write_count_guard"
+  ],
+  "side_effects": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "writes_attempted": false,
+    "write_count": 0,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "runtime_mutated": false,
+    "object_inventory_mutated": false,
+    "mba_written": false,
+    "parallel_production_real_started": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false
+  },
+  "next_step": "INFRASTRUCTURE_OWNER_PROVIDES_SAFE_SHADOW_TARGET_THEN_REENTER_GATE_2"
+}

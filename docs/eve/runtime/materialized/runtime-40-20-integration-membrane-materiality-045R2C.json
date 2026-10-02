@@ -1,0 +1,70 @@
+{
+    "instruction":  "045-R2C",
+    "objective":  "Materializar membrana Runtime to scene_* para continuidad Gaby",
+    "final_classification":  "blocked_runtime_outbox_materiality",
+    "blocker":  "No existe outbox/evento material Runtime to scene con estado de proyeccion, idempotencia, replay y destino scene_*.",
+    "git_head":  "8becedf4940b9bd19ec9d9968b9308d34070b555",
+    "generated_at":  "2026-08-09T00:00:00-06:00",
+    "components":  [
+                       {
+                           "component":  "Runtime 40/20 response persistence",
+                           "path":  "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-pg-persistence-adapter.ts",
+                           "materiality":  "implemented_and_connected",
+                           "evidence":  "createResponseBundle inserta response_record, runtime_subfield_response, evidence_item y canonical_variable_record; todas con scene_id null.",
+                           "limitation":  "No emite outbox ni evento de membrana."
+                       },
+                       {
+                           "component":  "runtime_audit_trail",
+                           "path":  "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-pg-persistence-adapter.ts",
+                           "materiality":  "partial",
+                           "evidence":  "createAuditTrail inserta eventos de auditoria.",
+                           "limitation":  "No contiene projection_status, pending/applied/failed/superseded, retry, replay target ni identidad scene_question_answers."
+                       },
+                       {
+                           "component":  "client membrane local candidate",
+                           "path":  "src/services/eve/runtime-40-20/client-membrane/",
+                           "materiality":  "implemented_not_connected",
+                           "evidence":  "Servicio y pruebas de membrana cliente local; flags de no persistencia real y no endpoint.",
+                           "limitation":  "No es membrana de integracion Runtime to scene_*."
+                       },
+                       {
+                           "component":  "Bridge Reader / Real Source Adapter shadow",
+                           "path":  "src/types/eve-organism-bridge-reader-real-source-adapter.ts; src/types/eve-organism-gate2-real-shadow-bridge-reader.ts",
+                           "materiality":  "specification_only",
+                           "evidence":  "shadow_only_outbox_events, read only, local memory/fixture.",
+                           "limitation":  "No es outbox productivo ni replayable."
+                       },
+                       {
+                           "component":  "Runtime to scene projection service",
+                           "path":  "not found",
+                           "materiality":  "absent",
+                           "evidence":  "No se encontro puerto/adaptador/servicio con createProjectionEvent, createOutboxEvent o proyeccion idempotente a scene_question_answers.",
+                           "limitation":  "Bloquea materializacion segura."
+                       }
+                   ],
+    "gates":  {
+                  "gate_1_phase6_materiality":  "partial_components_only",
+                  "gate_2_authority":  "runtime_authoritative_scene_projection_target_confirmed_as_required_not_materialized",
+                  "gate_3_runtime_event":  "blocked_runtime_outbox_materiality",
+                  "gate_4_idempotent_projection":  "not_materialized",
+                  "gate_5_identity_mapping":  "blocked_by_scene_identity_null_and_no_outbox_payload",
+                  "gate_6_provenance":  "not_materialized",
+                  "gate_7_legacy_downstream":  "legacy_consumers_present",
+                  "gate_8_scenes_answers_route":  "still_parallel_legacy_authority",
+                  "gate_9_client_bff_security":  "failed_38_of_39_import_guard",
+                  "gate_10_failure_model":  "not_materialized",
+                  "gate_11_replay_recovery":  "not_materialized",
+                  "gate_12_next_question_authority":  "not_materialized"
+              },
+    "security":  {
+                     "staging_consulted":  "no",
+                     "staging_writes":  "none",
+                     "production_consulted":  "no",
+                     "remote_writes":  "none",
+                     "catalog_activated":  "no",
+                     "B0_modified":  "no",
+                     "B1_modified":  "no",
+                     "Gaby_modified":  "no",
+                     "commit_created":  "no"
+                 }
+}

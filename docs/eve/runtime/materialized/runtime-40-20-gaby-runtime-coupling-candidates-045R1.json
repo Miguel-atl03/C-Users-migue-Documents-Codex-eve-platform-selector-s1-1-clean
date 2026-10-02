@@ -1,0 +1,94 @@
+{
+  "instruction": "045-R1",
+  "artifact": "runtime-40-20-gaby-runtime-coupling-candidates-045R1",
+  "audit_mode": "read_only_checkout",
+  "candidates": [
+    {
+      "candidate": "participant_workmap_finalize",
+      "path": "src/app/api/participant/workmap/finalize/route.ts",
+      "classification": "natural_existing_boundary_for_runtime_session_and_run_creation",
+      "why": "It already creates or resolves role_runtime_session and activity_runtime_run from the authenticated participant and effective activity selection.",
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:177-229",
+        "src/app/api/participant/workmap/finalize/route.ts:320-383",
+        "src/app/api/participant/workmap/finalize/route.ts:421-527"
+      ],
+      "limitation": "It ends before rendering Runtime 40/20 interactions and does not deliver next question payload."
+    },
+    {
+      "candidate": "scene_answers",
+      "path": "src/app/api/scenes/answers/route.ts",
+      "classification": "natural_existing_boundary_for_current_answer_persistence",
+      "why": "It is the live backend point where Gaby submits activity answers from SceneQuestionnaireRunner.",
+      "evidence": [
+        "src/app/page.tsx:1977-2009",
+        "src/app/api/scenes/answers/route.ts:17-70",
+        "src/services/scene-repository.ts:170-274"
+      ],
+      "limitation": "It writes scene_question_answers and scene_answer_provenance, not Runtime 40/20 interaction/response organs."
+    },
+    {
+      "candidate": "scene_bootstrap",
+      "path": "src/app/api/scenes/bootstrap/route.ts",
+      "classification": "natural_existing_boundary_for_current_question_preparation",
+      "why": "It materializes scene_registry before question rendering.",
+      "evidence": [
+        "src/app/page.tsx:845-859",
+        "src/app/api/scenes/bootstrap/route.ts:38-48",
+        "src/services/scene-repository.ts:64-143"
+      ],
+      "limitation": "It bootstraps from legacy actividades and activity_structural_scores, not from Runtime 40/20 catalog."
+    },
+    {
+      "candidate": "client_bff_answer",
+      "path": "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts",
+      "classification": "candidate_runtime_boundary_not_live_and_guard_failing",
+      "why": "It has the closest Runtime answer scope and local adapter hook, but no live UI caller was found.",
+      "evidence": [
+        "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts:59-84",
+        "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts:122-170",
+        "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff.test.mjs:300-339"
+      ],
+      "limitation": "Direct Supabase import violates current BFF guard; route is not called by src/app/page.tsx."
+    },
+    {
+      "candidate": "client_bff_experience_event",
+      "path": "src/app/api/eve/runtime-40-20/client-bff/experience-event/route.ts",
+      "classification": "real_called_telemetry_boundary_not_question_boundary",
+      "why": "It is called by Gaby and accepts roleRuntimeSessionId/activityId fields, but current workmap events pass null for those fields.",
+      "evidence": [
+        "src/app/page.tsx:721-763",
+        "src/app/api/eve/runtime-40-20/client-bff/experience-event/route.ts:95-129"
+      ],
+      "limitation": "It records screen events, not Runtime interaction render or answer ingest."
+    },
+    {
+      "candidate": "questionnaire_submit",
+      "path": "src/app/api/questionnaire/submit/route.ts",
+      "classification": "legacy_path_possible_but_wrong_layer_for_runtime_40_20",
+      "why": "It persists FULL_V03 and MISSION rows and is used for micro-clarification.",
+      "evidence": [
+        "src/app/page.tsx:2047-2095",
+        "src/app/api/questionnaire/submit/route.ts:55-144"
+      ],
+      "limitation": "It uses legacy pregunta_id prefixes and does not preserve Runtime 40/20 interaction identity."
+    },
+    {
+      "candidate": "governed_execution_advance",
+      "path": "src/app/api/eve/runtime-40-20/governed-execution/advance/route.ts",
+      "classification": "synthetic_or_test_boundary_not_gaby_entrypoint",
+      "why": "Search evidence shows it is exercised by synthetic 044 scripts/tests, not by Gaby's live page.",
+      "evidence": [
+        "scripts/eve/runtime/run-044A6R-e2e.mjs",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution.test.mjs"
+      ],
+      "limitation": "Instruction 045-R1 forbids assuming synthetic start names are the real Gaby path."
+    }
+  ],
+  "recommended_existing_boundary": {
+    "start_resume": "participant_workmap_finalize",
+    "question_preparation": "scene_bootstrap must be superseded or adapted to consume Runtime 40/20 catalog",
+    "answer_ingest": "scene_answers is the live answer boundary; client_bff_answer is the intended Runtime candidate but is not live and currently fails its guard",
+    "status": "contract_gap"
+  }
+}

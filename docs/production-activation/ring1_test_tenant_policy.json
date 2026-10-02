@@ -1,0 +1,60 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING1_TEST_TENANT_POLICY",
+  "generated_at": "2026-07-08T22:35:00.000Z",
+  "authorization_ref": "ring1-authorization-internal-test-tenant-20260708",
+  "ring": 1,
+  "ring_name": "internal_test_tenant_limited_client",
+  "test_tenant_required": true,
+  "tenant_must_be_marked_test": true,
+  "case_must_be_marked_test": true,
+  "run_must_be_marked_test": true,
+  "operator_or_internal_user_required": true,
+  "no_external_customer_data": true,
+  "no_public_signup": true,
+  "no_public_access": true,
+  "tenant_scope_rules": [
+    {
+      "id": "R1-TT-01",
+      "rule": "tenant_record_must_carry_test_flag_or_test_tenant_classification",
+      "mandatory": true
+    },
+    {
+      "id": "R1-TT-02",
+      "rule": "case_record_must_carry_test_flag_or_test_case_classification",
+      "mandatory": true
+    },
+    {
+      "id": "R1-TT-03",
+      "rule": "run_scope_must_be_explicit_tenant_case_run",
+      "mandatory": true
+    },
+    {
+      "id": "R1-TT-04",
+      "rule": "session_must_bind_to_test_tenant_not_production_tenant",
+      "mandatory": true
+    },
+    {
+      "id": "R1-TT-05",
+      "rule": "no_production_customer_tenant_reuse",
+      "mandatory": true
+    },
+    {
+      "id": "R1-TT-06",
+      "rule": "operator_or_internal_user_must_be_authenticated_controlled_actor",
+      "mandatory": true
+    }
+  ],
+  "data_classification": {
+    "allowed": "controlled_test_tenant_data",
+    "prohibited": [
+      "real_external_customer_data",
+      "production_client_pii",
+      "uncontrolled_production_case_data"
+    ]
+  },
+  "ring0_precedent": {
+    "controlled_fixture": true,
+    "real_client_data_used": false,
+    "chain_context_ref": "docs/production-activation/eve_local_activation_chain_context.json"
+  }
+}

@@ -1,0 +1,1532 @@
+
+Documento madre canónico
+Bloque 3. Salida
+Capa 1 v2.1 de EVE
+Diseño detallado para continuación acoplable posterior al Bloque 2, conexión con Codex, catálogo operativo, reglas de despliegue UI, persistencia, derivaciones y transducción posterior.
+Versión del documento: 0.2 rev3 alineada | Base estructural: Diseno_Formal_Capa1_v2_1_Unificado | Base de redacción operativa: Marco de Trabajo y Catálogo de Preguntas v2.1 - Bloque 3 (Salida) | Ajuste incorporado: integración completa de 3.13a y 3.D para separar receiver_satisfaction de receiver_feedback.
+Alcance: desarrollo exhaustivo del Bloque 3 como pieza canónica autónoma, pero diseñada explícitamente para pegarse a continuación del Bloque 2 ya aprobado, sin ruptura de formato, nomenclatura ni lógica documental.
+Criterio rector: este documento no sintetiza. Explicita arquitectura, preguntas, lógica de despliegue, variables, proveniencia epistemológica, tablas destino, consistencias, aclaraciones y salida técnica del bloque.
+Ficha de cambio controlado C1-INSTR-V3-R9-001
+Código de cambio: C1-INSTR-V3-R9-001
+Nombre del cambio: Corrección controlada de instrumentación canónica para transformation_exception_exists y receiver_feedback.
+Tipo de cambio: Corrección documental de instrumentación canónica en Capa 1.0.
+Estado: Aprobado para incorporación documental.
+Alcance del cambio: Este cambio ajusta la forma en que Capa 1.0 captura, deriva y transporta dos variables estructurales necesarias para el expediente canónico, el evidence_bundle_for_transduction y el mmabp_design_source_bundle: transformation_exception_exists y receiver_feedback.
+Motivo del cambio: Durante una prueba real con el caso New Hometown Restaurant — flujo de orden delivery, se detectó que existía evidencia textual suficiente sobre excepciones de transformación y feedback operativo del receptor, pero esa evidencia no cerraba correctamente las variables canónicas requeridas. Como resultado, Capa 1.0 core pudo quedar en ready_with_flags, mientras el mmabp_design_source_bundle quedó bloqueado por contradicción aparente.
+Problema identificado en V3: La variable transformation_exception_exists no estaba cerrando desde su ruta canónica correcta en Bloque 2. La evidencia de fallas de transformación existía, por ejemplo duplicados, cancelaciones tardías, cambios no registrados u órdenes que no se consolidan correctamente, pero el booleano no se derivaba de forma robusta. La ruta correcta debe ser: pregunta 2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description si aplica.
+Problema identificado en R9: La variable receiver_feedback no estaba separada de receiver_satisfaction en Bloque 3. La evidencia de aviso, corrección, rechazo, devolución, recontacto o actualización por parte del receptor podía quedar absorbida en satisfacción del receptor, perdiendo su valor estructural como feedback operativo. La ruta correcta debe ser: falla de entrega en 3.10 → satisfacción/aceptación del receptor en 3.13 → feedback operativo del receptor en 3.13a → receiver_feedback_exists → receiver_feedback.
+Principio rector: La corrección no relaja gates, no cambia Capa 2.0, no permite diagnóstico temprano, no autoriza generación de diagramas desde evidencia incompleta y no convierte texto libre en hecho estructural sin ruta canónica. La corrección solo repara rutas canónicas de captura y derivación dentro de Capa 1.0 para que la evidencia ya existente pueda cerrarse correctamente como variable estructural.
+Documentos impactados: Bloque 2 — Transformación; Bloque 3 — Salida; Documento Madre / Catálogo de preguntas Capa 1; Diseño estructural Plataforma EVE — Capa 1.0; Diseño estructural Plataforma EVE — Capa 1.0 para Producción Paralela; contratos de salida scene_canonical_record, evidence_bundle_for_transduction y mmabp_design_source_bundle.
+Documentos no impactados funcionalmente: Capa 2.0, Capa 2.5, Capa 3, motor de diagnóstico EVE, monetización y narrativa final.
+Regla de no intervención: Este cambio no modifica el propósito de Capa 1.0 core. Capa 1.0 sigue produciendo expediente estructural canónico, scene_canonical_record, evidence_bundle_for_transduction y readiness hacia Capa 2.0. La producción paralela sigue consumiendo un bundle lateral. La corrección solo asegura que los campos estructurales necesarios se capturen y deriven desde rutas canónicas explícitas.
+Resultado esperado para V3: Después del cambio, Capa 1.0 debe poder cerrar correctamente transformation_exception_exists desde la respuesta canónica de Bloque 2. La ruta documental queda así: 2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description si aplica. Si la respuesta en 2.9 indica cualquier forma de falla, aunque sea rara, transformation_exception_exists debe derivarse como true. Si la respuesta indica que la transformación siempre ocurre correctamente, debe derivarse como false. Si la respuesta está ausente o no es interpretable, debe quedar como unresolved y abrir gap, no asumirse como false.
+Resultado esperado para R9: Después del cambio, Capa 1.0 debe poder separar satisfacción del receptor y feedback operativo del receptor. La ruta documental queda así: 3.10 falla de entrega → 3.13 satisfacción/aceptación del receptor → 3.13a feedback operativo del receptor → receiver_feedback_exists → receiver_feedback. Si el receptor avisa, rechaza, devuelve, corrige, pide cambio, bloquea el siguiente paso, recontacta, actualiza algo o escala el problema, receiver_feedback_exists debe derivarse como true y receiver_feedback debe conservar la evidencia literal. Si el receptor no avisa o no hay señal visible, debe derivarse como false. Si hay falla de entrega pero no se sabe si el receptor emite señal operativa, debe abrirse receiver_feedback_gap_flag.
+Impacto esperado en scene_canonical_record: El expediente canónico debe poder contener transformation_exception_exists, transformation_exception_type, transformation_exception_description, receiver_satisfaction, receiver_feedback_exists y receiver_feedback, preservando evidencia, derivación, confianza, gaps y proveniencia.
+Impacto esperado en evidence_bundle_for_transduction: El dominio transformation_evidence debe incluir transformation_exception_exists, transformation_exception_type, transformation_exception_description y, si aplica, transformation_exception_needs_clarification. El dominio handoff_evidence debe incluir receiver_satisfaction, receiver_feedback_exists, receiver_feedback y, si aplica, receiver_feedback_gap_flag. El dominio flow_evidence puede referenciar receiver_feedback cuando ese feedback active rework, rebote, espera, Process State o proceso de soporte.
+Impacto esperado en mmabp_design_source_bundle: La producción paralela debe recibir las variables ya cerradas o explícitamente marcadas como gap. Si existe evidencia textual de falla de transformación pero transformation_exception_exists queda sin cerrar, debe producirse transformation_exception_route_unresolved. Si existe falla de entrega pero no existe ruta canónica para capturar feedback operativo, debe producirse receiver_feedback_route_missing. La producción paralela no debe inferir estos hechos desde texto libre sin ruta canónica.
+Regla de frontera metodológica: Esta corrección no autoriza a Producción Paralela a inferir hechos desde texto libre sin ruta canónica. Tampoco autoriza a Capa 2.0 a consumir respuestas crudas como diagnóstico. La corrección solo añade o repara rutas canónicas de captura y derivación dentro de Capa 1.0.
+Criterio de aceptación documental: El cambio queda aceptado cuando Bloque 2 documenta explícitamente la derivación de transformation_exception_exists desde transformation_exception_type; Bloque 3 separa receiver_satisfaction de receiver_feedback; el catálogo maestro incorpora la nueva pregunta 3.13a y las variables asociadas; el diseño estructural de Capa 1.0 actualiza el expediente y el bundle de transducción; y el diseño de Producción Paralela actualiza el mmabp_design_source_bundle, sus gaps y sus validaciones funcionales.
+Criterio de no regresión: Un caso como New Hometown Restaurant — flujo de orden delivery, con evidencia textual de duplicados, cancelaciones tardías, cambios no registrados u órdenes no consolidadas, debe cerrar transformation_exception_exists = true si 2.9 indica falla. Un caso con evidencia de que el Chef, repartidor o coordinador avisa, corrige, rechaza, recontacta o actualiza por error de entrega debe cerrar receiver_feedback_exists = true y conservar receiver_feedback. Si estas variables no se cierran, el bloqueo debe clasificarse como falta de ruta canónica o gap de instrumentación, no como contradicción real del caso.
+0. Inicio de acoplamiento con el Bloque 2
+Este bloque comienza exactamente donde termina el Bloque 2. El Bloque 2 deja reconstruido qué cambia realmente: objeto, sujeto o acción, qué atributos se modifican, con qué magnitud, bajo qué causalidad, entre qué estados, con qué iteraciones, fallos y cambios ocultos. Sobre esa base, el Bloque 3 deja de preguntar por la transformación en sí y se desplaza al punto de transferencia: qué sale de la escena, quién lo recibe, cómo depende de ello y qué ocurre cuando la entrega falla.
+La continuidad de ensamblaje debe leerse así: actividad declarada por el usuario → escena operativa regulada anclada por el Bloque 0 → escena situada sistémicamente por el Bloque 0.5 → escena activada causalmente por el Bloque 1 → escena materialmente reconstruida por el Bloque 2 → escena transferida social y operativamente por el Bloque 3.
+Instrucción de integración documental: este bloque está redactado para copiarse y pegarse inmediatamente después del cierre del Bloque 2, conservando numeración de secciones, estilo y jerarquía. No requiere reescritura introductoria adicional.
+Dependencia mínima heredada del Bloque 2: si la transformación no quedó suficientemente clara, este bloque corre el riesgo de mezclar estado final del objeto con entregable/handoff. Cuando eso ocurra, la implementación deberá permitir reentrada breve al Bloque 2 sin romper trazabilidad. La distinción canónica aprobada es esta: 2.6 describe el estado final de lo principal transformado; 3.1 describe lo que efectivamente se entrega o se pone a disposición de otro.
+1. Identidad del bloque
+Campo
+Contenido
+Bloque
+3
+Nombre canónico
+Salida
+Pregunta madre
+¿Qué sale de esta escena y quién lo recibe?
+Propósito operativo
+Hacer visible qué sale de la escena, cómo se considera válido, a quién pasa, quién depende de ello, qué criterios debe cumplir y qué ocurre cuando la entrega falla.
+Momento del flujo
+Después del Bloque 2 (transformación) y antes del Bloque 4 (cadena causal y normalización del flujo).
+Unidad de análisis
+Escena operativa regulada ya anclada, ya situada, ya activada y ya reconstruida en su transformación.
+Visible para usuario
+Sí, casi completo. Solo algunas derivaciones, flags y aclaraciones pueden dispararse en segundo plano.
+Naturaleza del bloque
+captura + derivación + validación ligera de consistencia + preparación de handoff y dependencia posterior
+Relación con PM / PF / MoC / OLC
+PM: target states y actor siguiente en la cadena. PF: handoff, tarea siguiente del receptor y fallas de entrega. MoC: actores receptores y dependencias. OLC: vínculo entre estado final transformado y salida disponible para otro.
+Relación con Capa 2
+Entrega variables canónicas suficientes para transducción causal sobre handoff, dependencia, calidad esperada, fallas de entrega, compensación del receptor y feedback operativo.
+Huellas estructurales para inferencia VSM posterior
+S1 por producción y entrega entre unidades; S2 por interfaces de handoff; S3 por estándares y calidad esperada; S3* por auditoría de entrega real vs esperada; S4 por cambios recientes en receptor, canal o criterios; S5 como huella tardía de identidad/política; canal algedónico cuando la salida no llega, llega mal o obliga al receptor a compensar.
+Restricción epistemológica
+Este bloque no vuelve a preguntar qué cambia realmente, ni aún pregunta por recursos, discrecionalidad o sacrificio humano del ejecutor. Pregunta por salida, receptor, calidad, frecuencia, excepciones y respuesta del receptor.
+2. Decisión metodológica central del Bloque 3
+El Bloque 3 responde a una pregunta que suele parecer administrativa, pero en realidad es estructural: quién recibe y qué significa recibir. Muchas organizaciones describen bien sus tareas internas y bastante mal sus entregas reales. Dicen “se procesa”, “se valida”, “se revisa”, pero dejan en penumbra el momento decisivo en el que algo pasa de una unidad a otra y la responsabilidad cambia de manos.
+Por eso este bloque no toma como protagonista el verbo de envío, sino el receptor y el handoff. La pregunta no es solo “cómo lo mandas”, sino qué sale exactamente de la escena, quién lo recibe primero, qué tipo de actor es, qué hace con eso, qué tan dependiente está, qué criterios considera aceptables y qué ocurre cuando la entrega no cumple.
+Hay aquí una distinción metodológica importante que el diseño base ya insinuaba y que este documento vuelve explícita. El estado final del objeto transformado no siempre coincide con el entregable. Una factura puede quedar validada en 2.6, pero lo entregado en 3.1 puede ser la factura validada y cargada en sistema, o incluso una notificación, una aprobación o un acceso habilitado. Si no fijamos bien esa diferencia, la arquitectura se vuelve confusa y la UI termina mezclando transformación con salida.
+En términos de VSM, el bloque deja huellas especialmente importantes para S2 y S3. S2 aparece en la interfaz concreta del handoff, en el mecanismo de entrega, en las coordinaciones y en los múltiples receptores. S3 aparece en los criterios de calidad, la criticidad del receptor y la cadencia esperada. S3* asoma cuando lo entregado no llega, llega incompleto, llega con errores o llega de una forma que obliga al receptor a absorber variedad que no le correspondía.
+En términos de subsidiariedad, este bloque permite ver si el siguiente actor puede continuar con autonomía o si queda bloqueado, retrasado o forzado a compensar silenciosamente. No diagnostica todavía la patología completa, pero deja la huella exacta del punto donde el sistema se rompe o se sostiene.
+Y, quizá más importante, este bloque impide que el análisis quede narcisísticamente encerrado en lo que hace el actor original. Lo obliga a mirar el borde de su trabajo, el lugar donde su acción se convierte en dependencia ajena. Ahí aparece el sistema.
+Distinción canónica entre satisfacción del receptor y feedback operativo
+El Bloque 3 debe separar explícitamente dos fenómenos que en la conversación cotidiana suelen mezclarse, pero que en MMABP cumplen funciones distintas.
+receiver_satisfaction captura la aceptación, conformidad, satisfacción o evaluación general del receptor respecto a lo entregado. Responde si lo recibido cumple o no cumple expectativas desde la perspectiva del receptor.
+receiver_feedback captura la señal operativa que el receptor emite cuando detecta que lo recibido llega incompleto, duplicado, tarde, con error, no coincide con lo esperado o bloquea el siguiente paso. No mide satisfacción; registra una retroalimentación observable que puede activar corrección, devolución, recontacto, rework, actualización, escalamiento, espera o proceso de soporte.
+Esta distinción es obligatoria. Una escena puede tener receptor insatisfecho sin feedback operativo visible. También puede tener feedback operativo claro sin que el usuario formule una evaluación explícita de satisfacción. Para la reconstrucción MMABP, receiver_feedback es estructuralmente relevante porque puede convertirse en evento de rebote, condición de rework, señal de Process State, activación de soporte o evidencia de handoff defectuoso.
+La evidencia de que el receptor avisa, rechaza, devuelve, corrige, pide cambio, bloquea el siguiente paso, recontacta, actualiza algo o escala el problema no debe almacenarse únicamente como receiver_satisfaction. Debe capturarse o derivarse como receiver_feedback mediante la ruta canónica 3.13a/3.D.
+Nota de alineación recursiva causal: 3.13a no es una simple aclaración de 3.13. Es el borde de retorno del handoff: captura la señal que vuelve desde el receptor hacia la escena, y por eso puede alimentar después rework, espera, devolución, bloqueo, escalamiento o reentrada en el Bloque 4. En el flujo visible se mantiene como pregunta operativa condicional; 3.D queda reservada para desambiguar cuando satisfacción y feedback vuelven a mezclarse.
+3. Variables canónicas que el bloque debe producir
+Variable canónica
+Descripción
+Tipo epistemológico
+output_object
+Qué es exactamente lo que se entrega o se pone a disposición del siguiente actor.
+captured_user_evidence
+primary_receiver
+Receptor inmediato de la salida.
+captured_user_evidence
+receiver_type
+Naturaleza del receptor: persona, equipo, área, sistema, externo, múltiple.
+captured_user_evidence
+receiver_dependency
+Qué tanto depende el receptor de recibir la salida a tiempo.
+captured_user_evidence
+receiver_impact
+Qué hace el receptor con lo entregado; siguiente paso funcional.
+captured_user_evidence
+secondary_receivers
+Actores secundarios que también reciben o necesitan acceso.
+captured_user_evidence
+quality_criteria
+Criterios o estándares que debe cumplir la salida.
+captured_user_evidence
+delivery_mechanism
+Mecanismo o medio de entrega.
+captured_user_evidence
+delivery_frequency
+Frecuencia o cadencia de entrega.
+captured_user_evidence
+delivery_exception_exists
+Existencia de fallas o excepciones en la entrega.
+canonical_derivation
+delivery_exception_type
+Tipo principal de problema cuando la entrega falla.
+captured_user_evidence
+delivery_exception_impact
+Impacto de la excepción y compensación requerida al receptor.
+captured_user_evidence
+receiver_satisfaction
+Registra la aceptación, conformidad o evaluación general del receptor respecto a lo entregado. No debe absorber señales operativas de error, rechazo, devolución, corrección, recontacto, bloqueo o escalamiento. Cuando la respuesta del receptor funciona como aviso operativo de error o condición de rework, debe capturarse como receiver_feedback.
+captured_user_evidence
+recent_delivery_changes
+Cambio reciente en receptor, mecanismo, criterios o frecuencia.
+captured_user_evidence
+delivery_channel_complexity_hint
+Pista derivada sobre simplicidad o complejidad del handoff.
+canonical_derivation
+delivery_readiness
+Marcador interno de preparación del bloque para transducción.
+readiness_marker
+delivery_consistency_flag
+Flag estructural por inconsistencias entre receptor, impacto, frecuencia y mecanismo.
+consistency_flag
+receiver_compensation_hint
+Pista derivada sobre compensación del receptor cuando la entrega falla.
+canonical_derivation
+receiver_feedback
+Señal operativa emitida por el receptor cuando lo recibido llega incompleto, duplicado, tarde, con error, no coincide con lo esperado o bloquea el siguiente paso. Incluye aviso, rechazo, devolución, corrección, recontacto, actualización, bloqueo o escalamiento.
+captured_user_evidence
+receiver_feedback_exists
+Derivación booleana que indica si existe feedback operativo visible del receptor.
+canonical_derivation
+receiver_feedback_gap_flag
+Bandera que se activa cuando existe falla de entrega, pero no se logró capturar si el receptor emite feedback operativo ni cómo lo hace.
+consistency_flag
+receiver_feedback_route_missing
+Bandera que se activa cuando aparece evidencia textual de aviso, rechazo, devolución, corrección, recontacto, bloqueo o escalamiento, pero esa evidencia no fue capturada mediante la ruta canónica 3.13a/3.D.
+consistency_flag
+4. Criterios de diseño de las preguntas del Bloque 3
+El bloque debe capturar el receptor y no confundirlo con el simple acto de enviar. La salida es relacional: existe porque otro la recibe, depende de ella o necesita acceso a ella.
+Debe distinguir receptor inmediato, receptores secundarios y, si aplica, receptor externo. No deben colapsarse en una sola categoría plana.
+La entrega debe documentarse tanto en su dimensión social como material: qué se entrega, quién lo recibe, qué hace con ello, por qué medio, con qué criterios y con qué frecuencia.
+La pregunta sobre criticidad debe traducir juicio abstracto a consecuencia observable: qué pasa con el trabajo del receptor si no recibe la salida a tiempo o en la forma esperada.
+El bloque debe capturar excepciones reales de la entrega sin convertirlas todavía en diagnóstico fuerte. La evidencia debe quedar separada de flags y derivaciones.
+Siempre que la salida no llegue, llegue mal o obligue a compensación aguas abajo, el documento debe dejar huellas claras para lectura posterior de S3*, AHE y canal algedónico, sin afirmar todavía la lectura final. Esa compensación se entiende aquí como trabajo adicional del receptor o de actores aguas abajo, no como sacrificio humano del ejecutor original, que pertenece metodológicamente más a los Bloques 5 y 6.
+La UX debe ayudar a distinguir entre “estado final del objeto” y “entregable” para evitar solapamiento con el Bloque 2.
+La lógica del bloque debe ser compatible con múltiples receptores, mecanismos híbridos, cadencias distintas y cambios recientes en el handoff.
+5. Catálogo canónico de preguntas del Bloque 3
+A continuación se define el contenido final del Bloque 3. La numeración conserva continuidad con el diseño base y con la lógica del catálogo v2.1, pero aquí se explicita con el nivel de detalle necesario para conectarlo después a JSON operativo, UI, persistencia, Codex y Capa 2.
+Este bloque contiene 15 preguntas operativas y 4 aclaraciones canónicas. La pregunta 3.13a se incorpora como pregunta operativa condicional para capturar receiver_feedback; la aclaración 3.D se reserva para casos en los que satisfacción del receptor y feedback operativo quedan mezclados. Las aclaraciones no sustituyen evidencia original; aparecen solo por flags de ambigüedad, genericidad o insuficiencia de descripción.
+Código
+Pregunta visible
+Tipo canónico
+Condición de despliegue
+3.1
+¿Qué es exactamente lo que entregas o pones a disposición de otro al terminar?
+free_text
+Siempre
+3.2
+¿Quién es la persona, equipo o sistema que recibe directamente lo que entregas?
+single_choice + free_text condicional
+Siempre
+3.3
+¿Cuál es la naturaleza del receptor?
+single_choice
+Siempre
+3.4
+Si el receptor no recibe esto a tiempo, ¿qué pasa normalmente con su trabajo?
+single_choice
+Siempre
+3.5
+¿Qué hace el receptor con lo que le entregas? ¿Cuál es su siguiente paso?
+free_text
+Siempre
+3.6
+¿Hay otros actores que también reciben o necesitan acceso a lo que entregas?
+multi_choice + free_text condicional
+Siempre
+3.7
+¿Qué criterios o estándares debe cumplir lo que entregas para que el receptor esté satisfecho?
+multi_choice + free_text condicional
+Siempre
+3.8
+¿Cómo entregas lo que haces? ¿Por qué medio?
+single_choice + free_text condicional
+Siempre
+3.9
+¿Con qué frecuencia entregas esto?
+single_choice + free_text condicional
+Siempre
+3.10
+¿Hay momentos en que lo que entregas no cumple lo esperado o no llega al receptor?
+single_choice
+Siempre
+3.11
+Si respondiste "Sí" en la pregunta anterior, ¿cuál es el problema típico?
+single_choice + free_text condicional
+Si 3.10 indica falla
+3.12
+Cuando esto ocurre, ¿cuál es el impacto en el receptor? ¿Qué tiene que hacer para compensar?
+free_text
+Si 3.10 indica falla
+3.13
+En general, cuando entregas esto, ¿qué respuesta recibes normalmente del receptor?
+single_choice
+Siempre
+3.13a
+Cuando lo que entregas llega incompleto, duplicado, tarde, con error o no coincide con lo esperado, ¿cómo te enteras o qué hace el receptor para avisarlo?
+free_text
+Si 3.10 indica falla de entrega o si 3.13 muestra rechazo, devolución o corrección que requiere ruta de feedback
+3.14
+¿Ha cambiado algo recientemente en cómo entregas, a quién entregas o qué criterios se esperan?
+single_choice + free_text condicional
+Siempre
+3.A
+Aclaración sobre receptor inmediato cuando 3.2 quedó múltiple, genérico o mal delimitado.
+clarification
+Por flag en 3.2/3.3
+3.B
+Aclaración sobre calidad esperada cuando 3.7 quedó demasiado genérica o inconsistente con 3.13.
+clarification
+Por flag en 3.7/3.13
+3.C
+Aclaración sobre excepción e impacto cuando 3.10–3.12 no permiten reconstruir qué se rompe ni quién compensa.
+clarification
+Por flag en 3.10–3.12
+3.D
+Aclaración sobre diferencia entre satisfacción del receptor y aviso operativo cuando 3.13a no permite cerrar receiver_feedback.
+clarification
+Por flag en 3.13a o por mezcla entre satisfacción e indicios de feedback operativo
+6. Tabla maestra de preguntas
+En coherencia con el formato madre ya aprobado, cada pregunta se documenta con ficha canónica completa. No se reduce a código y texto, porque este bloque depende de distinguir con precisión el handoff, el receptor, la dependencia, los criterios de calidad y las fallas de entrega.
+Ficha canónica 3.1
+question_code
+3.1
+block_id
+3
+canonical_question_text
+¿Qué es exactamente lo que entregas o pones a disposición de otro al terminar?
+short_ui_label
+Qué entregas
+help_text
+Habla del entregable o handoff. Puede ser un pedido procesado, una factura validada, un reporte, una aprobación, un acceso habilitado o algo equivalente.
+field_type
+free_text
+answer_mode
+free_text
+ui_answer_mode_label
+libre
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+free_text_condition
+N/A
+depends_on
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible al iniciar el bloque.
+branching_rule
+Sirve de contexto para 3.5, 3.7 y para validar diferencia con 2.6. Si duplica literalmente el estado final de 2.6 sin forma de handoff, puede levantar flag suave de solapamiento con Bloque 2.
+canonical_variable_output
+output_object
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by
+huellas para PF posterior, PM y relación con handoff
+risk_if_missing
+Si falta, el bloque no puede distinguir qué sale realmente de la escena.
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by: huellas para PF posterior, PM y relación con handoff
+risk_if_missing: Si falta, el bloque no puede distinguir qué sale realmente de la escena.
+Ficha canónica 3.2
+question_code
+3.2
+block_id
+3
+canonical_question_text
+¿Quién es la persona, equipo o sistema que recibe directamente lo que entregas?
+short_ui_label
+Receptor inmediato
+help_text
+Nos interesa quién lo recibe primero, no todavía quién se beneficia al final. Si hay varios, elige la opción más cercana y especifica.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Un compañero de mi equipo; Mi jefe o superior; Otro equipo o departamento; Un cliente externo; Un sistema o aplicación; Múltiples receptores; Otro
+source_options
+fixed_enum_expandable
+fallback_options
+Otro; Múltiples receptores; Otro equipo o departamento
+allows_free_text
+conditional
+free_text_condition
+selected_option = Otro OR Múltiples receptores OR Otro equipo o departamento
+depends_on
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible después de 3.1.
+branching_rule
+Si selecciona Múltiples receptores o una categoría genérica sin especificación, puede disparar 3.A. Alimenta lectura de criticidad en 3.4 y coordinación secundaria en 3.6.
+canonical_variable_output
+primary_receiver
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by
+huellas para PM, S2 y coordinación de handoff
+risk_if_missing
+Si falta, el handoff queda sin destinatario inmediato.
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by: huellas para PM, S2 y coordinación de handoff
+risk_if_missing: Si falta, el handoff queda sin destinatario inmediato.
+Ficha canónica 3.3
+question_code
+3.3
+block_id
+3
+canonical_question_text
+¿Cuál es la naturaleza del receptor?
+short_ui_label
+Tipo de receptor
+help_text
+No preguntamos el nombre, sino qué tipo de actor es: persona, equipo, área, sistema o actor externo.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Una persona específica; Un equipo o grupo; Un departamento o área; Un sistema o aplicación; Un cliente o proveedor externo; Múltiples tipos
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+free_text_condition
+N/A
+depends_on
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible después de 3.2.
+branching_rule
+Si 3.2 y 3.3 se contradicen de forma fuerte, levanta flag de consistencia. Si queda múltiple o ambiguo, puede activar 3.A.
+canonical_variable_output
+receiver_type
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by
+huellas para MoC posterior, S1 interdependencia e interfaces S2
+risk_if_missing
+Si falta, el tipo de actor receptor queda indeterminado.
+canonical_derivation_possible
+Puede normalizar clasificación derivada si 3.2 fue texto abierto
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by: huellas para MoC posterior, S1 interdependencia e interfaces S2
+risk_if_missing: Si falta, el tipo de actor receptor queda indeterminado.
+Ficha canónica 3.4
+question_code
+3.4
+block_id
+3
+canonical_question_text
+Si el receptor no recibe esto a tiempo, ¿qué pasa normalmente con su trabajo?
+short_ui_label
+Dependencia del receptor
+help_text
+Piensa en la consecuencia observable para el receptor, no en una opinión general.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+No puede continuar; Continúa, pero con retraso o retrabajo; Puede avanzar parcialmente; Casi no afecta
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+free_text_condition
+N/A
+depends_on
+3.2 y 3.3 como contexto
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si la dependencia es alta y 3.10 indica fallas, se fortalece huella algedónica posterior.
+canonical_variable_output
+receiver_dependency
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by
+huellas para criticidad, S3 posterior y canal algedónico
+risk_if_missing
+Sin esta respuesta se debilita la lectura de impacto aguas abajo.
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by: huellas para criticidad, S3 posterior y canal algedónico
+risk_if_missing: Sin esta respuesta se debilita la lectura de impacto aguas abajo.
+Ficha canónica 3.5
+question_code
+3.5
+block_id
+3
+canonical_question_text
+¿Qué hace el receptor con lo que le entregas? ¿Cuál es su siguiente paso?
+short_ui_label
+Siguiente paso del receptor
+help_text
+Describe lo que el receptor hace a continuación con lo que recibe. Ejemplos: lo registra, lo valida, lo presenta, lo envía, lo procesa, lo usa para continuar otra tarea.
+field_type
+free_text
+answer_mode
+free_text
+ui_answer_mode_label
+libre
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+free_text_condition
+N/A
+depends_on
+3.1 y 3.2 como contexto
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si la respuesta es muy vaga, puede contribuir a 3.A o flag de insuficiencia del handoff.
+canonical_variable_output
+receiver_impact
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by
+huellas para PF posterior, cadena E2E y dependencia funcional
+risk_if_missing
+Sin siguiente paso del receptor, el handoff queda sin sentido operativo.
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by: huellas para PF posterior, cadena E2E y dependencia funcional
+risk_if_missing: Sin siguiente paso del receptor, el handoff queda sin sentido operativo.
+Ficha canónica 3.6
+question_code
+3.6
+block_id
+3
+canonical_question_text
+¿Hay otros actores que también reciben o necesitan acceso a lo que entregas?
+short_ui_label
+Receptores secundarios
+help_text
+Selecciona solo los que realmente reciben o necesitan acceso, no todos los interesados que solo lo necesitan de manera secundaria. Máximo recomendado: tres.
+field_type
+multi_choice
+answer_mode
+multi_choice
+ui_answer_mode_label
+cerrada múltiple
+options
+Auditoría o compliance; Finanzas o contabilidad; Gerencia o dirección; Cliente final; Proveedor o socio; Otro equipo; No, solo el receptor principal
+source_options
+fixed_enum_expandable
+fallback_options
+Otro equipo
+allows_free_text
+conditional
+free_text_condition
+selected_option = Otro equipo
+depends_on
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si se marca No, solo el receptor principal, no deben seleccionarse otras opciones. Si se marca Otro equipo, pedir especificación. Regla técnica de UI: si se marca "No, solo el receptor principal", debe actuar como opción exclusiva.
+canonical_variable_output
+secondary_receivers
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by
+huellas para PM, coordinación S2 y complejidad del handoff
+risk_if_missing
+Si falta, pueden desaparecer receptores secundarios relevantes del sistema.
+exclusive_option
+No, solo el receptor principal
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by: huellas para PM, coordinación S2 y complejidad del handoff
+risk_if_missing: Si falta, pueden desaparecer receptores secundarios relevantes del sistema.
+Ficha canónica 3.7
+question_code
+3.7
+block_id
+3
+canonical_question_text
+¿Qué criterios o estándares debe cumplir lo que entregas para que el receptor esté satisfecho?
+short_ui_label
+Criterios de calidad
+help_text
+Elige lo que realmente espera el receptor para considerar que la entrega está bien. Si hace falta, agrega otro criterio específico.
+field_type
+multi_choice
+answer_mode
+multi_choice
+ui_answer_mode_label
+cerrada múltiple
+options
+Completo; Exacto; A tiempo; Validado; Formateado; Documentado; Confidencial; Otro
+source_options
+fixed_enum_expandable
+fallback_options
+Otro
+allows_free_text
+conditional
+free_text_condition
+selected_option = Otro
+depends_on
+3.1 y 3.2 como contexto
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si queda demasiado genérico o no cuadra con 3.13, puede activar 3.B.
+canonical_variable_output
+quality_criteria
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by
+huellas para estándares S3 posteriores y auditoría S3*
+risk_if_missing
+Sin criterios, “bien hecho” queda implícito y poco auditable.
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by: huellas para estándares S3 posteriores y auditoría S3*
+risk_if_missing: Sin criterios, “bien hecho” queda implícito y poco auditable.
+Ficha canónica 3.8
+question_code
+3.8
+block_id
+3
+canonical_question_text
+¿Cómo entregas lo que haces? ¿Por qué medio?
+short_ui_label
+Mecanismo de entrega
+help_text
+Piensa en el medio principal por el que el receptor accede a la salida: sistema, email, reunión, carpeta compartida, documento físico, transferencia de datos u otro.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Email o mensaje; Sistema o aplicación; Documento físico o impreso; Reunión o presentación verbal; Acceso a base de datos o carpeta compartida; Transferencia de datos; Otro
+source_options
+fixed_enum_expandable
+fallback_options
+Otro
+allows_free_text
+conditional
+free_text_condition
+selected_option = Otro
+depends_on
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si el mecanismo es verbal y 3.7 exige documentación/validación, levantar flag suave de riesgo de handoff.
+canonical_variable_output
+delivery_mechanism
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by
+huellas para interfaz S2 posterior y complejidad de canal
+risk_if_missing
+Sin mecanismo, el handoff queda sin interfaz visible.
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by: huellas para interfaz S2 posterior y complejidad de canal
+risk_if_missing: Sin mecanismo, el handoff queda sin interfaz visible.
+Ficha canónica 3.9
+question_code
+3.9
+block_id
+3
+canonical_question_text
+¿Con qué frecuencia entregas esto?
+short_ui_label
+Frecuencia de entrega
+help_text
+Responde según la cadencia real más normal, no según una semana excepcional.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Una sola vez; Diaria; Semanal; Mensual; Según demanda o urgencia; Continuo; Otro
+source_options
+fixed_enum_expandable
+fallback_options
+Otro
+allows_free_text
+conditional
+free_text_condition
+selected_option = Otro
+depends_on
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si la cadencia contradice fuertemente 3.1 o 3.5, levantar flag suave de consistencia.
+canonical_variable_output
+delivery_frequency
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by
+huellas para S3 posterior, cadencia del handoff y cambio reciente
+risk_if_missing
+Sin frecuencia, el handoff pierde ritmo operativo.
+canonical_derivation_possible
+Puede derivar delivery_channel_complexity_hint junto con 3.8 y 3.6
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by: huellas para S3 posterior, cadencia del handoff y cambio reciente
+risk_if_missing: Sin frecuencia, el handoff pierde ritmo operativo.
+Ficha canónica 3.10
+question_code
+3.10
+block_id
+3
+canonical_question_text
+¿Hay momentos en que lo que entregas no cumple lo esperado o no llega al receptor?
+short_ui_label
+Fallas de entrega
+help_text
+Piensa en la realidad operativa, no en el procedimiento ideal.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+No, siempre llega como se espera; Sí, a veces hay problemas pero es raro; Sí, hay problemas regularmente; Sí, hay problemas frecuentemente
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+free_text_condition
+N/A
+depends_on
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si 3.10 indica que la entrega falla, llega incompleta, llega tarde, llega duplicada, no cumple criterios, genera corrección o requiere compensación del receptor, se activa el subflujo de excepción de salida: 3.11 para tipificar el problema, 3.12 para describir impacto o compensación, 3.13 para registrar satisfacción/aceptación del receptor y 3.13a para capturar feedback operativo visible del receptor.
+La activación de 3.13a no depende de que el usuario use la palabra “feedback”. Se activa por existencia de falla de entrega y busca capturar cómo el receptor avisa, rechaza, devuelve, corrige, pide cambio, bloquea, recontacta, actualiza o escala.
+canonical_variable_output
+delivery_exception_exists
+provenance_type
+captured_user_evidence + canonical_derivation
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by
+huellas para S3* posterior, algedónico y compensación del receptor
+risk_if_missing
+Si falta, el bloque queda ciego ante fallas reales de handoff.
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by: huellas para S3* posterior, algedónico y compensación del receptor
+risk_if_missing: Si falta, el bloque queda ciego ante fallas reales de handoff.
+Ficha canónica 3.11
+question_code
+3.11
+block_id
+3
+canonical_question_text
+Si respondiste "Sí" en la pregunta anterior, ¿cuál es el problema típico?
+short_ui_label
+Tipo de problema
+help_text
+Elige el problema más típico. Si no aparece, usa Otro y descríbelo.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+No llega a tiempo; Llega incompleto; Llega con errores; Llega en formato incorrecto; No llega a todos los receptores que deberían; Llega pero el receptor no sabe qué hacer con ello; Otro
+source_options
+fixed_enum_expandable
+fallback_options
+Otro
+allows_free_text
+conditional
+free_text_condition
+selected_option = Otro
+depends_on
+3.10 indica falla
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si 3.10 indica falla.
+visibility_rule
+Solo visible si 3.10 indica falla.
+branching_rule
+Si se elige Otro sin explicación o si el problema típico es inconsistente con 3.12, puede contribuir a 3.C.
+canonical_variable_output
+delivery_exception_type
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by
+huellas para tipología de fallo y auditoría de entrega
+risk_if_missing
+Sin tipo de problema, la excepción queda demasiado abstracta.
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by: huellas para tipología de fallo y auditoría de entrega
+risk_if_missing: Sin tipo de problema, la excepción queda demasiado abstracta.
+Ficha canónica 3.12
+question_code
+3.12
+block_id
+3
+canonical_question_text
+Cuando esto ocurre, ¿cuál es el impacto en el receptor? ¿Qué tiene que hacer para compensar?
+short_ui_label
+Impacto de la falla
+help_text
+Describe qué se rompe y qué hace el receptor para seguir adelante: esperar, retrabajar, corregir, llamar, escalar, improvisar u otra compensación.
+field_type
+free_text
+answer_mode
+free_text
+ui_answer_mode_label
+libre
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+free_text_condition
+N/A
+depends_on
+3.10 indica falla
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si 3.10 indica falla.
+visibility_rule
+Solo visible si 3.10 indica falla.
+branching_rule
+Si queda vaga o no se identifica compensación/impacto, puede activar 3.C.
+canonical_variable_output
+delivery_exception_impact
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_clarifications si aplica
+used_by
+huellas para algedónico posterior, AHE y dependencia funcional
+risk_if_missing
+Sin impacto, la falla existe pero no se entiende qué rompe ni quién absorbe la variedad.
+canonical_derivation_possible
+Puede derivar receiver_compensation_hint como compensación aguas abajo del receptor, no como sacrificio humano del ejecutor
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_clarifications si aplica
+used_by: huellas para algedónico posterior, AHE y dependencia funcional
+risk_if_missing: Sin impacto, la falla existe pero no se entiende qué rompe ni quién absorbe la variedad.
+Ficha canónica 3.13
+question_code
+3.13
+block_id
+3
+canonical_question_text
+En general, cuando entregas esto, ¿el receptor lo acepta, pide ajustes menores, solicita correcciones o lo rechaza/devuelve?
+short_ui_label
+Aceptación del receptor
+help_text
+Piensa en la aceptación habitual del receptor: si lo recibe sin cambios, pide aclaraciones menores, solicita correcciones o lo rechaza/devuelve. No describas aquí cómo avisa un error operativo; eso se captura en la siguiente pregunta.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+Lo acepta sin cambios; A veces pide aclaraciones menores; Pide correcciones con cierta frecuencia; Frecuentemente lo rechaza o lo devuelve
+source_options
+fixed_enum
+fallback_options
+N/A
+allows_free_text
+no
+free_text_condition
+N/A
+depends_on
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible.
+branching_rule
+Si la respuesta es muy negativa y 3.10 dice que no hay problemas, levantar flag de consistencia; puede contribuir a 3.B.
+canonical_variable_output
+receiver_satisfaction
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by
+huellas para aceptación del receptor, calidad percibida y consistencia con 3.7 y 3.10; no sustituye receiver_feedback
+risk_if_missing
+Sin esta señal, se pierde la aceptación o evaluación general del receptor, pero no debe usarse como sustituto de feedback operativo.
+canonical_derivation_possible
+Puede reforzar receiver_satisfaction y consistencia con 3.7 y 3.10; si la respuesta implica aviso operativo de error, debe activar 3.13a o 3.D, no absorberse en receiver_satisfaction
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by: huellas para aceptación del receptor, calidad percibida y consistencia con criterios de calidad; no sustituye receiver_feedback
+risk_if_missing: Sin esta señal, se pierde la evaluación general del receptor; si se usa como sustituto de feedback operativo, se contamina la ruta causal de 3.13a/3.D.
+Distinción canónica entre receiver_satisfaction y receiver_feedback
+receiver_satisfaction registra aceptación, conformidad o evaluación general del receptor respecto a lo entregado. receiver_feedback registra la señal operativa que el receptor emite cuando lo recibido llega incompleto, duplicado, tarde, con error, no coincide con lo esperado o bloquea el siguiente paso. No deben fusionarse. La satisfacción del receptor puede indicar calidad percibida; el feedback operativo puede convertirse en evento de rebote, rework, Process State, activación de soporte o evidencia de handoff defectuoso.
+
+Ficha canónica 3.13a
+question_code
+3.13a
+block_id
+3
+canonical_question_text
+Cuando lo que entregas llega incompleto, duplicado, tarde, con error o no coincide con lo esperado, ¿cómo te enteras o qué hace el receptor para avisarlo?
+short_ui_label
+Aviso operativo del receptor
+help_text
+No preguntamos si el receptor queda satisfecho. Queremos saber si da una señal operativa: avisa, rechaza, devuelve, corrige, pide cambio, bloquea el siguiente paso, recontacta, actualiza algo o escala el problema.
+field_type
+free_text
+answer_mode
+free_text
+ui_answer_mode_label
+abierta
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+yes
+free_text_condition
+Siempre que la pregunta sea visible.
+depends_on
+3.10; 3.13 cuando la aceptación declarada contiene rechazo, devolución o corrección visible
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Obligatoria si 3.10 indica falla de entrega, entrega incompleta, duplicada, tardía, incorrecta, no conforme o que requiere corrección. También debe abrirse si 3.13 muestra rechazo/devolución/corrección que no tiene ruta de feedback operativo.
+visibility_rule
+Visible si 3.10 indica que la entrega falla, llega incompleta, llega tarde, llega duplicada, no cumple criterios, genera corrección o requiere compensación del receptor. También visible si 3.13 contiene una señal de rechazo/devolución/corrección que no puede quedar absorbida por receiver_satisfaction.
+branching_rule
+Si la respuesta muestra aviso, rechazo, devolución, corrección, recontacto, actualización, bloqueo, pedido de cambio o escalamiento, derivar receiver_feedback_exists = true. Si indica que nadie avisa, no se detecta o no hay señal visible, derivar receiver_feedback_exists = false. Si la respuesta es ambigua, genérica o solo habla de satisfacción/insatisfacción, activar aclaración 3.D y marcar receiver_feedback_gap_flag.
+canonical_variable_output
+receiver_feedback; receiver_feedback_exists
+provenance_type
+captured_user_evidence para receiver_feedback; canonical_derivation para receiver_feedback_exists
+epistemic_role
+captured_user_evidence + canonical_derivation
+stored_in
+scene_question_answers para receiver_feedback; scene_answer_provenance; scene_block_derivations para receiver_feedback_exists; scene_consistency_flags si se activa receiver_feedback_gap_flag o receiver_feedback_route_missing
+used_by
+handoff_evidence; flow_evidence; PF process states; rework candidates; support process candidates; mmabp_design_source_bundle; transducción posterior como evidencia estructural no diagnóstica
+risk_if_missing
+Si hay falla de entrega pero no se captura feedback operativo, el sistema puede confundir satisfacción con aviso operativo, perder el evento de rebote y bloquear la producción paralela por contradicción aparente.
+canonical_derivation_possible
+Derivar receiver_feedback_exists; alimentar candidatos de evento de feedback, rework, rebote, Process State o proceso de soporte.
+
+Regla canónica de derivación R9 — receiver_feedback_exists
+La variable receiver_feedback_exists se deriva desde receiver_feedback, capturado en la pregunta 3.13a. Esta derivación separa la evidencia literal del usuario de la variable booleana necesaria para consolidación, transducción y producción paralela MMABP.
+Evidencia en receiver_feedback
+Valor derivado de receiver_feedback_exists
+Acción
+El receptor avisa, rechaza, devuelve, corrige, pide cambio, bloquea el siguiente paso, recontacta, actualiza algo o escala el problema.
+true
+Conservar evidencia literal en receiver_feedback.
+El receptor no avisa, no detecta, no responde o no existe señal visible.
+false
+Conservar evidencia literal como ausencia de feedback visible.
+Hay falla de entrega, pero la respuesta es ambigua, genérica o solo habla de satisfacción/insatisfacción.
+unresolved
+Activar receiver_feedback_gap_flag y, si aplica, aclaración 3.D.
+3.10 indica falla de entrega, pero 3.13a no fue respondida.
+unresolved
+Activar receiver_feedback_gap_flag.
+receiver_feedback_exists no debe derivarse desde receiver_satisfaction. La satisfacción del receptor puede ayudar a interpretar la calidad percibida, pero no sustituye la captura de feedback operativo.
+Aclaración 3.D — Diferenciar satisfacción de feedback operativo
+Campo
+Contenido
+Código
+3.D
+Nombre
+Aclaración por confusión entre satisfacción y feedback operativo
+Condición de despliegue
+Se activa si 3.10 indica falla de entrega y 3.13a está vacía, genérica o responde solo satisfacción/insatisfacción sin indicar si el receptor avisa, devuelve, corrige, bloquea, recontacta o pide cambio.
+Pregunta visible
+¿El receptor solo queda insatisfecho o además avisa, rechaza, devuelve, corrige, pide cambio o detiene el siguiente paso? ¿Cómo se ve eso en la operación?
+Variable que aclara
+receiver_feedback
+Derivación asociada
+receiver_feedback_exists
+Flag si persiste ambigüedad
+receiver_feedback_gap_flag
+Tipo epistemológico
+clarification
+
+Ficha canónica 3.14
+question_code
+3.14
+block_id
+3
+canonical_question_text
+¿Ha cambiado algo recientemente en cómo entregas, a quién entregas o qué criterios se esperan?
+short_ui_label
+Cambios recientes
+help_text
+Marca la opción que más se acerque. Si hubo múltiples cambios, especifícalos brevemente.
+field_type
+single_choice
+answer_mode
+single_choice
+ui_answer_mode_label
+cerrada
+options
+No, todo sigue igual; Sí, cambió quién recibe; Sí, cambió cómo se entrega; Sí, cambiaron los criterios de calidad esperada; Sí, cambió la frecuencia; Sí, múltiples cambios
+source_options
+fixed_enum_expandable
+fallback_options
+Sí, múltiples cambios
+allows_free_text
+conditional
+free_text_condition
+selected_option = Sí, múltiples cambios
+depends_on
+N/A
+generated_from
+N/A
+user_can_edit_generated
+N/A
+required_rule
+Siempre obligatoria.
+visibility_rule
+Siempre visible al cierre del bloque.
+branching_rule
+Si hubo cambios múltiples sin especificación suficiente, puede dejar flag suave para revisión manual o adaptación posterior.
+canonical_variable_output
+recent_delivery_changes
+provenance_type
+captured_user_evidence
+epistemic_role
+captured_user_evidence
+stored_in
+scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by
+huellas para S4 posterior y comparación temporal del handoff
+risk_if_missing
+Sin esta respuesta se pierde señal de cambio reciente en el entorno de entrega.
+stored_in: scene_question_answers; scene_answer_provenance; scene_block_derivations
+used_by: huellas para S4 posterior y comparación temporal del handoff
+risk_if_missing: Sin esta respuesta se pierde señal de cambio reciente en el entorno de entrega.
+Ficha canónica 3.A
+question_code
+3.A
+block_id
+3
+canonical_question_text
+Mencionaste un receptor inmediato, pero todavía no queda claro quién recibe primero ni quién solo tiene acceso después. ¿Quién es el primer receptor real de la entrega?
+short_ui_label
+Aclarar receptor inmediato
+help_text
+Esta aclaración busca separar el receptor inmediato de receptores secundarios o de acceso posterior.
+field_type
+clarification
+answer_mode
+clarification
+ui_answer_mode_label
+aclarada
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+free_text_condition
+N/A
+depends_on
+Flag en 3.2 o contradicción con 3.3/3.6
+generated_from
+Se genera desde respuestas previas
+user_can_edit_generated
+sí
+required_rule
+Solo si el motor detecta ambigüedad.
+visibility_rule
+Solo por flag.
+branching_rule
+Puede corregir primary_receiver y receiver_type.
+canonical_variable_output
+primary_receiver_clarification
+provenance_type
+clarification
+epistemic_role
+clarification
+stored_in
+scene_clarifications; scene_answer_provenance
+used_by
+consistencia del handoff y scene_canonical_records
+risk_if_missing
+Sin esta aclaración, el receptor inmediato puede quedar mal identificado.
+stored_in: scene_clarifications; scene_answer_provenance
+used_by: consistencia del handoff y scene_canonical_records
+risk_if_missing: Sin esta aclaración, el receptor inmediato puede quedar mal identificado.
+Ficha canónica 3.B
+question_code
+3.B
+block_id
+3
+canonical_question_text
+Los criterios de calidad todavía se oyen muy generales. ¿Qué tendría que faltar o salir mal para que el receptor diga que esto no está bien entregado?
+short_ui_label
+Aclarar calidad esperada
+help_text
+Lo que lo haría rechazar tu Entrega. Ejemplo: Si la factura llega sin el número de referencia del cliente, el receptor no puede procesarla. Si el documento no tiene firma de autorización, el siguiente paso no puede comenzar
+field_type
+clarification
+answer_mode
+clarification
+ui_answer_mode_label
+aclarada
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+free_text_condition
+N/A
+depends_on
+Flag en 3.7 o inconsistencia con 3.13
+generated_from
+Se genera desde respuestas previas
+user_can_edit_generated
+sí
+required_rule
+Solo si el motor detecta genericidad o inconsistencia.
+visibility_rule
+Solo por flag.
+branching_rule
+Puede complementar quality_criteria y mejorar lectura de receiver_satisfaction.
+canonical_variable_output
+quality_criteria_clarification
+provenance_type
+clarification
+epistemic_role
+clarification
+stored_in
+scene_clarifications; scene_answer_provenance
+used_by
+consistencia, auditoría S3* posterior y transducción causal
+risk_if_missing
+Sin esta aclaración, la calidad queda normativa pero no operativa.
+stored_in: scene_clarifications; scene_answer_provenance
+used_by: consistencia, auditoría S3* posterior y transducción causal
+risk_if_missing: Sin esta aclaración, la calidad queda normativa pero no operativa.
+Ficha canónica 3.C
+question_code
+3.C
+block_id
+3
+canonical_question_text
+Ya sabemos que la entrega falla a veces, pero todavía no se entiende bien qué se rompe ni quién compensa. ¿Qué hace exactamente el receptor cuando eso ocurre?
+short_ui_label
+Aclarar compensación del receptor
+help_text
+Qué trabajo extra hace el receptor para que el flujo siga. Ejemplo: Si la factura llega sin número de referencia, el que recibe tiene que llamar para aclarar antes de poder pagar.
+field_type
+clarification
+answer_mode
+clarification
+ui_answer_mode_label
+aclarada
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+free_text_condition
+N/A
+depends_on
+Flag en 3.10–3.12
+generated_from
+Se genera desde respuestas previas
+user_can_edit_generated
+sí
+required_rule
+Solo si las excepciones quedaron insuficientemente descritas.
+visibility_rule
+Solo por flag.
+branching_rule
+Puede complementar delivery_exception_impact y receiver_compensation_hint.
+canonical_variable_output
+delivery_exception_clarification
+provenance_type
+clarification
+epistemic_role
+clarification
+stored_in
+scene_clarifications; scene_answer_provenance
+used_by
+huellas para AHE posterior, S3* y canal algedónico
+risk_if_missing
+Sin esta aclaración, la falla existe pero la compensación real queda opaca.
+stored_in: scene_clarifications; scene_answer_provenance
+used_by: huellas para AHE posterior, S3* y canal algedónico
+risk_if_missing: Sin esta aclaración, la falla existe pero la compensación real queda opaca.
+Ficha canónica 3.D
+question_code
+3.D
+block_id
+3
+canonical_question_text
+¿El receptor solo queda insatisfecho o además avisa, rechaza, devuelve, corrige, pide cambio o detiene el siguiente paso? ¿Cómo se ve eso en la operación?
+short_ui_label
+Aclarar aviso del receptor
+help_text
+Esta aclaración separa evaluación del receptor de feedback operativo. Queremos saber si existe una señal visible que active corrección, devolución, recontacto, espera, rework o escalamiento.
+field_type
+free_text
+answer_mode
+free_text
+ui_answer_mode_label
+aclaración
+options
+N/A
+source_options
+N/A
+fallback_options
+N/A
+allows_free_text
+sí
+free_text_condition
+Siempre que la aclaración sea visible.
+depends_on
+3.13a
+generated_from
+receiver_feedback_gap_flag
+user_can_edit_generated
+sí
+required_rule
+Obligatoria si se activa por ambigüedad en 3.13a.
+visibility_rule
+Visible si 3.10 indica falla de entrega y 3.13a está vacía, genérica o responde solo satisfacción/insatisfacción sin indicar si el receptor avisa, devuelve, corrige, bloquea, recontacta o pide cambio.
+branching_rule
+Si aclara una señal operativa visible, actualizar receiver_feedback y derivar receiver_feedback_exists = true. Si aclara que no hay señal visible, derivar receiver_feedback_exists = false. Si persiste ambigüedad, mantener receiver_feedback_gap_flag.
+canonical_variable_output
+receiver_feedback; receiver_feedback_exists; receiver_feedback_gap_flag
+provenance_type
+clarification
+epistemic_role
+clarification + canonical_derivation
+stored_in
+scene_clarifications; scene_answer_provenance; scene_block_derivations; scene_consistency_flags
+used_by
+handoff_evidence; flow_evidence; mmabp_design_source_bundle; reentry_queue si persiste ambigüedad
+risk_if_missing
+Sin esta aclaración, el sistema puede dejar sin resolver la diferencia entre satisfacción del receptor y feedback operativo del receptor.
+canonical_derivation_possible
+Resolver receiver_feedback_exists; limpiar receiver_feedback_gap_flag; alimentar handoff y flujo si aparece evento operativo.
+
+7. Tipos de respuesta usados en el Bloque 3
+Nota de normalización: el documento conserva el lenguaje humano de respuesta cuando ayuda a lectura, pero cada ficha individual mantiene también el enum técnico estable para conexión posterior con JSON y Codex.
+Modo canónico
+Definición
+Uso en Bloque 3
+free_text
+Respuesta abierta escrita por el usuario.
+3.1, 3.5, 3.12, 3.13a
+single_choice
+Una opción cerrada única, con posible texto adicional condicional en ciertos casos.
+3.2, 3.3, 3.4, 3.8, 3.9, 3.10, 3.11, 3.13, 3.14
+multi_choice
+Varias opciones cerradas, con posible especificación adicional.
+3.6, 3.7
+clarification
+Micropreguntas aclaratorias disparadas por flags o inconsistencias.
+3.A, 3.B, 3.C, 3.D
+internal_calculated / canonical_derivation
+Marcadores y derivaciones internos del bloque.
+delivery_exception_exists, delivery_readiness, delivery_channel_complexity_hint, receiver_compensation_hint, receiver_feedback_exists
+consistency_flag
+Banderas estructurales que advierten contradicción, ruta ausente o ambigüedad sin producir diagnóstico final.
+delivery_consistency_flag, receiver_feedback_gap_flag, receiver_feedback_route_missing
+8. Lógica de despliegue UI por pregunta
+3.1. Debe presentarse con recordatorio explícito: aquí hablamos del entregable o de lo que queda a disposición de otro, no solo del estado final del objeto transformado. La UI debe mostrar ejemplos concretos.
+3.2 y 3.3. Conviene mostrarlas como díada. Primero se pregunta quién recibe y después qué tipo de actor es. Si 3.2 usa una categoría expandible como “Otro equipo”, debe abrirse especificación breve sin cambiar de pantalla.
+3.4 y 3.5. También conviene tratarlas como una pequeña pareja lógica: primero qué tan dependiente está el receptor, luego qué hace concretamente con lo recibido.
+3.6. Debe permitir múltiples selecciones, con máximo recomendado de tres para evitar inflación de actores. Si se marca “No, solo el receptor principal”, la UI debe desmarcar otras opciones.
+3.7. Multi-select con ejemplos y lenguaje observable. La UI debería evitar que “bien hecho” quede demasiado abstracto.
+3.8 y 3.9. Deben capturar mecanismo y cadencia sin invadir todavía la cadena causal completa del Bloque 4.
+3.10, 3.11 y 3.12. Funcionan como subflujo de excepción. Si 3.10 dice que no hay fallas, 3.11 y 3.12 no aparecen.
+3.13. Debe formularse como aceptación o evaluación habitual del receptor, no como juicio moral sobre el trabajo del usuario ni como captura de aviso operativo.
+3.13a. Debe aparecer como subflujo condicional cuando hay falla de entrega o cuando la aceptación declarada revela rechazo, devolución o corrección. Su lenguaje debe preguntar cómo se entera el usuario o qué hace el receptor para avisar; no debe preguntar de nuevo si el receptor está satisfecho.
+3.14. Cierra el bloque con señal de cambio reciente. Si la respuesta es “múltiples cambios”, debe abrirse especificación breve.
+3.A–3.D. Aclaraciones micro, contextuales y no permanentes en el flujo estándar. Deben aparecer solo por flags de ambigüedad, genericidad, insuficiencia descriptiva o confusión entre satisfacción del receptor y feedback operativo.
+8.A. Orden base de despliegue UI
+Orden base: 3.1 → 3.2 → 3.3 → 3.4 → 3.5 → 3.6 → 3.7 → 3.8 → 3.9 → 3.10 → 3.11 si aplica → 3.12 si aplica → 3.13 → 3.13a si aplica → 3.14.
+Aclaraciones: 3.A, 3.B, 3.C y 3.D no aparecen en el flujo normal; se disparan únicamente por flags de ambigüedad del receptor, genericidad de criterios, insuficiencia en la descripción de excepción/compensación o confusión entre aceptación del receptor y feedback operativo.
+9. Lógica secuencial interna del Bloque 3
+3.1 fija qué sale realmente de la escena y establece la diferencia con el estado final del objeto en 2.6.
+3.2 identifica el receptor inmediato y 3.3 clasifica su naturaleza.
+3.4 captura la dependencia observable del receptor y 3.5 reconstruye su siguiente paso funcional.
+3.6 abre el mapa de receptores secundarios o de acceso complementario.
+3.7 documenta qué significa “bien entregado” para el receptor.
+3.8 y 3.9 fijan interfaz y cadencia del handoff.
+3.10 abre el subflujo de excepción. Si hay fallas, 3.11 tipifica el problema y 3.12 densifica el impacto y la compensación.
+3.13 recoge la aceptación, conformidad o evaluación habitual del receptor como receiver_satisfaction.
+3.13a captura, solo cuando aplica, la señal operativa de retorno del receptor: aviso, rechazo, devolución, corrección, recontacto, bloqueo, pedido de cambio o escalamiento. Esta pregunta cierra receiver_feedback sin contaminarlo con satisfacción general.
+3.14 agrega una señal temporal de cambio reciente en el handoff.
+Con toda la evidencia, el motor puede derivar delivery_exception_exists, delivery_channel_complexity_hint, receiver_compensation_hint, receiver_feedback_exists y delivery_readiness, además de flags de consistencia como receiver_feedback_gap_flag y receiver_feedback_route_missing.
+10. Reglas formales de branching
+Regla
+Acción de despliegue
+Objetivo
+Si 3.2 = Múltiples receptores, Otro equipo o Otro sin especificación suficiente
+Abrir texto condicional o activar 3.A
+Precisar receptor inmediato real
+Si 3.6 marca “No, solo el receptor principal” junto con otras opciones
+Levantar flag suave de consistencia y pedir corrección
+Evitar contradicción interna
+Si 3.7 = Otro sin especificación o criterios demasiado vagos
+Activar 3.B
+Volver observable el estándar de calidad
+Si 3.10 indica falla
+Mostrar 3.11, 3.12 y 3.13a
+Reconstruir excepción real del handoff, su impacto y la ruta de aviso/retorno del receptor
+Si 3.11 = Otro sin detalle o 3.12 queda genérico
+Activar 3.C
+Precisar problema e impacto real
+Si 3.13 indica rechazo frecuente y 3.10 dice que nunca falla
+Levantar delivery_consistency_flag y abrir revisión de coherencia; no derivar receiver_feedback desde 3.13
+Detectar contradicción entre excepción declarada y aceptación/rechazo del receptor
+Si 3.13 contiene rechazo, devolución o corrección sin ruta operativa explícita
+Mostrar 3.13a aunque 3.10 no haya declarado falla con claridad
+Evitar que receiver_feedback quede escondido dentro de receiver_satisfaction
+Si 3.13a contiene aviso, rechazo, devolución, corrección, recontacto, bloqueo o escalamiento
+Derivar receiver_feedback_exists = true y conservar la evidencia literal en receiver_feedback
+Cerrar el circuito de feedback operativo sin diagnóstico temprano
+Si 3.13a indica que nadie avisa o no existe señal visible
+Derivar receiver_feedback_exists = false y conservar la ausencia como evidencia
+Distinguir falta de feedback operativo de satisfacción o insatisfacción
+Si 3.13a queda vacía, genérica o solo habla de satisfacción/insatisfacción
+Activar 3.D y marcar receiver_feedback_gap_flag si persiste la ambigüedad
+Separar evaluación del receptor de señal operativa de retorno
+Si 3.14 = múltiples cambios
+Habilitar especificación abierta obligatoria
+Capturar señal de adaptación reciente
+Si faltan 3.1, 3.2 o 3.5
+Marcar structural_gap crítico del bloque
+Evitar consolidación sin handoff reconocible
+11. Separación epistemológica del Bloque 3
+Tipo de dato
+Elementos del bloque
+Observación
+captured_user_evidence
+3.1–3.14, incluyendo 3.13a
+Lo dicho por el usuario se conserva como fuente primaria del handoff, su recepción, su aceptación y, cuando aplica, el feedback operativo del receptor.
+canonical_derivation
+delivery_exception_exists, delivery_channel_complexity_hint, receiver_compensation_hint, receiver_feedback_exists
+Derivaciones trazables que no sustituyen la evidencia original; receiver_feedback_exists se deriva desde 3.13a o 3.D, no desde 3.13.
+clarification
+3.A, 3.B, 3.C, 3.D
+Se activan solo por flags y viven separadas de la evidencia original.
+consistency_flag
+delivery_consistency_flag, flags suaves de receptor/calidad, receiver_feedback_gap_flag, receiver_feedback_route_missing
+Señales de estructura y calidad del dato, no diagnósticos finales; incluyen contradicciones o rutas ausentes en la captura de feedback operativo.
+readiness_marker
+delivery_readiness
+Marcador interno de preparación del bloque para transducción.
+light_inference
+No aplica como salida principal del Bloque 3
+La inferencia ligera formal pertenece al Bloque 7.
+12. Derivaciones internas y normalizaciones permitidas
+El Bloque 3 sí puede producir derivaciones internas, pero de bajo riesgo semántico. La principal es delivery_exception_exists, que se deriva canónicamente de 3.10.
+También puede derivarse delivery_channel_complexity_hint a partir de la combinación entre mecanismo de entrega, frecuencia y número de receptores: por ejemplo, sistema + continuo + receptor único puede leerse como handoff simple; reunión verbal + múltiples receptores + cambios recientes puede leerse como handoff más frágil o complejo.
+De manera análoga, receiver_compensation_hint puede derivarse de 3.10–3.12 cuando hay fallas y compensación descrita explícitamente por el receptor.
+receiver_feedback_exists se deriva exclusivamente desde receiver_feedback capturado en 3.13a o aclarado en 3.D. Puede tomar true, false o unresolved; true conserva la señal operativa visible, false conserva la ausencia de señal visible y unresolved mantiene receiver_feedback_gap_flag.
+receiver_feedback_route_missing se activa cuando existe evidencia textual de aviso, rechazo, devolución, corrección, recontacto, bloqueo o escalamiento, pero esa evidencia quedó en una ruta no canónica. La corrección permitida es reenrutar hacia 3.13a o 3.D, no inferir silenciosamente desde texto libre.
+Lo que el bloque no debe hacer es concluir todavía si el problema es definitivamente de coordinación, control, identidad o capacidad. Solo deja la huella estructural para que eso pueda leerse después.
+13. Lógica de consistencia mínima del bloque
+ID
+Chequeo
+Acción/lectura
+C1
+3.1 debe ser distinguible del estado final de 2.6.
+Si son idénticos pero no hay forma de handoff, levantar flag suave de solapamiento con Bloque 2.
+C2
+3.2, 3.3 y 3.6 deben ser compatibles.
+Si el receptor inmediato es sistema pero 3.3 dice persona específica sin matiz, revisar o aclarar.
+C3
+3.7 y 3.13 deben guardar cierta coherencia.
+No puede haber rechazo frecuente con criterios mínimos aparentemente siempre cumplidos sin explicación adicional.
+C4
+3.10–3.12 deben formar un subflujo consistente.
+Si hay problemas reportados sin tipo ni impacto comprensible, activar 3.C.
+C5
+3.8 y 3.9 deben ser plausibles junto con receptor y handoff.
+Mecanismos y frecuencias improbables pueden marcar revisión manual, no invalidez automática.
+C6
+3.14 no debe sobrescribir la evidencia previa.
+Los cambios recientes complementan, no reemplazan, lo ya capturado.
+C7
+3.10, 3.13 y 3.13a deben formar un circuito coherente entre falla declarada, aceptación del receptor y feedback operativo.
+Si hay falla o rechazo sin señal de feedback capturada, activar 3.13a/3.D y marcar receiver_feedback_gap_flag hasta resolver.
+C8
+receiver_feedback no debe poblarse desde receiver_satisfaction ni desde una frase lateral sin ruta canónica.
+Si aparece aviso operativo fuera de 3.13a/3.D, levantar receiver_feedback_route_missing y reenrutar la captura.
+14. Aclaraciones canónicas del bloque
+Código
+Tipo de aclaración
+Cuándo dispara
+Salida principal
+3.A
+Ambigüedad de receptor inmediato
+El receptor quedó múltiple, genérico o mal delimitado.
+primary_receiver_clarification
+3.B
+Genericidad de calidad esperada
+Los criterios son demasiado abstractos o no explican el feedback del receptor.
+quality_criteria_clarification
+3.C
+Excepción/compensación insuficientemente descrita
+Se sabe que falla, pero no se entiende qué se rompe ni quién compensa.
+delivery_exception_clarification
+3.D
+Confusión entre satisfacción y feedback operativo
+3.13a quedó vacía, genérica o mezcló insatisfacción con aviso operativo sin ruta clara.
+receiver_feedback_clarification; receiver_feedback_exists
+15. Mapeo de almacenamiento y trazabilidad
+Tabla/estructura destino
+Campos principales del Bloque 3
+Función
+scene_question_answers
+3.1–3.14, incluyendo 3.13a
+Respuestas originales visibles del usuario, incluida la señal operativa del receptor cuando aplica.
+scene_answer_provenance
+Fuente = usuario / aclaración / derivado
+Trazabilidad epistemológica.
+scene_clarifications
+3.A, 3.B, 3.C, 3.D
+Microaclaraciones separadas, incluida la aclaración entre satisfacción y feedback operativo.
+scene_consistency_flags
+delivery_consistency_flag, receiver_feedback_gap_flag, receiver_feedback_route_missing y flags suaves asociados
+Banderas de consistencia del handoff, ambigüedad de feedback y rutas no canónicas.
+scene_block_derivations
+output_object, primary_receiver, receiver_type, receiver_dependency, receiver_impact, secondary_receivers, quality_criteria, delivery_mechanism, delivery_frequency, delivery_exception_exists, delivery_exception_type, delivery_exception_impact, receiver_satisfaction, receiver_feedback, receiver_feedback_exists, recent_delivery_changes, delivery_channel_complexity_hint, receiver_compensation_hint, delivery_readiness
+Variables derivadas y consolidadas del bloque; receiver_feedback_exists queda separado de receiver_satisfaction.
+scene_canonical_records
+bundle de salida/handoff consolidado
+Salida intermedia reutilizable para Capa 2 y árbol de decisión.
+16. Flujo de salida técnica del bloque
+Campo
+Contenido
+Tablas/estructuras que alimenta
+scene_question_answers; scene_answer_provenance; scene_clarifications; scene_consistency_flags; scene_block_derivations; scene_canonical_records; evidence_bundle_for_transduction
+Variables canónicas producidas
+output_object; primary_receiver; receiver_type; receiver_dependency; receiver_impact; secondary_receivers; quality_criteria; delivery_mechanism; delivery_frequency; delivery_exception_exists; delivery_exception_type; delivery_exception_impact; receiver_satisfaction; receiver_feedback; receiver_feedback_exists; recent_delivery_changes; delivery_channel_complexity_hint; receiver_compensation_hint; delivery_readiness
+Flags posibles
+delivery_consistency_flag; receiver_ambiguity_flag; quality_generic_flag; delivery_exception_description_gap_flag; receiver_feedback_gap_flag; receiver_feedback_route_missing
+Gaps posibles
+missing_output_object; missing_primary_receiver; missing_receiver_impact; missing_quality_criteria; unresolved_delivery_exception; feedback_operativo_receptor_no_capturado; evidencia_aviso_receptor_sin_ruta_canonica; confusion_entre_satisfaccion_y_feedback_operativo
+Aclaraciones posibles
+3.A; 3.B; 3.C; 3.D
+Uso posterior en Capa 2
+No activa diagnóstico fuerte por sí solo; se integra al evidence_bundle_for_transduction de handoff, dependencia posterior, calidad, falla de entrega y feedback operativo del receptor para transducción causal posterior. receiver_feedback puede alimentar flow_evidence cuando active rework, devolución, espera, rebote, bloqueo del siguiente paso, Process State o proceso de soporte.
+Restricción
+Estas salidas no constituyen asignación VSM definitiva ni juicio experto cerrado; solo estabilizan el borde de salida de la escena, su recepción, su aceptación y el feedback operativo observable del receptor. receiver_satisfaction y receiver_feedback no deben fusionarse ni transportarse por la misma ruta canónica.
+Definición de flags incorporados por C1-INSTR-V3-R9-001
+receiver_feedback_gap_flag: se activa cuando existe falla de entrega, pero no se capturó si el receptor emite feedback operativo ni cómo lo hace, o cuando la respuesta confunde satisfacción con aviso operativo.
+receiver_feedback_route_missing: se activa cuando existe evidencia textual de feedback operativo, pero esa evidencia no fue capturada por una ruta canónica válida. Este flag es especialmente relevante para Producción Paralela.
+17. Relación formal con el Bloque 4 y con los bloques posteriores
+El Bloque 3 entrega la salida ya nombrada, su receptor inmediato, su dependencia, sus criterios, su frecuencia y sus excepciones. El Bloque 4 toma esa salida y la reubica dentro de la cadena causal y la normalización real del flujo: dependencias previas y posteriores, esperas, loops, alternativas, paralelismo, workarounds y puntos de bloqueo.
+Cuando receiver_feedback existe, el Bloque 4 no debe leerlo como satisfacción o insatisfacción psicológica, sino como posible retorno operativo: devolución, rework, espera, bloqueo del siguiente paso, recontacto, corrección, escalamiento o reentrada de flujo. Así el handoff no queda como línea recta imaginaria, sino como circuito causal observable.
+Si el Bloque 3 está mal hecho, el Bloque 4 termina modelando una cadena sin handoff confiable. Y si el handoff es borroso, la lectura de dependencia, espera y bloqueo se vuelve endeble.
+Por eso, el paso correcto es este: el Bloque 2 aclara qué se transforma; el Bloque 3 aclara qué se entrega y quién depende de eso; el Bloque 4 aclara cómo esa entrega circula de verdad por la cadena.

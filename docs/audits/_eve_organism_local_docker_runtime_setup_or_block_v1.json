@@ -1,0 +1,57 @@
+{
+  "dictamen": "LOCAL_DOCKER_RUNTIME_BLOCKED_INSTALL_REQUIRED_MANUAL",
+  "audit_id": "EVE_ORGANISM_LOCAL_DOCKER_RUNTIME_SETUP_OR_BLOCK_V1",
+  "objective": "Prepare Docker local as safe non-productive dry-run target",
+  "os_detected": "Microsoft Windows NT 10.0.26200.0",
+  "docker_installed": false,
+  "docker_version": "not_available",
+  "docker_daemon_running": false,
+  "docker_ps_ok": false,
+  "docker_desktop_installed": false,
+  "docker_desktop_paths_found": [],
+  "postgres_image_available": false,
+  "can_run_ephemeral_container": false,
+  "blocker": "DOCKER_NOT_INSTALLED_OR_NOT_IN_PATH",
+  "checks": {
+    "docker_version": {
+      "command": "docker --version",
+      "executed": true,
+      "success": false,
+      "result": "command_not_found"
+    },
+    "docker_info": {
+      "command": "docker info",
+      "executed": true,
+      "success": false,
+      "result": "command_not_found"
+    },
+    "docker_ps": {
+      "command": "docker ps",
+      "executed": true,
+      "success": false,
+      "result": "command_not_found"
+    },
+    "docker_desktop_paths": {
+      "executed": true,
+      "success": true,
+      "paths_found": []
+    }
+  },
+  "manual_action_required": [
+    "Install Docker Desktop or Docker Engine manually",
+    "Start Docker daemon",
+    "Confirm docker is available in PATH",
+    "Retry local Docker ephemeral PostgreSQL dry-run"
+  ],
+  "authority": {
+    "sql_executed": false,
+    "db_touched": false,
+    "supabase_touched": false,
+    "observer_created": false,
+    "bridge_created": false,
+    "real_observation_allowed": false,
+    "gate3_ready": false,
+    "fase9_allowed": false
+  },
+  "next_step": "INSTALL_OR_START_DOCKER_MANUALLY_THEN_RETRY"
+}

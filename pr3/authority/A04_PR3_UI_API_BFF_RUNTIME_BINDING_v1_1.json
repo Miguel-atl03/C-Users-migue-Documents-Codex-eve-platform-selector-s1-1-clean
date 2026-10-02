@@ -1,0 +1,1656 @@
+{
+  "artifact_id": "EVE-PR3-A04-UI-API-BFF-RUNTIME-BINDING-v1.1",
+  "state": "CLOSED_BINDING_SPEC_NOT_DEPLOYED__B2_LIMITS_AND_COMMAND_RECEIPT_CLOSED",
+  "authority": "PROMPT PR3 v1.2.1 + A02/A02A/A03/A05 v1.2/A06 v1.2/A07 v1.1 + exact promoted profiles",
+  "scope": "P1 technical binding: UI↔API/BFF↔ExecutionService↔promoted B0/B0.5/B1/B2. Does not deploy P2 persistence, P3 GPT/evaluator, or P4 UI connection.",
+  "legacy_policy": "LEGACY_EVIDENCE_NOT_BASELINE__ZERO_RUNTIME_DEPENDENCY",
+  "legacy_project_ids_forbidden": [
+    "bwflscplkjohdhkiqqoc",
+    "shrpiwkxcdgvbqymjecx"
+  ],
+  "invariants": [
+    "UI_IS_PROJECTION: browser renders server-approved InteractionContract and returns values by opaque slot_ref; it never computes next, branching, causal activation, readiness, evidence state, AI mode or handoff.",
+    "NEXT_STAGE_NO_INVENTION: every transport field and block-specific adapter target is declared here or explicitly marked as an infrastructure non-decision.",
+    "ONE_AUTHORITATIVE_STATE_PLANE: logical writes target A06 only; physical PostgreSQL/Supabase topology remains P2.",
+    "B0.5 and B1 produce zero generative model calls.",
+    "B2 AI invocation and evaluator/admission are server-side internal operations; UI never calls provider/evaluator endpoints directly.",
+    "A05 release, receipt and consumption remain separate events; ExecutionService alone advances A03 chain state.",
+    "A07 idempotency governs command replay/conflict; browser never supplies an authoritative idempotency_key.",
+    "Raw literal/value is preserved before normalization; UNKNOWN != FALSE and CANDIDATE != EVIDENCE."
+  ],
+  "authoritative_refs": {
+    "object_registry": {
+      "artifact_id": "EVE-PR3-PRODUCTION-OBJECT-REGISTRY-v1.0",
+      "sha256": "ceaf1c011cf510cb89da6e9ee27b72ca6195fbe2cc0e2e36486b77cfe3a9f2ad"
+    },
+    "contract_set_hash_profile": {
+      "artifact_id": "EVE-PR3-CONTRACT-SET-HASH-PROFILE-v1.0",
+      "sha256": "a7ede8f2f09f63a42de5ab11e68147d45a12ea592e529b5623888dbd5bd9723d"
+    },
+    "chain_definition": {
+      "artifact_id": "EVE-PR3-CHAIN-DEFINITION-B0-B2-v1.0",
+      "sha256": "f5cec3de0b975612e075f0ca97520827dba74747368ff32a8e261f11fc081b72"
+    },
+    "handoff_binding": {
+      "artifact_id": "EVE-PR3-HANDOFF-BINDING-MANIFEST-v1.2",
+      "sha256": "4b6e1093f715dee605a3e822f4ec1f9d07dd0e1d0c860ef5144a1fdcce2e7a54"
+    },
+    "logical_persistence": {
+      "artifact_id": "EVE-PR3-AUTHORITATIVE-PERSISTENCE-MAPPING-v1.3",
+      "sha256": "b8456c962f896a0d7785300bf5b052317b19452e8bc0e0a5e1d37956b15c6c8c"
+    },
+    "identity_idempotency": {
+      "artifact_id": "EVE-PR3-IDENTITY-REVISION-IDEMPOTENCY-LEDGER-CONTRACT-v1.2",
+      "sha256": "1b9d4f3853bf9f9bf6c28de71486b96ae8e26520618de2c6bc07de10664fc0d4"
+    },
+    "B2_PR3_implementation_limit_resolution": {
+      "artifact_id": "EVE-PR3-B2-IMPLEMENTATION-LIMIT-RESOLUTION-v1.0",
+      "sha256": "5e4b9ca2afb26af8769348a8311ee6744560ea1fb05301db609d83a11a2c6540",
+      "profile_sha256": "7c795ea221de055777ed5d97be3767ca71c94e3fc217d28de98564f01499f78f",
+      "mvp_limits_sha256": "74e892238dae80e56de956b37addb48211005da5e1db39590fc7f866d03b1bf4"
+    }
+  },
+  "promoted_profile_refs": {
+    "B0": {
+      "profile_id": "EVE-B0-PR1-OPERATIONAL-PROFILE",
+      "revision": "0.1-R4",
+      "profile_sha256": "17df2c5b5ae151d692126b0b3fcc0301a9ef89dbf5ffc5683c2e32a0c968b30c",
+      "source_file_sha256": "17df2c5b5ae151d692126b0b3fcc0301a9ef89dbf5ffc5683c2e32a0c968b30c"
+    },
+    "B0.5": {
+      "profile_id": "EVE-C1-B05-RUNTIME-PROFILE-1.1-R2",
+      "revision": "1.1-R2",
+      "profile_sha256": "88e5fd88b922606cfec86bb9529a5e09708d0711dbe53763ef89463b98eb0aef",
+      "source_file_sha256": "88e5fd88b922606cfec86bb9529a5e09708d0711dbe53763ef89463b98eb0aef"
+    },
+    "B1": {
+      "profile_id": "EVE-B1-PR2-RUNTIME-PROFILE-1.1",
+      "revision": "1.1",
+      "profile_sha256": "32a6005436677be45bfadf886839c514588fadaa15511b9709acee03920b6294",
+      "source_file_sha256": "32a6005436677be45bfadf886839c514588fadaa15511b9709acee03920b6294",
+      "canonical_mapping_sha256": "22fcb748bc8e896bbf06efee4fa79dc029db91d02ce4980080709ecb45ace16f"
+    },
+    "B2": {
+      "profile_id": "EVE-C1-B2-OPERATIONAL-PROJECTION-G1",
+      "revision": "1.1",
+      "profile_sha256": "7c795ea221de055777ed5d97be3767ca71c94e3fc217d28de98564f01499f78f",
+      "source_file_sha256": "7c795ea221de055777ed5d97be3767ca71c94e3fc217d28de98564f01499f78f"
+    }
+  },
+  "api_bff": {
+    "namespace": "/api/eve/pr3/pilot/runtime",
+    "routes": [
+      {
+        "operation": "ISSUE_ACTION_TOKEN",
+        "method": "POST",
+        "path": "/api/eve/pr3/pilot/runtime/action-token",
+        "side_effect_class": "CONTROL_PLANE_ALLOCATION_NO_DOMAIN_SEMANTIC_SIDE_EFFECT",
+        "request_fields": [
+          "token_request_id",
+          "operation",
+          "chain_run_id?",
+          "object_run_id?",
+          "interaction_key?",
+          "context_revision?"
+        ],
+        "response_fields": [
+          "command_receipt",
+          "client_event_id",
+          "operation",
+          "bound_chain_run_id?",
+          "bound_object_run_id?",
+          "bound_interaction_key?",
+          "bound_context_revision?",
+          "issued_at",
+          "expires_at",
+          "action_token"
+        ],
+        "rule": "token_request_id is an opaque NON_SEMANTIC/NON_AUTHORITY transport nonce. Same token_request_id+same bound payload returns the same client_event_id/action_token; different payload conflicts. A06 CommandReceipt is written atomically with token allocation.",
+        "result": "ActionTokenResponse + CommandReceiptProjection"
+      },
+      {
+        "operation": "OPEN_OR_RESUME",
+        "method": "POST",
+        "path": "/api/eve/pr3/pilot/runtime/open-or-resume",
+        "request_fields": [
+          "action_token",
+          "client_event_id",
+          "mode=OPEN_OR_RESUME",
+          "scope_ref",
+          "activity_ref",
+          "expected_chain_definition_id",
+          "expected_chain_definition_revision"
+        ],
+        "result": "ExecutionResult",
+        "command_receipt_required": true
+      },
+      {
+        "operation": "SUBMIT_RESPONSE",
+        "method": "POST",
+        "path": "/api/eve/pr3/pilot/runtime/respond",
+        "request_fields": [
+          "action_token",
+          "client_event_id",
+          "chain_run_id",
+          "object_run_id",
+          "interaction_key",
+          "context_revision",
+          "answers[]"
+        ],
+        "result": "ExecutionResult",
+        "command_receipt_required": true
+      },
+      {
+        "operation": "SUBMIT_CORRECTION",
+        "method": "POST",
+        "path": "/api/eve/pr3/pilot/runtime/correct",
+        "request_fields": [
+          "action_token",
+          "client_event_id",
+          "chain_run_id",
+          "object_run_id",
+          "interaction_key",
+          "context_revision",
+          "corrections[]"
+        ],
+        "result": "ExecutionResult",
+        "command_receipt_required": true
+      },
+      {
+        "operation": "RESUME",
+        "method": "POST",
+        "path": "/api/eve/pr3/pilot/runtime/resume",
+        "request_fields": [
+          "action_token",
+          "client_event_id",
+          "chain_run_id",
+          "last_known_context_revision?"
+        ],
+        "result": "ExecutionResult",
+        "command_receipt_required": true
+      },
+      {
+        "operation": "READ_STATE",
+        "method": "GET",
+        "path": "/api/eve/pr3/pilot/runtime/state?chain_run_id={chain_run_id}",
+        "side_effect_class": "READ_ONLY",
+        "result": "ExecutionStateProjection",
+        "idempotency_class": "PURE_READ_EQUIVALENT_NO_COMMAND_RECEIPT_WRITE",
+        "rule": "No semantic/control write. Same authoritative state revision yields the same projection content hash/ETag; no CommandReceipt is created merely to make a read idempotent."
+      }
+    ],
+    "authentication_boundary": {
+      "logical_requirement": "BFF resolves authenticated principal and authorized Case/Participant/Role/Activity scope before ExecutionService.",
+      "browser_may_send": "transport credential only",
+      "browser_may_not_send_as_authority": [
+        "tenant_id",
+        "company_id",
+        "case membership",
+        "participant role ownership",
+        "object_key",
+        "runtime_definition_id",
+        "next object",
+        "contract_set_id"
+      ],
+      "provider_binding": "EXPLICIT_INFRASTRUCTURE_NON_DECISION__P4_MAY_IMPLEMENT_PROVIDER_WITHOUT_CHANGING_THIS_DOMAIN_CONTRACT",
+      "legacy_supabase_auth": "NOT_BASELINE_AND_NOT_ASSUMED"
+    },
+    "action_token_contract": {
+      "generation_boundary": "trusted BFF",
+      "token_request_id": "Caller/SDK generates one opaque random nonce per deliberate token request and reuses it on transport retry. It is NON_SEMANTIC/NON_AUTHORITY and exists only to make token issuance idempotent before client_event_id exists.",
+      "client_event_id_generation": "BFF allocates once only after accepting ISSUE_ACTION_TOKEN command; replay returns the original allocation.",
+      "retry": "caller reuses same token_request_id for ISSUE_ACTION_TOKEN retry; after issuance, reuses same client_event_id + action_token for command retry.",
+      "tamper_rule": "mismatch between token binding and request operation/scope/interaction => fail closed before semantic state write",
+      "A07_binding": "BFF/ExecutionService derives CommandReceipt identity/idempotency_key from operation + server-resolved command_scope_ref + command_event_id. UI cannot choose idempotency_key or domain identity.",
+      "receipt_rule": "ISSUE_ACTION_TOKEN is itself receipt-bound. OPEN_OR_RESUME and RESUME are receipt-bound before any downstream allocation/render side effect."
+    }
+  },
+  "public_interaction_contract": {
+    "envelope_fields": [
+      "chain_definition_id",
+      "chain_definition_revision",
+      "chain_run_id",
+      "object_key",
+      "object_run_id",
+      "contract_set_id",
+      "profile_id",
+      "profile_revision",
+      "profile_sha256",
+      "runtime_definition_id",
+      "definition_revision",
+      "interaction_key",
+      "local_interaction_instance_id",
+      "context_revision",
+      "bucket",
+      "presentation_event_id",
+      "presentation_state",
+      "visible_text",
+      "help_text?",
+      "ui_component",
+      "slots[]",
+      "restrictions[]",
+      "server_time"
+    ],
+    "presentation_state_enum": [
+      "TURN_READY",
+      "REENTRY_REQUIRED",
+      "DEPENDENCY_BLOCKED",
+      "CHAIN_COMPLETE"
+    ],
+    "slot_public_fields": [
+      "slot_ref",
+      "field_key",
+      "source_code",
+      "label",
+      "help_text?",
+      "control_family",
+      "answer_mode",
+      "required",
+      "max_chars?",
+      "capture_slot_kind",
+      "options?",
+      "knowledge_basis_control?"
+    ],
+    "slot_forbidden_public_authority_fields": [
+      "canonical_variable_target",
+      "branch_activation_expression",
+      "readiness_rule",
+      "next_runtime_id",
+      "next_object_key",
+      "ai_operation",
+      "evaluator_decision",
+      "evidence_admission_state"
+    ],
+    "option_contract": {
+      "public": "option_ref + option_label only",
+      "internal_bff": "option_ref -> exact canonical local-runtime value/list member",
+      "rule": "UI never translates label/id into methodological meaning. Option refs are server-issued for the current slot/context revision."
+    },
+    "slot_ref_profile": {
+      "name": "EVE-PR3-SLOT-REF-v1",
+      "server_only_preimage_fields": [
+        "object_run_id",
+        "interaction_key",
+        "runtime_definition_id",
+        "question_code",
+        "subfield_id",
+        "context_revision"
+      ],
+      "canonicalization_ref": "EVE-PR3-KEY-CANONICALIZATION-v1",
+      "rule": "slot-<first24(SHA256(canonical key preimage))>",
+      "purpose": "opaque transport identity; not a new methodological/canonical variable identity"
+    }
+  },
+  "response_command_contract": {
+    "SUBMIT_RESPONSE_fields": [
+      "action_token",
+      "client_event_id",
+      "chain_run_id",
+      "object_run_id",
+      "interaction_key",
+      "context_revision",
+      "answers"
+    ],
+    "answer_item_fields": [
+      "slot_ref",
+      "raw_value",
+      "raw_literal?",
+      "knowledge_basis?"
+    ],
+    "resolution": "BFF resolves slot_ref through server-side SlotBindingRegistry fixed at presentation time; stale/unknown slot_ref or context_revision => REENTRY_REQUIRED/fail closed.",
+    "batch_atomicity": "All answer items of one SUBMIT_RESPONSE command are one authoritative logical transaction. Any validation/idempotency conflict prevents partial semantic commit. P2 must implement this atomic boundary regardless of physical table layout.",
+    "local_runtime_idempotency_adapter": "For a multi-answer command, each promoted local runtime call receives a deterministic child key local-<first24(SHA256(parent A07 idempotency_key + LF + slot_ref + LF + expected response revision))>. Child key is adapter-only and does not replace the authoritative A07 command identity.",
+    "correction": "SUBMIT_CORRECTION requires a newly issued client_event_id; each correction item includes slot_ref, raw_value, raw_literal?, knowledge_basis?, supersedes_response_key, expected_response_revision. BFF verifies prior response belongs to same chain/object/slot and uses next revision only."
+  },
+  "execution_service_contract": {
+    "methods": [
+      "open_or_resume",
+      "submit_response",
+      "submit_correction",
+      "resume",
+      "read_state"
+    ],
+    "preflight_order": [
+      "authenticate_and_authorize_scope",
+      "resolve_A03_chain_state",
+      "resolve_A02_object_binding",
+      "verify_contract_set_and_profile_hashes",
+      "verify_A07_command_identity_and_payload_hash",
+      "load_current_context_revision",
+      "invoke_promoted_runtime_adapter",
+      "apply_A05_handoff_if_object_closes",
+      "persist_A06_logical_records_atomically",
+      "emit_next_public_interaction_contract"
+    ],
+    "next_authority": "ExecutionService resolves next object/interaction from promoted Runtime result + A03 dependency state + A05 consumer readiness. UI has no next authority.",
+    "runtime_adapter_rule": "Reference runtimes may be wrapped/transduced, but production adapter must preserve their promoted semantic/profile behavior and cannot retain SQLite as authoritative state.",
+    "handoff_rule": "On object closure, build exact A05 MaterialPackage, write RELEASE; initialize/resolve consumer ObjectRun; write RECEIPT; only after consumer accepts exact package write CONSUMPTION. No single event substitutes another.",
+    "transaction_boundary": "Command semantic commit and its audit/budget/handoff consequences are all-or-nothing at A06 logical level; provider AI calls may be external but admission/state commit remains transactional/idempotent."
+  },
+  "logical_persistence_binding": {
+    "A06_ref": "EVE-PR3-AUTHORITATIVE-PERSISTENCE-MAPPING-v1.3",
+    "operation_write_sets": {
+      "OPEN_OR_RESUME": [
+        "command_receipt",
+        "chain_run",
+        "object_run",
+        "interaction_instance",
+        "presentation_event",
+        "audit_event",
+        "pilot_observation"
+      ],
+      "SUBMIT_RESPONSE": [
+        "command_receipt",
+        "response_event",
+        "evidence_item",
+        "canonical_variable_record",
+        "candidate_record",
+        "branch_decision",
+        "budget_ledger",
+        "gap_record",
+        "readiness_decision",
+        "interaction_instance",
+        "presentation_event",
+        "audit_event",
+        "pilot_observation",
+        "material_package",
+        "handoff_event"
+      ],
+      "SUBMIT_CORRECTION": [
+        "command_receipt",
+        "response_event",
+        "evidence_item",
+        "canonical_variable_record",
+        "candidate_record",
+        "branch_decision",
+        "gap_record",
+        "readiness_decision",
+        "interaction_instance",
+        "presentation_event",
+        "audit_event",
+        "pilot_observation",
+        "material_package",
+        "handoff_event"
+      ],
+      "RESUME": [
+        "command_receipt",
+        "interaction_instance",
+        "presentation_event",
+        "audit_event",
+        "pilot_observation"
+      ],
+      "INTERNAL_AI": [
+        "command_receipt",
+        "ai_operation",
+        "ai_proposal",
+        "evaluation_record",
+        "admission_decision",
+        "audit_event",
+        "pilot_observation"
+      ],
+      "HUMAN_EXCEPTION": [
+        "command_receipt",
+        "human_decision",
+        "audit_event",
+        "pilot_observation"
+      ],
+      "HANDOFF": [
+        "command_receipt",
+        "material_package",
+        "handoff_event",
+        "audit_event",
+        "outbox_event"
+      ],
+      "ISSUE_ACTION_TOKEN": [
+        "command_receipt",
+        "audit_event"
+      ]
+    },
+    "physical_storage": "UNDECIDED_P2",
+    "rule": "A04 references A06 v1.3 logical record/field names only. Every side-effecting command is CommandReceipt-bound. No route, adapter or UI component may import a legacy Supabase table name as a production dependency.",
+    "read_only_operation_equivalent": {
+      "READ_STATE": "No CommandReceipt because there is no write. Idempotency is demonstrated by pure-read semantics + authoritative projection revision/content hash."
+    }
+  },
+  "block_adapters": {
+    "B0": {
+      "runtime_policy": "profile-authorized AI only; no browser model calls",
+      "interaction_contract_source": "promoted B0 runtime interaction_contract()",
+      "interactions": [
+        {
+          "runtime_definition_id": "B0-Q01",
+          "definition_revision": "0.1-R2",
+          "bucket": "base_40",
+          "activation_rule_ref": "BR-Q01",
+          "max_user_rounds": 5,
+          "fields": [
+            {
+              "source_code": "0.1",
+              "canonical_variable_output": "activity_name_user_confirmed",
+              "ai_mode": "AI_DEFAULT_CONTEXTUAL_RENDER",
+              "record_class": "captured_user_evidence",
+              "field_type": "generated_confirmed",
+              "answer_mode": "confirmar / corregir",
+              "visibility_rule": "Siempre",
+              "required_rule": "Obligatoria",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            },
+            {
+              "source_code": "0.1a",
+              "canonical_variable_output": "activity_name_user_confirmed",
+              "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+              "record_class": "captured_user_evidence",
+              "field_type": "free_text",
+              "answer_mode": "libre guiada",
+              "visibility_rule": "Solo si el usuario corrige, si la confianza semántica es baja o si block0_entry_mode exige reconstrucción",
+              "required_rule": "Obligatoria si 0.1 no se confirma, si la estructura llegó parcial o si la asistencia previa falló después de dos intentos",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            },
+            {
+              "source_code": "0.D",
+              "canonical_variable_output": "activity_semantic_completion / semantic_gap_unresolved",
+              "ai_mode": "AI_CONDITIONAL_CLARIFICATION",
+              "record_class": "clarification",
+              "field_type": "clarification",
+              "answer_mode": "aclarada",
+              "visibility_rule": "Solo por semantic_component_gap_flag o partial_structure_entry_mode",
+              "required_rule": "Obligatoria si falta componente semántico crítico y todavía puede completarse sin forzar una inferencia",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            },
+            {
+              "source_code": "0.A",
+              "canonical_variable_output": "activity_name_disambiguation",
+              "ai_mode": "AI_CONDITIONAL_CLARIFICATION",
+              "record_class": "clarification",
+              "field_type": "clarification",
+              "answer_mode": "aclarada",
+              "visibility_rule": "Solo por flag de genericidad",
+              "required_rule": "Obligatoria si hay genericidad",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            },
+            {
+              "source_code": "0.C",
+              "canonical_variable_output": "activity_scale_adjustment",
+              "ai_mode": "AI_CONDITIONAL_CLARIFICATION",
+              "record_class": "clarification",
+              "field_type": "clarification",
+              "answer_mode": "aclarada",
+              "visibility_rule": "Solo por flag de escala",
+              "required_rule": "Obligatoria si la escala no es recorrible",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            }
+          ],
+          "runtime_contract_source": "B0.interaction_contract()"
+        },
+        {
+          "runtime_definition_id": "B0-Q02",
+          "definition_revision": "0.1-R2",
+          "bucket": "base_40",
+          "activation_rule_ref": "BR-Q02",
+          "max_user_rounds": 1,
+          "fields": [
+            {
+              "source_code": "0.8",
+              "canonical_variable_output": "activity_variation_mode / scene_variation_mode",
+              "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+              "record_class": "captured_user_evidence",
+              "field_type": "single_choice",
+              "answer_mode": "cerrada",
+              "visibility_rule": "Siempre",
+              "required_rule": "Obligatoria",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            }
+          ],
+          "runtime_contract_source": "B0.interaction_contract()"
+        },
+        {
+          "runtime_definition_id": "B0-Q03",
+          "definition_revision": "0.1-R2",
+          "bucket": "base_40",
+          "activation_rule_ref": "BR-Q03",
+          "max_user_rounds": 3,
+          "fields": [
+            {
+              "source_code": "0.3",
+              "canonical_variable_output": "activity_frequency_base / scene_frequency_base",
+              "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+              "record_class": "captured_user_evidence",
+              "field_type": "single_choice",
+              "answer_mode": "cerrada",
+              "visibility_rule": "Siempre",
+              "required_rule": "Obligatoria",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            },
+            {
+              "source_code": "0.4",
+              "canonical_variable_output": "activity_typical_context / scene_typical_context",
+              "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+              "record_class": "captured_user_evidence",
+              "field_type": "free_text",
+              "answer_mode": "libre",
+              "visibility_rule": "Siempre",
+              "required_rule": "Obligatoria",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            },
+            {
+              "source_code": "0.5_actor_scope",
+              "canonical_variable_output": "activity_primary_actor_scope / scene_primary_actor_scope",
+              "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+              "record_class": "captured_user_evidence",
+              "field_type": "hybrid_choice_text",
+              "answer_mode": "híbrida",
+              "visibility_rule": "Siempre",
+              "required_rule": "Obligatoria",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            }
+          ],
+          "runtime_contract_source": "B0.interaction_contract()"
+        },
+        {
+          "runtime_definition_id": "C01",
+          "definition_revision": "0.1-R2",
+          "bucket": "causal_20",
+          "activation_rule_ref": "BR-C01",
+          "max_user_rounds": 2,
+          "fields": [
+            {
+              "source_code": "0.3a",
+              "canonical_variable_output": "activity_frequency_pattern_hint",
+              "ai_mode": "AI_CONDITIONAL_CLARIFICATION",
+              "record_class": "captured_user_evidence",
+              "field_type": "hybrid_choice_text",
+              "answer_mode": "híbrida",
+              "visibility_rule": "Solo si aplica",
+              "required_rule": "Obligatoria si 0.3 indica variable",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            },
+            {
+              "source_code": "0.8a",
+              "canonical_variable_output": "activity_exception_signature / scene_exception_signature",
+              "ai_mode": "AI_CONDITIONAL_CLARIFICATION",
+              "record_class": "captured_user_evidence",
+              "field_type": "free_text",
+              "answer_mode": "libre",
+              "visibility_rule": "Solo si aplica",
+              "required_rule": "Obligatoria si 0.8 indica variación relevante o alta",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            }
+          ],
+          "runtime_contract_source": "B0.interaction_contract()"
+        },
+        {
+          "runtime_definition_id": "B0-Q04",
+          "definition_revision": "0.1-R2",
+          "bucket": "base_40",
+          "activation_rule_ref": "BR-Q04",
+          "max_user_rounds": 2,
+          "fields": [
+            {
+              "source_code": "0.6",
+              "canonical_variable_output": "activity_start_condition_hint / scene_boundary_start_hint",
+              "ai_mode": "AI_DEFAULT_CONTEXTUAL_RENDER",
+              "record_class": "captured_user_evidence",
+              "field_type": "free_text / generated_confirmed",
+              "answer_mode": "libre o confirmación editable",
+              "visibility_rule": "Siempre",
+              "required_rule": "Obligatoria",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            },
+            {
+              "source_code": "0.B",
+              "canonical_variable_output": "activity_boundary_clarification",
+              "ai_mode": "AI_CONDITIONAL_CLARIFICATION",
+              "record_class": "clarification",
+              "field_type": "clarification",
+              "answer_mode": "aclarada",
+              "visibility_rule": "Solo por flag de frontera",
+              "required_rule": "Obligatoria si hay frontera difusa",
+              "ui_binding": "SERVER_SLOT_REF_ONLY"
+            }
+          ],
+          "runtime_contract_source": "B0.interaction_contract()"
+        }
+      ],
+      "response_adapter": "slot_ref -> exact question_code; option_ref -> exact canonical visible option; free text preserved literally; hybrid choice+text constructed server-side exactly as promoted B0 visible input contract; knowledge_basis validated against current node.",
+      "server_only": [
+        "0.2 canonical derivation",
+        "0.7 canonical derivation",
+        "branch evaluation",
+        "readiness",
+        "AI admission/review",
+        "scene_anchor_bundle release"
+      ]
+    },
+    "B0.5": {
+      "runtime_policy": "NO_AI_ZERO_MODEL_CALLS",
+      "runtime_ids": {
+        "base_ids": [
+          "B05-Q05",
+          "B05-Q06",
+          "B05-Q07"
+        ],
+        "causal_ids": [
+          "C02"
+        ],
+        "new_runtime_ids_allowed": false,
+        "global_budget": "40+20 unchanged",
+        "B05_base_count": 3,
+        "B05_causal_identity_count": 1
+      },
+      "node_bindings": [
+        {
+          "source_code": "0.5.1",
+          "runtime_definition_id": "B05-Q05",
+          "budget_bucket": "base_40",
+          "nature": "visible_capture",
+          "subfields": [
+            "reported_primary_beneficiary",
+            "beneficiary_knowledge_basis"
+          ],
+          "variables": [
+            "scene_reported_primary_beneficiary",
+            "scene_beneficiary_knowledge_basis"
+          ],
+          "knowledge_basis_contract": "CAPTURED_MICROCONTROL",
+          "knowledge_basis_allowed": [
+            "direct_observation",
+            "role_based_knowledge",
+            "best_estimate",
+            "unconfirmed"
+          ],
+          "assistance_mode": "NO_AI",
+          "branching": "always; conditional free-text identity specification stays inside B05-Q05",
+          "reentry": "same question_code revision; no new Runtime ID",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.1a",
+          "runtime_definition_id": "B05-Q05",
+          "budget_bucket": "base_40",
+          "nature": "visible_capture",
+          "subfields": [
+            "reported_primary_affected",
+            "affected_knowledge_basis"
+          ],
+          "variables": [
+            "scene_reported_primary_affected",
+            "scene_affected_knowledge_basis"
+          ],
+          "knowledge_basis_contract": "CAPTURED_MICROCONTROL",
+          "knowledge_basis_allowed": [
+            "direct_observation",
+            "role_based_knowledge",
+            "best_estimate",
+            "unconfirmed"
+          ],
+          "assistance_mode": "NO_AI",
+          "branching": "after capture derive 0.5.1_rel; different entities alone is not contradiction",
+          "reentry": "same question_code revision; no new Runtime ID",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.1_rel",
+          "runtime_definition_id": "B05-Q05",
+          "budget_bucket": "internal_no_count",
+          "nature": "internal_derivation",
+          "subfields": [
+            "__internal_relation__"
+          ],
+          "variables": [
+            "scene_beneficiary_affected_relation"
+          ],
+          "knowledge_basis_contract": "NOT_APPLICABLE",
+          "knowledge_basis_allowed": [],
+          "assistance_mode": "DETERMINISTIC",
+          "branching": "0.5.1 + 0.5.1a → same_entity | different_entities | unresolved_relation",
+          "reentry": "0.5.A if unresolved and required; otherwise explicit gap",
+          "ui_exposure": "NO_SLOT_INTERNAL_DERIVATION"
+        },
+        {
+          "source_code": "0.5.1b",
+          "runtime_definition_id": "C02",
+          "budget_bucket": "causal_20",
+          "nature": "clarification",
+          "subfields": [
+            "benefit_damage_distribution_note"
+          ],
+          "variables": [
+            "benefit_damage_distribution_note"
+          ],
+          "knowledge_basis_contract": "HERITED_REFINABLE",
+          "knowledge_basis_allowed": [
+            "direct_observation",
+            "role_based_knowledge",
+            "best_estimate",
+            "unconfirmed"
+          ],
+          "assistance_mode": "NO_AI",
+          "branching": "only if benefit_damage_asymmetry_needs_detail=true",
+          "reentry": "C02 exact branch; source refs retained",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.1c",
+          "runtime_definition_id": "B05-Q05",
+          "budget_bucket": "base_40",
+          "nature": "visible_capture",
+          "subfields": [
+            "beneficiary_enabled_outcome"
+          ],
+          "variables": [
+            "scene_beneficiary_enabled_outcome"
+          ],
+          "knowledge_basis_contract": "HERITED_REFINABLE",
+          "knowledge_basis_allowed": [
+            "direct_observation",
+            "role_based_knowledge",
+            "best_estimate",
+            "unconfirmed"
+          ],
+          "assistance_mode": "NO_AI",
+          "branching": "if outcome weak, set beneficiary_outcome_weak_flag; C02 may reenter same question_code",
+          "reentry": "C02 correction/reentry; enabled_outcome never maps to scene_beneficiary_need",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.1d",
+          "runtime_definition_id": "B05-Q05",
+          "budget_bucket": "base_40",
+          "nature": "visible_capture",
+          "subfields": [
+            "value_contribution_mode"
+          ],
+          "variables": [
+            "scene_value_contribution_mode",
+            "scene_primary_support_character"
+          ],
+          "knowledge_basis_contract": "INTERNAL_UNCERTAINTY_OPTION",
+          "knowledge_basis_allowed": [],
+          "assistance_mode": "NO_AI",
+          "branching": "No estoy seguro → contribution_mode_uncertain_flag=true; C02 may reenter same code",
+          "reentry": "C02 correction/reentry",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.2",
+          "runtime_definition_id": "B05-Q06",
+          "budget_bucket": "base_40",
+          "nature": "visible_capture",
+          "subfields": [
+            "macro_process_label",
+            "process_knowledge_basis"
+          ],
+          "variables": [
+            "scene_macro_process_label",
+            "process_knowledge_basis"
+          ],
+          "knowledge_basis_contract": "CAPTURED_MICROCONTROL",
+          "knowledge_basis_allowed": [
+            "direct_observation",
+            "role_based_knowledge",
+            "best_estimate",
+            "unconfirmed"
+          ],
+          "assistance_mode": "NO_AI",
+          "branching": "local/vague response → 0.5.B inside B05-Q06 finite envelope; unconfirmed remains gap",
+          "reentry": "0.5.B within B05-Q06; no new slot",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.3",
+          "runtime_definition_id": "B05-Q07",
+          "budget_bucket": "base_40",
+          "nature": "visible_capture",
+          "subfields": [
+            "enabled_next_step",
+            "next_step_knowledge_basis"
+          ],
+          "variables": [
+            "scene_enabled_next_step",
+            "next_step_knowledge_basis"
+          ],
+          "knowledge_basis_contract": "CAPTURED_MICROCONTROL",
+          "knowledge_basis_allowed": [
+            "direct_observation",
+            "role_based_knowledge",
+            "best_estimate",
+            "unconfirmed"
+          ],
+          "assistance_mode": "NO_AI",
+          "branching": "if answer repeats own task/output, set local_handoff_instead_of_next_step_flag; C02→0.5.C",
+          "reentry": "C02→0.5.C; no new Runtime ID",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.4",
+          "runtime_definition_id": "B05-Q07",
+          "budget_bucket": "base_40",
+          "nature": "visible_capture",
+          "subfields": [
+            "priority_source"
+          ],
+          "variables": [
+            "scene_priority_source"
+          ],
+          "knowledge_basis_contract": "NOT_APPLICABLE",
+          "knowledge_basis_allowed": [],
+          "assistance_mode": "NO_AI",
+          "branching": "always after 0.5.3; no C02 curiosity trigger",
+          "reentry": "same question_code revision if corrected",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.4a",
+          "runtime_definition_id": "B05-Q07",
+          "budget_bucket": "base_40",
+          "nature": "visible_capture",
+          "subfields": [
+            "priority_displacement_source"
+          ],
+          "variables": [
+            "scene_priority_displacement_source",
+            "scene_priority_pattern"
+          ],
+          "knowledge_basis_contract": "NOT_APPLICABLE",
+          "knowledge_basis_allowed": [],
+          "assistance_mode": "NO_AI",
+          "branching": "compare with 0.5.4 deterministically; no diagnosis",
+          "reentry": "same question_code revision if corrected",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.A",
+          "runtime_definition_id": "C02",
+          "budget_bucket": "causal_20",
+          "nature": "clarification",
+          "subfields": [
+            "clarified_beneficiary_affected_relation"
+          ],
+          "variables": [
+            "scene_beneficiary_affected_relation"
+          ],
+          "knowledge_basis_contract": "INTERNAL_UNCERTAINTY_OPTION",
+          "knowledge_basis_allowed": [],
+          "assistance_mode": "NO_AI",
+          "branching": "only if 0.5.1_rel=unresolved_relation and relation is needed; No lo puedo confirmar keeps unresolved",
+          "reentry": "C02 exact branch",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.B",
+          "runtime_definition_id": "B05-Q06",
+          "budget_bucket": "base_40_same_envelope",
+          "nature": "clarification",
+          "subfields": [
+            "macro_process_label_clarification"
+          ],
+          "variables": [
+            "scene_macro_process_label"
+          ],
+          "knowledge_basis_contract": "HERITED_REFINABLE",
+          "knowledge_basis_allowed": [
+            "direct_observation",
+            "role_based_knowledge",
+            "best_estimate",
+            "unconfirmed"
+          ],
+          "assistance_mode": "NO_AI",
+          "branching": "only if 0.5.2 local/vague/uncertain",
+          "reentry": "same B05-Q06 interaction instance/revision; no base charge added",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        },
+        {
+          "source_code": "0.5.C",
+          "runtime_definition_id": "C02",
+          "budget_bucket": "causal_20",
+          "nature": "clarification",
+          "subfields": [
+            "enabled_next_step_clarification"
+          ],
+          "variables": [
+            "scene_enabled_next_step"
+          ],
+          "knowledge_basis_contract": "HERITED_REFINABLE",
+          "knowledge_basis_allowed": [
+            "direct_observation",
+            "role_based_knowledge",
+            "best_estimate",
+            "unconfirmed"
+          ],
+          "assistance_mode": "NO_AI",
+          "branching": "only if local_handoff_instead_of_next_step_flag=true",
+          "reentry": "C02 exact branch",
+          "ui_exposure": "SERVER_ACTIVATED_SLOT"
+        }
+      ],
+      "server_only": [
+        "0.5.1_rel internal derivation",
+        "frame_control_policy",
+        "C02 branch selection",
+        "readiness/confidence",
+        "B05_TO_B1 package release"
+      ],
+      "repo_projection_candidate": {
+        "file": "src/components/eve-local-canvas/b05-runtime-binding.ts",
+        "sha256": "eea56dde5f61b856783d311521a7641f90ca7537df688f6b5599c08946030f2e",
+        "disposition": "REUSABLE_AS_UI_PROJECTION_ADAPTER_ONLY_AFTER_BOUND_TO_A04_PUBLIC_CONTRACT; no legacy BFF/Supabase dependency"
+      }
+    },
+    "B1": {
+      "runtime_policy": "NO_GENERATIVE_AI_DETERMINISTIC_ZERO_MODEL_CALLS",
+      "ui_to_runtime_field_bindings": [
+        {
+          "source_code": "1.1",
+          "runtime_definition_id": "B1-Q08",
+          "transport_target": "trigger_source",
+          "runtime_value_rule": "SERVER_OPTION_REF_TO_CANONICAL_LABEL",
+          "canonical_output": "trigger_source",
+          "capture": "user"
+        },
+        {
+          "source_code": "1.5",
+          "runtime_definition_id": "B1-Q08",
+          "transport_target": "trigger_channel",
+          "runtime_value_rule": "SERVER_OPTION_REFS_TO_CANONICAL_LABEL_LIST; complementary text -> trigger_channel_other",
+          "canonical_output": "trigger_channel",
+          "capture": "user"
+        },
+        {
+          "source_code": "1.2",
+          "runtime_definition_id": "B1-Q09",
+          "transport_target": "trigger_type",
+          "runtime_value_rule": "SERVER_OPTION_REF_TO_CANONICAL_LABEL",
+          "canonical_output": "trigger_type",
+          "capture": "user"
+        },
+        {
+          "source_code": "1.3",
+          "runtime_definition_id": "B1-Q09",
+          "transport_target": "trigger_clarity",
+          "runtime_value_rule": "SERVER_OPTION_REF_TO_CANONICAL_LABEL",
+          "canonical_output": "trigger_clarity",
+          "capture": "user"
+        },
+        {
+          "source_code": "1.4",
+          "runtime_definition_id": "B1-Q10",
+          "transport_target": "trigger_frequency",
+          "runtime_value_rule": "SERVER_OPTION_REF_TO_CANONICAL_LABEL",
+          "canonical_output": "trigger_frequency",
+          "capture": "user"
+        },
+        {
+          "source_code": "1.6",
+          "runtime_definition_id": "B1-Q11",
+          "transport_target": "trigger_preconditions",
+          "runtime_value_rule": "LITERAL_STRING_MAX_150",
+          "canonical_output": "trigger_preconditions",
+          "capture": "user"
+        },
+        {
+          "source_code": "1.7",
+          "runtime_definition_id": "B1-Q11",
+          "transport_target": "trigger_exception_choice",
+          "runtime_value_rule": "SERVER_OPTION_REF_TO_CANONICAL_LABEL",
+          "canonical_output": "trigger_exception_exists",
+          "capture": "user_choice_then_deterministic_derivation"
+        },
+        {
+          "source_code": "1.8",
+          "runtime_definition_id": "C03",
+          "transport_target": "trigger_exception_description",
+          "runtime_value_rule": "LITERAL_STRING_MAX_200",
+          "canonical_output": "trigger_exception_description",
+          "capture": "conditional_user"
+        },
+        {
+          "source_code": "1.A",
+          "runtime_definition_id": "C03",
+          "transport_target": "trigger_ambiguity_resolution_note",
+          "runtime_value_rule": "LITERAL_STRING",
+          "canonical_output": "trigger_ambiguity_resolution_note",
+          "capture": "conditional_user"
+        },
+        {
+          "source_code": "1.B",
+          "runtime_definition_id": "C03",
+          "transport_target": "trigger_exception_first_symptom",
+          "runtime_value_rule": "LITERAL_STRING",
+          "canonical_output": "trigger_exception_first_symptom",
+          "capture": "conditional_user"
+        },
+        {
+          "source_code": "1.C",
+          "runtime_definition_id": "C03",
+          "transport_target": "trigger_source_hierarchy_note",
+          "runtime_value_rule": "LITERAL_STRING",
+          "canonical_output": "trigger_source_hierarchy_note",
+          "capture": "conditional_user_multi_subfield"
+        },
+        {
+          "source_code": "1.C",
+          "runtime_definition_id": "C03",
+          "transport_target": "trigger_dominant_source",
+          "runtime_value_rule": "SERVER_OPTION_REF_TO_CANONICAL_NON_COMBINATION_SOURCE_LABEL",
+          "canonical_output": "trigger_dominant_source",
+          "capture": "conditional_user_multi_subfield"
+        },
+        {
+          "source_code": "1.C",
+          "runtime_definition_id": "C03",
+          "transport_target": "trigger_dominant_channel",
+          "runtime_value_rule": "SERVER_OPTION_REF_TO_CANONICAL_DECLARED_CHANNEL_LABEL",
+          "canonical_output": "trigger_dominant_channel",
+          "capture": "conditional_user_multi_subfield"
+        }
+      ],
+      "server_only_derivations": [
+        {
+          "source": "1.4 + 1.2",
+          "target": "trigger_pattern",
+          "rule_ref": "B1-PATTERN-1.1"
+        },
+        {
+          "source": "1.7",
+          "target": "trigger_exception_exists",
+          "rule": "deterministic from trigger_exception_choice"
+        },
+        {
+          "source": "1.1",
+          "target": "trigger_source_normalized",
+          "rule_ref": "B1-NORM-IDENTITY-ENUMS-1.1"
+        },
+        {
+          "source": "1.5",
+          "target": "trigger_channel_normalized",
+          "rule_ref": "B1-NORM-IDENTITY-ENUMS-1.1"
+        },
+        {
+          "source": "B1 internal",
+          "target": "scene_trigger_confidence",
+          "rule_ref": "B1-CONFIDENCE-STRUCTURAL-1.1"
+        },
+        {
+          "source": "B1 internal",
+          "target": "scene_trigger_readiness",
+          "rule": "profile structural closure"
+        },
+        {
+          "source": "B1 consistency rules",
+          "target": "scene_consistency_flags",
+          "rule": "profile consistency_flag_rules"
+        }
+      ],
+      "C03_activation": "NO_AI profile does not semantically judge whether 1.6 compensates ambiguity; Ambiguo/Muy ambiguo requires 1.A fail-closed | exception=true requires 1.8; 1.B is required only if 1.8 is empty or exactly matches the governed low-information proxy set | source=combination OR multiple channels requires all three 1.C outputs: hierarchy note + dominant source + dominant channel",
+      "critical_note": "1.C expands to three distinct server-bound subfields; current visual fixture has a single 1.C visual concept and must not collapse these three runtime targets.",
+      "option_mapping": "Existing visual option IDs are display-local only. Runtime-bound UI receives server option_ref tokens; BFF resolves each token to the exact canonical Spanish enum label expected by promoted B1 runtime.",
+      "repo_status": "B1 runtime-bound adapter ABSENT; P4 must implement from this matrix, analogous to B05 binding, without adding branching logic."
+    },
+    "B2": {
+      "runtime_policy": "EXACT_MODE_MAP_SERVER_SIDE_ONLY",
+      "mode_map": {
+        "AI_DEFAULT_CONTEXTUAL_RENDER": 1,
+        "AI_OPTIONAL_CONTEXTUAL_RENDER": 18,
+        "AI_CONDITIONAL_CLARIFICATION": 3,
+        "DETERMINISTIC": 4
+      },
+      "node_bindings": [
+        {
+          "source_code": "2.1",
+          "runtime_definition_id": "B2-Q12",
+          "bucket": "base_40",
+          "canonical_variable_output": "transformation_primary_dimensions",
+          "ai_mode": "AI_DEFAULT_CONTEXTUAL_RENDER",
+          "answer_mode": "multi_choice",
+          "field_type": "multi_choice",
+          "activation_rule": "N/A",
+          "visibility_rule": "Siempre visible al iniciar el bloque.",
+          "fallback_profile_ref": "B2-FB-2.1-NOENTITY-P3.2 · NO ENTITY + MODEL UNAVAILABLE: mostrar canonical_question_text 2.1 únicamente; ocultar canonical_help_text y canonical_options; capturar respuesta narrativa literal en B2-Q12; no cerrar transformation_primary_dimensions sin evidencia/confirmación competente; unresolved/reentry permitido.",
+          "runtime_display_contract": "Operación normal IA admitida: mostrar sólo AI_rendered_question. Fallback P3.2: si NO ENTITY + MODEL UNAVAILABLE/schema invalid/review fail, mostrar únicamente canonical_question_text 2.1; canonical_help_text y canonical_options permanecen ocultos en ese estado. La respuesta libre se conserva como evidencia narrativa dentro de B2-Q12 y no cierra por sí sola transformation_primary_dimensions.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.1a",
+          "runtime_definition_id": "B2-Q12",
+          "bucket": "base_40",
+          "canonical_variable_output": "objeto_tipo",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "2.1 incluye Objeto.",
+          "visibility_rule": "Visible solo si 2.1 incluye Objeto.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.1b",
+          "runtime_definition_id": "B2-Q12",
+          "bucket": "base_40",
+          "canonical_variable_output": "sujeto_tipo",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "2.1 incluye Sujeto.",
+          "visibility_rule": "Visible solo si 2.1 incluye Sujeto.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.1c",
+          "runtime_definition_id": "B2-Q12",
+          "bucket": "base_40",
+          "canonical_variable_output": "accion_tipo",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "2.1 incluye Acción.",
+          "visibility_rule": "Visible solo si 2.1 incluye Acción.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.1_AB_Relacion",
+          "runtime_definition_id": "C04",
+          "bucket": "causal_20",
+          "canonical_variable_output": "dimension_dominante_AB",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "2.1 = Objeto + Sujeto y 2.1a/2.1b respondidas.",
+          "visibility_rule": "Visible si 2.1 = Objeto + Sujeto.",
+          "fallback_profile_ref": "B2-FB-K2-HOLD-P3.2::2.1_AB_Relacion · static_canonical_fallback_authorized=false. Model unavailable/schema invalid/review fail/unknown → preserve factual evidence, target unresolved/reentry; no classification/dominance/ranking prompt as fallback.",
+          "runtime_display_contract": "Operación IA admitida: mostrar sólo AI_rendered_question contextual. P3.2: la pregunta/ayuda/opciones canónicas de K2 permanecen como ancla normativa y NO están autorizadas como fallback estático cuando IA/render/revisión no están disponibles. En ese caso aplicar B2-FB-K2-HOLD-P3.2: conservar evidencia factual y target unresolved/reentry.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.1_AC_Relacion",
+          "runtime_definition_id": "C04",
+          "bucket": "causal_20",
+          "canonical_variable_output": "dimension_dominante_AC",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "2.1 = Objeto + Acción y 2.1a/2.1c respondidas.",
+          "visibility_rule": "Visible si 2.1 = Objeto + Acción.",
+          "fallback_profile_ref": "B2-FB-K2-HOLD-P3.2::2.1_AC_Relacion · static_canonical_fallback_authorized=false. Model unavailable/schema invalid/review fail/unknown → preserve factual evidence, target unresolved/reentry; no classification/dominance/ranking prompt as fallback.",
+          "runtime_display_contract": "Operación IA admitida: mostrar sólo AI_rendered_question contextual. P3.2: la pregunta/ayuda/opciones canónicas de K2 permanecen como ancla normativa y NO están autorizadas como fallback estático cuando IA/render/revisión no están disponibles. En ese caso aplicar B2-FB-K2-HOLD-P3.2: conservar evidencia factual y target unresolved/reentry.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.1_BC_Relacion",
+          "runtime_definition_id": "C04",
+          "bucket": "causal_20",
+          "canonical_variable_output": "dimension_dominante_BC",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "2.1 = Sujeto + Acción y 2.1b/2.1c respondidas.",
+          "visibility_rule": "Visible si 2.1 = Sujeto + Acción.",
+          "fallback_profile_ref": "B2-FB-K2-HOLD-P3.2::2.1_BC_Relacion · static_canonical_fallback_authorized=false. Model unavailable/schema invalid/review fail/unknown → preserve factual evidence, target unresolved/reentry; no classification/dominance/ranking prompt as fallback.",
+          "runtime_display_contract": "Operación IA admitida: mostrar sólo AI_rendered_question contextual. P3.2: la pregunta/ayuda/opciones canónicas de K2 permanecen como ancla normativa y NO están autorizadas como fallback estático cuando IA/render/revisión no están disponibles. En ese caso aplicar B2-FB-K2-HOLD-P3.2: conservar evidencia factual y target unresolved/reentry.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.1_ABC_Relacion",
+          "runtime_definition_id": "C04",
+          "bucket": "causal_20",
+          "canonical_variable_output": "dimension_dominante_ABC",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "2.1 = Objeto + Sujeto + Acción y 2.1a/2.1b/2.1c respondidas.",
+          "visibility_rule": "Visible si 2.1 = Objeto + Sujeto + Acción.",
+          "fallback_profile_ref": "B2-FB-K2-HOLD-P3.2::2.1_ABC_Relacion · static_canonical_fallback_authorized=false. Model unavailable/schema invalid/review fail/unknown → preserve factual evidence, target unresolved/reentry; no classification/dominance/ranking prompt as fallback.",
+          "runtime_display_contract": "Operación IA admitida: mostrar sólo AI_rendered_question contextual. P3.2: la pregunta/ayuda/opciones canónicas de K2 permanecen como ancla normativa y NO están autorizadas como fallback estático cuando IA/render/revisión no están disponibles. En ese caso aplicar B2-FB-K2-HOLD-P3.2: conservar evidencia factual y target unresolved/reentry.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.1_ABC_Prioridad",
+          "runtime_definition_id": "C04",
+          "bucket": "causal_20",
+          "canonical_variable_output": "ranking_dimensiones",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "ranking",
+          "field_type": "ranking",
+          "activation_rule": "2.1 = Objeto + Sujeto + Acción y 2.1_ABC_Relacion respondida.",
+          "visibility_rule": "Visible solo en combinación triple, después de 2.1_ABC_Relacion.",
+          "fallback_profile_ref": "B2-FB-K2-HOLD-P3.2::2.1_ABC_Prioridad · static_canonical_fallback_authorized=false. Model unavailable/schema invalid/review fail/unknown → preserve factual evidence, target unresolved/reentry; no classification/dominance/ranking prompt as fallback.",
+          "runtime_display_contract": "Operación IA admitida: mostrar sólo AI_rendered_question contextual. P3.2: la pregunta/ayuda/opciones canónicas de K2 permanecen como ancla normativa y NO están autorizadas como fallback estático cuando IA/render/revisión no están disponibles. En ese caso aplicar B2-FB-K2-HOLD-P3.2: conservar evidencia factual y target unresolved/reentry.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.2_obj",
+          "runtime_definition_id": "B2-Q13",
+          "bucket": "base_40",
+          "canonical_variable_output": "atributos_objeto_cambian",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "multi_choice",
+          "field_type": "multi_choice",
+          "activation_rule": "2.1 incluye Objeto y 2.1a ya identificó objeto_tipo.",
+          "visibility_rule": "Visible solo si la dimensión correspondiente está presente en 2.1.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.2_suj",
+          "runtime_definition_id": "B2-Q13",
+          "bucket": "base_40",
+          "canonical_variable_output": "atributos_sujeto_cambian",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "multi_choice",
+          "field_type": "multi_choice",
+          "activation_rule": "2.1 incluye Sujeto y 2.1b ya identificó sujeto_tipo.",
+          "visibility_rule": "Visible solo si la dimensión correspondiente está presente en 2.1.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.2_acc",
+          "runtime_definition_id": "B2-Q13",
+          "bucket": "base_40",
+          "canonical_variable_output": "atributos_accion_cambian",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "multi_choice",
+          "field_type": "multi_choice",
+          "activation_rule": "2.1 incluye Acción y 2.1c ya identificó accion_tipo.",
+          "visibility_rule": "Visible solo si la dimensión correspondiente está presente en 2.1.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.3",
+          "runtime_definition_id": "B2-Q16",
+          "bucket": "base_40",
+          "canonical_variable_output": "transformation_magnitude",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "Se respondieron las subpreguntas 2.2 correspondientes a la dimensión activa.",
+          "visibility_rule": "Siempre visible una vez respondidas las preguntas de atributos relevantes.",
+          "fallback_profile_ref": "B2-FB-REFERENT-GATED-P3.2::2.3 · canonical fallback presentable only if B2-ADMISSIBLE-REFERENT-P3.2 = true. false/unknown → no question/help/options; target deferred/unresolved; independent captures may continue.",
+          "runtime_display_contract": "La pregunta canónica sólo puede mostrarse si B2-ADMISSIBLE-REFERENT-P3.2=true para la intención y observation_context_revision vigentes. El referente se conserva por source_ref/literal; un ai_proposed_candidate no satisface la precondición. false/unknown → no mostrar pregunta/help/options y conservar target deferred/unresolved.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.4a",
+          "runtime_definition_id": "B2-Q14",
+          "bucket": "base_40",
+          "canonical_variable_output": "transformation_causality_action",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "N/A",
+          "visibility_rule": "Siempre visible.",
+          "fallback_profile_ref": "B2-FB-REFERENT-GATED-P3.2::2.4a · canonical fallback presentable only if B2-ADMISSIBLE-REFERENT-P3.2 = true. false/unknown → no question/help/options; target deferred/unresolved; independent captures may continue.",
+          "runtime_display_contract": "La pregunta canónica sólo puede mostrarse si B2-ADMISSIBLE-REFERENT-P3.2=true para la intención y observation_context_revision vigentes. El referente se conserva por source_ref/literal; un ai_proposed_candidate no satisface la precondición. false/unknown → no mostrar pregunta/help/options y conservar target deferred/unresolved.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.4b",
+          "runtime_definition_id": "B2-Q14",
+          "bucket": "base_40",
+          "canonical_variable_output": "transformation_causality_trigger",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "N/A",
+          "visibility_rule": "Siempre visible.",
+          "fallback_profile_ref": "B2-FB-CHANGE-REF-GATED-P3.2.1::2.4b · fallback/presentación autónoma sólo con antecedente competente; presentación compuesta Q14 sólo con 2.4a antecedente en la misma interacción. Sin ello, HOLD/unresolved.",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.5",
+          "runtime_definition_id": "B2-Q15",
+          "bucket": "base_40",
+          "canonical_variable_output": "transformation_state_initial",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "free_text",
+          "field_type": "free_text",
+          "activation_rule": "Lo principal ya quedó identificado por 2.1 y sus subpreguntas activas.",
+          "visibility_rule": "Siempre visible.",
+          "fallback_profile_ref": "B2-FB-REFERENT-GATED-P3.2::2.5 · canonical fallback presentable only if B2-ADMISSIBLE-REFERENT-P3.2 = true. false/unknown → no question/help/options; target deferred/unresolved; independent captures may continue.",
+          "runtime_display_contract": "La pregunta canónica sólo puede mostrarse si B2-ADMISSIBLE-REFERENT-P3.2=true para la intención y observation_context_revision vigentes. El referente se conserva por source_ref/literal; un ai_proposed_candidate no satisface la precondición. false/unknown → no mostrar pregunta/help/options y conservar target deferred/unresolved.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.6",
+          "runtime_definition_id": "B2-Q15",
+          "bucket": "base_40",
+          "canonical_variable_output": "transformation_state_final",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "free_text",
+          "field_type": "free_text",
+          "activation_rule": "Lo principal ya quedó identificado por 2.1 y sus subpreguntas activas.",
+          "visibility_rule": "Siempre visible.",
+          "fallback_profile_ref": "B2-FB-REFERENT-GATED-P3.2::2.6 · canonical fallback presentable only if B2-ADMISSIBLE-REFERENT-P3.2 = true. false/unknown → no question/help/options; target deferred/unresolved; independent captures may continue.",
+          "runtime_display_contract": "La pregunta canónica sólo puede mostrarse si B2-ADMISSIBLE-REFERENT-P3.2=true para la intención y observation_context_revision vigentes. El referente se conserva por source_ref/literal; un ai_proposed_candidate no satisface la precondición. false/unknown → no mostrar pregunta/help/options y conservar target deferred/unresolved.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.7",
+          "runtime_definition_id": "B2-Q16",
+          "bucket": "base_40",
+          "canonical_variable_output": "transformation_iterations",
+          "ai_mode": "DETERMINISTIC",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "N/A",
+          "visibility_rule": "Siempre visible.",
+          "fallback_profile_ref": "B2-FB-REFERENT-GATED-P3.2::2.7 · canonical fallback presentable only if B2-ADMISSIBLE-REFERENT-P3.2 = true. false/unknown → no question/help/options; target deferred/unresolved; independent captures may continue.",
+          "runtime_display_contract": "La pregunta canónica sólo puede mostrarse si B2-ADMISSIBLE-REFERENT-P3.2=true para la intención y observation_context_revision vigentes. El referente se conserva por source_ref/literal; un ai_proposed_candidate no satisface la precondición. false/unknown → no mostrar pregunta/help/options y conservar target deferred/unresolved.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.8",
+          "runtime_definition_id": "C07",
+          "bucket": "causal_20",
+          "canonical_variable_output": "transformation_iteration_count",
+          "ai_mode": "DETERMINISTIC",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "2.7 = Pocas veces o Muchas veces.",
+          "visibility_rule": "Visible solo si 2.7 indica iteración discreta repetida.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.9",
+          "runtime_definition_id": "B2-Q17",
+          "bucket": "base_40",
+          "canonical_variable_output": "transformation_exception_type",
+          "ai_mode": "DETERMINISTIC",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "N/A",
+          "visibility_rule": "Siempre visible.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.10",
+          "runtime_definition_id": "C05",
+          "bucket": "causal_20",
+          "canonical_variable_output": "transformation_exception_description",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "free_text",
+          "field_type": "free_text",
+          "activation_rule": "transformation_exception_exists = true.",
+          "visibility_rule": "Visible solo si transformation_exception_exists = true.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.11",
+          "runtime_definition_id": "B2-Q17",
+          "bucket": "base_40",
+          "canonical_variable_output": "transformation_hidden_changes",
+          "ai_mode": "DETERMINISTIC",
+          "answer_mode": "single_choice",
+          "field_type": "single_choice",
+          "activation_rule": "N/A",
+          "visibility_rule": "Siempre visible.",
+          "fallback_profile_ref": "B2-FB-REFERENT-GATED-P3.2.1::2.11 · DETERMINISTIC presentation gate basado en B2-ADMISSIBLE-REFERENT-P3.2. Canon intacto; no presentación si el referente es false/unknown/stale/rival/candidate-only.",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.12",
+          "runtime_definition_id": "C06",
+          "bucket": "causal_20",
+          "canonical_variable_output": "transformation_hidden_changes_description",
+          "ai_mode": "AI_OPTIONAL_CONTEXTUAL_RENDER",
+          "answer_mode": "free_text",
+          "field_type": "free_text",
+          "activation_rule": "2.11 indica cambios ocultos.",
+          "visibility_rule": "Visible solo si 2.11 = Sí, a veces / frecuentemente.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.A",
+          "runtime_definition_id": "C04",
+          "bucket": "causal_20",
+          "canonical_variable_output": "dimension_dominante_clarificada",
+          "ai_mode": "AI_CONDITIONAL_CLARIFICATION",
+          "answer_mode": "clarification",
+          "field_type": "free_text",
+          "activation_rule": "Flag de ambigüedad o tautología en preguntas de relación/dominancia.",
+          "visibility_rule": "No aparece en flujo base; solo por flags.",
+          "fallback_profile_ref": "B2-FB-K2-HOLD-P3.2::2.A · static_canonical_fallback_authorized=false. Model unavailable/schema invalid/review fail/unknown → preserve factual evidence, target unresolved/reentry; no classification/dominance/ranking prompt as fallback.",
+          "runtime_display_contract": "Operación IA admitida: mostrar sólo AI_rendered_question contextual. P3.2: la pregunta/ayuda/opciones canónicas de K2 permanecen como ancla normativa y NO están autorizadas como fallback estático cuando IA/render/revisión no están disponibles. En ese caso aplicar B2-FB-K2-HOLD-P3.2: conservar evidencia factual y target unresolved/reentry.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.B",
+          "runtime_definition_id": "C05",
+          "bucket": "causal_20",
+          "canonical_variable_output": "transformation_exception_description_clarified",
+          "ai_mode": "AI_CONDITIONAL_CLARIFICATION",
+          "answer_mode": "clarification",
+          "field_type": "free_text",
+          "activation_rule": "Flag de descripción insuficiente, genérica o confusa en 2.10.",
+          "visibility_rule": "No aparece en flujo base; solo por flags.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        },
+        {
+          "source_code": "2.C",
+          "runtime_definition_id": "C06",
+          "bucket": "causal_20",
+          "canonical_variable_output": "transformation_hidden_changes_description_clarified",
+          "ai_mode": "AI_CONDITIONAL_CLARIFICATION",
+          "answer_mode": "clarification",
+          "field_type": "free_text",
+          "activation_rule": "Flag de cambio oculto sin actor identificable o sin tipo de cambio discernible.",
+          "visibility_rule": "No aparece en flujo base; solo por flags.",
+          "fallback_profile_ref": "",
+          "runtime_display_contract": "Si el modo autoriza IA y EVE aprueba el render: la UI muestra únicamente AI_rendered_question (campo question.text). No muestra canonical_question_text ni canonical_help_text en paralelo. Estos permanecen como ancla normativa oculta; el help solo puede informar el render contextual, sin duplicarse en pantalla. En DETERMINISTIC/NO_AI o fallback, mostrar la pregunta canónica específica y ayuda/opciones requeridas.",
+          "ui_rule": "RENDER_ONLY_IF_EXECUTION_SERVICE_RETURNS_TURN_READY_SLOT; NEVER_EVALUATE_ACTIVATION_OR_AI_MODE_IN_UI"
+        }
+      ],
+      "ai_rule": "ExecutionService invokes AI only for the ai_mode authorized by exact node/profile and only through A09/P3 production adapter. UI receives only admitted render/proposal projection.",
+      "deterministic_rule": "DETERMINISTIC nodes must execute with zero model call.",
+      "fallback_rule": "Per-node fallback_profile_ref and runtime_display_contract are authoritative. K2 HOLD profiles cannot be replaced by static canonical prompt when model/review unavailable.",
+      "evaluator_dependency": "A10/P3 qualified evaluator authority remains required for automatic semantic admission where the promoted profile requires review; until then A04 transport is complete but real pilot stays blocked.",
+      "implementation_limit_policy_ref": {
+        "artifact_id": "EVE-PR3-B2-IMPLEMENTATION-LIMIT-RESOLUTION-v1.0",
+        "sha256": "5e4b9ca2afb26af8769348a8311ee6744560ea1fb05301db609d83a11a2c6540",
+        "scope": "PR3_PILOT_IMPLEMENTATION_ONLY",
+        "promoted_profile_mutation": "NONE"
+      },
+      "resolved_implementation_limits": {
+        "max_user_rounds_per_interaction": 4,
+        "max_text_length_chars": 4096,
+        "max_context_chars": 32768,
+        "max_ui_turns_per_interaction": 8
+      },
+      "implementation_gate_binding": {
+        "source_profile_gate": "EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1::interactions[*].implementation_ready",
+        "source_profile_blockers": "interactions[*].implementation_blockers",
+        "A04_effective_readiness_rule": "Treat the four named implementation blockers as resolved only when the exact overlay artifact/hash is loaded and its runtime acceptance fixtures pass. All other promoted-profile restrictions remain active.",
+        "never": "Do not rewrite implementation_ready=true into promoted profile bytes.",
+        "source_profile_implementation_ready_remains_false": true,
+        "source_profile_bytes_immutable": true
+      }
+    }
+  },
+  "execution_result_contract": {
+    "command_receipt_fields": [
+      "command_receipt_id",
+      "operation",
+      "command_scope_ref",
+      "command_event_id",
+      "client_event_id?",
+      "token_request_id?",
+      "idempotency_key",
+      "payload_sha256",
+      "receipt_state",
+      "replay_of_receipt_id?",
+      "result_payload_sha256?",
+      "side_effect_refs",
+      "error_code?",
+      "server_time"
+    ],
+    "receipt_state_enum": [
+      "ACCEPTED",
+      "REJECTED_PRECONDITION",
+      "IDEMPOTENT_REPLAY",
+      "IDEMPOTENCY_CONFLICT"
+    ],
+    "domain_state_fields": [
+      "chain_run_id",
+      "object_run_id",
+      "object_key",
+      "context_revision",
+      "object_state",
+      "chain_state",
+      "restrictions",
+      "gap_refs",
+      "handoff_refs"
+    ],
+    "next_projection": "one of {interaction_contract, reentry_descriptor, dependency_block, chain_complete_package_ref}",
+    "no_ui_next_field": "There is no client-authoritative next_runtime_id or next_object_key input.",
+    "receipt_state_semantics": "Persisted immutable primary receipt stores ACCEPTED or REJECTED_PRECONDITION. Replay/conflict are response projection states referencing the original receipt; they do not mutate it."
+  },
+  "reentry_resume_contract": {
+    "stale_context": "If request context_revision is not current, no semantic write; return current context revision and authoritative turn/reentry descriptor.",
+    "disconnect_resume": "RESUME is A07 CommandReceipt-bound before rendering. Same command identity+payload returns same receipt/result and cannot duplicate charge/presentation. A new PresentationEvent is permitted only for a genuinely new authorized render/reentry transition and must be listed in side_effect_refs.",
+    "causal_reentry": "Defect returns to causal owner per A03/A05/A06; only dependent set invalidated. Browser receives a turn; it does not choose reentry target."
+  },
+  "implementation_candidate_observations": [
+    {
+      "path": "src/app/page.tsx",
+      "sha256": "ca752253423bb75fee164aa0a9ac0e1aee23ef068460b43e3da93aa85ca284f8",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "path": "src/components/eve-worksheet/presentation-contract.ts",
+      "sha256": "ec9015d2e0530836dec54c84e168eb503b3f5cdff2c43233868b5c1f1a483c43",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "path": "src/components/eve-local-canvas/b05-runtime-binding.ts",
+      "sha256": "eea56dde5f61b856783d311521a7641f90ca7537df688f6b5599c08946030f2e",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "path": "src/components/eve-local-canvas/b05-presentation-contract.ts",
+      "sha256": "214308d61ce323fa08f1651b7c44ef4cdade6fd4e32fd320706304bc46f6d195",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "path": "src/components/eve-local-canvas/LocalCanvasB05Section.tsx",
+      "sha256": "8c4ecf424edc78ee49f177179aa1327a94200ce8319eeeedc3806ad210fb666e",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "path": "src/components/eve-local-canvas/b1-presentation-contract.ts",
+      "sha256": "86074f42d155245453d665a34f40b9235a45200073dd923d26b4d06afd9569ee",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "path": "src/components/eve-local-canvas/b1-visual-stub.ts",
+      "sha256": "8ef36185f11a6aac36be874c1e94ede68c8fa07902d94496832f58c3d7cc2265",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "path": "src/components/eve-local-canvas/LocalCanvasB1InstrumentSection.tsx",
+      "sha256": "d308a281dd5e12f1ab5076a252f5f7ea9c901547f7428ab40a389a1ee9078b5b",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "path": "src/app/api/significado/block0/route.ts",
+      "sha256": "30d89ddb70243c21d60f7b65c15ff0166f68f34f02e8ed7188adfc89438f3e12",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "path": "src/app/api/eve/runtime-40-20/client-bff/interaction/route.ts",
+      "sha256": "d49f807fe41591ff6c158e9cb693a5dc602b8ca86f9b273a8353827aa5799bd7",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "path": "src/app/api/eve/runtime-40-20/client-bff/answer/route.ts",
+      "sha256": "f78841364b9dbf2aff7deb67dbf5c299af1a8f0d15d79e7752b090ac8dd888b3",
+      "classification": "IMPLEMENTATION_CANDIDATE_NOT_AUTHORITY"
+    }
+  ],
+  "repo_dispositions": {
+    "current_legacy_client_bff": "DO_NOT_BIND_PR3_TO_EXISTING_LEGACY_STATE_PLANE",
+    "current_/api/significado/block0": "DO_NOT_TREAT_AS_PR3_PRODUCTION_RUNTIME_BINDING; can inform UI behavior only",
+    "current_b05_runtime_binding": "projection candidate retained",
+    "current_b1_visual_stub": "visual candidate retained; conditional fixtures not production authority",
+    "current_b1_runtime_binding": "ABSENT; exact A04 matrix closes specification gap",
+    "direct_browser_to_promoted_python_api": "FORBIDDEN; Production BFF/ExecutionService boundary is mandatory"
+  },
+  "explicit_non_decisions": [
+    "No physical PostgreSQL/Supabase schema/table/index/partition/RLS topology is selected by A04; P2 owns physical materialization from A06.",
+    "No OpenAI provider/model/timeout/retry implementation is selected by A04; A08/A09/P3 own production AI adapters.",
+    "No evaluator authority record is promoted by A04; A10/P3 qualification governs that authority.",
+    "No authentication provider is selected; A04 fixes the authorization boundary and claims required, not the vendor.",
+    "No deployment platform is selected."
+  ],
+  "falsification_conditions": [
+    "UI computes or hardcodes next/branch/readiness/AI mode.",
+    "Browser can submit question_code/canonical variable target in a way that overrides slot_ref binding.",
+    "Any B0.5/B1 path generates a model call.",
+    "Any B1 source code maps to a different promoted runtime target than declared here, or 1.C collapses its three distinct targets.",
+    "Any B2 node executes a mode different from promoted exact mode_map/profile.",
+    "Retry with same A07 key+payload duplicates response/evidence/budget/handoff/AI/admission.",
+    "Correction mutates a prior response rather than append+supersede.",
+    "A04 or P4 reads/writes one of the two legacy Supabase projects as authoritative PR3 run state.",
+    "P2 must invent a semantic/field mapping not present in A05/A06/A07/A04.",
+    "Any of the four B2-LIMIT-* values/owner/gate/closure criteria are guessed downstream instead of consumed from EVE-PR3-B2-IMPLEMENTATION-LIMIT-RESOLUTION-v1.0.",
+    "A promoted B2 profile byte is modified to mark implementation_ready=true instead of using the governed PR3 overlay.",
+    "Any side-effecting operation executes without an immutable A06 CommandReceipt linked to A07 COMMAND_RECEIPT_KEY.",
+    "OPEN_OR_RESUME idempotency depends on chain_run_id/object_run_id/interaction_key allocated after the command starts.",
+    "RESUME retry can duplicate PresentationEvent, charge, reentry transition or other side effect.",
+    "ISSUE_ACTION_TOKEN retry can mint a second client_event_id for the same token_request_id+payload.",
+    "READ_STATE creates domain/control state solely to claim idempotency."
+  ],
+  "closure": {
+    "A04": "CLOSED_BINDING_SPEC_NOT_DEPLOYED__LIMITS_AND_COMMAND_RECEIPT_CLOSED",
+    "P1": "IN_PROGRESS",
+    "unblocked_next": [
+      "P2 clean state-plane physical design/materialization",
+      "A08 B0 production GPT profile/adapter",
+      "A09 B2 production GPT/mode adapter"
+    ],
+    "P4_note": "Actual UI route/component connection remains P4; P4 must implement this A04 contract without semantic decisions.",
+    "real_user_pilot": "HOLD"
+  },
+  "supersedes": "EVE-PR3-A04-UI-API-BFF-RUNTIME-BINDING-v1.0",
+  "command_receipt_protocol": {
+    "A06_logical_record": "CommandReceipt",
+    "A07_key_ref": "COMMAND_RECEIPT_KEY",
+    "covered_side_effecting_operations": [
+      "ISSUE_ACTION_TOKEN",
+      "OPEN_OR_RESUME",
+      "SUBMIT_RESPONSE",
+      "SUBMIT_CORRECTION",
+      "RESUME",
+      "INTERNAL_AI",
+      "HUMAN_EXCEPTION",
+      "HANDOFF"
+    ],
+    "pure_read_equivalent": [
+      "READ_STATE"
+    ],
+    "atomic_commit": "First execution commits CommandReceipt with all side_effect_refs in the same logical transaction/boundary; retry returns the persisted result and creates zero new side effects.",
+    "conflict": "same idempotency_key + different payload_sha256 => IDEMPOTENCY_CONFLICT; original receipt and side effects remain immutable.",
+    "open_or_resume": "scope/event key exists before chain_run_id, object_run_id or interaction_key are allocated; replay returns exact allocated identifiers.",
+    "resume": "receipt exists before any re-render/reentry side effect; replay cannot duplicate PresentationEvent or charge.",
+    "correction": "new client_event_id/command_event_id + new response revision + supersedes; no overwrite."
+  }
+}

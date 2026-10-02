@@ -1,0 +1,110 @@
+{
+  "instruction": "045-R2G",
+  "classification": "runtime_40_20_f6_integration_membrane_staging_conformant",
+  "breach_next": "gaby_runtime_reentry_panel_promotion_preparation_required",
+  "smoke_id": "045R2G-f6-integration-membrane-smoke",
+  "source_smoke_id": "045R2FR-f5-pre-membrane-smoke",
+  "counts": {
+    "runtime_event_outbox": 4,
+    "runtime_state_snapshot": 4,
+    "control_plane_projection_job": 4,
+    "no_go_evaluation_result": 4,
+    "export_boundary_check": 4,
+    "handoff_patch_record": 4,
+    "review_control_event": 4,
+    "rls_probe_result": 2,
+    "no_go_status_snapshot": 4
+  },
+  "guards": {
+    "outbox_contained": 4,
+    "outbox_violations": 0,
+    "source_bindings_still_contained": 4,
+    "source_events_still_contained": 4
+  },
+  "rls": [
+    {
+      "probe_type": "own_read",
+      "target_table": "runtime_event_outbox",
+      "expected_result": "allow",
+      "actual_result": "allow",
+      "actual_count": 2,
+      "pass_fail": "pass",
+      "activity_runtime_run_id": "a5382e2c-030f-4899-bead-8985833825ab",
+      "role_runtime_session_id": "13fdbec5-b649-4fd7-be05-3708f40fabe7"
+    },
+    {
+      "probe_type": "foreign_read",
+      "target_table": "runtime_event_outbox",
+      "expected_result": "deny",
+      "actual_result": "deny",
+      "actual_count": 0,
+      "pass_fail": "pass",
+      "activity_runtime_run_id": "a5382e2c-030f-4899-bead-8985833825ab",
+      "role_runtime_session_id": "13fdbec5-b649-4fd7-be05-3708f40fabe7"
+    }
+  ],
+  "validation": {
+    "instruction": "045-R2G",
+    "tests": [
+      {
+        "name": "F6 local service focal",
+        "result": "passed 14/14"
+      },
+      {
+        "name": "Next build with TypeScript",
+        "result": "passed"
+      },
+      {
+        "name": "lint",
+        "result": "failed preexisting repository lint debt; 045R2G temp scripts removed after execution"
+      },
+      {
+        "name": "staging F6 count verification",
+        "result": "passed"
+      },
+      {
+        "name": "RLS own/foreign probe",
+        "result": "passed"
+      }
+    ],
+    "counts": {
+      "runtime_event_outbox": 4,
+      "runtime_state_snapshot": 4,
+      "control_plane_projection_job": 4,
+      "no_go_evaluation_result": 4,
+      "export_boundary_check": 4,
+      "handoff_patch_record": 4,
+      "review_control_event": 4,
+      "rls_probe_result": 2,
+      "no_go_status_snapshot": 4
+    },
+    "no_intervention": {
+      "staging_consulted": "yes",
+      "staging_writes": "F6 membrane smoke only",
+      "production_consulted": "no",
+      "production_writes": "none",
+      "scene_writes": "none",
+      "mba_writes": "none",
+      "catalog_activated": "no",
+      "B0_modified": "no",
+      "B1_modified": "no",
+      "Gaby_modified": "no",
+      "Panel_modified": "no",
+      "commit_created": "no"
+    }
+  },
+  "security": {
+    "staging_consulted": "yes",
+    "staging_writes": "F6 membrane smoke only",
+    "production_consulted": "no",
+    "production_writes": "none",
+    "scene_writes": "none",
+    "mba_writes": "none",
+    "catalog_activated": "no",
+    "B0_modified": "no",
+    "B1_modified": "no",
+    "Gaby_modified": "no",
+    "Panel_modified": "no",
+    "commit_created": "no"
+  }
+}

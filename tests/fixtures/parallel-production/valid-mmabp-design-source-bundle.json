@@ -1,0 +1,125 @@
+{
+  "bundle_id": "MMABPDSB_001",
+  "bundle_type": "mmabp_design_source_bundle",
+  "bundle_version": "1.0.0",
+  "created_at": "2026-05-22T00:00:00.000Z",
+  "source_core": {
+    "canonical_version": "CAPA1_V2_1",
+    "manifest_version": "1.0.0",
+    "manifest_content_hash": "015f7fd88c0ab1139649769ad0594cf96ebd93ff0bfe377fb5b30df1e8c909c0",
+    "source_contract_id": "platform-consumption-contract.capa-1.v2.1"
+  },
+  "client_context": {
+    "client_id": "CLIENTE_001",
+    "client_name": "Cliente ejemplo",
+    "analysis_unit": "sistema_operativo_cliente",
+    "capture_scope": "escenas_reguladas_capa_1_core"
+  },
+  "source_scenes": [
+    {
+      "scene_id": "SC_001",
+      "scene_readiness": "ready_for_transduction",
+      "source_user_id": "USR_001",
+      "source_user_role": "Analista de operaciones",
+      "confidence_score": 86,
+      "scene_canonical_record_ref": "scene_canonical_record:SC_001"
+    }
+  ],
+  "literal_evidence": [
+    {
+      "evidence_id": "EVID_001",
+      "scene_id": "SC_001",
+      "block_origin": "block_4",
+      "question_origin": "4.3",
+      "literal_value": "Cuando falta la aprobacion, esperamos a que legal responda o lo perseguimos por chat.",
+      "provenance_type": "captured_user_evidence"
+    },
+    {
+      "evidence_id": "EVID_002",
+      "scene_id": "SC_001",
+      "block_origin": "block_2",
+      "question_origin": "2.3",
+      "literal_value": "La solicitud queda pendiente de aprobacion legal antes de continuar.",
+      "provenance_type": "captured_user_evidence"
+    },
+    {
+      "evidence_id": "EVID_003",
+      "scene_id": "SC_001",
+      "block_origin": "block_3",
+      "question_origin": "3.1",
+      "literal_value": "La solicitud es el objeto de negocio que cambia de estado durante la aprobacion.",
+      "provenance_type": "captured_user_evidence"
+    }
+  ],
+  "canonical_derivations": [
+    {
+      "derivation_id": "DER_001",
+      "scene_id": "SC_001",
+      "canonical_variable": "flow_wait_signal",
+      "value": "espera_por_aprobacion_legal",
+      "source_evidence_ids": ["EVID_001", "EVID_002"]
+    }
+  ],
+  "flags": [
+    {
+      "flag_id": "FLAG_001",
+      "code": "timer_required",
+      "severity": "warning",
+      "source_evidence_ids": ["EVID_001"]
+    }
+  ],
+  "gaps": [],
+  "quadrant_candidates": [
+    {
+      "candidate_id": "CAND_001",
+      "candidate_type": "process_state",
+      "canonical_label": "Solicitud en espera de aprobacion legal",
+      "quadrant_targets": ["PF", "PM", "OLC"],
+      "source_scene_ids": ["SC_001"],
+      "source_evidence_ids": ["EVID_001", "EVID_002"],
+      "related_process": "Gestionar solicitud",
+      "related_object_class": "Solicitud",
+      "related_object_state": "Pendiente de aprobacion legal",
+      "confidence": 0.78,
+      "projection_status": "candidate"
+    },
+    {
+      "candidate_id": "CAND_002",
+      "candidate_type": "workaround",
+      "canonical_label": "Seguimiento informal por chat para obtener aprobacion",
+      "quadrant_targets": ["PF", "PM"],
+      "source_scene_ids": ["SC_001"],
+      "source_evidence_ids": ["EVID_001"],
+      "related_process": "Gestionar solicitud",
+      "confidence": 0.71,
+      "projection_status": "candidate"
+    },
+    {
+      "candidate_id": "CAND_003",
+      "candidate_type": "object_class",
+      "canonical_label": "Solicitud",
+      "quadrant_targets": ["MoC"],
+      "source_scene_ids": ["SC_001"],
+      "source_evidence_ids": ["EVID_003"],
+      "related_process": "Gestionar solicitud",
+      "related_object_class": "Solicitud",
+      "confidence": 0.76,
+      "projection_status": "candidate"
+    }
+  ],
+  "design_source_readiness": {
+    "status": "ready_with_gaps",
+    "confidence_summary": {
+      "average_candidate_confidence": 0.745,
+      "lowest_candidate_confidence": 0.71
+    },
+    "notes": ["Timer requerido para process state antes de diagramacion."]
+  },
+  "boundaries": {
+    "does_not_replace_evidence_bundle_for_transduction": true,
+    "does_not_modify_capa2_readiness": true,
+    "not_diagnostic": true,
+    "not_monetization": true,
+    "not_final_narrative": true
+  }
+}

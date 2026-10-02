@@ -1,0 +1,118 @@
+{
+  "instruction": "Codex 041",
+  "classification": "staging_schema_and_governed_boundary_deployed",
+  "project_ref": "shrpiwkxcdgvbqymjecx",
+  "production_consulted": false,
+  "matrix_role": "transversal_control_not_sole_authority",
+  "traceability_errata": "docs/eve/runtime/materialized/runtime-40-20-staging-deployment-traceability-errata-042.json",
+  "traceability_conformance_status": "blocked_041_traceability_not_closed",
+  "next_gap": "staging_runtime_40_20_catalog_draft_load_authorization_required",
+  "elements": [
+    {
+      "element": "semantic_organs_three_tables",
+      "rector_funcional": "EVE-RUNTIME-SEMPERSIST-R1 / Marco Estructural Maestro",
+      "rector_tecnico": "037 + candidato 039 SQL literal / migracion final 041",
+      "TR_ID": ["TR-005", "TR-006", "TR-008", "TR-009", "TR-016"],
+      "identity_rule": "runtime_branching_rule + runtime_epistemic_rule + runtime_variable_map",
+      "semantic_rule": "empty organs; no catalog rows; client write grants absent",
+      "staging_evidence": "apply_migration success + SELECT presence/RLS/FK/row_count=0 + grants authenticated SELECT only",
+      "pre_post_diff": "absent -> present empty",
+      "conformance": "pass"
+    },
+    {
+      "element": "governed_rpc_040D",
+      "rector_funcional": "Especificacion Tecnica Ejecutable / frontera 039",
+      "rector_tecnico": "candidato 040-D literal / migracion final 041",
+      "TR_ID": ["TR-001", "TR-005", "TR-007", "TR-015", "TR-016", "TR-033", "TR-036"],
+      "identity_rule": "public.eve_runtime_40_20_load_catalog_draft(jsonb) + catalog_draft_counts(text)",
+      "semantic_rule": "SECURITY DEFINER; search_path=public; EXECUTE service_role only; draft-only; no activation/supersede outside nine tables",
+      "staging_evidence": "apply_migration success + pg_proc prosecdef/proconfig + has_function_privilege + negative payload rejects",
+      "pre_post_diff": "absent -> present protected",
+      "conformance": "pass"
+    },
+    {
+      "element": "migration_candidate_sanitation",
+      "rector_funcional": "disciplina de despliegue Fase 2",
+      "rector_tecnico": "041 Fase 1",
+      "TR_ID": [],
+      "traceability_status": "unresolved_no_applicable_matrix_tr_id",
+      "identity_rule": "historical candidates not in supabase/migrations executable path",
+      "semantic_rule": "preserve unmodified content; deployable=false",
+      "staging_evidence": "runtime-40-20-historical-migration-candidate-sanitation-041.json + historical-deployment-candidates/",
+      "pre_post_diff": "candidates removed from executable path; finals added",
+      "conformance": "operational_evidence_present_traceability_unresolved"
+    },
+    {
+      "element": "staging_contract_040A",
+      "rector_funcional": "contrato staging 040-A",
+      "rector_tecnico": "040-A + matriz transversal",
+      "TR_ID": ["TR-001", "TR-002", "TR-003", "TR-027", "TR-028", "TR-029", "TR-035", "TR-037"],
+      "identity_rule": "six core tables + enums coincident; organs/RPC absent pre; present post",
+      "semantic_rule": "no staging contract drift vs 040-A core",
+      "staging_evidence": "predeployment snapshot gate_result=pass_ready_for_deployment",
+      "pre_post_diff": "core unchanged; organs+RPC added",
+      "conformance": "pass"
+    },
+    {
+      "element": "B0_immutability",
+      "rector_funcional": "no modificar B0",
+      "rector_tecnico": "041 safety",
+      "TR_ID": ["TR-026"],
+      "identity_rule": "EVE_RUNTIME_40_20_B0_V1",
+      "semantic_rule": "checksum and counts unchanged",
+      "staging_evidence": "observable_checksum 9cd3a5ae1b534a326fc08213663d13a3 pre=post; interaction_defs=4",
+      "pre_post_diff": "0",
+      "conformance": "pass"
+    },
+    {
+      "element": "Gaby_immutability",
+      "rector_funcional": "no modificar Gaby",
+      "rector_tecnico": "041 safety",
+      "TR_ID": [],
+      "traceability_status": "unresolved_no_applicable_matrix_tr_id",
+      "identity_rule": "activity_runtime_run / runtime_interaction_instance baselines",
+      "semantic_rule": "no Gaby continuation",
+      "staging_evidence": "runs=32 instances=4 pre=post",
+      "pre_post_diff": "0",
+      "conformance": "operational_evidence_present_traceability_unresolved"
+    },
+    {
+      "element": "catalog_not_loaded_or_activated",
+      "rector_funcional": "brecha siguiente: draft load authorization",
+      "rector_tecnico": "041 restriction",
+      "TR_ID": ["TR-001", "TR-015", "TR-031"],
+      "identity_rule": "no new runtime_catalog_version; semantic rows=0",
+      "semantic_rule": "031C payload not invoked",
+      "staging_evidence": "negative tests only; non_b0_versions=0",
+      "pre_post_diff": "none",
+      "conformance": "pass"
+    }
+  ],
+  "final_validations": {
+    "organs_present": 3,
+    "semantic_rows": 0,
+    "rpc_present": true,
+    "grants_correct": true,
+    "catalog_full_loaded": false,
+    "catalog_activated": false,
+    "runtime_catalog_version_new": 0,
+    "B0_delta": 0,
+    "Gaby_delta": 0,
+    "production_consulted": false,
+    "build": "passed",
+    "typecheck": "passed",
+    "lint_focal": "passed_no_ts_targets_touched"
+  },
+  "security": {
+    "staging_consulted": true,
+    "staging_schema_writes": "authorized_and_performed",
+    "staging_catalog_data_writes": "none",
+    "production_consulted": false,
+    "catalog_loaded": false,
+    "catalog_activated": false,
+    "B0_modified": false,
+    "B1_modified": false,
+    "Gaby_modified": false,
+    "commit_created": false
+  }
+}

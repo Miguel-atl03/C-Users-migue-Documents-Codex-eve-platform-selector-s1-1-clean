@@ -1,0 +1,3415 @@
+{
+  "artifact_id": "EVE-PR3-P2-PHYSICAL-PERSISTENCE-MAPPING-v1.0",
+  "state": "IMPLEMENTED_NOT_DEPLOYED",
+  "authority": "A06 v1.3 + A07 v1.2 + PR3 v1.2.1",
+  "physical_strategy": "ONE_LOGICAL_RECORD_FAMILY_PER_TABLE_FOR_PILOT_AUDITABILITY",
+  "rationale": "Avoid semantic blending during first real pilot; table consolidation is a later optimization and cannot change logical identity or authority.",
+  "legacy_policy": "LEGACY_EVIDENCE_NOT_BASELINE__ZERO_REUSE",
+  "schema": "eve_pr3",
+  "logical_record_count": 32,
+  "logical_field_mapping_count": 341,
+  "physical_table_count": 32,
+  "records": [
+    {
+      "logical_record": "AuthorityArtifact",
+      "physical_table": "eve_pr3.authority_artifact",
+      "primary_key": [
+        "artifact_id",
+        "revision",
+        "sha256"
+      ],
+      "field_count": 7,
+      "fields": [
+        {
+          "field": "artifact_id",
+          "source_path": "A02.transversal_authorities.*.id OR A02.objects.* source artifact IDs",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.authority_artifact.artifact_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "artifact_class",
+          "source_path": "derived from registry slot",
+          "mapping_rule": "ENUM_BY_REGISTRY_SLOT",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.authority_artifact.artifact_class",
+          "pg_type": "text"
+        },
+        {
+          "field": "revision",
+          "source_path": "source revision/version",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.authority_artifact.revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "sha256",
+          "source_path": "source SHA-256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.authority_artifact.sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "authority_domain",
+          "source_path": "registry/source authority domain",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.authority_artifact.authority_domain",
+          "pg_type": "text"
+        },
+        {
+          "field": "state",
+          "source_path": "source promotion/governance state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.authority_artifact.state",
+          "pg_type": "text"
+        },
+        {
+          "field": "source_locator",
+          "source_path": "promoted/master artifact locator",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.authority_artifact.source_locator",
+          "pg_type": "text"
+        }
+      ]
+    },
+    {
+      "logical_record": "ContractSet",
+      "physical_table": "eve_pr3.contract_set",
+      "primary_key": [
+        "contract_set_id",
+        "contract_set_sha256"
+      ],
+      "field_count": 7,
+      "fields": [
+        {
+          "field": "contract_set_id",
+          "source_path": "A02.objects[*].contract_set_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.contract_set.contract_set_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_key",
+          "source_path": "A02.objects[*].object_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.contract_set.object_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "hash_profile_ref",
+          "source_path": "A02A.artifact_id",
+          "mapping_rule": "CONSTANT_REF",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.contract_set.hash_profile_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "contract_set_sha256",
+          "source_path": "A02.objects[*].contract_set_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.contract_set.contract_set_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "ordered_member_refs",
+          "source_path": "A02.objects[*].contract_members",
+          "mapping_rule": "PRESERVE_ORDER",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.contract_set.ordered_member_refs",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "member_count",
+          "source_path": "len(A02.objects[*].contract_members)",
+          "mapping_rule": "COUNT",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.contract_set.member_count",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "state",
+          "source_path": "A02.state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.contract_set.state",
+          "pg_type": "text"
+        }
+      ]
+    },
+    {
+      "logical_record": "ObjectBinding",
+      "physical_table": "eve_pr3.object_binding",
+      "primary_key": [
+        "object_binding_id"
+      ],
+      "field_count": 15,
+      "fields": [
+        {
+          "field": "object_binding_id",
+          "source_path": "A07.technical_identity.OBJECT_BINDING_KEY",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.object_binding_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_key",
+          "source_path": "A02.objects[*].object_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.object_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "profile_id",
+          "source_path": "A02.objects[*].profile_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.profile_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "profile_revision",
+          "source_path": "A02.objects[*].profile_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.profile_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "profile_sha256",
+          "source_path": "A02.objects[*].profile_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.profile_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "mother_contract_id",
+          "source_path": "A02.objects[*].mother_contract_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.mother_contract_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "mother_contract_revision",
+          "source_path": "A02.objects[*].mother_contract_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.mother_contract_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "mother_contract_sha256",
+          "source_path": "A02.objects[*].mother_contract_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.mother_contract_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "runtime_artifact",
+          "source_path": "A02.objects[*].runtime_artifact",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.runtime_artifact",
+          "pg_type": "text"
+        },
+        {
+          "field": "runtime_sha256",
+          "source_path": "A02.objects[*].runtime_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.runtime_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "promotion_receipt",
+          "source_path": "A02.objects[*].promotion_receipt",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.promotion_receipt",
+          "pg_type": "text"
+        },
+        {
+          "field": "promotion_receipt_sha256",
+          "source_path": "A02.objects[*].promotion_receipt_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.promotion_receipt_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "contract_set_id",
+          "source_path": "A02.objects[*].contract_set_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.contract_set_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "current_state",
+          "source_path": "A02.objects[*].current_state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.current_state",
+          "pg_type": "text"
+        },
+        {
+          "field": "ai_policy",
+          "source_path": "A02.objects[*].ai_policy",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_binding.ai_policy",
+          "pg_type": "jsonb"
+        }
+      ]
+    },
+    {
+      "logical_record": "ChainDefinition",
+      "physical_table": "eve_pr3.chain_definition",
+      "primary_key": [
+        "chain_definition_id",
+        "revision",
+        "definition_sha256"
+      ],
+      "field_count": 10,
+      "fields": [
+        {
+          "field": "chain_definition_id",
+          "source_path": "A03.chain_definition_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_definition.chain_definition_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "revision",
+          "source_path": "A03.revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_definition.revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "scope",
+          "source_path": "A03.scope",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_definition.scope",
+          "pg_type": "text"
+        },
+        {
+          "field": "nodes",
+          "source_path": "A03.nodes",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_definition.nodes",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "edges",
+          "source_path": "A03.edges",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_definition.edges",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "next_resolution",
+          "source_path": "A03.next_resolution",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_definition.next_resolution",
+          "pg_type": "text"
+        },
+        {
+          "field": "retry_policy",
+          "source_path": "A03.retry_policy",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_definition.retry_policy",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "reentry_policy",
+          "source_path": "A03.reentry_policy",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_definition.reentry_policy",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "persistence_ref",
+          "source_path": "A03.persistence_ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_definition.persistence_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "definition_sha256",
+          "source_path": "A03.sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_definition.definition_sha256",
+          "pg_type": "text"
+        }
+      ]
+    },
+    {
+      "logical_record": "CaseScope",
+      "physical_table": "eve_pr3.case_scope",
+      "primary_key": [
+        "case_id",
+        "scope_revision"
+      ],
+      "field_count": 6,
+      "fields": [
+        {
+          "field": "case_id",
+          "source_path": "authorized product scope.case_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.case_scope.case_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "tenant_id",
+          "source_path": "authorized product scope.tenant_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.case_scope.tenant_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "company_id",
+          "source_path": "authorized product scope.company_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.case_scope.company_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "scope_revision",
+          "source_path": "authorized product scope.revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.case_scope.scope_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "state",
+          "source_path": "authorized product scope.state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.case_scope.state",
+          "pg_type": "text"
+        },
+        {
+          "field": "opened_at",
+          "source_path": "server case opening receipt.timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.case_scope.opened_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "Participant",
+      "physical_table": "eve_pr3.participant",
+      "primary_key": [
+        "case_id",
+        "participant_id"
+      ],
+      "field_count": 5,
+      "fields": [
+        {
+          "field": "participant_id",
+          "source_path": "authorized product scope.participant_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.participant.participant_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "case_id",
+          "source_path": "authorized product scope.case_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.participant.case_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "auth_actor_ref",
+          "source_path": "authenticated server context.actor_ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.participant.auth_actor_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "participant_type",
+          "source_path": "authorized participant context.type",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.participant.participant_type",
+          "pg_type": "text"
+        },
+        {
+          "field": "source_ref",
+          "source_path": "authorized participant source ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.participant.source_ref",
+          "pg_type": "text"
+        }
+      ]
+    },
+    {
+      "logical_record": "RoleAssignment",
+      "physical_table": "eve_pr3.role_assignment",
+      "primary_key": [
+        "role_assignment_id"
+      ],
+      "field_count": 7,
+      "fields": [
+        {
+          "field": "role_assignment_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.role_assignment.role_assignment_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "case_id",
+          "source_path": "authorized role context.case_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.role_assignment.case_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "participant_id",
+          "source_path": "authorized role context.participant_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.role_assignment.participant_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "role_id",
+          "source_path": "authorized role context.role_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.role_assignment.role_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "role_label",
+          "source_path": "authorized role context.role_label",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.role_assignment.role_label",
+          "pg_type": "text"
+        },
+        {
+          "field": "assignment_revision",
+          "source_path": "authorized role context.revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.role_assignment.assignment_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "state",
+          "source_path": "authorized role context.state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.role_assignment.state",
+          "pg_type": "text"
+        }
+      ]
+    },
+    {
+      "logical_record": "Activity",
+      "physical_table": "eve_pr3.activity",
+      "primary_key": [
+        "role_id",
+        "activity_id",
+        "workmap_revision"
+      ],
+      "field_count": 6,
+      "fields": [
+        {
+          "field": "activity_id",
+          "source_path": "WorkMap activity.activity_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.activity.activity_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "role_id",
+          "source_path": "authorized role context.role_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.activity.role_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "activity_literal",
+          "source_path": "WorkMap activity.literal",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.activity.activity_literal",
+          "pg_type": "text"
+        },
+        {
+          "field": "workmap_revision",
+          "source_path": "WorkMap activity.source_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.activity.workmap_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "source_ref",
+          "source_path": "WorkMap activity.source_ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.activity.source_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "selection_state",
+          "source_path": "WorkMap activity.selection_state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.activity.selection_state",
+          "pg_type": "text"
+        }
+      ]
+    },
+    {
+      "logical_record": "ChainRun",
+      "physical_table": "eve_pr3.chain_run",
+      "primary_key": [
+        "chain_run_id"
+      ],
+      "field_count": 12,
+      "fields": [
+        {
+          "field": "chain_run_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.chain_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "chain_definition_id",
+          "source_path": "A03.chain_definition_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.chain_definition_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "chain_definition_revision",
+          "source_path": "A03.revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.chain_definition_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "case_id",
+          "source_path": "CaseScope.case_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.case_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "participant_id",
+          "source_path": "Participant.participant_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.participant_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "role_id",
+          "source_path": "RoleAssignment.role_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.role_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "activity_id",
+          "source_path": "Activity.activity_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.activity_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "run_ordinal",
+          "source_path": "server allocated new-run ordinal",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.run_ordinal",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "state",
+          "source_path": "Execution Runtime chain state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.state",
+          "pg_type": "text"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "Execution Runtime chain context revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "created_at",
+          "source_path": "server receipt.timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.chain_run.created_at",
+          "pg_type": "timestamptz"
+        },
+        {
+          "field": "completed_at",
+          "source_path": "Execution Runtime completion timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.chain_run.completed_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "ObjectRun",
+      "physical_table": "eve_pr3.object_run",
+      "primary_key": [
+        "object_run_id"
+      ],
+      "field_count": 13,
+      "fields": [
+        {
+          "field": "object_run_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "chain_run_id",
+          "source_path": "ChainRun.chain_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.chain_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_key",
+          "source_path": "A03.nodes[*].object_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.object_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "contract_set_id",
+          "source_path": "A03.nodes[*].binding_contract_set_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.contract_set_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "profile_id",
+          "source_path": "A02.objects[object_key].profile_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.profile_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "profile_revision",
+          "source_path": "A02.objects[object_key].profile_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.profile_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "profile_sha256",
+          "source_path": "A02.objects[object_key].profile_sha256",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.profile_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "local_run_id",
+          "source_path": "promoted runtime local run id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.object_run.local_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "execution_ordinal",
+          "source_path": "A07 fixed ordinal within chain run",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.execution_ordinal",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "state",
+          "source_path": "promoted runtime state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.state",
+          "pg_type": "text"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "promoted runtime context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "started_at",
+          "source_path": "server runtime start timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.object_run.started_at",
+          "pg_type": "timestamptz"
+        },
+        {
+          "field": "completed_at",
+          "source_path": "server runtime completion timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.object_run.completed_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "InteractionInstance",
+      "physical_table": "eve_pr3.interaction_instance",
+      "primary_key": [
+        "interaction_key"
+      ],
+      "field_count": 14,
+      "fields": [
+        {
+          "field": "interaction_key",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.interaction_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "local_interaction_instance_id",
+          "source_path": "promoted runtime interaction_instance_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.local_interaction_instance_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "runtime_definition_id",
+          "source_path": "promoted runtime runtime_id/interaction_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.runtime_definition_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "definition_revision",
+          "source_path": "promoted runtime definition_revision/revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.definition_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "promoted runtime context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "bucket",
+          "source_path": "promoted runtime budget_bucket/bucket",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.bucket",
+          "pg_type": "text"
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "request envelope.idempotency_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.idempotency_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "charge_event_id",
+          "source_path": "promoted runtime charge_event_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.charge_event_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "state",
+          "source_path": "promoted runtime interaction state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.state",
+          "pg_type": "text"
+        },
+        {
+          "field": "opening_ordinal",
+          "source_path": "A07 opening ordinal",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.opening_ordinal",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "opened_at",
+          "source_path": "promoted runtime opened_at",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.interaction_instance.opened_at",
+          "pg_type": "timestamptz"
+        },
+        {
+          "field": "shown_at",
+          "source_path": "promoted runtime shown_at",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.interaction_instance.shown_at",
+          "pg_type": "timestamptz"
+        },
+        {
+          "field": "completed_at",
+          "source_path": "promoted runtime completed_at",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.interaction_instance.completed_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "PresentationEvent",
+      "physical_table": "eve_pr3.presentation_event",
+      "primary_key": [
+        "presentation_event_id"
+      ],
+      "field_count": 10,
+      "fields": [
+        {
+          "field": "presentation_event_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.presentation_event.presentation_event_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.presentation_event.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "InteractionInstance.interaction_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.presentation_event.interaction_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "target_id",
+          "source_path": "UI interaction/subfield target",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.presentation_event.target_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "presentation_mode",
+          "source_path": "runtime presentation_mode/static|ai_rendered|safe_fallback",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.presentation_event.presentation_mode",
+          "pg_type": "text"
+        },
+        {
+          "field": "rendered_text",
+          "source_path": "EVE-approved rendered/canonical text",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.presentation_event.rendered_text",
+          "pg_type": "text"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "current runtime context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.presentation_event.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "proposal_ref",
+          "source_path": "AIProposal.proposal_id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.presentation_event.proposal_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "admission_ref",
+          "source_path": "AdmissionDecision.admission_decision_id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.presentation_event.admission_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "shown_at",
+          "source_path": "server/UI presentation receipt.timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.presentation_event.shown_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "ResponseEvent",
+      "physical_table": "eve_pr3.response_event",
+      "primary_key": [
+        "response_key"
+      ],
+      "field_count": 19,
+      "fields": [
+        {
+          "field": "response_key",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.response_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "local_response_id",
+          "source_path": "promoted runtime response_id/response_event_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.local_response_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "InteractionInstance.interaction_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.interaction_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "subfield_id",
+          "source_path": "response contract.subfield_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.subfield_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "question_code",
+          "source_path": "response contract.question_code",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.question_code",
+          "pg_type": "text"
+        },
+        {
+          "field": "raw_value",
+          "source_path": "response literal_or_value/raw_value",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.raw_value",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "raw_literal",
+          "source_path": "response raw literal",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.response_event.raw_literal",
+          "pg_type": "text"
+        },
+        {
+          "field": "user_action",
+          "source_path": "response contract.user_action",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.user_action",
+          "pg_type": "text"
+        },
+        {
+          "field": "response_revision",
+          "source_path": "response contract.response_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.response_revision",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "supersedes_response_key",
+          "source_path": "prior ResponseEvent.response_key",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.response_event.supersedes_response_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "clarification_of_response_key",
+          "source_path": "prior ResponseEvent.response_key",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.response_event.clarification_of_response_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "knowledge_basis",
+          "source_path": "response contract.knowledge_basis",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.knowledge_basis",
+          "pg_type": "text"
+        },
+        {
+          "field": "source_actor_ref",
+          "source_path": "authenticated provenance.actor_ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.source_actor_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "provenance",
+          "source_path": "response contract.provenance",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.provenance",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "request envelope.idempotency_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.idempotency_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "payload_sha256",
+          "source_path": "A07 canonical payload hash",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.payload_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "received_at",
+          "source_path": "server receipt.timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.received_at",
+          "pg_type": "timestamptz"
+        },
+        {
+          "field": "status",
+          "source_path": "runtime response admission state",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.response_event.status",
+          "pg_type": "text"
+        }
+      ]
+    },
+    {
+      "logical_record": "EvidenceItem",
+      "physical_table": "eve_pr3.evidence_item",
+      "primary_key": [
+        "evidence_id"
+      ],
+      "field_count": 11,
+      "fields": [
+        {
+          "field": "evidence_id",
+          "source_path": "promoted runtime evidence_id OR A07 technical fallback",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.evidence_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "response_key",
+          "source_path": "ResponseEvent.response_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.response_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "question_code",
+          "source_path": "ResponseEvent.question_code",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.question_code",
+          "pg_type": "text"
+        },
+        {
+          "field": "variable_id",
+          "source_path": "promoted runtime canonical target/variable id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.variable_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "literal_or_value",
+          "source_path": "admissible user-grounded value/literal",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.literal_or_value",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "knowledge_basis",
+          "source_path": "ResponseEvent.knowledge_basis",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.knowledge_basis",
+          "pg_type": "text"
+        },
+        {
+          "field": "epistemic_class",
+          "source_path": "runtime epistemic admission result",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.epistemic_class",
+          "pg_type": "text"
+        },
+        {
+          "field": "provenance",
+          "source_path": "ResponseEvent.provenance",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.provenance",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "revision",
+          "source_path": "ResponseEvent.response_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.revision",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "current",
+          "source_path": "derived from supersession chain",
+          "mapping_rule": "DERIVE_NO_OVERWRITE",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evidence_item.current",
+          "pg_type": "boolean"
+        }
+      ]
+    },
+    {
+      "logical_record": "CanonicalVariableRecord",
+      "physical_table": "eve_pr3.canonical_variable_record",
+      "primary_key": [
+        "variable_record_id"
+      ],
+      "field_count": 12,
+      "fields": [
+        {
+          "field": "variable_record_id",
+          "source_path": "A07 technical derivation or local promoted variable ID",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.canonical_variable_record.variable_record_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.canonical_variable_record.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "variable_id",
+          "source_path": "promoted profile canonical_variable_output/variable",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.canonical_variable_record.variable_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "value",
+          "source_path": "captured/derived value",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.canonical_variable_record.value",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "value_state",
+          "source_path": "resolved|unknown|unresolved|not_applicable as authorized",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.canonical_variable_record.value_state",
+          "pg_type": "text"
+        },
+        {
+          "field": "epistemic_class",
+          "source_path": "captured_user_evidence|canonical_derivation|candidate etc",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.canonical_variable_record.epistemic_class",
+          "pg_type": "text"
+        },
+        {
+          "field": "evidence_refs",
+          "source_path": "supporting EvidenceItem IDs",
+          "mapping_rule": "PRESERVE_ORDER_OR_SET_PER_PROFILE",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.canonical_variable_record.evidence_refs",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "derivation_rule_ref",
+          "source_path": "promoted rule_ref",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.canonical_variable_record.derivation_rule_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "source_response_key",
+          "source_path": "ResponseEvent.response_key",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.canonical_variable_record.source_response_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "revision",
+          "source_path": "variable revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.canonical_variable_record.revision",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "current",
+          "source_path": "supersession current marker",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.canonical_variable_record.current",
+          "pg_type": "boolean"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.canonical_variable_record.context_revision",
+          "pg_type": "text"
+        }
+      ]
+    },
+    {
+      "logical_record": "CandidateRecord",
+      "physical_table": "eve_pr3.candidate_record",
+      "primary_key": [
+        "candidate_id"
+      ],
+      "field_count": 9,
+      "fields": [
+        {
+          "field": "candidate_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.candidate_record.candidate_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.candidate_record.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "target_id",
+          "source_path": "promoted target/canonical variable",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.candidate_record.target_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "proposed_value",
+          "source_path": "AI/deterministic candidate value",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.candidate_record.proposed_value",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "origin",
+          "source_path": "ai_proposed_candidate|eve_derived_candidate|structural_candidate",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.candidate_record.origin",
+          "pg_type": "text"
+        },
+        {
+          "field": "source_refs",
+          "source_path": "evidence/context refs",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.candidate_record.source_refs",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "status",
+          "source_path": "proposed|confirmed|rejected|unresolved",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.candidate_record.status",
+          "pg_type": "text"
+        },
+        {
+          "field": "revision",
+          "source_path": "candidate revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.candidate_record.revision",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.candidate_record.context_revision",
+          "pg_type": "text"
+        }
+      ]
+    },
+    {
+      "logical_record": "BranchDecision",
+      "physical_table": "eve_pr3.branch_decision",
+      "primary_key": [
+        "branch_decision_id"
+      ],
+      "field_count": 9,
+      "fields": [
+        {
+          "field": "branch_decision_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.branch_decision.branch_decision_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.branch_decision.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "rule_ref",
+          "source_path": "promoted branch rule id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.branch_decision.rule_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "input_refs",
+          "source_path": "canonical variable/evidence refs",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.branch_decision.input_refs",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "tri_state",
+          "source_path": "TRUE|FALSE|UNKNOWN where applicable",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.branch_decision.tri_state",
+          "pg_type": "text"
+        },
+        {
+          "field": "target_ref",
+          "source_path": "activated/suppressed runtime target",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.branch_decision.target_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "outcome",
+          "source_path": "activate|suppress|hold|reentry",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.branch_decision.outcome",
+          "pg_type": "text"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.branch_decision.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "decided_at",
+          "source_path": "server decision timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.branch_decision.decided_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "BudgetLedger",
+      "physical_table": "eve_pr3.budget_ledger",
+      "primary_key": [
+        "budget_event_id"
+      ],
+      "field_count": 8,
+      "fields": [
+        {
+          "field": "budget_event_id",
+          "source_path": "charge_event_id OR A07 technical reentry event id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.budget_ledger.budget_event_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.budget_ledger.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "InteractionInstance.interaction_key",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.budget_ledger.interaction_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "bucket",
+          "source_path": "base_40|causal_20|internal_no_count|exceptional_reentry",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.budget_ledger.bucket",
+          "pg_type": "text"
+        },
+        {
+          "field": "delta",
+          "source_path": "1 for legitimate opening; 0 for replay/correction/internal",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.budget_ledger.delta",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "request envelope.idempotency_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.budget_ledger.idempotency_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "reason",
+          "source_path": "opening|replay|correction|reentry",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.budget_ledger.reason",
+          "pg_type": "text"
+        },
+        {
+          "field": "recorded_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.budget_ledger.recorded_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "GapRecord",
+      "physical_table": "eve_pr3.gap_record",
+      "primary_key": [
+        "gap_id"
+      ],
+      "field_count": 12,
+      "fields": [
+        {
+          "field": "gap_id",
+          "source_path": "promoted runtime gap id OR A07 technical derivation",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.gap_record.gap_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.gap_record.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "gap_type",
+          "source_path": "promoted gap type",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.gap_record.gap_type",
+          "pg_type": "text"
+        },
+        {
+          "field": "target_ref",
+          "source_path": "promoted target ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.gap_record.target_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "severity",
+          "source_path": "promoted severity if defined",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.gap_record.severity",
+          "pg_type": "text"
+        },
+        {
+          "field": "reason",
+          "source_path": "promoted reason/detail",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.gap_record.reason",
+          "pg_type": "text"
+        },
+        {
+          "field": "owner",
+          "source_path": "causal owner",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.gap_record.owner",
+          "pg_type": "text"
+        },
+        {
+          "field": "reentry_target",
+          "source_path": "authorized reentry target",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.gap_record.reentry_target",
+          "pg_type": "text"
+        },
+        {
+          "field": "dependent_set",
+          "source_path": "causally dependent refs",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.gap_record.dependent_set",
+          "pg_type": "text"
+        },
+        {
+          "field": "state",
+          "source_path": "open|closed|transported",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.gap_record.state",
+          "pg_type": "text"
+        },
+        {
+          "field": "created_at",
+          "source_path": "server/runtime timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.gap_record.created_at",
+          "pg_type": "timestamptz"
+        },
+        {
+          "field": "resolved_at",
+          "source_path": "server/runtime timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.gap_record.resolved_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "ReadinessDecision",
+      "physical_table": "eve_pr3.readiness_decision",
+      "primary_key": [
+        "readiness_decision_id"
+      ],
+      "field_count": 11,
+      "fields": [
+        {
+          "field": "readiness_decision_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.readiness_decision.readiness_decision_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.readiness_decision.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "consumer_id",
+          "source_path": "consumer contract id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.readiness_decision.consumer_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "input_package_id",
+          "source_path": "MaterialPackage.material_package_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.readiness_decision.input_package_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "input_package_revision",
+          "source_path": "MaterialPackage.package_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.readiness_decision.input_package_revision",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "outcome",
+          "source_path": "ready|ready_with_flags|blocked_by_missing_evidence|blocked_by_contradiction|reentry_required etc",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.readiness_decision.outcome",
+          "pg_type": "text"
+        },
+        {
+          "field": "restrictions",
+          "source_path": "current restrictions",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.readiness_decision.restrictions",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "gap_refs",
+          "source_path": "GapRecord.gap_id set",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.readiness_decision.gap_refs",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "evidence_refs",
+          "source_path": "EvidenceItem/equivalent refs",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.readiness_decision.evidence_refs",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "rule_ref",
+          "source_path": "promoted readiness/frame-control rule",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.readiness_decision.rule_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "decided_at",
+          "source_path": "server/runtime timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.readiness_decision.decided_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "AIOperation",
+      "physical_table": "eve_pr3.a_i_operation",
+      "primary_key": [
+        "ai_operation_id"
+      ],
+      "field_count": 11,
+      "fields": [
+        {
+          "field": "ai_operation_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.ai_operation_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "InteractionInstance.interaction_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.interaction_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "operation",
+          "source_path": "render|candidate|classify_scale|semantic_review-support as authorized",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.operation",
+          "pg_type": "text"
+        },
+        {
+          "field": "profile_ref",
+          "source_path": "object profile id/revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.profile_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "intent_ref",
+          "source_path": "SystemicIntentEnvelope/intended operation ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.intent_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "context_sources",
+          "source_path": "authorized context/evidence refs",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.context_sources",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "generator_ref",
+          "source_path": "server AI adapter provider/model/profile ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.generator_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "status",
+          "source_path": "requested|completed|failed|fallback|rejected",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.status",
+          "pg_type": "text"
+        },
+        {
+          "field": "requested_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_operation.requested_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "AIProposal",
+      "physical_table": "eve_pr3.a_i_proposal",
+      "primary_key": [
+        "proposal_id"
+      ],
+      "field_count": 11,
+      "fields": [
+        {
+          "field": "proposal_id",
+          "source_path": "local promoted proposal_id OR A07 technical key",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.proposal_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "ai_operation_id",
+          "source_path": "AIOperation.ai_operation_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.ai_operation_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "request_id",
+          "source_path": "local AI request id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.request_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "InteractionInstance.interaction_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.interaction_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "action",
+          "source_path": "proposal action",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.action",
+          "pg_type": "text"
+        },
+        {
+          "field": "payload",
+          "source_path": "AI proposal payload",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.payload",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "payload_sha256",
+          "source_path": "A07 canonical payload hash",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.payload_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "model_ref",
+          "source_path": "server provider/model/version",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.model_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "review_state",
+          "source_path": "pending|admitted|rejected|hold|stale",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.review_state",
+          "pg_type": "text"
+        },
+        {
+          "field": "created_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.a_i_proposal.created_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "EvaluatorAuthority",
+      "physical_table": "eve_pr3.evaluator_authority",
+      "primary_key": [
+        "evaluator_authority_id",
+        "revision"
+      ],
+      "field_count": 17,
+      "fields": [
+        {
+          "field": "evaluator_authority_id",
+          "source_path": "qualified authority record.id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.evaluator_authority_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "revision",
+          "source_path": "qualified authority revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "approval_authority",
+          "source_path": "qualification approver",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.approval_authority",
+          "pg_type": "text"
+        },
+        {
+          "field": "reviewer_identity",
+          "source_path": "qualified model/reviewer identity",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.reviewer_identity",
+          "pg_type": "text"
+        },
+        {
+          "field": "reviewer_type",
+          "source_path": "automatic|human",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.reviewer_type",
+          "pg_type": "text"
+        },
+        {
+          "field": "reviewer_version",
+          "source_path": "qualified version",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.reviewer_version",
+          "pg_type": "text"
+        },
+        {
+          "field": "qualified_scope",
+          "source_path": "qualified scope/criteria",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.qualified_scope",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "criterion_ids",
+          "source_path": "qualified criteria",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.criterion_ids",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "interaction_classes",
+          "source_path": "qualified interaction classes",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.interaction_classes",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "risk_classes",
+          "source_path": "qualified risk classes",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.risk_classes",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "independence_class",
+          "source_path": "qualified independence",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.independence_class",
+          "pg_type": "text"
+        },
+        {
+          "field": "generator_compatibility",
+          "source_path": "qualified generator compatibility",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.generator_compatibility",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "valid_from",
+          "source_path": "authority validity start",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.valid_from",
+          "pg_type": "timestamptz"
+        },
+        {
+          "field": "expires_at",
+          "source_path": "authority expiry",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.expires_at",
+          "pg_type": "timestamptz"
+        },
+        {
+          "field": "status",
+          "source_path": "active|expired|revoked|superseded",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.status",
+          "pg_type": "text"
+        },
+        {
+          "field": "restrictions",
+          "source_path": "qualification restrictions",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluator_authority.restrictions",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "successor_authority_ref",
+          "source_path": "successor authority",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.evaluator_authority.successor_authority_ref",
+          "pg_type": "text"
+        }
+      ]
+    },
+    {
+      "logical_record": "EvaluationRecord",
+      "physical_table": "eve_pr3.evaluation_record",
+      "primary_key": [
+        "evaluation_record_id"
+      ],
+      "field_count": 10,
+      "fields": [
+        {
+          "field": "evaluation_record_id",
+          "source_path": "local review_record_id OR A07 technical key",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluation_record.evaluation_record_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluation_record.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "proposal_id",
+          "source_path": "AIProposal.proposal_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluation_record.proposal_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "evaluator_authority_id",
+          "source_path": "EvaluatorAuthority.evaluator_authority_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluation_record.evaluator_authority_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "reviewer_identity",
+          "source_path": "qualified reviewer/model identity",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluation_record.reviewer_identity",
+          "pg_type": "text"
+        },
+        {
+          "field": "reviewer_version",
+          "source_path": "qualified reviewer/model version",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluation_record.reviewer_version",
+          "pg_type": "text"
+        },
+        {
+          "field": "criterion_results",
+          "source_path": "criterion-level results",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluation_record.criterion_results",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "aggregate_result",
+          "source_path": "admit|reject|hold/unknown as authorized",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluation_record.aggregate_result",
+          "pg_type": "text"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluation_record.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "created_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.evaluation_record.created_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "AdmissionDecision",
+      "physical_table": "eve_pr3.admission_decision",
+      "primary_key": [
+        "admission_decision_id"
+      ],
+      "field_count": 11,
+      "fields": [
+        {
+          "field": "admission_decision_id",
+          "source_path": "local admission id OR A07 technical key",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.admission_decision_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "proposal_id",
+          "source_path": "AIProposal.proposal_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.proposal_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "evaluation_record_id",
+          "source_path": "EvaluationRecord.evaluation_record_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.evaluation_record_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "evaluator_authority_id",
+          "source_path": "EvaluatorAuthority.evaluator_authority_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.evaluator_authority_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "decision",
+          "source_path": "ADMIT|REJECT|HOLD",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.decision",
+          "pg_type": "text"
+        },
+        {
+          "field": "reason",
+          "source_path": "decision reason",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.reason",
+          "pg_type": "text"
+        },
+        {
+          "field": "target_ids",
+          "source_path": "targets governed by decision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.target_ids",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "A07 technical idempotency key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.idempotency_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "created_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.admission_decision.created_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "HumanDecision",
+      "physical_table": "eve_pr3.human_decision",
+      "primary_key": [
+        "human_decision_id"
+      ],
+      "field_count": 9,
+      "fields": [
+        {
+          "field": "human_decision_id",
+          "source_path": "A07 technical derivation or local human gate decision id",
+          "mapping_rule": "PRESERVE_LOCAL_OR_DERIVE",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.human_decision.human_decision_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.human_decision.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "authority_ref",
+          "source_path": "authorized human authority",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.human_decision.authority_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "decision_scope",
+          "source_path": "exception/review scope",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.human_decision.decision_scope",
+          "pg_type": "text"
+        },
+        {
+          "field": "decision",
+          "source_path": "decision outcome",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.human_decision.decision",
+          "pg_type": "text"
+        },
+        {
+          "field": "reason",
+          "source_path": "decision reason",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.human_decision.reason",
+          "pg_type": "text"
+        },
+        {
+          "field": "target_refs",
+          "source_path": "affected targets",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.human_decision.target_refs",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "ObjectRun.context_revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.human_decision.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "decided_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.human_decision.decided_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "MaterialPackage",
+      "physical_table": "eve_pr3.material_package",
+      "primary_key": [
+        "material_package_id"
+      ],
+      "field_count": 12,
+      "fields": [
+        {
+          "field": "material_package_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.material_package.material_package_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "package_type",
+          "source_path": "A05 binding.package_type",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.material_package.package_type",
+          "pg_type": "text"
+        },
+        {
+          "field": "package_revision",
+          "source_path": "A07 package revision",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.material_package.package_revision",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "producer_object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.material_package.producer_object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "consumer_object_key",
+          "source_path": "A05 binding.consumer",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.material_package.consumer_object_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "binding_id",
+          "source_path": "A05 binding.binding_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.material_package.binding_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "contract_set_id",
+          "source_path": "ObjectRun.contract_set_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.material_package.contract_set_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "payload",
+          "source_path": "A05 field-bound package payload",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.material_package.payload",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "payload_sha256",
+          "source_path": "A07 package payload hash",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.material_package.payload_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "source_package_refs",
+          "source_path": "upstream immutable package refs",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.material_package.source_package_refs",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "restrictions",
+          "source_path": "A05 transported restrictions",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.material_package.restrictions",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "released_at",
+          "source_path": "release event timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.material_package.released_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "HandoffEvent",
+      "physical_table": "eve_pr3.handoff_event",
+      "primary_key": [
+        "handoff_event_id"
+      ],
+      "field_count": 10,
+      "fields": [
+        {
+          "field": "handoff_event_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.handoff_event.handoff_event_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "material_package_id",
+          "source_path": "MaterialPackage.material_package_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.handoff_event.material_package_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "event_type",
+          "source_path": "release|receipt|consumption",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.handoff_event.event_type",
+          "pg_type": "text"
+        },
+        {
+          "field": "producer_object_run_id",
+          "source_path": "MaterialPackage.producer_object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.handoff_event.producer_object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "consumer_object_run_id",
+          "source_path": "consumer ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.handoff_event.consumer_object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "consumer_object_key",
+          "source_path": "MaterialPackage.consumer_object_key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.handoff_event.consumer_object_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "binding_id",
+          "source_path": "MaterialPackage.binding_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.handoff_event.binding_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "A07 technical key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.handoff_event.idempotency_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "event_state",
+          "source_path": "recorded|rejected|conflict",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.handoff_event.event_state",
+          "pg_type": "text"
+        },
+        {
+          "field": "event_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.handoff_event.event_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "AuditEvent",
+      "physical_table": "eve_pr3.audit_event",
+      "primary_key": [
+        "audit_event_id"
+      ],
+      "field_count": 11,
+      "fields": [
+        {
+          "field": "audit_event_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.audit_event.audit_event_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "chain_run_id",
+          "source_path": "ChainRun.chain_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.audit_event.chain_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.audit_event.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "event_type",
+          "source_path": "governed event type",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.audit_event.event_type",
+          "pg_type": "text"
+        },
+        {
+          "field": "entity_ref",
+          "source_path": "affected logical identity",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.audit_event.entity_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "rule_ref",
+          "source_path": "contract/rule ref",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.audit_event.rule_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "prior_state_ref",
+          "source_path": "prior state/revision ref",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.audit_event.prior_state_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "new_state_ref",
+          "source_path": "new state/revision ref",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.audit_event.new_state_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "reason",
+          "source_path": "event reason",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.audit_event.reason",
+          "pg_type": "text"
+        },
+        {
+          "field": "details",
+          "source_path": "non-authoritative details",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.audit_event.details",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "event_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.audit_event.event_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "CommandReceipt",
+      "physical_table": "eve_pr3.command_receipt",
+      "primary_key": [
+        "command_receipt_id"
+      ],
+      "field_count": 19,
+      "fields": [
+        {
+          "field": "command_receipt_id",
+          "source_path": "A07.COMMAND_RECEIPT_KEY record_id",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.command_receipt.command_receipt_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "operation",
+          "source_path": "A04/A07 command operation",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.command_receipt.operation",
+          "pg_type": "text"
+        },
+        {
+          "field": "command_scope_ref",
+          "source_path": "A07.command_scope_profiles[operation].command_scope_rule resolved server-side",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.command_receipt.command_scope_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "command_event_id",
+          "source_path": "A07.command_scope_profiles[operation].command_event_id_source",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.command_receipt.command_event_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "client_event_id",
+          "source_path": "external command client_event_id when applicable",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.command_receipt.client_event_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "token_request_id",
+          "source_path": "ISSUE_ACTION_TOKEN token_request_id when applicable",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.command_receipt.token_request_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "A07 COMMAND_RECEIPT_KEY idempotency_key_rule",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.command_receipt.idempotency_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "payload_sha256",
+          "source_path": "A07 canonical operation payload hash",
+          "mapping_rule": "SHA256_CANONICAL_JSON",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.command_receipt.payload_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "receipt_state",
+          "source_path": "ExecutionService accepted/rejected terminal primary receipt state",
+          "mapping_rule": "ENUM_ACCEPTED_OR_REJECTED_PRECONDITION",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.command_receipt.receipt_state",
+          "pg_type": "text"
+        },
+        {
+          "field": "chain_run_id",
+          "source_path": "accepted command result/domain scope when allocated/known",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.command_receipt.chain_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "accepted command result/domain scope when allocated/known",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.command_receipt.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "interaction_key",
+          "source_path": "accepted command result/domain scope when allocated/known",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.command_receipt.interaction_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "context_revision",
+          "source_path": "authoritative context revision associated with command",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.command_receipt.context_revision",
+          "pg_type": "text"
+        },
+        {
+          "field": "replay_of_receipt_id",
+          "source_path": "response projection reference when replaying original receipt; original persisted receipt normally null",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.command_receipt.replay_of_receipt_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "result_payload_json",
+          "source_path": "exact protected replay result payload or immutable result reference envelope",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.command_receipt.result_payload_json",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "result_payload_sha256",
+          "source_path": "SHA-256 of canonical persisted result payload when present",
+          "mapping_rule": "SHA256_CANONICAL_JSON",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.command_receipt.result_payload_sha256",
+          "pg_type": "text"
+        },
+        {
+          "field": "side_effect_refs",
+          "source_path": "all committed logical side-effect record/event refs caused by first execution; [] on rejected precondition",
+          "mapping_rule": "PRESERVE_ORDER",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.command_receipt.side_effect_refs",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "error_code",
+          "source_path": "stable server error code for rejected precondition; null on accepted command",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.command_receipt.error_code",
+          "pg_type": "text"
+        },
+        {
+          "field": "server_time",
+          "source_path": "authoritative command completion timestamp UTC",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.command_receipt.server_time",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "OutboxEvent",
+      "physical_table": "eve_pr3.outbox_event",
+      "primary_key": [
+        "outbox_event_id"
+      ],
+      "field_count": 10,
+      "fields": [
+        {
+          "field": "outbox_event_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.outbox_event.outbox_event_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "chain_run_id",
+          "source_path": "ChainRun.chain_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.outbox_event.chain_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "event_class",
+          "source_path": "handoff|state_change|audit_projection|notification",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.outbox_event.event_class",
+          "pg_type": "text"
+        },
+        {
+          "field": "aggregate_ref",
+          "source_path": "logical entity/package ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.outbox_event.aggregate_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "payload_ref",
+          "source_path": "immutable logical payload/package ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.outbox_event.payload_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "idempotency_key",
+          "source_path": "A07 technical key",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.outbox_event.idempotency_key",
+          "pg_type": "text"
+        },
+        {
+          "field": "delivery_state",
+          "source_path": "pending|sent|failed|dead_letter",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.outbox_event.delivery_state",
+          "pg_type": "text"
+        },
+        {
+          "field": "attempt_count",
+          "source_path": "delivery attempts",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.outbox_event.attempt_count",
+          "pg_type": "bigint"
+        },
+        {
+          "field": "next_attempt_at",
+          "source_path": "retry time",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.outbox_event.next_attempt_at",
+          "pg_type": "timestamptz"
+        },
+        {
+          "field": "created_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.outbox_event.created_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    },
+    {
+      "logical_record": "PilotObservation",
+      "physical_table": "eve_pr3.pilot_observation",
+      "primary_key": [
+        "pilot_observation_id"
+      ],
+      "field_count": 7,
+      "fields": [
+        {
+          "field": "pilot_observation_id",
+          "source_path": "A07 technical derivation",
+          "mapping_rule": "DERIVE_PER_A07",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.pilot_observation.pilot_observation_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "chain_run_id",
+          "source_path": "ChainRun.chain_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.pilot_observation.chain_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "object_run_id",
+          "source_path": "ObjectRun.object_run_id",
+          "mapping_rule": "IDENTITY",
+          "required": false,
+          "nullable": true,
+          "physical_target": "eve_pr3.pilot_observation.object_run_id",
+          "pg_type": "text"
+        },
+        {
+          "field": "observation_type",
+          "source_path": "latency|fallback|error|user_correction|reentry|model_usage|handoff",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.pilot_observation.observation_type",
+          "pg_type": "text"
+        },
+        {
+          "field": "metric_or_fact",
+          "source_path": "observed operational fact",
+          "mapping_rule": "IDENTITY_CANONICAL_JSON",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.pilot_observation.metric_or_fact",
+          "pg_type": "jsonb"
+        },
+        {
+          "field": "source_ref",
+          "source_path": "audit/telemetry/runtime ref",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.pilot_observation.source_ref",
+          "pg_type": "text"
+        },
+        {
+          "field": "recorded_at",
+          "source_path": "server timestamp",
+          "mapping_rule": "IDENTITY",
+          "required": true,
+          "nullable": false,
+          "physical_target": "eve_pr3.pilot_observation.recorded_at",
+          "pg_type": "timestamptz"
+        }
+      ]
+    }
+  ],
+  "rls_policy": "RLS enabled+forced on every table; anon/authenticated direct table privileges revoked; product traffic only through trusted BFF/ExecutionService.",
+  "sql_migration": "supabase-pr3\\migrations\\20261001191500_pr3_clean_state_plane.sql"
+}

@@ -1,0 +1,92 @@
+{
+  "dictamen": "RUNTIME_40_20_PHASE9B_BFF_READ_CONTRACT_CLIENT_ROUTE_UI_ADAPTER_BOUNDARY_LOCAL_CONTRACT_V1",
+  "plan_phase": "Fase 9 / Gate 5 - Phase 9-B BFF read contract / client route candidate / UI adapter boundary",
+  "archived_plan_used_as_active_guide": false,
+  "official_sources_referenced": true,
+  "source_sections_declared": true,
+  "content_traceable_to_source_documents": true,
+  "free_inference_detected": false,
+  "unauthorized_expansion_detected": false,
+  "source_map": [
+    {
+      "contract_or_type": "RuntimeClientBFFReadContractCandidate",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "6. Arquitectura de implementacion",
+      "source_element": "UI Cliente -> BFF Cliente / Composition Root -> Runtime 40/20",
+      "extracted_for_platform_use": "BFF read contract is a local candidate boundary; it reads candidate runtime state through a safe DTO and does not create a real endpoint.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "service_function": "buildBFFReadContractCandidates",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientRouteCandidate",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "7. Arbol operativo de implementacion Fase 9 / Gate 5",
+      "source_element": "Client route candidate != ruta publica activa",
+      "extracted_for_platform_use": "Client routes are represented only as candidate route contracts and cannot access internal organs, chips, gates, runtime tables, or diagnosis.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "service_function": "buildClientRouteCandidates",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientUIAdapterBoundaryCandidate",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "4. Que es y que no es Fase 9 / Gate 5",
+      "source_element": "UI adapter boundary != UI productiva modificada",
+      "extracted_for_platform_use": "UI adapter boundary consumes BFF read DTO candidates only; it does not consume runtime directly or call chips or gates directly.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "service_function": "buildUIAdapterBoundaryCandidates",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeWorkMapToSignificadoHandoffCandidate",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "WorkMap / PrimaryActivitySelectionPolicy",
+      "source_element": "role_runtime_session controls selected primary activities and activity_runtime_run candidate creation",
+      "extracted_for_platform_use": "WorkMap to Significado handoff remains a candidate handoff and does not create activity_runtime_run real.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "service_function": "buildWorkMapToSignificadoHandoffCandidates",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeStateReadFacadeCandidate",
+      "source_document": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "source_section": "Runtime core components, data model and state machines",
+      "source_element": "role_runtime_session, activity_runtime_run, runtime_interaction_instance, readiness, gaps and gate summaries",
+      "extracted_for_platform_use": "Runtime state read facade candidates read only candidate summaries and do not write runtime state or expose internal details.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "service_function": "buildRuntimeStateReadFacadeCandidates",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientSafeDTOCandidate",
+      "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "source_section": "UX_Subfield_Structure, Epistemic_Policy, Critical_Routes",
+      "source_element": "Client-safe view model, card candidates, review status and no final diagnosis exposure",
+      "extracted_for_platform_use": "Safe DTO candidate exposes visible state, safe cards, prompt/progress/action and hides diagnosis, registry, IR, export, gates, chips and runtime tables.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "service_function": "buildSafeClientDTOCandidates",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientNoDirectInternalInvocationGuardCandidate",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "Sistema de Inteligencia Operativa y Gobernanza Cognitiva",
+      "source_element": "Gate > Chip; chips may interpret, structure, suggest or prepare; gates block and authorize candidate output",
+      "extracted_for_platform_use": "No-direct-internal-invocation guard blocks direct UI calls to runtime, chips, gates, Supabase, SQL and export.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "service_function": "buildNoDirectInternalInvocationGuardCandidates",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimePhase9BClientBFFReadLocalResult",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "2. Dictamen sistemico; 4. Que es y que no es Fase 9 / Gate 5; 7. Arbol operativo de implementacion",
+      "source_element": "BFF read contract != endpoint real; Runtime read facade candidate != Runtime real iniciado; no diagnosis, no export, no Produccion Paralela real",
+      "extracted_for_platform_use": "Phase 9-B local result aggregates BFF read, route, UI adapter, handoff, facade, DTO and invocation guard candidates while keeping real activation boundaries false.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+      "service_function": "buildPhase9BClientBFFReadLocalResult",
+      "no_inference": true
+    }
+  ]
+}

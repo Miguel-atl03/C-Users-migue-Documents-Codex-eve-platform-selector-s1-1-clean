@@ -1,0 +1,21 @@
+# UI Route Observation
+
+- ruta: `/dev/e2e-block0`
+- componente/pagina: `src/app/dev/e2e-block0/page.tsx`
+- evidencia de existencia:
+  - `src/app/dev/e2e-block0/page.tsx` es una pagina real de App Router.
+  - La UI mostro "Demo controlada - Login demo -> Comienza tu levantamiento -> WorkMap -> Significado".
+  - La pantalla incluyo boton "Demo controlada", boton "Cargar ejemplo financiero", WorkMap, Significado y "Ver traza demo".
+- evidencia de synthetic frontier:
+  - `sourceMode`: `loaded_financial_example`
+  - `wasExampleLoaded`: `true`
+  - `savedWorkMapExists`: `true`
+  - `responsibilitiesCount saved`: `3`
+  - `flattenedActivitiesCount saved`: `17`
+  - `selectionMode`: `competitive_selection`
+  - `selectedCount`: `8`
+  - `eligibleCount`: `17`
+  - actividad actual visible: "Actividad 1 de 8"
+  - prefill visible: accion "Analizo", objeto "desviaciones de headcount contra presupuesto por unidad de negocio", resultado "alertas tempranas"
+- conecta con synthetic frontier: si, para el recorrido local E2E WorkMap -> seleccion primaria -> Significado/Block 0.
+- limitacion observada: la pantalla Significado disparo `/api/coach/operational-description/intro-example`, que intento resolver variables Supabase ausentes y devolvio 500. No se observo conexion a DB real, Supabase real, observer real ni tabla real, pero la ruta no esta completamente aislada para ejercicio local.

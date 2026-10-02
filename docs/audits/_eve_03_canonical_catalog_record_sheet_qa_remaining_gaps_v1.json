@@ -1,0 +1,46 @@
+{
+  "auditId": "EVE-03-CANONICAL-CATALOG-RECORD-SHEET-SOURCE-QA-V1",
+  "dictamen": "CANONICAL_CATALOG_RECORD_SHEET_QA_REQUIRES_PACKAGE_CORRECTION",
+  "resolvedFromIntake": [
+    "FIELD_LEVEL_SOURCE_PROOF_PENDING",
+    "SOURCE_UNITS_NOT_EXHAUSTIVELY_INVENTORIED",
+    "PACKAGE_XLSX_VS_D8_CONTENT_DIFF_PENDING",
+    "ROOT_JSON_VS_INTERNAL_JSON_DEEP_DIFF_PENDING",
+    "READY_WITH_FLAGS_REQUIRES_FOLLOWUP_QA"
+  ],
+  "classification": {
+    "FIELD_LEVEL_SOURCE_PROOF_PENDING": "resolved_to_high_coverage_with_named_pending_records",
+    "SOURCE_UNITS_NOT_EXHAUSTIVELY_INVENTORIED": "resolved_at_sheet_section_field_level",
+    "PACKAGE_XLSX_VS_D8_CONTENT_DIFF_PENDING": "resolved_as_transformed_package_workbook",
+    "ROOT_JSON_VS_INTERNAL_JSON_DEEP_DIFF_PENDING": "resolved_with_minor_vsm_key_mismatch",
+    "READY_WITH_FLAGS_REQUIRES_FOLLOWUP_QA": "resolved_to_requires_package_correction"
+  },
+  "remainingGaps": [
+    {
+      "gapId": "NOT_A_PROMPT_TOP_LEVEL_MISSING",
+      "severity": "material_package_identity_gap",
+      "correctionRequired": true,
+      "detail": "not_a_prompt is absent across inspected identity artifacts."
+    },
+    {
+      "gapId": "PACKAGE_ID_MINOR_MISMATCH",
+      "severity": "minor_identity_consistency_gap",
+      "correctionRequired": true,
+      "detail": "Root JSON and manifest package_id are not identical."
+    },
+    {
+      "gapId": "VSM_PREP_GUARD_DICTIONARY_KEY_MISMATCH",
+      "severity": "minor_root_internal_consistency_gap",
+      "correctionRequired": true,
+      "detail": "Root JSON uses system_dictionary while internal vsm_prep_guard.json uses dictionary."
+    },
+    {
+      "gapId": "CANONICAL_VARIABLES_REFERENCED_NOT_DEFINED",
+      "severity": "nonblocking_trace_gap",
+      "correctionRequired": false,
+      "detail": "33 canonical variable records are referenced_not_defined_in_variables_source and should be accepted explicitly or resolved in a later package cleanup."
+    }
+  ],
+  "testsRecommendedBeforeCorrection": false,
+  "recommendedNextStep": "A. Corregir paquete."
+}

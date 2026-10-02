@@ -1,0 +1,45 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P9AR2_RUNTIME_CHAIN_CONTEXT_REPAIR_TRACEABILITY",
+  "generated_at": "2026-07-08T20:48:00.000Z",
+  "git_branch": "master",
+  "git_commit": "a65a0e3",
+  "working_root": "R:\\",
+  "authoritative_repo": "external-consumers/eve-platform",
+  "chain_context_file": "docs/production-activation/eve_local_activation_chain_context.json",
+  "artifacts": {
+    "closeout": "docs/production-activation/eve_production_activation_p9ar2_runtime_chain_context_repair_closeout.md",
+    "traceability": "docs/production-activation/eve_production_activation_p9ar2_runtime_chain_context_repair_traceability.json",
+    "chain_validation": "docs/production-activation/eve_production_activation_p9ar2_chain_context_validation.json",
+    "p6_results": "docs/production-activation/eve_production_activation_p9ar2_p6_live_read_results.json",
+    "p7_results": "docs/production-activation/eve_production_activation_p9ar2_p7_packet_results.json",
+    "p8_results": "docs/production-activation/eve_production_activation_p9ar2_p8_rehearsal_results.json",
+    "integrated_smoke": "docs/production-activation/eve_production_activation_p9ar2_integrated_runtime_smoke_results.json",
+    "no_go_preflight": "docs/production-activation/eve_production_activation_p9ar2_no_go_preflight_results.json",
+    "command_results": "docs/production-activation/eve_production_activation_p9ar2_command_results.json",
+    "boundary_ledger": "docs/production-activation/eve_production_activation_p9ar2_boundary_ledger.json"
+  },
+  "modified_scripts": [
+    "scripts/eve/production-activation/local-activation-chain-context-lib.mjs",
+    "scripts/eve/production-activation/p5-gates-readiness-local-smoke.mjs",
+    "scripts/eve/production-activation/p6-client-safe-result-local-smoke.mjs",
+    "scripts/eve/production-activation/p7-consultant-review-packet-local-smoke.mjs",
+    "scripts/eve/production-activation/p8-controlled-parallel-production-local-smoke.mjs",
+    "scripts/eve/production-activation/p9a-integrated-runtime-smoke.mjs",
+    "scripts/eve/production-activation/p9a-no-go-productivo-preflight.mjs"
+  ],
+  "modified_services": [
+    "src/services/eve/runtime-40-20/client-result/runtime-40-20-client-result-service.ts",
+    "src/services/eve/runtime-40-20/consultant-result/runtime-40-20-consultant-result-local-adapter.ts",
+    "src/services/eve/runtime-40-20/parallel-production/runtime-40-20-parallel-production-local-adapter.ts"
+  ],
+  "chain_flow": [
+    "P5 writes eve_local_activation_chain_context.json",
+    "P6 reads readiness_decision_record_id + writes client_visible_state",
+    "P7 reads exact IDs + writes consultant_packet_ref",
+    "P8 reads consultant_packet_ref + writes parallel_rehearsal_ref"
+  ],
+  "local_server_side_service_access_used": true,
+  "activation_allowed": false,
+  "qa_green_real_created": false,
+  "ready_for_p9b_human_signoff": true
+}

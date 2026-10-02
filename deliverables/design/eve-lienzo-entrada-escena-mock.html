@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Entrada a escena · Memoria → Escena</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --eve-accent: #5c7d8f;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-body: "Source Sans 3", "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1100px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      /* Ghost — single active memory at 3% */
+      .ghost {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 120px 96px;
+        pointer-events: none;
+      }
+
+      .ghost-text {
+        max-width: 920px;
+        margin: 0;
+        color: var(--eve-ink);
+        opacity: 0.03;
+        font-family: var(--font-display);
+        font-size: 88px;
+        font-weight: 500;
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+        text-align: left;
+      }
+
+      /* Registry */
+      .registry {
+        position: absolute;
+        top: 36px;
+        left: 72px;
+        right: 72px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        z-index: 2;
+      }
+
+      .registry-mark {
+        color: var(--eve-ink);
+        letter-spacing: 0.42em;
+      }
+
+      /* Monument — upper left */
+      .monument {
+        position: absolute;
+        top: 148px;
+        left: 72px;
+        max-width: 520px;
+        z-index: 2;
+      }
+
+      .monument-line {
+        display: block;
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 58px;
+        font-weight: 600;
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+      }
+
+      /* Memory quote — illuminated */
+      .memory {
+        position: absolute;
+        top: 320px;
+        left: 72px;
+        max-width: 640px;
+        z-index: 2;
+      }
+
+      .memory-quote {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 38px;
+        font-weight: 500;
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        color: var(--eve-ink);
+      }
+
+      /* Meta — upper right */
+      .meta {
+        position: absolute;
+        top: 148px;
+        right: 72px;
+        max-width: 240px;
+        text-align: right;
+        font-size: 11px;
+        line-height: 1.6;
+        color: var(--eve-mist);
+        z-index: 2;
+      }
+
+      .meta-area {
+        display: block;
+        color: color-mix(in srgb, var(--eve-ink) 72%, var(--eve-mist));
+        font-weight: 600;
+        letter-spacing: 0.08em;
+      }
+
+      .meta-journey {
+        display: block;
+        margin-top: 6px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      /* Contract — lower left island */
+      .contract {
+        position: absolute;
+        left: 72px;
+        bottom: 120px;
+        max-width: 480px;
+        z-index: 2;
+        display: grid;
+        gap: 14px;
+      }
+
+      .contract p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--eve-mist);
+      }
+
+      .contract .observation {
+        font-size: 12px;
+        max-width: 400px;
+      }
+
+      /* Footer */
+      .footer {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        bottom: 48px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        z-index: 2;
+      }
+
+      .footer-note {
+        margin: 0;
+        max-width: 420px;
+        color: var(--eve-mist);
+        font-size: 11px;
+        line-height: 1.45;
+        letter-spacing: 0.04em;
+      }
+
+      .cta {
+        margin: 0;
+        border: 0;
+        background: transparent;
+        color: var(--eve-accent);
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        cursor: default;
+        padding: 0;
+        white-space: nowrap;
+      }
+
+      /* Structural void line — optional architecture mark */
+      .void-line {
+        position: absolute;
+        top: 420px;
+        right: 220px;
+        width: 1px;
+        height: 180px;
+        background: var(--eve-line);
+        opacity: 0.55;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen" role="img" aria-label="EVE — Entrada a escena">
+      <div class="ghost" aria-hidden="true">
+        <p class="ghost-text">Elaborar propuesta comercial para clientes nuevos</p>
+      </div>
+
+      <header class="registry">
+        <span class="registry-mark">DE MEMORIA A ESCENA</span>
+        <span>MEMORIA 01 · ESCENA POR ABRIR</span>
+      </header>
+
+      <div class="monument">
+        <span class="monument-line">Salir del registro</span>
+        <span class="monument-line">Entrar en la escena</span>
+      </div>
+
+      <div class="memory">
+        <p class="memory-quote">
+          « Elaborar propuesta comercial<br />
+          para clientes nuevos »
+        </p>
+      </div>
+
+      <aside class="meta">
+        <span class="meta-area">Comercial · Ventas</span>
+        <span class="meta-journey">Escena 1 · 6 memorias en recorrido</span>
+      </aside>
+
+      <div class="void-line" aria-hidden="true"></div>
+
+      <div class="contract">
+        <p>
+          Hasta aquí describiste tu trabajo desde afuera. Ahora entramos a una escena:
+          mírala como cuando la vives.
+        </p>
+        <p>
+          De todo lo que describiste, algunas memorias entrarán al recorrido cercano.
+          Empezamos por esta.
+        </p>
+        <p class="observation">
+          Vamos a recorrer esta escena contigo. No para evaluarte: para ver qué ocurre
+          cuando realmente la haces.
+        </p>
+      </div>
+
+      <footer class="footer">
+        <p class="footer-note">
+          Ya quedó lo que haces. Ahora mira esta memoria como cuando realmente ocurre en
+          tu día.
+        </p>
+        <p class="cta">[ ENTRAR EN ESTA ESCENA ]</p>
+      </footer>
+    </div>
+  </body>
+</html>

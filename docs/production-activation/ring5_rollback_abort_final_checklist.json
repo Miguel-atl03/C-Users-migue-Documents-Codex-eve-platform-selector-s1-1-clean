@@ -1,0 +1,125 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING5_ROLLBACK_ABORT_FINAL_CHECKLIST",
+  "generated_at": "2026-07-10T03:50:00.000Z",
+  "authorization_ref": "ring5-authorization-general-production-activation-gate-rerun-20260710",
+  "ring": 5,
+  "ring_name": "general_production_activation_gate",
+  "version": "1.0.0",
+  "rollback_required": true,
+  "abort_required": true,
+  "checklist_defined_at_authorization": true,
+  "evaluation_requires_ring5_execution_authorization": true,
+  "drills_executed_against_production": false,
+  "ring4_baseline": {
+    "rollback_drill_results": "docs/production-activation/ring4_rollback_drill_results.json",
+    "abort_drill_results": "docs/production-activation/ring4_abort_drill_results.json",
+    "rollback_abort_requirements": "docs/production-activation/ring4_rollback_abort_requirements.json",
+    "ring4_no_go_clean": true
+  },
+  "rollback_checks": [
+    {
+      "id": "R5-RB-01",
+      "check": "general_production_activation_revert_capability",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RB-02",
+      "check": "activation_allowed_general_production_reverts_to_false",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RB-03",
+      "check": "production_public_access_reverts_to_false",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RB-04",
+      "check": "broad_production_access_reverts_to_false",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RB-05",
+      "check": "qa_green_real_general_does_not_remain_true_after_failed_activation",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RB-06",
+      "check": "traffic_and_tenant_state_restored_to_pre_activation_baseline",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-RB-07",
+      "check": "rollback_drill_must_pass_before_ring5_execution_closeout",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    }
+  ],
+  "abort_checks": [
+    {
+      "id": "R5-AB-01",
+      "check": "abort_path_observable_before_activation",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-AB-02",
+      "check": "final_no_go_triggered_on_abort",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-AB-03",
+      "check": "audit_trail_recorded_on_abort",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-AB-04",
+      "check": "activation_allowed_remains_false_on_abort",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-AB-05",
+      "check": "human_s5_operator_notified_on_abort",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-AB-06",
+      "check": "production_target_binding_halted_on_abort",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    },
+    {
+      "id": "R5-AB-07",
+      "check": "abort_drill_must_pass_before_ring5_execution_closeout",
+      "required": true,
+      "blocking": true,
+      "status_at_authorization": "defined_not_evaluated"
+    }
+  ],
+  "all_checks_defined": true,
+  "all_drills_passed_against_production": false,
+  "activation_allowed_general_production": false,
+  "qa_green_real_general_created": false
+}

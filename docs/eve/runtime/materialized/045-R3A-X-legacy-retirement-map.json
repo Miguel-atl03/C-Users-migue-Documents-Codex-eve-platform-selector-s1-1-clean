@@ -1,0 +1,52 @@
+{
+  "instruction": "045-R3A-X",
+  "gate": [
+    15,
+    16
+  ],
+  "sequence": [
+    "FREEZE",
+    "EXTRACT/PORT",
+    "REDIRECT",
+    "TEST",
+    "DELETE"
+  ],
+  "delete_when": {
+    "replacement_canvas_section": "functional",
+    "all_required_logic_ported": true,
+    "all_assistance_ported": true,
+    "all_callers_redirected": true,
+    "tests_redirected": true,
+    "auth_session_preserved": true,
+    "no_Runtime_authority_lost": true,
+    "dependency_scan": "zero legitimate callers"
+  },
+  "ui_vs_service": "UI legacy ≠ service legacy",
+  "current_deletions_in_this_instruction": [
+    "ClientAuthScreen.tsx",
+    "ActiveAssessmentState.tsx"
+  ],
+  "deferred": [
+    "ClientAuthScreen visual",
+    "page.tsx orchestrator",
+    "LegacySceneQuestionnaireRunner",
+    "WorkMapIntake.tsx thin re-export (delete when e2e-block0 redirected)",
+    "TripleIntake env-gated alternate",
+    "SignificadoDeTuTrabajo.tsx thin re-export (delete when e2e/dev redirected)",
+    "authorized B0→FULL Runtime handoff materiality"
+  ],
+  "x1_deletions": [
+    "ClientAuthScreen.tsx",
+    "ActiveAssessmentState.tsx"
+  ],
+  "x2": {
+    "WorkMapIntake": "thin_reexport_still_required_dev_test",
+    "TripleIntake": "env_gated_alternate_legacy_flow",
+    "production_workmap_ui": "OfficialCanvasExperience mode=workmap"
+  },
+  "x3": {
+    "SignificadoDeTuTrabajo": "thin_reexport_still_required_dev_test",
+    "production_significado_ui": "OfficialCanvasExperience mode=significado",
+    "B0_to_FULL_handoff": "blocked_b0_to_full_runtime_handoff"
+  }
+}

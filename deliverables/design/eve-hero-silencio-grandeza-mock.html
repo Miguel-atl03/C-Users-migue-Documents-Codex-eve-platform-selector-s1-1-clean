@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Hero silencioso · mismo Cormorant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+        --tone-center: color-mix(in srgb, var(--eve-mist) 72%, transparent);
+        --tone-silent: color-mix(in srgb, var(--eve-ink) 42%, var(--eve-mist));
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .board {
+        width: 1440px;
+        margin: 0 auto;
+        padding: 44px 56px 48px;
+        background: var(--eve-sheet);
+      }
+
+      .board-title {
+        margin: 0 0 8px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .board-lead {
+        margin: 0 0 36px;
+        max-width: 78ch;
+        font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        line-height: 1.65;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 85%, var(--eve-ink));
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 28px;
+      }
+
+      .panel {
+        position: relative;
+        min-height: 280px;
+        border: 1px solid var(--eve-line);
+        padding: 32px 28px 52px;
+      }
+
+      .panel-tag {
+        margin: 0 0 24px;
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .panel-note {
+        position: absolute;
+        left: 28px;
+        right: 28px;
+        bottom: 16px;
+        margin: 0;
+        font-size: 7px;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 65%, transparent);
+      }
+
+      .hero {
+        margin: 0;
+        max-width: 11ch;
+        font-family: var(--font-display);
+        font-size: 44px;
+        font-weight: 600;
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+        color: var(--eve-ink);
+      }
+
+      .hero em {
+        display: block;
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      .sub {
+        margin: 18px 0 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      /* 1 — original tinta */
+      .p1 .hero {
+        color: var(--eve-ink);
+      }
+
+      /* 2 — tono centro (misma familia de silencio) */
+      .p2 .hero {
+        color: var(--tone-center);
+        font-weight: 500;
+      }
+
+      .p2 .hero em {
+        font-weight: 500;
+      }
+
+      /* 3 — silencio + grandeza (recomendado) */
+      .p3 .hero {
+        font-size: 54px;
+        font-weight: 500;
+        line-height: 1.08;
+        letter-spacing: 0.01em;
+        color: var(--tone-silent);
+      }
+
+      .p3 .hero em {
+        font-weight: 500;
+        letter-spacing: 0.015em;
+      }
+
+      /* Franja de movimiento: tres fotogramas del mismo hero */
+      .motion {
+        border: 1px solid var(--eve-line);
+        padding: 28px 28px 24px;
+      }
+
+      .motion-tag {
+        margin: 0 0 20px;
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .frames {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .frame {
+        min-height: 160px;
+        padding: 20px 18px 28px;
+        background: color-mix(in srgb, var(--eve-sheet) 92%, var(--eve-mist));
+        position: relative;
+      }
+
+      .frame-label {
+        margin: 0 0 16px;
+        font-size: 7px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .frame .hero {
+        font-size: 34px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        color: var(--tone-silent);
+      }
+
+      .f1 .hero {
+        opacity: 0.22;
+        transform: translateY(10px);
+      }
+
+      .f2 .hero {
+        opacity: 0.55;
+        transform: translateY(4px);
+      }
+
+      .f3 .hero {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .motion-note {
+        margin: 18px 0 0;
+        font-size: 7px;
+        letter-spacing: 0.14em;
+        line-height: 1.5;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 70%, transparent);
+      }
+
+      .live {
+        margin-top: 24px;
+        border: 1px solid var(--eve-line);
+        padding: 36px 40px 40px;
+        min-height: 200px;
+      }
+
+      .live-tag {
+        margin: 0 0 28px;
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .live .hero {
+        font-size: 58px;
+        font-weight: 500;
+        line-height: 1.06;
+        letter-spacing: 0.01em;
+        color: var(--tone-silent);
+        max-width: 12ch;
+        animation: eveQuietRise 4.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      .live .sub {
+        animation: eveQuietRise 4.8s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+      }
+
+      @keyframes eveQuietRise {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .footer {
+        margin: 28px 0 0;
+        font-size: 7px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="board" aria-label="Hero silencioso — mismo Cormorant">
+      <p class="board-title">EVE · mismo Cormorant · silencio + grandeza</p>
+      <p class="board-lead">
+        No cambiamos la familia tipográfica. Buscamos que el monumento hable más bajo —
+        tono cercano a la frase del centro — y que la escala + el aire digan grandeza.
+      </p>
+
+      <div class="row">
+        <article class="panel p1">
+          <p class="panel-tag">1 · original · tinta</p>
+          <h1 class="hero">
+            Lo que sostiene
+            <em>no siempre se ve.</em>
+          </h1>
+          <p class="sub">Una forma distinta de mirar.</p>
+          <p class="panel-note">Presente y fuerte · un poco ruidoso para el void</p>
+        </article>
+
+        <article class="panel p2">
+          <p class="panel-tag">2 · tono del centro</p>
+          <h1 class="hero">
+            Lo que sostiene
+            <em>no siempre se ve.</em>
+          </h1>
+          <p class="sub">Una forma distinta de mirar.</p>
+          <p class="panel-note">Misma voz que la señal central · muy susurro · casi se pierde</p>
+        </article>
+
+        <article class="panel p3">
+          <p class="panel-tag">3 · silencio + grandeza</p>
+          <h1 class="hero">
+            Lo que sostiene
+            <em>no siempre se ve.</em>
+          </h1>
+          <p class="sub">Una forma distinta de mirar.</p>
+          <p class="panel-note">Mist + escala mayor + tracking abierto · recomendado</p>
+        </article>
+      </div>
+
+      <div class="motion">
+        <p class="motion-tag">Movimiento sutil · fotogramas · rise lento ~4.8s</p>
+        <div class="frames">
+          <div class="frame f1">
+            <p class="frame-label">0%</p>
+            <h1 class="hero">
+              Lo que sostiene
+              <em>no siempre se ve.</em>
+            </h1>
+          </div>
+          <div class="frame f2">
+            <p class="frame-label">55%</p>
+            <h1 class="hero">
+              Lo que sostiene
+              <em>no siempre se ve.</em>
+            </h1>
+          </div>
+          <div class="frame f3">
+            <p class="frame-label">100%</p>
+            <h1 class="hero">
+              Lo que sostiene
+              <em>no siempre se ve.</em>
+            </h1>
+          </div>
+        </div>
+        <p class="motion-note">
+          Opacidad + translateY mínimo · sin bounce · el monumento aparece, no anuncia
+        </p>
+      </div>
+
+      <div class="live">
+        <p class="live-tag">Vista viva · opción 3 + movimiento · se reproduce al abrir el html</p>
+        <h1 class="hero">
+          Lo que sostiene
+          <em>no siempre se ve.</em>
+        </h1>
+        <p class="sub">Una forma distinta de mirar.</p>
+      </div>
+
+      <p class="footer">Mock visual · deliverables/design · no toca src</p>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Sección Posición · comportamiento vivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .board {
+        width: 1440px;
+        margin: 0 auto;
+        padding: 40px 52px 48px;
+        background: var(--eve-sheet);
+      }
+
+      .kicker {
+        margin: 0 0 6px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .lead {
+        margin: 0 0 28px;
+        max-width: 88ch;
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        line-height: 1.65;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 88%, var(--eve-ink));
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px 20px;
+      }
+
+      .card {
+        border: 1px solid var(--eve-line);
+        padding: 22px 22px 20px;
+        min-height: 210px;
+      }
+
+      .card.wide {
+        grid-column: 1 / -1;
+        min-height: 0;
+      }
+
+      .card-id {
+        margin: 0 0 10px;
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .card-title {
+        margin: 0 0 12px;
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+      }
+
+      .card-body {
+        margin: 0;
+        font-size: 10px;
+        letter-spacing: 0.04em;
+        line-height: 1.55;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, var(--eve-ink));
+      }
+
+      .card-body strong {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .do,
+      .dont {
+        margin: 12px 0 0;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+
+      .do {
+        color: var(--eve-ink);
+      }
+
+      .dont {
+        color: var(--eve-mist);
+      }
+
+      .strip {
+        margin-top: 20px;
+        border: 1px solid var(--eve-line);
+        padding: 20px 22px 18px;
+      }
+
+      .strip-title {
+        margin: 0 0 16px;
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .states {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+      }
+
+      .state {
+        min-height: 148px;
+        padding: 14px 12px;
+        background: color-mix(in srgb, var(--eve-sheet) 90%, var(--eve-mist));
+      }
+
+      .state-n {
+        margin: 0 0 10px;
+        font-size: 7px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .mark {
+        margin: 0 0 8px;
+        font-size: 8px;
+        letter-spacing: 0.06em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .mark.on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .mark.dim {
+        opacity: 0.45;
+      }
+
+      .write-line {
+        margin-top: 10px;
+        border-bottom: 1px solid var(--eve-ink);
+        min-height: 18px;
+        font-size: 8px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        padding-bottom: 3px;
+      }
+
+      .write-line.empty {
+        border-bottom-color: var(--eve-line);
+        color: var(--eve-mist);
+      }
+
+      .trace {
+        margin-top: 12px;
+        display: inline-block;
+        border-bottom: 1px solid var(--eve-line);
+        font-size: 8px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        padding-bottom: 2px;
+      }
+
+      .trace.ready {
+        border-bottom-color: var(--eve-ink);
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .principle {
+        margin-top: 20px;
+        padding: 22px 24px;
+        border-left: 1px solid var(--eve-ink);
+      }
+
+      .principle p {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 26px;
+        font-weight: 500;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+        max-width: 28ch;
+      }
+
+      .principle span {
+        display: block;
+        margin-top: 12px;
+        font-family: var(--font-code);
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        max-width: 70ch;
+        line-height: 1.55;
+      }
+
+      .footer {
+        margin: 22px 0 0;
+        font-size: 7px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="board" aria-label="Comportamiento vivo — sección Posición">
+      <p class="kicker">EVE · sección posición · comportamiento · composición ya fijada</p>
+      <p class="lead">
+        La hoja no se anima para impresionar. Se comporta para que las marcas
+        parezcan ya estar ahí — y el usuario solo deje traza. Sin gritar.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <p class="card-id">01 · entrada</p>
+          <h2 class="card-title">Aparecer, no anunciar</h2>
+          <p class="card-body">
+            Al mostrarse la sección: monumento y marcas entran con
+            <strong>fade + rise mínimo</strong> (~1.2–1.8s). Sin bounce.
+            El void ya está; el contenido solo se hace legible.
+          </p>
+          <p class="do">Sí: opacidad y 6–10px de translateY</p>
+          <p class="dont">No: parallax, partículas, tipografía que late</p>
+        </article>
+
+        <article class="card">
+          <p class="card-id">02 · presencia</p>
+          <h2 class="card-title">Hover = susurro más cerca</h2>
+          <p class="card-body">
+            Al pasar sobre una opción: mist se acerca un poco a ink.
+            <strong>No</strong> subraya, no bordea, no escala.
+            La hoja responde como papel, no como botón.
+          </p>
+          <p class="do">Sí: color mist → mist+ink (~220ms)</p>
+          <p class="dont">No: fondo, radio, sombra, cursor “mano” exagerado</p>
+        </article>
+
+        <article class="card">
+          <p class="card-id">03 · selección</p>
+          <h2 class="card-title">Una marca se graba</h2>
+          <p class="card-body">
+            Al elegir: la opción pasa a <strong>ink + peso 600</strong>.
+            Las demás bajan un grado (más mist). No desaparecen —
+            siguen siendo inscripciones en la hoja.
+          </p>
+          <p class="do">Sí: contraste relativo, sin checklist</p>
+          <p class="dont">No: checkmark, pill, fila resaltada</p>
+        </article>
+
+        <article class="card">
+          <p class="card-id">04 · otro · operativo</p>
+          <h2 class="card-title">Escribir = dejar traza</h2>
+          <p class="card-body">
+            Si elige <strong>Otro</strong>: aparece una
+            <strong>línea de escritura</strong> en el mismo plano
+            (no caja). El texto queda grabado en el lienzo y persiste
+            en sesión. Sin “Otro” completo, Guardar no se habilita.
+          </p>
+          <p class="do">Sí: underline tipográfico + caret discreto</p>
+          <p class="dont">No: input boxed, placeholder ruidoso, modal</p>
+        </article>
+
+        <article class="card">
+          <p class="card-id">05 · dos islas</p>
+          <h2 class="card-title">Completar sin examen</h2>
+          <p class="card-body">
+            Papel y decisión son independientes pero
+            <strong>misma hoja</strong>. Guardar solo se vuelve traza
+            activa cuando ambas están resueltas (y Otro, si aplica).
+            No hay “paso 1 de 2”.
+          </p>
+          <p class="do">Sí: Guardar mist → ink cuando canStart</p>
+          <p class="dont">No: progress bar, “faltan respuestas”</p>
+        </article>
+
+        <article class="card">
+          <p class="card-id">06 · memoria</p>
+          <h2 class="card-title">Lo marcado permanece</h2>
+          <p class="card-body">
+            Al volver a la sección: las marcas ya están en ink
+            (y el Otro escrito). La hoja se siente
+            <strong>continuada</strong>, no reiniciada.
+          </p>
+          <p class="do">Sí: estado persistido como inscripción</p>
+          <p class="dont">No: toast “guardado”, confetti, banner</p>
+        </article>
+
+        <article class="card wide">
+          <p class="card-id">07 · qué le falta para sentirse viva (sin romper la línea delgada)</p>
+          <h2 class="card-title">Vivir = reaccionar con quietud</h2>
+          <p class="card-body">
+            Además de Otro: <strong>(a)</strong> entrada quieta;
+            <strong>(b)</strong> hover tipográfico;
+            <strong>(c)</strong> selección que graba y deja al resto en susurro;
+            <strong>(d)</strong> línea de escritura para Otro;
+            <strong>(e)</strong> Guardar como traza que despierta al completar;
+            <strong>(f)</strong> memoria visual al regresar;
+            <strong>(g)</strong> opcional: la marca de sala
+            “[ Comienza tu levantamiento ]” se atenúa cuando ya hay
+            al menos una selección — el trabajo ya empezó, no hace falta
+            seguir invitándolo.
+          </p>
+          <p class="do">Principio: la hoja está viva porque responde; no porque se mueve mucho</p>
+          <p class="dont">Evitar: ruido, gamificación, feedback de producto SaaS</p>
+        </article>
+      </div>
+
+      <div class="strip">
+        <p class="strip-title">Secuencia operativa · Otro + Guardar · en el lienzo</p>
+        <div class="states">
+          <div class="state">
+            <p class="state-n">A · idle</p>
+            <p class="mark">Defino el rumbo…</p>
+            <p class="mark">…</p>
+            <p class="mark">Otro.</p>
+            <span class="trace">Guardar</span>
+          </div>
+          <div class="state">
+            <p class="state-n">B · elige otro</p>
+            <p class="mark dim">Defino el rumbo…</p>
+            <p class="mark on">Otro.</p>
+            <div class="write-line empty">|</div>
+            <span class="trace">Guardar</span>
+          </div>
+          <div class="state">
+            <p class="state-n">C · escribe</p>
+            <p class="mark on">Otro.</p>
+            <div class="write-line">Consultor externo en planta</div>
+            <span class="trace">Guardar</span>
+          </div>
+          <div class="state">
+            <p class="state-n">D · isla 2 lista</p>
+            <p class="mark on">Otro. · traza</p>
+            <p class="mark on">Decido junto…</p>
+            <span class="trace ready">Guardar</span>
+          </div>
+          <div class="state">
+            <p class="state-n">E · grabado</p>
+            <p class="mark on">Otro. · consultor…</p>
+            <p class="mark on">Decido junto…</p>
+            <span class="trace ready">Guardar</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="principle">
+        <p>La hoja se siente viva sin gritar: solo estando ahí — y respondiendo cuando dejas marca.</p>
+        <span>
+          Composición fijada (cuadrantes). Siguiente: especificar timings y estados
+          exactos de mist→ink / Otro / Guardar antes de tocar src.
+        </span>
+      </div>
+
+      <p class="footer">Mock comportamiento · deliverables/design · no toca src · hero tipográfico = original</p>
+    </section>
+  </body>
+</html>

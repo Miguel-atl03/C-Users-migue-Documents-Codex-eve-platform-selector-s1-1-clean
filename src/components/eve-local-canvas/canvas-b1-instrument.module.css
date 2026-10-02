@@ -1,0 +1,440 @@
+/**
+ * B1 visual candidate "Instrumento" — Estado A professional structure + quiet precision.
+ * Same EVE tokens; no alternate brand language.
+ */
+
+.screen {
+  --eve-ink: #12141a;
+  --eve-sheet: #fafbfc;
+  --eve-mist: #7a8190;
+  --eve-line: #d8dce2;
+  --eve-accent: #5c7d8f;
+  --eve-font-display: "Segoe UI", sans-serif;
+  --eve-font-body: "Segoe UI", sans-serif;
+  --b1-sticky-top: 10px;
+  --b1-sticky-clearance: 28px;
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  width: min(100%, 1260px);
+  margin: 0 auto;
+  padding: 34px 80px 66px;
+  color: var(--eve-ink);
+  background: var(--eve-sheet);
+  font-family: var(--eve-font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+.screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(980px 520px at 78% -12%, color-mix(in srgb, var(--eve-accent) 9%, transparent), transparent 58%),
+    var(--eve-sheet);
+  pointer-events: none;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 22px;
+  gap: 32px;
+}
+
+.logo {
+  --eve-mark-height: 11px;
+  --eve-text-size: 7px;
+  --eve-gap: 7px;
+  --eve-tracking: 0.42em;
+  --eve-tm-size: 4px;
+}
+
+.topbarRight {
+  display: grid;
+  gap: 0;
+  justify-items: end;
+  align-content: start;
+  text-align: right;
+  padding-top: 1px;
+}
+
+.slogan {
+  max-width: none;
+  text-align: right;
+  letter-spacing: 0.36em;
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--eve-mist);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.instrumentTag {
+  margin: 22px 0 0;
+  padding: 0;
+  color: color-mix(in srgb, var(--eve-mist) 78%, var(--eve-ink));
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.intro {
+  max-width: 920px;
+  margin: 64px auto 40px;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: clamp(44px, 4.2vw, 62px);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  max-width: 640px;
+  margin: 28px auto 0;
+  color: var(--eve-mist);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.activitySticky {
+  position: sticky;
+  top: var(--b1-sticky-top);
+  z-index: 6;
+  width: 100%;
+  max-width: none;
+  margin: 0 0 var(--b1-sticky-clearance);
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.activityRow {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.28fr) minmax(0, 1fr);
+  gap: 24px 40px;
+  align-items: center;
+  width: 100%;
+  min-height: 56px;
+  padding: 14px 0;
+  border-top: 1px solid color-mix(in srgb, var(--eve-line) 90%, var(--eve-ink) 10%);
+  border-bottom: 1px solid color-mix(in srgb, var(--eve-line) 90%, var(--eve-ink) 10%);
+  background: #f7f7f8;
+}
+
+.activityRowMeta {
+  color: color-mix(in srgb, var(--eve-mist) 88%, var(--eve-ink));
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activityRowMain {
+  min-width: 0;
+}
+
+.activityLiteral {
+  margin: 0;
+  color: color-mix(in srgb, var(--eve-ink) 82%, var(--eve-mist));
+  font-family: var(--eve-font-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.activityLiteralClamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.literalToggle {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: var(--eve-font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.literalToggle:hover {
+  color: var(--eve-ink);
+}
+
+.questions {
+  border-top: 0;
+  display: block;
+}
+
+.question {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 78px;
+  padding: 40px 0 36px;
+  border-bottom: 1px solid var(--eve-line);
+  scroll-margin-top: calc(var(--b1-sticky-top) + 7.5rem);
+}
+
+.question:first-child {
+  padding-top: 44px;
+}
+
+.meta {
+  padding-top: 6px;
+}
+
+.number {
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.meta p {
+  margin: 10px 0 0;
+  color: var(--eve-mist);
+  font-size: 12px;
+  line-height: 1.4;
+  max-width: 190px;
+}
+
+.body {
+  min-width: 0;
+}
+
+.body h3 {
+  margin: 0 0 28px;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-display);
+  font-size: clamp(22px, 2.2vw, 32px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  max-width: 720px;
+}
+
+.help {
+  margin: -12px 0 22px;
+  max-width: 560px;
+  color: var(--eve-mist);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.optionGrid {
+  display: grid;
+  gap: 22px 32px;
+}
+
+.optionGridThree {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.optionGridFour {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.optionGridFive {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.optionGridSix {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.option {
+  min-height: 44px;
+  display: block;
+  border: 0;
+  background: transparent;
+  color: var(--eve-mist);
+  font-family: var(--eve-font-body);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    font-weight 200ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.option:hover:not(:disabled) {
+  color: var(--eve-ink);
+  transform: translateY(-2px);
+}
+
+.option:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.optionSelected {
+  color: var(--eve-ink);
+  font-weight: 700;
+  transform: translateY(0);
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  margin-top: 18px;
+}
+
+.field span {
+  color: var(--eve-mist);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.field textarea,
+.field input {
+  width: min(100%, 520px);
+  border: 0;
+  border-bottom: 1px solid var(--eve-line);
+  background: transparent;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-body);
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 8px 0 12px;
+  outline: none;
+  resize: vertical;
+}
+
+.field textarea:focus,
+.field input:focus {
+  border-bottom-color: var(--eve-ink);
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: 260px 1fr 250px;
+  gap: 78px;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.footerMeta .number {
+  margin-bottom: 8px;
+}
+
+.footer p,
+.footerNote {
+  margin: 0;
+  color: var(--eve-mist);
+  font-size: 12px;
+  line-height: 1.4;
+  max-width: 420px;
+}
+
+.advance {
+  min-height: 48px;
+  border: 0;
+  border-bottom: 1px solid var(--eve-ink);
+  background: transparent;
+  color: var(--eve-ink);
+  font-family: var(--eve-font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: left;
+  cursor: pointer;
+  padding: 0 0 10px;
+}
+
+.advance:hover:not(:disabled) {
+  opacity: 0.78;
+}
+
+.advance:disabled {
+  color: var(--eve-mist);
+  border-bottom-color: var(--eve-line);
+  cursor: not-allowed;
+}
+
+@media (max-width: 980px) {
+  .screen {
+    padding: 28px 20px 48px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topbarRight {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .slogan {
+    white-space: normal;
+    text-align: left;
+  }
+
+  .instrumentTag {
+    margin-top: 18px;
+  }
+
+  .activitySticky {
+    top: 8px;
+    margin: 0 0 22px;
+  }
+
+  .activityRow {
+    grid-template-columns: 1fr;
+    gap: 6px 0;
+    padding: 12px 0;
+  }
+
+  .activityRowMeta {
+    white-space: normal;
+  }
+
+  .question,
+  .footer {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .question {
+    scroll-margin-top: calc(var(--b1-sticky-top) + 6rem);
+  }
+
+  .optionGridThree,
+  .optionGridFour,
+  .optionGridFive,
+  .optionGridSix {
+    grid-template-columns: 1fr 1fr;
+  }
+}

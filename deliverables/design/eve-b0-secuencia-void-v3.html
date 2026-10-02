@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <title>EVE — B0 · Secuencia void v3 · I-IV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --font-kicker: "IBM Plex Mono", "Consolas", monospace;
+        --font-activity: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-kicker);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .build {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 20;
+        margin: 0;
+        color: var(--eve-mist);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .error {
+        position: fixed;
+        top: 40px;
+        right: 20px;
+        z-index: 20;
+        max-width: 42ch;
+        color: #8a2f2f;
+        font-size: 11px;
+        line-height: 1.4;
+        display: none;
+      }
+
+      .error.is-visible {
+        display: block;
+      }
+
+      .void {
+        position: relative;
+        min-height: 100svh;
+        width: min(1440px, 100%);
+        margin: 0 auto;
+        padding: 88px 72px 72px;
+        overflow: hidden;
+      }
+
+      .intro {
+        margin: 0;
+        max-width: 260px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        opacity: 0;
+        transition: color 900ms ease, opacity 900ms ease;
+      }
+
+      .intro.is-visible {
+        opacity: 1;
+      }
+
+      .intro.is-mist {
+        color: var(--eve-mist);
+      }
+
+      .flow {
+        position: absolute;
+        top: 148px;
+        left: 72px;
+        right: 72px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(24px, 4vw, 72px);
+        align-items: start;
+      }
+
+      .flow-step {
+        min-width: 0;
+        max-width: 34ch;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .flow-step.is-active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .step-label {
+        margin: 0;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        min-height: 1.4em;
+        white-space: nowrap;
+      }
+
+      .step-value {
+        margin: 28px 0 0;
+        font-family: var(--font-activity);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+        max-width: 44ch;
+        min-height: 3em;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 1px;
+        height: 0.95em;
+        margin-left: 1px;
+        background: var(--eve-ink);
+        vertical-align: text-bottom;
+        animation: blink 900ms step-end infinite;
+      }
+
+      .cursor.is-hidden {
+        display: none;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .replay {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: var(--font-kicker);
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 400ms ease, color 200ms ease;
+      }
+
+      .replay.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 900px) {
+        .void {
+          padding: 72px 24px 48px;
+        }
+
+        .flow {
+          left: 24px;
+          right: 24px;
+          top: 160px;
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="build" id="build">BUILD 3.2 · escritura lenta · I–IV</p>
+    <p class="error" id="error" role="alert"></p>
+
+    <main class="void" aria-label="B0 secuencia void monumental">
+      <p class="intro" id="intro">Miremos de cerca…</p>
+
+      <section class="flow" aria-label="Flujo horizontal">
+        <div class="flow-step" id="step-1">
+          <p class="step-label" id="label-1"></p>
+          <p class="step-value" id="value-1"></p>
+        </div>
+        <div class="flow-step" id="step-2">
+          <p class="step-label" id="label-2"></p>
+          <p class="step-value" id="value-2"></p>
+        </div>
+        <div class="flow-step" id="step-3">
+          <p class="step-label" id="label-3"></p>
+          <p class="step-value" id="value-3"></p>
+        </div>
+        <div class="flow-step" id="step-4">
+          <p class="step-label" id="label-4"></p>
+          <p class="step-value" id="value-4"></p>
+        </div>
+      </section>
+    </main>
+
+    <button class="replay" id="replay" type="button">Repetir secuencia</button>
+
+    <script>
+      // BUILD 3 — must show all four steps. New URL defeats browser cache.
+      const BUILD = "3.2";
+      const STEP_DEFS = [
+        {
+          id: 1,
+          labelText: "I · Qué haces",
+          valueText:
+            "Analizo la proyección mensual de erogaciones comparando el gasto real contra Oracle para generar reportes de desviaciones con análisis de causa raíz.",
+        },
+        {
+          id: 2,
+          labelText: "II · Sobre qué trabajas",
+          valueText: "la proyección mensual de erogaciones",
+        },
+        {
+          id: 3,
+          labelText: "III · Pasos del recorrido",
+          valueText: "comparando el gasto real contra Oracle",
+        },
+        {
+          id: 4,
+          labelText: "IV · Qué queda listo",
+          valueText: "reportes de desviaciones con análisis de causa raíz",
+        },
+      ];
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("actividad")) STEP_DEFS[0].valueText = params.get("actividad").trim();
+      if (params.get("objeto")) STEP_DEFS[1].valueText = params.get("objeto").trim();
+      if (params.get("pasos")) STEP_DEFS[2].valueText = params.get("pasos").trim();
+      if (params.get("resultado")) STEP_DEFS[3].valueText = params.get("resultado").trim();
+
+      const introEl = document.getElementById("intro");
+      const errorEl = document.getElementById("error");
+      const replayEl = document.getElementById("replay");
+      const buildEl = document.getElementById("build");
+
+      const steps = STEP_DEFS.map((def) => {
+        const el = document.getElementById("step-" + def.id);
+        const label = document.getElementById("label-" + def.id);
+        const value = document.getElementById("value-" + def.id);
+        return { ...def, el, label, value };
+      });
+
+      function showError(message) {
+        errorEl.textContent = message;
+        errorEl.classList.add("is-visible");
+        console.error(message);
+      }
+
+      const missing = steps.filter((s) => !s.el || !s.label || !s.value);
+      if (missing.length || steps.length !== 4) {
+        showError(
+          "BUILD " +
+            BUILD +
+            " incompleto: faltan nodos DOM. Recarga con la URL v3. Faltan: " +
+            missing.map((s) => s.id).join(", "),
+        );
+      }
+
+      let runId = 0;
+      let busy = false;
+
+      /** Always resolves. Returns false if this run was cancelled. */
+      function sleep(ms, token) {
+        return new Promise((resolve) => {
+          window.setTimeout(() => resolve(token === runId), ms);
+        });
+      }
+
+      function makeCursor() {
+        const cursor = document.createElement("span");
+        cursor.className = "cursor";
+        cursor.setAttribute("aria-hidden", "true");
+        return cursor;
+      }
+
+      async function typewriter(target, text, speed, token) {
+        if (!target) return false;
+        target.textContent = "";
+        const cursor = makeCursor();
+        target.appendChild(cursor);
+
+        for (let i = 0; i < text.length; i += 1) {
+          if (token !== runId) return false;
+          cursor.insertAdjacentText("beforebegin", text.charAt(i));
+          const alive = await sleep(speed, token);
+          if (!alive) return false;
+        }
+
+        cursor.classList.add("is-hidden");
+        return token === runId;
+      }
+
+      function resetVisual() {
+        introEl.classList.remove("is-visible", "is-mist");
+        for (const step of steps) {
+          if (!step.el) continue;
+          step.el.classList.remove("is-active");
+          step.label.textContent = "";
+          step.value.textContent = "";
+        }
+        replayEl.classList.remove("is-visible");
+      }
+
+      async function playStep(step, token, gapBeforeMs) {
+        if (!step.el || !step.label || !step.value) {
+          showError("Paso " + step.id + " sin DOM — abortando.");
+          return false;
+        }
+
+        if (gapBeforeMs > 0) {
+          const alive = await sleep(gapBeforeMs, token);
+          if (!alive) return false;
+        }
+
+        step.el.classList.add("is-active");
+        buildEl.textContent = "BUILD 3 · ejecutando " + step.labelText;
+
+        let ok = await typewriter(step.label, step.labelText, 48, token);
+        if (!ok) return false;
+
+        ok = await sleep(2000, token);
+        if (!ok) return false;
+
+        ok = await typewriter(step.value, step.valueText, 36, token);
+        return ok;
+      }
+
+      async function runSequence() {
+        if (missing.length) return;
+
+        runId += 1;
+        const token = runId;
+        busy = true;
+        resetVisual();
+        buildEl.textContent = "BUILD 3.2 · escritura lenta · I–IV";
+
+        let alive = await sleep(120, token);
+        if (!alive) return;
+        introEl.classList.add("is-visible");
+
+        alive = await sleep(3000, token);
+        if (!alive) return;
+        introEl.classList.add("is-mist");
+
+        alive = await sleep(400, token);
+        if (!alive) return;
+
+        for (let i = 0; i < steps.length; i += 1) {
+          const ok = await playStep(steps[i], token, i === 0 ? 0 : 400);
+          if (!ok) {
+            if (token === runId) {
+              showError("La secuencia se detuvo en el paso " + steps[i].id);
+            }
+            busy = false;
+            return;
+          }
+        }
+
+        if (token === runId) {
+          buildEl.textContent = "BUILD 3.2 · completo I–IV";
+          replayEl.classList.add("is-visible");
+          busy = false;
+        }
+      }
+
+      replayEl.addEventListener("click", () => {
+        if (busy) runId += 1; // cancel current, then restart
+        runSequence();
+      });
+
+      runSequence();
+    </script>
+  </body>
+</html>

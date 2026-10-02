@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/parallel-production/diagram-code-generation-package.schema.json",
+  "title": "EVE Capa 1 Parallel Production Diagram Code Generation Package",
+  "type": "object",
+  "required": [
+    "package_id",
+    "schema_version",
+    "client_id",
+    "source_handoff_package_id",
+    "source_mmabp_ir_package_id",
+    "generation_readiness",
+    "generation_mode",
+    "exports"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "generation_readiness": {
+      "enum": [
+        "ready_for_candidate_generation",
+        "ready_with_warnings",
+        "blocked_by_ir_gaps",
+        "blocked_by_conformance",
+        "blocked_by_consistency",
+        "manual_review_required"
+      ]
+    },
+    "generation_mode": {
+      "enum": ["candidate", "draft_with_warnings", "blocked"]
+    },
+    "prohibited_downstream_uses": {
+      "type": "array",
+      "items": {
+        "enum": ["capa_2", "capa_2_5", "capa_3", "diagnostic", "monetization", "final_narrative", "final_export"]
+      }
+    },
+    "exports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "export_id",
+          "quadrant",
+          "export_format",
+          "source_ir_element_ids",
+          "source_registry_element_ids",
+          "source_fact_ids",
+          "traceability_status",
+          "semantic_preservation_status",
+          "warnings",
+          "allowed_uses",
+          "prohibited_uses",
+          "gaps"
+        ],
+        "properties": {
+          "quadrant": { "enum": ["PM", "PF", "MoC", "OLC"] },
+          "export_format": {
+            "enum": ["BPMN_XML", "PLANTUML_CLASS", "PLANTUML_STATE", "XMI_OPTIONAL"]
+          },
+          "source_ir_element_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "semantic_preservation_status": {
+            "enum": ["passed", "passed_with_warnings", "draft_only", "blocked"]
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "warning_id",
+                "warning_type",
+                "severity",
+                "owner",
+                "affected_artifact_type",
+                "affected_element_ids",
+                "reason",
+                "downstream_effect",
+                "allowed_uses",
+                "prohibited_uses",
+                "related_gap_ids",
+                "resolution_recommendation",
+                "traceability_status",
+                "semantic_preservation_status"
+              ],
+              "properties": {
+                "severity": { "enum": ["low", "medium", "high", "critical"] },
+                "semantic_preservation_status": {
+                  "enum": ["passed", "passed_with_warnings", "draft_only", "blocked"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

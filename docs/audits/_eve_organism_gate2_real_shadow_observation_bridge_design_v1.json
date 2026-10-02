@@ -1,0 +1,85 @@
+{
+  "dictamen": "GATE2_REAL_SHADOW_OBSERVATION_BRIDGE_DESIGN_CREATED_PENDING_REVIEW",
+  "bridge_id": "GATE2_REAL_SHADOW_OBSERVATION_BRIDGE_V1",
+  "bridge_type": "real_shadow_observation_bridge",
+  "mode": "DESIGN_ONLY",
+  "gate": "GATE_2",
+  "state": "REAL_SHADOW_OBSERVATION_DESIGN",
+  "productive_authority": false,
+  "side_effects_allowed": false,
+  "product_write_allowed": false,
+  "registry_write_allowed": false,
+  "export_allowed": false,
+  "final_diagnosis_allowed": false,
+  "gate3_ready": false,
+  "gate3_promotion_allowed": false,
+  "fase9_allowed": false,
+  "fase9_client_surface_allowed": false,
+  "parallel_production_release_allowed": false,
+  "primary_control_output": "shadowDivergenceReport",
+  "certified_state": {
+    "gate0": "closed",
+    "gate1": "closed",
+    "gate2_offline_controlled": "closed",
+    "gate2_real_shadow": "design_started",
+    "gate3": "not_authorized",
+    "fase9_client": "not_authorized",
+    "parallel_production_real": "not_authorized",
+    "final_diagnosis": "not_authorized",
+    "registry_write": "not_authorized",
+    "final_export": "not_authorized"
+  },
+  "certified_commits": {
+    "activation_wiring_composition_root_shadow": "5b49fab855f1a6f71caa303d1c0636b61ccec83a",
+    "shadow_e2e_offline_harness": "6022c42ceac35861ea287d5602120dad0b2d27b7",
+    "replay_fixtures": "40b4c06f954d597ddc995c7b7e220857df8eff25",
+    "real_observable_signal_contract": "e11ac8b3577b3a5603bd69621136263f4a685071",
+    "real_signal_evidence_collection_plan": "7a13923e9a694d09c62cfe2d2896a984aa7eb952",
+    "signal_guardrails_design": "797cc2ce32361f349efb71f80cbbbaf9ced7092e",
+    "signal_guardrails_offline": "a0df29d5ff6d40cc33d4806c5be49279303239dd",
+    "authority_guardrails_design": "774c5ff81b8d0b4197c6fd95f52203d45c306295",
+    "authority_guardrails_design_closeout": "a1559412755d03600f94304f219d6ae0d31e52e0",
+    "authority_guardrails_offline": "ff73f9b2dfb2a0861932b12386e271de078427f0",
+    "gate2_offline_guardrails_global_closeout": "42d06a7a7e7fb818fbaadfcea4e471a7b8457aae"
+  },
+  "inputs": [
+    "realClientIntent",
+    "realTenantContext",
+    "realSessionContext",
+    "realActivityContext",
+    "realRuntimeEvent",
+    "realEvidenceSignal",
+    "officialOutcome"
+  ],
+  "shadow_outputs": [
+    "shadowEvaluation",
+    "shadowGateDecision",
+    "shadowCandidateArtifact",
+    "shadowGovernanceFinding",
+    "shadowDivergenceReport"
+  ],
+  "locks": {
+    "structural_read_only": true,
+    "tenant_session_activity_required": true,
+    "correlation_id_required": true,
+    "idempotency_key_required": true,
+    "official_shadow_divergence_separated": true,
+    "parallel_production_rehearsal_only": true
+  },
+  "safe_infrastructure_required": {
+    "mirror_shadow_only_or_outbox_required": true,
+    "append_only_or_read_replica_required": true,
+    "blocked_if_missing": true,
+    "blocked_reason": "NO_SAFE_SHADOW_MIRROR_OR_OUTBOX"
+  },
+  "gate_status": {
+    "gate0": "closed",
+    "gate1": "closed",
+    "gate2_offline_controlled": "closed",
+    "gate2_real_shadow": "design_started",
+    "gate3": "not_authorized",
+    "gate4": "not_authorized",
+    "gate5_fase9": "not_authorized",
+    "gate6": "not_authorized"
+  }
+}

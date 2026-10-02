@@ -1,0 +1,427 @@
+{
+  "dictamen": "SIGNIFICADO_TRACE_PREFLIGHT_READY",
+  "route": {
+    "exists": true,
+    "path": "external-consumers/eve-platform/src/app/admin/significado-trace/page.tsx",
+    "dynamicPath": "external-consumers/eve-platform/src/app/admin/significado-trace/[sessionId]/page.tsx"
+  },
+  "dependencies": {
+    "totalRequired": 24,
+    "totalUnknown": 0,
+    "totalExcluded": 6,
+    "groups": {
+      "TRACE_ROUTE": 2,
+      "TRACE_UI_COMPONENT": 1,
+      "SIGNIFICADO_SERVICE": 5,
+      "SIGNIFICADO_DOMAIN": 10,
+      "WORKMAP_DEPENDENCY": 4,
+      "EXPORT_DEPENDENCY": 2
+    }
+  },
+  "bundle": {
+    "filelistPath": "docs/audits/_significado_trace_visual_qa_bundle_filelist.json",
+    "count": 24,
+    "files": [
+      "src/app/admin/significado-trace/page.tsx",
+      "src/app/admin/significado-trace/[sessionId]/page.tsx",
+      "src/components/consultant/SignificadoConsultantTraceView.tsx",
+      "src/services/significado-consultant-trace.ts",
+      "src/services/significado-block0-repository.ts",
+      "src/services/operational-description-coach/operational-description-coach-repository.ts",
+      "src/services/operational-description-coach/coach-event.ts",
+      "src/services/operational-description-coach/types.ts",
+      "src/services/operational-description-coach/narrative-coach-policy.ts",
+      "src/features/significado/operational-description-canon.ts",
+      "src/features/significado/operational-description-cybernetic-components.ts",
+      "src/services/work-map-activity-validation.ts",
+      "src/domain/work-map.ts",
+      "src/domain/start-position-context.ts",
+      "src/services/export/significado-export-mappers.ts",
+      "src/domain/export.ts",
+      "src/domain/diagnostics.ts",
+      "src/domain/significado-de-trabajo.ts",
+      "src/domain/pre-runtime-context-bundle.v1.0.ts",
+      "src/domain/primary-activity-selection-policy.ts",
+      "src/domain/primary-activity-selection-policy.v1.3.ts",
+      "src/domain/runtime-block0-response.ts",
+      "src/services/workmap-to-block0-prefill.ts",
+      "src/features/significado/runtime-block0-canonical.ts"
+    ]
+  },
+  "contaminationEve04": {
+    "found": false,
+    "foundInTraceRoute": false,
+    "foundInIncludedBundle": false,
+    "evidence": "EVE04/trench_phrase matches found only outside trace dependency bundle; excluded."
+  },
+  "validations": {
+    "routeExists": true,
+    "screenHasNoEve04": true,
+    "bundleHasNoEve04": true,
+    "activatesDiagnosis": false,
+    "activatesProductExport": false,
+    "activatesTransduction": false,
+    "touchesParallelProduction": false,
+    "adminDevTrace": true,
+    "separateCommitFilelist": true,
+    "unknownRequiresHumanReview": false
+  },
+  "commands": [
+    {
+      "command": "pwd",
+      "exitCode": 0
+    },
+    {
+      "command": "git -c safe.directory=\"C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\" status --short",
+      "exitCode": 0
+    },
+    {
+      "command": "git -c safe.directory=\"C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\" ls-files --others --exclude-standard",
+      "exitCode": 0
+    },
+    {
+      "command": "git -c safe.directory=\"C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\" diff --name-only",
+      "exitCode": 0
+    },
+    {
+      "command": "rg \"significado-trace|SignificadoTrace|significado trace|trace\" external-consumers/eve-platform/src external-consumers/eve-platform/docs external-consumers/eve-platform/tests",
+      "exitCode": 0
+    },
+    {
+      "command": "rg \"EVE_04_Runtime_Catalog|B6-Q38|B6_6_8|trench_phrase|eve-04-runtime-catalog|EVE04_\" external-consumers/eve-platform/src/app/admin/significado-trace external-consumers/eve-platform/src external-consumers/eve-platform/tests",
+      "exitCode": 0
+    }
+  ],
+  "matrix": [
+    {
+      "path": "src/app/admin/significado-trace/page.tsx",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "TRACE_ROUTE",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Lookup route for /admin/significado-trace; lets consultant enter sessionId."
+    },
+    {
+      "path": "src/app/admin/significado-trace/[sessionId]/page.tsx",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "TRACE_ROUTE",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Dynamic trace route; loads consultant trace and renders view."
+    },
+    {
+      "path": "src/components/consultant/SignificadoConsultantTraceView.tsx",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "TRACE_UI_COMPONENT",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Main visual trace UI component for consultant/admin review."
+    },
+    {
+      "path": "src/services/significado-consultant-trace.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_SERVICE",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Builds trace payload from session, coach events, and Block 0 answers."
+    },
+    {
+      "path": "src/services/significado-block0-repository.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_SERVICE",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Reads Significado Block 0 answers displayed by trace view."
+    },
+    {
+      "path": "src/services/operational-description-coach/operational-description-coach-repository.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_SERVICE",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Lists persisted B0-Q02 coach trace events."
+    },
+    {
+      "path": "src/services/operational-description-coach/coach-event.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_SERVICE",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Defines and parses persisted operational-description coach events."
+    },
+    {
+      "path": "src/services/operational-description-coach/types.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_DOMAIN",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Type dependency for coach event scan payloads."
+    },
+    {
+      "path": "src/services/operational-description-coach/narrative-coach-policy.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_SERVICE",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Runtime dependency used by coach-event context summary."
+    },
+    {
+      "path": "src/features/significado/operational-description-canon.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_DOMAIN",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Narrative labels used by coach policy."
+    },
+    {
+      "path": "src/features/significado/operational-description-cybernetic-components.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_DOMAIN",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Type/value dependency of operational-description canon/types."
+    },
+    {
+      "path": "src/services/work-map-activity-validation.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "WORKMAP_DEPENDENCY",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "ActivityParts type and validation utility dependency in coach types/workmap prefill."
+    },
+    {
+      "path": "src/domain/work-map.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "WORKMAP_DEPENDENCY",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "WorkMap types and hash helper used by coach-event and Significado domain."
+    },
+    {
+      "path": "src/domain/start-position-context.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "WORKMAP_DEPENDENCY",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Runtime import required by work-map normalization."
+    },
+    {
+      "path": "src/services/export/significado-export-mappers.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "EXPORT_DEPENDENCY",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Parser/mapping utility used by Significado Block 0 repository; not export activation."
+    },
+    {
+      "path": "src/domain/export.ts",
+      "exists": true,
+      "tracked_or_untracked": "tracked",
+      "role": "EXPORT_DEPENDENCY",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Type dependency of Significado export mappers."
+    },
+    {
+      "path": "src/domain/diagnostics.ts",
+      "exists": true,
+      "tracked_or_untracked": "tracked",
+      "role": "SIGNIFICADO_DOMAIN",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Type dependency of domain/export."
+    },
+    {
+      "path": "src/domain/significado-de-trabajo.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_DOMAIN",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Significado Block 0 answer type dependency."
+    },
+    {
+      "path": "src/domain/pre-runtime-context-bundle.v1.0.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_DOMAIN",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Type dependency of Significado domain."
+    },
+    {
+      "path": "src/domain/primary-activity-selection-policy.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_DOMAIN",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Type dependency of Significado domain/workmap prefill."
+    },
+    {
+      "path": "src/domain/primary-activity-selection-policy.v1.3.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_DOMAIN",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Type dependency of primary selection policy."
+    },
+    {
+      "path": "src/domain/runtime-block0-response.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_DOMAIN",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Type dependency of Significado submit payload."
+    },
+    {
+      "path": "src/services/workmap-to-block0-prefill.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "WORKMAP_DEPENDENCY",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Type export dependency of Significado domain."
+    },
+    {
+      "path": "src/features/significado/runtime-block0-canonical.ts",
+      "exists": true,
+      "tracked_or_untracked": "untracked",
+      "role": "SIGNIFICADO_DOMAIN",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "route may fail to compile/render or lose displayed trace data",
+      "risk_if_committed_with_trace": "acceptable if committed as isolated Significado trace bundle; keep separate from EVE04/runtime/product fronts",
+      "include_in_trace_bundle": true,
+      "reason": "Runtime import used by workmap-to-block0-prefill."
+    },
+    {
+      "path": "src/lib/supabase-server.ts",
+      "exists": true,
+      "tracked_or_untracked": "tracked",
+      "role": "SIGNIFICADO_SERVICE",
+      "required_for_visual_trace": false,
+      "risk_if_omitted": "none for visual trace render",
+      "risk_if_committed_with_trace": "would contaminate trace bundle or add non-required scope",
+      "include_in_trace_bundle": false,
+      "reason": "Existing Supabase client used by server services; do not include as new Supabase work."
+    },
+    {
+      "path": "src/app/api/export/activity-collection-xlsx/route.ts",
+      "exists": true,
+      "tracked_or_untracked": "tracked",
+      "role": "NOT_REQUIRED",
+      "required_for_visual_trace": false,
+      "risk_if_omitted": "none for visual trace render",
+      "risk_if_committed_with_trace": "would contaminate trace bundle or add non-required scope",
+      "include_in_trace_bundle": false,
+      "reason": "Only linked as href; visual trace render does not need committing export API."
+    },
+    {
+      "path": "src/services/eve-04-runtime-catalog-shadow-service.ts",
+      "exists": true,
+      "tracked_or_untracked": "tracked",
+      "role": "NOT_REQUIRED",
+      "required_for_visual_trace": false,
+      "risk_if_omitted": "none for visual trace render",
+      "risk_if_committed_with_trace": "would contaminate trace bundle or add non-required scope",
+      "include_in_trace_bundle": false,
+      "reason": "Explicitly excluded EVE04 service."
+    },
+    {
+      "path": "tests/regression/eve-04-runtime-catalog-shadow-service.test.ts",
+      "exists": true,
+      "tracked_or_untracked": "tracked",
+      "role": "NOT_REQUIRED",
+      "required_for_visual_trace": false,
+      "risk_if_omitted": "none for visual trace render",
+      "risk_if_committed_with_trace": "would contaminate trace bundle or add non-required scope",
+      "include_in_trace_bundle": false,
+      "reason": "Explicitly excluded EVE04 test."
+    },
+    {
+      "path": "docs/audits/SIGNIFICADO_TRACE_VISUAL_QA_PREFLIGHT.md",
+      "exists": false,
+      "tracked_or_untracked": "missing",
+      "role": "AUDIT_DOC",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "audit evidence incomplete",
+      "risk_if_committed_with_trace": "acceptable as audit artifact",
+      "include_in_trace_bundle": false,
+      "reason": "This audit closeout/control document."
+    },
+    {
+      "path": "docs/audits/_significado_trace_visual_qa_bundle_filelist.json",
+      "exists": false,
+      "tracked_or_untracked": "missing",
+      "role": "AUDIT_DOC",
+      "required_for_visual_trace": true,
+      "risk_if_omitted": "audit evidence incomplete",
+      "risk_if_committed_with_trace": "acceptable as audit artifact",
+      "include_in_trace_bundle": false,
+      "reason": "This audit filelist/control document."
+    }
+  ]
+}

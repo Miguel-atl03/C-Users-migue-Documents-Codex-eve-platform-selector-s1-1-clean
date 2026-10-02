@@ -1,0 +1,221 @@
+{
+  "auditId": "EVE-05-GATE-ENGINE-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "GATE_ENGINE_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "scope": "initial_source_units_inventory_non_exhaustive",
+  "sourceUnitsInventoried": true,
+  "sourceUnitsInventoryExhaustive": false,
+  "sources": [
+    {
+      "sourceId": "D1",
+      "path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/sources/Fundamentals of Business Architecture Modeling.pdf",
+      "kind": "pdf",
+      "readCheck": {
+        "headerPdf": true,
+        "pageMarkers": 293
+      },
+      "initialUnits": [
+        "MMABP methodological source",
+        "PM / MoC / PF / OLC method guard",
+        "conformance before consistency",
+        "methodological separation between conformance and consistency",
+        "declared sections 2.2.6, 2.3.6, 3.1.5, 3.2.4, 4.1-4.5"
+      ],
+      "auditNote": "Direct physical read was structural PDF read only; content-unit QA remains pending for RECORD-RULE-SOURCE-QA."
+    },
+    {
+      "sourceId": "D2",
+      "path": "docs/chips/agent-constitution/EVE_01_Agent_Constitution_v0_1/sources/Tabla de Diagnostico de Inconsistencias Estructurales EVE.docx",
+      "kind": "docx",
+      "readCheck": {
+        "charsExtracted": 8033,
+        "textNonEmpty": true
+      },
+      "initialUnits": [
+        "tabla de diagnostico de inconsistencias",
+        "compartimentos de inconsistencia",
+        "factual / temporal / estructural / compuesta",
+        "referencia downstream para mmabp_consistency_gate",
+        "no diagnostico activo en EVE-05"
+      ],
+      "termSignals": {
+        "compartimento": 1,
+        "inconsistencia": 3,
+        "factual": 2,
+        "temporal": 3,
+        "estructural": 10
+      }
+    },
+    {
+      "sourceId": "D3",
+      "path": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+      "kind": "docx",
+      "readCheck": {
+        "charsExtracted": 20743,
+        "textNonEmpty": true
+      },
+      "initialUnits": [
+        "integracion runtime con organismo EVE",
+        "Produccion Paralela",
+        "fronteras downstream",
+        "export y diagnostico como frontera posterior",
+        "no fuente operacional primaria de gates"
+      ],
+      "termSignals": {
+        "Produccion Paralela": 32,
+        "diagnostico": 20,
+        "export": 37,
+        "frontera": 3
+      }
+    },
+    {
+      "sourceId": "D4",
+      "path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "kind": "docx",
+      "readCheck": {
+        "charsExtracted": 48722,
+        "textNonEmpty": true
+      },
+      "initialUnits": [
+        "especificacion tecnica ejecutable",
+        "loader / backend / schema",
+        "CriticalRouteGate",
+        "MMABPGateEngine",
+        "runtime states",
+        "recompute / compatibilidad / QA"
+      ],
+      "termSignals": {
+        "CriticalRouteGate": 2,
+        "MMABPGateEngine": 1,
+        "schema": 1,
+        "runtime": 130,
+        "recompute": 10,
+        "QA": 16
+      }
+    },
+    {
+      "sourceId": "D5",
+      "path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "kind": "docx",
+      "readCheck": {
+        "charsExtracted": 27480,
+        "textNonEmpty": true
+      },
+      "initialUnits": [
+        "gobierno runtime",
+        "gates",
+        "fronteras",
+        "QA",
+        "reglas de no diagnostico",
+        "reglas de no export / no registry"
+      ],
+      "termSignals": {
+        "gate": 20,
+        "frontera": 7,
+        "registry": 9,
+        "diagnostico": 8,
+        "export": 4,
+        "QA": 9
+      }
+    },
+    {
+      "sourceId": "D6",
+      "path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "kind": "xlsx",
+      "readCheck": {
+        "sheet_count": 16,
+        "workbookOpened": true
+      },
+      "sheets": [
+        {"name": "Critical_Routes", "dimension": "A1:G5", "rowElements": 5, "initialUse": "critical route gate"},
+        {"name": "Semantic_Resolution_Gates", "dimension": "A1:G8", "rowElements": 8, "initialUse": "semantic resolution gate"},
+        {"name": "Process_State_Timer_Gates", "dimension": "A1:G7", "rowElements": 7, "initialUse": "process state timer gate"},
+        {"name": "Readiness_Gaps_Reentry", "dimension": "A1:E8", "rowElements": 8, "initialUse": "readiness and reentry candidates"},
+        {"name": "QA_Checklist", "dimension": "A1:D13", "rowElements": 13, "initialUse": "QA guard"},
+        {"name": "Implementation_Dictionaries", "dimension": "A1:C21", "rowElements": 21, "initialUse": "implementation dictionary"},
+        {"name": "Epistemic_Policy", "dimension": "A1:D7", "rowElements": 7, "initialUse": "epistemic guard"},
+        {"name": "Branching_Budget_Rules", "dimension": "A1:F24", "rowElements": 24, "initialUse": "branching and budget guard"}
+      ]
+    },
+    {
+      "sourceId": "D7",
+      "path": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+      "kind": "docx",
+      "readCheck": {
+        "charsExtracted": 63362,
+        "textNonEmpty": true
+      },
+      "initialUnits": [
+        "arquitectura runtime 40+20",
+        "reduccion 164 a 40+20",
+        "rutas criticas",
+        "compatibilidad MMABP",
+        "frontera arquitectonica"
+      ],
+      "termSignals": {
+        "164": 4,
+        "40+20": 5,
+        "MMABP": 15,
+        "rutas criticas": 4,
+        "reduccion": 2
+      }
+    },
+    {
+      "sourceId": "D8",
+      "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+      "kind": "xlsx",
+      "readCheck": {
+        "sheet_count": 17,
+        "workbookOpened": true
+      },
+      "sheets": [
+        {"name": "Catalogo_Madre_Nodos", "rowElements": 330, "initialUse": "canonical genealogy"},
+        {"name": "Epistemic_Governance", "rowElements": 330, "initialUse": "epistemic governance"},
+        {"name": "MMABP_Mapping", "rowElements": 330, "initialUse": "MMABP mapping source"},
+        {"name": "Canonical_Variables", "rowElements": 330, "initialUse": "canonical variable source"},
+        {"name": "Critical_Routes", "rowElements": 10, "initialUse": "critical route genealogy"},
+        {"name": "Readiness_Reentry_Gaps", "rowElements": 330, "initialUse": "readiness/reentry context"},
+        {"name": "VSM_AHE_Prep", "rowElements": 330, "initialUse": "VSM/AHE preparation guard"}
+      ]
+    },
+    {
+      "sourceId": "VSM1",
+      "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/Organizational Systems Managing Complexity with the Viable System model.pdf",
+      "kind": "pdf",
+      "readCheck": {
+        "headerPdf": true,
+        "pageMarkers": 385
+      },
+      "initialUnits": [
+        "VSM methodological guard",
+        "no closed VSM diagnosis",
+        "no automatic S1-S5 classification",
+        "identity / recursion / variety as downstream guard"
+      ],
+      "auditNote": "Direct physical read was structural PDF read only; VSM content mapping remains guard-only and pending exhaustive QA if needed."
+    },
+    {
+      "sourceId": "AHE1",
+      "path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/sources/Marco de Interpretacion y Observacion Explicativo Arquitectura Humana Empresarial_(AHE).docx",
+      "kind": "docx",
+      "readCheck": {
+        "charsExtracted": 17288,
+        "textNonEmpty": true
+      },
+      "initialUnits": [
+        "guardia AHE",
+        "observacion / interpretacion",
+        "no sustitucion de MMABP ni VSM",
+        "frontera diagnostica",
+        "relacion interpretativa con gates si aparece"
+      ],
+      "termSignals": {
+        "AHE": 29,
+        "observacion": 7,
+        "interpretacion": 2,
+        "diagnostico": 2,
+        "VSM": 3,
+        "MMABP": 4
+      }
+    }
+  ]
+}

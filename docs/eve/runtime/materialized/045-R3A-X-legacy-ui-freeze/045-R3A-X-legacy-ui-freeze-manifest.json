@@ -1,0 +1,222 @@
+{
+  "instruction": "045-R3A-X",
+  "gate": "Gate1_legacy_ui_freeze",
+  "purpose": "Demonstrate what will be substituted; not executable garbage retention.",
+  "frozen_at_utc": "2026-08-11T01:45:40.116Z",
+  "canvas_freeze_retained": "docs/eve/runtime/materialized/045-R3A-V-freeze/",
+  "freeze_self_contained": true,
+  "candidate_files": [
+    {
+      "relative_path": "src/app/page.tsx",
+      "role": "official_e2e_orchestrator_container",
+      "caller": "Next.js route `/`",
+      "replacement_target": "src/components/eve-official-canvas/OfficialCanvasExperience.tsx (planned)",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "1C18B46AA1801BD6E5B32498AE6E63445A1AC86260CBBE7CC44CEA54F7661FE4",
+      "bytes": 85092
+    },
+    {
+      "relative_path": "src/components/client/ClientAuthScreen.tsx",
+      "role": "login_ui",
+      "caller": "page.tsx viewState=access_screen",
+      "replacement_target": "OfficialCanvas LOGIN section (visual) + existing Supabase auth",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "FC8D411B740F28DD9D35F10E6E47812041387F23490B794AE2AA5146C126771F",
+      "bytes": 8532
+    },
+    {
+      "relative_path": "src/components/client/EmptyAssessmentState.tsx",
+      "role": "estado_a_start_ui",
+      "caller": "page.tsx viewState=create_session",
+      "replacement_target": "OfficialCanvas ESTADO_A section",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "0C144EB651D38B4345D43ACD461CB5857946854BD8319184BF9117EAC8AC2FF1",
+      "bytes": 11820
+    },
+    {
+      "relative_path": "src/components/client/ActiveAssessmentState.tsx",
+      "role": "estado_a_resume_ui",
+      "caller": "page.tsx viewState=create_session (resume)",
+      "replacement_target": "OfficialCanvas ESTADO_A resume mode",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "55858966BC6274B691B0862427706B22F4CFF9BF6D08C3F32F773FF67047E578",
+      "bytes": 4615
+    },
+    {
+      "relative_path": "src/components/client/ClientShell.tsx",
+      "role": "legacy_shell_chrome",
+      "caller": "page.tsx",
+      "replacement_target": "OfficialCanvas continuous sheet chrome",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "DD3B189E21C176F8E155B5F0DF78DFB573032906C4E693B0E62828184A7374D4",
+      "bytes": 1504
+    },
+    {
+      "relative_path": "src/components/client/ClientTopbar.tsx",
+      "role": "legacy_topbar",
+      "caller": "page.tsx / ClientShell",
+      "replacement_target": "OfficialCanvas top chrome (presentation only)",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "64F58E4819201A056A9261D4F1A9AC9F31C91B0D672EA232A1A537182D22A444",
+      "bytes": 1668
+    },
+    {
+      "relative_path": "src/components/client/ClientAssessmentComplete.tsx",
+      "role": "readiness_complete_ui",
+      "caller": "page.tsx flowState=intake_completed",
+      "replacement_target": "OfficialCanvas READINESS section",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "0D90C2D14EFEF2009951846E72969D11E340461ABD98C149F95F42D4B30B75FC",
+      "bytes": 1840
+    },
+    {
+      "relative_path": "src/components/WorkMapIntake.tsx",
+      "role": "workmap_ui",
+      "caller": "page.tsx flowState=intake_work_map",
+      "replacement_target": "OfficialCanvas WORKMAP section presentation; keep services/handlers",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "0A321DC95B32A8ED05D45975624E996349ED72ECEDC86B7717844C7BD29BD0E9",
+      "bytes": 80286
+    },
+    {
+      "relative_path": "src/components/GuideCardBody.tsx",
+      "role": "workmap_assistance_ui",
+      "caller": "WorkMapIntake",
+      "replacement_target": "WORKMAP assistance adapter inside canvas",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "41AF4A1536204418FD1F779234CBC1F200BB08AA2C13285375765DA9F0AC67E1",
+      "bytes": 8697
+    },
+    {
+      "relative_path": "src/components/TripleIntake.tsx",
+      "role": "alt_intake_ui_env_gated",
+      "caller": "page.tsx when NEXT_PUBLIC_INTAKE_UI=triple",
+      "replacement_target": "absorb useful assist patterns then retire",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "F24FCBD6E9CC689C030ECEDB21E3F121A544534B1879209B6DCB91BD7DCBADB3",
+      "bytes": 17543
+    },
+    {
+      "relative_path": "src/components/significado/SignificadoDeTuTrabajo.tsx",
+      "role": "significado_b0_ui",
+      "caller": "page.tsx flowState=intake_significado",
+      "replacement_target": "OfficialCanvas SIGNIFICADO_EXPLANATION + B0 sections",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "C8BE52E52D8A394EB0BB226E5577BCB7A602743D98DF93ED6261116F41566AF0",
+      "bytes": 42845
+    },
+    {
+      "relative_path": "src/components/significado/OperationalDescriptionExampleAside.tsx",
+      "role": "b0_assistance_intro_example_ui",
+      "caller": "SignificadoDeTuTrabajo",
+      "replacement_target": "B0 assistance adapter (keep /api/coach/...)",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "AD6147537CF1C8FF0EE9D2A1932A74F3E396D94143F7BF60B778CAE9C3D44DCA",
+      "bytes": 919
+    },
+    {
+      "relative_path": "src/components/significado/OperationalDescriptionPromptCopy.tsx",
+      "role": "b0_assistance_coach_copy_ui",
+      "caller": "SignificadoDeTuTrabajo",
+      "replacement_target": "B0 assistance adapter",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "391C5DD983CF1DE4F4C966A4CE97D5C70C258533076A71D357D2B2662431EA75",
+      "bytes": 1833
+    },
+    {
+      "relative_path": "src/components/significado/ActivityBoundaryConfirmationPanel.tsx",
+      "role": "b0_boundary_confirm_ui",
+      "caller": "SignificadoDeTuTrabajo",
+      "replacement_target": "B0 assistance/confirm adapter",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "ECA011C6514ED977757452EB5D5767B13A166DDF06FFA0CB7574D96DA6D30F36",
+      "bytes": 6314
+    },
+    {
+      "relative_path": "src/components/SceneQuestionnaireRunner.tsx",
+      "role": "questionnaire_facade",
+      "caller": "page.tsx questionnaire_*",
+      "replacement_target": "OfficialCanvas Runtime section router (B05–B7)",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "6B6D6F8AF2743919255333D0E02DCF9EC2CB6AA2E7AF64ABC1FD33212CE7080B",
+      "bytes": 1541
+    },
+    {
+      "relative_path": "src/components/LegacySceneQuestionnaireRunner.tsx",
+      "role": "questionnaire_legacy_sequencer_ui",
+      "caller": "SceneQuestionnaireRunner when Runtime FULL off",
+      "replacement_target": "retire after Runtime FULL is sole productive path",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "FC143863A80012D085AB6F7C5D37ADEC4CCE8E805D46434799FF0D5C8E220637",
+      "bytes": 23619
+    },
+    {
+      "relative_path": "src/components/RuntimeFullQuestionnaireRunner.tsx",
+      "role": "questionnaire_runtime_full_ui",
+      "caller": "SceneQuestionnaireRunner when Runtime FULL on",
+      "replacement_target": "block-specific OfficialCanvas B05–B7 sections + slot_ref contract",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "671B8FC29EDE63A8456F6327C6F62E995DD47EBE58C3147D236E8CC94DA90573",
+      "bytes": 6581
+    },
+    {
+      "relative_path": "src/components/QuestionnaireRunner.tsx",
+      "role": "legacy_activity_questionnaire_ui_unmounted",
+      "caller": "not mounted by page.tsx (mission confirm UI)",
+      "replacement_target": "extract mission confirm assist if needed; else delete UI",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "E29CB01BF785A2B2D383BC872B9390A031ABE1A6B96463F381CEF74FD1C8288F",
+      "bytes": 21403
+    },
+    {
+      "relative_path": "src/components/eve-worksheet/WorksheetShell.tsx",
+      "role": "transitional_visual_shell",
+      "caller": "page.tsx WorkMap/Significado wrap",
+      "replacement_target": "merged into OfficialCanvas continuous sheet",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "F41265241902143C080BEDDC8B2EC6DD43E451482DDEE95E979BE147A43D4A3D",
+      "bytes": 1055
+    },
+    {
+      "relative_path": "src/components/eve-worksheet/RuntimeInteractionSheet.tsx",
+      "role": "runtime_adapter_fallback_ui",
+      "caller": "RuntimeFullQuestionnaireRunner",
+      "replacement_target": "block-specific shells; keep as fallback/dev adapter",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "E0EE82596D646C5AFB62A74B66597906206C44B295C9CC91AB0A6BF1D4301460",
+      "bytes": 4402
+    },
+    {
+      "relative_path": "src/components/eve-worksheet/presentation-contract.ts",
+      "role": "runtime_ui_presentation_contract",
+      "caller": "RuntimeFullQuestionnaireRunner / RuntimeInteractionSheet",
+      "replacement_target": "retain (still_required_non_UI / shared contract)",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "FA69189A5BA74C9ADFD51961C4C572F7828147832313546BADF2381FFCD6198A",
+      "bytes": 4886
+    },
+    {
+      "relative_path": "src/components/eve-worksheet/presentation-contract.mjs",
+      "role": "runtime_ui_presentation_contract_js_twin",
+      "caller": "node:test",
+      "replacement_target": "retain with contract",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "061564B630EEF5143C654CF8D88BB4205264D781E8C4209764CAD35056ED8CBA",
+      "bytes": 3271
+    },
+    {
+      "relative_path": "src/app/dev/e2e-block0/page.tsx",
+      "role": "dev_harness_not_official",
+      "caller": "/dev/e2e-block0",
+      "replacement_target": "redirect_to_official or remove after official canvas E2E",
+      "origin": "c312_operational_eve-platform",
+      "sha256": "D4A85931300FBB5C21ECFBE99A62E5610C44B3095326E9D29D7B89581C317505",
+      "bytes": 39734
+    }
+  ],
+  "notes": [
+    "Services/BFF/hooks are NOT frozen as deletable UI — they remain still_required_non_UI.",
+    "Do not delete still_required_non_UI with the screen.",
+    "Sequence: FREEZE → EXTRACT/PORT → REDIRECT → TEST → DELETE."
+  ]
+}

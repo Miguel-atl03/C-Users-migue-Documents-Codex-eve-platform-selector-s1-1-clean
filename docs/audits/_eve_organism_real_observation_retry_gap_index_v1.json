@@ -1,0 +1,143 @@
+{
+  "audit_id": "EVE_ORGANISM_REAL_OBSERVATION_RETRY_GAP_INDEX_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "REAL_OBSERVATION_RETRY_FIXTURE_REPLAY_CONFIRMED_NEXT_OBSERVER_INVENTORY",
+  "summary": {
+    "total": 13,
+    "critical": 2,
+    "high": 9,
+    "medium": 2
+  },
+  "gaps": [
+    {
+      "gap_id": "GAP-RO-RTRY-001",
+      "type": "REAL_ENTRYPOINT_STILL_NOT_SAFE",
+      "severity": "high",
+      "affected_entrypoint": "all evaluated entrypoints",
+      "evidence_path": "docs/audits/_eve_organism_real_observation_entrypoint_decision_v1.json",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "A read-only observer design must first prove a safe real boundary without DB/UI/Supabase/runtime mutation."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-002",
+      "type": "TENANT_CONTEXT_STILL_MISSING_IN_REAL_SIGNAL",
+      "severity": "high",
+      "affected_entrypoint": "WorkMap/Significado/runtime-like real signals",
+      "evidence_path": "docs/audits/_eve_organism_real_observation_signal_inventory_v1.json",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "Real signal must carry tenant and organization context without synthetic fixture fields."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-003",
+      "type": "SESSION_ACTIVITY_STILL_MISSING_IN_REAL_SIGNAL",
+      "severity": "high",
+      "affected_entrypoint": "WorkMap/runtime-like real signals",
+      "evidence_path": "docs/audits/_eve_organism_real_observation_signal_inventory_v1.json",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "Real signal must carry sessionId and activityId together."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-004",
+      "type": "PROVENANCE_STILL_MISSING_IN_REAL_SIGNAL",
+      "severity": "high",
+      "affected_entrypoint": "several real entrypoints",
+      "evidence_path": "docs/audits/_eve_organism_real_observation_entrypoint_decision_v1.json",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "Real signal must include provenance without reading product state."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-005",
+      "type": "SOURCETRACE_STILL_MISSING_IN_REAL_SIGNAL",
+      "severity": "high",
+      "affected_entrypoint": "candidate and non-candidate real signals",
+      "evidence_path": "docs/audits/_eve_organism_real_observation_signal_inventory_v1.json",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "Real candidate-like signal must preserve sourceTrace."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-006",
+      "type": "IDEMPOTENCY_CORRELATION_STILL_MISSING_IN_REAL_SIGNAL",
+      "severity": "high",
+      "affected_entrypoint": "WorkMap/Significado/runtime-like real signals",
+      "evidence_path": "docs/audits/_eve_organism_real_observation_signal_inventory_v1.json",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "Real signal must provide idempotencyKey/correlationId or a read-only derivation rule."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-007",
+      "type": "OFFICIAL_FLOW_REF_STILL_MISSING_IN_REAL_SIGNAL",
+      "severity": "high",
+      "affected_entrypoint": "all real entrypoints",
+      "evidence_path": "docs/audits/_eve_organism_real_observation_signal_inventory_v1.json",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "Real observation needs a non-mutating officialFlowRef comparator."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-008",
+      "type": "UI_TOUCH_RISK_REMAINS",
+      "severity": "critical",
+      "affected_entrypoint": "ROE-004 Existing trace/admin signal",
+      "evidence_path": "docs/audits/_eve_organism_real_observation_entrypoint_decision_v1.json",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "Avoid admin/page/UI entrypoints for real observation."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-009",
+      "type": "SUPABASE_REQUIRED_RISK_REMAINS",
+      "severity": "critical",
+      "affected_entrypoint": "ROE-006 Test fixture derived from real shape",
+      "evidence_path": "docs/audits/_eve_organism_real_observation_entrypoint_decision_v1.json",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "Do not promote test fixture shape through any Supabase-required path."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-010",
+      "type": "WORKMAP_TOUCH_RISK_REMAINS",
+      "severity": "high",
+      "affected_entrypoint": "ROE-001 WorkMap saved activity signal",
+      "evidence_path": "src/services/work-map-draft.ts",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "Observer must not touch WorkMap product files or mutate WorkMap state."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-011",
+      "type": "SIGNIFICADO_TOUCH_RISK_REMAINS",
+      "severity": "high",
+      "affected_entrypoint": "ROE-002 Significado confirmed activity signal",
+      "evidence_path": "src/services/significado-activity-anchor-adapter.ts",
+      "evidence_line": null,
+      "current_status": "open",
+      "next_evidence_needed": "Observer must not touch Significado product files or mutate Significado state."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-012",
+      "type": "REPLAY_FIXTURES_READY_FOR_OBSERVER_DESIGN",
+      "severity": "medium",
+      "affected_entrypoint": "16 strengthened fixtures",
+      "evidence_path": "docs/audits/_eve_organism_shadow_e2e_replay_fixtures_v1.json",
+      "evidence_line": null,
+      "current_status": "confirmed",
+      "next_evidence_needed": "Use fixtures as canonical offline contract for any future observer design."
+    },
+    {
+      "gap_id": "GAP-RO-RTRY-013",
+      "type": "DIRTY_TREE_CONTEXT",
+      "severity": "medium",
+      "affected_entrypoint": "working tree",
+      "evidence_path": "git status --short",
+      "evidence_line": null,
+      "current_status": "context",
+      "next_evidence_needed": "Dirty tree remains; future work must keep surgical allowlists and avoid cleanup."
+    }
+  ]
+}

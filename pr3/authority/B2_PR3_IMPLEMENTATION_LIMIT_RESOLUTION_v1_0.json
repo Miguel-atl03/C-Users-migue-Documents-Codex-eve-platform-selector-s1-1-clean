@@ -1,0 +1,486 @@
+{
+  "artifact_id": "EVE-PR3-B2-IMPLEMENTATION-LIMIT-RESOLUTION-v1.0",
+  "state": "RESOLVED_FOR_PR3_PILOT_IMPLEMENTATION_NOT_B2_CANON",
+  "authority": "PROMPT_PR3_v1.2.1 + current Center Control instruction; exact policy owners preserved from promoted B2 profile",
+  "profile_ref": "EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",
+  "profile_sha256": "7c795ea221de055777ed5d97be3767ca71c94e3fc217d28de98564f01499f78f",
+  "mvp_limits_ref": "B2-CAPTURE-RUNTIME-MVP-LIMITS-1.1",
+  "mvp_limits_sha256": "74e892238dae80e56de956b37addb48211005da5e1db39590fc7f866d03b1bf4",
+  "source_profile_mutation": "FORBIDDEN_AND_NOT_PERFORMED",
+  "source_gate_semantics": "Promoted profile bytes remain implementation_ready=false with four blockers. This overlay is the governed PR3 implementation resolution consumed by A04/P2; it does not rewrite the promoted profile.",
+  "resolved_policy_count": 4,
+  "resolutions": [
+    {
+      "policy_id": "B2-LIMIT-MAX-USER-ROUNDS-v1.1",
+      "source_revision": "1.1",
+      "class": "UI_RUNTIME_INTERACTION_LIMIT",
+      "source_state": "UNRESOLVED_FOR_IMPLEMENTATION",
+      "owner_exact": "CAPTURE_RUNTIME_POLICY_OWNER",
+      "gate_exact": {
+        "profile_ref": "EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",
+        "gate_path": "interactions[*].implementation_ready",
+        "blocker_path": "interactions[*].implementation_blockers",
+        "source_gate_value": false,
+        "source_blocker_membership": "B2-LIMIT-MAX-USER-ROUNDS-v1.1",
+        "interaction_count_affected": 10,
+        "gate_instances": [
+          {
+            "interaction_id": "B2-Q12",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-MAX-USER-ROUNDS-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q13",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-MAX-USER-ROUNDS-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q14",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-MAX-USER-ROUNDS-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q15",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-MAX-USER-ROUNDS-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q16",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-MAX-USER-ROUNDS-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q17",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-MAX-USER-ROUNDS-v1.1"
+          },
+          {
+            "interaction_id": "C04",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-MAX-USER-ROUNDS-v1.1"
+          },
+          {
+            "interaction_id": "C05",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-MAX-USER-ROUNDS-v1.1"
+          },
+          {
+            "interaction_id": "C06",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-MAX-USER-ROUNDS-v1.1"
+          },
+          {
+            "interaction_id": "C07",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-MAX-USER-ROUNDS-v1.1"
+          }
+        ]
+      },
+      "criterion_for_closure_exact": "Approve one finite max_user_rounds value for each envelope or an envelope-class policy; distinguish a user round from subfield presentation, technical retry and governed reentry; add acceptance fixtures proving no hidden unlimited dialogue.",
+      "forbidden_substitution_exact": "Do not infer from max_questions_per_proposal=2, max_retries, 40+20, or provider token limits.",
+      "pr3_pilot_implementation_value": 4,
+      "implementation_rule": {
+        "value_unit": "accepted_user_rounds_per_interaction_instance",
+        "counting_rule": "Only a newly accepted user ResponseEvent counts. Technical retries, duplicate transport, overflow-preserved attempts, subfield presentation and governed reentry do not silently consume an additional accepted round.",
+        "overflow_action": "PRESERVE_INPUT + DECLARE_ROUND_OVERFLOW + REENTRY_REQUIRED",
+        "fixture_requirement": "fifth new response is preserved as overflow and accepted_user_round_count remains 4; replay of same event does not increment."
+      },
+      "resolution_state": "RESOLVED_FOR_PR3_PILOT_IMPLEMENTATION",
+      "resolution_authority": "CENTER_CONTROL_CURRENT_INSTRUCTION_UNDER_PROMPT_PR3_v1.2.1",
+      "semantic_boundary": "IMPLEMENTATION_OVERLAY_ONLY__DO_NOT_MUTATE_PROMOTED_B2_PROFILE_OR_B2_CANON",
+      "source_refs": [
+        {
+          "source_ref": "A1::AT-18/F2/F3/F4/F6",
+          "source_revision": "v1.2.1",
+          "source_hash": "63722a2598399e743052e339532ede62b5996e3cb4cccda1c6c6887581822bab"
+        },
+        {
+          "source_ref": "A2::B2-P3.2.2",
+          "source_revision": "0.8-CANDIDATE-P3.2.2",
+          "source_hash": "5616eb2e6caf9ed480e1c1bd99f91cb2126806124eaf72c370fad7635c6c7a82"
+        }
+      ]
+    },
+    {
+      "policy_id": "B2-LIMIT-TEXT-LENGTH-v1.1",
+      "source_revision": "1.1",
+      "class": "SEMANTIC_LOCAL_TEXT_LIMIT",
+      "source_state": "UNRESOLVED_FOR_IMPLEMENTATION",
+      "owner_exact": "B2_PROFILE_OWNER + INPUT_COLLECTOR_OWNER",
+      "gate_exact": {
+        "profile_ref": "EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",
+        "gate_path": "interactions[*].implementation_ready",
+        "blocker_path": "interactions[*].implementation_blockers",
+        "source_gate_value": false,
+        "source_blocker_membership": "B2-LIMIT-TEXT-LENGTH-v1.1",
+        "interaction_count_affected": 10,
+        "gate_instances": [
+          {
+            "interaction_id": "B2-Q12",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-TEXT-LENGTH-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q13",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-TEXT-LENGTH-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q14",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-TEXT-LENGTH-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q15",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-TEXT-LENGTH-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q16",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-TEXT-LENGTH-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q17",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-TEXT-LENGTH-v1.1"
+          },
+          {
+            "interaction_id": "C04",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-TEXT-LENGTH-v1.1"
+          },
+          {
+            "interaction_id": "C05",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-TEXT-LENGTH-v1.1"
+          },
+          {
+            "interaction_id": "C06",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-TEXT-LENGTH-v1.1"
+          },
+          {
+            "interaction_id": "C07",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-TEXT-LENGTH-v1.1"
+          }
+        ]
+      },
+      "criterion_for_closure_exact": "Approve finite user-input/proposal text length rules per field class, preserve full literal or governed overflow reference, and prove overflow does not truncate evidence.",
+      "forbidden_substitution_exact": "Provider max tokens are technical capacity and do not define admissible evidence length.",
+      "pr3_pilot_implementation_value": 4096,
+      "implementation_rule": {
+        "value_unit": "characters_per_text_bearing_field",
+        "field_classes": [
+          "user_input_text",
+          "ai_proposal_text"
+        ],
+        "overflow_action": "PRESERVE_FULL_LITERAL_OR_IMMUTABLE_OVERFLOW_REF + DECLARE_OVERFLOW + HOLD_OR_REENTRY; NEVER_SILENT_TRUNCATION",
+        "fixture_requirement": "text beyond 4096 chars is preserved exactly and cannot be silently admitted as truncated evidence."
+      },
+      "resolution_state": "RESOLVED_FOR_PR3_PILOT_IMPLEMENTATION",
+      "resolution_authority": "CENTER_CONTROL_CURRENT_INSTRUCTION_UNDER_PROMPT_PR3_v1.2.1",
+      "semantic_boundary": "IMPLEMENTATION_OVERLAY_ONLY__DO_NOT_MUTATE_PROMOTED_B2_PROFILE_OR_B2_CANON",
+      "source_refs": [
+        {
+          "source_ref": "A1::AT-18/F2/F3/F4/F6",
+          "source_revision": "v1.2.1",
+          "source_hash": "63722a2598399e743052e339532ede62b5996e3cb4cccda1c6c6887581822bab"
+        },
+        {
+          "source_ref": "A2::B2-P3.2.2",
+          "source_revision": "0.8-CANDIDATE-P3.2.2",
+          "source_hash": "5616eb2e6caf9ed480e1c1bd99f91cb2126806124eaf72c370fad7635c6c7a82"
+        }
+      ]
+    },
+    {
+      "policy_id": "B2-LIMIT-CONTEXT-SELECTION-v1.1",
+      "source_revision": "1.1",
+      "class": "SEMANTIC_CONTEXT_SELECTION_LIMIT",
+      "source_state": "UNRESOLVED_FOR_IMPLEMENTATION",
+      "owner_exact": "EVE_CONTEXT_COMPOSER_OWNER",
+      "gate_exact": {
+        "profile_ref": "EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",
+        "gate_path": "interactions[*].implementation_ready",
+        "blocker_path": "interactions[*].implementation_blockers",
+        "source_gate_value": false,
+        "source_blocker_membership": "B2-LIMIT-CONTEXT-SELECTION-v1.1",
+        "interaction_count_affected": 10,
+        "gate_instances": [
+          {
+            "interaction_id": "B2-Q12",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-CONTEXT-SELECTION-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q13",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-CONTEXT-SELECTION-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q14",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-CONTEXT-SELECTION-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q15",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-CONTEXT-SELECTION-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q16",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-CONTEXT-SELECTION-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q17",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-CONTEXT-SELECTION-v1.1"
+          },
+          {
+            "interaction_id": "C04",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-CONTEXT-SELECTION-v1.1"
+          },
+          {
+            "interaction_id": "C05",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-CONTEXT-SELECTION-v1.1"
+          },
+          {
+            "interaction_id": "C06",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-CONTEXT-SELECTION-v1.1"
+          },
+          {
+            "interaction_id": "C07",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-CONTEXT-SELECTION-v1.1"
+          }
+        ]
+      },
+      "criterion_for_closure_exact": "Approve finite context-selection envelope over versioned context_sources, with priority/overflow preserving relevant alternatives and gaps; prove no evidence is silently dropped to fit context.",
+      "forbidden_substitution_exact": "Provider token window cannot serve as the semantic context policy.",
+      "pr3_pilot_implementation_value": 32768,
+      "implementation_rule": {
+        "value_unit": "characters_in_model_context_envelope",
+        "selection_policy": "Versioned context_sources only. Required/current authoritative sources first; alternatives, gaps and restrictions remain referenced. If the eligible context cannot fit, do not silently drop evidence: preserve source refs outside model input, emit CONTEXT_OVERFLOW and HOLD/REENTRY.",
+        "overflow_action": "PRESERVE_CONTEXT_AND_SOURCE_REFS + DECLARE_CONTEXT_OVERFLOW + REENTRY_REQUIRED",
+        "fixture_requirement": "context beyond 32768 chars remains exact in persisted context and creates explicit overflow gap/reentry."
+      },
+      "resolution_state": "RESOLVED_FOR_PR3_PILOT_IMPLEMENTATION",
+      "resolution_authority": "CENTER_CONTROL_CURRENT_INSTRUCTION_UNDER_PROMPT_PR3_v1.2.1",
+      "semantic_boundary": "IMPLEMENTATION_OVERLAY_ONLY__DO_NOT_MUTATE_PROMOTED_B2_PROFILE_OR_B2_CANON",
+      "source_refs": [
+        {
+          "source_ref": "A1::AT-18/F2/F3/F4/F6",
+          "source_revision": "v1.2.1",
+          "source_hash": "63722a2598399e743052e339532ede62b5996e3cb4cccda1c6c6887581822bab"
+        },
+        {
+          "source_ref": "A2::B2-P3.2.2",
+          "source_revision": "0.8-CANDIDATE-P3.2.2",
+          "source_hash": "5616eb2e6caf9ed480e1c1bd99f91cb2126806124eaf72c370fad7635c6c7a82"
+        }
+      ]
+    },
+    {
+      "policy_id": "B2-LIMIT-UI-TURN-v1.1",
+      "source_revision": "1.1",
+      "class": "UI_TURN_LIMIT",
+      "source_state": "UNRESOLVED_FOR_IMPLEMENTATION",
+      "owner_exact": "INPUT_COLLECTOR_OWNER",
+      "gate_exact": {
+        "profile_ref": "EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",
+        "gate_path": "interactions[*].implementation_ready",
+        "blocker_path": "interactions[*].implementation_blockers",
+        "source_gate_value": false,
+        "source_blocker_membership": "B2-LIMIT-UI-TURN-v1.1",
+        "interaction_count_affected": 10,
+        "gate_instances": [
+          {
+            "interaction_id": "B2-Q12",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-UI-TURN-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q13",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-UI-TURN-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q14",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-UI-TURN-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q15",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-UI-TURN-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q16",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-UI-TURN-v1.1"
+          },
+          {
+            "interaction_id": "B2-Q17",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-UI-TURN-v1.1"
+          },
+          {
+            "interaction_id": "C04",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-UI-TURN-v1.1"
+          },
+          {
+            "interaction_id": "C05",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-UI-TURN-v1.1"
+          },
+          {
+            "interaction_id": "C06",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-UI-TURN-v1.1"
+          },
+          {
+            "interaction_id": "C07",
+            "implementation_ready_field": "implementation_ready",
+            "blocker_field": "implementation_blockers",
+            "source_implementation_ready": false,
+            "source_blocker_present": "B2-LIMIT-UI-TURN-v1.1"
+          }
+        ]
+      },
+      "criterion_for_closure_exact": "Define finite UI turn policy and mapping to one Runtime interaction instance; demonstrate subresponses do not create new Runtime slots.",
+      "forbidden_substitution_exact": "UI turn is not Runtime budget and not AI question_items quota.",
+      "pr3_pilot_implementation_value": 8,
+      "implementation_rule": {
+        "value_unit": "rendered_ui_turns_per_interaction_instance",
+        "counting_rule": "Counter is per interaction_instance. Subfield/subresponse presentation stays inside the same Runtime slot; aggregate run ui_turn_count is telemetry and cannot alone trigger this per-interaction gate.",
+        "overflow_action": "DECLARE_UI_TURN_OVERFLOW + HOLD_OR_REENTRY; DO_NOT_MINT_HIDDEN_RUNTIME_SLOT",
+        "fixture_requirement": "multiple interactions have independent UI-turn counters and no false overflow from aggregate run count."
+      },
+      "resolution_state": "RESOLVED_FOR_PR3_PILOT_IMPLEMENTATION",
+      "resolution_authority": "CENTER_CONTROL_CURRENT_INSTRUCTION_UNDER_PROMPT_PR3_v1.2.1",
+      "semantic_boundary": "IMPLEMENTATION_OVERLAY_ONLY__DO_NOT_MUTATE_PROMOTED_B2_PROFILE_OR_B2_CANON",
+      "source_refs": [
+        {
+          "source_ref": "A1::AT-18/F2/F3/F4/F6",
+          "source_revision": "v1.2.1",
+          "source_hash": "63722a2598399e743052e339532ede62b5996e3cb4cccda1c6c6887581822bab"
+        }
+      ]
+    }
+  ],
+  "resolved_values_summary": {
+    "max_user_rounds_per_interaction": 4,
+    "max_text_length_chars": 4096,
+    "max_context_chars": 32768,
+    "max_ui_turns_per_interaction": 8
+  },
+  "runtime_evidence_required": [
+    "B2_LIMIT_FIXTURES_PASS",
+    "CONTEXT_OVERFLOW_PRESERVATION_PASS",
+    "NO_SILENT_TRUNCATION",
+    "IDEMPOTENT_RETRY_DOES_NOT_RECOUNT"
+  ],
+  "downstream_consumers": [
+    "A04 UI↔API/BFF↔Runtime binding",
+    "P2 clean persistence materialization",
+    "A09 B2 production AI/mode adapter"
+  ],
+  "closure_rule": "No downstream component may choose a different value or infer a substitute. Change requires a new governed PR3 implementation-policy revision or an upstream promoted-profile change by the competent owner.",
+  "affected_interaction_ids": [
+    "B2-Q12",
+    "B2-Q13",
+    "B2-Q14",
+    "B2-Q15",
+    "B2-Q16",
+    "B2-Q17",
+    "C04",
+    "C05",
+    "C06",
+    "C07"
+  ]
+}

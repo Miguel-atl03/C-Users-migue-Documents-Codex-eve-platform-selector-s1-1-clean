@@ -1,0 +1,44 @@
+{
+  "artifact_id": "EVE-PR3-P4-COMMAND-RECEIPT-QA-EVIDENCE-v1.0",
+  "state": "PASS",
+  "errors": [],
+  "checks": {
+    "issue_action_token": {
+      "first": "ACCEPTED",
+      "retry": "IDEMPOTENT_REPLAY",
+      "different_payload": "IDEMPOTENCY_CONFLICT",
+      "allocated_client_event_id": "evt-fixed-1"
+    },
+    "open_or_resume": {
+      "first": "ACCEPTED",
+      "retry": "IDEMPOTENT_REPLAY",
+      "same_allocated_ids": true,
+      "retry_side_effect_count": 0
+    },
+    "submit_response": {
+      "first_side_effect_count": 4,
+      "retry_side_effect_count": 0,
+      "different_payload": "IDEMPOTENCY_CONFLICT"
+    },
+    "submit_correction": {
+      "revision": 2,
+      "supersedes": "resp-1",
+      "retry_side_effect_count": 0
+    },
+    "resume": {
+      "first_side_effect_count": 0,
+      "retry_side_effect_count": 0,
+      "same_result": true
+    },
+    "read_state": {
+      "receipt_delta": 0,
+      "projection": {
+        "chain_run_id": "cr-fixed",
+        "context_revision": "ctx-2"
+      }
+    }
+  },
+  "receipt_count": 5,
+  "side_effect_count": 11,
+  "scope": "DETERMINISTIC_CONTRACT_QA_ONLY__NOT_PROMOTED_RUNTIME_OR_DATABASE_EXECUTION"
+}

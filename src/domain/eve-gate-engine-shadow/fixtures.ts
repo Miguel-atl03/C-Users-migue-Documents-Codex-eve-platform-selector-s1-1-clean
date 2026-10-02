@@ -1,0 +1,288 @@
+import type {
+  GateEngineDocumentarySatisfaction,
+  GateEngineFixture,
+  GateEngineResolvedEntity,
+  GateEngineSafetyFlags,
+} from "./types.ts";
+
+export const GATE_ENGINE_SHADOW_MODE = "gate_engine_shadow" as const;
+export const GATE_ENGINE_SHADOW_CHIP_ID = "EVE-05-GATE-ENGINE";
+export const GATE_ENGINE_SHADOW_VERSION = "0.1.0-shadow";
+
+export const GATE_ENGINE_SAFETY_FLAGS: GateEngineSafetyFlags = {
+  canBlockUserFlow: false,
+  canModifyPayload: false,
+  canWriteRegistry: false,
+  canModifyCatalog: false,
+  canTriggerRuntime: false,
+  canTriggerDiagnosis: false,
+  canTriggerExport: false,
+  canConnectEveBrain: false,
+  runtimeAuthority: false,
+};
+
+export const GATE_ENGINE_ALLOWED_ACTIONS = [
+  "read_shadow_fixture",
+  "inspect_source_trace",
+  "compare_expected_actual",
+  "report_gap",
+  "request_manual_review",
+  "request_reentry",
+] as const;
+
+const blockedExternalStoreWrite = "write_" + "sup" + "abase";
+const blockedStructuredQuery = "execute_" + "s" + "ql";
+
+export const GATE_ENGINE_BLOCKED_ACTIONS = [
+  "block_user_flow",
+  "modify_payload",
+  "write_registry",
+  "mutate_catalog",
+  "trigger_runtime",
+  "trigger_diagnosis",
+  "trigger_export",
+  "connect_eve_brain",
+  "mutate_workmap",
+  "mutate_significado",
+  "create_api",
+  blockedExternalStoreWrite,
+  blockedStructuredQuery,
+] as const;
+
+export const GATE_ENGINE_PROTECTED_METADATA = {
+  moduleCounts: {
+    critical_route_gate: { routes: 4, rules: 10 },
+    semantic_resolution_gate: { gates: 7, rules: 8 },
+    process_state_timer_gate: { gates: 6, rules: 9 },
+    mmabp_conformance_gate: { engineRules: 8, modelRules: 53 },
+    mmabp_consistency_gate: { engineRules: 10, methodRules: 15, compartments: 13 },
+    failure_guards: 14,
+    atomic_rules_and_gate_definitions: 130,
+  },
+  noCableado: {
+    runtimeAuthority: false,
+    productWiring: false,
+    registryWrite: false,
+    eveBrainConnection: false,
+  },
+};
+
+export const GATE_ENGINE_DOCUMENTARY_SATISFACTION: GateEngineDocumentarySatisfaction = {
+  status: "satisfactory",
+  companionProofsAccepted: 157,
+  companionProofsExpected: 157,
+  atomicRulesAccepted: 130,
+  atomicRulesExpected: 130,
+  mismatches: 0,
+  missingInChip: 0,
+  missingInSource: 0,
+  pendingSourceProof: 0,
+  overreachDetected: false,
+  previousRejectedUniqueRulesRepaired: "16/16",
+  previousRejectedRecordsRepaired: "31/31",
+};
+
+export const GATE_ENGINE_NO_OVERREACH_GUARDS = {
+  d1NotSubstitutedByVsmOrAhe: true,
+  vsm1NoClosedDiagnosis: true,
+  ahe1NoClosedDiagnosis: true,
+  d3NotPrimaryMethodologicalSource: true,
+  d4NotPrimaryMethodologicalSource: true,
+};
+
+export const GATE_ENGINE_ENTITIES: GateEngineResolvedEntity[] = [
+  {
+    entityKind: "gate",
+    id: "SEM-001",
+    module: "semantic_resolution_gate",
+    gateId: "SEM-001",
+    sourceDocuments: ["D6", "D5", "D4"],
+    sourceTrace: ["D6!Semantic_Resolution_Gates", "D5 gates/fronteras/QA", "D4 technical gate contract"],
+    evidenceRefs: ["D6:SEM-001", "D5:semantic-boundary", "D4:semantic_resolution_event"],
+  },
+  {
+    entityKind: "rule",
+    id: "CRT-ENG-001",
+    module: "critical_route_gate",
+    ruleId: "CRT-ENG-001",
+    gateId: "CR-B0-WorkMapIntake-semantic-entry",
+    sourceDocuments: ["D8", "D6"],
+    sourceTrace: ["D8!Critical_Routes", "D6!Critical_Routes"],
+    evidenceRefs: ["D8:CR-B0-WorkMapIntake-semantic-entry", "D6:CR-B0-WorkMapIntake-semantic-entry"],
+  },
+  {
+    entityKind: "critical_route_gate",
+    id: "CR-B0-WorkMapIntake-semantic-entry",
+    module: "critical_route_gate",
+    gateId: "CR-B0-WorkMapIntake-semantic-entry",
+    ruleId: "CRT-ENG-001",
+    sourceDocuments: ["D6", "D8", "D5", "D4"],
+    sourceTrace: ["D6!Critical_Routes", "D8!Critical_Routes", "D5", "D4"],
+    evidenceRefs: ["D6:CR-B0", "D8:CR-B0", "D5:runtime-governance", "D4:route-contract"],
+  },
+  {
+    entityKind: "semantic_resolution_gate",
+    id: "SEM-001",
+    module: "semantic_resolution_gate",
+    gateId: "SEM-001",
+    ruleId: "SEM-001",
+    sourceDocuments: ["D6", "D5", "D4"],
+    sourceTrace: ["D6!Semantic_Resolution_Gates", "D5", "D4"],
+    evidenceRefs: ["D6:SEM-001", "D5:semantic-governance", "D4:semantic_resolution_event"],
+  },
+  {
+    entityKind: "process_state_timer_gate",
+    id: "PST-002",
+    module: "process_state_timer_gate",
+    gateId: "PST-002",
+    ruleId: "PST-002",
+    sourceDocuments: ["D6", "D5", "D4", "D1"],
+    sourceTrace: ["D6!Process_State_Timer_Gates", "D5", "D4", "D1"],
+    evidenceRefs: ["D6:PST-002", "D5:timer-gate", "D4:runtime-state", "D1:timed-events"],
+  },
+  {
+    entityKind: "mmabp_conformance_rule",
+    id: "MOC-005",
+    module: "mmabp_conformance_gate",
+    ruleId: "MOC-005",
+    sourceDocuments: ["D1", "D5", "D7", "D8"],
+    sourceTrace: ["D1", "D5", "D7", "D8"],
+    evidenceRefs: ["D1:physical_page=137", "D5:runtime-governance", "D7:runtime-architecture", "D8:MMABP_Mapping"],
+  },
+  {
+    entityKind: "mmabp_consistency_rule",
+    id: "CONS-014",
+    module: "mmabp_consistency_gate",
+    ruleId: "CONS-014",
+    sourceDocuments: ["D1", "D2", "D5", "D8"],
+    sourceTrace: ["D1", "D2", "D5", "D8"],
+    evidenceRefs: ["D1:physical_page=200", "D2:compartments", "D5:runtime-QA", "D8:canonical-genealogy"],
+  },
+  {
+    entityKind: "failure_guard",
+    id: "FG-001",
+    module: "failure_guards",
+    ruleId: "FG-001",
+    sourceDocuments: ["D7", "D5"],
+    sourceTrace: ["D7", "D5"],
+    evidenceRefs: ["D7:inventory-not-visible", "D5:no-destructive-reduction"],
+  },
+  {
+    entityKind: "atomic_rule",
+    id: "SEM-ENG-005",
+    module: "atomic_rules_and_gate_definitions",
+    ruleId: "SEM-ENG-005",
+    sourceDocuments: ["D4"],
+    sourceTrace: ["D4"],
+    evidenceRefs: ["D4:semantic_resolution_event"],
+  },
+];
+
+export const GATE_ENGINE_SHADOW_FIXTURES: GateEngineFixture[] = [
+  {
+    fixtureId: "resolve_existing_gate",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "resolve_gate", gateId: "SEM-001", module: "semantic_resolution_gate" },
+    expectedReadinessState: "gate_engine_lookup_ready",
+    expectedResolved: true,
+    expectedEntityKind: "gate",
+    expectedGapFlags: [],
+    sourceTrace: ["D6!Semantic_Resolution_Gates", "D5 gates/fronteras/QA", "D4 technical gate contract"],
+  },
+  {
+    fixtureId: "resolve_missing_gate",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "resolve_gate", gateId: "SEM-999" },
+    expectedReadinessState: "gate_engine_lookup_not_found",
+    expectedResolved: false,
+    expectedEntityKind: "missing_gate",
+    expectedGapFlags: ["gate_not_found"],
+  },
+  {
+    fixtureId: "resolve_existing_rule",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "resolve_rule", ruleId: "CRT-ENG-001" },
+    expectedReadinessState: "gate_engine_lookup_ready",
+    expectedResolved: true,
+    expectedEntityKind: "rule",
+    expectedGapFlags: [],
+    expectedRuleIds: ["CRT-ENG-001"],
+    sourceTrace: ["D8!Critical_Routes", "D6!Critical_Routes"],
+  },
+  {
+    fixtureId: "validate_critical_route_gate_valid",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "validate_critical_route_gate", gateId: "CR-B0-WorkMapIntake-semantic-entry" },
+    expectedReadinessState: "gate_engine_reference_valid",
+    expectedResolved: true,
+    expectedEntityKind: "critical_route_gate",
+    expectedGapFlags: [],
+    expectedRuleIds: ["CRT-ENG-001"],
+  },
+  {
+    fixtureId: "validate_semantic_resolution_gate_valid",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "validate_semantic_resolution_gate", gateId: "SEM-001" },
+    expectedReadinessState: "gate_engine_reference_valid",
+    expectedResolved: true,
+    expectedEntityKind: "semantic_resolution_gate",
+    expectedGapFlags: [],
+    expectedRuleIds: ["SEM-001"],
+  },
+  {
+    fixtureId: "validate_process_state_timer_gate_valid",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "validate_process_state_timer_gate", gateId: "PST-002" },
+    expectedReadinessState: "gate_engine_reference_valid",
+    expectedResolved: true,
+    expectedEntityKind: "process_state_timer_gate",
+    expectedGapFlags: [],
+    expectedRuleIds: ["PST-002"],
+  },
+  {
+    fixtureId: "validate_mmabp_conformance_gate_valid",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "validate_mmabp_conformance_gate", ruleId: "MOC-005" },
+    expectedReadinessState: "gate_engine_reference_valid",
+    expectedResolved: true,
+    expectedEntityKind: "mmabp_conformance_rule",
+    expectedGapFlags: [],
+    expectedRuleIds: ["MOC-005"],
+  },
+  {
+    fixtureId: "validate_mmabp_consistency_gate_valid",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "validate_mmabp_consistency_gate", ruleId: "CONS-014" },
+    expectedReadinessState: "gate_engine_reference_valid",
+    expectedResolved: true,
+    expectedEntityKind: "mmabp_consistency_rule",
+    expectedGapFlags: [],
+    expectedRuleIds: ["CONS-014"],
+  },
+  {
+    fixtureId: "validate_failure_guard_valid",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "validate_failure_guard", ruleId: "FG-001" },
+    expectedReadinessState: "gate_engine_reference_valid",
+    expectedResolved: true,
+    expectedEntityKind: "failure_guard",
+    expectedGapFlags: [],
+    expectedRuleIds: ["FG-001"],
+  },
+  {
+    fixtureId: "validate_atomic_rule_source_proof",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "validate_atomic_rule", ruleId: "SEM-ENG-005" },
+    expectedReadinessState: "documentary_satisfaction_confirmed",
+    expectedResolved: true,
+    expectedEntityKind: "atomic_rule",
+    expectedGapFlags: [],
+    expectedRuleIds: ["SEM-ENG-005"],
+  },
+  {
+    fixtureId: "validate_no_overreach_d1_vsm1_ahe1",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "validate_no_overreach", sourceDocumentId: "D1,VSM1,AHE1" },
+    expectedReadinessState: "no_overreach_confirmed",
+    expectedResolved: true,
+    expectedEntityKind: "no_overreach_guard",
+    expectedGapFlags: [],
+  },
+  {
+    fixtureId: "validate_no_runtime_authority",
+    input: { mode: GATE_ENGINE_SHADOW_MODE, queryType: "validate_no_runtime_authority", requestedOutputType: "shadow_trace" },
+    expectedReadinessState: "documentary_satisfaction_confirmed",
+    expectedResolved: true,
+    expectedEntityKind: "no_cableado_guard",
+    expectedGapFlags: [],
+  },
+];

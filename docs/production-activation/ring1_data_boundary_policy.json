@@ -1,0 +1,76 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING1_DATA_BOUNDARY_POLICY",
+  "generated_at": "2026-07-08T22:35:00.000Z",
+  "authorization_ref": "ring1-authorization-internal-test-tenant-20260708",
+  "ring": 1,
+  "ring_name": "internal_test_tenant_limited_client",
+  "production_supabase_touched": false,
+  "supabase_production_touch_allowed": false,
+  "remote_modified": false,
+  "sql_executed_against_production": false,
+  "runtime_environment": "local_or_staging_only",
+  "allowed_data_domains": [
+    {
+      "id": "R1-DB-01",
+      "domain": "test_tenant_records",
+      "environment": "local_or_staging",
+      "real_client_data": false
+    },
+    {
+      "id": "R1-DB-02",
+      "domain": "test_case_records",
+      "environment": "local_or_staging",
+      "real_client_data": false
+    },
+    {
+      "id": "R1-DB-03",
+      "domain": "runtime_records_test_scope",
+      "environment": "local_or_staging",
+      "real_client_data": false
+    },
+    {
+      "id": "R1-DB-04",
+      "domain": "client_safe_result_artifacts",
+      "environment": "local_or_staging",
+      "real_client_data": false
+    },
+    {
+      "id": "R1-DB-05",
+      "domain": "consultant_packet_local_or_staging",
+      "environment": "local_or_staging",
+      "real_client_data": false
+    },
+    {
+      "id": "R1-DB-06",
+      "domain": "parallel_payload_rehearsal",
+      "environment": "local_or_staging",
+      "real_client_data": false
+    }
+  ],
+  "prohibited_data_domains": [
+    "production_supabase",
+    "real_external_customer_data",
+    "uncontrolled_production_tenant",
+    "diagnosis_final_artifacts",
+    "external_export_productivo",
+    "produccion_paralela_productiva_outputs"
+  ],
+  "scope_enforcement": {
+    "tenant_scope_required": true,
+    "case_scope_required": true,
+    "run_scope_required": true,
+    "test_marking_required": true
+  },
+  "provenance_requirements": {
+    "distinguish_user_captured": true,
+    "distinguish_system_inferred": true,
+    "distinguish_clarification_derived": true,
+    "distinguish_closure_metadata": true,
+    "reproducible_by_session_id": true
+  },
+  "ring0_boundary_inherited": {
+    "ring0_boundary_ledger": "docs/production-activation/ring0_boundary_ledger.json",
+    "production_untouched_at_ring0": true,
+    "activation_allowed_general_production": false
+  }
+}

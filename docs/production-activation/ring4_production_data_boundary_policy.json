@@ -1,0 +1,102 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING4_PRODUCTION_DATA_BOUNDARY_POLICY",
+  "generated_at": "2026-07-09T07:48:00.000Z",
+  "authorization_ref": "ring4-authorization-expanded-production-scale-governance-20260709",
+  "ring": 4,
+  "ring_name": "expanded_production_scale_governance",
+  "version": "1.0.0",
+  "production_data_allowed_only_after_execution_authorization": true,
+  "data_scope_must_be_explicit": true,
+  "tenant_isolation_required": true,
+  "case_isolation_required": true,
+  "tenant_allowlist_required": true,
+  "case_allowlist_required": true,
+  "rls_required": true,
+  "audit_trail_required": true,
+  "rollback_required": true,
+  "abort_required": true,
+  "no_unscoped_data_access": true,
+  "no_service_role_in_client": true,
+  "data_boundary_model": {
+    "scoped_production_data_only": true,
+    "tenant_boundary_enforced": true,
+    "case_boundary_enforced": true,
+    "run_boundary_enforced": true,
+    "tenant_allowlist_enforced": true,
+    "case_allowlist_enforced": true,
+    "consent_or_authorization_trace_required": true,
+    "synthetic_data_ring3_precedent": true,
+    "real_external_client_data_requires_execution_authorization": true,
+    "expansion_does_not_relax_boundary": true
+  },
+  "boundary_requirements": [
+    {
+      "id": "R4-DB-01",
+      "requirement": "production_data_scope_explicitly_documented",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-DB-02",
+      "requirement": "tenant_isolation_enforced_via_rls",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-DB-03",
+      "requirement": "case_isolation_enforced",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-DB-04",
+      "requirement": "tenant_allowlist_enforced_for_expanded_production",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-DB-05",
+      "requirement": "case_allowlist_enforced_for_expanded_production",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-DB-06",
+      "requirement": "audit_trail_for_all_production_data_access",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-DB-07",
+      "requirement": "no_unscoped_cross_tenant_access",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-DB-08",
+      "requirement": "no_service_role_exposed_to_client",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-DB-09",
+      "requirement": "rollback_restores_data_boundary_baseline",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-DB-10",
+      "requirement": "abort_honors_data_boundary_and_blocks_continuation",
+      "mandatory_for_ring4": true
+    },
+    {
+      "id": "R4-DB-11",
+      "requirement": "scale_expansion_does_not_widen_data_boundary_without_authorization",
+      "mandatory_for_ring4": true
+    }
+  ],
+  "ring3_baseline": {
+    "ring3_production_data_boundary_policy_ref": "docs/production-activation/ring3_production_data_boundary_policy.json",
+    "ring3_controlled_production_scope_binding_ref": "docs/production-activation/eve_local_activation_chain_context.json",
+    "scoped_production_data_only": true,
+    "synthetic_business_data_used_in_ring3": true,
+    "real_external_client_data_used_in_ring3": false
+  },
+  "mba_constraints": {
+    "b3_c09_evidence_route_required": true,
+    "b7_no_diagnosis_ir_registry_export": true,
+    "no_causal_jump_capture_to_diagnosis": true,
+    "outputs_as_object_state": true
+  }
+}

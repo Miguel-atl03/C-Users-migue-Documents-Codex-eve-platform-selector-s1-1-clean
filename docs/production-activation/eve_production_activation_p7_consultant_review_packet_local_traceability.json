@@ -1,0 +1,46 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P7_CONSULTANT_REVIEW_PACKET_LOCAL_V1",
+  "generated_at": "2026-07-08T18:05:00.000Z",
+  "phase": "P7",
+  "entry_conditions": {
+    "p0_p1r_accepted": true,
+    "p2_bff_accepted": true,
+    "p3_p3r_accepted": true,
+    "p4_runtime_real_local_accepted": true,
+    "p5_gates_readiness_local_accepted": true,
+    "p6_client_safe_result_accepted": true
+  },
+  "deliverables": {
+    "consultant_result_types": "src/services/eve/runtime-40-20/consultant-result/runtime-40-20-consultant-result-types.ts",
+    "consultant_result_service": "src/services/eve/runtime-40-20/consultant-result/runtime-40-20-consultant-result-service.ts",
+    "consultant_result_local_adapter": "src/services/eve/runtime-40-20/consultant-result/runtime-40-20-consultant-result-local-adapter.ts",
+    "consultant_result_tests": "src/services/eve/runtime-40-20/consultant-result/runtime-40-20-consultant-result.test.mjs",
+    "consultant_bff_route": "src/app/api/eve/runtime-40-20/consultant/review-packet/route.ts",
+    "p7_smoke_script": "scripts/eve/production-activation/p7-consultant-review-packet-local-smoke.mjs",
+    "p7_validate_script": "scripts/eve/production-activation/p7-validate-consultant-review-packet.mjs",
+    "p7_boundary_scan_script": "scripts/eve/production-activation/p7-scan-consultant-output-boundaries.mjs"
+  },
+  "feature_flags": {
+    "EVE_RUNTIME_40_20_LOCAL_ENABLED": true,
+    "EVE_GATES_READINESS_LOCAL_ENABLED": true,
+    "EVE_CLIENT_SAFE_RESULT_LOCAL_ENABLED": true,
+    "EVE_CONSULTANT_REVIEW_PACKET_LOCAL_ENABLED": true
+  },
+  "readiness_mapping": {
+    "ready": "ready_for_consultant_review",
+    "ready_with_flags": "consultant_review_required_with_flags",
+    "blocked": "blocked_requires_review",
+    "reentry_required": "reentry_required_before_consultant_close",
+    "manual_review_required": "manual_review_required"
+  },
+  "boundary": {
+    "diagnosis_final_auto_created": false,
+    "export_real_created": false,
+    "produccion_paralela_started": false,
+    "activation_allowed": false,
+    "production_supabase_touched": false
+  },
+  "ready_for_p8_produccion_paralela_controlada": true,
+  "ready_for_production_activation": false,
+  "next_authorization_required": true
+}

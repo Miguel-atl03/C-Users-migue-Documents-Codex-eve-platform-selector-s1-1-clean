@@ -1,0 +1,64 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING5_PARALLEL_PRODUCTION_POLICY_CONSTRAINTS",
+  "generated_at": "2026-07-10T03:50:00.000Z",
+  "authorization_ref": "ring5-authorization-general-production-activation-gate-rerun-20260710",
+  "ring": 5,
+  "ring_name": "general_production_activation_gate",
+  "version": "1.0.0",
+  "produccion_paralela_productiva_allowed_without_policy": false,
+  "produccion_paralela_productiva_started": false,
+  "blocked_until_separate_authorization": true,
+  "ring4_precedent": {
+    "parallel_payload_controlled_rehearsal_only": true,
+    "evidence": "docs/production-activation/ring4_parallel_payload_results.json",
+    "produccion_paralela_productiva_started": false
+  },
+  "constraints": [
+    {
+      "id": "R5-PP-01",
+      "constraint": "produccion_paralela_productiva_allowed_without_policy",
+      "required_value": false,
+      "blocking": true,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "R5-PP-02",
+      "constraint": "produccion_paralela_productiva_started_at_authorization",
+      "required_value": false,
+      "blocking": true,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "R5-PP-03",
+      "constraint": "controlled_rehearsal_does_not_equal_productiva",
+      "required_value": true,
+      "blocking": true,
+      "authorization_satisfied": true
+    },
+    {
+      "id": "R5-PP-04",
+      "constraint": "productiva_requires_separate_policy_authorization",
+      "required_value": true,
+      "blocking": true,
+      "authorization_satisfied": true
+    },
+    {
+      "id": "R5-PP-05",
+      "constraint": "ring5_gate_authorization_does_not_imply_parallel_productiva_authority",
+      "required_value": true,
+      "blocking": true,
+      "authorization_satisfied": true
+    },
+    {
+      "id": "R5-PP-06",
+      "constraint": "mmabp_design_source_and_ir_integrity_required_before_productiva",
+      "required_value": true,
+      "blocking": true,
+      "authorization_satisfied": true
+    }
+  ],
+  "all_blocking_constraints_honored": true,
+  "note": "Producción Paralela productiva remains blocked until separate policy authorization beyond Ring 5 gate authorization"
+}

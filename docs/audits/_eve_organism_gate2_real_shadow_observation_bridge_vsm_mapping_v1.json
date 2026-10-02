@@ -1,0 +1,97 @@
+{
+  "mapping_id": "EVE_ORGANISM_GATE2_REAL_SHADOW_OBSERVATION_BRIDGE_VSM_MAPPING_V1",
+  "bridge_id": "GATE2_REAL_SHADOW_OBSERVATION_BRIDGE_V1",
+  "mode": "DESIGN_ONLY",
+  "mandatory_phrase": "Gate 2 real-shadow es membrana de observacion, no musculo productivo.",
+  "vsm": {
+    "S1": {
+      "reading": "real operation observed, not governed by EVE yet",
+      "bridge_role": "observe official operational signals without authority",
+      "productive_authority": false
+    },
+    "S2": {
+      "reading": "bridge stabilizes transit and avoids noise between official flow and shadow",
+      "bridge_role": "separate officialOutcome, shadowOutcome and divergence",
+      "productive_authority": false
+    },
+    "S3": {
+      "reading": "controls permitted capabilities: observe and compare",
+      "bridge_role": "enforce read-only, context, correlation and idempotency locks",
+      "productive_authority": false
+    },
+    "S3*": {
+      "reading": "audits divergences, bypass, tenant isolation, No-Go and contamination",
+      "bridge_role": "surface governance findings and algedonic alerts",
+      "productive_authority": false
+    },
+    "S4": {
+      "reading": "learns divergence patterns and prepares future adaptation",
+      "bridge_role": "collect shadow divergence evidence for later roadmap decisions",
+      "productive_authority": false
+    },
+    "S5": {
+      "reading": "preserves identity: shadow is not authority",
+      "bridge_role": "keep Gate 3, diagnosis, export, registry and client surface unauthorized",
+      "productive_authority": false
+    }
+  },
+  "channels": {
+    "operational": {
+      "input": "RealShadowObservableEvent",
+      "process": [
+        "real event observed",
+        "shadow evaluation",
+        "shadow gate decision",
+        "candidate shadow artifact if applicable",
+        "divergence report"
+      ],
+      "output": "ShadowDivergenceReport"
+    },
+    "governance": {
+      "input": ["AuditEvent", "ShadowGovernanceFinding", "DivergenceReport"],
+      "process": [
+        "policy evaluation",
+        "manual review required if severity threshold",
+        "S3* review",
+        "no authority granted",
+        "decision logged"
+      ],
+      "output": "GovernanceReviewRecord"
+    },
+    "algedonic": {
+      "triggers": [
+        "tenant leakage",
+        "event replay poisoning",
+        "stale official outcome",
+        "missing provenance",
+        "shadow divergence hidden",
+        "accidental write adapter",
+        "overcollection of client data",
+        "audit log tampering",
+        "latency collapse",
+        "gate bypass",
+        "cross-tenant contamination"
+      ],
+      "process": [
+        "critical harm signal",
+        "pause affected bridge capability",
+        "degrade to SHADOW/QUARANTINED",
+        "preserve evidence",
+        "require human review",
+        "rollback/degrade decision"
+      ],
+      "output": "AlgedonicBridgeAlert"
+    }
+  },
+  "gate_relation": {
+    "gate0": "closed",
+    "gate1": "closed",
+    "gate2_offline_controlled": "closed",
+    "gate2_real_shadow": "design_started",
+    "gate3": "not_authorized",
+    "gate4": "not_authorized",
+    "gate5_fase9": "not_authorized",
+    "gate6": "not_authorized",
+    "no_gate_promoted_by_design": true
+  }
+}

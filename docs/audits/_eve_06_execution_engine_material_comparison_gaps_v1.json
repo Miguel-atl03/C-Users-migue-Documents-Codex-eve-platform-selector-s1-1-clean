@@ -1,0 +1,31 @@
+{
+  "artifact": "_eve_06_execution_engine_material_comparison_gaps_v1",
+  "generated_for": "EVE-06-EXECUTION-ENGINE-MATERIAL-COMPARISON-PREP-V1",
+  "dictamen": "EXECUTION_ENGINE_MATERIAL_COMPARISON_PREP_READY_FOR_QA_WITH_GAPS",
+  "gaps": [
+    {
+      "gap_id": "D1_TEXT_EXTRACTION_GAP",
+      "severity": "non_blocking_for_prep_blocking_for_direct_d1_proof",
+      "source_id": "D1",
+      "description": "D1 PDF is technically valid but no text extractor is currently available in this audit chain.",
+      "impact": "D1 can remain context-only; it cannot be used as direct source proof in QA until extraction is repaired.",
+      "required_future_action": "Repair D1 text extraction or obtain an alternate readable canonical representation before any direct-source claim."
+    },
+    {
+      "gap_id": "D8_WINDOWS_PATH_LONG_NOTE",
+      "severity": "note_resolved_for_file_access",
+      "source_id": "D8",
+      "description": "D8 required extended path/subst access on Windows due long path constraints.",
+      "impact": "Not a material comparison blocker; QA should retain note and avoid treating normal-path failure as content mismatch.",
+      "required_future_action": "Use documented extended-path access if D8 workbook needs reopening from the long path."
+    },
+    {
+      "gap_id": "QA_NOT_EXECUTED_IN_THIS_PREP",
+      "severity": "expected_scope_boundary",
+      "source_id": "package",
+      "description": "This task prepares material comparison only and does not execute independent record-rule source QA.",
+      "impact": "No satisfactory QA or certification status may be claimed from this artifact alone.",
+      "required_future_action": "Run a later QA task against this matrix."
+    }
+  ]
+}

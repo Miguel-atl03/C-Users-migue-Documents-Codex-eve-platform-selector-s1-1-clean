@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eve.local/schemas/parallel-production/inventory-readiness.schema.json",
+  "title": "EVE Capa 1 Parallel Production Inventory Readiness",
+  "type": "object",
+  "required": [
+    "inventory_readiness",
+    "readiness_reasons",
+    "blocking_gaps",
+    "manual_review_required",
+    "client_id",
+    "source_bundle_id",
+    "structural_facts_package_id"
+  ],
+  "properties": {
+    "inventory_readiness": {
+      "enum": [
+        "ready_for_registry_projection",
+        "ready_with_inventory_gaps",
+        "partial_inventory",
+        "blocked_by_semantic_conflict",
+        "blocked_by_missing_structural_facts",
+        "manual_review_required"
+      ]
+    },
+    "readiness_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "blocking_gaps": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "manual_review_required": { "type": "boolean" },
+    "client_id": { "type": "string", "minLength": 1 },
+    "source_bundle_id": { "type": "string", "minLength": 1 },
+    "structural_facts_package_id": { "type": "string", "minLength": 1 },
+    "boundaries": {
+      "type": "object",
+      "properties": {
+        "not_diagnostic": { "const": true },
+        "does_not_modify_capa2_readiness": { "const": true },
+        "does_not_modify_core_contract": { "const": true }
+      }
+    }
+  },
+  "additionalProperties": true
+}

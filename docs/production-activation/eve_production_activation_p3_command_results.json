@@ -1,0 +1,60 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P3_SUPABASE_RLS_SCHEMA_REAL_COMPLETED",
+  "commands": [
+    {
+      "command": "npx tsc --noEmit --pretty false",
+      "cwd": "C:/eve/platform",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "command": "npm run build",
+      "cwd": "C:/eve/platform",
+      "status": "passed",
+      "exit_code": 0,
+      "note": "Build requires short path C:/eve/platform on Windows due to Turbopack path-length limit in long workspace path."
+    },
+    {
+      "command": "node --test src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff.test.mjs",
+      "cwd": "C:/eve/platform",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "command": "node --test src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane.test.mjs",
+      "cwd": "C:/eve/platform",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "command": "node scripts/eve/production-activation/p3-validate-runtime-schema.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "command": "node scripts/eve/production-activation/p3-scan-service-role-exposure.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "command": "node scripts/eve/production-activation/p3-validate-rls-policies.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "command": "supabase --version",
+      "status": "not_run",
+      "reason": "Supabase CLI not installed in environment"
+    },
+    {
+      "command": "supabase db lint",
+      "status": "not_run",
+      "reason": "Supabase CLI not installed"
+    },
+    {
+      "command": "supabase start / supabase db reset",
+      "status": "not_run",
+      "reason": "No supabase/config.toml and CLI unavailable"
+    }
+  ]
+}

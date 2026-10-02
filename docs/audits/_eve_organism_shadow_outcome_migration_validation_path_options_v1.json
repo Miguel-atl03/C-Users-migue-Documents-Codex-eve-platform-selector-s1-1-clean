@@ -1,0 +1,57 @@
+{
+  "options_id": "SHADOW_OUTCOME_MIGRATION_VALIDATION_PATH_OPTIONS_V1",
+  "base_commit": "82607e02d46bd2aeeeda51332d588eba520de4e2",
+  "options": [
+    {
+      "id": "OPTION_A",
+      "name": "DRY_RUN_OR_NO_OP_VALIDATE_SHADOW_OUTCOME_MIGRATION_ONLY",
+      "allowed_now": false,
+      "requires_db_connection": "unknown",
+      "requires_supabase": false,
+      "requires_write": "unknown",
+      "requires_adapter": false,
+      "preserves_source_connected_false": true,
+      "preserves_gate2_false": true,
+      "preserves_gate3_false": true,
+      "preserves_fase9_false": true,
+      "validates_schema_physical_existence": true,
+      "enables_local_adapter_work": false,
+      "risk_level": "medium",
+      "reason": "No migration-specific safe dry-run/no-op target was verified for shadow_outcome."
+    },
+    {
+      "id": "OPTION_B",
+      "name": "RETURN_TO_REAL_SOURCE_ADAPTER_WITH_MIGRATION_FILE_AVAILABLE",
+      "allowed_now": true,
+      "requires_db_connection": false,
+      "requires_supabase": false,
+      "requires_write": false,
+      "requires_adapter": true,
+      "preserves_source_connected_false": true,
+      "preserves_gate2_false": true,
+      "preserves_gate3_false": true,
+      "preserves_fase9_false": true,
+      "validates_schema_physical_existence": false,
+      "enables_local_adapter_work": true,
+      "risk_level": "low",
+      "reason": "Local/in-memory adapter work can proceed using the committed migration file as future schema contract while keeping all real-source authority disabled."
+    },
+    {
+      "id": "OPTION_C",
+      "name": "BLOCK_UNTIL_NON_PRODUCTIVE_DB_VALIDATION_ENV_AVAILABLE",
+      "allowed_now": false,
+      "requires_db_connection": false,
+      "requires_supabase": false,
+      "requires_write": false,
+      "requires_adapter": false,
+      "preserves_source_connected_false": true,
+      "preserves_gate2_false": true,
+      "preserves_gate3_false": true,
+      "preserves_fase9_false": true,
+      "validates_schema_physical_existence": false,
+      "enables_local_adapter_work": false,
+      "risk_level": "medium",
+      "reason": "Blocking is safer than real DB validation but unnecessarily stops local/in-memory adapter progress."
+    }
+  ]
+}

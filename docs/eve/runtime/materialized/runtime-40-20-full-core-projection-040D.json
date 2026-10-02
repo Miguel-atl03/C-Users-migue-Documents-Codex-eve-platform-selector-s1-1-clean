@@ -1,0 +1,1280 @@
+{
+  "instruction": "040-D",
+  "title": "Full core + semantic organ projection matrix against staging contract 040-A",
+  "classification_gate": "all_mandatory_columns_decided",
+  "tables": {
+    "public.runtime_catalog_version": {
+      "column_count": 15,
+      "columns": [
+        {
+          "column_name": "catalog_version_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "CATID-R1 identity"
+        },
+        {
+          "column_name": "version_label",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "identity_manifest.runtime_version_label"
+        },
+        {
+          "column_name": "spec_version_label",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": "'v1.0.1'::text",
+          "classification": "direct_literal",
+          "source": "literal v1.0.1"
+        },
+        {
+          "column_name": "status",
+          "postgres_type": "eve_runtime_catalog_status",
+          "is_nullable": "NO",
+          "column_default": "'draft'::eve_runtime_catalog_status",
+          "classification": "direct_literal",
+          "source": "draft only"
+        },
+        {
+          "column_name": "source_xlsx_filename",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "source-manifest runtime_xlsx basename"
+        },
+        {
+          "column_name": "source_xlsx_checksum",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "source-manifest runtime_xlsx.sha256"
+        },
+        {
+          "column_name": "source_docx_filename",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "source DOCX basename"
+        },
+        {
+          "column_name": "source_docx_checksum",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "source DOCX sha256"
+        },
+        {
+          "column_name": "mother_catalog_version",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "identity_manifest.mother_catalog_version"
+        },
+        {
+          "column_name": "runtime_rule_mother",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": "'40 base + 20 causal adaptive max per primary activity'::text",
+          "classification": "direct_literal",
+          "source": "EVE-RUNTIME-CATID-R1; EVE-RUNTIME-SEMPERSIST-R1"
+        },
+        {
+          "column_name": "notes",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "identity canonical_serialization"
+        },
+        {
+          "column_name": "activated_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "explicitly_null_by_approved_rule",
+          "source": "draft load never activates"
+        },
+        {
+          "column_name": "superseded_by_catalog_version_id",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "explicitly_null_by_approved_rule",
+          "source": "draft load has no supersession"
+        },
+        {
+          "column_name": "created_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        },
+        {
+          "column_name": "updated_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        }
+      ]
+    },
+    "public.runtime_catalog_artifact_section": {
+      "column_count": 14,
+      "columns": [
+        {
+          "column_name": "catalog_section_id",
+          "postgres_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "classification": "database_generated_identity",
+          "source": "gen_random_uuid()"
+        },
+        {
+          "column_name": "catalog_version_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "catalog_version_id"
+        },
+        {
+          "column_name": "section_name",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "source_name::sheet_name (unique)"
+        },
+        {
+          "column_name": "sheet_name",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "sections[].sheet_name"
+        },
+        {
+          "column_name": "section_kind",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": "'workbook_sheet'::text",
+          "classification": "database_generated_default",
+          "source": "workbook_sheet"
+        },
+        {
+          "column_name": "row_count",
+          "postgres_type": "int4",
+          "is_nullable": "NO",
+          "column_default": "0",
+          "classification": "direct_literal",
+          "source": "sections[].observed_row_count"
+        },
+        {
+          "column_name": "source_checksum",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "sections[].source_sha256"
+        },
+        {
+          "column_name": "payload_json",
+          "postgres_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": "'[]'::jsonb",
+          "classification": "authorized_exact_payload_preservation",
+          "source": "sheet_index,source_file,headers,rows,coordinates,fingerprint,preservation_mode"
+        },
+        {
+          "column_name": "validation_status",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": "'loaded'::text",
+          "classification": "database_generated_default",
+          "source": "loaded"
+        },
+        {
+          "column_name": "blocking_errors",
+          "postgres_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": "'[]'::jsonb",
+          "classification": "database_generated_default",
+          "source": "[]"
+        },
+        {
+          "column_name": "warnings",
+          "postgres_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": "'[]'::jsonb",
+          "classification": "database_generated_default",
+          "source": "[]"
+        },
+        {
+          "column_name": "metadata_json",
+          "postgres_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": "'{}'::jsonb",
+          "classification": "authorized_exact_payload_preservation",
+          "source": "source_file,fingerprint,source_name"
+        },
+        {
+          "column_name": "created_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        },
+        {
+          "column_name": "updated_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        }
+      ]
+    },
+    "public.source_node_ref": {
+      "column_count": 9,
+      "columns": [
+        {
+          "column_name": "source_node_ref_id",
+          "postgres_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "classification": "database_generated_identity",
+          "source": "gen_random_uuid()"
+        },
+        {
+          "column_name": "catalog_version_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "catalog_version_id"
+        },
+        {
+          "column_name": "source_node_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "registry.capture_node_id"
+        },
+        {
+          "column_name": "source_code",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "registry.source_question_code_intact"
+        },
+        {
+          "column_name": "block_id",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "registry.source_block"
+        },
+        {
+          "column_name": "source_block_label",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "registry.source_block"
+        },
+        {
+          "column_name": "source_question_text",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "registry.source_text"
+        },
+        {
+          "column_name": "mother_catalog_payload",
+          "postgres_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": "'{}'::jsonb",
+          "classification": "authorized_exact_payload_preservation",
+          "source": "registry record"
+        },
+        {
+          "column_name": "created_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        }
+      ]
+    },
+    "public.runtime_interaction_def": {
+      "column_count": 56,
+      "columns": [
+        {
+          "column_name": "catalog_version_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "catalog_version_id"
+        },
+        {
+          "column_name": "runtime_interaction_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].runtime_interaction_id"
+        },
+        {
+          "column_name": "interaction_group_source",
+          "postgres_type": "eve_runtime_group_source",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "explicit_authorized_alias",
+          "source": "interactions[].interaction_group"
+        },
+        {
+          "column_name": "interaction_group_normalized",
+          "postgres_type": "eve_runtime_group_normalized",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "explicit_authorized_alias",
+          "source": "interactions[].base_or_causal"
+        },
+        {
+          "column_name": "block_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].block"
+        },
+        {
+          "column_name": "runtime_order",
+          "postgres_type": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].runtime_order"
+        },
+        {
+          "column_name": "function_label",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "explicit_authorized_alias",
+          "source": "interactions[].function"
+        },
+        {
+          "column_name": "visible_text",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].visible_text_v1_1"
+        },
+        {
+          "column_name": "source_nodes",
+          "postgres_type": "_text",
+          "is_nullable": "NO",
+          "column_default": "'{}'::text[]",
+          "classification": "direct_literal",
+          "source": "parse interactions[].source_nodes CSV → text[]"
+        },
+        {
+          "column_name": "source_codes",
+          "postgres_type": "_text",
+          "is_nullable": "NO",
+          "column_default": "'{}'::text[]",
+          "classification": "direct_literal",
+          "source": "parse interactions[].source_codes CSV → text[]"
+        },
+        {
+          "column_name": "ui_component",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].ui_component"
+        },
+        {
+          "column_name": "subfield_structure",
+          "postgres_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": "'[]'::jsonb",
+          "classification": "direct_literal",
+          "source": "parse interactions[].subfield_structure → jsonb array"
+        },
+        {
+          "column_name": "runtime_role",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].runtime_role"
+        },
+        {
+          "column_name": "trigger_condition",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].trigger_condition"
+        },
+        {
+          "column_name": "opens_nodes",
+          "postgres_type": "_text",
+          "is_nullable": "NO",
+          "column_default": "'{}'::text[]",
+          "classification": "semantic_organ_authority",
+          "source": "empty []; authority in runtime_branching_rule"
+        },
+        {
+          "column_name": "closes_nodes",
+          "postgres_type": "_text",
+          "is_nullable": "NO",
+          "column_default": "'{}'::text[]",
+          "classification": "semantic_organ_authority",
+          "source": "empty []; authority in runtime_branching_rule"
+        },
+        {
+          "column_name": "mutual_exclusion_policy",
+          "postgres_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": "'{}'::jsonb",
+          "classification": "semantic_organ_authority",
+          "source": "empty {}; authority in runtime_epistemic_rule"
+        },
+        {
+          "column_name": "burden_score",
+          "postgres_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].burden_score"
+        },
+        {
+          "column_name": "estimated_time_seconds",
+          "postgres_type": "int4",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].estimated_time_seconds"
+        },
+        {
+          "column_name": "free_text_weight",
+          "postgres_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "NULL; authority in runtime_epistemic_rule"
+        },
+        {
+          "column_name": "fatigue_policy",
+          "postgres_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": "'{}'::jsonb",
+          "classification": "semantic_organ_authority",
+          "source": "empty {}; authority in runtime_epistemic_rule"
+        },
+        {
+          "column_name": "epistemic_status_default",
+          "postgres_type": "eve_runtime_epistemic_status",
+          "is_nullable": "NO",
+          "column_default": "'captured_user_evidence'::eve_runtime_epistemic_status",
+          "classification": "direct_literal",
+          "source": "interactions[].epistemic_status_default"
+        },
+        {
+          "column_name": "provenance_rule",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].provenance_rule"
+        },
+        {
+          "column_name": "confirmation_policy",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].confirmation_policy"
+        },
+        {
+          "column_name": "must_not_infer",
+          "postgres_type": "bool",
+          "is_nullable": "NO",
+          "column_default": "false",
+          "classification": "semantic_organ_authority",
+          "source": "false default; authority in runtime_epistemic_rule"
+        },
+        {
+          "column_name": "canonical_variables",
+          "postgres_type": "_text",
+          "is_nullable": "NO",
+          "column_default": "'{}'::text[]",
+          "classification": "semantic_organ_authority",
+          "source": "empty []; authority in runtime_variable_map"
+        },
+        {
+          "column_name": "required_variables",
+          "postgres_type": "_text",
+          "is_nullable": "NO",
+          "column_default": "'{}'::text[]",
+          "classification": "semantic_organ_authority",
+          "source": "empty []; authority in runtime_variable_map"
+        },
+        {
+          "column_name": "derived_variables",
+          "postgres_type": "_text",
+          "is_nullable": "NO",
+          "column_default": "'{}'::text[]",
+          "classification": "semantic_organ_authority",
+          "source": "empty []; authority in runtime_variable_map"
+        },
+        {
+          "column_name": "optional_variables",
+          "postgres_type": "_text",
+          "is_nullable": "NO",
+          "column_default": "'{}'::text[]",
+          "classification": "semantic_organ_authority",
+          "source": "empty []; authority in runtime_variable_map"
+        },
+        {
+          "column_name": "pm_output",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].pm_output"
+        },
+        {
+          "column_name": "moc_output",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].moc_output"
+        },
+        {
+          "column_name": "pf_output",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].pf_output"
+        },
+        {
+          "column_name": "olc_output",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].olc_output"
+        },
+        {
+          "column_name": "conformance_checkpoint",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].conformance_checkpoint"
+        },
+        {
+          "column_name": "consistency_checkpoint",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].consistency_checkpoint"
+        },
+        {
+          "column_name": "activation_signal",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].activation_signal"
+        },
+        {
+          "column_name": "blocking_gap",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].blocking_gap"
+        },
+        {
+          "column_name": "reentry_target",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].reentry_target"
+        },
+        {
+          "column_name": "max_retries",
+          "postgres_type": "int4",
+          "is_nullable": "NO",
+          "column_default": "0",
+          "classification": "direct_literal",
+          "source": "interactions[].max_retries"
+        },
+        {
+          "column_name": "structural_candidate_type",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].structural_candidate_type"
+        },
+        {
+          "column_name": "registry_target",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].registry_target"
+        },
+        {
+          "column_name": "mmabp_ir_target",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].mmabp_ir_target"
+        },
+        {
+          "column_name": "readiness_effect",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].readiness_effect"
+        },
+        {
+          "column_name": "acceptance_test",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].acceptance_test"
+        },
+        {
+          "column_name": "failure_mode",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].failure_mode"
+        },
+        {
+          "column_name": "manual_review_condition",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].manual_review_condition"
+        },
+        {
+          "column_name": "raw_row_json",
+          "postgres_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": "'{}'::jsonb",
+          "classification": "explicit_authorized_alias",
+          "source": "full 031C interaction object (raw_payload alias)"
+        },
+        {
+          "column_name": "active",
+          "postgres_type": "bool",
+          "is_nullable": "NO",
+          "column_default": "true",
+          "classification": "database_generated_default",
+          "source": "true"
+        },
+        {
+          "column_name": "created_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        },
+        {
+          "column_name": "updated_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        },
+        {
+          "column_name": "confirmation_weight",
+          "postgres_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "NULL; authority in runtime_epistemic_rule"
+        },
+        {
+          "column_name": "priority_under_budget_pressure",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].priority_under_budget_pressure"
+        },
+        {
+          "column_name": "can_be_inferred_from",
+          "postgres_type": "_text",
+          "is_nullable": "NO",
+          "column_default": "'{}'::text[]",
+          "classification": "semantic_organ_authority",
+          "source": "empty []; authority in runtime_variable_map"
+        },
+        {
+          "column_name": "audit_requirement",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].audit_requirement"
+        },
+        {
+          "column_name": "source_status",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].status"
+        },
+        {
+          "column_name": "correction_notes",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "interactions[].correction_notes"
+        }
+      ]
+    },
+    "public.runtime_interaction_mapping": {
+      "column_count": 8,
+      "columns": [
+        {
+          "column_name": "mapping_id",
+          "postgres_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "classification": "database_generated_identity",
+          "source": "gen_random_uuid()"
+        },
+        {
+          "column_name": "catalog_version_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "catalog_version_id"
+        },
+        {
+          "column_name": "runtime_interaction_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "lineage.interaction_id"
+        },
+        {
+          "column_name": "source_node_ref_id",
+          "postgres_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "resolved FK from source_node_id+source_code"
+        },
+        {
+          "column_name": "mapping_role",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": "'covers'::text",
+          "classification": "direct_literal",
+          "source": "source_lineage"
+        },
+        {
+          "column_name": "output_variable_name",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "explicitly_null_by_approved_rule",
+          "source": "lineage N:M has no output variable"
+        },
+        {
+          "column_name": "route_id",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "explicitly_null_by_approved_rule",
+          "source": "lineage N:M has no route_id"
+        },
+        {
+          "column_name": "created_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        }
+      ]
+    },
+    "public.runtime_subfield_schema": {
+      "column_count": 18,
+      "columns": [
+        {
+          "column_name": "subfield_schema_id",
+          "postgres_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "classification": "database_generated_identity",
+          "source": "gen_random_uuid()"
+        },
+        {
+          "column_name": "catalog_version_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "catalog_version_id"
+        },
+        {
+          "column_name": "runtime_interaction_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "subfields[].runtime_interaction_id"
+        },
+        {
+          "column_name": "subfield_name",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "subfields[].subfield"
+        },
+        {
+          "column_name": "subfield_label",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "explicitly_null_by_approved_rule",
+          "source": "not present in 031C subfield rows"
+        },
+        {
+          "column_name": "subfield_type",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": "'text'::text",
+          "classification": "database_generated_default",
+          "source": "text"
+        },
+        {
+          "column_name": "canonical_variable_name",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "explicitly_null_by_approved_rule",
+          "source": "not present in 031C subfield rows"
+        },
+        {
+          "column_name": "required",
+          "postgres_type": "bool",
+          "is_nullable": "NO",
+          "column_default": "false",
+          "classification": "database_generated_default",
+          "source": "false"
+        },
+        {
+          "column_name": "required_if_condition",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "explicitly_null_by_approved_rule",
+          "source": "not present in 031C subfield rows"
+        },
+        {
+          "column_name": "ordinal",
+          "postgres_type": "int4",
+          "is_nullable": "NO",
+          "column_default": "1",
+          "classification": "explicit_authorized_alias",
+          "source": "subfields[].subfield_ordinal"
+        },
+        {
+          "column_name": "validation_rule",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "explicitly_null_by_approved_rule",
+          "source": "not present in 031C subfield rows"
+        },
+        {
+          "column_name": "help_text",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "explicitly_null_by_approved_rule",
+          "source": "not present in 031C subfield rows"
+        },
+        {
+          "column_name": "created_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        },
+        {
+          "column_name": "ui_component",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "raw_representation.ui_component"
+        },
+        {
+          "column_name": "display_rule",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "raw_representation.display_rule"
+        },
+        {
+          "column_name": "storage_rule",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "raw_representation.storage_rule"
+        },
+        {
+          "column_name": "risk_if_single_textbox",
+          "postgres_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "raw_representation.risk_if_single_textbox"
+        },
+        {
+          "column_name": "raw_row_json",
+          "postgres_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": "'{}'::jsonb",
+          "classification": "authorized_exact_payload_preservation",
+          "source": "full 031C subfield object"
+        }
+      ]
+    },
+    "public.runtime_branching_rule": {
+      "column_count": 11,
+      "columns": [
+        {
+          "column_name": "catalog_version_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "runtime_interaction_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "field_name",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "raw_literal",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_file",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_sheet",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_row",
+          "postgres_type": "integer",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_column",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "trace_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_checksum",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "created_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        }
+      ]
+    },
+    "public.runtime_epistemic_rule": {
+      "column_count": 11,
+      "columns": [
+        {
+          "column_name": "catalog_version_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "runtime_interaction_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "field_name",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "raw_literal",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_file",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_sheet",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_row",
+          "postgres_type": "integer",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_column",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "trace_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_checksum",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "created_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        }
+      ]
+    },
+    "public.runtime_variable_map": {
+      "column_count": 11,
+      "columns": [
+        {
+          "column_name": "catalog_version_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "runtime_interaction_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "direct_literal",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "field_name",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "raw_literal",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_file",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_sheet",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_row",
+          "postgres_type": "integer",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_column",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "trace_id",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "source_checksum",
+          "postgres_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "classification": "semantic_organ_authority",
+          "source": "CatalogLoader semantic organ rows from 031C"
+        },
+        {
+          "column_name": "created_at",
+          "postgres_type": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "classification": "database_generated_default",
+          "source": "now()"
+        }
+      ]
+    }
+  },
+  "undecided_mandatory_columns": [],
+  "mandatory_undecided_count": 0,
+  "status": "projection_complete",
+  "note_semantic_organ_typed_columns": "SEMPERSIST keeps authority in organs. Staging NOT NULL typed legacy columns receive empty defaults ([], {}, false) or NULL when nullable; raw literals are never copied into typed columns for the full catalog."
+}

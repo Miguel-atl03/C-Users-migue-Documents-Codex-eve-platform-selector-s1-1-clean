@@ -1,0 +1,55 @@
+{
+  "audit_id": "EVE-06-EXECUTION-ENGINE-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "EXECUTION_ENGINE_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "coverageStatus": "intake_ready_with_gaps",
+  "gaps": [
+    {
+      "gapId": "D1_TEXT_EXTRACTION_GAP",
+      "severity": "minor",
+      "status": "open",
+      "description": "D1 PDF exists, hashes, and is technically valid, but text extraction tooling is unavailable.",
+      "impact": "D1 cannot be used for exact direct proof or citation in this intake.",
+      "blocking": false
+    },
+    {
+      "gapId": "MAPPING_NEEDS_EXACT_PROOF",
+      "severity": "major",
+      "status": "open",
+      "description": "Initial source-to-target mapping is sheet/section level only.",
+      "impact": "Material comparison and rule/field QA must provide exact locators.",
+      "blocking": false
+    },
+    {
+      "gapId": "SOURCE_LOCATOR_PRECISION_PENDING",
+      "severity": "major",
+      "status": "open",
+      "description": "Several mappings require paragraph, row, table, field or rule-level locators.",
+      "impact": "No fidelity certification can be emitted yet.",
+      "blocking": false
+    },
+    {
+      "gapId": "RULE_FIELD_QA_PENDING",
+      "severity": "major",
+      "status": "open",
+      "description": "Atomic rules, fields, failure guards and QA controls have not been individually proven against sources.",
+      "impact": "No QA satisfactory verdict.",
+      "blocking": false
+    },
+    {
+      "gapId": "D8_LONG_PATH_READ_METHOD_REQUIRED",
+      "severity": "minor",
+      "status": "controlled",
+      "description": "D8 normal PowerShell path fails; Windows extended path is required for robust reading.",
+      "impact": "Future audits must use extended path or short diagnostic path.",
+      "blocking": false
+    }
+  ],
+  "notGaps": [
+    "Package path exists and is readable.",
+    "All six target modules are present.",
+    "Declared counts match observed counts.",
+    "D8 is readable after long-path repair.",
+    "No productive wiring detected."
+  ],
+  "recommendedNextStep": "EVE-06-EXECUTION-ENGINE-MATERIAL-COMPARISON-PREP-V1"
+}

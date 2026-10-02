@@ -1,0 +1,72 @@
+{
+  "config_id": "B2-CAPTURE-RUNTIME-MVP-LIMITS-1.1",
+  "classification": "MVP_TECHNICAL_LIMIT",
+  "profile_ref": "EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",
+  "limits": {
+    "max_user_rounds_per_interaction": 4,
+    "max_text_length_chars": 4096,
+    "max_context_chars": 32768,
+    "max_ui_turns_per_interaction": 8,
+    "max_questions_per_ai_proposal": 2,
+    "max_semantic_candidates_per_ai_proposal": 8
+  },
+  "technical_basis": {
+    "max_user_rounds_per_interaction": "Per interaction_instance. Only a new accepted Response Event consumes one round; idempotent retries and overflow-preserved events do not consume rounds.",
+    "max_text_length_chars": "Finite validation-envelope bound for the MVP API/harness. Inputs beyond the bound are persisted intact as overflow and never silently truncated.",
+    "max_context_chars": "Finite context-composition bound for the MVP adapter. Excess context remains persisted/referenced and creates an explicit overflow/HOLD instead of being silently dropped.",
+    "max_ui_turns_per_interaction": "Per interaction_instance. Runtime-run ui_turn_count remains aggregate telemetry only and cannot trigger a per-interaction limit by itself.",
+    "max_questions_per_ai_proposal": "Local B2 semantic limit from the authorized B2 contract/G1.1 projection.",
+    "max_semantic_candidates_per_ai_proposal": "Local B2 semantic limit from the authorized B2 contract/G1.1 projection."
+  },
+  "authority_boundary": "The first four values are technical MVP configuration, not B2 canon. They may change without modifying the Documento Madre or canonical catalog. The final two values are local B2 semantic limits and must not be universalized.",
+  "overflow_rule": "PRESERVE_INPUT_AND_DECLARE_OVERFLOW; never silently truncate evidence, candidates, context or user input.",
+  "profile_expectations": {
+    "node_count": 26,
+    "interaction_count": 10,
+    "runtime_budget": {
+      "base_max": 40,
+      "causal_max": 20,
+      "new_slots": 0
+    },
+    "mode_map": {
+      "AI_DEFAULT_CONTEXTUAL_RENDER": 1,
+      "AI_OPTIONAL_CONTEXTUAL_RENDER": 18,
+      "AI_CONDITIONAL_CLARIFICATION": 3,
+      "DETERMINISTIC": 4
+    },
+    "source_hashes": {
+      "A2": "5616eb2e6caf9ed480e1c1bd99f91cb2126806124eaf72c370fad7635c6c7a82"
+    }
+  },
+  "projection_bindings": {
+    "rule_control_outputs": {
+      "B2-BR-ADMISSIBLE-REFERENT": "B2_CONTROL::admissible_referent",
+      "B2-BR-ADMISSIBLE-CHANGE-REF": "B2_CONTROL::admissible_change_ref"
+    },
+    "derived_control_outputs": {
+      "transformation_exception_exists": "B2_CONTROL::transformation_exception_exists"
+    },
+    "exclusive_rule_groups": {
+      "B2_CONTROL::active_k2_branch": {
+        "AB": "B2-BR-K2-AB",
+        "AC": "B2-BR-K2-AC",
+        "BC": "B2-BR-K2-BC",
+        "ABC": "B2-BR-K2-ABC"
+      }
+    },
+    "fallback_render_overrides": {
+      "B2-FB-2.1-NOENTITY-P3.2": {
+        "hide_help": true,
+        "hide_options": true
+      }
+    },
+    "ai_overflow_owner": "B2_PROFILE_OWNER",
+    "output_revision_key": "B2_revision",
+    "output_restrictions": [
+      "B2_PROMOTION=HOLD",
+      "AUTHORIZED_EVALUATOR=NOT_AVAILABLE",
+      "MODEL_TEST=NOT_EXECUTED",
+      "INDEPENDENT_TEST=NOT_EXECUTED"
+    ]
+  }
+}

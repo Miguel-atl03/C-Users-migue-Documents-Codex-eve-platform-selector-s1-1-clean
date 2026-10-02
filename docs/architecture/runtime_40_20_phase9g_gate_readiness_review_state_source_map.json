@@ -1,0 +1,85 @@
+{
+  "source_map": [
+    {
+      "contract_or_type": "RuntimeClientCriticalRouteGateSummaryCandidate",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "F9-G - Local gate/readiness/review state candidate",
+      "source_element": "critical_route gate_summary_candidate != Gate real ejecutada",
+      "extracted_for_platform_use": "Create critical route gate summary candidates for B0, B2, B3_C09 and B7_C20 without executing gates, exposing internal gate codes to the client or creating runtime audit trail real.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientSEMPSTGateSummaryCandidate",
+      "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "source_section": "Semantic_Resolution_Gates, Process_State_Timer_Gates",
+      "source_element": "SEM/PST gate_summary_candidate != semantic_resolution_event real or process_state_timer_event real",
+      "extracted_for_platform_use": "Create local SEM/PST gate summary candidates for SEM-001 through SEM-007 and PST-001 through PST-006 without creating semantic or timer events.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientReadinessStateCandidate",
+      "source_document": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "source_section": "Readiness state and persistence boundary",
+      "source_element": "readiness_state_candidate != readiness_decision_record real",
+      "extracted_for_platform_use": "Represent readiness states as local candidates linked to evidence, variables, gaps and gate summaries without creating readiness decision records, gap records or final readiness.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientManualReviewCandidate",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "Manual review and safe review boundary",
+      "source_element": "manual_review_candidate != revision humana real ejecutada",
+      "extracted_for_platform_use": "Create manual review candidates with client-safe reason and internal candidate reason without creating a real manual review or assigning a real actor.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientReentryCandidate",
+      "source_document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "source_section": "Readiness_Gaps_Reentry",
+      "source_element": "reentry_candidate != reentry interaction real",
+      "extracted_for_platform_use": "Create reentry candidates with client-safe reason and prompt without creating reentry interactions or runtime_interaction_instance real.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientSafeReviewResultCandidate",
+      "source_document": "EVE_Fase9_Gate5_Diseno_Implementacion_Marco_Estructural_v2_Parte2.docx",
+      "source_section": "Client-safe review result candidate",
+      "source_element": "client_safe_review_result != diagnostico",
+      "extracted_for_platform_use": "Expose safe review result states and messages while hiding final diagnosis, internal gate state, readiness gap internals and No-Go internals.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientNoGoCandidate",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "No-Go and activation boundary",
+      "source_element": "no_go_candidate != No-Go persistido real",
+      "extracted_for_platform_use": "Represent No-Go candidates with client-safe messages while keeping real persistence, audit trail and activation disabled.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientGateGreaterThanChipEnforcementCandidate",
+      "source_document": "Marco Sistemico Estructural Oficial",
+      "source_section": "Sistema de Inteligencia Operativa y Gobernanza Cognitiva",
+      "source_element": "Gate > Chip",
+      "extracted_for_platform_use": "Enforce chips as input only: chip output cannot override gates, create diagnosis without gates or move output to production without gates.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    },
+    {
+      "contract_or_type": "RuntimeClientGateReadinessAuditCandidate",
+      "source_document": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "source_section": "Runtime audit and report-only boundary",
+      "source_element": "audit_candidate local != runtime_audit_trail real",
+      "extracted_for_platform_use": "Create local gate/readiness audit candidates for F9-G candidate creation actions without creating runtime_audit_trail real.",
+      "implementation_file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-types.ts",
+      "no_inference": true
+    }
+  ]
+}

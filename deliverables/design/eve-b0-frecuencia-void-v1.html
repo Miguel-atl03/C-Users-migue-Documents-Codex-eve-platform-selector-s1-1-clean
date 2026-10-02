@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+      PROPUESTA 1 · BUILD 1.0 · validación visual (no freeze aprobado aún)
+      B0 · Sección 3 · Frecuencia
+      Contrato: B0-Q03 (frequency_base, typical_context, primary_actor_scope)
+      + foreshadow variación (C01) — UI only
+      Lenguaje: void monumental local (Memoria / Cómo ocurre)
+      Destino previsto: LocalB0FrecuenciaSection
+    -->
+    <title>EVE — B0 · Frecuencia · Void v1.0 (PROPUESTA 1)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-mist-dim: #9aa1ab;
+        --eve-line: #d8dce2;
+        --font-mono: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100svh;
+        background: var(--eve-sheet);
+        color: var(--eve-ink);
+        font-family: var(--font-mono);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .build {
+        position: fixed;
+        top: 16px;
+        right: 20px;
+        z-index: 30;
+        margin: 0;
+        color: var(--eve-mist-dim);
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .error {
+        position: fixed;
+        top: 40px;
+        right: 20px;
+        z-index: 30;
+        max-width: 42ch;
+        color: #8a2f2f;
+        font-size: 10px;
+        line-height: 1.4;
+        display: none;
+      }
+
+      .error.is-visible {
+        display: block;
+      }
+
+      .screen {
+        position: relative;
+        width: min(1440px, 100%);
+        min-height: 100svh;
+        margin: 0 auto;
+        padding: 88px clamp(24px, 5vw, 72px) 140px;
+      }
+
+      .kicker {
+        margin: 0 0 28px;
+        max-width: 280px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        opacity: 0;
+        transition:
+          opacity 900ms ease,
+          color 900ms ease;
+      }
+
+      .kicker.is-visible {
+        opacity: 1;
+      }
+
+      .kicker.is-mist {
+        color: var(--eve-mist);
+      }
+
+      .intro-ask {
+        margin: 0 0 64px;
+        max-width: 42ch;
+        min-height: 1.6em;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        line-height: 1.55;
+        color: var(--eve-mist);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 700ms ease,
+          visibility 700ms ease;
+      }
+
+      .intro-ask.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 1px;
+        height: 0.95em;
+        margin-left: 1px;
+        background: currentColor;
+        vertical-align: text-bottom;
+        animation: blink 900ms step-end infinite;
+      }
+
+      .cursor.is-hidden {
+        display: none;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* Tres islas: frecuencia | situación + actor ancho */
+      .islands {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(40px, 6vw, 96px) clamp(48px, 8vw, 120px);
+        align-items: start;
+        max-width: 920px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 900ms ease,
+          visibility 900ms ease;
+      }
+
+      .islands.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .island {
+        min-width: 0;
+        max-width: 44ch;
+        opacity: 0;
+        transform: translateY(6px);
+        transition:
+          opacity 700ms ease,
+          transform 700ms ease;
+      }
+
+      .island.is-active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .island-actor {
+        grid-column: 1 / -1;
+        max-width: 52ch;
+      }
+
+      .field-label {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        min-height: 1.4em;
+      }
+
+      .field-label.is-ink {
+        color: var(--eve-ink);
+      }
+
+      .field-value {
+        display: block;
+        margin: 18px 0 0;
+        padding: 0 0 10px;
+        border: 0;
+        border-bottom: 1px solid transparent;
+        background: transparent;
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.55;
+        color: var(--eve-ink);
+        min-height: 3.2em;
+        width: 100%;
+        outline: none;
+        white-space: pre-wrap;
+        word-break: break-word;
+        transition: border-bottom-color 220ms ease;
+      }
+
+      .field-value[contenteditable="true"] {
+        border-bottom-color: var(--eve-line);
+        cursor: text;
+      }
+
+      .field-value[contenteditable="true"]:focus {
+        border-bottom-color: var(--eve-ink);
+      }
+
+      .field-value.is-empty::before {
+        content: attr(data-placeholder);
+        color: var(--eve-mist-dim);
+        pointer-events: none;
+      }
+
+      .field-value.is-empty:focus::before {
+        opacity: 0.45;
+      }
+
+      /* Variación — stance mist → ink */
+      .variation {
+        margin-top: 72px;
+        max-width: 560px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 800ms ease,
+          visibility 800ms ease;
+      }
+
+      .variation.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .variation-question {
+        margin: 0;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+      }
+
+      .stance-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0;
+        margin-top: 24px;
+        min-height: 1.6em;
+      }
+
+      .stance {
+        border: 0;
+        background: transparent;
+        padding: 4px 0;
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        color: var(--eve-mist);
+        cursor: pointer;
+        transition: color 400ms ease, font-weight 200ms ease;
+      }
+
+      .stance:hover {
+        color: var(--eve-ink);
+      }
+
+      .stance.is-active {
+        color: var(--eve-ink);
+        font-weight: 700;
+      }
+
+      .stance-sep {
+        display: inline-block;
+        width: 28px;
+        height: 1px;
+        margin: 0 18px;
+        background: var(--eve-line);
+        flex-shrink: 0;
+      }
+
+      .variation-hint {
+        margin: 14px 0 0;
+        font-size: 8px;
+        letter-spacing: 0.1em;
+        line-height: 1.5;
+        text-transform: uppercase;
+        color: var(--eve-mist-dim);
+      }
+
+      .variation-note {
+        margin-top: 28px;
+        max-width: 52ch;
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          opacity 500ms ease,
+          visibility 500ms ease,
+          max-height 500ms ease;
+      }
+
+      .variation-note.is-open {
+        opacity: 1;
+        visibility: visible;
+        max-height: 160px;
+      }
+
+      /* Cierre de sala */
+      .confirm-island {
+        margin-top: 64px;
+        max-width: 520px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 700ms ease,
+          visibility 700ms ease;
+      }
+
+      .confirm-island.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .confirm-question {
+        margin: 0;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+      }
+
+      .confirm-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 28px;
+        min-height: 1.6em;
+      }
+
+      .confirm-choice {
+        border: 0;
+        background: transparent;
+        padding: 4px 0;
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: var(--eve-ink);
+        cursor: pointer;
+        opacity: 0.35;
+        pointer-events: none;
+        transition:
+          color 400ms ease,
+          opacity 400ms ease;
+      }
+
+      .confirm-choice.is-ready {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .confirm-choice.is-selected {
+        font-weight: 700;
+      }
+
+      .confirm-choice.is-mist {
+        color: var(--eve-mist);
+      }
+
+      .confirm-choice:hover:not(:disabled) {
+        color: var(--eve-ink);
+      }
+
+      .confirm-hint {
+        margin: 14px 0 0;
+        font-size: 8px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        opacity: 0;
+        transition: opacity 400ms ease;
+      }
+
+      .confirm-hint.is-visible {
+        opacity: 1;
+      }
+
+      .ops-notify {
+        position: fixed;
+        left: 24px;
+        bottom: 24px;
+        max-width: 48ch;
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 400ms ease;
+        z-index: 20;
+      }
+
+      .ops-notify.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .replay {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        border: 0;
+        background: transparent;
+        color: var(--eve-mist);
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 400ms ease,
+          color 200ms ease;
+        z-index: 20;
+      }
+
+      .replay.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .replay:hover {
+        color: var(--eve-ink);
+      }
+
+      @media (max-width: 720px) {
+        .islands {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+
+        .island-actor {
+          grid-column: auto;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .kicker,
+        .intro-ask,
+        .islands,
+        .island,
+        .variation,
+        .variation-note,
+        .confirm-island,
+        .stance,
+        .confirm-choice,
+        .ops-notify,
+        .replay {
+          transition: none !important;
+        }
+
+        .cursor {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="build" id="build">BUILD 1.0 · PROPUESTA 1 · B0-Q03</p>
+    <p class="error" id="error" role="alert"></p>
+
+    <main class="screen" aria-label="B0 sección 3 · frecuencia">
+      <p class="kicker" id="kicker">III · Frecuencia</p>
+      <p class="intro-ask" id="intro-ask" aria-live="polite">
+        <span id="intro-ask-text"></span
+        ><span class="cursor is-hidden" id="intro-cursor" aria-hidden="true"></span>
+      </p>
+
+      <section class="islands" id="islands" aria-label="Frecuencia, contexto y actor">
+        <article class="island" id="island-frequency" data-field="frequency_base">
+          <p class="field-label" id="label-frequency"></p>
+          <div
+            class="field-value is-empty"
+            contenteditable="false"
+            data-placeholder="Ej. Todos los días, cada semana, bajo demanda…"
+            id="value-frequency"
+            role="textbox"
+            aria-label="Con qué frecuencia"
+          ></div>
+        </article>
+
+        <article class="island" id="island-context" data-field="typical_context">
+          <p class="field-label" id="label-context"></p>
+          <div
+            class="field-value is-empty"
+            contenteditable="false"
+            data-placeholder="Ej. Cuando cierra el reporte, al recibir una solicitud…"
+            id="value-context"
+            role="textbox"
+            aria-label="En qué situación suele pasar"
+          ></div>
+        </article>
+
+        <article class="island island-actor" id="island-actor" data-field="primary_actor_scope">
+          <p class="field-label" id="label-actor"></p>
+          <div
+            class="field-value is-empty"
+            contenteditable="false"
+            data-placeholder="Ej. Yo, yo con mi equipo, otra área me lo pide y yo lo hago…"
+            id="value-actor"
+            role="textbox"
+            aria-label="Quién hace esta actividad"
+          ></div>
+        </article>
+      </section>
+
+      <section class="variation" id="variation" aria-label="Variación de la actividad">
+        <p class="variation-question">
+          ¿A veces cambia según el caso o la urgencia?
+        </p>
+        <div class="stance-row" role="group" aria-label="Si la actividad a veces cambia">
+          <button class="stance" id="stance-yes" type="button">
+            Sí, a veces cambia
+          </button>
+          <span class="stance-sep" aria-hidden="true"></span>
+          <button class="stance" id="stance-no" type="button">
+            No, casi siempre es igual
+          </button>
+        </div>
+        <p class="variation-hint">
+          Si aplica, puedes dejar una nota de variación; no forma parte del cierre
+          base de esta unidad.
+        </p>
+        <div class="variation-note" id="variation-note">
+          <p class="field-label is-ink">Qué suele cambiar</p>
+          <div
+            class="field-value is-empty"
+            contenteditable="true"
+            data-placeholder="Ej. Si hay urgencia, salto pasos o lo hago con menos revisión"
+            id="value-variation-note"
+            role="textbox"
+            aria-label="Qué suele cambiar"
+          ></div>
+        </div>
+      </section>
+
+      <section class="confirm-island" id="confirm-island" aria-label="Cierre de frecuencia">
+        <p class="confirm-question">
+          ¿Así anclas el ritmo de esta actividad?
+        </p>
+        <div class="confirm-actions">
+          <button class="confirm-choice" id="choice-save" type="button" disabled>
+            Así es · Guardar
+          </button>
+        </div>
+        <p class="confirm-hint" id="confirm-hint">
+          Completa las tres piezas y elige si a veces cambia.
+        </p>
+      </section>
+    </main>
+
+    <p class="ops-notify" id="ops-notify" role="status" aria-live="polite"></p>
+    <a
+      href="./eve-b0-frecuencia-void-v2.html"
+      style="
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 20;
+        color: #9aa1ab;
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-decoration: none;
+      "
+      >Ver propuesta 2</a
+    >
+    <button class="replay" id="replay" type="button">Repetir secuencia</button>
+
+    <script>
+      const BUILD = "1.0";
+      const STORAGE_KEY = "eve-b0-frecuencia-void-v1";
+      const INTRO_ASK = "Ya vimos cómo ocurre. Ahora ubica el ritmo.";
+
+      const FIELD_DEFS = [
+        {
+          id: "frequency",
+          label: "Con qué frecuencia",
+          demo:
+            "Bajo demanda, cada vez que un pedido requiere solicitar y enviar una factura de anticipo o de finiquito.",
+        },
+        {
+          id: "context",
+          label: "En qué situación suele pasar",
+          demo:
+            "Cuando la cotización final ya fue aceptada por el cliente, cuento con sus datos fiscales y corresponde gestionar el anticipo o el finiquito del pedido.",
+        },
+        {
+          id: "actor",
+          label: "Quién hace esta actividad",
+          demo: "Yo, como ejecutiva de ventas.",
+        },
+      ];
+
+      const params = new URLSearchParams(window.location.search);
+      const fillDemo = params.get("demo") !== "0";
+      const reducedMotion =
+        window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const kickerEl = document.getElementById("kicker");
+      const introAskEl = document.getElementById("intro-ask");
+      const introAskText = document.getElementById("intro-ask-text");
+      const introCursor = document.getElementById("intro-cursor");
+      const islandsEl = document.getElementById("islands");
+      const variationEl = document.getElementById("variation");
+      const variationNoteEl = document.getElementById("variation-note");
+      const stanceYes = document.getElementById("stance-yes");
+      const stanceNo = document.getElementById("stance-no");
+      const confirmIsland = document.getElementById("confirm-island");
+      const choiceSave = document.getElementById("choice-save");
+      const confirmHint = document.getElementById("confirm-hint");
+      const opsNotifyEl = document.getElementById("ops-notify");
+      const replayEl = document.getElementById("replay");
+      const errorEl = document.getElementById("error");
+      const noteValue = document.getElementById("value-variation-note");
+
+      const fields = FIELD_DEFS.map((def) => ({
+        ...def,
+        island: document.getElementById("island-" + def.id),
+        label: document.getElementById("label-" + def.id),
+        value: document.getElementById("value-" + def.id),
+      }));
+
+      let runToken = 0;
+      let variationChoice = null;
+      let captureReady = false;
+      let saved = false;
+
+      function sleep(ms, isAlive) {
+        return new Promise((resolve) => {
+          window.setTimeout(() => resolve(isAlive()), ms);
+        });
+      }
+
+      function showError(message) {
+        errorEl.textContent = message;
+        errorEl.classList.add("is-visible");
+      }
+
+      function clearError() {
+        errorEl.textContent = "";
+        errorEl.classList.remove("is-visible");
+      }
+
+      function syncEmptyState(el) {
+        const text = (el.textContent || "").replace(/\u200b/g, "").trim();
+        el.classList.toggle("is-empty", text.length === 0);
+      }
+
+      async function typeText(text, speed, isAlive, onChar) {
+        if (reducedMotion) {
+          onChar(text);
+          return isAlive();
+        }
+        let acc = "";
+        for (let i = 0; i < text.length; i += 1) {
+          if (!isAlive()) return false;
+          acc += text.charAt(i);
+          onChar(acc);
+          const alive = await sleep(speed, isAlive);
+          if (!alive) return false;
+        }
+        return isAlive();
+      }
+
+      function setEditable(enabled) {
+        captureReady = enabled;
+        fields.forEach((field) => {
+          field.value.contentEditable = enabled ? "true" : "false";
+          if (enabled) {
+            field.label.classList.add("is-ink");
+          }
+        });
+      }
+
+      function readField(el) {
+        return (el.textContent || "").replace(/\u200b/g, "").trim();
+      }
+
+      function canSave() {
+        const fieldsOk = fields.every((field) => readField(field.value).length > 0);
+        if (!fieldsOk || variationChoice === null) return false;
+        if (variationChoice === "yes" && readField(noteValue).length === 0) {
+          return false;
+        }
+        return true;
+      }
+
+      function refreshClosure() {
+        if (saved) return;
+        const ready = canSave();
+        choiceSave.disabled = !ready;
+        choiceSave.classList.toggle("is-ready", ready);
+        confirmHint.classList.toggle("is-visible", !ready);
+        if (!ready) {
+          if (variationChoice === "yes" && readField(noteValue).length === 0) {
+            confirmHint.textContent =
+              "Cuéntanos qué suele cambiar cuando no es el caso normal.";
+          } else if (variationChoice === null) {
+            confirmHint.textContent =
+              "Completa las tres piezas y elige si a veces cambia.";
+          } else {
+            confirmHint.textContent =
+              "Completa frecuencia, situación y quién la hace.";
+          }
+        }
+      }
+
+      function setVariation(choice) {
+        if (!captureReady || saved) return;
+        variationChoice = choice;
+        stanceYes.classList.toggle("is-active", choice === "yes");
+        stanceNo.classList.toggle("is-active", choice === "no");
+        variationNoteEl.classList.toggle("is-open", choice === "yes");
+        if (choice === "no") {
+          noteValue.textContent = "";
+          syncEmptyState(noteValue);
+        }
+        refreshClosure();
+      }
+
+      function persist(payload) {
+        try {
+          localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({ build: BUILD, savedAt: Date.now(), ...payload }),
+          );
+        } catch (err) {
+          showError("No se pudo persistir en localStorage (demo local).");
+        }
+      }
+
+      function handleSave() {
+        if (!canSave() || saved) return;
+        saved = true;
+        choiceSave.classList.add("is-selected");
+        choiceSave.classList.remove("is-mist");
+        stanceYes.disabled = true;
+        stanceNo.disabled = true;
+        setEditable(false);
+        confirmHint.classList.remove("is-visible");
+
+        const payload = {
+          frequency_base: readField(fields[0].value),
+          typical_context: readField(fields[1].value),
+          primary_actor_scope: readField(fields[2].value),
+          variation_choice: variationChoice,
+          variation_note:
+            variationChoice === "yes" ? readField(noteValue) : null,
+        };
+        persist(payload);
+
+        opsNotifyEl.textContent =
+          "B0-Q03 cerrado · foreshadow variación " +
+          (variationChoice === "yes" ? "activa" : "estable") +
+          " · listo para B0.5";
+        opsNotifyEl.classList.add("is-visible");
+        replayEl.classList.add("is-visible");
+      }
+
+      function bindEditors() {
+        fields.forEach((field) => {
+          field.value.addEventListener("input", () => {
+            syncEmptyState(field.value);
+            refreshClosure();
+          });
+          field.value.addEventListener("blur", () => syncEmptyState(field.value));
+        });
+        noteValue.addEventListener("input", () => {
+          syncEmptyState(noteValue);
+          refreshClosure();
+        });
+        noteValue.addEventListener("blur", () => syncEmptyState(noteValue));
+        stanceYes.addEventListener("click", () => setVariation("yes"));
+        stanceNo.addEventListener("click", () => setVariation("no"));
+        choiceSave.addEventListener("click", handleSave);
+        replayEl.addEventListener("click", () => {
+          runToken += 1;
+          void runSequence();
+        });
+      }
+
+      function resetUi() {
+        clearError();
+        saved = false;
+        variationChoice = null;
+        captureReady = false;
+
+        kickerEl.classList.remove("is-visible", "is-mist");
+        introAskEl.classList.remove("is-visible");
+        introAskText.textContent = "";
+        introCursor.classList.add("is-hidden");
+        islandsEl.classList.remove("is-visible");
+        variationEl.classList.remove("is-visible");
+        variationNoteEl.classList.remove("is-open");
+        confirmIsland.classList.remove("is-visible");
+        confirmHint.classList.remove("is-visible");
+        opsNotifyEl.classList.remove("is-visible");
+        opsNotifyEl.textContent = "";
+        replayEl.classList.remove("is-visible");
+
+        stanceYes.classList.remove("is-active");
+        stanceNo.classList.remove("is-active");
+        stanceYes.disabled = false;
+        stanceNo.disabled = false;
+
+        choiceSave.disabled = true;
+        choiceSave.classList.remove("is-ready", "is-selected", "is-mist");
+
+        fields.forEach((field) => {
+          field.island.classList.remove("is-active");
+          field.label.textContent = "";
+          field.label.classList.remove("is-ink");
+          field.value.textContent = "";
+          field.value.contentEditable = "false";
+          syncEmptyState(field.value);
+        });
+        noteValue.textContent = "";
+        syncEmptyState(noteValue);
+      }
+
+      async function runSequence() {
+        const token = ++runToken;
+        const isAlive = () => token === runToken;
+        resetUi();
+
+        await sleep(reducedMotion ? 0 : 420, isAlive);
+        if (!isAlive()) return;
+
+        kickerEl.classList.add("is-visible");
+        await sleep(reducedMotion ? 0 : 700, isAlive);
+        if (!isAlive()) return;
+        kickerEl.classList.add("is-mist");
+
+        introAskEl.classList.add("is-visible");
+        introCursor.classList.remove("is-hidden");
+        const typed = await typeText(
+          INTRO_ASK,
+          reducedMotion ? 0 : 34,
+          isAlive,
+          (partial) => {
+            introAskText.textContent = partial;
+          },
+        );
+        if (!typed) return;
+        introCursor.classList.add("is-hidden");
+
+        await sleep(reducedMotion ? 0 : 380, isAlive);
+        if (!isAlive()) return;
+
+        islandsEl.classList.add("is-visible");
+
+        for (let i = 0; i < fields.length; i += 1) {
+          if (!isAlive()) return;
+          const field = fields[i];
+          field.island.classList.add("is-active");
+          const labelOk = await typeText(
+            field.label,
+            reducedMotion ? 0 : 22,
+            isAlive,
+            (partial) => {
+              field.label.textContent = partial;
+            },
+          );
+          if (!labelOk) return;
+
+          if (fillDemo) {
+            await sleep(reducedMotion ? 0 : 120, isAlive);
+            if (!isAlive()) return;
+            // Demo: fill completo (no typewriter largo) para validar layout rápido.
+            // Vacío: ?demo=0
+            field.value.textContent = field.demo;
+            syncEmptyState(field.value);
+          }
+
+          await sleep(reducedMotion ? 0 : 220, isAlive);
+          if (!isAlive()) return;
+        }
+
+        setEditable(true);
+        variationEl.classList.add("is-visible");
+        confirmIsland.classList.add("is-visible");
+        confirmHint.classList.add("is-visible");
+        refreshClosure();
+        replayEl.classList.add("is-visible");
+      }
+
+      bindEditors();
+      document.getElementById("build").textContent =
+        "BUILD " + BUILD + " · PROPUESTA 1 · B0-Q03";
+
+      void runSequence().catch((err) => {
+        showError(String(err && err.message ? err.message : err));
+      });
+    </script>
+  </body>
+</html>

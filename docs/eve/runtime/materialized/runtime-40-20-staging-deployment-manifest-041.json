@@ -1,0 +1,77 @@
+{
+  "instruction": "Codex 041",
+  "project_ref": "shrpiwkxcdgvbqymjecx",
+  "project_name": "eve-staging-onboarding",
+  "production_project_ref": "bwflscplkjohdhkiqqoc",
+  "production_authorized": false,
+  "actor_technical": "Codex via Supabase MCP retargeted to staging",
+  "TR_ID": [
+    "TR-041-STAGING-BOUNDARY-DEPLOY",
+    "EVE-RUNTIME-CATID-R1",
+    "EVE-RUNTIME-SEMPERSIST-R1",
+    "TR-040D-BOUNDARY-FINAL"
+  ],
+  "rector_controls": [
+    "Catalogo Runtime 40/20 v1.1.1",
+    "Catalogo Madre Capa 1 v1.0",
+    "Especificacion Tecnica Ejecutable",
+    "Marco Estructural Maestro",
+    "Matriz_Trazabilidad_Rectora_Runtime_40_20_v1",
+    "EVE-RUNTIME-CATID-R1",
+    "EVE-RUNTIME-SEMPERSIST-R1",
+    "031C lineage",
+    "037 semantic schema",
+    "038-B/038-A CatalogLoader",
+    "039/039-A boundary",
+    "039-B traceability",
+    "040-A staging contract",
+    "040-B mapping authority",
+    "040-C mapping correction",
+    "040-D final candidate"
+  ],
+  "matrix_role": "transversal_control_not_sole_authority",
+  "predeployment_snapshot": {
+    "path": "docs/eve/runtime/materialized/runtime-40-20-staging-predeployment-snapshot-041.json"
+  },
+  "historical_candidate_sanitation": {
+    "path": "docs/eve/runtime/materialized/runtime-40-20-historical-migration-candidate-sanitation-041.json"
+  },
+  "ordered_artifacts": [
+    {
+      "order": 1,
+      "kind": "semantic_organs_schema_final",
+      "path": "supabase/migrations/20260805220000_eve_runtime_40_20_semantic_organs_final_041.sql",
+      "sha256": "3dcfd662947538945cc211c53f9883a66a9b2de4acbd5da28d6ae7f29bf8737d",
+      "rollback_path": "docs/eve/runtime/materialized/runtime-40-20-semantic-organs-final-041.rollback.sql",
+      "rollback_sha256": "66d1556826eef099a2e78bb2bf03f74a0027c0f223789331fd9f2c605f131be5",
+      "applied_to_staging": true
+    },
+    {
+      "order": 2,
+      "kind": "governed_draft_load_rpc_final_040D",
+      "path": "supabase/migrations/20260805221000_eve_runtime_40_20_governed_draft_load_rpc_final_041.sql",
+      "sha256": "46b1719ff03c46fc916cb5af3b746d7838af05e2eba0b3734dd8fe932c6ea158",
+      "rollback_path": "docs/eve/runtime/materialized/runtime-40-20-governed-draft-load-rpc-final-041.rollback.sql",
+      "rollback_sha256": "996cd84b53a987028e2fac14b1762e6ff9e1638926a18e8c79d5eb22c5e081a5",
+      "applied_to_staging": true
+    }
+  ],
+  "authorizations": {
+    "staging_schema_writes": true,
+    "catalog_load_authorized": false,
+    "catalog_activation_authorized": false,
+    "production_authorized": false,
+    "B0_modification_authorized": false,
+    "Gaby_continuation_authorized": false
+  },
+  "deployment_status": "deployed",
+  "deployment_result": {
+    "semantic_organs_apply_success": true,
+    "governed_rpc_apply_success": true,
+    "negative_tests_non_persistent": "passed",
+    "postdeployment_snapshot": "docs/eve/runtime/materialized/runtime-40-20-staging-postdeployment-snapshot-041.json",
+    "conformance": "docs/eve/runtime/materialized/runtime-40-20-staging-boundary-deployment-conformance-041.json",
+    "classification": "staging_schema_and_governed_boundary_deployed",
+    "rollback_executed": false
+  }
+}

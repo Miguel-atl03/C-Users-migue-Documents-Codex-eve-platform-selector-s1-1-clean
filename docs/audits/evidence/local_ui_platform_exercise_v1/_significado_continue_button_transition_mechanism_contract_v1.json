@@ -1,0 +1,67 @@
+{
+  "dictamen": "SIGNIFICADO_CONTINUE_BUTTON_TRANSITION_MECHANISM_CONTRACT_READY_FOR_FIX",
+  "base_failure": "LOCAL_UI_SIGNIFICADO_ACTIVITY_1_FULL_ZONE_EXERCISE_FAILED_CONTINUE_NO_ADVANCE",
+  "official_screen": "Significado de tu trabajo",
+  "route_used": "/dev/e2e-block0",
+  "condition_reproduced": true,
+  "continue_button": {
+    "found": true,
+    "label": "Continuar a la siguiente actividad",
+    "component_file": "src/components/significado/SignificadoDeTuTrabajo.tsx",
+    "disabled_condition": "disabled || !canContinue; canContinue = isWorkMapSaved && submitGate.canSubmit && isBlock0ReviewComplete",
+    "enabled_when_4_of_4": true,
+    "handler_found": true,
+    "handler_name": "handleContinue -> onContinue -> handleSignificadoContinue",
+    "handler_file": "src/components/significado/SignificadoDeTuTrabajo.tsx; src/app/dev/e2e-block0/page.tsx",
+    "handler_expected_effect": "handleContinue builds the submit payload and calls onContinue; in /dev/e2e-block0 handleSignificadoContinue should advance to the next selected primary activity but currently only sets a submit notice."
+  },
+  "activity_state": {
+    "activity_state_found": true,
+    "activity_state_file": "src/components/significado/SignificadoDeTuTrabajo.tsx; src/features/dev/e2e-block0-demo-state.ts; src/app/dev/e2e-block0/page.tsx",
+    "activity_state_variable": "currentActivity derived from effectivePrimaryActivitySelectionResult.selectedPrimaryActivities[0]; no mutable current activity cursor found for Significado continuation",
+    "current_activity_derivation": "SignificadoDeTuTrabajo computes currentActivity from selectedPrimaryActivities[0]. buildE2eBlock0DemoTrace also reports primaryActivitySelectionResult.selectedPrimaryActivities[0].",
+    "next_activity_derivation": "Not implemented in the observed handler; no state update selects selectedPrimaryActivities[1] after Continue.",
+    "activity_2_exists": true,
+    "activity_2_source_file": "src/features/dev/e2e-block0-demo-fixture.ts; tests/regression/e2e-block0-demo-contract.test.ts"
+  },
+  "gate_rules": {
+    "continue_enabled_rule": "isWorkMapSaved && submitGate.canSubmit && isBlock0ReviewComplete",
+    "transition_allowed_rule": "handleContinue proceeds when isWorkMapSaved, isBlock0ReviewComplete and buildDraftSubmitPayload returns a payload; then calls onContinue.",
+    "rules_match": false,
+    "hidden_gate_detected": false,
+    "hidden_gate_summary": null
+  },
+  "observed_behavior": {
+    "progress_before_click": "4/4 secciones listas para revisar",
+    "continue_button_enabled_before_click": true,
+    "click_observed": true,
+    "activity_after_click": "Actividad 1 de 8",
+    "advanced_to_activity_2": false,
+    "visible_error": null,
+    "loading_persistent": false
+  },
+  "causal_diagnosis": {
+    "probable_cause_code": "HANDLER_CONNECTED_BUT_NO_STATE_CHANGE",
+    "probable_cause_summary": "The Continue button is enabled and wired through SignificadoDeTuTrabajo.handleContinue to onContinue, but /dev/e2e-block0 handleSignificadoContinue only sets a demo completion notice and does not update an activity cursor. The displayed currentActivity is always derived from selectedPrimaryActivities[0], so the UI remains on Actividad 1 de 8.",
+    "fix_required": true,
+    "recommended_fix_scope": "Implement a local/demo current activity cursor or equivalent selected activity state, advance it in handleSignificadoContinue when another selected primary activity exists, and pass the active activity to SignificadoDeTuTrabajo without connecting DB/Supabase."
+  },
+  "contract_ready_for_fix": true,
+  "safety": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "real_table_read": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false
+  },
+  "next_step": "FIX_SIGNIFICADO_CONTINUE_BUTTON_ACTIVITY_ADVANCE_V1"
+}

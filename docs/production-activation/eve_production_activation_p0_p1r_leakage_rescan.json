@@ -1,0 +1,59 @@
+{
+  "execution_id": "EVE_PRODUCTION_ACTIVATION_P0_P1R_BLOCKER_REMEDIATION_V1",
+  "scan_date": "2026-07-07",
+  "scope": [
+    "src/app/page.tsx",
+    "src/components/SceneQuestionnaireRunner.tsx",
+    "src/features/significado/significado-copy.ts",
+    "src/components/client/**",
+    "src/components/significado/SignificadoDeTuTrabajo.tsx"
+  ],
+  "client_leakage_scan_clean": true,
+  "findings": {
+    "Capa 1 exposed": false,
+    "transduccion causal exposed": false,
+    "readiness exposed": false,
+    "expediente estructural exposed": false,
+    "WorkMap exposed": false,
+    "MMABP exposed": false,
+    "VSM exposed": false,
+    "AHE exposed": false,
+    "Gate exposed": false,
+    "Chip exposed": false,
+    "Runtime table exposed": false,
+    "Diagnosis exposed": false,
+    "Export exposed": false,
+    "Internal organs exposed": false
+  },
+  "remediated_strings": [
+    {
+      "file": "src/app/page.tsx",
+      "before": "No hay sesion activa para cerrar Capa 1.",
+      "after": "No hay sesion activa para cerrar esta etapa del levantamiento."
+    },
+    {
+      "file": "src/app/page.tsx",
+      "before": "Consolidando salida intermedia de Capa 1...",
+      "after": "Consolidando la salida intermedia del levantamiento..."
+    },
+    {
+      "file": "src/app/page.tsx",
+      "before": "Capa 1 v2.1 consolidada ... readiness ... / transduccion causal",
+      "after": "Levantamiento consolidado ... estado de revision ... / relacion de causa y efecto"
+    },
+    {
+      "file": "src/components/SceneQuestionnaireRunner.tsx",
+      "before": "escenas de Capa 1 / expediente estructural / Capa 1 v2.1",
+      "after": "escenas de esta etapa del levantamiento / resumen de trabajo / Levantamiento"
+    },
+    {
+      "file": "src/features/significado/significado-copy.ts",
+      "before": "WorkMap",
+      "after": "Mapa del trabajo"
+    }
+  ],
+  "residual_code_identifiers_not_user_visible": [
+    "workMap variable/prop names in TSX",
+    "output.readinessForTransduction API field name (label rendered as 'estado de revision')"
+  ]
+}

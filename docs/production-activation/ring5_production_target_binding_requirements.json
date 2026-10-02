@@ -1,0 +1,83 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING5_PRODUCTION_TARGET_BINDING_REQUIREMENTS",
+  "generated_at": "2026-07-10T03:50:00.000Z",
+  "authorization_ref": "ring5-authorization-general-production-activation-gate-rerun-20260710",
+  "ring": 5,
+  "ring_name": "general_production_activation_gate",
+  "version": "1.0.0",
+  "production_target_must_be_explicit": true,
+  "production_target_must_not_be_unknown": true,
+  "unknown_target_allowed": false,
+  "target_binding_required_before_execution": true,
+  "target_bound_at_authorization": false,
+  "ring4_precedent_target": {
+    "target_classification": "local",
+    "scale_target_verified": true,
+    "note": "Ring 4 used controlled local target; Ring 5 general production requires a new explicit production target binding before execution"
+  },
+  "requirements": [
+    {
+      "id": "R5-TB-01",
+      "requirement": "explicit_project_ref_or_equivalent",
+      "mandatory": true,
+      "blocking": true,
+      "status_at_authorization": "required_not_bound"
+    },
+    {
+      "id": "R5-TB-02",
+      "requirement": "explicit_environment_classification",
+      "mandatory": true,
+      "blocking": true,
+      "allowed_classifications_at_execution": [
+        "production",
+        "production_canary",
+        "production_general"
+      ],
+      "disallowed_at_execution_without_rebind": [
+        "unknown",
+        "unspecified",
+        "inferred"
+      ],
+      "status_at_authorization": "required_not_bound"
+    },
+    {
+      "id": "R5-TB-03",
+      "requirement": "target_must_not_be_unknown",
+      "mandatory": true,
+      "blocking": true,
+      "status_at_authorization": "enforced"
+    },
+    {
+      "id": "R5-TB-04",
+      "requirement": "human_confirmation_of_target_identity",
+      "mandatory": true,
+      "blocking": true,
+      "status_at_authorization": "required_not_bound"
+    },
+    {
+      "id": "R5-TB-05",
+      "requirement": "no_silent_fallback_to_local_or_staging",
+      "mandatory": true,
+      "blocking": true,
+      "status_at_authorization": "enforced"
+    },
+    {
+      "id": "R5-TB-06",
+      "requirement": "binding_recorded_in_execution_artifacts_before_any_production_touch",
+      "mandatory": true,
+      "blocking": true,
+      "status_at_authorization": "required_not_bound"
+    },
+    {
+      "id": "R5-TB-07",
+      "requirement": "mismatch_between_declared_and_resolved_target_is_no_go",
+      "mandatory": true,
+      "blocking": true,
+      "status_at_authorization": "enforced"
+    }
+  ],
+  "production_supabase_touched": false,
+  "sql_executed_against_production": false,
+  "activation_allowed_general_production": false,
+  "note": "No production target is bound in this authorization tramo; binding is deferred to Ring 5 execution authorization"
+}

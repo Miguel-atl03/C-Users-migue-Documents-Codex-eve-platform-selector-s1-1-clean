@@ -1,0 +1,87 @@
+{
+  "audit_id": "EVE_ORGANISM_TRACEABILITY_CONFIRMATION_PACKET_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "HUMAN_CONFIRM_TRACEABILITY_PACKET_READY_FOR_MIGUEL",
+  "fields_for_human_confirmation": [
+    {
+      "field_name": "idempotencyKey",
+      "canonical_role_expected": "Prevent accidental duplicate command/replay processing for a real observed signal.",
+      "strongest_evidence_path": "src/types/eve-organism-composition-root.ts",
+      "strongest_evidence_line": 105,
+      "exact_line_excerpt": "idempotencyKey: string;",
+      "current_confidence": "partial",
+      "current_scope": "shadow",
+      "classification": "SHADOW_CONTRACT_ONLY",
+      "what_it_proves": "The Composition Root Shadow command type requires an idempotencyKey string.",
+      "what_it_does_not_prove": "It does not prove that a real production/official platform signal already emits idempotencyKey, nor that the field exists outside the shadow command contract.",
+      "risk_if_accepted_as_real": "Could incorrectly clear ROB-004 and allow observer design based on a shadow command field rather than a real signal field.",
+      "risk_if_rejected": "May delay observer design even though the shadow command already has a canonical target name for future mapping.",
+      "evidence_needed_to_clear": "A non-fixture, non-shadow, non-UI real signal/type/service showing idempotencyKey, or explicit Miguel confirmation that this shadow command field is the canonical real-observation contract target.",
+      "recommended_human_decision_options": [
+        "DECISION-B",
+        "DECISION-C",
+        "DECISION-E"
+      ]
+    },
+    {
+      "field_name": "correlationId",
+      "canonical_role_expected": "Correlate official signal, shadow command/result, and replay trace without mutating production.",
+      "strongest_evidence_path": "src/types/eve-organism-composition-root.ts",
+      "strongest_evidence_line": 106,
+      "exact_line_excerpt": "correlationId: string;",
+      "current_confidence": "partial",
+      "current_scope": "shadow",
+      "classification": "SHADOW_CONTRACT_ONLY",
+      "what_it_proves": "The Composition Root Shadow command type requires a correlationId string, and later trace types also carry correlationId.",
+      "what_it_does_not_prove": "It does not prove that a real official flow/event emits correlationId or that requestId/traceId/runId are equivalent.",
+      "risk_if_accepted_as_real": "Could conflate shadow trace correlation with a real official signal correlation contract.",
+      "risk_if_rejected": "May leave ROB-004 open despite a clear canonical shadow-side trace field that can guide future schema.",
+      "evidence_needed_to_clear": "A real signal/type/service contract carrying correlationId, or explicit Miguel confirmation of the accepted equivalent and boundary.",
+      "recommended_human_decision_options": [
+        "DECISION-B",
+        "DECISION-C",
+        "DECISION-E"
+      ]
+    },
+    {
+      "field_name": "officialFlowRef",
+      "canonical_role_expected": "Reference the official comparable result without executing or mutating the official flow.",
+      "strongest_evidence_path": "src/types/eve-organism-shadow-e2e.ts",
+      "strongest_evidence_line": 75,
+      "exact_line_excerpt": "officialFlowRef?: EveOrganismShadowE2EOfficialFlowRef;",
+      "current_confidence": "partial",
+      "current_scope": "fixture",
+      "classification": "FIXTURE_CONTRACT_ONLY",
+      "what_it_proves": "The Shadow E2E observed signal can carry an officialFlowRef for fixture/replay comparison.",
+      "what_it_does_not_prove": "It does not prove that the real official flow emits a stable comparable officialFlowRef, nor that fixture officialFlowRef values are real.",
+      "risk_if_accepted_as_real": "Could incorrectly clear ROB-005 and imply a real official-flow comparator exists when only the fixture/shadow E2E contract is shown.",
+      "risk_if_rejected": "Observer design remains blocked until a real comparator reference is discovered or defined.",
+      "evidence_needed_to_clear": "A real official-flow/result reference contract from non-fixture code, or Miguel confirmation that officialFlowRef is accepted only as a future canonical field, not current real evidence.",
+      "recommended_human_decision_options": [
+        "DECISION-C",
+        "DECISION-D",
+        "DECISION-E"
+      ]
+    }
+  ],
+  "ROB_status_before_human_decision": {
+    "ROB-004": "ready_for_human_review",
+    "ROB-005": "open",
+    "ROB-008": "open"
+  },
+  "rob008": {
+    "remains_open": true,
+    "reason": "Even if Miguel confirms idempotencyKey, correlationId and officialFlowRef as valid canonical names, synthetic fixture fields remain fixture-only and do not become real evidence.",
+    "synthetic_fields_still_requiring_real_evidence": [
+      "idempotencyKey",
+      "correlationId",
+      "officialFlowRef"
+    ],
+    "evidence_required_to_close": [
+      "Non-fixture real signal carrying idempotencyKey or approved equivalent.",
+      "Non-fixture real signal carrying correlationId or approved equivalent.",
+      "Non-fixture real official flow/result reference carrying officialFlowRef or approved equivalent.",
+      "No-cableado proof that those fields are read without UI, WorkMap, Significado, DB/Supabase write, runtime mutation, registry, export or diagnosis."
+    ]
+  }
+}

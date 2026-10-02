@@ -1,0 +1,124 @@
+{
+  "execution_id": "EVE_PRODUCTION_ACTIVATION_P0_P1_BASELINE_AND_CLIENT_UI_FINAL_QA_V1",
+  "executed_at": "2026-07-07T18:30:00-06:00",
+  "workspace": "external-consumers/eve-platform",
+  "commands": [
+    {
+      "command": "npx tsc --noEmit --pretty false",
+      "exit_code": 2,
+      "status": "failed",
+      "duration_ms": 7845,
+      "error_count": 11,
+      "errors": [
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 368,
+          "code": "TS2345",
+          "message": "Argument of type 'string[]' is not assignable to parameter of type 'RuntimeClientMembraneBlockingReason[]'."
+        },
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 395,
+          "code": "TS2345",
+          "message": "Argument of type 'string[]' is not assignable to parameter of type 'RuntimeClientMembraneBlockingReason[]'."
+        },
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 423,
+          "code": "TS2345",
+          "message": "Argument of type 'string[]' is not assignable to parameter of type 'RuntimeClientMembraneBlockingReason[]'."
+        },
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 2412,
+          "code": "TS2552",
+          "message": "Cannot find name 'RuntimeClientReviewCloseoutCandidate'. Did you mean 'RuntimeClientRouteCandidate'?"
+        },
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 4357,
+          "code": "TS2367",
+          "message": "Comparison appears unintentional because the types 'true | undefined' and 'false' have no overlap."
+        },
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 4360,
+          "code": "TS2367",
+          "message": "Comparison appears unintentional because the types 'true | undefined' and 'false' have no overlap."
+        },
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 4363,
+          "code": "TS2367",
+          "message": "Comparison appears unintentional because the types 'true | undefined' and 'false' have no overlap."
+        },
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 4366,
+          "code": "TS2367",
+          "message": "Comparison appears unintentional because the types 'true | undefined' and 'false' have no overlap."
+        },
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 4369,
+          "code": "TS2367",
+          "message": "Comparison appears unintentional because the types 'true | undefined' and 'false' have no overlap."
+        },
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 4372,
+          "code": "TS2367",
+          "message": "Comparison appears unintentional because the types 'true | undefined' and 'false' have no overlap."
+        },
+        {
+          "file": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+          "line": 4375,
+          "code": "TS2367",
+          "message": "Comparison appears unintentional because the types 'true | undefined' and 'false' have no overlap."
+        }
+      ]
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 1,
+      "status": "failed",
+      "duration_ms": 10038,
+      "failure_class": "TurbopackInternalError",
+      "failure_summary": "Windows filesystem max path length exceeded while writing .next/server/chunks/ssr source map for dev/eve-07-parallel-production-interface-shadow page.",
+      "environment_note": "Repository path length contributes to failure; not remediated in this audit (FILES_MODIFIED: none)."
+    },
+    {
+      "command": "node --test src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane.test.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "duration_ms": 187513,
+      "tests": 885,
+      "pass": 885,
+      "fail": 0,
+      "skipped": 0
+    }
+  ],
+  "package_scripts_inspected": [
+    "dev",
+    "build",
+    "start",
+    "lint",
+    "test",
+    "validate",
+    "validate:manifest",
+    "generate:parallel-production-diagrams",
+    "validate:parallel-production-generated",
+    "validate:parallel-production",
+    "test:phase1",
+    "test:parallel-production",
+    "test:mba-control-plane",
+    "validate:mba-control-plane-shadow",
+    "test:e2e-runtime-contract",
+    "audit:runtime-observability",
+    "audit:runtime-vsm",
+    "test:runtime-vsm",
+    "check:no-legacy-runtime-catalog"
+  ],
+  "client_ui_e2e_runner_available": false,
+  "client_ui_e2e_runner_note": "No dedicated client browser/UI e2e script in package.json. Closest related script: test:e2e-runtime-contract (runtime contract smoke, not client UI final QA)."
+}

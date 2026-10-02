@@ -1,0 +1,58 @@
+{
+  "fixtureId": "director-costos-pre-runtime-context-v1.0",
+  "policyVersion": "PRE_RUNTIME_CONTEXT_BUNDLE_EVE_V1_0",
+  "estadoA": {
+    "functionalRoleClientLabel": "Lugar desde donde participas",
+    "functionalRoleValue": "Director de Costos",
+    "functionalRoleInternal": "functional_role_context",
+    "decisionLevel": "Dirección / aprobación / regulación",
+    "decisionScope": "Define normas, aprueba presupuestos, valida pagos, regula identidad de proyectos y control de erogaciones.",
+    "declaredFunctions": [
+      "Gobernanza de costeo",
+      "Ingeniería de costos",
+      "Gestión de suministros",
+      "Control de erogaciones",
+      "Validación de ciclo de pagos"
+    ]
+  },
+  "workMap": {
+    "areas": [
+      "Costos",
+      "Presupuestos",
+      "Finanzas",
+      "Operaciones",
+      "Compras"
+    ],
+    "responsibilitiesCount": 3,
+    "activitiesCount": 17,
+    "selectedPrimaryActivityIdsExpected": [
+      "R1-A3",
+      "R2-A1",
+      "R2-A4",
+      "R2-A5",
+      "R2-A6",
+      "R3-A1",
+      "R3-A4",
+      "R3-A6"
+    ],
+    "firstReplacement": "R3-A5",
+    "nonPrimaryContextExpected": [
+      "R1-A1",
+      "R1-A2",
+      "R1-A4",
+      "R2-A2",
+      "R2-A3",
+      "R2-A7",
+      "R3-A2",
+      "R3-A3",
+      "R3-A5"
+    ]
+  },
+  "expectedBundleAssertions": [
+    "functional_role_context.value == 'Director de Costos'",
+    "decision_level_context.value is present",
+    "selectedPrimaryActivities.length == 8",
+    "nonPrimaryContextActivities.length == 9",
+    "runtimeContext.contextMustNotBeSavedAsConfirmedEvidence == true"
+  ]
+}

@@ -1,0 +1,1093 @@
+Diseño formal de la Capa 1 v2.1 de EVE
+Unificación del rediseño estructural, catálogo de preguntas y arquitectura de captura para observación remota por lente del actor
+Propósito del entregable
+Este documento consolida y completa la etapa 1 de la hoja de ruta de evolución de EVE: mejorar la arquitectura estructural actual para que el insumo quede más limpio, menos interpretado y más fiel a la realidad. Integra tres piezas que hasta ahora habían avanzado por carriles parcialmente separados: el rediseño estructural de la capa 1, el nuevo catálogo de preguntas v2.1 y la lógica de integración entre ambas para alimentar transducción causal, árbol de decisión e inevitabilidad estructural.
+La premisa central es que, en este producto, EVE no observa físicamente la organización. Observa el sistema por el lente del actor. Por eso la capa 1 no puede copiar la epistemología de una consultoría presencial. Su trabajo es producir un expediente estructural fiel, trazable y transducible a partir de escenas narradas por actores distribuidos, y dejar definido un mecanismo de reentrada selectiva cuando la fractalidad epistemológica exija profundización.
+1. Principios rectores de la Capa 1 v2.1
+Primero hecho, luego clasificación. Los bloques 0.5 a 6 capturan evidencia; el bloque 7 solo verifica una lectura preliminar.
+La unidad básica ya no es “actividad contestada”, sino “escena operativa regulada”, reconstruida por actor, objeto, flujo, regulación y compensación.
+La observación es remota y actor-céntrica. La persona es portadora de acceso a escenas; la unidad de análisis no es la persona completa sino la escena funcional que el actor puede narrar con suficiente densidad.
+La capa 1 debe materializar insumos suficientes para PM, MoC, PF y OLC, y a la vez dejar huellas utilizables para S1, S2, S3, S3*, S4, S5 y canal algedónico.
+La salida de capa 1 no es todavía narrativa diagnóstica final. Es un expediente estructural canónico, auditable por sessionId, listo para exportación, transducción causal y profundización selectiva.
+El expediente es capaz de responder seis preguntas madre.
+¿Qué escena estamos viendo? ¿Qué la dispara y qué entra? ¿Qué objeto se trabaja y qué cambia? ¿Qué sale, cómo se valida y a quién pasa? ¿Dónde se atora o de qué depende? ¿Quién regula, compensa o escala cuando el sistema no alcanza?
+2. Arquitectura general de la capa 1
+La arquitectura formal queda organizada en ocho bloques lógicos. El bloque 0 puede resolverse mayormente desde el intake de actividades y contexto del actor; el bloque 7 opera como freno de seguridad interno con microconfirmación del usuario solo si hace falta. Entre ambos, los bloques 0.5 a 6 reconstruyen la escena viva.
+Bloque
+Nombre
+Pregunta madre
+Resultado principal
+0
+Identificación mínima de la escena
+¿Qué escena estamos viendo?
+Ancla narrativa y contexto mínimo
+0.5
+Encuadre
+¿Dónde vive esta escena en el sistema?
+Proceso contenedor, cliente funcional, hito y fuente de prioridad
+1
+Disparador
+¿Qué gatilla que esto comience?
+Evento, canal, claridad, precondiciones y excepción del inicio
+2
+Transformación
+¿Qué cambia realmente?
+Objeto/sujeto/acción, atributos, magnitud, estado inicial/final, excepciones
+3
+Salida
+¿Qué sale y quién lo recibe?
+Handoff, calidad esperada, excepciones e impacto en receptor
+4
+Cadena causal y normalización del flujo
+¿Cómo fluye de verdad?
+Dependencias, esperas, loops, alternativas, paralelismo, workarounds de flujo
+5
+Capacidad y discrecionalidad
+¿Con qué recursos y margen cuentas?
+Resource bargain, brecha de capacidad, constreñimientos y sostenibilidad
+6
+Compensación humana, workaround y variedad residual
+¿Cómo se mantiene vivo esto cuando el sistema no alcanza?
+Huella de compensación, sacrificio, desgaste y absorción local de variedad
+7
+Verificación ligera y preclasificación
+¿Qué lectura preliminar parece emerger?
+Tipo de escena, posición en cadena, función VSM, misión sugerida y confianza
+3. Nuevas entidades y tablas recomendadas
+La capa 1 v2.1 requiere dejar de mezclar respuestas, inferencias y reparaciones en una sola estructura. El diseño propuesto separa captura, consolidación, inferencia ligera y aclaración. Las tablas siguientes son las mínimas para operar de forma limpia y trazable.
+Tabla/Entidad
+Nivel
+Función
+Cardinalidad
+session_registry
+Sesión
+Cabecera persistente de la sesión: actor, empresa, estado global, versionado del instrumento, timestamps.
+1 por sessionId
+scene_registry
+Escena
+Listado de escenas/actividades priorizadas dentro de la sesión. Guarda nombre de escena, ranking, origen, criticidad inicial y bloque de profundidad.
+N escenas por sessionId
+scene_question_answers
+Captura
+Respuestas del usuario por escena, bloque, pregunta, subpregunta, tipo de respuesta, texto literal, opciones seleccionadas y timestamps.
+N respuestas por escena
+scene_answer_provenance
+Proveniencia
+Fuente del dato: usuario, inferencia, aclaración, cálculo automático. Conserva confidence local y normalización aplicada si existiera.
+1..N por respuesta
+scene_block_derivations
+Derivaciones de bloque
+Variables canónicas derivadas por bloque (ej. trigger_source, transformation_state_final, preclassification_scene_type).
+1 set por bloque y escena
+scene_clarifications
+Aclaraciones
+Microaclaraciones disparadas por contradicción, silencio patológico o ambigüedad. Separadas de la evidencia original.
+0..N por escena
+scene_consistency_flags
+Consistencia
+Señales cruzadas, ambigüedades, contradicciones y gaps estructurales detectados por escena.
+0..N por escena
+scene_light_inferences
+Preclasificación
+Bloque 7: función VSM predominante, señal AHE complementaria, misión sugerida, nivel de confianza y razonamiento.
+0..1 por escena
+scene_canonical_records
+Salida intermedia
+Expediente canónico consolidado por escena, listo para Excel, transducción causal y árbol de decisión.
+1 por escena consolidada
+session_intermediate_output
+Salida de sesión
+Resumen estructurado de la sesión: escenas profundas, escenas abreviadas, pendientes, alertas, readiness para transducción.
+1 por sessionId
+Relación entre entidades
+session_registry -> scene_registry: una sesión contiene múltiples escenas priorizadas.
+scene_registry -> scene_question_answers: cada escena contiene respuestas por bloque y subpregunta.
+scene_question_answers -> scene_answer_provenance: cada respuesta conserva trazabilidad epistemológica.
+scene_question_answers -> scene_block_derivations: las variables canónicas se calculan a partir de la captura del bloque correspondiente.
+scene_registry -> scene_clarifications y scene_consistency_flags: las aclaraciones y contradicciones viven separadas de la evidencia.
+scene_registry -> scene_light_inferences: la preclasificación ligera del bloque 7 jamás reemplaza la evidencia.
+scene_registry -> scene_canonical_records: cada escena consolidada produce un registro intermedio canónico.
+session_registry -> session_intermediate_output: la sesión consolida readiness para transducción y reentrada selectiva.
+4. Nuevo flujo de estados
+El flujo actual de EVE debe refactorizarse para distinguir mejor captura, consolidación, verificación ligera y preparación para transducción. La lógica sigue siendo session-aware y conserva la observación remota por lente del actor, pero incorpora estados que reflejan mejor el trabajo de escena y no solo el cierre del cuestionario.
+Estado
+Descripción
+session_bootstrap
+Creación o recuperación de sesión y carga del contexto mínimo del actor.
+scene_intake
+Captura libre de actividades/escenas candidatas.
+scene_prioritization
+Ranking y selección interna de escenas profundas, escenas abreviadas y pool soporte.
+scene_capture_core
+Aplicación de bloques 0.5 a 4 sobre escenas profundas.
+scene_capture_capacity
+Aplicación de bloque 5 sobre escenas profundas con lógica dependiente de 2.1.
+scene_capture_compensation
+Aplicación de bloque 6 sobre escenas profundas.
+scene_light_preclassification
+Ejecución automática de bloque 7 e inferencias ligeras.
+scene_micro_confirmation
+Microconfirmaciones del usuario solo si la confianza es media/baja o hay señales cruzadas.
+scene_consistency_check
+Chequeo de consistencia estructural, silencios, workarounds y contradicciones.
+scene_support_reentry
+Reentrada selectiva a escena o actor cuando la fractalidad epistemológica exige profundizar.
+scene_canonical_consolidation
+Construcción del expediente canónico por escena.
+session_intermediate_ready
+Salida intermedia lista para Excel, transducción causal y árbol de decisión.
+session_ready_for_transduction
+La sesión queda lista para la etapa 2 de la hoja de ruta: tabla de transducción causal operacional.
+Reglas de transición
+De scene_prioritization a scene_capture_core se envían solo las escenas profundas. Las escenas abreviadas reciben versión corta del instrumento y el pool soporte queda en espera.
+scene_capture_capacity no corre de manera ciega: depende de la salida estructural de 2.1 y su dimensión dominante.
+scene_light_preclassification corre siempre, pero scene_micro_confirmation solo si confidence_level = Media/Baja o si hay señales cruzadas.
+scene_support_reentry se activa por tres tipos de gatillo: ambigüedad alta, evidencia insuficiente para un nodo nuclear o necesidad de profundización en una escena crítica.
+session_intermediate_ready no significa cierre diagnóstico; significa que la etapa 1 quedó suficientemente limpia para alimentar etapa 2.
+5. Estrategia de profundidad fractal
+Para evitar cuestionarios imposibles, la capa 1 v2.1 no debe aplicarse con la misma profundidad a todas las actividades. La observación remota obliga a una arquitectura por capas de profundidad.
+Nivel
+Unidad
+Profundidad
+Uso
+Nivel
+Unidad
+Profundidad
+Uso
+A
+Escenas núcleo (3 aprox.)
+Bloques 0.5 a 7 completos
+Película estructural principal y nodos nucleares
+B
+Escenas principales adicionales (2 a 5)
+Versión abreviada focalizada en bloques 0.5, 1, 2, 3, 4 y 7
+Contraste, cobertura del proceso y tensiones complementarias
+C
+Escenas soporte / reentrada
+Preguntas puntuales disparadas por gap
+Cierre de huecos y profundización selectiva
+Con esto se resuelve el problema de volumen. La primera pasada no busca verdad total; busca cartografiar el escenario, detectar escenas densas en causalidad y dejar criterios explícitos para decidir dónde vale la pena volver a entrar.
+Bloque 0. Identificación mínima de la escena
+Propósito metodológico: Fijar la unidad observada sin interpretación temprana.
+Variables clave que debe producir: Nombre de actividad, frecuencia, contexto típico, actor/área principal, variante excepcional o recurrente.
+Qué deja materializado: Ancla narrativa estable; preservación de voz de trinchera.
+Cuadrante(s) MMABP alimentados: Base contextual; aún no alimenta un cuadrante específico, pero fija la unidad que será luego situada en PM/PF.
+Canales o sistemas VSM alimentados: Todavía no asigna sistema; prepara la escena para inferencia posterior.
+Relación con la transducción causal: este bloque debe entregar señales observables, no narrativa final. Su salida se utilizará después para activar reglas de transducción, confirmar nodos y recorrer caminos de inevitabilidad.
+Bloque 0.5. Encuadre
+Propósito metodológico: Ubicar la escena dentro del sistema de negocio y evitar que quede flotando como microactividad desanclada.
+Variables clave que debe producir: Cliente o usuario relevante, necesidad que se satisface, proceso clave o proceso de soporte al que pertenece, hito del proceso clave que habilita, carácter primario o de soporte.
+Qué deja materializado: Relación explícita entre escena local y razón de existir del sistema.
+Cuadrante(s) MMABP alimentados: Entrada directa a Process Map: clientes relevantes, proceso clave, funciones y procesos de soporte.
+Canales o sistemas VSM alimentados: Aporta candidatos de S1, relaciones de soporte hacia S2/S3, y futuros criterios de identidad para S5.
+Relación con la transducción causal: este bloque debe entregar señales observables, no narrativa final. Su salida se utilizará después para activar reglas de transducción, confirmar nodos y recorrer caminos de inevitabilidad.
+Decisión de diseño vigente: 0.5.1 debe quedar como beneficiario final y 0.5.1a como actor que sufre si sale mal, para evitar duplicidad semántica.
+#
+Pregunta / componente
+Tipo de respuesta
+Disparador/condición
+0.5.1
+Beneficiario final de la actividad: independientemente de a quién le entregues tu trabajo directamente, ¿quién es la persona, área o actor que finalmente se beneficia si esta actividad sale bien?
+Select contextual (lista de áreas/roles) + opción “Cliente externo” + opción “Otro (especificar)”
+Siempre
+0.5.1a
+Actor que sufre si falla: independientemente de a quién le entregues tu trabajo directamente, ¿quién es la persona, área o actor que finalmente sufre si esta actividad sale mal o no sale?
+Select contextual (lista de áreas/roles) + opción “Cliente externo” + opción “Otro (especificar)”
+Siempre
+0.5.1_rel
+Relación entre beneficiario y afectado: ¿el que se beneficia cuando esto sale bien y el que sufre cuando esto sale mal son el mismo actor o son distintos?
+Select: (Es el mismo actor / Son actores distintos / No estoy seguro)
+Siempre, después de 0.5.1 y 0.5.1a
+0.5.1b
+Si son distintos: ¿quién recibe primero el beneficio y quién absorbe primero el daño cuando falla?
+Texto corto guiado
+Si 0.5.1_rel = “Son actores distintos”
+0.5.1c
+Claridad del beneficiario final: ¿qué tan claro tienes quién se beneficia realmente de que esta actividad salga bien?
+Select: (Muy claro / Más o menos claro / Poco claro / No lo tengo claro)
+Siempre
+0.5.1d
+Claridad del afectado final: ¿qué tan claro tienes quién sufre realmente si esta actividad sale mal?
+Select: (Muy claro / Más o menos claro / Poco claro / No lo tengo claro)
+Siempre
+Lógica operativa explícita de 0.5.1 y 0.5.1a
+Las preguntas 0.5.1 y 0.5.1a no son redundantes.Su función es separar explícitamente dos relaciones distintas que en la práctica no siempre coinciden:
+Quién se beneficia realmente cuando la actividad sale bien
+Quién sufre realmente cuando la actividad sale mal
+La lógica correcta del bloque es esta:
+Paso 1 — Identificar beneficiario final
+0.5.1 captura el actor final que obtiene valor si la actividad funciona bien.No pregunta por el receptor inmediato ni por el siguiente paso operativo.Pregunta por el beneficiario final relevante de la escena.
+Guardar como:beneficiario_final_0_5_1
+Paso 2 — Identificar actor afectado por la falla
+0.5.1a captura el actor final que absorbe el daño, retraso o consecuencia si la actividad falla.No pregunta por el jefe inmediato ni por quien se entera primero, sino por quien realmente sufre la falla.
+Guardar como:afectado_final_0_5_1a
+Paso 3 — Comparar si son el mismo actor o no
+0.5.1_rel compara ambas respuestas para dejar explícito si:
+el beneficiario y el afectado son el mismo actor;
+son actores distintos;
+o el usuario no lo tiene claro.
+Esto es importante porque en muchas escenas organizacionales:
+quien se beneficia no siempre es quien sufre;
+y quien recibe directo tampoco siempre coincide con ninguno de los dos.
+Guardar como:relacion_beneficiario_afectado_0_5_1_rel
+Paso 4 — Si son distintos, capturar la diferencia
+0.5.1b solo aparece si el usuario indica que son distintos.Su función es dejar visible la asimetría:
+quién recibe primero el valor cuando todo sale bien;
+y quién absorbe primero el daño cuando falla.
+Esto ayuda mucho a no aplanar la escena y a distinguir:
+beneficiario funcional,
+afectado real,
+y posible desplazamiento del costo dentro del sistema.
+Guardar como:beneficio_vs_dano_distribucion_0_5_1b
+Paso 5 — Medir claridad de la respuesta
+0.5.1c y 0.5.1d no agregan evidencia nueva sobre el sistema, sino sobre la claridad epistemológica del actor respecto a la escena.
+Sirven para identificar:
+si el usuario entiende bien quién gana y quién pierde;
+o si esa dimensión todavía está borrosa y quizá requerirá apoyo posterior en inferencia o aclaración.
+Guardar como:
+claridad_beneficiario_0_5_1c
+claridad_afectado_0_5_1d
+Diferenciación metodológica importante
+Estas preguntas no sustituyen otras relaciones del catálogo.
+No sustituyen Bloque 3, que pregunta por quién recibe directamente el entregable.
+No sustituyen Bloque 4, que pregunta por quién queda detenido si la actividad no termina.
+No sustituyen Bloque 5 o 6, que preguntan por capacidad, compensación o sacrificio.
+Su función específica en Bloque 0.5 es ubicar la escena dentro de una capa más amplia de sentido organizacional:
+quién obtiene valor final;
+quién absorbe el daño final;
+y si esos dos polos coinciden o están separados.
+Nota de diseño
+0.5.1 y 0.5.1a deben mantenerse como dos preguntas separadas.No deben fusionarse en una sola formulación tipo “quién se beneficia o sufre”, porque eso mezcla dos relaciones distintas y borra una parte importante de la estructura de la escena.
+Por eso, la representación correcta es:
+0.5.1 = beneficiario final
+0.5.1a = afectado final
+0.5.1_rel = relación entre ambos
+0.5.1b = diferencia entre valor y daño, si no coinciden
+0.5.1c y 0.5.1d = nivel de claridad del actor sobre esa distinción
+Salida esperada de 0.5.1 / 0.5.1a
+beneficiario_final_0_5_1 = [actor/área]afectado_final_0_5_1a = [actor/área]relacion_beneficiario_afectado_0_5_1_rel = [mismo / distintos / no claro]beneficio_vs_dano_distribucion_0_5_1b = [texto breve, si aplica]claridad_beneficiario_0_5_1c = [nivel]claridad_afectado_0_5_1d = [nivel]
+Bloque 1. Disparador
+Propósito metodológico: Reconstruir qué inicia la escena, qué recibe el actor y bajo qué condición comienza realmente el trabajo.
+Variables clave que debe producir: Evento disparador, input principal, fuente del input, estado de entrada, condición mínima de arranque, evento temporal, condición de “nada ocurre”.
+Qué deja materializado: Inicio causal observable; insumo de entrada con procedencia.
+Cuadrante(s) MMABP alimentados: PF: trigger and wait, eventos externos y eventos de tiempo. OLC: estado de entrada del objeto.
+Canales o sistemas VSM alimentados: S2 por protocolos de arranque/espera; Canal Algedónico y S3* si la falla de arranque duele o queda invisible.
+Relación con la transducción causal: este bloque debe entregar señales observables, no narrativa final. Su salida se utilizará después para activar reglas de transducción, confirmar nodos y recorrer caminos de inevitabilidad.
+Reconstruir qué gatilla la escena, cómo llega la señal, qué claridad tiene, qué precondiciones existen y cómo se manifiestan excepciones del inicio.
+#
+Pregunta
+Tipo de respuesta
+Disparador/condición
+1.1
+¿De dónde viene normalmente la señal que te indica empezar?
+Select (Un cliente, Un sistema, Mi jefe, Un compañero, Yo mismo, Una combinación)
+Siempre
+1.2
+Cuando esto comienza, ¿es algo que esperas que ocurra o es algo que te sorprende?
+Select (Es planificado, Es reactivo, Es una mezcla)
+Siempre
+1.3
+Cuando esto debe comenzar, ¿está muy claro para ti que es el momento, o hay ambigüedad?
+Select (Muy claro, Claro, Ambiguo, Muy ambiguo)
+Siempre
+1.4
+¿Con qué frecuencia ocurre este disparador y si hay un patrón que puedas predecir?
+Select (Diaria, Semanal, Mensual, Bajo demanda, Continuo, Irregular)
+Siempre
+1.5
+¿Por qué medio te llega la noticia de que debes comenzar?
+Select (Email, Teléfono, Un sistema, Presencial, Reunión, Otro)
+Siempre
+1.6
+Para que este disparador ocurra, ¿qué debe haber ocurrido antes? (Ej. "Debe haber stock disponible", "El cliente debe haber pagado", "Debe ser fin de mes").
+Texto corto (máx. 150 caracteres)
+Siempre
+1.7
+¿Hay momentos en que esto DEBERÍA comenzar pero NO comienza? (Ej. "Sí, a veces el cliente solicita pero el sistema o responsable no lo registra").
+Select (No, siempre funciona; Sí, a veces ocurre pero es raro; Sí, regularmente; Sí, frecuentemente)
+Siempre
+1.8
+Si respondiste "Sí" en la pregunta anterior, ¿qué ocurre en esos momentos? ¿Cómo te das cuenta de que algo no funcionó?
+Texto corto (máx. 200 caracteres)
+Si 1.7 = "Sí, a veces..." o superior
+Bloque 2. Transformación
+Propósito metodológico: Reconstruir sobre qué entidad se trabaja y qué cambio real ocurre en ella.
+Variables clave que debe producir: Objeto principal, otros objetos relacionados, composición/partes, atributo o relación que cambia, transformación aplicada, regla operativa usada, complejidad del objeto.
+Qué deja materializado: Escena modelable en términos de objeto y cambio.
+Cuadrante(s) MMABP alimentados: MoC: clases, asociaciones, composiciones, atributos, operaciones. OLC: transición real de estado si la actividad cambia el objeto.
+Canales o sistemas VSM alimentados: S1 por capacidad operativa real; S3 por resource bargain; S3* si el cambio real diverge de lo reportado.
+Relación con la transducción causal: este bloque debe entregar señales observables, no narrativa final. Su salida se utilizará después para activar reglas de transducción, confirmar nodos y recorrer caminos de inevitabilidad.
+Decisión metodológica importante: el rediseño de 2.1 no se considera una complicación gratuita. Funciona como una pequeña pedagogía epistemológica para aumentar la variedad conceptual del actor y ayudarle a ver qué condiciona realmente la escena. El cuidado no está en la lógica, sino en la ergonomía de interfaz.
+#
+Pregunta / componente
+Tipo de respuesta
+Disparador/condición
+2.1
+¿Qué es lo principal que creas, cambias o afectas con esta actividad?
+Multi-select (Objeto / Sujeto / Acción; permite 1, 2 o 3 opciones)
+Siempre
+2.1a
+¿Cuál es ese objeto?
+Texto abierto + select contextual
+Si 2.1 incluye Objeto
+2.1b
+¿Cuál es ese sujeto?
+Texto abierto + select contextual
+Si 2.1 incluye Sujeto
+2.1c
+¿Cuál es la acción principal?
+Texto abierto + select contextual
+Si 2.1 incluye Acción
+2.1_rel
+Pregunta de relación/dominancia: ¿qué limita más en la escena?
+Select contextual + ranking si aplica
+Si 2.1 incluye 2 o 3 dimensiones
+2.2_obj
+De ese {OBJETO}, ¿cuáles de estas propiedades o características cambian?
+Multi-select dinámico según objeto_tipo
+Si 2.1 incluye Objeto
+2.2_suj
+De ese {SUJETO}, ¿cuáles de estas propiedades o características cambian?
+Multi-select dinámico según sujeto_tipo
+Si 2.1 incluye Sujeto
+2.2_acc
+De esa {ACCIÓN}, ¿cuáles de estas características cambian?
+Multi-select dinámico según accion_tipo
+Si 2.1 incluye Acción
+2.2_AB
+Combinación activa: se muestran 2.2_obj + 2.2_suj
+Despliegue compuesto
+Si 2.1 incluye Objeto + Sujeto
+2.2_AC
+Combinación activa: se muestran 2.2_obj + 2.2_acc
+Despliegue compuesto
+Si 2.1 incluye Objeto + Acción
+2.2_BC
+Combinación activa: se muestran 2.2_suj + 2.2_acc
+Despliegue compuesto
+Si 2.1 incluye Sujeto + Acción
+2.2_ABC
+Combinación activa: se muestran 2.2_obj + 2.2_suj + 2.2_acc
+Despliegue compuesto
+Si 2.1 incluye Objeto + Sujeto + Acción
+2.3
+Cuando haces esta actividad, ¿qué tanto cambia lo principal con respecto a como llegó?
+Select (Pequeño / Medio / Grande / Radical) con ejemplos dinámicos
+Siempre
+2.4a
+¿Qué acción o cambio haces tú directamente?
+Select (Crear / Revisar / Corregir / Aprobar / Registrar / Enviar / Combinar / Rechazar / Pausar / Otra)
+Siempre
+2.4b
+¿Qué es lo que normalmente provoca que hagas ese cambio?
+Select (Solicitud / Error / Fecha / Aprobación / Evento / Urgencia / Estándar / Combinación / Otro)
+Siempre
+2.5
+Justo antes de que comience esta actividad, ¿en qué estado o condición se encuentra lo principal?
+Texto corto (máx. 100 caracteres)
+Siempre
+2.6
+Después de que termina esta actividad, ¿en qué estado o condición queda lo principal?
+Texto corto (máx. 100 caracteres)
+Siempre
+2.7
+¿Se transforma una sola vez o hay múltiples ciclos de transformación?
+Select (Una sola vez / Pocas veces / Muchas veces / Continuo)
+Siempre
+2.8
+Si hay ciclos, ¿cuántos típicamente ocurren?
+Select (2-3 / 4-5 / 6-10 / Más de 10 / Variable)
+Si 2.7 = Pocas veces o Muchas veces
+2.9
+¿Hay momentos en que no se transforma aunque debería, o se transforma de forma incorrecta?
+Select (No / Sí raro / Sí regularmente / Sí frecuentemente)
+Siempre
+2.10
+Si falla la transformación, ¿cómo falla? ¿Qué ocurre exactamente?
+Texto corto (máx. 200 caracteres)
+Si 2.9 indica falla
+2.11
+¿Hay cambios que ocurren pero no son oficiales o esperados?
+Select (No / Sí a veces / Sí frecuentemente)
+Siempre
+2.12
+Si sí, ¿cuáles son esos cambios ocultos y quién los hace?
+Texto corto (máx. 200 caracteres)
+Si 2.11 indica cambios ocultos
+Lógica operativa explícita de 2.2La pregunta 2.2 no es una sola pregunta plana. Es un bloque condicional que despliega una, dos o tres subpreguntas según la composición detectada en 2.1.
+Si 2.1 = Solo Objeto → mostrar 2.2_obj
+Si 2.1 = Solo Sujeto → mostrar 2.2_suj
+Si 2.1 = Solo Acción → mostrar 2.2_acc
+Si 2.1 = Objeto + Sujeto → mostrar 2.2_obj + 2.2_suj
+Si 2.1 = Objeto + Acción → mostrar 2.2_obj + 2.2_acc
+Si 2.1 = Sujeto + Acción → mostrar 2.2_suj + 2.2_acc
+Si 2.1 = Objeto + Sujeto + Acción → mostrar 2.2_obj + 2.2_suj + 2.2_acc
+Relación con 2.1_relCuando 2.1 selecciona dos o tres dimensiones, no solo se despliegan varias subpreguntas de 2.2; también debe conservarse la lógica de dominancia/relación de 2.1:
+Objeto + Sujeto → usar 2.1_AB_Relación
+Objeto + Acción → usar 2.1_AC_Relación
+Sujeto + Acción → usar 2.1_BC_Relación
+Objeto + Sujeto + Acción → usar 2.1_ABC_Relación + 2.1_ABC_Prioridad
+Salida esperada de 2.2
+Si hay Objeto → guardar atributos_objeto_cambian
+Si hay Sujeto → guardar atributos_sujeto_cambian
+Si hay Acción → guardar atributos_accion_cambian
+Nota metodológicaLa lógica completa de 2.1 + 2.1_rel + 2.2 es la que deja lista la dimensión dominante para alimentar después el Bloque 5. Por eso 2.2 no debe representarse como una sola pregunta, sino como un conjunto de subpreguntas condicionales y combinatorias.
+Notas de implementación para 2.1
+2.1 permite seleccionar hasta tres dimensiones: Objeto, Sujeto y Acción.
+Las subpreguntas 2.1a, 2.1b y 2.1c se muestran solo para las dimensiones seleccionadas.
+Cuando hay 2 o 3 dimensiones, se dispara una pregunta de relación/dominancia para identificar la dimensión limitante principal.
+2.2 debe adaptarse dinámicamente a la dimensión seleccionada: atributos de objeto, sujeto o acción.
+2.4 queda partido en 2.4a (ejecución) y 2.4b (disparador causal), para limpiar PF, OLC y VSM.
+Bloque 3. Salida
+Propósito metodológico: Hacer visible qué sale de la escena, cómo se considera válido y cómo pasa a la siguiente unidad o hito.
+Variables clave que debe producir: Output, estado de salida, regla de validación, receptor inmediato, consumidor funcional, target state esperado, pseudo-final no deseado, consecuencia de error o retraso.
+Qué deja materializado: Cierre local de la escena y transferencia de responsabilidad.
+Cuadrante(s) MMABP alimentados: PM: target states; PF: handoff; OLC: estado posterior y finales indeseados.
+Canales o sistemas VSM alimentados: S2 en interfaces; S3* en verificación de verdad operativa; S5 cuando el target state prometido no coincide con la realidad.
+Relación con la transducción causal: este bloque debe entregar señales observables, no narrativa final. Su salida se utilizará después para activar reglas de transducción, confirmar nodos y recorrer caminos de inevitabilidad.
+Ajuste ya incorporado: 3.1 se refiere al entregable/handoff, mientras 2.6 se refiere al estado final de lo principal transformado.
+#
+Pregunta
+Tipo de respuesta
+Disparador/condición
+3.1
+¿Qué es exactamente lo que entregas o pones a disposición de otro al terminar? (Ej. Un pedido procesado, una factura, un reporte, una aprobación, etc.)
+Texto corto (máx. 100 caracteres)
+Siempre
+3.2
+¿Quién es la persona, equipo o sistema que recibe directamente lo que entregas?
+Select (Un compañero, Mi jefe, Otro equipo, Un cliente externo, Un sistema, Múltiples receptores, Otro)
+Siempre
+3.3
+¿Cuál es la naturaleza del receptor?
+Select (Una persona específica, Un equipo, Un departamento, Un sistema, Un cliente externo, Múltiples tipos)
+Siempre
+3.4
+¿Si el receptor no recibe esto a tiempo, ¿qué pasa normalmente con su trabajo?
+Select (No puede continuar, Continúa con retraso, Puede avanzar parcialmente, Casi no afecta)
+Siempre
+3.5
+¿Qué hace el receptor con lo que le entregas? ¿Cuál es su siguiente paso?
+Texto corto (máx. 150 caracteres)
+Siempre
+3.6
+¿Hay otros actores que también reciben o necesitan acceso a lo que entregas? (Selecciona todos los que apliquen)
+Multi-select (Auditoría, Finanzas, Gerencia, Cliente final, Proveedor, Otro equipo, No, solo el receptor principal)
+Siempre
+3.7
+¿Qué criterios o estándares debe cumplir lo que entregas para que el receptor esté satisfecho?
+Multi-select (Completo, Exacto, A tiempo, Validado, Formateado, Documentado, Confidencial, Otro)
+Siempre
+3.8
+¿Cómo entregas lo que haces? ¿Por qué medio?
+Select (Email, Sistema, Documento físico, Reunión verbal, Acceso a base de datos, Transferencia de datos, Otro)
+Siempre
+3.9
+¿Con qué frecuencia entregas esto?
+Select (Una sola vez, Diaria, Semanal, Mensual, Según demanda, Continuo, Otro)
+Siempre
+3.10
+¿Hay momentos en que lo que entregas no cumple lo esperado o no llega al receptor?
+Select (No, siempre llega como se espera; Sí, a veces hay problemas pero es raro; Sí, regularmente; Sí, frecuentemente)
+Siempre
+3.11
+Si respondiste "Sí" en la pregunta anterior, ¿cuál es el problema típico?
+Select (No llega a tiempo, Llega incompleto, Llega con errores, Llega en formato incorrecto, No llega a todos, El receptor no sabe qué hacer, Otro)
+Si 3.10 = "Sí, a veces..." o superior
+3.12
+Cuando esto ocurre, ¿cuál es el impacto en el receptor? ¿Qué tiene que hacer para compensar?
+Texto corto (máx. 200 caracteres)
+Si 3.10 = "Sí, a veces..." o superior
+3.13
+En general, cuando entregas esto, ¿qué respuesta recibes normalmente del receptor?
+Select (Lo acepta sin cambios, A veces pide aclaraciones, Pide correcciones frecuentemente, Frecuentemente lo rechaza)
+Siempre
+3.14
+¿Ha cambiado algo recientemente en cómo entregas, a quién entregas o qué criterios se esperan?
+Select (No, todo sigue igual; Sí, cambió quién recibe; Sí, cambió cómo se entrega; Sí, cambiaron criterios; Sí, cambió frecuencia; Sí, múltiples cambios)
+Siempre
+Bloque 4. Cadena causal y normalización del flujo
+Propósito metodológico: Reconstruir secuencia real, cuellos de botella, esperas, rebotes y formas no lineales del proceso.
+Variables clave que debe producir: Dependencia previa crítica, dependencia posterior crítica, espera típica, evento de tiempo, deadlock potencial, iteración, alternativa, paralelismo, subproceso oculto, secuencia real vs secuencia oficial.
+Qué deja materializado: Flujo procesal vivo, no aplanado.
+Cuadrante(s) MMABP alimentados: PF completo y normalizado; OLC por transiciones temporales y rutas alternativas.
+Canales o sistemas VSM alimentados: S2 por puntos de espera y anti-deadlock; S3 por decisiones y subsidiariedad; Canal Algedónico si el bloqueo rebasa canales normales.
+Relación con la transducción causal: este bloque debe entregar señales observables, no narrativa final. Su salida se utilizará después para activar reglas de transducción, confirmar nodos y recorrer caminos de inevitabilidad.
+Esta versión sustituye la variante más estrecha centrada solo en tiempo/urgencias. Aquí el bloque honra el diseño v2.1 y alimenta PF/OLC de forma más rigurosa.
+#
+Pregunta
+Tipo de respuesta
+Disparador/condición
+4.1
+Antes de poder iniciar esta actividad, ¿qué TIENE que haber ocurrido o qué insumo TIENE que estar listo?
+Multi-select (Una aprobación, Información de otro equipo, Completación previa, Un evento externo, Un sistema disponible, Otro) + Texto abierto
+Siempre
+4.2
+Si esta actividad no se terminara hoy, ¿quién o qué quedaría detenido o no podría avanzar?
+Multi-select (Otro equipo, Un cliente, Un proceso automático, Mi propio siguiente paso, Varias personas, Nadie de inmediato, Otro) + Texto abierto
+Siempre
+4.3
+En la realidad, ¿cuánto tiempo típicamente PASA entre que terminas esta actividad y que el siguiente paso puede iniciarse? (Incluyendo esperas por revisión, aprobación, etc.)
+Select (Inmediato, Horas, Un día, Varios días 2-5, Una semana o más)
+Siempre
+4.4
+¿Hay un momento específico (fecha, hora, día de la semana, frecuencia) que gatilla que esta actividad DEBA iniciarse?
+Select (No, se inicia cuando llega el insumo; Sí, cada día a hora específica; Sí, cada semana; Sí, cada mes; Sí, cuando vence plazo; Sí, después de X tiempo; Otro)
+Siempre
+4.5
+¿Hay un escenario donde esta actividad podría quedarse BLOQUEADA esperando algo que nunca llega o que se olvidan de enviar?
+Select (No, hay timeout; Sí, a veces queda bloqueada; Sí, frecuentemente; Sí, hay ciclo infinito)
+Siempre
+4.5b
+Cuando esto ocurre, ¿quién típicamente lo resuelve?
+Select (Yo mismo, Mi jefe interviene, Alguien de otro equipo, Nadie, Otro)
+Si 4.5 = "Sí, a veces..." o superior
+4.6
+¿Esta actividad se repite múltiples veces en un ciclo? (Ej. revisar 10 documentos, hacer 5 llamadas, procesar 20 pedidos)
+Select (No, una sola vez; Sí, varía mucho; Sí, típicamente 2-5 veces; Sí, típicamente 6-20 veces; Sí, más de 20 veces)
+Siempre
+4.6b
+¿Haces todas las repeticiones de una vez o las intercalas con otras actividades?
+Select (Todas de una vez, Las intercalo, Depende del día)
+Si 4.6 = "Sí, varía..." o superior
+4.7
+¿Hay decisiones o puntos donde el proceso puede tomar DIFERENTES CAMINOS según la situación?
+Multi-select (Sí, según tipo de cliente; Sí, según monto; Sí, según errores; Sí, según decisión de jefe; Sí, según regla; No, siempre igual)
+Siempre
+4.7b
+¿Cuántos caminos diferentes hay típicamente?
+Select (2 opciones, 3-4 opciones, Más de 4, Depende)
+Si 4.7 = "Sí, según..." (cualquier opción)
+4.8
+Mientras tú estás haciendo esta actividad, ¿qué está pasando en paralelo?
+Select (Nada corre en paralelo; Otras actividades avanzan independientes; Otras avanzan en paralelo y se integran; Yo sigo con otros mientras esta espera; Hay dependencias cruzadas)
+Siempre
+4.9
+¿Hay pasos que TÚ haces pero que NO están "en el manual" o que "no deberían ser necesarios"? (Ej. verificaciones extras, correcciones, búsquedas de información)
+Boolean (No, sigo exactamente; Sí, hay pasos extras) + Texto abierto
+Siempre
+4.9b
+¿Por qué haces esos pasos extras?
+Select (Porque si no, fallan los siguientes; Porque el sistema no funciona bien; Porque hay errores; Porque nadie más lo hace; Otro)
+Si 4.9 = "Sí, hay pasos extras"
+4.10
+¿El orden en que REALMENTE haces las cosas es diferente al orden que dice el proceso?
+Boolean (No, hago todo en orden; Sí, hay pasos en diferente orden) + Texto abierto
+Siempre
+4.10b
+¿Por qué cambias el orden?
+Select (Porque es más eficiente; Porque el siguiente no está listo; Porque hay urgencia; Porque el proceso no funciona; Otro)
+Si 4.10 = "Sí, hay pasos..."
+4.11
+Cuando esta actividad se bloquea o se retrasa más de lo normal, ¿qué se rompe primero?
+Multi-select (Se detiene trabajo de otros equipos, El cliente espera/reclama, Se pierde tiempo buscando, Se acumula trabajo, Mi jefe interviene, El sistema siguiente se bloquea, Hay costo económico, Otro)
+Siempre
+4.12
+¿Hay un punto específico donde esta actividad TÍPICAMENTE se atasca o se retrasa?
+Select (No hay cuellos significativos; Esperar aprobación; Esperar información; Sistema lento; Falta de personal; Cambios constantes; Otro)
+Siempre
+4.13
+¿Con qué frecuencia el flujo de esta actividad NO funciona como debería (bloqueos, cambios de orden, workarounds)?
+Select (Casi nunca; Ocasionalmente; Frecuentemente; Constantemente)
+Siempre
+Bloque 5. Capacidad y discrecionalidad
+Propósito metodológico: Identificar quién coordina, quién prioriza, quién asigna recursos, quién revisa sin filtros, quién adapta y quién define trade-offs.
+Variables clave que debe producir: Interfaz de coordinación, fuente de prioridad, bargain de recursos, validador, auditor u observador directo, adaptador o futuro, criterio político último, escalamiento formal, escalamiento informal.
+Qué deja materializado: Mapa regulatorio diferenciado de la escena.
+Cuadrante(s) MMABP alimentados: No alimenta un cuadrante MMABP por sí solo, pero convierte hallazgos de PM/MoC/PF/OLC en lectura cibernética.
+Canales o sistemas VSM alimentados: Diferencia explícita entre S2, S3, S3*, S4, S5 y Canal Algedónico; habilita diagnóstico de subsidiariedad invertida.
+Relación con la transducción causal: este bloque debe entregar señales observables, no narrativa final. Su salida se utilizará después para activar reglas de transducción, confirmar nodos y recorrer caminos de inevitabilidad.
+El bloque 5 deja de preguntar capacidad de forma genérica. Ahora depende de la salida estructural de 2.1 y adapta la métrica al tipo de limitante: volumen de objeto, cantidad de sujetos o complejidad/repetición de la acción. Con esto se evita mezclar “volumen” con “caso por caso” y se conserva la comparabilidad interna.
+#
+Pregunta / componente
+Tipo de respuesta
+Disparador/condición
+5.0
+Pregunta filtro recursiva: toma como insumo la salida de 2.1 + 2.1_rel para identificar la dimensión dominante y la naturaleza operativa de la actividad.
+Select contextual
+Siempre, después de resolver 2.1 + 2.1_rel
+5.0_obj
+Pensando en {OBJETO} que procesas: ¿normalmente trabajas con muchos {OBJETO} en el mismo periodo, o cada {OBJETO} requiere atención individual y diferenciada?
+Select: (Es repetitivo / Es discrecional / Es una mezcla)
+Si la dimensión dominante = Objeto
+5.0_suj
+Pensando en {SUJETO} que atiendes: ¿normalmente interactúas con muchos {SUJETO} en el mismo periodo, o cada {SUJETO} requiere atención individual?
+Select: (Es repetitivo / Es discrecional / Es una mezcla)
+Si la dimensión dominante = Sujeto
+5.0_acc
+Pensando en la acción de {ACCIÓN} que realizas: ¿normalmente la repites muchas veces en el mismo periodo, o cada vez que la haces es diferente?
+Select: (Es repetitivo / Es discrecional / Es una mezcla)
+Si la dimensión dominante = Acción
+5.0_auto
+Inferencia automática de métrica: el sistema traduce la salida de 5.0 a la métrica dominante de capacidad.
+Inferencia interna
+Automático, después de 5.0
+5.0_auto_obj
+Si dimensión dominante = Objeto, la capacidad se medirá en VOLUMEN de objetos o en tiempo por objeto, según la naturaleza detectada.
+Regla interna
+Si dimensión dominante = Objeto
+5.0_auto_suj
+Si dimensión dominante = Sujeto, la capacidad se medirá en CANTIDAD de sujetos o en tiempo por interacción, según la naturaleza detectada.
+Regla interna
+Si dimensión dominante = Sujeto
+5.0_auto_acc
+Si dimensión dominante = Acción, la capacidad se medirá en COMPLEJIDAD/REPETICIÓN de la acción o en tiempo por ejecución, según la naturaleza detectada.
+Regla interna
+Si dimensión dominante = Acción
+5.1
+Capacidad nominal dinámica: se adapta según la dimensión dominante y la métrica inferida en 5.0.
+Número + unidad fija o Select de tiempo
+Siempre, después de 5.0
+5.1_obj_vol
+Para esta actividad en particular, según lo que se espera de ti, ¿cuántos {OBJETO} deberías poder completar en un periodo normal?
+Número + unidad fija (por día / semana / mes)
+Si dimensión dominante = Objeto y métrica = Volumen
+5.1_obj_tiempo
+Para esta actividad en particular, según lo que se espera de ti, ¿en cuánto tiempo debería quedar resuelto cada {OBJETO}?
+Select: (Menos de 1 hora / 1–4 horas / Un día / 2–5 días / Más de 5 días)
+Si dimensión dominante = Objeto y métrica = Tiempo por objeto
+5.1_suj_cant
+Para esta actividad en particular, según lo que se espera de ti, ¿con cuántos {SUJETO} deberías poder interactuar en un periodo normal?
+Número + unidad fija (por día / semana / mes)
+Si dimensión dominante = Sujeto y métrica = Cantidad
+5.1_suj_tiempo
+Para esta actividad en particular, según lo que se espera de ti, ¿en cuánto tiempo debería quedar resuelta cada interacción con un {SUJETO}?
+Select: (Menos de 1 hora / 1–4 horas / Un día / 2–5 días / Más de 5 días)
+Si dimensión dominante = Sujeto y métrica = Tiempo por interacción
+5.1_acc_rep
+Para esta actividad en particular, según lo que se espera de ti, ¿cuántas veces deberías poder {ACCIÓN} en un periodo normal?
+Número + unidad fija (por día / semana / mes)
+Si dimensión dominante = Acción y métrica = Repetición/Complejidad serializada
+5.1_acc_tiempo
+Para esta actividad en particular, según lo que se espera de ti, ¿en cuánto tiempo debería quedar resuelta cada vez que necesitas {ACCIÓN}?
+Select: (Menos de 1 hora / 1–4 horas / Un día / 2–5 días / Más de 5 días)
+Si dimensión dominante = Acción y métrica = Tiempo por ejecución
+5.2
+Capacidad real dinámica: misma lógica de 5.1, pero preguntando por la realidad operativa.
+Número + misma unidad fija o Select de tiempo
+Siempre, después de 5.1
+5.2_obj_vol
+En la realidad, ¿cuántos {OBJETO} logras completar en ese mismo periodo?
+Número + misma unidad de 5.1
+Si dimensión dominante = Objeto y métrica = Volumen
+5.2_obj_tiempo
+En la realidad, ¿en cuánto tiempo suele quedar resuelto cada {OBJETO}?
+Select: (Menos de 1 hora / 1–4 horas / Un día / 2–5 días / Más de 5 días)
+Si dimensión dominante = Objeto y métrica = Tiempo por objeto
+5.2_suj_cant
+En la realidad, ¿con cuántos {SUJETO} logras interactuar en ese mismo periodo?
+Número + misma unidad de 5.1
+Si dimensión dominante = Sujeto y métrica = Cantidad
+5.2_suj_tiempo
+En la realidad, ¿en cuánto tiempo suele quedar resuelta cada interacción con un {SUJETO}?
+Select: (Menos de 1 hora / 1–4 horas / Un día / 2–5 días / Más de 5 días)
+Si dimensión dominante = Sujeto y métrica = Tiempo por interacción
+5.2_acc_rep
+En la realidad, ¿cuántas veces logras {ACCIÓN} en ese mismo periodo?
+Número + misma unidad de 5.1
+Si dimensión dominante = Acción y métrica = Repetición/Complejidad serializada
+5.2_acc_tiempo
+En la realidad, ¿en cuánto tiempo suele quedar resuelta cada vez que necesitas {ACCIÓN}?
+Select: (Menos de 1 hora / 1–4 horas / Un día / 2–5 días / Más de 5 días)
+Si dimensión dominante = Acción y métrica = Tiempo por ejecución
+5.3
+Brecha de capacidad (calculada automáticamente)
+Cálculo automático
+Siempre, después de 5.2
+5.3_rep
+Fórmula para métricas de volumen/cantidad/repetición: brecha = (capacidad_nominal - capacidad_real) / capacidad_nominal × 100
+Fórmula automática
+Si la métrica de 5.1 y 5.2 es numérica
+5.3_disc
+Fórmula para métricas de tiempo: convertir primero las opciones de tiempo a escala numérica comparable y luego calcular brecha = (nominal - real) / nominal × 100
+Conversión automática + fórmula
+Si la métrica de 5.1 y 5.2 es temporal
+5.3_conv
+Conversión sugerida de escala temporal: Menos de 1 hora = 0.125 día; 1–4 horas = 0.25 día; Un día = 1 día; 2–5 días = 3.5 días; Más de 5 días = 6 días o más según convención
+Regla interna de cálculo
+Si aplica 5.3_disc
+5.3_out
+Salida calculada: porcentaje de brecha en la dimensión dominante, listo para alimentar 5.4–5.14
+Campo calculado
+Automático, después de 5.3_rep o 5.3_disc
+5.4
+¿Con cuántas personas cuentas realmente para hacer esta actividad?
+Select
+Siempre
+5.5
+¿Qué sistemas o herramientas tienes disponibles para hacer esta actividad?
+Multi-select
+Siempre
+5.6
+¿Cuánto tiempo oficialmente se te asigna para esta actividad?
+Select
+Siempre
+5.7
+Para hacer esta actividad bien y sin sacrificios recurrentes, ¿qué tipo de apoyo te faltaría?
+Select
+Siempre
+5.8
+¿Cuánto tiempo realmente necesitarías para hacer esto bien?
+Select
+Siempre
+5.9
+¿En qué decisiones tienes libertad para actuar?
+Multi-select
+Siempre
+5.10
+¿Hay límites o restricciones que no puedes cruzar bajo ninguna circunstancia?
+Multi-select
+Siempre
+5.11
+Para hacer esta actividad dentro de los límites que tienes, ¿qué tienes que sacrificar?
+Multi-select
+Siempre
+5.12
+¿Hay casos o situaciones que simplemente no puedes absorber? ¿Qué se escapa?
+Multi-select + texto abierto
+Siempre
+5.13
+Cuando algo se escapa de tu capacidad, ¿qué pasa?
+Select
+Si 5.12 selecciona algo
+5.14
+Con los recursos que tienes hoy, ¿qué tan sostenible es cumplir esta actividad sin sacrificar otras cosas?
+Select
+Siempre
+5.14b
+¿Qué tendría que cambiar para que fuera justo/sostenible?
+Multi-select
+Si 5.14 indica tensión o insostenibilidad
+Lógica operativa explícita de 5.0–5.3
+La secuencia correcta de dependencias es esta:
+Bloque 2.1 (Objeto, Sujeto, Acción)↓
+Si solo A → objeto_tipo
+Si solo B → sujeto_tipo
+Si solo C → accion_tipo
+Si hay combinación → usar además 2.1_AB_Relacion, 2.1_AC_Relacion, 2.1_BC_Relacion o 2.1_ABC_Relacion + 2.1_ABC_Prioridad
+Bloque 2.2 (Atributos que cambian)↓
+Se dispara para cada dimensión seleccionada
+El orden de despliegue sigue la composición y prioridad definida en 2.1
+Bloque 5.0 (Pregunta filtro rediseñada)↓
+Toma como insumo la dimensión dominante resuelta desde 2.1_rel
+Define la naturaleza operativa de la actividad
+El sistema traduce eso a la métrica correcta:
+Volumen si domina el Objeto
+Cantidad si domina el Sujeto
+Complejidad/Repetición si domina la Acción
+o tiempo por caso/ejecución cuando la actividad es discrecional o mezcla
+Bloque 5.1 y 5.2 (Capacidad nominal y real)↓
+Se adaptan dinámicamente según:
+la dimensión dominante
+la naturaleza operativa
+la métrica correcta
+Bloque 5.3 (Brecha de capacidad)↓
+Si la métrica es numérica:brecha = (capacidad_nominal - capacidad_real) / capacidad_nominal × 100
+Si la métrica es temporal:primero convertir el tiempo a una escala numérica comparable y luego aplicar la misma fórmula.
+Regla de cálculo de 5.3
+Caso 1 — Métrica numérica
+Aplica cuando la capacidad fue preguntada como:
+volumen de objetos
+cantidad de sujetos
+repeticiones de la acción
+Fórmula:brecha = (capacidad_nominal - capacidad_real) / capacidad_nominal × 100
+Ejemplo:
+Nominal: 50 facturas por día
+Real: 30 facturas por día
+Brecha: 40%
+Caso 2 — Métrica temporal
+Aplica cuando la capacidad fue preguntada como:
+tiempo por objeto
+tiempo por interacción
+tiempo por ejecución
+Paso 1: convertir el tiempo a escala numérica comparable
+Menos de 1 hora = 0.125 día
+1–4 horas = 0.25 día
+Un día = 1 día
+2–5 días = 3.5 días
+Más de 5 días = 6 días o más, según convención
+Paso 2: aplicar la misma fórmulabrecha = (nominal - real) / nominal × 100
+Ejemplo:
+Nominal: Un día = 1 día
+Real: 2–5 días = 3.5 días
+Brecha: (1 - 3.5) / 1 × 100 = -250%
+Interpretación operativa:El valor absoluto indica una brecha muy significativa.En presentación al usuario o al consultor, esta salida puede expresarse como:
+250% de sobretiempo respecto al esperado, o
+brecha temporal muy significativa
+para evitar confusión semántica con números negativos.
+Nota de diseño
+Bloque 5 no debe preguntar capacidad de forma genérica.Debe preguntarla en la métrica adecuada a la dimensión que realmente condiciona la actividad.
+Por eso la cadena correcta es:
+2.1 → 2.1_rel → 2.2 → 5.0 → 5.1 → 5.2 → 5.3 → 5.4–5.14
+Y por eso:
+5.0 no puede quedar aislado
+5.1 y 5.2 no pueden mezclarse
+5.3 no puede quedar explicado con una sola fórmula plana sin distinguir tipo de métrica
+Lógica causal de 5.0 -> 5.2
+2.1 identifica Objeto, Sujeto, Acción y, si aplica, determina dimensión dominante.
+5.0 formula una pregunta filtro dinámica según esa dimensión: repetitivo, discrecional o mezcla.
+5.1 pregunta capacidad nominal con la métrica correcta: cuántos objetos/sujetos/acciones por periodo o cuánto tiempo por caso.
+5.2 repite la misma métrica para la realidad operativa.
+5.3 calcula brecha de capacidad con fórmula directa para volumen o conversión a escala comparable para tiempos.
+Ejemplos de adaptación dinámica
+Dimensión dominante
+Naturaleza
+Capacidad nominal (5.1)
+Capacidad real (5.2)
+Objeto: Factura
+Repetitivo
+¿Cuántas facturas deberías completar por día/semana/mes?
+¿Cuántas facturas logras completar en ese mismo periodo?
+Objeto: Factura
+Discrecional/Mezcla
+¿En cuánto tiempo debería quedar resuelta cada factura?
+¿En cuánto tiempo suele quedar resuelta cada factura?
+Sujeto: Proveedor
+Repetitivo
+¿Con cuántos proveedores deberías poder interactuar en un periodo normal?
+¿Con cuántos proveedores logras interactuar en ese periodo?
+Acción: Coordinar
+Discrecional/Mezcla
+¿En cuánto tiempo debería quedar resuelta cada coordinación?
+¿En cuánto tiempo suele quedar resuelta cada coordinación?
+Bloque 6. Compensación humana, workaround y variedad residual
+Propósito metodológico: Capturar cómo el sistema logra seguir operando cuando la regulación formal no absorbe la variedad necesaria.
+Variables clave que debe producir: Workaround, retrabajo, información faltante, regla informal, sacrificio humano, desgaste, costo percibido, frase de trinchera, patrón repetitivo de falla.
+Qué deja materializado: Huella visible de compensación humana y aprendizaje truncado.
+Cuadrante(s) MMABP alimentados: Complementa PF y OLC mostrando dónde la realidad excede el diseño; evidencia práctica de estructuras ocultas.
+Canales o sistemas VSM alimentados: AHE, Canal Algedónico y fallas de variedad en S1-S3; excelente insumo para nodos causales.
+Relación con la transducción causal: este bloque debe entregar señales observables, no narrativa final. Su salida se utilizará después para activar reglas de transducción, confirmar nodos y recorrer caminos de inevitabilidad.
+Punto de criterio: 6.10 quedó des-tecnificada. En interfaz debe hablar de cosas que aparecen fuera del procedimiento normal y de cómo el actor las saca adelante, no de “absorción de variedad” en lenguaje experto.
+#
+Pregunta
+Tipo de respuesta
+Disparador/condición
+6.1
+Cuando esto no sale como debería, ¿qué haces TÚ para que no se caiga? ¿Hay algún procedimiento, atajo o solución que tuviste que inventar?
+Texto abierto + Multi-select (Hago archivo manual, Hago paso extra, Salto un paso, Uso sistema diferente, Pido ayuda informal, Otro)
+Siempre
+6.2
+¿Hay trabajo que tengas que hacer más de una vez? ¿Hay algo que regresa, que hay que corregir, que no "pega" a la primera?
+Boolean (No, Sí) + Texto abierto
+Siempre
+6.2a
+¿Qué es lo que regresa o hay que corregir?
+Texto abierto
+Si 6.2 = "Sí"
+6.2b
+¿Cuándo ocurre? ¿Siempre, o solo en ciertas circunstancias?
+Texto abierto
+Si 6.2 = "Sí"
+6.2c
+¿Quién debería haberlo hecho bien la primera vez?
+Texto abierto
+Si 6.2 = "Sí"
+6.3
+¿Hay información, datos, aprobación o claridad que NO TE LLEGA cuando la necesitas?
+Multi-select (No me llega aprobación, No me llega info del cliente, No me llega info de otro equipo, No me llega claridad, No me llega feedback, No me llega actualización, No me falta información, Otro) + Texto abierto
+Siempre
+6.3a
+Cuando no te llega, ¿qué haces? ¿Esperas, adivinas, escalas, o avanzo sin eso?
+Texto abierto
+Si 6.3 selecciona algo
+6.4
+¿Hay algo que HACES pero que NO ESTÁ EN EL MANUAL? ¿Algo que haces porque es la única forma que funciona, aunque nadie te lo pidió?
+Texto abierto + Boolean (¿es conocido?)
+Siempre
+6.4a
+¿Tu jefe sabe que lo haces? ¿Está de acuerdo?
+Boolean (Sabe y está de acuerdo, Sabe pero no aprueba, No sabe)
+Si 6.4 = "Sí"
+6.4b
+¿Otros compañeros lo hacen igual, o solo tú?
+Texto abierto
+Si 6.4 = "Sí"
+6.5
+Para que esta actividad funcione dentro de lo esperado, ¿qué tienes que sacrificar?
+Multi-select (Tiempo personal, Calidad del sueño, Salud mental, Relaciones personales, Calidad en otras responsabilidades, Desarrollo profesional, Autonomía, No sacrifico nada, Otro)
+Siempre
+6.6
+¿Cómo te sientes después de hacer esto durante un tiempo? ¿Hay algo que haya cambiado en ti?
+Multi-select (Agotamiento, Pérdida de motivación, Sensación de insuficiencia, Deterioro de calidad, Ganas de irme, Cinismo, Estoy bien, Otro) + Texto abierto
+Siempre
+6.6a
+¿Cuánto tiempo lleva esto? ¿Meses, años?
+Texto abierto
+Si 6.6 selecciona algo negativo
+6.6b
+¿Alguien en la organización sabe que esto está pasando?
+Boolean (Sí, No)
+Si 6.6 selecciona algo negativo
+6.7
+En una escala, ¿cuánto esfuerzo te cuesta hacer esta actividad bien?
+Escala 1-10 + Texto abierto
+Siempre
+6.7a
+¿Cuál es la parte más difícil? ¿Es el volumen, la complejidad, la falta de información, el tiempo, o algo más?
+Texto abierto
+Si 6.7 = 7-10
+6.7b
+¿Ese esfuerzo está reflejado en tu descripción de trabajo o en cómo te evalúan?
+Boolean (Sí, No)
+Si 6.7 = 7-10
+6.8
+Si tuvieras que resumir en UNA FRASE lo que significa hacer esta actividad para ti, ¿cuál sería?
+Texto abierto (una frase literal)
+Siempre
+6.9
+¿Hay algo que SIEMPRE FALLA o que SIEMPRE OCURRE bajo las mismas circunstancias?
+Texto abierto + Frecuencia
+Siempre
+6.9a
+¿Bajo qué circunstancias ocurre? (ej. "cuando hay volumen alto", "cuando cambia el requisito", "cuando falta gente")
+Texto abierto
+Si 6.9 = "Sí"
+6.9b
+¿Cuántas veces ha ocurrido? ¿Es predecible?
+Texto abierto
+Si 6.9 = "Sí"
+6.9c
+¿Se ha intentado arreglarlo? ¿Qué pasó?
+Texto abierto
+Si 6.9 = "Sí"
+6.10
+Hay cosas que simplemente no están en el procedimiento normal que estás haciendo. Cosas que "aparecen" y que agregan dificultad a la actividad. ¿Cómo las manejas TÚ?
+Multi-select (Me quedo después de horario, Las hago en paralelo, Las improviso, Las dejo para después, Las delego informalmente, Las ignoro, Otro) + Texto abierto
+Siempre
+6.10a
+De todo lo que haces en esta actividad, ¿cuánto es trabajo que NO está específicamente dentro de ella? ¿La mitad, una cuarta parte, casi todo?
+Select (Menos del 10%, Entre 10-25%, Entre 25-50%, Entre 50-75%, Más del 75%)
+Si 6.10 selecciona algo
+6.10b
+¿Quién DEBERÍA estar haciendo esto? ¿Tu jefe? ¿Otro equipo? ¿El sistema?
+Texto abierto
+Si 6.10 selecciona algo
+6.11
+Considerando todo lo anterior, ¿cuál es el PRINCIPAL MECANISMO por el cual TÚ haces que esto funcione cuando el sistema no alcanza?
+Select (Trabajo extra, Improvisación y creatividad, Sacrificio de calidad, Apoyo informal de colegas, Automatización personal, Aceptación silenciosa, Otro) + Texto abierto
+Siempre
+Aclaratorias del Bloque 6
+#
+Pregunta aclaratoria
+Tipo de respuesta
+Disparador
+6.A
+Notamos que mencionaste [X brecha/falla]. ¿Cómo logras que eso no se caiga? ¿Hay algo que haces que no mencionaste?
+Texto abierto
+Usuario no menciona compensación pero contexto sugiere que debería
+6.B
+Dijiste que [regla informal] y que tu jefe lo sabe. ¿Entonces es una regla oficial que no está documentada, o es algo que tu jefe tolera pero no aprueba formalmente?
+Texto abierto
+Usuario menciona regla informal pero dice que jefe lo sabe
+6.C
+Mencionaste [sacrificio], pero parece que lo ves como normal. ¿Crees que debería ser así? ¿O es solo que ya estás acostumbrado?
+Texto abierto
+Usuario selecciona sacrificio pero lo minimiza
+Bloque 7. Verificación ligera y preclasificación
+Verificar la lectura funcional preliminar sin contaminar la evidencia. Interno por defecto, con microconfirmación solo si aplica.
+Bloque 7 es híbrido. Por defecto es interno. Solo dispara microconfirmaciones al usuario cuando hay ambigüedad, confianza media/baja o señales cruzadas. AHE no se trata como un sistema VSM adicional; se registra como señal diagnóstica complementaria de compensación humana.
+#
+Pregunta / inferencia
+Tipo de respuesta
+Disparador/condición
+7.0
+[INTERNO - Sin pregunta al usuario] El sistema analiza evidencia de Bloques 0.5-6 e infiere automáticamente: tipo de escena, posición en cadena, función regulatoria, misión sugerida y nivel de confianza.
+Inferencia interna (Enum)
+Siempre (automático)
+7.1
+Parece que esto es principalmente una [tipo sugerido]. ¿Es correcto? ¿O hay algo más?
+Select (Sí, es principalmente [tipo], No, es principalmente [otro], Es una combinación)
+Si confianza < 80% O hay múltiples tipos posibles
+7.2
+En el flujo, ¿dónde está esto? ¿Es el primer paso, un paso intermedio, o el último?
+Select (Es el primer paso, Es un paso intermedio, Es el último paso)
+Si posición es ambigua
+7.3
+Veo que hay [evidencia A] que sugiere [función 1], pero también hay [evidencia B] que sugiere [función 2]. ¿Cuál es la función PRINCIPAL?
+Select (Función 1, Función 2, Ambas son igual de importantes)
+Si hay señales cruzadas en función
+7.4
+La misión que propongo es: "[misión sugerida]". ¿Es correcta? ¿O la cambiarías a algo diferente?
+Texto abierto
+Si usuario rechaza misión sugerida O hay ambigüedad
+6. Esquema de salida intermedia
+La salida intermedia es el producto formal de la etapa 1. No es todavía narrativa diagnóstica final. Debe ser suficiente para: exportación Excel, tabla de transducción causal operacional, árbol de decisión y posterior composición consultiva.
+Sección de salida
+Variables canónicas mínimas
+Cabecera de sesión
+session_id, instrument_version, actor_profile, fecha, empresa, estado global, readiness_for_transduction
+Registro de escena
+scene_id, scene_name, scene_rank, depth_level, scene_status
+Bloque 0.5
+scene_macro_process, scene_functional_client, scene_enabled_milestone, scene_priority_source, scene_displacement_source
+Bloque 1
+trigger_source, trigger_type, trigger_clarity, trigger_frequency, trigger_channel, trigger_preconditions, trigger_exception_exists, trigger_exception_description
+Bloque 2
+dimension_dominante, objeto_tipo, sujeto_tipo, accion_tipo, transformation_attributes, transformation_magnitude, transformation_state_initial, transformation_state_final, transformation_exception_exists, transformation_hidden_changes
+Bloque 3
+output_object, primary_receiver, receiver_type, receiver_dependency, receiver_impact, secondary_receivers, quality_criteria, delivery_mechanism, delivery_frequency, delivery_exception_exists, delivery_exception_type, delivery_exception_impact
+Bloque 4
+dependency_previous, dependency_next, wait_time, time_event, deadlock_risk, deadlock_resolution, iteration_pattern, route_alternatives, parallelism_type, hidden_subprocess, real_vs_official_sequence, blockage_impact, bottleneck, deviation_frequency
+Bloque 5
+naturaleza_actividad_5_0, capacidad_nominal, capacidad_real, brecha_capacidad, recursos_personas, recursos_sistemas, recursos_tiempo, recursos_requeridos, discrecionalidad, constreñimientos, resource_bargain
+Bloque 6
+workaround_used, workaround_types, rework_present, missing_information, informal_rule, human_sacrifice, wear_accumulated, effort_cost, trench_phrase, repetitive_failure_pattern, residual_variety_absorption
+Bloque 7
+preclassification_scene_type, preclassification_chain_position, preclassification_vsm_role, preclassification_ahe_signal, preclassification_mission_suggested, confidence_level, confidence_reasoning, user_confirmation, user_correction, flagged_for_manual_review
+Trazabilidad
+answer_ids, timestamps, provenance_type, clarification_links, consistency_flags, evidence_bundle_for_transduction
+Estructura sugerida del registro canónico por escena
+{  "session_id": "sesion_X",  "scene_id": "escena_12",  "scene_name": "Validar y enviar factura a tesorería",  "depth_level": "A",  "scene_macro_process": "Finanzas",  "scene_functional_client": "Tesorería",  "scene_enabled_milestone": "Se libera pago al proveedor",  "trigger_source": "Otro equipo",  "dimension_dominante": "Objeto",  "objeto_tipo": "Factura",  "naturaleza_actividad_5_0": "Repetitivo",  "capacidad_nominal": "50 facturas por día",  "capacidad_real": "30 facturas por día",  "brecha_capacidad": 40,  "workaround_used": "Archivo manual en Excel para rastreo",  "human_sacrifice": ["Tiempo personal", "Descanso"],  "preclassification_scene_type": "Validación",  "preclassification_chain_position": "Intermedia",  "preclassification_vsm_role": "S3*",  "preclassification_ahe_signal": true,  "confidence_level": "Media",  "evidence_bundle_for_transduction": "Validación intermedia con brecha de capacidad y compensación humana"}
+7. Relación con las siguientes etapas de la hoja de ruta
+Etapa de la hoja de ruta
+Insumo recibido desde capa 1
+2. Tabla de Transducción Causal operacional
+Variables canónicas limpias, evidence bundle por escena, confidence level, señal AHE complementaria, flags de consistencia
+3. Árbol de Decisión Causal
+Tipo de escena, posición en cadena, función VSM, loops, deadlocks, compensaciones y cuellos de botella ya estructurados
+4. Narrativa diagnóstica preliminar semiautomatizada
+Frases de trinchera, síntesis de escena, patrón repetitivo de falla y misión sugerida como insumo, no como verdad final
+5. Composición experta del teorema de inevitabilidad
+Expediente estructural y trazabilidad suficiente para que el experto componga con mayor densidad y menor trabajo de limpieza
+8. Criterios de aceptación de la etapa 1
+La capa 1 distingue evidencia, derivación, aclaración e inferencia ligera.
+Cada escena priorizada puede reconstruirse como escena operativa regulada, no solo como respuesta aislada.
+El catálogo v2.1 queda integrado formalmente a la arquitectura y sustituye el instrumento previo como referencia de diseño.
+Bloques 2 y 5 quedan enlazados causalmente sin mezclar volumen con caso por caso.
+Bloque 7 deja de contaminar la evidencia y opera como freno de seguridad.
+La salida intermedia es suficiente para exportación, transducción causal y árbol de decisión.
+Queda explícita la lógica de profundidad fractal y reentrada selectiva.
+9. Decisiones finales de diseño
+Se adopta la capa 1 v2.1 como nueva arquitectura formal de captura estructural para EVE.
+El catálogo de preguntas integrado v2.1 sustituye al instrumento previo como base de implementación, con las correcciones posteriores ya incorporadas en bloques 2, 4, 5, 6 y 7.
+Bloque 0 puede resolverse desde intake y no requiere convertirse necesariamente en bloque pesado de preguntas.
+Bloque 7 queda mayormente interno; el usuario solo ve microconfirmaciones ligeras cuando el sistema las necesita.
+La etapa 1 de la hoja de ruta queda formalmente completada cuando estas entidades, estados, catálogo y salida intermedia queden implementados y persistidos por sessionId.
+Anexo A. Resumen de carga del instrumento
+Bloque
+Carga aproximada
+Observación
+0.5
+6
+Siempre visibles; anclan la escena al sistema
+1
+8
+Disparador y precondiciones
+2
+12 + branching dinámico
+Versión final con Objeto/Sujeto/Acción y dimensión dominante
+3
+14
+Salida, receptor y calidad del handoff
+4
+13 + subpreguntas
+Flujo vivo, no linealidad y normalización
+5
+15 aprox. según dinámica
+Capacidad adaptada a dimensión dominante
+6
+11 + 3 aclaratorias
+Compensación y variedad residual
+7
+0 a 4 visibles
+Interno por defecto; microconfirmación solo si aplica

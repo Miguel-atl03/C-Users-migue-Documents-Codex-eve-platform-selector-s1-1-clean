@@ -1,0 +1,21 @@
+{
+  "auditId": "EVE-03-CANONICAL-CATALOG-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "CANONICAL_CATALOG_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "checks": [
+    {"check": "prereq_staging_closeout", "status": "pass", "detail": "CANONICAL_CATALOG_PACKAGE_STAGED_READY_FOR_SOURCE_PREFLIGHT found."},
+    {"check": "prereq_source_preflight_closeout", "status": "pass", "detail": "CANONICAL_CATALOG_RECTOR_SOURCES_READY found."},
+    {"check": "chip_id", "status": "pass", "expected": "EVE-03-CANONICAL-CATALOG", "actual": "EVE-03-CANONICAL-CATALOG"},
+    {"check": "package_id", "status": "warning", "expected": "coherent package id", "actual": "JSON uses EVE_03_Canonical_Catalog_v0_1; manifest uses EVE_03_Canonical_Catalog_Chip_v0_1"},
+    {"check": "version", "status": "pass", "expected": "0.1.0", "actual": "0.1.0"},
+    {"check": "stage", "status": "pass", "expected": "03_canonical_catalog", "actual": "03_canonical_catalog"},
+    {"check": "status", "status": "pass", "expected": "READY_WITH_FLAGS", "actual": "READY_WITH_FLAGS"},
+    {"check": "not_a_prompt", "status": "gap", "expected": "declared true", "actual": "not declared top-level in inspected identity"},
+    {"check": "modules_present", "status": "pass", "actual": ["source_node_registry", "source_code_registry", "canonical_variables", "node_variable_map", "critical_routes", "epistemic_policy", "vsm_prep_guard"]},
+    {"check": "dependencies_declared", "status": "pass", "actual": ["EVE-00-METHOD-KERNEL v0.2.0", "EVE-01-AGENT-CONSTITUTION v0.1.0", "EVE-02-DIAGNOSTIC-ONTOLOGY v0.1.0"]},
+    {"check": "declared_sources_present", "status": "pass", "actual": ["D8", "D7", "D5", "D6", "VSM1"]},
+    {"check": "ts_product_imports", "status": "pass", "detail": "No product import/from statements detected in TS scan."},
+    {"check": "runtimeAuthority", "status": "pass", "detail": "No runtimeAuthority registration detected."},
+    {"check": "product_wiring", "status": "pass", "detail": "No page.tsx, API, Supabase, middleware, UI, or runtime product wiring detected."},
+    {"check": "workmap_mentions", "status": "info", "detail": "WorkMapIntake appears as declared source/content reference inside catalog data, not as product import."}
+  ]
+}

@@ -1,0 +1,4001 @@
+{
+  "artifact": "runtime-40-20-schema-source-conformance-032B",
+  "generated_at": "2026-08-05T17:19:23Z",
+  "source_hashes": {
+    "runtime_xlsx": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+    "mother_xlsx": "09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2",
+    "matrix": "1936369a01dcf46d8453d48788685055234b3ce2daf0ffa179a204f4076950e5",
+    "closure": "486a6aa2d5f56ccb1ef099f5c15d3e6eeafb5f77b085171defb307a1fecd498b",
+    "spec_docx": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8",
+    "zip027": "3b33920cee89b943bf6fff9768fb5e0ee4268ab0557212d418422a2927b01910",
+    "zip028": "981b2c45ed76a12796cc4811311ae322ec0a4c0cf6240b41e5b1e51d5e81a7a9",
+    "zip031c": "78e6942f40712b49197d542cfd58cc47cd13a2be9255d1060c53d3bb45fd1472",
+    "zip032a": "b322b07e48f43052bf2b132e39d7783837c13e3c2e55046a014a8e4bdba3e710",
+    "phase1_historical_blob": "01b645bdf36ad3c601259a9ab364115376fc36c96d7561064fe1058835c64e9d",
+    "fase2_historical_blob": "a086b161fef5602d48cf09925b32cfefc44d337b16c8e407067752732798059e"
+  },
+  "missing_sources": {
+    "001_runtime_40_20_schema.sql": {
+      "visible_files": "not_found",
+      "zip_entries": "not_found",
+      "git_history_paths": "not_found",
+      "unreachable_blobs": "not_found"
+    },
+    "EVE_Fase_2_Audit_to_Implementation_Traceability_Matrix_v1.md": {
+      "visible_files": "not_found_by_filename",
+      "unreachable_blob": "94b0fa7ef550a3c2c3a5fd6da0f2e5b8dd655799",
+      "sha256": "a086b161fef5602d48cf09925b32cfefc44d337b16c8e407067752732798059e"
+    }
+  },
+  "fase2_controls": {
+    "F2-AUD-001": {
+      "id": "F2-AUD-001",
+      "finding": "El XLSX Runtime v1.1.1 tiene 16 hojas operativas, no solo preguntas.",
+      "dimension": "D1 Runtime",
+      "decision": "Preservar estructura completa del workbook.",
+      "implementation_action": "Crear mecanismo para guardar hojas no cargadas como tablas operativas.",
+      "target": "`runtime_catalog_artifact_section`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Tabla creada y cargada con secciones del workbook."
+    },
+    "F2-AUD-006": {
+      "id": "F2-AUD-006",
+      "finding": "El workbook trae 51 columnas, más de las cubiertas directamente por `runtime_interaction_def`.",
+      "dimension": "D1 Runtime",
+      "decision": "No perder columnas.",
+      "implementation_action": "Ampliar schema o guardar campos en `raw_row_json`; preferencia: columnas directas para campos críticos.",
+      "target": "`runtime_interaction_def`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Columnas agregadas y `raw_row_json` preserva fila completa."
+    },
+    "F2-AUD-007": {
+      "id": "F2-AUD-007",
+      "finding": "Campos sin columna directa: `confirmation_weight`, `priority_under_budget_pressure`, `can_be_inferred_from`, `audit_requirement`, `status`, `correction_notes`.",
+      "dimension": "D1 Runtime",
+      "decision": "Agregar columnas directas.",
+      "implementation_action": "Micro-migración Fase 2A.",
+      "target": "`runtime_interaction_def`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Columnas existen en Supabase."
+    },
+    "F2-AUD-008": {
+      "id": "F2-AUD-008",
+      "finding": "Algunos campos tienen nombres distintos entre XLSX y DB: `block`, `function`, `visible_text_v1_1`, `interaction_group`, `base_or_causal`.",
+      "dimension": "D1 Runtime",
+      "decision": "Crear mapa explícito de columnas.",
+      "implementation_action": "Implementar mapping del loader con aliases.",
+      "target": "Loader Fase 2",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Test de mapping pasa."
+    },
+    "F2-AUD-019": {
+      "id": "F2-AUD-019",
+      "finding": "Hojas `Epistemic_Policy`, `Branching_Budget_Rules`, `Critical_Routes`, `Semantic_Resolution_Gates`, `Process_State_Timer_Gates`, `Readiness_Gaps_Reentry`, `Parallel_Production_Contract`, `QA_Checklist`, `Implementation_Dictionaries` no tienen tabla dedicada en Fase 1.",
+      "dimension": "D1/D3/D4",
+      "decision": "Crear tabla de secciones.",
+      "implementation_action": "Micro-migración Fase 2A crea `runtime_catalog_artifact_section`.",
+      "target": "`runtime_catalog_artifact_section`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Hojas preservadas como JSON/filas."
+    },
+    "F2-AUD-025": {
+      "id": "F2-AUD-025",
+      "finding": "`runtime_catalog_version` debe bloquear activación si QA falla.",
+      "dimension": "D1 Runtime",
+      "decision": "Estado `draft` hasta QA OK.",
+      "implementation_action": "Loader carga en `draft`; activa solo si validaciones pasan.",
+      "target": "`runtime_catalog_version.status`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Verify confirma catálogo activo solo tras QA."
+    },
+    "F2-AUD-026": {
+      "id": "F2-AUD-026",
+      "finding": "Cada interacción debe conservar genealogía `source_nodes` y `source_codes`.",
+      "dimension": "D1 Runtime",
+      "decision": "Trazabilidad obligatoria.",
+      "implementation_action": "Loader carga arrays y mappings.",
+      "target": "`runtime_interaction_def`, `source_node_ref`, `runtime_interaction_mapping`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Verify confirma 0 vacíos."
+    },
+    "F2-AUD-027": {
+      "id": "F2-AUD-027",
+      "finding": "No se debe implementar desde narrativa; cada interacción debe existir como fila operacional.",
+      "dimension": "D1 Runtime",
+      "decision": "Carga solo desde XLSX.",
+      "implementation_action": "Loader lee workbook, no DOCX como fuente operativa.",
+      "target": "Loader Fase 2",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Test confirma 60 filas desde XLSX."
+    },
+    "F2-AUD-028": {
+      "id": "F2-AUD-028",
+      "finding": "DOCX es fuente normativa; XLSX es fuente implementable.",
+      "dimension": "D1 Runtime",
+      "decision": "Separar autoridad.",
+      "implementation_action": "Registrar ambos en `runtime_catalog_version`.",
+      "target": "`runtime_catalog_version`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Version metadata cargado."
+    },
+    "F2-AUD-029": {
+      "id": "F2-AUD-029",
+      "finding": "`Parallel_Production_Contract` debe preservarse, pero no activarse.",
+      "dimension": "D3/D8 futuro",
+      "decision": "Guardar contrato como sección.",
+      "implementation_action": "Cargar hoja en `runtime_catalog_artifact_section`.",
+      "target": "`runtime_catalog_artifact_section`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Contrato disponible, sin escritura a artifacts."
+    },
+    "F2-AUD-030": {
+      "id": "F2-AUD-030",
+      "finding": "`QA_Checklist` debe convertirse en pruebas automatizadas.",
+      "dimension": "D1/D10 futuro",
+      "decision": "Usar como fuente para test loader.",
+      "implementation_action": "Crear script de QA loader.",
+      "target": "`scripts/phase2-runtime-catalog-loader.test.mjs`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Test loader pasa."
+    },
+    "F2-AUD-031": {
+      "id": "F2-AUD-031",
+      "finding": "`Implementation_Dictionaries` contiene enums/diccionarios de implementación.",
+      "dimension": "D1 Runtime",
+      "decision": "Preservar para fases siguientes.",
+      "implementation_action": "Cargar como sección o tabla auxiliar si aplica.",
+      "target": "`runtime_catalog_artifact_section`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Diccionarios disponibles en DB."
+    },
+    "F2-AUD-035": {
+      "id": "F2-AUD-035",
+      "finding": "Fase 2 debe dejar trazabilidad entre workbook checksum y catálogo cargado.",
+      "dimension": "D1 Runtime",
+      "decision": "Calcular checksum.",
+      "implementation_action": "Loader calcula SHA-256 del XLSX.",
+      "target": "`runtime_catalog_version.source_xlsx_checksum`",
+      "state": "planned_in_this_phase",
+      "required_evidence": "Checksum registrado."
+    }
+  },
+  "enum_contract": [
+    {
+      "enum": "eve_runtime_catalog_status",
+      "labels_demonstrated_by_remote_defaults": [
+        "'draft'::eve_runtime_catalog_status"
+      ],
+      "labels_observed_in_B0": [],
+      "labels_present_in_xlsx_or_spec": "see implementation dictionaries / Version_Control when applicable",
+      "labels_present_only_in_historical_ddl": [
+        "draft",
+        "active",
+        "frozen",
+        "superseded",
+        "archived"
+      ],
+      "labels_remote_still_unverified": "pg_enum query not executed by instruction",
+      "conformance_status": "provisional_historical_enum_evidence"
+    },
+    {
+      "enum": "eve_runtime_group_source",
+      "labels_demonstrated_by_remote_defaults": [],
+      "labels_observed_in_B0": [],
+      "labels_present_in_xlsx_or_spec": "see implementation dictionaries / Version_Control when applicable",
+      "labels_present_only_in_historical_ddl": [
+        "base_40",
+        "causal_20",
+        "internal",
+        "clarification",
+        "microconfirmation"
+      ],
+      "labels_remote_still_unverified": "pg_enum query not executed by instruction",
+      "conformance_status": "provisional_historical_enum_evidence"
+    },
+    {
+      "enum": "eve_runtime_group_normalized",
+      "labels_demonstrated_by_remote_defaults": [],
+      "labels_observed_in_B0": [],
+      "labels_present_in_xlsx_or_spec": "see implementation dictionaries / Version_Control when applicable",
+      "labels_present_only_in_historical_ddl": [
+        "base",
+        "causal",
+        "internal",
+        "clarification",
+        "microconfirmation"
+      ],
+      "labels_remote_still_unverified": "pg_enum query not executed by instruction",
+      "conformance_status": "provisional_historical_enum_evidence"
+    },
+    {
+      "enum": "eve_runtime_epistemic_status",
+      "labels_demonstrated_by_remote_defaults": [
+        "'captured_user_evidence'::eve_runtime_epistemic_status"
+      ],
+      "labels_observed_in_B0": [],
+      "labels_present_in_xlsx_or_spec": "see implementation dictionaries / Version_Control when applicable",
+      "labels_present_only_in_historical_ddl": [
+        "captured_user_evidence",
+        "ai_inferred_unconfirmed",
+        "user_confirmed_suggestion",
+        "user_corrected_evidence",
+        "user_confirmed_or_corrected_evidence",
+        "canonical_derivation",
+        "internal_calculated",
+        "derived_internal"
+      ],
+      "labels_remote_still_unverified": "pg_enum query not executed by instruction",
+      "conformance_status": "provisional_historical_enum_evidence"
+    }
+  ],
+  "sheet_payload_preservation_model": [
+    {
+      "sheet_name": "Version_Control",
+      "sheet_index": 1,
+      "headers": [
+        "Campo",
+        "Valor",
+        "Column1"
+      ],
+      "row_count": 20,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "62f62a15083f42a4f089f7986ad9cac73923fc00544e2aa4d6e6d31ebfcc4c9f",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "Campo",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "Valor",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "Column1",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "Nombre del paquete",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Runtime_Interactions_Base_40",
+      "sheet_index": 2,
+      "headers": [
+        "runtime_interaction_id",
+        "interaction_group",
+        "block",
+        "runtime_order",
+        "function",
+        "visible_text_v1_1",
+        "source_nodes",
+        "source_codes",
+        "ui_component",
+        "subfield_structure",
+        "runtime_role",
+        "base_or_causal",
+        "trigger_condition",
+        "opens_nodes",
+        "closes_nodes",
+        "mutual_exclusion_policy",
+        "burden_score",
+        "estimated_time_seconds",
+        "free_text_weight",
+        "confirmation_weight",
+        "fatigue_policy",
+        "priority_under_budget_pressure",
+        "epistemic_status_default",
+        "provenance_rule",
+        "confirmation_policy",
+        "can_be_inferred_from",
+        "must_not_infer",
+        "audit_requirement",
+        "canonical_variables",
+        "required_variables",
+        "optional_variables",
+        "derived_variables",
+        "pm_output",
+        "moc_output",
+        "pf_output",
+        "olc_output",
+        "conformance_checkpoint",
+        "consistency_checkpoint",
+        "activation_signal",
+        "blocking_gap",
+        "reentry_target",
+        "max_retries",
+        "structural_candidate_type",
+        "registry_target",
+        "mmabp_ir_target",
+        "readiness_effect",
+        "acceptance_test",
+        "failure_mode",
+        "manual_review_condition",
+        "status",
+        "correction_notes"
+      ],
+      "row_count": 41,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "118ef4e83d4a62e8c420d142d8461153f5e99ffc4d4d20de9ec746990c3277d6",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "runtime_interaction_id",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "interaction_group",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "block",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "runtime_order",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "function",
+              "type": "str"
+            },
+            {
+              "coordinate": "F1",
+              "row": 1,
+              "column": 6,
+              "value": "visible_text_v1_1",
+              "type": "str"
+            },
+            {
+              "coordinate": "G1",
+              "row": 1,
+              "column": 7,
+              "value": "source_nodes",
+              "type": "str"
+            },
+            {
+              "coordinate": "H1",
+              "row": 1,
+              "column": 8,
+              "value": "source_codes",
+              "type": "str"
+            },
+            {
+              "coordinate": "I1",
+              "row": 1,
+              "column": 9,
+              "value": "ui_component",
+              "type": "str"
+            },
+            {
+              "coordinate": "J1",
+              "row": 1,
+              "column": 10,
+              "value": "subfield_structure",
+              "type": "str"
+            },
+            {
+              "coordinate": "K1",
+              "row": 1,
+              "column": 11,
+              "value": "runtime_role",
+              "type": "str"
+            },
+            {
+              "coordinate": "L1",
+              "row": 1,
+              "column": 12,
+              "value": "base_or_causal",
+              "type": "str"
+            },
+            {
+              "coordinate": "M1",
+              "row": 1,
+              "column": 13,
+              "value": "trigger_condition",
+              "type": "str"
+            },
+            {
+              "coordinate": "N1",
+              "row": 1,
+              "column": 14,
+              "value": "opens_nodes",
+              "type": "str"
+            },
+            {
+              "coordinate": "O1",
+              "row": 1,
+              "column": 15,
+              "value": "closes_nodes",
+              "type": "str"
+            },
+            {
+              "coordinate": "P1",
+              "row": 1,
+              "column": 16,
+              "value": "mutual_exclusion_policy",
+              "type": "str"
+            },
+            {
+              "coordinate": "Q1",
+              "row": 1,
+              "column": 17,
+              "value": "burden_score",
+              "type": "str"
+            },
+            {
+              "coordinate": "R1",
+              "row": 1,
+              "column": 18,
+              "value": "estimated_time_seconds",
+              "type": "str"
+            },
+            {
+              "coordinate": "S1",
+              "row": 1,
+              "column": 19,
+              "value": "free_text_weight",
+              "type": "str"
+            },
+            {
+              "coordinate": "T1",
+              "row": 1,
+              "column": 20,
+              "value": "confirmation_weight",
+              "type": "str"
+            },
+            {
+              "coordinate": "U1",
+              "row": 1,
+              "column": 21,
+              "value": "fatigue_policy",
+              "type": "str"
+            },
+            {
+              "coordinate": "V1",
+              "row": 1,
+              "column": 22,
+              "value": "priority_under_budget_pressure",
+              "type": "str"
+            },
+            {
+              "coordinate": "W1",
+              "row": 1,
+              "column": 23,
+              "value": "epistemic_status_default",
+              "type": "str"
+            },
+            {
+              "coordinate": "X1",
+              "row": 1,
+              "column": 24,
+              "value": "provenance_rule",
+              "type": "str"
+            },
+            {
+              "coordinate": "Y1",
+              "row": 1,
+              "column": 25,
+              "value": "confirmation_policy",
+              "type": "str"
+            },
+            {
+              "coordinate": "Z1",
+              "row": 1,
+              "column": 26,
+              "value": "can_be_inferred_from",
+              "type": "str"
+            },
+            {
+              "coordinate": "AA1",
+              "row": 1,
+              "column": 27,
+              "value": "must_not_infer",
+              "type": "str"
+            },
+            {
+              "coordinate": "AB1",
+              "row": 1,
+              "column": 28,
+              "value": "audit_requirement",
+              "type": "str"
+            },
+            {
+              "coordinate": "AC1",
+              "row": 1,
+              "column": 29,
+              "value": "canonical_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "AD1",
+              "row": 1,
+              "column": 30,
+              "value": "required_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "AE1",
+              "row": 1,
+              "column": 31,
+              "value": "optional_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "AF1",
+              "row": 1,
+              "column": 32,
+              "value": "derived_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "AG1",
+              "row": 1,
+              "column": 33,
+              "value": "pm_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "AH1",
+              "row": 1,
+              "column": 34,
+              "value": "moc_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "AI1",
+              "row": 1,
+              "column": 35,
+              "value": "pf_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "AJ1",
+              "row": 1,
+              "column": 36,
+              "value": "olc_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "AK1",
+              "row": 1,
+              "column": 37,
+              "value": "conformance_checkpoint",
+              "type": "str"
+            },
+            {
+              "coordinate": "AL1",
+              "row": 1,
+              "column": 38,
+              "value": "consistency_checkpoint",
+              "type": "str"
+            },
+            {
+              "coordinate": "AM1",
+              "row": 1,
+              "column": 39,
+              "value": "activation_signal",
+              "type": "str"
+            },
+            {
+              "coordinate": "AN1",
+              "row": 1,
+              "column": 40,
+              "value": "blocking_gap",
+              "type": "str"
+            },
+            {
+              "coordinate": "AO1",
+              "row": 1,
+              "column": 41,
+              "value": "reentry_target",
+              "type": "str"
+            },
+            {
+              "coordinate": "AP1",
+              "row": 1,
+              "column": 42,
+              "value": "max_retries",
+              "type": "str"
+            },
+            {
+              "coordinate": "AQ1",
+              "row": 1,
+              "column": 43,
+              "value": "structural_candidate_type",
+              "type": "str"
+            },
+            {
+              "coordinate": "AR1",
+              "row": 1,
+              "column": 44,
+              "value": "registry_target",
+              "type": "str"
+            },
+            {
+              "coordinate": "AS1",
+              "row": 1,
+              "column": 45,
+              "value": "mmabp_ir_target",
+              "type": "str"
+            },
+            {
+              "coordinate": "AT1",
+              "row": 1,
+              "column": 46,
+              "value": "readiness_effect",
+              "type": "str"
+            },
+            {
+              "coordinate": "AU1",
+              "row": 1,
+              "column": 47,
+              "value": "acceptance_test",
+              "type": "str"
+            },
+            {
+              "coordinate": "AV1",
+              "row": 1,
+              "column": 48,
+              "value": "failure_mode",
+              "type": "str"
+            },
+            {
+              "coordinate": "AW1",
+              "row": 1,
+              "column": 49,
+              "value": "manual_review_condition",
+              "type": "str"
+            },
+            {
+              "coordinate": "AX1",
+              "row": 1,
+              "column": 50,
+              "value": "status",
+              "type": "str"
+            },
+            {
+              "coordinate": "AY1",
+              "row": 1,
+              "column": 51,
+              "value": "correction_notes",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "B0-Q01",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "base_40",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "0",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": 1,
+              "type": "int"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "Confirmación o corrección de actividad",
+              "type": "str"
+            },
+            {
+              "coordinate": "F2",
+              "row": 2,
+              "column": 6,
+              "value": "Esto es lo que entendimos de esta actividad. ¿Está correcto? Si no, corrígelo para que diga qué haces, sobre qué trabajas y qué queda listo.",
+              "type": "str"
+            },
+            {
+              "coordinate": "G2",
+              "row": 2,
+              "column": 7,
+              "value": "B0_0_0, B0_0_1, B0_0_1a, B0_0_D, B0_block0_entry_control",
+              "type": "str"
+            },
+            {
+              "coordinate": "H2",
+              "row": 2,
+              "column": 8,
+              "value": "0.0, 0.1, 0.1a, 0.D, block0_entry_control",
+              "type": "str"
+            },
+            {
+              "coordinate": "I2",
+              "row": 2,
+              "column": 9,
+              "value": "confirmation_card_with_correction",
+              "type": "str"
+            },
+            {
+              "coordinate": "J2",
+              "row": 2,
+              "column": 10,
+              "value": "action_verb; input_or_object; procedure_or_standard; output_or_result; user_correction_note",
+              "type": "str"
+            },
+            {
+              "coordinate": "K2",
+              "row": 2,
+              "column": 11,
+              "value": "base_capture_or_confirmation",
+              "type": "str"
+            },
+            {
+              "coordinate": "L2",
+              "row": 2,
+              "column": 12,
+              "value": "base",
+              "type": "str"
+            },
+            {
+              "coordinate": "M2",
+              "row": 2,
+              "column": 13,
+              "value": "Siempre al abrir actividad. Si llega de WorkMapIntake, se prellena; si llega incompleta, se reconstruye sin inventar.",
+              "type": "str"
+            },
+            {
+              "coordinate": "N2",
+              "row": 2,
+              "column": 14,
+              "value": "C01 o reentry B0 si actividad no confirmada.",
+              "type": "str"
+            },
+            {
+              "coordinate": "O2",
+              "row": 2,
+              "column": 15,
+              "value": "Cierra variables canónicas listadas si quedan capturadas/confirmadas con trazabilidad.",
+              "type": "str"
+            },
+            {
+              "coordinate": "P2",
+              "row": 2,
+              "column": 16,
+              "value": "No aplica salvo saturación de presupuesto o reemplazo por reentry/manual_review.",
+              "type": "str"
+            },
+            {
+              "coordinate": "Q2",
+              "row": 2,
+              "column": 17,
+              "value": 2,
+              "type": "int"
+            },
+            {
+              "coordinate": "R2",
+              "row": 2,
+              "column": 18,
+              "value": 35,
+              "type": "int"
+            },
+            {
+              "coordinate": "S2",
+              "row": 2,
+              "column": 19,
+              "value": "bajo",
+              "type": "str"
+            },
+            {
+              "coordinate": "T2",
+              "row": 2,
+              "column": 20,
+              "value": "alto",
+              "type": "str"
+            },
+            {
+              "coordinate": "U2",
+              "row": 2,
+              "column": 21,
+              "value": "Cuenta como 1 interacción visible; si es compuesta, mostrar subcampos y guardar respuestas separadas.",
+              "type": "str"
+            },
+            {
+              "coordinate": "V2",
+              "row": 2,
+              "column": 22,
+              "value": "alta: ruta crítica o frontera epistemológica",
+              "type": "str"
+            },
+            {
+              "coordinate": "W2",
+              "row": 2,
+              "column": 23,
+              "value": "user_confirmed_or_corrected_evidence",
+              "type": "str"
+            },
+            {
+              "coordinate": "X2",
+              "row": 2,
+              "column": 24,
+              "value": "Guardar source_user / confirmed_preload / derived_internal / reentry según origen real.",
+              "type": "str"
+            },
+            {
+              "coordinate": "Y2",
+              "row": 2,
+              "column": 25,
+              "value": "confirmar siempre",
+              "type": "str"
+            },
+            {
+              "coordinate": "Z2",
+              "row": 2,
+              "column": 26,
+              "value": "WorkMapIntake/preload solo si editable y confirmado; inferencias internas nunca sustituyen evidencia capturada.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AA2",
+              "row": 2,
+              "column": 27,
+              "value": "No convertir texto libre o inferencia IA en hecho estructural sin ruta canónica y estado epistemológico.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AB2",
+              "row": 2,
+              "column": 28,
+              "value": "Audit log obligatorio si modifica ruta crítica, cierra variable por derivación o activa reentry/manual_review.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AC2",
+              "row": 2,
+              "column": 29,
+              "value": "semantic_preload_used + activity_semantic_* + semantic_review_attempt_count + block0_entry_mode; activity_name_user_confirmed + semantic_confirmation_status + block0_entry_mode; activity_name_user_confirmed + activity_semantic_structure_corrected + reconstructed_activity_minimum; activity_semantic_completion / semantic_gap_unresolved",
+              "type": "str"
+            },
+            {
+              "coordinate": "AD2",
+              "row": 2,
+              "column": 30,
+              "value": "semantic_preload_used; activity_semantic_*; semantic_review_attempt_count",
+              "type": "str"
+            },
+            {
+              "coordinate": "AE2",
+              "row": 2,
+              "column": 31,
+              "value": "Variables secundarias derivables solo si provenance y confirmation_policy lo permiten.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AF2",
+              "row": 2,
+              "column": 32,
+              "value": "Derivar únicamente con trazabilidad; no derivar captured_user_evidence.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AG2",
+              "row": 2,
+              "column": 33,
+              "value": "candidato/protección PM",
+              "type": "str"
+            },
+            {
+              "coordinate": "AI2",
+              "row": 2,
+              "column": 35,
+              "value": "candidato/protección PF",
+              "type": "str"
+            },
+            {
+              "coordinate": "AK2",
+              "row": 2,
+              "column": 37,
+              "value": "Actividad confirmada o reconstruida por usuario; no inferencia no confirmada.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AL2",
+              "row": 2,
+              "column": 38,
+              "value": "B0↔B0.5; B0↔B1; B0↔B2",
+              "type": "str"
+            },
+            {
+              "coordinate": "AM2",
+              "row": 2,
+              "column": 39,
+              "value": "Siempre al abrir actividad. Si llega de WorkMapIntake, se prellena; si llega incompleta, se reconstruye sin inventar.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AN2",
+              "row": 2,
+              "column": 40,
+              "value": "missing_canonical_route",
+              "type": "str"
+            },
+            {
+              "coordinate": "AO2",
+              "row": 2,
+              "column": 41,
+              "value": "B0",
+              "type": "str"
+            },
+            {
+              "coordinate": "AP2",
+              "row": 2,
+              "column": 42,
+              "value": 2,
+              "type": "int"
+            },
+            {
+              "coordinate": "AQ2",
+              "row": 2,
+              "column": 43,
+              "value": "scene_anchor_candidate",
+              "type": "str"
+            },
+            {
+              "coordinate": "AR2",
+              "row": 2,
+              "column": 44,
+              "value": "PM_Registry; PF_Registry; Readiness_Gaps_Reentry",
+              "type": "str"
+            },
+            {
+              "coordinate": "AS2",
+              "row": 2,
+              "column": 45,
+              "value": "MMABP_IR_candidate_after_conformance_and_consistency",
+              "type": "str"
+            },
+            {
+              "coordinate": "AT2",
+              "row": 2,
+              "column": 46,
+              "value": "Bloquea o genera ready_with_flags si ruta crítica no cierra.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AU2",
+              "row": 2,
+              "column": 47,
+              "value": "Pasa si variables requeridas quedan capturadas/confirmadas, sin contradicción y con trazabilidad a nodos fuente.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AV2",
+              "row": 2,
+              "column": 48,
+              "value": "gap / contradiction / canonical_route_missing / semantic_ambiguity / process_state_without_timer",
+              "type": "str"
+            },
+            {
+              "coordinate": "AW2",
+              "row": 2,
+              "column": 49,
+              "value": "Activar si persiste ambigüedad tras reentry, hay señales cruzadas o ruta crítica queda irresuelta.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AX2",
+              "row": 2,
+              "column": 50,
+              "value": "active_v1_1",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Runtime_Interactions_Causal_20",
+      "sheet_index": 3,
+      "headers": [
+        "runtime_interaction_id",
+        "interaction_group",
+        "block",
+        "runtime_order",
+        "function",
+        "visible_text_v1_1",
+        "source_nodes",
+        "source_codes",
+        "ui_component",
+        "subfield_structure",
+        "runtime_role",
+        "base_or_causal",
+        "trigger_condition",
+        "opens_nodes",
+        "closes_nodes",
+        "mutual_exclusion_policy",
+        "burden_score",
+        "estimated_time_seconds",
+        "free_text_weight",
+        "confirmation_weight",
+        "fatigue_policy",
+        "priority_under_budget_pressure",
+        "epistemic_status_default",
+        "provenance_rule",
+        "confirmation_policy",
+        "can_be_inferred_from",
+        "must_not_infer",
+        "audit_requirement",
+        "canonical_variables",
+        "required_variables",
+        "optional_variables",
+        "derived_variables",
+        "pm_output",
+        "moc_output",
+        "pf_output",
+        "olc_output",
+        "conformance_checkpoint",
+        "consistency_checkpoint",
+        "activation_signal",
+        "blocking_gap",
+        "reentry_target",
+        "max_retries",
+        "structural_candidate_type",
+        "registry_target",
+        "mmabp_ir_target",
+        "readiness_effect",
+        "acceptance_test",
+        "failure_mode",
+        "manual_review_condition",
+        "status",
+        "correction_notes"
+      ],
+      "row_count": 21,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "934aa3abc72282e29447ddfab3ed21244fe20c137f3d5070d2d80942b508f81a",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "runtime_interaction_id",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "interaction_group",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "block",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "runtime_order",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "function",
+              "type": "str"
+            },
+            {
+              "coordinate": "F1",
+              "row": 1,
+              "column": 6,
+              "value": "visible_text_v1_1",
+              "type": "str"
+            },
+            {
+              "coordinate": "G1",
+              "row": 1,
+              "column": 7,
+              "value": "source_nodes",
+              "type": "str"
+            },
+            {
+              "coordinate": "H1",
+              "row": 1,
+              "column": 8,
+              "value": "source_codes",
+              "type": "str"
+            },
+            {
+              "coordinate": "I1",
+              "row": 1,
+              "column": 9,
+              "value": "ui_component",
+              "type": "str"
+            },
+            {
+              "coordinate": "J1",
+              "row": 1,
+              "column": 10,
+              "value": "subfield_structure",
+              "type": "str"
+            },
+            {
+              "coordinate": "K1",
+              "row": 1,
+              "column": 11,
+              "value": "runtime_role",
+              "type": "str"
+            },
+            {
+              "coordinate": "L1",
+              "row": 1,
+              "column": 12,
+              "value": "base_or_causal",
+              "type": "str"
+            },
+            {
+              "coordinate": "M1",
+              "row": 1,
+              "column": 13,
+              "value": "trigger_condition",
+              "type": "str"
+            },
+            {
+              "coordinate": "N1",
+              "row": 1,
+              "column": 14,
+              "value": "opens_nodes",
+              "type": "str"
+            },
+            {
+              "coordinate": "O1",
+              "row": 1,
+              "column": 15,
+              "value": "closes_nodes",
+              "type": "str"
+            },
+            {
+              "coordinate": "P1",
+              "row": 1,
+              "column": 16,
+              "value": "mutual_exclusion_policy",
+              "type": "str"
+            },
+            {
+              "coordinate": "Q1",
+              "row": 1,
+              "column": 17,
+              "value": "burden_score",
+              "type": "str"
+            },
+            {
+              "coordinate": "R1",
+              "row": 1,
+              "column": 18,
+              "value": "estimated_time_seconds",
+              "type": "str"
+            },
+            {
+              "coordinate": "S1",
+              "row": 1,
+              "column": 19,
+              "value": "free_text_weight",
+              "type": "str"
+            },
+            {
+              "coordinate": "T1",
+              "row": 1,
+              "column": 20,
+              "value": "confirmation_weight",
+              "type": "str"
+            },
+            {
+              "coordinate": "U1",
+              "row": 1,
+              "column": 21,
+              "value": "fatigue_policy",
+              "type": "str"
+            },
+            {
+              "coordinate": "V1",
+              "row": 1,
+              "column": 22,
+              "value": "priority_under_budget_pressure",
+              "type": "str"
+            },
+            {
+              "coordinate": "W1",
+              "row": 1,
+              "column": 23,
+              "value": "epistemic_status_default",
+              "type": "str"
+            },
+            {
+              "coordinate": "X1",
+              "row": 1,
+              "column": 24,
+              "value": "provenance_rule",
+              "type": "str"
+            },
+            {
+              "coordinate": "Y1",
+              "row": 1,
+              "column": 25,
+              "value": "confirmation_policy",
+              "type": "str"
+            },
+            {
+              "coordinate": "Z1",
+              "row": 1,
+              "column": 26,
+              "value": "can_be_inferred_from",
+              "type": "str"
+            },
+            {
+              "coordinate": "AA1",
+              "row": 1,
+              "column": 27,
+              "value": "must_not_infer",
+              "type": "str"
+            },
+            {
+              "coordinate": "AB1",
+              "row": 1,
+              "column": 28,
+              "value": "audit_requirement",
+              "type": "str"
+            },
+            {
+              "coordinate": "AC1",
+              "row": 1,
+              "column": 29,
+              "value": "canonical_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "AD1",
+              "row": 1,
+              "column": 30,
+              "value": "required_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "AE1",
+              "row": 1,
+              "column": 31,
+              "value": "optional_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "AF1",
+              "row": 1,
+              "column": 32,
+              "value": "derived_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "AG1",
+              "row": 1,
+              "column": 33,
+              "value": "pm_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "AH1",
+              "row": 1,
+              "column": 34,
+              "value": "moc_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "AI1",
+              "row": 1,
+              "column": 35,
+              "value": "pf_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "AJ1",
+              "row": 1,
+              "column": 36,
+              "value": "olc_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "AK1",
+              "row": 1,
+              "column": 37,
+              "value": "conformance_checkpoint",
+              "type": "str"
+            },
+            {
+              "coordinate": "AL1",
+              "row": 1,
+              "column": 38,
+              "value": "consistency_checkpoint",
+              "type": "str"
+            },
+            {
+              "coordinate": "AM1",
+              "row": 1,
+              "column": 39,
+              "value": "activation_signal",
+              "type": "str"
+            },
+            {
+              "coordinate": "AN1",
+              "row": 1,
+              "column": 40,
+              "value": "blocking_gap",
+              "type": "str"
+            },
+            {
+              "coordinate": "AO1",
+              "row": 1,
+              "column": 41,
+              "value": "reentry_target",
+              "type": "str"
+            },
+            {
+              "coordinate": "AP1",
+              "row": 1,
+              "column": 42,
+              "value": "max_retries",
+              "type": "str"
+            },
+            {
+              "coordinate": "AQ1",
+              "row": 1,
+              "column": 43,
+              "value": "structural_candidate_type",
+              "type": "str"
+            },
+            {
+              "coordinate": "AR1",
+              "row": 1,
+              "column": 44,
+              "value": "registry_target",
+              "type": "str"
+            },
+            {
+              "coordinate": "AS1",
+              "row": 1,
+              "column": 45,
+              "value": "mmabp_ir_target",
+              "type": "str"
+            },
+            {
+              "coordinate": "AT1",
+              "row": 1,
+              "column": 46,
+              "value": "readiness_effect",
+              "type": "str"
+            },
+            {
+              "coordinate": "AU1",
+              "row": 1,
+              "column": 47,
+              "value": "acceptance_test",
+              "type": "str"
+            },
+            {
+              "coordinate": "AV1",
+              "row": 1,
+              "column": 48,
+              "value": "failure_mode",
+              "type": "str"
+            },
+            {
+              "coordinate": "AW1",
+              "row": 1,
+              "column": 49,
+              "value": "manual_review_condition",
+              "type": "str"
+            },
+            {
+              "coordinate": "AX1",
+              "row": 1,
+              "column": 50,
+              "value": "status",
+              "type": "str"
+            },
+            {
+              "coordinate": "AY1",
+              "row": 1,
+              "column": 51,
+              "value": "correction_notes",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "C01",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "causal_20",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "0",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": 1,
+              "type": "int"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "Variación de frecuencia o caso especial",
+              "type": "str"
+            },
+            {
+              "coordinate": "F2",
+              "row": 2,
+              "column": 6,
+              "value": "Si cambia la frecuencia o la forma de hacerla, ¿qué lo provoca y cuál es el caso especial más común?",
+              "type": "str"
+            },
+            {
+              "coordinate": "G2",
+              "row": 2,
+              "column": 7,
+              "value": "B0_0_3a, B0_0_8, B0_0_8a",
+              "type": "str"
+            },
+            {
+              "coordinate": "H2",
+              "row": 2,
+              "column": 8,
+              "value": "0.3a, 0.8, 0.8a",
+              "type": "str"
+            },
+            {
+              "coordinate": "I2",
+              "row": 2,
+              "column": 9,
+              "value": "conditional_probe_card",
+              "type": "str"
+            },
+            {
+              "coordinate": "J2",
+              "row": 2,
+              "column": 10,
+              "value": "single_answer",
+              "type": "str"
+            },
+            {
+              "coordinate": "K2",
+              "row": 2,
+              "column": 11,
+              "value": "causal_conditional_probe",
+              "type": "str"
+            },
+            {
+              "coordinate": "L2",
+              "row": 2,
+              "column": 12,
+              "value": "causal",
+              "type": "str"
+            },
+            {
+              "coordinate": "M2",
+              "row": 2,
+              "column": 13,
+              "value": "Abrir si B0-Q03 muestra frecuencia variable o B0-Q02/B0-Q04 muestra actividad no estable.",
+              "type": "str"
+            },
+            {
+              "coordinate": "N2",
+              "row": 2,
+              "column": 14,
+              "value": "Según Trigger_Branching_Rules; abrir causales solo por señal estructural.",
+              "type": "str"
+            },
+            {
+              "coordinate": "O2",
+              "row": 2,
+              "column": 15,
+              "value": "Cierra variables canónicas listadas si quedan capturadas/confirmadas con trazabilidad.",
+              "type": "str"
+            },
+            {
+              "coordinate": "P2",
+              "row": 2,
+              "column": 16,
+              "value": "No aplica salvo saturación de presupuesto o reemplazo por reentry/manual_review.",
+              "type": "str"
+            },
+            {
+              "coordinate": "Q2",
+              "row": 2,
+              "column": 17,
+              "value": 3,
+              "type": "int"
+            },
+            {
+              "coordinate": "R2",
+              "row": 2,
+              "column": 18,
+              "value": 50,
+              "type": "int"
+            },
+            {
+              "coordinate": "S2",
+              "row": 2,
+              "column": 19,
+              "value": "medio",
+              "type": "str"
+            },
+            {
+              "coordinate": "T2",
+              "row": 2,
+              "column": 20,
+              "value": "medio",
+              "type": "str"
+            },
+            {
+              "coordinate": "U2",
+              "row": 2,
+              "column": 21,
+              "value": "Cuenta como 1 interacción visible; si es compuesta, mostrar subcampos y guardar respuestas separadas.",
+              "type": "str"
+            },
+            {
+              "coordinate": "V2",
+              "row": 2,
+              "column": 22,
+              "value": "media: conservar si presupuesto lo permite",
+              "type": "str"
+            },
+            {
+              "coordinate": "W2",
+              "row": 2,
+              "column": 23,
+              "value": "captured_user_evidence",
+              "type": "str"
+            },
+            {
+              "coordinate": "X2",
+              "row": 2,
+              "column": 24,
+              "value": "Guardar source_user / confirmed_preload / derived_internal / reentry según origen real.",
+              "type": "str"
+            },
+            {
+              "coordinate": "Y2",
+              "row": 2,
+              "column": 25,
+              "value": "captura directa; confirmar si se deriva de preload",
+              "type": "str"
+            },
+            {
+              "coordinate": "Z2",
+              "row": 2,
+              "column": 26,
+              "value": "WorkMapIntake/preload solo si editable y confirmado; inferencias internas nunca sustituyen evidencia capturada.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AA2",
+              "row": 2,
+              "column": 27,
+              "value": "No convertir texto libre o inferencia IA en hecho estructural sin ruta canónica y estado epistemológico.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AB2",
+              "row": 2,
+              "column": 28,
+              "value": "Audit log obligatorio si modifica ruta crítica, cierra variable por derivación o activa reentry/manual_review.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AC2",
+              "row": 2,
+              "column": 29,
+              "value": "activity_frequency_pattern_hint; activity_variation_mode / scene_variation_mode; activity_exception_signature / scene_exception_signature",
+              "type": "str"
+            },
+            {
+              "coordinate": "AD2",
+              "row": 2,
+              "column": 30,
+              "value": "activity_frequency_pattern_hint; activity_variation_mode / scene_variation_mode; activity_exception_signature / scene_exception_signature",
+              "type": "str"
+            },
+            {
+              "coordinate": "AE2",
+              "row": 2,
+              "column": 31,
+              "value": "Variables secundarias derivables solo si provenance y confirmation_policy lo permiten.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AF2",
+              "row": 2,
+              "column": 32,
+              "value": "Derivar únicamente con trazabilidad; no derivar captured_user_evidence.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AG2",
+              "row": 2,
+              "column": 33,
+              "value": "candidato/protección PM",
+              "type": "str"
+            },
+            {
+              "coordinate": "AI2",
+              "row": 2,
+              "column": 35,
+              "value": "candidato/protección PF",
+              "type": "str"
+            },
+            {
+              "coordinate": "AJ2",
+              "row": 2,
+              "column": 36,
+              "value": "candidato/protección OLC",
+              "type": "str"
+            },
+            {
+              "coordinate": "AK2",
+              "row": 2,
+              "column": 37,
+              "value": "Actividad confirmada o reconstruida por usuario; no inferencia no confirmada.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AL2",
+              "row": 2,
+              "column": 38,
+              "value": "B0↔B0.5; B0↔B1; B0↔B2",
+              "type": "str"
+            },
+            {
+              "coordinate": "AM2",
+              "row": 2,
+              "column": 39,
+              "value": "Abrir si B0-Q03 muestra frecuencia variable o B0-Q02/B0-Q04 muestra actividad no estable.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AN2",
+              "row": 2,
+              "column": 40,
+              "value": "missing_required_variable_or_low_confidence",
+              "type": "str"
+            },
+            {
+              "coordinate": "AO2",
+              "row": 2,
+              "column": 41,
+              "value": "B0",
+              "type": "str"
+            },
+            {
+              "coordinate": "AP2",
+              "row": 2,
+              "column": 42,
+              "value": 1,
+              "type": "int"
+            },
+            {
+              "coordinate": "AQ2",
+              "row": 2,
+              "column": 43,
+              "value": "scene_anchor_candidate",
+              "type": "str"
+            },
+            {
+              "coordinate": "AR2",
+              "row": 2,
+              "column": 44,
+              "value": "PM_Registry; PF_Registry; Readiness_Gaps_Reentry",
+              "type": "str"
+            },
+            {
+              "coordinate": "AS2",
+              "row": 2,
+              "column": 45,
+              "value": "MMABP_IR_candidate_after_conformance_and_consistency",
+              "type": "str"
+            },
+            {
+              "coordinate": "AT2",
+              "row": 2,
+              "column": 46,
+              "value": "Contribuye a readiness; genera gap si variable requerida queda unresolved.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AU2",
+              "row": 2,
+              "column": 47,
+              "value": "Pasa si variables requeridas quedan capturadas/confirmadas, sin contradicción y con trazabilidad a nodos fuente.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AV2",
+              "row": 2,
+              "column": 48,
+              "value": "gap / contradiction / canonical_route_missing / semantic_ambiguity / process_state_without_timer",
+              "type": "str"
+            },
+            {
+              "coordinate": "AW2",
+              "row": 2,
+              "column": 49,
+              "value": "Activar si persiste ambigüedad tras reentry, hay señales cruzadas o ruta crítica queda irresuelta.",
+              "type": "str"
+            },
+            {
+              "coordinate": "AX2",
+              "row": 2,
+              "column": 50,
+              "value": "active_v1_1",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Required_Field_Model",
+      "sheet_index": 4,
+      "headers": [
+        "Módulo",
+        "Campo",
+        "Tipo esperado",
+        "Obligatorio",
+        "Regla"
+      ],
+      "row_count": 48,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "9296f547b3508fd4626904f9b3eb27b6bb66fa0d453aa93b3c57609af0bec9be",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "Módulo",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "Campo",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "Tipo esperado",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "Obligatorio",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "Regla",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "Identidad",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "runtime_interaction_id",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "string",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "Sí",
+              "type": "str"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "ID único de interacción runtime.",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "UX_Subfield_Structure",
+      "sheet_index": 5,
+      "headers": [
+        "runtime_interaction_id",
+        "ui_component",
+        "subfield_structure",
+        "display_rule",
+        "storage_rule",
+        "risk_if_single_textbox"
+      ],
+      "row_count": 18,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "0e0060c2959d85d7b406efd24ce44c02c988e12995593a77393f87a697bd77ba",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "runtime_interaction_id",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "ui_component",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "subfield_structure",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "display_rule",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "storage_rule",
+              "type": "str"
+            },
+            {
+              "coordinate": "F1",
+              "row": 1,
+              "column": 6,
+              "value": "risk_if_single_textbox",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "B0-Q01",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "confirmation_card_with_correction",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "action_verb; input_or_object; procedure_or_standard; output_or_result; user_correction_note",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "Mostrar como tarjeta de confirmación editable con subcampos separados para qué haces, sobre qué trabajas, cómo o bajo qué regla, qué queda listo y corrección libre.",
+              "type": "str"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "Persistir cada subcampo como variable separable con su provenance y timestamp; no guardar la corrección solo como texto plano.",
+              "type": "str"
+            },
+            {
+              "coordinate": "F2",
+              "row": 2,
+              "column": 6,
+              "value": "Se puede perder la estructura semántica de la actividad y contaminar el anclaje de Bloque 0; la IA podría inferir componentes no confirmados.",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Epistemic_Policy",
+      "sheet_index": 6,
+      "headers": [
+        "Regla",
+        "Aplicación operativa",
+        "Bloques críticos",
+        "Falla si se ignora"
+      ],
+      "row_count": 7,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "b03d733be02793021c2bb1d60d4e1d35e7347f7bb0efa5826d83ba01406b8474",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "Regla",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "Aplicación operativa",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "Bloques críticos",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "Falla si se ignora",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "No inferencia dura",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "Una inferencia IA no entra como captured_user_evidence sin confirmación/corrección del usuario.",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "B0, B2, B3, B7",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "Falsa evidencia; conformance contaminada.",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "MMABP_Output_Map",
+      "sheet_index": 7,
+      "headers": [
+        "runtime_interaction_id",
+        "block",
+        "primary",
+        "secondary",
+        "pm_output",
+        "moc_output",
+        "pf_output",
+        "olc_output",
+        "conformance_checkpoint",
+        "consistency_checkpoint",
+        "structural_candidate_type",
+        "registry_target"
+      ],
+      "row_count": 61,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "4aa7742514bdfececed997081017b1e06fa987ac47551b4ac3f46be1a16e52b3",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "runtime_interaction_id",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "block",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "primary",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "secondary",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "pm_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "F1",
+              "row": 1,
+              "column": 6,
+              "value": "moc_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "G1",
+              "row": 1,
+              "column": 7,
+              "value": "pf_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "H1",
+              "row": 1,
+              "column": 8,
+              "value": "olc_output",
+              "type": "str"
+            },
+            {
+              "coordinate": "I1",
+              "row": 1,
+              "column": 9,
+              "value": "conformance_checkpoint",
+              "type": "str"
+            },
+            {
+              "coordinate": "J1",
+              "row": 1,
+              "column": 10,
+              "value": "consistency_checkpoint",
+              "type": "str"
+            },
+            {
+              "coordinate": "K1",
+              "row": 1,
+              "column": 11,
+              "value": "structural_candidate_type",
+              "type": "str"
+            },
+            {
+              "coordinate": "L1",
+              "row": 1,
+              "column": 12,
+              "value": "registry_target",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "B0-Q01",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "0",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "Governance/Readiness",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "PM; PF",
+              "type": "str"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "candidato/protección PM",
+              "type": "str"
+            },
+            {
+              "coordinate": "G2",
+              "row": 2,
+              "column": 7,
+              "value": "candidato/protección PF",
+              "type": "str"
+            },
+            {
+              "coordinate": "I2",
+              "row": 2,
+              "column": 9,
+              "value": "Actividad confirmada o reconstruida por usuario; no inferencia no confirmada.",
+              "type": "str"
+            },
+            {
+              "coordinate": "J2",
+              "row": 2,
+              "column": 10,
+              "value": "B0↔B0.5; B0↔B1; B0↔B2",
+              "type": "str"
+            },
+            {
+              "coordinate": "K2",
+              "row": 2,
+              "column": 11,
+              "value": "scene_anchor_candidate",
+              "type": "str"
+            },
+            {
+              "coordinate": "L2",
+              "row": 2,
+              "column": 12,
+              "value": "PM_Registry; PF_Registry; Readiness_Gaps_Reentry",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Canonical_Variables",
+      "sheet_index": 8,
+      "headers": [
+        "runtime_interaction_id",
+        "block",
+        "source_codes",
+        "canonical_variables",
+        "required_variables",
+        "optional_variables",
+        "derived_variables",
+        "route_or_gate",
+        "stored_or_consumed_by",
+        "risk_if_missing"
+      ],
+      "row_count": 61,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "56a7785e0e8b06e3b3d39bc0ded52b32451e6f3c0606299e8c8070dbf773e809",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "runtime_interaction_id",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "block",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "source_codes",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "canonical_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "required_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "F1",
+              "row": 1,
+              "column": 6,
+              "value": "optional_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "G1",
+              "row": 1,
+              "column": 7,
+              "value": "derived_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "H1",
+              "row": 1,
+              "column": 8,
+              "value": "route_or_gate",
+              "type": "str"
+            },
+            {
+              "coordinate": "I1",
+              "row": 1,
+              "column": 9,
+              "value": "stored_or_consumed_by",
+              "type": "str"
+            },
+            {
+              "coordinate": "J1",
+              "row": 1,
+              "column": 10,
+              "value": "risk_if_missing",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "B0-Q01",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "0",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "0.0, 0.1, 0.1a, 0.D, block0_entry_control",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "semantic_preload_used + activity_semantic_* + semantic_review_attempt_count + block0_entry_mode; activity_name_user_confirmed + semantic_confirmation_status + block0_entry_mode; activity_name_user_confirmed + activity_semantic_structure_corrected + reconstructed_activity_minimum; activity_semantic_completion / semantic_gap_unresolved",
+              "type": "str"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "semantic_preload_used; activity_semantic_*; semantic_review_attempt_count",
+              "type": "str"
+            },
+            {
+              "coordinate": "F2",
+              "row": 2,
+              "column": 6,
+              "value": "Variables secundarias derivables solo si provenance y confirmation_policy lo permiten.",
+              "type": "str"
+            },
+            {
+              "coordinate": "G2",
+              "row": 2,
+              "column": 7,
+              "value": "Derivar únicamente con trazabilidad; no derivar captured_user_evidence.",
+              "type": "str"
+            },
+            {
+              "coordinate": "H2",
+              "row": 2,
+              "column": 8,
+              "value": "CR-B0-WorkMapIntake-semantic-entry",
+              "type": "str"
+            },
+            {
+              "coordinate": "I2",
+              "row": 2,
+              "column": 9,
+              "value": "PM_Registry; PF_Registry; Readiness_Gaps_Reentry",
+              "type": "str"
+            },
+            {
+              "coordinate": "J2",
+              "row": 2,
+              "column": 10,
+              "value": "gap / contradiction / canonical_route_missing / semantic_ambiguity / process_state_without_timer",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Branching_Budget_Rules",
+      "sheet_index": 9,
+      "headers": [
+        "Regla_ID",
+        "Señal / condición",
+        "Acción",
+        "Presupuesto",
+        "Prioridad",
+        "Reentry / cierre"
+      ],
+      "row_count": 23,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "ff808eff76c97933b8d5467516dcd5d494af38f5452cbe765ee678a96037e6e4",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "Regla_ID",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "Señal / condición",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "Acción",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "Presupuesto",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "Prioridad",
+              "type": "str"
+            },
+            {
+              "coordinate": "F1",
+              "row": 1,
+              "column": 6,
+              "value": "Reentry / cierre",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "BR-001",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "Objeto, sujeto, acción o estado ambiguo en B2",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "Abrir Semantic_Resolution_Gate y causales B2 antes de proyectar MoC/OLC.",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "Consume causal solo si requiere input visible.",
+              "type": "str"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "Alta",
+              "type": "str"
+            },
+            {
+              "coordinate": "F2",
+              "row": 2,
+              "column": 6,
+              "value": "B2 o manual_review_required",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Critical_Routes",
+      "sheet_index": 10,
+      "headers": [
+        "critical_route_id",
+        "ruta",
+        "nodos",
+        "regla",
+        "bloqueo_si_falla",
+        "downstream",
+        "v1_1_enforcement"
+      ],
+      "row_count": 5,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "73671bb9e0be1c9c0426234b3d6de5529ea4febf0e34ec804c2431a4d0b3c4e7",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "critical_route_id",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "ruta",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "nodos",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "regla",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "bloqueo_si_falla",
+              "type": "str"
+            },
+            {
+              "coordinate": "F1",
+              "row": 1,
+              "column": 6,
+              "value": "downstream",
+              "type": "str"
+            },
+            {
+              "coordinate": "G1",
+              "row": 1,
+              "column": 7,
+              "value": "v1_1_enforcement",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "CR-B0-WorkMapIntake-semantic-entry",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "0.0 → 0.1 → 0.1a/0.D",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "0.0 → 0.1 → 0.1a/0.D",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "Entrada robusta desde WorkMapIntake. Si la actividad llega parcial o fallida, Bloque 0 reconstruye sin inventar estructura.",
+              "type": "str"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "No consolidar actividad como evidencia dura; conservar weak_context o activar reconstrucción guiada.",
+              "type": "str"
+            },
+            {
+              "coordinate": "F2",
+              "row": 2,
+              "column": 6,
+              "value": "SceneCanonicalRecord; EvidenceBundle; MDSB",
+              "type": "str"
+            },
+            {
+              "coordinate": "G2",
+              "row": 2,
+              "column": 7,
+              "value": "Ruta blindada. No relajar gates; si falla, ready_with_flags/reentry/manual_review según criticidad.",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Semantic_Resolution_Gates",
+      "sheet_index": 11,
+      "headers": [
+        "gate_id",
+        "riesgo_controlado",
+        "trigger_condition",
+        "internal_checks",
+        "possible_outputs",
+        "blocking_rule",
+        "mmabp_target"
+      ],
+      "row_count": 8,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "4766fcdc0e9faa94953211cb212b8151dad625b3f8095a97023a87ac53039a6d",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "gate_id",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "riesgo_controlado",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "trigger_condition",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "internal_checks",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "possible_outputs",
+              "type": "str"
+            },
+            {
+              "coordinate": "F1",
+              "row": 1,
+              "column": 6,
+              "value": "blocking_rule",
+              "type": "str"
+            },
+            {
+              "coordinate": "G1",
+              "row": 1,
+              "column": 7,
+              "value": "mmabp_target",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "SEM-001",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "Convertir estado en clase",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "B2 o MoC detecta etiqueta que parece estado",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "¿Es entidad estable o condición temporal del objeto?",
+              "type": "str"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "state, phase, class_candidate, ambiguous",
+              "type": "str"
+            },
+            {
+              "coordinate": "F2",
+              "row": 2,
+              "column": 6,
+              "value": "No proyectar a MoC como clase hasta resolver.",
+              "type": "str"
+            },
+            {
+              "coordinate": "G2",
+              "row": 2,
+              "column": 7,
+              "value": "MoC/OLC",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Process_State_Timer_Gates",
+      "sheet_index": 12,
+      "headers": [
+        "gate_id",
+        "trigger_condition",
+        "required_capture",
+        "visible_or_internal",
+        "blocking_rule",
+        "output_variables",
+        "mmabp_target"
+      ],
+      "row_count": 7,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "397745934dbe6ddd90299c8f8beb0e7e31692f8e6f619e61d41b236dec57c46e",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "gate_id",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "trigger_condition",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "required_capture",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "visible_or_internal",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "blocking_rule",
+              "type": "str"
+            },
+            {
+              "coordinate": "F1",
+              "row": 1,
+              "column": 6,
+              "value": "output_variables",
+              "type": "str"
+            },
+            {
+              "coordinate": "G1",
+              "row": 1,
+              "column": 7,
+              "value": "mmabp_target",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "PST-001",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "B4-Q24 indica espera fuerte",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "awaited_event",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "visible si no se infiere con confianza",
+              "type": "str"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "Bloquear Process State si no existe evento esperado.",
+              "type": "str"
+            },
+            {
+              "coordinate": "F2",
+              "row": 2,
+              "column": 6,
+              "value": "awaited_event",
+              "type": "str"
+            },
+            {
+              "coordinate": "G2",
+              "row": 2,
+              "column": 7,
+              "value": "PF",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Readiness_Gaps_Reentry",
+      "sheet_index": 13,
+      "headers": [
+        "readiness_state",
+        "meaning",
+        "entry_condition",
+        "allowed_next_step",
+        "blocked_actions"
+      ],
+      "row_count": 8,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "ec420680d945748c7d108af9fc78e0a92e4398c94ad7fc967d038928914b59d6",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "readiness_state",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "meaning",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "entry_condition",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "allowed_next_step",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "blocked_actions",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "ready",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "Evidencia suficiente y consistente.",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "Variables requeridas cerradas; sin contradicción ni ruta crítica fallida.",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "Producción Paralela puede consumir.",
+              "type": "str"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "No aplica.",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Parallel_Production_Contract",
+      "sheet_index": 14,
+      "headers": [
+        "salida",
+        "función",
+        "campos mínimos",
+        "consumidor",
+        "restricción"
+      ],
+      "row_count": 9,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "5714e8ffa251caef5c53820123a3508dd17fca9f16e430a9ff373ca08488e3e0",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "salida",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "función",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "campos mínimos",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "consumidor",
+              "type": "str"
+            },
+            {
+              "coordinate": "E1",
+              "row": 1,
+              "column": 5,
+              "value": "restricción",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "SceneCanonicalRecord",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "Actividad delimitada y situada.",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "activity_name, boundary_start, boundary_end, context, actor_scope, confidence.",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "Capa 1 / Producción Paralela.",
+              "type": "str"
+            },
+            {
+              "coordinate": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "No consolidar sin confirmación si viene de preload.",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "QA_Checklist",
+      "sheet_index": 15,
+      "headers": [
+        "criterio",
+        "prueba",
+        "umbral_de_aceptacion",
+        "estado_esperado"
+      ],
+      "row_count": 13,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "7852a67dcb23a987952381e24ef8e3c302da391eba345c42b0f7965c57ad0304",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "criterio",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "prueba",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "umbral_de_aceptacion",
+              "type": "str"
+            },
+            {
+              "coordinate": "D1",
+              "row": 1,
+              "column": 4,
+              "value": "estado_esperado",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "Conteo base",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "Contar filas Runtime_Interactions_Base_40.",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "Exactamente 40 interacciones.",
+              "type": "str"
+            },
+            {
+              "coordinate": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "pass",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sheet_name": "Implementation_Dictionaries",
+      "sheet_index": 16,
+      "headers": [
+        "dictionary",
+        "value",
+        "description"
+      ],
+      "row_count": 21,
+      "payload_shape": [
+        "sheet_name",
+        "sheet_index",
+        "headers",
+        "rows[].cells[].coordinate",
+        "rows[].cells[].value",
+        "fingerprint",
+        "checksum"
+      ],
+      "fingerprint": "0419d6ff15ae0b86f7c9b1f97add1ec550c3819bfc7adb17ced0a5f847d84f10",
+      "payload_preview_rows": [
+        {
+          "row_index": 1,
+          "cells": [
+            {
+              "coordinate": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "dictionary",
+              "type": "str"
+            },
+            {
+              "coordinate": "B1",
+              "row": 1,
+              "column": 2,
+              "value": "value",
+              "type": "str"
+            },
+            {
+              "coordinate": "C1",
+              "row": 1,
+              "column": 3,
+              "value": "description",
+              "type": "str"
+            }
+          ]
+        },
+        {
+          "row_index": 2,
+          "cells": [
+            {
+              "coordinate": "A2",
+              "row": 2,
+              "column": 1,
+              "value": "interaction_group",
+              "type": "str"
+            },
+            {
+              "coordinate": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "base_40",
+              "type": "str"
+            },
+            {
+              "coordinate": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "Interacción base visible.",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "block_id_evidence": {
+    "rule": "direct literal only from Catalogo_Madre_Nodos.source_block after exact node identity resolution",
+    "samples": [
+      {
+        "source_row": 2,
+        "capture_node_id": "B0_0_0",
+        "source_block": "0",
+        "source_question_code_intact": "0.0"
+      },
+      {
+        "source_row": 3,
+        "capture_node_id": "B0_0_1",
+        "source_block": "0",
+        "source_question_code_intact": "0.1"
+      },
+      {
+        "source_row": 4,
+        "capture_node_id": "B0_0_1a",
+        "source_block": "0",
+        "source_question_code_intact": "0.1a"
+      },
+      {
+        "source_row": 5,
+        "capture_node_id": "B0_0_2",
+        "source_block": "0",
+        "source_question_code_intact": "0.2"
+      },
+      {
+        "source_row": 6,
+        "capture_node_id": "B0_0_3",
+        "source_block": "0",
+        "source_question_code_intact": "0.3"
+      },
+      {
+        "source_row": 7,
+        "capture_node_id": "B0_0_3a",
+        "source_block": "0",
+        "source_question_code_intact": "0.3a"
+      },
+      {
+        "source_row": 8,
+        "capture_node_id": "B0_0_4",
+        "source_block": "0",
+        "source_question_code_intact": "0.4"
+      },
+      {
+        "source_row": 9,
+        "capture_node_id": "B0_0_5_actor_scope",
+        "source_block": "0",
+        "source_question_code_intact": "0.5_actor_scope"
+      }
+    ]
+  },
+  "technical_spec_snippets": [
+    {
+      "paragraph": 99,
+      "text": "    \"canonical_variables\": [...],"
+    },
+    {
+      "paragraph": 130,
+      "text": "  variables = materialize_canonical_variables(interaction_id, evidence_items)"
+    },
+    {
+      "paragraph": 159,
+      "text": "  catalog_version_id TEXT PRIMARY KEY,"
+    },
+    {
+      "paragraph": 160,
+      "text": "  version_label TEXT NOT NULL,"
+    },
+    {
+      "paragraph": 167,
+      "text": "CREATE TABLE runtime_interaction_def ("
+    },
+    {
+      "paragraph": 169,
+      "text": "  catalog_version_id TEXT NOT NULL REFERENCES runtime_catalog_version(catalog_version_id),"
+    },
+    {
+      "paragraph": 178,
+      "text": "  canonical_variables TEXT NOT NULL,"
+    },
+    {
+      "paragraph": 179,
+      "text": "  required_variables TEXT NOT NULL,"
+    },
+    {
+      "paragraph": 180,
+      "text": "  optional_variables TEXT,"
+    },
+    {
+      "paragraph": 181,
+      "text": "  derived_variables TEXT,"
+    },
+    {
+      "paragraph": 196,
+      "text": "  catalog_version_id TEXT NOT NULL REFERENCES runtime_catalog_version(catalog_version_id),"
+    },
+    {
+      "paragraph": 208,
+      "text": "  runtime_interaction_id TEXT NOT NULL REFERENCES runtime_interaction_def(runtime_interaction_id),"
+    },
+    {
+      "paragraph": 253,
+      "text": "Crear migración de catálogo: runtime_catalog_version, runtime_interaction_def, source_node_ref y diccionarios."
+    },
+    {
+      "paragraph": 283,
+      "text": "CREATE TABLE role_runtime_session (\n  role_runtime_session_id TEXT PRIMARY KEY,\n  case_id TEXT NOT NULL,\n  role_id TEXT NOT NULL,\n  catalog_version_id TEXT NOT NULL REFERENCES runtime_catalog_version(catalog_version_id),\n  primary_activity_limit INTEGER NOT NULL DEFAULT 8,\n  selected_primary_activity_count INTEGER NOT NULL DEFAULT 0,\n  secondary_activity_count INTEGER NOT NULL DEFAULT 0,\n  total_estimated_minutes INTEGER NOT NULL DEFAULT 0,\n  total_elapsed_minutes INTEGER NOT NULL DEFAULT 0,\n  state TEXT NOT NULL CHECK (state IN ('draft','active','in_progress','ready_with_flags','completed','blocked','archived')),\n  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE TABLE source_node_ref (\n  source_node_ref_id TEXT PRIMARY KEY,\n  catalog_version_id TEXT NOT NULL REFERENCES runtime_catalog_version(catalog_version_id),\n  source_block TEXT NOT NULL,\n  source_question_code TEXT NOT NULL,\n  source_node_id TEXT NOT NULL,\n  source_document_ref TEXT,\n  node_status TEXT NOT NULL DEFAULT 'active'\n);\n\nCREATE TABLE runtime_interaction_mapping (\n  mapping_id TEXT PRIMARY KEY,\n  runtime_interaction_id TEXT NOT NULL REFERENCES runtime_interaction_def(runtime_interaction_id),\n  source_node_ref_id TEXT NOT NULL REFERENCES source_node_ref(source_node_ref_id),\n  mapped_variable TEXT,\n  mapping_role TEXT NOT NULL CHECK (mapping_role IN ('primary','secondary','critical_route','clarification','derivation')),\n  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE TABLE evidence_item (\n  evidence_item_id TEXT PRIMARY KEY,\n  run_id TEXT NOT NULL REFERENCES activity_runtime_run(run_id),\n  interaction_instance_id TEXT REFERENCES runtime_interaction_instance(interaction_instance_id),\n  subfield_response_id TEXT REFERENCES runtime_subfield_response(subfield_response_id),\n  literal_value TEXT,\n  epistemic_status TEXT NOT NULL,\n  provenance_type TEXT NOT NULL,\n  confidence NUMERIC,\n  response_revision_number "
+    },
+    {
+      "paragraph": 289,
+      "text": "{\n  \"payload_type\": \"scr_patch\",\n  \"run_id\": \"RUN-123\",\n  \"activity_id\": \"ACT-456\",\n  \"catalog_version_id\": \"runtime_40_20_v1_1_1\",\n  \"activity_anchor\": {\n    \"activity_name_user_confirmed\": \"Preparar factura para pago\",\n    \"activity_semantic_action_verb\": \"preparar\",\n    \"activity_semantic_input_object\": \"factura con soporte\",\n    \"activity_semantic_procedure_standard\": \"criterio de revisión interna\",\n    \"activity_semantic_output_product\": \"factura lista para pago\",\n    \"block0_entry_mode\": \"confirm_structured_activity\",\n    \"semantic_confirmation_status\": \"user_confirmed\"\n  },\n  \"block_outputs\": {\n    \"B0\": {\"readiness\": \"ready\", \"gap_flags\": []},\n    \"B05\": {\"scene_functional_client\": \"tesorería\", \"scene_macro_process\": \"cuentas por pagar\"},\n    \"B1\": {\"trigger_source\": \"factura recibida\", \"trigger_channel\": \"sistema ERP\"},\n    \"B2\": {\"transformation_state_initial\": \"pendiente de revisión\", \"transformation_state_final\": \"lista para pago\"},\n    \"B3\": {\"output_object\": \"factura validada\", \"primary_receiver\": \"tesorería\"},\n    \"B4\": {\"deadlock_risk\": false},\n    \"B5\": {\"brecha_capacidad_5_3\": \"media\"},\n    \"B6\": {\"rework_present\": false},\n    \"B7\": {\"preclassification_readiness\": \"non_diagnostic_ready\"}\n  },\n  \"gaps\": [],\n  \"checksum_source\": \"sha256:...\"\n}"
+    },
+    {
+      "paragraph": 291,
+      "text": "{\n  \"payload_type\": \"evidence_bundle_patch\",\n  \"run_id\": \"RUN-123\",\n  \"evidence_items\": [\n    {\n      \"evidence_item_id\": \"EVI-001\",\n      \"source_interaction_id\": \"B3-Q21\",\n      \"literal_value\": \"A veces tesorería la devuelve por falta de soporte.\",\n      \"epistemic_status\": \"captured_user_evidence\",\n      \"provenance_type\": \"user_answer\",\n      \"confidence\": 0.92\n    }\n  ],\n  \"canonical_variables\": [\n    {\n      \"variable_name\": \"delivery_exception_exists\",\n      \"value\": true,\n      \"route_id\": \"CR-B3-R9-receiver_feedback\",\n      \"route_status\": \"requires_C09\"\n    },\n    {\n      \"variable_name\": \"receiver_feedback_route_missing\",\n      \"value\": false,\n      \"route_id\": \"CR-B3-R9-receiver_feedback\",\n      \"route_status\": \"closed\"\n    }\n  ],\n  \"readiness\": {\n    \"readiness_state\": \"ready_with_flags\",\n    \"dominant_gate\": \"handoff_feedback\",\n    \"manual_review_required\": false\n  },\n  \"gap_records\": []\n}"
+    },
+    {
+      "paragraph": 297,
+      "text": "function recompute_after_response_revision(run_id, response_id):\n  mark_superseded_response(response_id)\n  affected = find_dependent_records(response_id)\n  mark_as_stale(affected.variables, affected.gaps, affected.candidates, affected.payloads)\n  recompute_canonical_variables(run_id, affected.scope)\n  recompute_critical_routes(run_id)\n  recompute_branching_decisions(run_id)\n  recompute_readiness(run_id)\n  if affected.payloads:\n      supersede_parallel_payloads(run_id)\n  append_runtime_audit_trail(run_id, \"recompute_after_revision\")"
+    }
+  ],
+  "decisions": [
+    {
+      "target": "public.runtime_catalog_version.catalog_version_id",
+      "trace_id": null,
+      "fase2_audit_id": [
+        "F2-AUD-025",
+        "F2-AUD-028",
+        "F2-AUD-035"
+      ],
+      "literal_source": "identity evidence search 032B",
+      "source_location": null,
+      "remote_027_type": "text",
+      "historical_phase1_type": "TEXT PRIMARY KEY",
+      "transformation": "governed_catalog_identity_decision_required",
+      "technical_authority": "identity evidence search 032B",
+      "conformance_status": "blocked_catalog_identity_governance_missing",
+      "dictamen": "blocked_catalog_identity_governance_missing",
+      "blocking_reason": "No governed catalog_version_id generation/selection rule found. Name, checksum, date, B0, and examples are not accepted as identity."
+    },
+    {
+      "target": "public.runtime_catalog_version.version_label",
+      "trace_id": null,
+      "fase2_audit_id": [
+        "F2-AUD-028"
+      ],
+      "literal_source": "Nombre del paquete",
+      "source_location": "Version_Control",
+      "remote_027_type": "text",
+      "historical_phase1_type": "TEXT NOT NULL",
+      "transformation": "direct_literal",
+      "technical_authority": "Version_Control row 2 Nombre del paquete + F2-AUD-028 version metadata",
+      "conformance_status": "direct_literal",
+      "dictamen": "direct_literal",
+      "blocking_reason": null
+    },
+    {
+      "target": "public.runtime_catalog_version.status",
+      "trace_id": null,
+      "fase2_audit_id": [],
+      "literal_source": "historical blob 413ee32160c80ddaa3e3b764f9a67e387b5f7d2d; remote defaults only, pg_enum not queried",
+      "source_location": null,
+      "remote_027_type": "eve_runtime_catalog_status",
+      "historical_phase1_type": "<> 'active'",
+      "transformation": "provisional_historical_enum_evidence",
+      "technical_authority": "historical blob 413ee32160c80ddaa3e3b764f9a67e387b5f7d2d; remote defaults only, pg_enum not queried",
+      "conformance_status": "provisional_historical_enum_evidence",
+      "dictamen": "provisional_historical_enum_evidence",
+      "blocking_reason": "Remote enum labels not verified; do not treat historical labels as remote proof."
+    },
+    {
+      "target": "public.runtime_catalog_artifact_section.catalog_version_id",
+      "trace_id": null,
+      "fase2_audit_id": [
+        "F2-AUD-025",
+        "F2-AUD-028",
+        "F2-AUD-035"
+      ],
+      "literal_source": "identity evidence search 032B",
+      "source_location": null,
+      "remote_027_type": "text",
+      "historical_phase1_type": null,
+      "transformation": "governed_catalog_identity_decision_required",
+      "technical_authority": "identity evidence search 032B",
+      "conformance_status": "blocked_catalog_identity_governance_missing",
+      "dictamen": "blocked_catalog_identity_governance_missing",
+      "blocking_reason": "No governed catalog_version_id generation/selection rule found. Name, checksum, date, B0, and examples are not accepted as identity."
+    },
+    {
+      "target": "public.runtime_catalog_artifact_section.payload_json",
+      "trace_id": "TR-001",
+      "fase2_audit_id": [
+        "F2-AUD-001",
+        "F2-AUD-019",
+        "F2-AUD-029",
+        "F2-AUD-031"
+      ],
+      "literal_source": "no row payload in source-manifest-031",
+      "source_location": "Source manifest",
+      "remote_027_type": "jsonb",
+      "historical_phase1_type": null,
+      "transformation": "authorized_raw_preservation",
+      "technical_authority": "F2-AUD-001/F2-AUD-019/F2-AUD-029/F2-AUD-031 + literal XLSX sheet extraction",
+      "conformance_status": "authorized_exact_sheet_payload_preservation",
+      "dictamen": "authorized_exact_sheet_payload_preservation",
+      "blocking_reason": "No loader implemented; payload contract is one sheet -> one raw structured payload only."
+    },
+    {
+      "target": "public.source_node_ref.catalog_version_id",
+      "trace_id": null,
+      "fase2_audit_id": [
+        "F2-AUD-025",
+        "F2-AUD-028",
+        "F2-AUD-035"
+      ],
+      "literal_source": "identity evidence search 032B",
+      "source_location": null,
+      "remote_027_type": "text",
+      "historical_phase1_type": "TEXT NOT NULL REFERENCES public.runtime_catalog_version(catalog_version_id) ON DELETE CASCADE",
+      "transformation": "governed_catalog_identity_decision_required",
+      "technical_authority": "identity evidence search 032B",
+      "conformance_status": "blocked_catalog_identity_governance_missing",
+      "dictamen": "blocked_catalog_identity_governance_missing",
+      "blocking_reason": "No governed catalog_version_id generation/selection rule found. Name, checksum, date, B0, and examples are not accepted as identity."
+    },
+    {
+      "target": "public.source_node_ref.block_id",
+      "trace_id": "TR-019",
+      "fase2_audit_id": [
+        "F2-AUD-026"
+      ],
+      "literal_source": "source_block",
+      "source_location": "Catalogo_Madre_Nodos",
+      "remote_027_type": "text",
+      "historical_phase1_type": "TEXT",
+      "transformation": "direct_literal",
+      "technical_authority": "Catalogo_Madre_Nodos.source_block via composite node identity + F2-AUD-026 genealogy",
+      "conformance_status": "direct_literal",
+      "dictamen": "direct_literal",
+      "blocking_reason": null
+    },
+    {
+      "target": "public.runtime_interaction_def.catalog_version_id",
+      "trace_id": null,
+      "fase2_audit_id": [
+        "F2-AUD-025",
+        "F2-AUD-028",
+        "F2-AUD-035"
+      ],
+      "literal_source": "identity evidence search 032B",
+      "source_location": null,
+      "remote_027_type": "text",
+      "historical_phase1_type": "TEXT NOT NULL REFERENCES public.runtime_catalog_version(catalog_version_id) ON DELETE CASCADE",
+      "transformation": "governed_catalog_identity_decision_required",
+      "technical_authority": "identity evidence search 032B",
+      "conformance_status": "blocked_catalog_identity_governance_missing",
+      "dictamen": "blocked_catalog_identity_governance_missing",
+      "blocking_reason": "No governed catalog_version_id generation/selection rule found. Name, checksum, date, B0, and examples are not accepted as identity."
+    },
+    {
+      "target": "public.runtime_interaction_def.interaction_group_source",
+      "trace_id": null,
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "historical blob 413ee32160c80ddaa3e3b764f9a67e387b5f7d2d; remote defaults only, pg_enum not queried",
+      "source_location": null,
+      "remote_027_type": "eve_runtime_group_source",
+      "historical_phase1_type": "eve_runtime_group_source NOT NULL",
+      "transformation": "provisional_historical_enum_evidence",
+      "technical_authority": "historical blob 413ee32160c80ddaa3e3b764f9a67e387b5f7d2d; remote defaults only, pg_enum not queried",
+      "conformance_status": "provisional_historical_enum_evidence",
+      "dictamen": "provisional_historical_enum_evidence",
+      "blocking_reason": "Remote enum labels not verified; do not treat historical labels as remote proof."
+    },
+    {
+      "target": "public.runtime_interaction_def.interaction_group_normalized",
+      "trace_id": null,
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "historical blob 413ee32160c80ddaa3e3b764f9a67e387b5f7d2d; remote defaults only, pg_enum not queried",
+      "source_location": null,
+      "remote_027_type": "eve_runtime_group_normalized",
+      "historical_phase1_type": "eve_runtime_group_normalized NOT NULL",
+      "transformation": "provisional_historical_enum_evidence",
+      "technical_authority": "historical blob 413ee32160c80ddaa3e3b764f9a67e387b5f7d2d; remote defaults only, pg_enum not queried",
+      "conformance_status": "provisional_historical_enum_evidence",
+      "dictamen": "provisional_historical_enum_evidence",
+      "blocking_reason": "Remote enum labels not verified; do not treat historical labels as remote proof."
+    },
+    {
+      "target": "public.runtime_interaction_def.opens_nodes",
+      "trace_id": "TR-002/TR-003",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "interactions[].opens_nodes",
+      "source_location": "Runtime interactions",
+      "remote_027_type": "text[]",
+      "historical_phase1_type": "TEXT[] NOT NULL DEFAULT '{}'::text[]",
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.closes_nodes",
+      "trace_id": "TR-002/TR-003",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "interactions[].closes_nodes",
+      "source_location": "Runtime interactions",
+      "remote_027_type": "text[]",
+      "historical_phase1_type": "TEXT[] NOT NULL DEFAULT '{}'::text[]",
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.mutual_exclusion_policy",
+      "trace_id": "TR-002/TR-003",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "interactions[].mutual_exclusion_policy",
+      "source_location": "Runtime interactions",
+      "remote_027_type": "jsonb",
+      "historical_phase1_type": "JSONB NOT NULL DEFAULT '{}'::jsonb",
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.free_text_weight",
+      "trace_id": "TR-002/TR-003",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "interactions[].free_text_weight",
+      "source_location": "Runtime interactions",
+      "remote_027_type": "numeric(8,2)",
+      "historical_phase1_type": "NUMERIC(8,2)",
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.fatigue_policy",
+      "trace_id": "TR-002/TR-003",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "interactions[].fatigue_policy",
+      "source_location": "Runtime interactions",
+      "remote_027_type": "jsonb",
+      "historical_phase1_type": "JSONB NOT NULL DEFAULT '{}'::jsonb",
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.epistemic_status_default",
+      "trace_id": null,
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "historical blob 413ee32160c80ddaa3e3b764f9a67e387b5f7d2d; remote defaults only, pg_enum not queried",
+      "source_location": null,
+      "remote_027_type": "eve_runtime_epistemic_status",
+      "historical_phase1_type": "eve_runtime_epistemic_status NOT NULL DEFAULT 'captured_user_evidence'",
+      "transformation": "provisional_historical_enum_evidence",
+      "technical_authority": "historical blob 413ee32160c80ddaa3e3b764f9a67e387b5f7d2d; remote defaults only, pg_enum not queried",
+      "conformance_status": "provisional_historical_enum_evidence",
+      "dictamen": "provisional_historical_enum_evidence",
+      "blocking_reason": "Remote enum labels not verified; do not treat historical labels as remote proof."
+    },
+    {
+      "target": "public.runtime_interaction_def.must_not_infer",
+      "trace_id": "TR-002/TR-003",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "interactions[].must_not_infer",
+      "source_location": "Runtime interactions",
+      "remote_027_type": "boolean",
+      "historical_phase1_type": "BOOLEAN NOT NULL DEFAULT false",
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.canonical_variables",
+      "trace_id": "TR-008",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "interactions[].canonical_variables / variables[].canonical_variables",
+      "source_location": "Canonical_Variables",
+      "remote_027_type": "text[]",
+      "historical_phase1_type": "TEXT[] NOT NULL DEFAULT '{}'::text[]",
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.required_variables",
+      "trace_id": "TR-008",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "interactions[].required_variables / variables[].required_variables",
+      "source_location": "Canonical_Variables",
+      "remote_027_type": "text[]",
+      "historical_phase1_type": "TEXT[] NOT NULL DEFAULT '{}'::text[]",
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.derived_variables",
+      "trace_id": "TR-008",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "interactions[].derived_variables / variables[].derived_variables",
+      "source_location": "Canonical_Variables",
+      "remote_027_type": "text[]",
+      "historical_phase1_type": "TEXT[] NOT NULL DEFAULT '{}'::text[]",
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.optional_variables",
+      "trace_id": "TR-008",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-008"
+      ],
+      "literal_source": "interactions[].optional_variables / variables[].optional_variables",
+      "source_location": "Canonical_Variables",
+      "remote_027_type": "text[]",
+      "historical_phase1_type": "TEXT[] NOT NULL DEFAULT '{}'::text[]",
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.confirmation_weight",
+      "trace_id": "TR-002/TR-003",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-007"
+      ],
+      "literal_source": "interactions[].confirmation_weight",
+      "source_location": "Runtime interactions",
+      "remote_027_type": "numeric(8,2)",
+      "historical_phase1_type": null,
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_def.can_be_inferred_from",
+      "trace_id": "TR-002/TR-003",
+      "fase2_audit_id": [
+        "F2-AUD-006",
+        "F2-AUD-007"
+      ],
+      "literal_source": "interactions[].can_be_inferred_from",
+      "source_location": "Runtime interactions",
+      "remote_027_type": "text[]",
+      "historical_phase1_type": null,
+      "transformation": "blocked_no_transformation_authority",
+      "technical_authority": "031 literal source + spec/027/Phase1 type comparison; 001 SQL unavailable",
+      "conformance_status": "blocked_no_transformation_authority",
+      "dictamen": "schema conforms but projection blocked",
+      "blocking_reason": "No authorized parser/coercion exists for this source value into the remote typed column. raw preservation is allowed only as evidence, not as activation substitute."
+    },
+    {
+      "target": "public.runtime_interaction_mapping.catalog_version_id",
+      "trace_id": null,
+      "fase2_audit_id": [
+        "F2-AUD-025",
+        "F2-AUD-028",
+        "F2-AUD-035"
+      ],
+      "literal_source": "identity evidence search 032B",
+      "source_location": null,
+      "remote_027_type": "text",
+      "historical_phase1_type": "TEXT NOT NULL",
+      "transformation": "governed_catalog_identity_decision_required",
+      "technical_authority": "identity evidence search 032B",
+      "conformance_status": "blocked_catalog_identity_governance_missing",
+      "dictamen": "blocked_catalog_identity_governance_missing",
+      "blocking_reason": "No governed catalog_version_id generation/selection rule found. Name, checksum, date, B0, and examples are not accepted as identity."
+    },
+    {
+      "target": "public.runtime_subfield_schema.catalog_version_id",
+      "trace_id": null,
+      "fase2_audit_id": [
+        "F2-AUD-025",
+        "F2-AUD-028",
+        "F2-AUD-035"
+      ],
+      "literal_source": "identity evidence search 032B",
+      "source_location": null,
+      "remote_027_type": "text",
+      "historical_phase1_type": "TEXT NOT NULL",
+      "transformation": "governed_catalog_identity_decision_required",
+      "technical_authority": "identity evidence search 032B",
+      "conformance_status": "blocked_catalog_identity_governance_missing",
+      "dictamen": "blocked_catalog_identity_governance_missing",
+      "blocking_reason": "No governed catalog_version_id generation/selection rule found. Name, checksum, date, B0, and examples are not accepted as identity."
+    }
+  ],
+  "schema_correction": {
+    "sql_created": false,
+    "reason": "No field met the full authority threshold for local schema correction because 001_runtime_40_20_schema.sql is unavailable and/or historical/027 DDL does not support a type correction."
+  },
+  "tests": {
+    "twenty_one_blockers_reviewed_individually": true,
+    "zero_coercions": true,
+    "zero_unauthorized_splits": true,
+    "zero_boolean_inferred": true,
+    "zero_numeric_scales": true,
+    "payload_json_exact_sheet_preservation": true,
+    "block_id_not_derived_from_code": true,
+    "historical_enums_not_declared_remote": true,
+    "catalog_version_id_invented": false,
+    "remote_contact": false
+  },
+  "final_classification": "blocked_complementary_source_unavailable"
+}

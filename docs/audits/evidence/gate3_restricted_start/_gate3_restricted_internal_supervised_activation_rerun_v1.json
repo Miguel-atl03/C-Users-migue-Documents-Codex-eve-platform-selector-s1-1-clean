@@ -1,0 +1,72 @@
+{
+  "dictamen": "GATE_3_RESTRICTED_INTERNAL_SUPERVISED_ACTIVATION_RERUN_PASSED",
+  "gate": "Gate 3",
+  "activation_type": "restricted_internal_supervised",
+  "route_name": "LOCAL_CONTROLLED_INTERNAL_MBA_ACTIVATION_ROUTE",
+  "previous_run": "GATE_3_RESTRICTED_INTERNAL_SUPERVISED_ACTIVATION_EXECUTED_DEGRADED",
+  "patch": "GATE_3_REPLAY_MARKERS_MINIMAL_PATCH_APPLIED_PASSED",
+  "gate2_carry_forward_risk": {
+    "risk_id": "G2-RISK-001",
+    "status": "open",
+    "visible_in_run": true
+  },
+  "execution": {
+    "command": "node --test tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+    "exit_code": 0,
+    "test_executed": true,
+    "test_passed": true,
+    "tests_passed": 45,
+    "tests_failed": 0
+  },
+  "gate3_markers": {
+    "runShadowE2EReplay_executed": true,
+    "operational_input_present": true,
+    "candidate_generation_present": true,
+    "candidate_output_draft_present": true,
+    "evidence_trace_present": true,
+    "source_trace_present": true,
+    "no_go_status_present": true,
+    "s3_review_required_present": true,
+    "g2_risk_001_carry_forward_present": true,
+    "promotion_allowed_false": true
+  },
+  "candidate_output": {
+    "created": true,
+    "status": "draft",
+    "human_review_required": true,
+    "human_review_type": "S3*",
+    "promotion_allowed": false,
+    "summary_present": true,
+    "contains_diagnosis_final": false,
+    "contains_registry_final": false,
+    "contains_export_final": false
+  },
+  "run_assessment": {
+    "passed": true,
+    "degraded": false,
+    "blocked": false,
+    "single_cause_if_not_passed": null
+  },
+  "side_effects": {
+    "env_file_read": false,
+    "secret_values_exposed": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "writes_attempted": false,
+    "write_count": 0,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "runtime_mutated": false,
+    "object_inventory_mutated": false,
+    "mba_written": false,
+    "parallel_production_real_started": false,
+    "gate4_started": false,
+    "gate5_started": false,
+    "fase9_started": false
+  },
+  "next_step": "S3_REVIEW_GATE_3_CANDIDATE_OUTPUT_V1"
+}

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Mapa de trabajo · mock v4 · constelación</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+        Propuesta v4 — constelación asimétrica.
+        Anti-formulario: nada apilado en columna, nada simétrico, nada centrado.
+        Contenido = islas en el plano; el void es el centro compositivo.
+        Misma gramática EVE + copy oficial.
+      */
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1200px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .mark {
+        position: absolute;
+        top: 40px;
+        left: 56px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .session {
+        position: absolute;
+        top: 40px;
+        right: 56px;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        text-align: right;
+        line-height: 1.9;
+      }
+
+      /* Pregunta = inscripción, no hero (hero solo al inicio del lienzo) */
+      .q {
+        position: absolute;
+        top: 168px;
+        left: 96px;
+        margin: 0;
+        max-width: 42ch;
+        font-family: var(--font-code);
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 1.45;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      /* Whisper desplazado — no bajo la pregunta en stack */
+      .whisper {
+        position: absolute;
+        top: 196px;
+        right: 120px;
+        margin: 0;
+        width: 26ch;
+        text-align: right;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.14em;
+        line-height: 1.85;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 58%, transparent);
+      }
+
+      /* Áreas: constelación irregular — no friso, no grid */
+      .area {
+        position: absolute;
+        margin: 0;
+        font-size: 8px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 48%, transparent);
+        max-width: 22ch;
+      }
+
+      .area.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .a-ops {
+        top: 420px;
+        left: 72px;
+      }
+      .a-id {
+        top: 390px;
+        left: 340px;
+      }
+      .a-log {
+        top: 458px;
+        left: 520px;
+      }
+      .a-ven {
+        top: 404px;
+        right: 280px;
+        text-align: right;
+      }
+      .a-tal {
+        top: 470px;
+        right: 96px;
+        text-align: right;
+      }
+      .a-fin {
+        top: 360px;
+        left: 700px;
+      }
+      .a-tec {
+        top: 510px;
+        left: 260px;
+      }
+      .a-adm {
+        top: 520px;
+        left: 640px;
+      }
+      .a-mkt {
+        top: 350px;
+        right: 420px;
+        text-align: right;
+      }
+      .a-est {
+        top: 540px;
+        right: 200px;
+        text-align: right;
+      }
+      .a-otr {
+        top: 500px;
+        left: 980px;
+      }
+
+      /* Responsabilidad: isla baja-izquierda, una sola traza larga */
+      .resp-island {
+        position: absolute;
+        top: 620px;
+        left: 88px;
+        width: 480px;
+      }
+
+      .resp-area {
+        margin: 0 0 18px;
+        font-size: 7px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-ink) 45%, var(--eve-mist));
+      }
+
+      .resp-q {
+        margin: 0 0 22px;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 36ch;
+      }
+
+      .resp-write {
+        margin: 0;
+        padding: 0 0 12px;
+        border-bottom: 1px solid var(--eve-ink);
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: 0.01em;
+        color: var(--eve-ink);
+      }
+
+      /* Actividad 1: isla centro-derecha, no debajo de resp */
+      .act1-island {
+        position: absolute;
+        top: 640px;
+        right: 120px;
+        width: 360px;
+        text-align: right;
+      }
+
+      .acts-q {
+        margin: 0 0 20px;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .act1 {
+        margin: 0;
+        padding: 0 0 10px;
+        border-bottom: 1px solid var(--eve-ink);
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.45;
+        color: var(--eve-ink);
+      }
+
+      /* Actividad 2: isla más abajo-centro, desfasada — no pareja simétrica */
+      .act2-island {
+        position: absolute;
+        top: 860px;
+        left: 420px;
+        width: 400px;
+      }
+
+      .act2 {
+        margin: 0;
+        padding: 0 0 10px;
+        border-bottom: 1px solid var(--eve-line);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.45;
+        color: color-mix(in srgb, var(--eve-mist) 70%, transparent);
+      }
+
+      .more {
+        position: absolute;
+        top: 940px;
+        left: 420px;
+        margin: 0;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 48%, transparent);
+      }
+
+      /* Segunda área: solo un punto en el void SE — sin form */
+      .latent {
+        position: absolute;
+        bottom: 160px;
+        right: 72px;
+        width: 140px;
+        text-align: right;
+      }
+
+      .latent-n {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        line-height: 1.5;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 72%, var(--eve-ink));
+      }
+
+      .latent-dot {
+        display: block;
+        width: 3px;
+        height: 3px;
+        margin: 12px 0 0 auto;
+        background: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+        border-radius: 0;
+      }
+
+      .rule {
+        position: absolute;
+        bottom: 56px;
+        left: 88px;
+        margin: 0;
+        max-width: 34ch;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        line-height: 1.65;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 50%, transparent);
+      }
+
+      .trace {
+        position: absolute;
+        bottom: 56px;
+        left: 52%;
+        border: 0;
+        border-bottom: 1px solid color-mix(in srgb, var(--eve-mist) 40%, var(--eve-line));
+        background: transparent;
+        color: color-mix(in srgb, var(--eve-mist) 65%, transparent);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0 0 5px;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 16px;
+        left: 56px;
+        font-size: 6px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 45%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Mock v4 — Mapa · constelación asimétrica">
+      <span class="mark">EVE<sup>™</sup></span>
+      <div class="session">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <h1 class="q">¿Dónde participa tu trabajo?</h1>
+      <p class="whisper">
+        No buscamos tu departamento formal. Buscamos en qué parte de la operación tu
+        trabajo realmente interviene.
+      </p>
+
+      <!-- Constelación de áreas — posiciones irregulares -->
+      <p class="area a-ops is-on">Operaciones / Producción</p>
+      <p class="area a-id">I+D / Innovación</p>
+      <p class="area a-log">Logística / Entrega</p>
+      <p class="area a-ven is-on">Ventas / Comercial</p>
+      <p class="area a-tal">Gestión de Talento (RRHH)</p>
+      <p class="area a-fin">Finanzas y Tesorería</p>
+      <p class="area a-tec">Tecnología e Infraestructura</p>
+      <p class="area a-adm">Administración / Legal</p>
+      <p class="area a-mkt">Marketing Estratégico</p>
+      <p class="area a-est">Planeación y Estrategia</p>
+      <p class="area a-otr">Otra área</p>
+
+      <!-- Islas de escritura desfasadas — no stack -->
+      <section class="resp-island">
+        <p class="resp-area">Operaciones / Producción</p>
+        <p class="resp-q">De qué respondes en Operaciones / Producción</p>
+        <p class="resp-write">
+          Asegurar que la línea de ensamble cumpla el plan diario de producción sin
+          detener entregas.
+        </p>
+      </section>
+
+      <section class="act1-island">
+        <p class="acts-q">Qué haces para cumplirlo</p>
+        <p class="act1">
+          1. Revisar el tablero de órdenes y liberar la secuencia del turno.
+        </p>
+      </section>
+
+      <section class="act2-island">
+        <p class="act2">2. Redacta una actividad concreta de tu trabajo</p>
+      </section>
+      <p class="more">+ Agregar otra actividad</p>
+
+      <aside class="latent">
+        <p class="latent-n">Ventas / Comercial</p>
+        <span class="latent-dot" aria-hidden="true"></span>
+      </aside>
+
+      <p class="rule">
+        Escribe al menos una responsabilidad y dos actividades por cada área elegida.
+      </p>
+      <button class="trace" type="button">Guardar</button>
+      <p class="proposal-tag">Mock v4 · mapa · constelación asimétrica · anti-formulario · copy oficial</p>
+    </section>
+  </body>
+</html>

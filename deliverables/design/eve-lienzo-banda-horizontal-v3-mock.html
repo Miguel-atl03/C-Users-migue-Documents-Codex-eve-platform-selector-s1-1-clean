@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Banda horizontal · mock v3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1100px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .registry {
+        position: absolute;
+        top: 36px;
+        left: 72px;
+        right: 72px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .registry-mark {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .registry-mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .void-line-h {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        height: 1px;
+        background: var(--eve-line);
+        opacity: 0.5;
+      }
+
+      .void-line-h.top {
+        top: 108px;
+      }
+
+      .monument {
+        position: absolute;
+        top: 148px;
+        left: 72px;
+        max-width: 480px;
+      }
+
+      .monument-line {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 56px;
+        font-weight: 600;
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+      }
+
+      .monument-line em {
+        display: block;
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      .monument-sub {
+        margin: 24px 0 0;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .meta {
+        position: absolute;
+        top: 148px;
+        right: 72px;
+        text-align: right;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 2;
+      }
+
+      .room {
+        position: absolute;
+        top: 420px;
+        left: 72px;
+        margin: 0;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-ink) 55%, var(--eve-mist));
+      }
+
+      /* Bandas: filas con huecos enormes — no columnas */
+      .band {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+      }
+
+      .band-q {
+        margin: 0 0 18px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 42ch;
+      }
+
+      .band-row {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 48px;
+        width: 100%;
+      }
+
+      .band-row .mark {
+        flex: 0 1 auto;
+        margin: 0;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        max-width: 22ch;
+      }
+
+      .band-row .mark.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .band-a {
+        top: 520px;
+      }
+
+      .band-a .band-row-2 {
+        margin-top: 56px;
+        padding-left: 120px;
+        padding-right: 80px;
+      }
+
+      .band-a .band-row-3 {
+        margin-top: 56px;
+        padding-left: 40px;
+        padding-right: 200px;
+      }
+
+      .band-b {
+        top: 780px;
+      }
+
+      .band-b .band-row-2 {
+        margin-top: 56px;
+        padding-left: 160px;
+        padding-right: 40px;
+      }
+
+      .band-rail {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        height: 1px;
+        background: var(--eve-line);
+        opacity: 0.28;
+      }
+
+      .band-rail.r1 {
+        top: 500px;
+      }
+
+      .band-rail.r2 {
+        top: 760px;
+      }
+
+      .trace {
+        position: absolute;
+        bottom: 52px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 0;
+        border-bottom: 1px solid var(--eve-ink);
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 0 0 5px;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 18px;
+        left: 72px;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Mock — bandas horizontales con void">
+      <header class="registry">
+        <span class="registry-mark">EVE<sup>™</sup></span>
+        <span>Strategic &amp; Operational Architecture / Enterprise Viability Engine</span>
+      </header>
+
+      <div class="void-line-h top" aria-hidden="true"></div>
+      <div class="band-rail r1" aria-hidden="true"></div>
+      <div class="band-rail r2" aria-hidden="true"></div>
+
+      <div class="monument">
+        <h1 class="monument-line">
+          Lo que sostiene
+          <em>no siempre se ve.</em>
+        </h1>
+        <p class="monument-sub">Una forma distinta de mirar.</p>
+      </div>
+
+      <div class="meta">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <p class="room">[ Comienza tu levantamiento ]</p>
+
+      <section class="band band-a">
+        <p class="band-q">¿Desde qué lugar participas normalmente en la empresa?</p>
+        <div class="band-row">
+          <p class="mark is-on">Soy dueño/a, socio/a o parte de la dirección general.</p>
+          <p class="mark">Estoy a cargo o dirijo un área.</p>
+          <p class="mark">Superviso o coordino el trabajo de otras personas.</p>
+        </div>
+        <div class="band-row band-row-2">
+          <p class="mark">Analizo información, datos o procesos.</p>
+          <p class="mark">Apoyo en administración, ventas, producción, atención o soporte.</p>
+        </div>
+        <div class="band-row band-row-3">
+          <p class="mark">Participo como externo, asesor o proveedor.</p>
+          <p class="mark">Otro.</p>
+        </div>
+      </section>
+
+      <section class="band band-b">
+        <p class="band-q">¿Qué tan cerca estás de las decisiones?</p>
+        <div class="band-row">
+          <p class="mark">Las tomo directamente.</p>
+          <p class="mark is-on">Participo en decidirlas.</p>
+          <p class="mark">Las propongo o las preparo.</p>
+        </div>
+        <div class="band-row band-row-2">
+          <p class="mark">Las ejecuto cuando ya fueron decididas.</p>
+          <p class="mark">Las vivo como impacto, pero no participo mucho en decidirlas.</p>
+        </div>
+      </section>
+
+      <button class="trace" type="button">Guardar</button>
+      <p class="proposal-tag">Mock v3 · banda horizontal · huecos enormes · sin stack vertical</p>
+    </section>
+  </body>
+</html>

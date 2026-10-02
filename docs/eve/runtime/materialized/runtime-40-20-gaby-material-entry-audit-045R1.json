@@ -1,0 +1,141 @@
+{
+  "instruction": "045-R1",
+  "artifact": "runtime-40-20-gaby-material-entry-audit-045R1",
+  "audit_mode": "read_only_checkout",
+  "checkout_root": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform-operational-baseline-c312\\external-consumers\\eve-platform",
+  "remote_contact": {
+    "staging_consulted": false,
+    "production_consulted": false
+  },
+  "gaby_entry": {
+    "ui_entry": "src/app/page.tsx",
+    "first_authenticated_context_call": "GET /api/participant/context",
+    "first_material_runtime_related_boundary": "POST /api/participant/workmap/finalize",
+    "first_current_question_boundary": "POST /api/scenes/bootstrap",
+    "first_current_answer_boundary": "POST /api/scenes/answers",
+    "evidence": [
+      "src/app/page.tsx:600-640",
+      "src/app/page.tsx:1025-1075",
+      "src/app/page.tsx:1977-2009",
+      "src/app/page.tsx:2364-2375"
+    ]
+  },
+  "material_components": [
+    {
+      "component": "Participant context resolver",
+      "path": "src/lib/participant-context.ts",
+      "function": "resolveAuthenticatedParticipantContext",
+      "calls_in": [
+        "src/app/api/participant/context/route.ts",
+        "src/app/api/session/bootstrap/route.ts",
+        "src/app/api/participant/workmap/finalize/route.ts"
+      ],
+      "tables_or_rpcs": [
+        "usuarios",
+        "case_participants",
+        "case_participant_positions",
+        "case_participant_profiles",
+        "sesiones_llenado",
+        "empresas",
+        "client_relationships"
+      ],
+      "classification": "implemented_and_connected",
+      "evidence": [
+        "src/lib/participant-context.ts:114-275"
+      ]
+    },
+    {
+      "component": "Workmap finalization and Runtime session/run preparation",
+      "path": "src/app/api/participant/workmap/finalize/route.ts",
+      "function": "POST",
+      "calls_in": [
+        "src/app/page.tsx:1054"
+      ],
+      "tables_or_rpcs": [
+        "materialize_case_participant_profiles_from_workmap",
+        "case_participant_workmap_snapshots",
+        "case_participant_profiles",
+        "create_role_runtime_session_for_profile",
+        "role_runtime_session",
+        "activity_selection_results",
+        "activity_selection_result_items",
+        "activity_runtime_run"
+      ],
+      "classification": "implemented_and_connected_for_pre_runtime_identity",
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:112-229",
+        "src/app/api/participant/workmap/finalize/route.ts:232-383",
+        "src/app/api/participant/workmap/finalize/route.ts:421-527"
+      ]
+    },
+    {
+      "component": "Scene questionnaire runner",
+      "path": "src/components/SceneQuestionnaireRunner.tsx",
+      "function": "SceneQuestionnaireRunner",
+      "calls_in": [
+        "src/app/page.tsx:2364-2375"
+      ],
+      "tables_or_rpcs": [],
+      "classification": "implemented_and_connected_legacy_question_ui",
+      "evidence": [
+        "src/components/SceneQuestionnaireRunner.tsx:244-260",
+        "src/components/SceneQuestionnaireRunner.tsx:281-291",
+        "src/components/SceneQuestionnaireRunner.tsx:354-413"
+      ]
+    },
+    {
+      "component": "Scene answer persistence",
+      "path": "src/services/scene-repository.ts",
+      "function": "saveSceneQuestionAnswers",
+      "calls_in": [
+        "src/app/api/scenes/answers/route.ts"
+      ],
+      "tables_or_rpcs": [
+        "scene_question_answers",
+        "scene_answer_provenance"
+      ],
+      "classification": "implemented_and_connected_legacy_answer_persistence",
+      "evidence": [
+        "src/app/api/scenes/answers/route.ts:17-70",
+        "src/services/scene-repository.ts:170-274"
+      ]
+    },
+    {
+      "component": "Runtime 40/20 Client BFF",
+      "path": "src/app/api/eve/runtime-40-20/client-bff",
+      "function": "state/session/interaction/answer/review/experience-event routes",
+      "calls_in": [
+        "src/app/page.tsx calls only experience-event"
+      ],
+      "tables_or_rpcs": [
+        "eve_can_access_case",
+        "eve_record_experience_event_as_user",
+        "local runtime adapter when flags enabled"
+      ],
+      "classification": "implemented_not_connected_to_current_question_flow",
+      "evidence": [
+        "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff-types.ts:243-284",
+        "src/app/page.tsx:721-763",
+        "src/app/api/eve/runtime-40-20/client-bff/experience-event/route.ts:110-144"
+      ]
+    }
+  ],
+  "tests_executed": [
+    {
+      "command": "node --test src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff.test.mjs",
+      "result": "failed_expected_guard",
+      "summary": "38 passed, 1 failed: forbidden direct Supabase import in client-bff answer route"
+    }
+  ],
+  "files_modified_by_this_instruction": [
+    "docs/eve/runtime/materialized/runtime-40-20-gaby-material-entry-audit-045R1.json",
+    "docs/eve/runtime/materialized/runtime-40-20-gaby-material-entry-audit-045R1.md",
+    "docs/eve/runtime/materialized/runtime-40-20-gaby-identity-chain-045R1.json",
+    "docs/eve/runtime/materialized/runtime-40-20-gaby-current-question-flow-045R1.json",
+    "docs/eve/runtime/materialized/runtime-40-20-gaby-client-bff-audit-045R1.json",
+    "docs/eve/runtime/materialized/runtime-40-20-gaby-runtime-coupling-candidates-045R1.json",
+    "docs/eve/runtime/materialized/runtime-40-20-gaby-runtime-contract-gap-045R1.json"
+  ],
+  "final_classification": "existing_real_boundary_partial_contract_gap",
+  "next_gap": "gaby_runtime_bff_scope_and_security_contract_required"
+}

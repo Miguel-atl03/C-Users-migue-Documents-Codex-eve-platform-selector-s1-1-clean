@@ -1,0 +1,32 @@
+{
+  "execution_id": "EVE_PRODUCTION_ACTIVATION_P0_P1R_BLOCKER_REMEDIATION_V1",
+  "executed_at": "2026-07-07T18:50:00-06:00",
+  "commands": [
+    {
+      "command": "npx tsc --noEmit --pretty false",
+      "cwd": "external-consumers/eve-platform",
+      "exit_code": 0,
+      "status": "passed",
+      "errors_remaining": 0
+    },
+    {
+      "command": "npm run build",
+      "cwd": "C:/eve/platform",
+      "exit_code": 0,
+      "status": "passed",
+      "path_used": "C:/eve/platform",
+      "path_length_blocker_resolved": true,
+      "note": "Build fails from long workspace path; passes from short-path working copy after sync."
+    },
+    {
+      "command": "node --test src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane.test.mjs",
+      "cwd": "external-consumers/eve-platform",
+      "exit_code": 0,
+      "status": "passed",
+      "tests": 885,
+      "pass": 885,
+      "fail": 0,
+      "duration_ms": 135884
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "audit_id": "EVE_ORGANISM_SHADOW_E2E_OFFLINE_HARNESS_POST_COMMIT_VERIFY_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "POST_COMMIT_VERIFY_SHADOW_E2E_PASSED_READY_FOR_REAL_OBSERVATION_PREFLIGHT",
+  "commit": {
+    "hash": "6022c42ceac35861ea287d5602120dad0b2d27b7",
+    "author": "Miguel-atl03 <miguel_atalav@gmail.com>",
+    "author_date": "Wed Jun 24 15:31:16 2026 -0600",
+    "committer": "Miguel-atl03 <miguel_atalav@gmail.com>",
+    "commit_date": "Wed Jun 24 15:31:16 2026 -0600",
+    "subject": "chore(eve-organism): add shadow e2e offline harness",
+    "body": "Adds fixture/replay adapter for Shadow E2E offline validation. Maps observed signals into Composition Root Shadow commands. Adds official-vs-shadow comparison without side effects. Adds regression coverage for mapper, no-cableado, blockers, batch replay and tenant separation. Does not connect WorkMap, Significado, runtime, DB, Supabase, registry, export, diagnosis or UI.",
+    "files_total": 5,
+    "files_in_allowlist": 5,
+    "files_outside_allowlist": 0,
+    "files": [
+      "src/types/eve-organism-shadow-e2e.ts",
+      "src/services/eve-organism-shadow-e2e-adapter.ts",
+      "tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+      "docs/audits/AUDIT_EVE_ORGANISM_SHADOW_E2E_HARNESS_V1.md",
+      "docs/audits/_eve_organism_shadow_e2e_harness_v1.json"
+    ],
+    "forbidden_files_committed": []
+  },
+  "harness_artifacts": {
+    "all_exist": true,
+    "audit_json_parse_ok": true,
+    "dictamen": "SHADOW_E2E_OFFLINE_HARNESS_PASSED_WITH_NON_BLOCKING_WARNINGS",
+    "scenarios_total": 40,
+    "scenarios_passed": 40,
+    "scenarios_failed": 0,
+    "test_result_passed": true
+  },
+  "adapter_verification": {
+    "imports_composition_root_shadow": true,
+    "forbidden_imports_passed": true,
+    "no_ui_app_components": true,
+    "no_supabase": true,
+    "no_db_client": true,
+    "no_registry_export_productive": true,
+    "no_fetch": true,
+    "no_sql": true,
+    "no_fs_write": true,
+    "no_process_env_required": true,
+    "no_workmap_touch": true,
+    "no_significado_touch": true,
+    "no_runtime_activation": true,
+    "no_registry_write": true,
+    "no_final_export": true,
+    "no_diagnosis_enablement": true
+  },
+  "types_verification": {
+    "EveOrganismShadowE2EObservedSignal": true,
+    "EveOrganismShadowE2EComparison": true,
+    "EveOrganismShadowE2EResult": true,
+    "observationMode": true,
+    "signalKind": true,
+    "sideEffectPolicy": true
+  },
+  "test": {
+    "command": "node --test tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+    "passed": true,
+    "summary": "44 passed / 0 failed",
+    "module_typeless_package_json_warning": "non_blocking"
+  },
+  "no_cableado": {
+    "registry_write_allowed": false,
+    "final_export_allowed": false,
+    "diagnosis_allowed": false,
+    "db_write_allowed": false,
+    "ui_touch_allowed": false,
+    "production_authority_allowed": false,
+    "runtime_mutation_allowed": false,
+    "supabase_required": false,
+    "officialFlowUntouched": true
+  },
+  "scope": {
+    "fixture_replay_offline_only": true,
+    "real_traffic_connected": false,
+    "WorkMap_connected": false,
+    "Significado_connected": false,
+    "runtime_connected": false,
+    "DB_touched": false,
+    "registry_written": false,
+    "export_produced": false,
+    "diagnosis_enabled": false,
+    "UI_touched": false
+  },
+  "post_commit_status": {
+    "dirty_tree_remaining": true,
+    "dirty_tree_entries_count_approximate": 864,
+    "staged_remaining": false,
+    "staged_count": 0
+  },
+  "created_files": [
+    "docs/audits/AUDIT_EVE_ORGANISM_SHADOW_E2E_OFFLINE_HARNESS_POST_COMMIT_VERIFY_V1.md",
+    "docs/audits/_eve_organism_shadow_e2e_offline_harness_post_commit_verify_v1.json"
+  ],
+  "next_step": "REAL_OBSERVATION_SHADOW_E2E_PREFLIGHT_V1"
+}

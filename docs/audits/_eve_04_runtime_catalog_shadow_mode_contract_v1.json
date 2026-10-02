@@ -1,0 +1,177 @@
+{
+  "contractId": "EVE-04-RUNTIME-CATALOG-SHADOW-MODE-CONTRACT-V1",
+  "chipId": "EVE-04-RUNTIME-CATALOG",
+  "mode": "runtime_catalog_shadow",
+  "status": "design_only",
+  "disabledByDefault": true,
+  "invocation": {
+    "allowedInvokers": [
+      "future_static_test",
+      "future_dev_harness"
+    ],
+    "forbiddenInvokers": [
+      "runtime_productivo",
+      "workmap_productivo",
+      "significado_productivo",
+      "eve_brain",
+      "registry_export",
+      "production_ui"
+    ],
+    "sideEffectsAllowed": false,
+    "userBlockingAllowed": false,
+    "payloadMutationAllowed": false
+  },
+  "inputContract": {
+    "typeName": "RuntimeCatalogEvaluationInput",
+    "requiredFields": {
+      "mode": "runtime_catalog_shadow",
+      "queryType": [
+        "resolve_runtime_interaction",
+        "resolve_base_interaction",
+        "resolve_causal_interaction",
+        "validate_ux_subfield_structure",
+        "validate_branching_rule",
+        "validate_branching_score",
+        "validate_readiness_reentry",
+        "validate_source_coverage",
+        "validate_ccov_001",
+        "validate_cvar_001",
+        "detect_runtime_catalog_gap",
+        "validate_no_runtime_authority"
+      ]
+    },
+    "optionalFields": [
+      "runtimeInteractionId",
+      "sourceNodeId",
+      "sourceCode",
+      "variableId",
+      "branchRuleId",
+      "readinessState",
+      "evidenceRefs",
+      "sourceTrace",
+      "requestedOutputType",
+      "context"
+    ],
+    "rejectionRules": [
+      {
+        "ruleId": "RC-SHADOW-IN-001",
+        "condition": "mode != runtime_catalog_shadow",
+        "result": "manual_review_required"
+      },
+      {
+        "ruleId": "RC-SHADOW-IN-002",
+        "condition": "requestedOutputType in [diagnosis, IR, final_export, registry_write]",
+        "result": "blocked_action"
+      },
+      {
+        "ruleId": "RC-SHADOW-IN-003",
+        "condition": "queryType requires provenance and sourceTrace/evidenceRefs are missing",
+        "result": "runtime_catalog_reference_missing"
+      }
+    ]
+  },
+  "outputContract": {
+    "typeName": "RuntimeCatalogEvaluationResult",
+    "fields": [
+      "version",
+      "mode",
+      "chipId",
+      "queryType",
+      "readinessState",
+      "resolved",
+      "resolvedEntity",
+      "missingReferences",
+      "gapFlags",
+      "sourceTrace",
+      "evidenceRefs",
+      "allowedActions",
+      "blockedActions",
+      "requiredInputs",
+      "findings",
+      "auditEvents",
+      "safetyFlags",
+      "documentarySatisfaction"
+    ],
+    "forbiddenOutputFields": [
+      "runtimeReadinessFinal",
+      "diagnosis",
+      "IR",
+      "finalExport",
+      "registryWritePayload",
+      "catalogMutation",
+      "newRuntimeInteraction",
+      "workmapMutation",
+      "significadoMutation",
+      "eveBrainConnection"
+    ]
+  },
+  "readinessStates": [
+    "runtime_catalog_lookup_ready",
+    "runtime_catalog_lookup_not_found",
+    "runtime_catalog_reference_valid",
+    "runtime_catalog_reference_missing",
+    "runtime_catalog_gap_detected",
+    "branching_rule_allows",
+    "branching_rule_blocks",
+    "causal_budget_available",
+    "causal_budget_exhausted",
+    "readiness_state_valid",
+    "readiness_state_invalid",
+    "documentary_satisfaction_confirmed",
+    "documentary_satisfaction_broken",
+    "manual_review_required",
+    "reentry_required"
+  ],
+  "readinessStateScopeNote": "Internal shadow signals only. They are not productive gates and do not represent final Runtime readiness.",
+  "allowedActions": [
+    "return_shadow_trace",
+    "return_resolved_catalog_entity",
+    "return_missing_reference_list",
+    "return_gap_flags",
+    "return_documentary_satisfaction_snapshot",
+    "return_safety_flags"
+  ],
+  "blockedActions": [
+    "block_user_flow",
+    "modify_payload",
+    "write_registry",
+    "modify_catalog",
+    "trigger_runtime",
+    "trigger_diagnosis",
+    "trigger_export",
+    "connect_eve_brain",
+    "mutate_workmap",
+    "mutate_significado",
+    "create_runtime_interaction"
+  ],
+  "safetyFlags": {
+    "canBlockUserFlow": false,
+    "canModifyPayload": false,
+    "canWriteRegistry": false,
+    "canModifyCatalog": false,
+    "canTriggerRuntime": false,
+    "canTriggerDiagnosis": false,
+    "canTriggerExport": false,
+    "canConnectEveBrain": false,
+    "runtimeAuthority": false
+  },
+  "documentarySatisfaction": {
+    "source": "docs/audits/_eve_04_runtime_catalog_documentary_satisfaction_matrix_v1.json",
+    "globalSatisfactionStatus": "satisfactory",
+    "mismatches": 0,
+    "missingInChip": 0,
+    "missingInSource": 0,
+    "pendingSourceProof": 0,
+    "protectedItems": [
+      "runtime_interactions_base_40",
+      "runtime_interactions_causal_20",
+      "ux_subfield_structure",
+      "branching_budget_rules",
+      "readiness_gaps_reentry",
+      "source coverage",
+      "documentary satisfaction",
+      "CCOV-001",
+      "CVAR-001"
+    ]
+  }
+}

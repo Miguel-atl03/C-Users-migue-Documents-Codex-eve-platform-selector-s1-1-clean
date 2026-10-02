@@ -1,0 +1,142 @@
+{
+  "auditId": "CHIP-RECTOR-EVE-00-METHOD-KERNEL-OVERLAP-AUDIT-V1",
+  "dictamen": "METHOD_KERNEL_SOURCE_MISSING",
+  "records": [
+    {
+      "chipArea": "MMABP conformance kernel",
+      "existingArtifact": "src/domain/primary-activity-selection-policy.v1.3.ts",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "medium",
+      "description": "Primary Activity Selection v1.3 selects which WorkMap activities enter Runtime 40/20; Method Kernel validates method conformance of PM, MoC, PF and OLC after evidence exists.",
+      "recommendation": "Keep selection authority in v1.3. Method Kernel must not select, rank or reselect activities."
+    },
+    {
+      "chipArea": "MMABP conformance kernel",
+      "existingArtifact": "src/services/primary-activity-selector.ts",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "medium",
+      "description": "The selector already owns competitive selection, reentry for no eligible activities and non-primary context preservation.",
+      "recommendation": "Use Method Kernel only after selected activity evidence is available; do not call it from selection scoring."
+    },
+    {
+      "chipArea": "readiness_decision",
+      "existingArtifact": "src/features/runtime/catalog/runtime-40-20.manifest.json",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "high",
+      "description": "Method Kernel declares readiness states and an execution pipeline, while Runtime 40/20 already owns runtime budget, readiness and block catalog authority.",
+      "recommendation": "Rename Method Kernel readiness as methodological readiness or map it explicitly to Runtime readiness without replacing Runtime gates."
+    },
+    {
+      "chipArea": "readiness/reentry states",
+      "existingArtifact": "docs/runtime/runtime-40-20-machine-readable-map.md",
+      "overlapType": "authority_overlap",
+      "riskLevel": "high",
+      "description": "The chip can block or request reentry, which may conflict with Runtime 40/20 readiness/reentry if wired as an executable gate too early.",
+      "recommendation": "Before wiring, define a one-way boundary: Method Kernel emits advisory conformance status; Runtime remains final execution gate."
+    },
+    {
+      "chipArea": "FND-007/FND-008",
+      "existingArtifact": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "medium",
+      "description": "FND-007 and FND-008 use D4 as boundary source for epistemology/readiness. This is acceptable as boundary language but risky if it becomes runtime execution logic.",
+      "recommendation": "Keep D4/D5 references as compatibility boundaries only; add explicit no-runtime-gate wording."
+    },
+    {
+      "chipArea": "FND-008 output gate",
+      "existingArtifact": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "overlapType": "authority_overlap",
+      "riskLevel": "high",
+      "description": "FND-008 says outputs must pass candidates, conformance, consistency and readiness before registry, IR, export or Produccion Paralela; this touches runtime output contract territory.",
+      "recommendation": "Constrain FND-008 to methodological precondition language and leave concrete runtime output gates to Runtime 40/20."
+    },
+    {
+      "chipArea": "B0 evidence entry",
+      "existingArtifact": "src/features/runtime/block0/block0.catalog.json",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "medium",
+      "description": "Runtime B0 captures semantic preload, confirmation, operational description and readiness effects. Method Kernel needs evidence but should not replace B0 capture.",
+      "recommendation": "Method Kernel may consume B0 evidence records only after B0 completes; it must not define B0 questions or UI."
+    },
+    {
+      "chipArea": "B0 catalog adapter",
+      "existingArtifact": "src/services/runtime-block0-catalog-adapter.ts",
+      "overlapType": "no_overlap",
+      "riskLevel": "low",
+      "description": "The adapter converts B0 catalog records into interaction view models. Method Kernel is a methodological validator, not an adapter.",
+      "recommendation": "No direct wiring to adapter in this phase."
+    },
+    {
+      "chipArea": "WorkMap boundary",
+      "existingArtifact": "docs/workmap/workmap-writing-assistance-chip.md",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "medium",
+      "description": "WorkMap Writing Assistance is documented-not-wired and supports responsibility/activity wording. Method Kernel validates model conformance later.",
+      "recommendation": "Do not use Method Kernel to alter WorkMap copy assistance or H12 coverage-only behavior."
+    },
+    {
+      "chipArea": "WorkMap comparison audit",
+      "existingArtifact": "docs/audits/_workmap_writing_assistance_doc_to_code_comparison_v1.json",
+      "overlapType": "no_overlap",
+      "riskLevel": "low",
+      "description": "The WorkMap audit explicitly says no runtimeAuthority and no executable validator. Method Kernel should not reinterpret it as runtime authority.",
+      "recommendation": "Keep both artifacts separate; Method Kernel cannot certify WorkMap chip wiring."
+    },
+    {
+      "chipArea": "ASRO/operational description",
+      "existingArtifact": "docs/significado/canon/operational-description-brain.md",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "medium",
+      "description": "Operational description canon shapes literal activity description and may provide evidence consumed by Method Kernel.",
+      "recommendation": "Method Kernel may validate downstream model candidates, but must not rewrite ASRO wording rules."
+    },
+    {
+      "chipArea": "ASRO executable canon",
+      "existingArtifact": "src/features/significado/operational-description-canon.ts",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "medium",
+      "description": "The executable canon owns operational description structure. Method Kernel's evidence requirements could be confused with ASRO capture requirements.",
+      "recommendation": "Map evidence fields explicitly before wiring; do not add kernel blockers into the description assistant."
+    },
+    {
+      "chipArea": "Document transduction QA",
+      "existingArtifact": "docs/architecture/DOCUMENT_TRANSDUCTION_QA_STANDARD_V1.md",
+      "overlapType": "complementary_boundary",
+      "riskLevel": "low",
+      "description": "Document Transduction QA governs fidelity states and source mapping. Method Kernel is itself subject to that policy.",
+      "recommendation": "Apply QA policy to Method Kernel package before any runtimeAuthority registration."
+    },
+    {
+      "chipArea": "Document transduction policy implementation",
+      "existingArtifact": "src/config/document-transduction-qa-policy.ts",
+      "overlapType": "no_overlap",
+      "riskLevel": "low",
+      "description": "The policy code classifies transduction status; Method Kernel should not duplicate that classifier.",
+      "recommendation": "Use the policy as external governance, not as a rule inside Method Kernel."
+    },
+    {
+      "chipArea": "Rector docs registry",
+      "existingArtifact": "src/config/rector-docs-registry.ts",
+      "overlapType": "authority_overlap",
+      "riskLevel": "high",
+      "description": "Registering this chip as runtimeAuthority would imply executable authority while D1 is missing and package inconsistencies remain.",
+      "recommendation": "Do not register runtimeAuthority. Keep candidate not wired until source and package issues are resolved."
+    },
+    {
+      "chipArea": "Diagnostic/pathology boundary",
+      "existingArtifact": "EVE diagnostic/pathology mapper stage",
+      "overlapType": "needs_manual_review",
+      "riskLevel": "medium",
+      "description": "The package says pathology hints are null and diagnostic output is disabled in stage 00. This is internally aligned, but future wiring could let blocker states look like diagnostic conclusions.",
+      "recommendation": "Use neutral methodological statuses only; do not emit pathology labels or diagnostic ontology from this chip."
+    },
+    {
+      "chipArea": "Produccion Paralela boundary",
+      "existingArtifact": "Produccion Paralela / Capa 1 runtime boundary",
+      "overlapType": "semantic_overlap",
+      "riskLevel": "medium",
+      "description": "FND-008 mentions Produccion Paralela as downstream consumer boundary.",
+      "recommendation": "Keep this as a precondition statement only. The chip must not execute, orchestrate or export Produccion Paralela."
+    }
+  ]
+}

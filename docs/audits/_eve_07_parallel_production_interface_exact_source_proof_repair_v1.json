@@ -1,0 +1,128 @@
+{
+  "auditId": "EVE07-WORKBENCH-CONTENT-REPAIR-V1",
+  "dictamen": "PARALLEL_PRODUCTION_INTERFACE_WORKBENCH_CONTENT_REPAIRED_READY_FOR_INDEPENDENT_QA_RERUN",
+  "proofUnitsExpectedForRepair": 3,
+  "proofUnitsPrepared": 3,
+  "pendingSourceProofInWorkbenchRegistry": 0,
+  "independentQaRequired": true,
+  "genericLocatorsAccepted": false,
+  "directD1PrimaryProofsRemaining": 0,
+  "entries": [
+    {
+      "rule_id": "REGC-006",
+      "module": "registry_candidate",
+      "before": {
+        "primary_source_id": "D1",
+        "qa_status": "pending_source_proof"
+      },
+      "after": {
+        "primary_source_id": "D5",
+        "qa_candidate_status": "ready_for_independent_verification"
+      },
+      "primary_proof": {
+        "source_ref": "D5:10/Table13/R5/C3",
+        "source_id": "D5",
+        "source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "source_document_sha256": "fcda44fc8990ef0d19379c3425afb4a69186f6961a6f99d541d170826da1e318",
+        "source_kind": "docx_table_cell",
+        "source_locator": "heading \"10. Contrato de salida hacia Producción Paralela\"; table 13, row 5, column \"Restricción\"",
+        "source_excerpt": "PM Registry Candidates | Proceso, cliente, necesidad, trigger, estado objetivo, soporte, sincronización. | No fusionar PM con PF.",
+        "source_excerpt_sha256": "25d3fd60b904c72ec6bd7ab128274a301721386564865ed31eb9717a02124ebd",
+        "verification_status": "EXACT_SOURCE_PROOF_CANDIDATE",
+        "transduction_class": "transduced_structured"
+      },
+      "contextual_guards": [
+        {
+          "source_ref": "D1:2.2.6/2.3.6",
+          "source_id": "D1",
+          "source_role": "methodological_guard_only",
+          "source_locator": "physical pages 67 and 117; sections 2.2.6 and 2.3.6",
+          "note": "Context for process-map/process-flow separation; not used as direct proof of the PM/PF registry boundary."
+        }
+      ],
+      "semantic_meaning_changed": false
+    },
+    {
+      "rule_id": "REGC-011",
+      "module": "registry_candidate",
+      "before": {
+        "primary_source_id": "D1",
+        "qa_status": "pending_source_proof"
+      },
+      "after": {
+        "primary_source_id": "D5",
+        "qa_candidate_status": "ready_for_independent_verification"
+      },
+      "primary_proof": {
+        "source_ref": "D5:10/Table13/R7/C3",
+        "source_id": "D5",
+        "source_path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+        "source_document_sha256": "fcda44fc8990ef0d19379c3425afb4a69186f6961a6f99d541d170826da1e318",
+        "source_kind": "docx_table_cell",
+        "source_locator": "heading \"10. Contrato de salida hacia Producción Paralela\"; table 13, row 7, column \"Restricción\"",
+        "source_excerpt": "PF Registry Candidates | Tareas, eventos, handoffs, gateways, Process States, timers. | No swimlanes; cada tarea produce objeto en estado específico.",
+        "source_excerpt_sha256": "2a48c56fa436c25aaac804e7d3fd2dc65353014ab41ad5d4ff50a258398e62c0",
+        "verification_status": "EXACT_SOURCE_PROOF_CANDIDATE",
+        "transduction_class": "transduced_structured"
+      },
+      "contextual_guards": [
+        {
+          "source_ref": "D1:2.3.3",
+          "source_id": "D1",
+          "source_role": "methodological_guard_only",
+          "source_path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/sources/Fundamentals of Business Architecture Modeling.pdf",
+          "source_document_sha256": "3dd3485afa518244cb600b4c479cad0ea11f242e88e4204b9422739ddf843147",
+          "source_locator": "physical page 83, section 2.3.3",
+          "source_excerpt": "In the case of swim lanes, it is even worse. The entire flow of the modelled process has to be subordinated to how the individual swim lanes are organized.",
+          "source_excerpt_sha256": "19f3071b1c8f6c7f0c8a6a861927bde4ce7d03cab5556e950e2d87566253a917",
+          "note": "Supports why swimlanes are hazardous; D5 remains the direct operational proof."
+        }
+      ],
+      "semantic_meaning_changed": false
+    },
+    {
+      "rule_id": "EXBE-013",
+      "module": "export_blockers",
+      "before": {
+        "primary_source_id": "D1",
+        "qa_status": "pending_source_proof"
+      },
+      "after": {
+        "primary_source_id": "EVE05",
+        "qa_candidate_status": "ready_for_independent_verification"
+      },
+      "primary_proof": {
+        "source_ref": "EVE05:$.modules.mmabp_conformance_gate.principles[4]",
+        "source_id": "EVE05",
+        "source_path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/EVE_05_Gate_Engine_v0_1.json",
+        "source_document_sha256": "7da3ab5891463bec6c1ffd90c410a3f6ee12e08d86827227d2a0ba7d62ecd9e4",
+        "source_kind": "json_pointer",
+        "source_locator": "$.modules.mmabp_conformance_gate.principles[4]",
+        "source_excerpt": "Ante inconsistencia, no se fuerza un modelo a parecer consistente; se identifica cual representacion contradice la realidad factual y se corrige. Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+        "source_excerpt_sha256": "463d2cc385532df7215d89710bef2597a8ea4f3e8faee74a98f7cd46907edd70",
+        "verification_status": "EXACT_SOURCE_PROOF_CANDIDATE",
+        "transduction_class": "transduced_structured"
+      },
+      "supporting_proofs": [
+        {
+          "source_ref": "EVE05:$.modules.mmabp_conformance_gate.engine_rules[4]",
+          "source_id": "EVE05",
+          "source_locator": "$.modules.mmabp_conformance_gate.engine_rules[4]",
+          "source_excerpt": "Sin alineación cosmética; la corrección se apoya en realidad factual."
+        }
+      ],
+      "contextual_guards": [
+        {
+          "source_ref": "D1:4.1-4.5",
+          "source_id": "D1",
+          "source_role": "methodological_guard_only",
+          "source_locator": "physical pages 192-225, sections 4.1-4.5",
+          "source_excerpt": "If any of the recorded rows shows an inconsistency ... it is necessary to review the models and decide which model is right (if any) and which has to be changed.",
+          "source_excerpt_sha256": "dec0841755335ebafe85a96b57f3dd88dcfbd07688e82337d8bdd4200383645f",
+          "note": "Context for conformance/consistency; EVE05 is the direct executable gate proof."
+        }
+      ],
+      "semantic_meaning_changed": false
+    }
+  ]
+}

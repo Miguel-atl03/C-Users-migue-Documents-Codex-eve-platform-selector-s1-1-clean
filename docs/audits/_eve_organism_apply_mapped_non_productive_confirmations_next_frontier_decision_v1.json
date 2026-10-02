@@ -1,0 +1,59 @@
+{
+  "dictamen": "APPLY_MAPPED_NON_PRODUCTIVE_CONFIRMATIONS_POST_COMMIT_CLOSEOUT_DONE",
+  "decision_id": "DECIDE_REMAINING_PHYSICAL_NON_PRODUCTIVE_ENVIRONMENT_VALUES_COMPLETION_PATH_V1",
+  "options_total": 4,
+  "recommended_option": "OPTION_A_USER_DECLARATIVE_PHYSICAL_VALUES",
+  "recommended_next_step": "CREATE_PHYSICAL_NON_PRODUCTIVE_ENVIRONMENT_VALUES_DECLARATION_TEMPLATE_V1",
+  "recommendation_reason": "Ya existe evidencia local sintética. El gap actual no es ejecución ni descubrimiento; son valores físicos declarativos no secretos que el usuario debe confirmar para no inventar evidencia.",
+  "options": [
+    {
+      "option_id": "OPTION_A_USER_DECLARATIVE_PHYSICAL_VALUES",
+      "description": "usuario completa valores físicos no secretos declarativos",
+      "allowed": true,
+      "risk": "medium",
+      "when_to_use": "si el entorno físico ya existe y el usuario puede declarar aliases/owners/paths sin secretos",
+      "next_step": "CREATE_PHYSICAL_NON_PRODUCTIVE_ENVIRONMENT_VALUES_DECLARATION_TEMPLATE_V1"
+    },
+    {
+      "option_id": "OPTION_B_LOCAL_ONLY_CONTINUE_WITHOUT_PHYSICAL_DB",
+      "description": "continuar solo con frontera local sintética, sin validar migración física",
+      "allowed": true,
+      "risk": "low",
+      "limitation": "no desbloquea ejecución física de migración",
+      "next_step": "CLOSE_NON_PRODUCTIVE_PHYSICAL_VALIDATION_AS_DEFERRED_AND_CONTINUE_LOCAL_SCOPE_V1"
+    },
+    {
+      "option_id": "OPTION_C_INSPECT_REPO_FOR_EXISTING_NON_SECRET_PHYSICAL_ENV_CONFIG_REFERENCES",
+      "description": "inspeccionar repo por referencias no secretas a configuración física",
+      "allowed": true,
+      "risk": "medium",
+      "restrictions": [
+        "no leer .env",
+        "no imprimir secretos",
+        "no usar credentials"
+      ],
+      "next_step": "INSPECT_NON_SECRET_PHYSICAL_ENVIRONMENT_REFERENCES_V1"
+    },
+    {
+      "option_id": "OPTION_D_EXECUTE_PHYSICAL_MIGRATION_VALIDATION_NOW",
+      "allowed": false,
+      "reason": "falta DB física no productiva confirmada, snapshot, rollback, approval y risk owner"
+    }
+  ],
+  "authority": {
+    "environment_created": false,
+    "db_connected": false,
+    "supabase_connected": false,
+    "migration_executed": false,
+    "sql_modified": false,
+    "observer_created": false,
+    "source_connected": false,
+    "real_table_read": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "contract_name": "ShadowOnlyRealObservationReadinessContract",
+  "mode": "DESIGN_ONLY",
+  "observer_created": false,
+  "observer_authorized": false,
+  "real_observation_authorized": false,
+  "read_only_observer_authorized": false,
+  "source_candidate": "shadow_only_outbox_events",
+  "source_connected": false,
+  "real_table_read": false,
+  "read_only_required": true,
+  "writes_allowed": false,
+  "registry_write_allowed": false,
+  "export_allowed": false,
+  "diagnosis_allowed": false,
+  "gate3_required": false,
+  "fase9_required": false,
+  "migration_execution_allowed": false,
+  "requires_shadow_outcome_contract": true,
+  "requires_non_productive_migration_validation": true,
+  "requires_tenant_boundary_proof": true,
+  "requires_provenance_proof": true,
+  "requires_idempotency_proof": true,
+  "requires_replay_protection": true,
+  "requires_rollback_plan": true,
+  "requires_algedonic_no_go": true,
+  "tenant_boundary_rules": [
+    "tenant_id must be present",
+    "cross-tenant reads must block",
+    "tenant scope must be proven before observer creation"
+  ],
+  "provenance_rules": [
+    "source trace must be present",
+    "shadowOutcome provenance must be present",
+    "record origin must be auditable"
+  ],
+  "idempotency_rules": [
+    "idempotency key must be present",
+    "duplicate key with divergent payload must block",
+    "replay path must not mutate source"
+  ],
+  "anti_write_rules": [
+    "no insert",
+    "no update",
+    "no delete",
+    "no upsert",
+    "no registry",
+    "no export",
+    "no diagnosis"
+  ]
+}

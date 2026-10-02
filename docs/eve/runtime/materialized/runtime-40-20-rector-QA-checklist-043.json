@@ -1,0 +1,133 @@
+{
+  "instruction": "Codex 043",
+  "source": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+  "separation_rule": "These 12 source rows have no qa_id and are not mapped to T-001…T-020.",
+  "gate_status": "not_executed_due_to_prior_gate_1_block",
+  "records": [
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 2,
+      "criterio": "Conteo base",
+      "prueba": "Contar filas Runtime_Interactions_Base_40.",
+      "umbral_de_aceptacion": "Exactamente 40 interacciones.",
+      "estado_esperado": "pass",
+      "evidence": "Literal row preserved in runtime-40-20-qa-manifest-031.json; no independent rector-row evaluation executed in 043.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 3,
+      "criterio": "Conteo causal",
+      "prueba": "Contar filas Runtime_Interactions_Causal_20.",
+      "umbral_de_aceptacion": "Exactamente 20 interacciones.",
+      "estado_esperado": "pass",
+      "evidence": "Literal row preserved in runtime-40-20-qa-manifest-031.json; no independent rector-row evaluation executed in 043.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 4,
+      "criterio": "Nodos fuente",
+      "prueba": "Validar source_nodes/source_codes no vacíos.",
+      "umbral_de_aceptacion": "0 vacíos.",
+      "estado_esperado": "pass",
+      "evidence": "Literal row preserved; canonicalization has related local logic, not an explicit row evaluator connected to staging.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 5,
+      "criterio": "MMABP",
+      "prueba": "Validar al menos una salida PM/MoC/PF/OLC/readiness por interacción.",
+      "umbral_de_aceptacion": "0 interacciones sin salida/protección.",
+      "estado_esperado": "pass",
+      "evidence": "Literal row preserved; no explicit 60-row threshold evaluator was found.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 6,
+      "criterio": "B3-Q22 corregido",
+      "prueba": "Buscar texto 'pide ajustes, solicita correcciones o rechaza' en B3-Q22.",
+      "umbral_de_aceptacion": "No debe estar en B3-Q22; feedback queda en C09.",
+      "estado_esperado": "pass",
+      "evidence": "Related local predicate exists in catalog canonicalization; no explicit rector-row staging evaluation executed.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 7,
+      "criterio": "C09 normalizado",
+      "prueba": "Variables C09 no duplican receiver_feedback/exists.",
+      "umbral_de_aceptacion": "Contiene 4 variables normalizadas.",
+      "estado_esperado": "pass",
+      "evidence": "Related local presence predicate exists; duplicate semantics are not independently evaluated.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 8,
+      "criterio": "B7/C20 exclusión",
+      "prueba": "Mutual exclusion en B7-Q39, B7-Q40 y C20.",
+      "umbral_de_aceptacion": "Definida y no rutinaria.",
+      "estado_esperado": "pass",
+      "evidence": "Semantic field is persisted; no explicit evaluator for the literal threshold was found.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 9,
+      "criterio": "Preguntas compuestas",
+      "prueba": "Subfield_structure definido para compuestas.",
+      "umbral_de_aceptacion": "Todas las compuestas con subcampos.",
+      "estado_esperado": "pass",
+      "evidence": "57 subfields are persisted; no explicit classifier-plus-threshold evaluator was found.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 10,
+      "criterio": "Epistemología",
+      "prueba": "must_not_infer no vacío por interacción.",
+      "umbral_de_aceptacion": "0 vacíos.",
+      "estado_esperado": "pass",
+      "evidence": "Semantic organ values are persisted separately from legacy physical defaults; no explicit row evaluator was executed.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 11,
+      "criterio": "Process State",
+      "prueba": "B4-Q24/C11 conectan con Process_State_Timer_Gate.",
+      "umbral_de_aceptacion": "Sí.",
+      "estado_esperado": "pass",
+      "evidence": "PST presence logic exists locally; explicit B4-Q24/C11 linkage was not evaluated against staging.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 12,
+      "criterio": "Semantic resolution",
+      "prueba": "Gates SEM-001 a SEM-007 definidos.",
+      "umbral_de_aceptacion": "Sí.",
+      "estado_esperado": "pass",
+      "evidence": "SEM presence logic exists locally; no independent rector-row staging evaluation executed.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    },
+    {
+      "source_sheet": "QA_Checklist",
+      "source_row": 13,
+      "criterio": "VSM/AHE",
+      "prueba": "B7/C20 no producen diagnóstico ni IR directo.",
+      "umbral_de_aceptacion": "Sí.",
+      "estado_esperado": "pass",
+      "evidence": "Related local boundary predicate exists; no independent rector-row staging evaluation executed.",
+      "evaluation_status": "not_evaluated_gate_1_blocked"
+    }
+  ],
+  "evaluated": 0,
+  "passed": 0,
+  "failed": 0,
+  "unresolved": 12,
+  "activation_allowed": false
+}

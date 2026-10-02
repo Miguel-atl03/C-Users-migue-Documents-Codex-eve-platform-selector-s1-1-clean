@@ -1,0 +1,194 @@
+{
+  "instruction": "044",
+  "artifact": "runtime-40-20-engine-materiality-044",
+  "captured_at_utc": "2026-08-07T02:22:00.000Z",
+  "project_ref": "shrpiwkxcdgvbqymjecx",
+  "production_consulted": false,
+  "catalog_version_id_full": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "synthetic_run_id": "261fdbbd-6bca-43ee-91e7-4b6204fb55aa",
+  "classification": "runtime_40_20_synthetic_E2E_passed",
+  "components": [
+    {
+      "component": "ActivityRuntimeOrchestrator",
+      "status_before": "implemented_not_connected",
+      "change": "Connected via applyConnectedRunTransition + governed start/transitions; local_only removed for staging path",
+      "rector": "Especificación Técnica Ejecutable + state machine 044",
+      "tr_id": "TR-ORCH-044",
+      "code": [
+        "src/services/eve/runtime-40-20/orchestrator/runtime-40-20-activity-runtime-orchestrator-service.ts",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-connected-orchestrator-service.ts",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts"
+      ],
+      "schema": ["role_runtime_session", "activity_runtime_run", "runtime_audit_trail"],
+      "test": "runtime-40-20-governed-execution.test.mjs + staging E2E 044",
+      "evidence": "run state progressed initialized→…→ready without manual table skips",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "InteractionRenderer",
+      "status_before": "implemented_not_connected",
+      "change": "Connected; selects only FULL active catalog interactions",
+      "rector": "Catálogo Runtime 40/20 v1.1.1",
+      "tr_id": "TR-002",
+      "code": [
+        "src/services/eve/runtime-40-20/interaction-renderer/runtime-40-20-interaction-renderer-service.ts",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts"
+      ],
+      "schema": ["runtime_interaction_def", "runtime_interaction_instance"],
+      "test": "staging E2E render_B0-Q01…C20",
+      "evidence": "6 instances rendered from FULL",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "ResponseIngestService",
+      "status_before": "implemented_not_connected",
+      "change": "Connected; persists instance/response/subfields/evidence/canonical/audit",
+      "rector": "EVE-RUNTIME-SEMPERSIST-R1",
+      "tr_id": "TR-INGEST-044",
+      "code": [
+        "src/services/eve/runtime-40-20/response-ingest/runtime-40-20-response-ingest-service.ts",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-pg-persistence-adapter.ts"
+      ],
+      "schema": [
+        "response_record",
+        "runtime_subfield_response",
+        "evidence_item",
+        "canonical_variable_record"
+      ],
+      "test": "staging E2E ingest_*",
+      "evidence": "6 responses / 31 subfields / 31 evidence",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "CanonicalVariableService",
+      "status_before": "implemented_not_connected",
+      "change": "Connected via runtime_variable_map + provenance on persist",
+      "rector": "Matriz_Trazabilidad + runtime_variable_map",
+      "tr_id": "TR-CANON-044",
+      "code": [
+        "src/services/eve/runtime-40-20/canonical-variable/runtime-40-20-canonical-variable-service.ts"
+      ],
+      "schema": ["runtime_variable_map", "canonical_variable_record"],
+      "test": "staging E2E",
+      "evidence": "31 canonical_variable_record with provenance",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "BranchingEngine",
+      "status_before": "partial",
+      "change": "Materialized minimum from runtime_branching_rule.opens_nodes EAV + engine candidates; persists branching_decision",
+      "rector": "runtime_branching_rule + Critical_Routes",
+      "tr_id": "TR-002",
+      "code": [
+        "src/services/eve/runtime-40-20/branching/runtime-40-20-branching-service.ts",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts"
+      ],
+      "schema": ["runtime_branching_rule", "branching_decision"],
+      "test": "staging E2E B3→C09 and B7→C20",
+      "evidence": "2 branching_decision rows on run 261fdbbd-6bca-43ee-91e7-4b6204fb55aa",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "CriticalRouteGate",
+      "status_before": "implemented_not_connected",
+      "change": "Connected in evaluate_gates (B0/B2/B3/C09/B7/C20)",
+      "rector": "Critical_Routes",
+      "tr_id": "TR-CRIT-044",
+      "code": [
+        "src/services/eve/runtime-40-20/gates-readiness/runtime-40-20-gates-readiness-service.ts"
+      ],
+      "schema": ["runtime_audit_trail"],
+      "test": "staging E2E evaluate_gates",
+      "evidence": "critical routes evaluated before readiness",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "MMABPGateEngine",
+      "status_before": "absent",
+      "change": "Implemented minimal engine and wired into evaluate_gates",
+      "rector": "Marco Estructural Maestro / MMABP",
+      "tr_id": "TR-MMABP-044",
+      "code": [
+        "src/services/eve/runtime-40-20/mmabp-gate/runtime-40-20-mmabp-gate-engine-service.ts"
+      ],
+      "schema": ["runtime_audit_trail"],
+      "test": "runtime-40-20-mmabp-gate-engine.test.mjs",
+      "evidence": "evaluate_gates.mmabp present",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "BudgetLedger",
+      "status_before": "implemented_not_connected",
+      "change": "Persists budget_ledger; enforces base<=40 causal<=20; syncs run counters",
+      "rector": "Branching_Budget_Rules 40/20",
+      "tr_id": "TR-BUDGET-044",
+      "code": [
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-pg-persistence-adapter.ts"
+      ],
+      "schema": ["budget_ledger", "activity_runtime_run"],
+      "test": "staging E2E",
+      "evidence": "6 ledger rows; run base=4 causal=2",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "ReadinessEngine",
+      "status_before": "implemented_not_connected",
+      "change": "Connected; persists readiness_decision_record; terminal ready",
+      "rector": "Readiness_Gaps_Reentry",
+      "tr_id": "TR-READY-044",
+      "code": [
+        "src/services/eve/runtime-40-20/gates-readiness/runtime-40-20-gates-readiness-service.ts",
+        "src/services/eve/runtime-40-20/readiness-reentry/runtime-40-20-readiness-reentry-service.ts"
+      ],
+      "schema": ["readiness_decision_record", "readiness_gap_record"],
+      "test": "staging E2E complete_readiness",
+      "evidence": "1 readiness_decision_record; run.state=ready readiness_state=ready",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "Process State / Timer",
+      "status_before": "implemented_not_connected",
+      "change": "Connected PST evaluation + release_timer with test_clock fixture",
+      "rector": "PST-001…PST-006",
+      "tr_id": "TR-PST-044",
+      "code": [
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts"
+      ],
+      "schema": ["process_state_timer_event"],
+      "test": "staging E2E evaluate_gates + release_timer",
+      "evidence": "1 process_state_timer_event created and released",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "AuditTrail",
+      "status_before": "implemented_not_connected",
+      "change": "Persists runtime_audit_trail for transitions and critical decisions",
+      "rector": "EVE-RUNTIME-SEMPERSIST-R1",
+      "tr_id": "TR-AUDIT-044",
+      "code": [
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-pg-persistence-adapter.ts",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-connected-orchestrator-service.ts"
+      ],
+      "schema": ["runtime_audit_trail"],
+      "test": "staging E2E",
+      "evidence": "7 audit rows on synthetic run",
+      "status_after": "implemented_and_connected"
+    },
+    {
+      "component": "GovernedExecutionBoundary",
+      "status_before": "partial",
+      "change": "Minimal BFF route advance; rejects catalog_version_id override and out-of-catalog interactions",
+      "rector": "044 Gate 13",
+      "tr_id": "TR-BFF-044",
+      "code": [
+        "src/app/api/eve/runtime-40-20/governed-execution/advance/route.ts",
+        "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts"
+      ],
+      "schema": null,
+      "test": "runtime-40-20-governed-execution.test.mjs",
+      "evidence": "authorization/override rejection tests pass",
+      "status_after": "implemented_and_connected"
+    }
+  ]
+}

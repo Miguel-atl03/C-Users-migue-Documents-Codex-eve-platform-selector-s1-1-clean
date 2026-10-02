@@ -1,0 +1,802 @@
+{
+  "artifact_id": "EVE-PR3-IDENTITY-REVISION-IDEMPOTENCY-LEDGER-CONTRACT-v1.2",
+  "profile_id": "EVE-PR3-ID-AND-IDEMPOTENCY-PROFILE-v1.1",
+  "supersedes": "EVE-PR3-IDENTITY-REVISION-IDEMPOTENCY-LEDGER-CONTRACT-v1.1",
+  "state": "EXACT_REPRODUCIBLE_IDENTITY_IDEMPOTENCY_AND_COMMAND_RECEIPT_DEFINED_NOT_DEPLOYED",
+  "authority": "PROMPT PR3 v1.2.1 + A02/A03/A05 v1.2/A06 v1.2 + promoted local runtimes",
+  "legacy_dependency": "NONE",
+  "purpose": "Preserve local runtime identities while giving every logical PR3 record an exact reproducible uniqueness/idempotency rule. This is technical binding, not semantic reinterpretation.",
+  "canonicalization_profile": {
+    "name": "EVE-PR3-KEY-CANONICALIZATION-v1",
+    "encoding": "UTF-8",
+    "bom": "FORBIDDEN",
+    "line_ending": "LF U+000A",
+    "trailing_newline": "FORBIDDEN",
+    "field_order": "EXACT key_fields order declared in each key profile; never alphabetical unless a nested JSON object is canonicalized",
+    "line_serialization": "<field_name>=<canonical_value>",
+    "null": "null",
+    "boolean": "true|false",
+    "integer": "base-10 without sign normalization beyond ordinary decimal rendering",
+    "decimal": "hash-critical decimal fields MUST be serialized as contract-declared strings; binary floating-point values are forbidden in identity preimages",
+    "string": "exact Unicode code points supplied by authoritative source; no trim, case-fold, or Unicode normalization",
+    "timestamp": "UTC RFC3339 with exactly six fractional digits and Z suffix, e.g. 2026-10-01T18:09:00.000000Z",
+    "json_object": "RFC8785-style intent: recursively sort object keys lexicographically; UTF-8; no insignificant whitespace; strings preserved; numbers must comply with field contract",
+    "json_array": "preserve source-authorized order; never sort arrays unless the source contract explicitly defines set semantics",
+    "sha256_output": "64 lowercase hexadecimal characters",
+    "display_id": "<prefix>-<first24(identity_sha256)> unless a source contract supplies the canonical ID itself"
+  },
+  "local_identity_preservation": {
+    "rule": "Never rewrite a promoted runtime local ID. Persist local ID and PR3 technical identity side-by-side.",
+    "B0": "Reference runtime may use UUIDs; preserve as local_run_id/local_response_id where emitted. PR3 keys are additive.",
+    "B0.5": "Reference interaction IDs may be run-sequential; preserve them as local_interaction_instance_id. PR3 interaction_key is additive.",
+    "B1": {
+      "algorithm": "_stable(prefix,*parts,n=24) = prefix + \"-\" + first24(SHA256(\"|\".join(JSON_CANONICAL(part))))",
+      "json_canonical": "json.dumps(part, ensure_ascii=False, sort_keys=True, separators=(\",\",\":\"))",
+      "rule": "Preserve B1 local stable IDs verbatim; do not recompute with the PR3 key profile."
+    },
+    "B2": {
+      "algorithm": "stable_id(prefix,*parts) = prefix + \"-\" + first24(SHA256(\"|\".join(parts).UTF8))",
+      "rule": "Preserve B2 local stable IDs verbatim; response UUIDs remain local IDs. PR3 technical response_key is additive."
+    }
+  },
+  "key_profiles": [
+    {
+      "key_ref": "AUTHORITY_ARTIFACT_KEY",
+      "logical_record": "AuthorityArtifact",
+      "key_fields": [
+        "artifact_id",
+        "revision",
+        "sha256"
+      ],
+      "prefix": "aa",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "aa-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "CONTRACT_SET_KEY",
+      "logical_record": "ContractSet",
+      "key_fields": [
+        "contract_set_id",
+        "contract_set_sha256"
+      ],
+      "prefix": "cs",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "SOURCE_ID_AND_COMPOSITE_UNIQUENESS",
+      "special_rule": "record semantic id is A02.contract_set_id; contract_set_sha256 MUST verify through A02A. Composite uniqueness is (contract_set_id, contract_set_sha256)."
+    },
+    {
+      "key_ref": "OBJECT_BINDING_KEY",
+      "logical_record": "ObjectBinding",
+      "key_fields": [
+        "object_key",
+        "profile_id",
+        "profile_revision",
+        "profile_sha256",
+        "runtime_sha256",
+        "contract_set_id"
+      ],
+      "prefix": "ob",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "ob-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "CHAIN_DEFINITION_KEY",
+      "logical_record": "ChainDefinition",
+      "key_fields": [
+        "chain_definition_id",
+        "revision",
+        "definition_sha256"
+      ],
+      "prefix": "cd",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "SOURCE_ID_AND_COMPOSITE_UNIQUENESS",
+      "special_rule": "chain_definition_id is source-supplied; uniqueness is (chain_definition_id, revision, definition_sha256)."
+    },
+    {
+      "key_ref": "CASE_SCOPE_KEY",
+      "logical_record": "CaseScope",
+      "key_fields": [
+        "tenant_id",
+        "company_id",
+        "case_id",
+        "scope_revision"
+      ],
+      "prefix": "case",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "case-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "PARTICIPANT_KEY",
+      "logical_record": "Participant",
+      "key_fields": [
+        "case_id",
+        "participant_id"
+      ],
+      "prefix": "part",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "part-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "ROLE_ASSIGNMENT_KEY",
+      "logical_record": "RoleAssignment",
+      "key_fields": [
+        "case_id",
+        "participant_id",
+        "role_id",
+        "assignment_revision"
+      ],
+      "prefix": "ra",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "ra-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "ACTIVITY_KEY",
+      "logical_record": "Activity",
+      "key_fields": [
+        "role_id",
+        "activity_id",
+        "workmap_revision"
+      ],
+      "prefix": "act",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "act-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "CHAIN_RUN_KEY",
+      "logical_record": "ChainRun",
+      "key_fields": [
+        "chain_definition_id",
+        "chain_definition_revision",
+        "case_id",
+        "participant_id",
+        "role_id",
+        "activity_id",
+        "run_ordinal"
+      ],
+      "prefix": "cr",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "cr-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "OBJECT_RUN_KEY",
+      "logical_record": "ObjectRun",
+      "key_fields": [
+        "chain_run_id",
+        "object_key",
+        "contract_set_id",
+        "profile_id",
+        "profile_revision",
+        "execution_ordinal"
+      ],
+      "prefix": "or",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "or-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "INTERACTION_KEY",
+      "logical_record": "InteractionInstance",
+      "key_fields": [
+        "object_run_id",
+        "runtime_definition_id",
+        "definition_revision",
+        "opening_ordinal"
+      ],
+      "prefix": "ii",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "ii-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "PRESENTATION_EVENT_KEY",
+      "logical_record": "PresentationEvent",
+      "key_fields": [
+        "object_run_id",
+        "interaction_key",
+        "target_id",
+        "presentation_mode",
+        "context_revision",
+        "proposal_ref",
+        "admission_ref",
+        "rendered_text"
+      ],
+      "prefix": "pe",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "pe-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "RESPONSE_KEY",
+      "logical_record": "ResponseEvent",
+      "key_fields": [
+        "object_run_id",
+        "interaction_key",
+        "subfield_id",
+        "question_code",
+        "response_revision"
+      ],
+      "prefix": "resp",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "resp-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "EVIDENCE_KEY",
+      "logical_record": "EvidenceItem",
+      "key_fields": [
+        "object_run_id",
+        "response_key",
+        "variable_id",
+        "revision"
+      ],
+      "prefix": "ev",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "ev-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "CANONICAL_VARIABLE_KEY",
+      "logical_record": "CanonicalVariableRecord",
+      "key_fields": [
+        "object_run_id",
+        "variable_id",
+        "revision",
+        "context_revision"
+      ],
+      "prefix": "var",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "var-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "CANDIDATE_KEY",
+      "logical_record": "CandidateRecord",
+      "key_fields": [
+        "object_run_id",
+        "target_id",
+        "revision",
+        "context_revision"
+      ],
+      "prefix": "cand",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "cand-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "BRANCH_DECISION_KEY",
+      "logical_record": "BranchDecision",
+      "key_fields": [
+        "object_run_id",
+        "rule_ref",
+        "input_refs",
+        "context_revision",
+        "decided_at"
+      ],
+      "prefix": "br",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "br-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "BUDGET_LEDGER_KEY",
+      "logical_record": "BudgetLedger",
+      "key_fields": [
+        "object_run_id",
+        "idempotency_key"
+      ],
+      "prefix": "bud",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "bud-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "GAP_KEY",
+      "logical_record": "GapRecord",
+      "key_fields": [
+        "object_run_id",
+        "gap_type",
+        "target_ref",
+        "created_at"
+      ],
+      "prefix": "gap",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "gap-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "READINESS_KEY",
+      "logical_record": "ReadinessDecision",
+      "key_fields": [
+        "object_run_id",
+        "consumer_id",
+        "input_package_id",
+        "input_package_revision",
+        "rule_ref",
+        "decided_at"
+      ],
+      "prefix": "ready",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "ready-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "AI_OPERATION_KEY",
+      "logical_record": "AIOperation",
+      "key_fields": [
+        "object_run_id",
+        "interaction_key",
+        "operation",
+        "profile_ref",
+        "intent_ref",
+        "context_revision",
+        "context_sources",
+        "requested_at"
+      ],
+      "prefix": "aio",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "aio-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "AI_PROPOSAL_KEY",
+      "logical_record": "AIProposal",
+      "key_fields": [
+        "ai_operation_id",
+        "request_id",
+        "action",
+        "payload_sha256"
+      ],
+      "prefix": "aip",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "aip-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "EVALUATOR_AUTHORITY_KEY",
+      "logical_record": "EvaluatorAuthority",
+      "key_fields": [
+        "evaluator_authority_id",
+        "revision"
+      ],
+      "prefix": "evauth",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "SOURCE_ID_AND_COMPOSITE_UNIQUENESS",
+      "special_rule": "evaluator_authority_id is authority-supplied; uniqueness is (evaluator_authority_id, revision). No synthetic authority is minted."
+    },
+    {
+      "key_ref": "EVALUATION_KEY",
+      "logical_record": "EvaluationRecord",
+      "key_fields": [
+        "object_run_id",
+        "proposal_id",
+        "evaluator_authority_id",
+        "context_revision",
+        "created_at"
+      ],
+      "prefix": "eval",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "eval-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "ADMISSION_KEY",
+      "logical_record": "AdmissionDecision",
+      "key_fields": [
+        "object_run_id",
+        "proposal_id",
+        "evaluation_record_id",
+        "evaluator_authority_id",
+        "context_revision",
+        "idempotency_key"
+      ],
+      "prefix": "adm",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "adm-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "HUMAN_DECISION_KEY",
+      "logical_record": "HumanDecision",
+      "key_fields": [
+        "object_run_id",
+        "authority_ref",
+        "decision_scope",
+        "target_refs",
+        "context_revision",
+        "decided_at"
+      ],
+      "prefix": "hd",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "hd-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "MATERIAL_PACKAGE_KEY",
+      "logical_record": "MaterialPackage",
+      "key_fields": [
+        "producer_object_run_id",
+        "package_type",
+        "package_revision",
+        "binding_id",
+        "payload_sha256"
+      ],
+      "prefix": "pkg",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "pkg-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "HANDOFF_EVENT_KEY",
+      "logical_record": "HandoffEvent",
+      "key_fields": [
+        "material_package_id",
+        "event_type",
+        "consumer_object_key"
+      ],
+      "prefix": "ho",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "ho-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "AUDIT_EVENT_KEY",
+      "logical_record": "AuditEvent",
+      "key_fields": [
+        "chain_run_id",
+        "object_run_id",
+        "event_type",
+        "entity_ref",
+        "rule_ref",
+        "prior_state_ref",
+        "new_state_ref",
+        "event_at"
+      ],
+      "prefix": "aud",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "aud-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "OUTBOX_EVENT_KEY",
+      "logical_record": "OutboxEvent",
+      "key_fields": [
+        "chain_run_id",
+        "idempotency_key"
+      ],
+      "prefix": "out",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "out-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "PILOT_OBSERVATION_KEY",
+      "logical_record": "PilotObservation",
+      "key_fields": [
+        "chain_run_id",
+        "object_run_id",
+        "observation_type",
+        "source_ref",
+        "recorded_at"
+      ],
+      "prefix": "obs",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "obs-<first24(identity_sha256)>"
+    },
+    {
+      "key_ref": "COMMAND_RECEIPT_KEY",
+      "logical_record": "CommandReceipt",
+      "key_fields": [
+        "operation",
+        "command_scope_ref",
+        "command_event_id"
+      ],
+      "prefix": "cmdr",
+      "preimage_rule": "LF-joined <field_name>=<canonical_value> in listed order; no trailing LF",
+      "identity_sha256": "SHA-256(preimage UTF-8)",
+      "record_id_rule": "cmdr-<first24(identity_sha256)>",
+      "idempotency_key_rule": "idem-<first24(identity_sha256)>",
+      "special_rule": "payload_sha256 is NOT part of identity. Same command identity + different payload_sha256 is IDEMPOTENCY_CONFLICT; original receipt remains immutable."
+    }
+  ],
+  "run_and_revision_allocation": {
+    "run_ordinal": "Allocated transactionally within (chain_definition_id, revision, case_id, participant_id, role_id, activity_id) only when an explicit NEW_RUN command is accepted. Retries reuse the already allocated ordinal.",
+    "execution_ordinal": "Fixed by A03 node order for the first traversal: B0=1, B0.5=2, B1=3, B2=4. A reentry does not mint a second object identity unless the causal owner begins a new object execution; resume/retry reuses object_run_id.",
+    "opening_ordinal": "Monotonic within one object_run_id and runtime_definition_id; allocated exactly once when an interaction opening is accepted. Retries reuse it.",
+    "response_revision": "Starts at 1. An accepted correction creates revision n+1 and sets supersedes_response_key to exact prior PR3 key; prior row is immutable.",
+    "canonical_variable_revision": "Starts at 1 per (object_run_id, variable_id); new accepted value or derivation result creates n+1; prior revision remains addressable.",
+    "candidate_revision": "Starts at 1 per (object_run_id,target_id); changes create n+1.",
+    "package_revision": "Starts at 1 per (producer_object_run_id, package_type, binding_id). Increment iff canonical bound payload_sha256 changes. Re-release of identical payload reuses revision and material_package_id.",
+    "context_revision": "Opaque authoritative revision string. Any change stales dependent AI proposals/renders/evaluations but does not silently rewrite user evidence."
+  },
+  "idempotency_profile": {
+    "name": "EVE-PR3-IDEMPOTENCY-v1.2-COMMAND-RECEIPT",
+    "command_identity": "COMMAND_RECEIPT_KEY(operation, command_scope_ref, command_event_id)",
+    "command_receipt_id_rule": "cmdr-<first24(SHA256(canonical command identity preimage))>",
+    "command_idempotency_key_rule": "idem-<first24(SHA256(same canonical command identity preimage))>",
+    "payload_sha256_rule": "SHA-256 over canonical JSON of the operation payload; 64 lowercase hex. Transport credentials/signatures may be excluded only if A04 declares them non-semantic and the bound semantic payload is otherwise identical.",
+    "first_execution_atomicity": "Persist immutable CommandReceipt atomically with every semantic/control side effect of the command. For REJECTED_PRECONDITION, persist a receipt with zero semantic side_effect_refs so the exact rejection can be replayed.",
+    "replay_same_key_same_payload": "Return the exact persisted result_payload_json (or immutable result ref) from the original CommandReceipt; no new response/evidence/budget/presentation/handoff/AI/admission/ordinal side effect.",
+    "same_key_different_payload": "Return IDEMPOTENCY_CONFLICT; no semantic write; original CommandReceipt and original side effects remain unchanged.",
+    "correction": "A deliberate correction receives a new command_event_id/client_event_id, creates response revision n+1 and explicit supersedes; prior response and prior CommandReceipt are immutable.",
+    "open_or_resume": "OPEN_OR_RESUME idempotency is established before chain/object/interaction IDs exist, using scope/activity/chain-definition scope + client_event_id. Replay returns exactly the original allocated run/object/interaction identifiers and does not allocate a new ordinal.",
+    "resume": "RESUME is keyed by chain + last-known context scope + client_event_id. Replay cannot duplicate PresentationEvent, charge, AI, or reentry side effects. If a new UI re-render is semantically warranted, that presentation identity is linked to the accepted command receipt and is itself idempotent.",
+    "issue_action_token": "ISSUE_ACTION_TOKEN uses token_request_id as command_event_id. Same token_request_id+payload returns same client_event_id/action token; different payload conflicts. token_request_id is transport-only and never becomes business evidence.",
+    "internal_ai": "Provider retries reuse the server command_event_id and CommandReceipt; a retry cannot create a second admitted proposal.",
+    "handoff": "RELEASE, RECEIPT and CONSUMPTION remain separate event types; each command is receipt-bound and idempotent for its exact package/event/consumer scope.",
+    "read_state": "READ_STATE is a pure read and is idempotent by absence of state mutation; no CommandReceipt write is required.",
+    "budget": "Budget charge/ledger identities are side-effect refs of the accepted CommandReceipt. Replay cannot consume budget twice."
+  },
+  "revision_and_supersession_invariants": [
+    "Immutable prior revisions; no in-place overwrite of accepted evidence/response/canonical/package revisions.",
+    "UNKNOWN != FALSE; CANDIDATE != EVIDENCE; READY != PROMOTED; AI_PROPOSAL != USER_EVIDENCE.",
+    "A source/local ID and a PR3 technical ID are different namespaces and both are retained when both exist.",
+    "Release != receipt != consumption.",
+    "Context changes invalidate dependent projections; they do not retroactively change literal user evidence.",
+    "A downstream object never repairs an upstream missing/ambiguous field; reentry returns to the causal owner."
+  ],
+  "contract_set_hash_profile_ref": "EVE-PR3-CONTRACT-SET-HASH-PROFILE-v1.0",
+  "reproducibility_test_vectors": [
+    {
+      "key_ref": "CHAIN_RUN_KEY",
+      "synthetic": true,
+      "preimage_utf8": "chain_definition_id=EVE-PR3-B0-B2-CHAIN\nchain_definition_revision=1.0\ncase_id=CASE-DEMO-001\nparticipant_id=PART-DEMO-001\nrole_id=ROLE-DEMO-001\nactivity_id=ACT-DEMO-001\nrun_ordinal=1",
+      "identity_sha256": "613cb6f3a524058b56bd2a3e06ef7c37c5cd3828fa7f481d741d1f99a636a302",
+      "record_id": "cr-613cb6f3a524058b56bd2a3e"
+    },
+    {
+      "key_ref": "OBJECT_RUN_KEY",
+      "synthetic": true,
+      "preimage_utf8": "chain_run_id=cr-DEMO\nobject_key=B0\ncontract_set_id=EVE-PR3-CS-B0-695fde9895d4748b\nprofile_id=EVE-B0-PR1-OPERATIONAL-PROFILE\nprofile_revision=0.1-R4\nexecution_ordinal=1",
+      "identity_sha256": "cdaf198bc0d4772f0bc86dcee4719b03a0d4a7b5b28128dc523e5d94e2777ae0",
+      "record_id": "or-cdaf198bc0d4772f0bc86dce"
+    },
+    {
+      "key_ref": "RESPONSE_KEY",
+      "synthetic": true,
+      "preimage_utf8": "object_run_id=or-DEMO\ninteraction_key=ii-DEMO\nsubfield_id=trigger_source\nquestion_code=Q-DEMO\nresponse_revision=1",
+      "identity_sha256": "6870e316ddc28e4d5d21508e44731e866c04b57ac0221b3491adc1984ce18cb3",
+      "record_id": "resp-6870e316ddc28e4d5d21508e"
+    },
+    {
+      "key_ref": "MATERIAL_PACKAGE_KEY",
+      "synthetic": true,
+      "preimage_utf8": "producer_object_run_id=or-DEMO\npackage_type=scene_anchor_bundle\npackage_revision=1\nbinding_id=PR3-HO-B0-B05-1.2\npayload_sha256=0000000000000000000000000000000000000000000000000000000000000000",
+      "identity_sha256": "bf09dcf4bb1f48fe495e6433d99706901e3e450a1019a7dae64b3aaf409e6702",
+      "record_id": "pkg-bf09dcf4bb1f48fe495e6433"
+    },
+    {
+      "key_ref": "COMMAND_RECEIPT_KEY",
+      "operation": "ISSUE_ACTION_TOKEN",
+      "synthetic": true,
+      "command_scope_ref": "action-token:principal-DEMO|OPEN_OR_RESUME|CASE-DEMO-001|ACT-DEMO-001",
+      "command_event_id": "trq-DEMO-0001",
+      "preimage_utf8": "operation=ISSUE_ACTION_TOKEN\ncommand_scope_ref=action-token:principal-DEMO|OPEN_OR_RESUME|CASE-DEMO-001|ACT-DEMO-001\ncommand_event_id=trq-DEMO-0001",
+      "identity_sha256": "f6c4566b480d066c902d8158f4f4cf5ec51eed9f112525553a41dd4e2ec998f8",
+      "record_id": "cmdr-f6c4566b480d066c902d8158",
+      "idempotency_key": "idem-f6c4566b480d066c902d8158",
+      "canonical_payload_json": "{\"activity_ref\":\"ACT-DEMO-001\",\"operation\":\"OPEN_OR_RESUME\",\"scope_ref\":\"CASE-DEMO-001\"}",
+      "payload_sha256": "0038e0a0121383dc419f52b53f66839960ec360e610dc4f6c257e53aa50ba196"
+    },
+    {
+      "key_ref": "COMMAND_RECEIPT_KEY",
+      "operation": "OPEN_OR_RESUME",
+      "synthetic": true,
+      "command_scope_ref": "open:CASE-DEMO-001|ACT-DEMO-001|EVE-PR3-B0-B2-CHAIN@1.0",
+      "command_event_id": "evt-DEMO-OPEN-0001",
+      "preimage_utf8": "operation=OPEN_OR_RESUME\ncommand_scope_ref=open:CASE-DEMO-001|ACT-DEMO-001|EVE-PR3-B0-B2-CHAIN@1.0\ncommand_event_id=evt-DEMO-OPEN-0001",
+      "identity_sha256": "51b77bd887ccab19661feb5db7ae4e4c9f93637cd980da00220623449367dbd1",
+      "record_id": "cmdr-51b77bd887ccab19661feb5d",
+      "idempotency_key": "idem-51b77bd887ccab19661feb5d",
+      "canonical_payload_json": "{\"activity_ref\":\"ACT-DEMO-001\",\"expected_chain_definition_id\":\"EVE-PR3-B0-B2-CHAIN\",\"expected_chain_definition_revision\":\"1.0\",\"mode\":\"OPEN_OR_RESUME\",\"scope_ref\":\"CASE-DEMO-001\"}",
+      "payload_sha256": "a6353f998bddd83abed6994d0ebfe1bb3257e4adb764e423f0f1e22d6f90784e"
+    },
+    {
+      "key_ref": "COMMAND_RECEIPT_KEY",
+      "operation": "SUBMIT_RESPONSE",
+      "synthetic": true,
+      "command_scope_ref": "response:cr-DEMO|or-DEMO|ii-DEMO|ctx-0001",
+      "command_event_id": "evt-DEMO-RESP-0001",
+      "preimage_utf8": "operation=SUBMIT_RESPONSE\ncommand_scope_ref=response:cr-DEMO|or-DEMO|ii-DEMO|ctx-0001\ncommand_event_id=evt-DEMO-RESP-0001",
+      "identity_sha256": "c1adc130139212d9c9b58c0da68c9ff16cb0f7594307f8bdf0389f38b0c9de43",
+      "record_id": "cmdr-c1adc130139212d9c9b58c0d",
+      "idempotency_key": "idem-c1adc130139212d9c9b58c0d",
+      "canonical_payload_json": "{\"answers\":[{\"raw_value\":\"valor\",\"slot_ref\":\"slot-DEMO\"}],\"chain_run_id\":\"cr-DEMO\",\"context_revision\":\"ctx-0001\",\"interaction_key\":\"ii-DEMO\",\"object_run_id\":\"or-DEMO\"}",
+      "payload_sha256": "863ff9fbeb58d554850b12ba4e5094071192112491367ddc572bd34f6f971490"
+    },
+    {
+      "key_ref": "COMMAND_RECEIPT_KEY",
+      "operation": "SUBMIT_CORRECTION",
+      "synthetic": true,
+      "command_scope_ref": "correction:cr-DEMO|or-DEMO|ii-DEMO|ctx-0002",
+      "command_event_id": "evt-DEMO-CORR-0001",
+      "preimage_utf8": "operation=SUBMIT_CORRECTION\ncommand_scope_ref=correction:cr-DEMO|or-DEMO|ii-DEMO|ctx-0002\ncommand_event_id=evt-DEMO-CORR-0001",
+      "identity_sha256": "c621f229c09fa96c4d444c426f9a7d6a06387cf53e1c99432df91fc892fb0ede",
+      "record_id": "cmdr-c621f229c09fa96c4d444c42",
+      "idempotency_key": "idem-c621f229c09fa96c4d444c42",
+      "canonical_payload_json": "{\"chain_run_id\":\"cr-DEMO\",\"context_revision\":\"ctx-0002\",\"corrections\":[{\"expected_response_revision\":1,\"raw_value\":\"valor corregido\",\"slot_ref\":\"slot-DEMO\",\"supersedes_response_key\":\"resp-DEMO\"}],\"interaction_key\":\"ii-DEMO\",\"object_run_id\":\"or-DEMO\"}",
+      "payload_sha256": "779302ef60dccfe56ab5db8feb35b784b7e5285b5417b8d978b8210f3445291a"
+    },
+    {
+      "key_ref": "COMMAND_RECEIPT_KEY",
+      "operation": "RESUME",
+      "synthetic": true,
+      "command_scope_ref": "resume:cr-DEMO|ctx-0002",
+      "command_event_id": "evt-DEMO-RESUME-0001",
+      "preimage_utf8": "operation=RESUME\ncommand_scope_ref=resume:cr-DEMO|ctx-0002\ncommand_event_id=evt-DEMO-RESUME-0001",
+      "identity_sha256": "2a8875d6cfb2b5e4853c9df40adfc281ab32b39dd9c83368da0c19de59ebea62",
+      "record_id": "cmdr-2a8875d6cfb2b5e4853c9df4",
+      "idempotency_key": "idem-2a8875d6cfb2b5e4853c9df4",
+      "canonical_payload_json": "{\"chain_run_id\":\"cr-DEMO\",\"last_known_context_revision\":\"ctx-0002\"}",
+      "payload_sha256": "01493c7c7bac5a00c0214c9388072c211e804da573f0080ad7237ac8390e0c53"
+    },
+    {
+      "key_ref": "COMMAND_RECEIPT_KEY",
+      "operation": "INTERNAL_AI",
+      "synthetic": true,
+      "command_scope_ref": "internal-ai:or-DEMO|ii-DEMO|ctx-0002|render|profile-DEMO|intent-DEMO",
+      "command_event_id": "srv-DEMO-AI-0001",
+      "preimage_utf8": "operation=INTERNAL_AI\ncommand_scope_ref=internal-ai:or-DEMO|ii-DEMO|ctx-0002|render|profile-DEMO|intent-DEMO\ncommand_event_id=srv-DEMO-AI-0001",
+      "identity_sha256": "210d664b6070d3ca473fdd14707dc868f28074700d141ed3e31c9eb2348a5cec",
+      "record_id": "cmdr-210d664b6070d3ca473fdd14",
+      "idempotency_key": "idem-210d664b6070d3ca473fdd14",
+      "canonical_payload_json": "{\"ai_operation\":\"render\",\"context_revision\":\"ctx-0002\",\"intent_ref\":\"intent-DEMO\",\"interaction_key\":\"ii-DEMO\",\"object_run_id\":\"or-DEMO\",\"profile_ref\":\"profile-DEMO\"}",
+      "payload_sha256": "0ecefa0b35ec2fc348ad3e53e9ad0b283796420294574a09a5f8dc3fc9d681b9"
+    },
+    {
+      "key_ref": "COMMAND_RECEIPT_KEY",
+      "operation": "HUMAN_EXCEPTION",
+      "synthetic": true,
+      "command_scope_ref": "human:or-DEMO|AUTH-DEMO|review:proposal-DEMO|ctx-0002",
+      "command_event_id": "srv-DEMO-HUM-0001",
+      "preimage_utf8": "operation=HUMAN_EXCEPTION\ncommand_scope_ref=human:or-DEMO|AUTH-DEMO|review:proposal-DEMO|ctx-0002\ncommand_event_id=srv-DEMO-HUM-0001",
+      "identity_sha256": "d5e2f4834cd7370cdbfb976944f45712648860e8ef6652e0f5f974e51f4caca3",
+      "record_id": "cmdr-d5e2f4834cd7370cdbfb9769",
+      "idempotency_key": "idem-d5e2f4834cd7370cdbfb9769",
+      "canonical_payload_json": "{\"authority_ref\":\"AUTH-DEMO\",\"context_revision\":\"ctx-0002\",\"decision_scope\":\"review:proposal-DEMO\",\"object_run_id\":\"or-DEMO\"}",
+      "payload_sha256": "00d2589e019e4e1131a77e136a89dc8f3c3207c476c9f2521f9e4758a1e705bf"
+    },
+    {
+      "key_ref": "COMMAND_RECEIPT_KEY",
+      "operation": "HANDOFF",
+      "synthetic": true,
+      "command_scope_ref": "handoff:pkg-DEMO|RECEIPT|B1",
+      "command_event_id": "srv-DEMO-HANDOFF-0001",
+      "preimage_utf8": "operation=HANDOFF\ncommand_scope_ref=handoff:pkg-DEMO|RECEIPT|B1\ncommand_event_id=srv-DEMO-HANDOFF-0001",
+      "identity_sha256": "89259371544c49b16632c7e69b3dfa475c5c01ac3df6d48e32100f8298065aa2",
+      "record_id": "cmdr-89259371544c49b16632c7e6",
+      "idempotency_key": "idem-89259371544c49b16632c7e6",
+      "canonical_payload_json": "{\"consumer_object_key\":\"B1\",\"event_type\":\"RECEIPT\",\"material_package_id\":\"pkg-DEMO\"}",
+      "payload_sha256": "e2dd62d154c211cbb54a792180f70489da5159af1a1077874bd46ac98f12655c"
+    }
+  ],
+  "contract_set_verification": [
+    {
+      "object_key": "B0",
+      "contract_set_id": "EVE-PR3-CS-B0-695fde9895d4748b",
+      "contract_set_sha256": "695fde9895d4748b1d6e3ca5bc3f0e7268b14b20ce1bd629df4b77569f444603",
+      "verified": true
+    },
+    {
+      "object_key": "B0.5",
+      "contract_set_id": "EVE-PR3-CS-B0055-af216ca8a0b86903",
+      "contract_set_sha256": "af216ca8a0b86903949682b3be144b00fec2099de735fd83186c8a6f6334a7b5",
+      "verified": true
+    },
+    {
+      "object_key": "B1",
+      "contract_set_id": "EVE-PR3-CS-B1-57b594ed1b5dd5f1",
+      "contract_set_sha256": "57b594ed1b5dd5f1f9faa51c08d257f0acc0ea063fe5216eb16af6c452930a4e",
+      "verified": true
+    },
+    {
+      "object_key": "B2",
+      "contract_set_id": "EVE-PR3-CS-B2-1c1033ea2e74961f",
+      "contract_set_sha256": "1c1033ea2e74961fdf8dc45752ebadeb5277df91e643089c25594fcaa724cedd",
+      "verified": true
+    }
+  ],
+  "command_scope_profiles": [
+    {
+      "operation": "ISSUE_ACTION_TOKEN",
+      "side_effect_class": "CONTROL_PLANE_ALLOCATION",
+      "command_scope_rule": "action-token:<authorized_principal_ref>|<requested_operation>|<scope_ref-or-null>|<activity_ref-or-null>",
+      "command_event_id_source": "token_request_id (caller-generated opaque transport nonce; NON_SEMANTIC/NON_AUTHORITY)",
+      "preallocation_safe": true
+    },
+    {
+      "operation": "OPEN_OR_RESUME",
+      "side_effect_class": "DOMAIN_ORCHESTRATION",
+      "command_scope_rule": "open:<scope_ref>|<activity_ref>|<expected_chain_definition_id>@<expected_chain_definition_revision>",
+      "command_event_id_source": "client_event_id from ISSUE_ACTION_TOKEN",
+      "preallocation_safe": true,
+      "explicit_note": "Does not require chain_run_id/object_run_id/interaction_key before first commit."
+    },
+    {
+      "operation": "SUBMIT_RESPONSE",
+      "side_effect_class": "DOMAIN_WRITE",
+      "command_scope_rule": "response:<chain_run_id>|<object_run_id>|<interaction_key>|<context_revision>",
+      "command_event_id_source": "client_event_id",
+      "preallocation_safe": true
+    },
+    {
+      "operation": "SUBMIT_CORRECTION",
+      "side_effect_class": "DOMAIN_WRITE",
+      "command_scope_rule": "correction:<chain_run_id>|<object_run_id>|<interaction_key>|<context_revision>",
+      "command_event_id_source": "client_event_id",
+      "preallocation_safe": true
+    },
+    {
+      "operation": "RESUME",
+      "side_effect_class": "DOMAIN_ORCHESTRATION",
+      "command_scope_rule": "resume:<chain_run_id>|<last_known_context_revision-or-null>",
+      "command_event_id_source": "client_event_id",
+      "preallocation_safe": true,
+      "explicit_note": "Idempotency does not depend on creating a new interaction or presentation first."
+    },
+    {
+      "operation": "INTERNAL_AI",
+      "side_effect_class": "SERVER_INTERNAL_WRITE",
+      "command_scope_rule": "internal-ai:<object_run_id>|<interaction_key>|<context_revision>|<ai_operation>|<profile_ref>|<intent_ref>",
+      "command_event_id_source": "server_command_event_id allocated once and reused on provider retry",
+      "preallocation_safe": true
+    },
+    {
+      "operation": "HUMAN_EXCEPTION",
+      "side_effect_class": "EXCEPTIONAL_AUTHORITY_WRITE",
+      "command_scope_rule": "human:<object_run_id>|<authority_ref>|<decision_scope>|<context_revision>",
+      "command_event_id_source": "server_command_event_id allocated once",
+      "preallocation_safe": true
+    },
+    {
+      "operation": "HANDOFF",
+      "side_effect_class": "DOMAIN_TRANSFER_WRITE",
+      "command_scope_rule": "handoff:<material_package_id>|<event_type>|<consumer_object_key>",
+      "command_event_id_source": "server_command_event_id or exact HandoffEvent identity allocated once",
+      "preallocation_safe": true
+    },
+    {
+      "operation": "READ_STATE",
+      "side_effect_class": "PURE_READ",
+      "command_scope_rule": "read:<chain_run_id>|<projection_revision-or-current>",
+      "command_event_id_source": "NONE",
+      "preallocation_safe": true,
+      "command_receipt_materialization": "NOT_REQUIRED",
+      "idempotency_equivalent": "Pure read performs no semantic/control write. Same authoritative state revision yields the same projection content hash; no receipt write is introduced merely to make a read idempotent."
+    }
+  ],
+  "command_receipt_invariants": [
+    "CommandReceipt is an immutable logical record; replay never mutates the original receipt.",
+    "Original accepted/rejected receipt_state is persisted as ACCEPTED or REJECTED_PRECONDITION. IDEMPOTENT_REPLAY and IDEMPOTENCY_CONFLICT are response projection states referencing the immutable original receipt.",
+    "side_effect_refs enumerate every committed logical write caused by the command; an accepted retry adds none.",
+    "result_payload_sha256 must match the exact persisted replay payload/result reference.",
+    "OPEN_OR_RESUME and RESUME are covered without relying on IDs allocated after the command begins.",
+    "No browser-supplied idempotency_key is authoritative; server derives it from A07."
+  ],
+  "command_receipt_coverage": {
+    "side_effecting_operations_expected": 8,
+    "side_effecting_operations_observed": 8,
+    "pure_read_operations": 1,
+    "operations": [
+      "ISSUE_ACTION_TOKEN",
+      "OPEN_OR_RESUME",
+      "SUBMIT_RESPONSE",
+      "SUBMIT_CORRECTION",
+      "RESUME",
+      "INTERNAL_AI",
+      "HUMAN_EXCEPTION",
+      "HANDOFF",
+      "READ_STATE"
+    ]
+  }
+}

@@ -1,0 +1,5033 @@
+{
+  "chip_id": "EVE-05-GATE-ENGINE",
+  "package_id": "EVE_05_Gate_Engine_Chip_v0_1",
+  "version": "0.1.0",
+  "stage": "05_gate_engine",
+  "generated_at": "2026-06-20T01:30:47+00:00",
+  "status": "READY_FOR_SHADOW_INTEGRATION",
+  "certification_status": "ARTIFACT_VALIDATED_NOT_ACTIVATED",
+  "installation_status": "NOT_INSTALLED",
+  "purpose": "Compilar un motor de gates que proteja rutas canónicas, resolución semántica, esperas/timers y validaciones MMABP de conformance y consistencia antes de readiness, diagnóstico o Producción Paralela.",
+  "modules_requested": [
+    "critical_route_gate",
+    "semantic_resolution_gate",
+    "process_state_timer_gate",
+    "mmabp_conformance_gate",
+    "mmabp_consistency_gate"
+  ],
+  "authority_chain": [
+    "D1 manda sobre método MMABP.",
+    "D8 conserva genealogía canónica.",
+    "D7 decide reducción 164→40+20.",
+    "D5 gobierna gates, fronteras y QA.",
+    "D6 ejecuta definiciones de rutas, SEM, PST y readiness.",
+    "D4 implementa componentes, eventos, persistencia y recomputación.",
+    "D3 integra downstream sin activar diagnóstico ni export prematuro.",
+    "D2/EVE02 solo traducen inconsistencias en una etapa diagnóstica posterior."
+  ],
+  "source_documents": [
+    {
+      "source_id": "D1",
+      "document": "Fundamentals of Business Architecture Modeling.pdf",
+      "exists": true,
+      "sha256": "3dd3485afa518244cb600b4c479cad0ea11f242e88e4204b9422739ddf843147",
+      "role": "fuente metodológica primaria",
+      "authority": "Define las reglas MMABP de PM, MoC, PF, OLC, conformance y consistencia.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "2.2.6",
+        "2.3.6",
+        "3.1.5",
+        "3.2.4",
+        "4.1",
+        "4.2",
+        "4.3",
+        "4.4",
+        "4.5"
+      ],
+      "notes": null
+    },
+    {
+      "source_id": "D5",
+      "document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "exists": true,
+      "sha256": "fcda44fc8990ef0d19379c3425afb4a69186f6961a6f99d541d170826da1e318",
+      "role": "fuente normativa operativa",
+      "authority": "Gobierna rutas críticas, gates internos, fronteras B7/C09, QA, readiness y reentry.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "1",
+        "2",
+        "4",
+        "5",
+        "6.1",
+        "6.2",
+        "6.3",
+        "8.1",
+        "8.2",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "notes": null
+    },
+    {
+      "source_id": "D6",
+      "document": "Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "exists": true,
+      "sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+      "role": "fuente ejecutable",
+      "authority": "Materializa rutas, gates, estados, diccionarios y pruebas como filas operables.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "Critical_Routes",
+        "Semantic_Resolution_Gates",
+        "Process_State_Timer_Gates",
+        "Readiness_Gaps_Reentry",
+        "Epistemic_Policy",
+        "Branching_Budget_Rules",
+        "QA_Checklist",
+        "Implementation_Dictionaries"
+      ],
+      "notes": null
+    },
+    {
+      "source_id": "D4",
+      "document": "EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "exists": true,
+      "sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8",
+      "role": "contrato técnico de implementación",
+      "authority": "Define CriticalRouteGate, MMABPGateEngine, eventos persistentes, API de evaluación, recomputación y QA.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "7",
+        "9",
+        "10",
+        "14",
+        "15",
+        "17",
+        "20",
+        "21",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28"
+      ],
+      "notes": null
+    },
+    {
+      "source_id": "D8",
+      "document": "EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+      "exists": true,
+      "sha256": "09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2",
+      "role": "fuente de genealogía canónica",
+      "authority": "Valida que rutas y variables remitan a nodos y códigos originales.",
+      "direct_rule_source": true,
+      "sections_or_sheets_used": [
+        "Catalogo_Madre_Nodos",
+        "Canonical_Variables",
+        "Critical_Routes",
+        "Readiness_Reentry_Gaps"
+      ],
+      "notes": null
+    },
+    {
+      "source_id": "D7",
+      "document": "Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+      "exists": true,
+      "sha256": "bee5478d5ef059641707a1e513f1977fbb3f25785754f1fa4eef93ddf9d774a2",
+      "role": "frontera arquitectónica",
+      "authority": "Fija reducción 164→40+20, prioridad de rutas críticas y preservación de capacidad MMABP.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "0",
+        "1",
+        "4",
+        "5",
+        "8",
+        "10"
+      ],
+      "notes": "Contexto de compatibilidad; no se ejecuta desde narrativa."
+    },
+    {
+      "source_id": "D3",
+      "document": "EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+      "exists": true,
+      "sha256": "8b96eaa29282c042a714bbce80f0251e676425be91b766785e77c97f0c8bc31a",
+      "role": "frontera de integración downstream",
+      "authority": "Impide que gates activen diagnóstico, export final o Producción Paralela prematuramente.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "0",
+        "1",
+        "8",
+        "10"
+      ],
+      "notes": "Contexto de frontera; no define reglas MMABP."
+    },
+    {
+      "source_id": "D2",
+      "document": "Tabla de Diagnóstico de Inconsistencias Estructurales EVE.docx",
+      "exists": true,
+      "sha256": "3e5f5278872c5790b81931c6c765b4633139a348c0489d26599885997b12f0ca",
+      "role": "referencia downstream de traducción diagnóstica",
+      "authority": "Proporciona IDs de compartimentos para una traducción posterior, deshabilitada en Fase 5.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "tabla única, 13 compartimentos"
+      ],
+      "notes": "No se emite patología ni diagnóstico desde este chip."
+    },
+    {
+      "source_id": "VSM1",
+      "document": "Organizational Systems Managing Complexity with the Viable System model.pdf",
+      "exists": true,
+      "sha256": "00bd8009333bedf9bc5dbbd2d2ff3f295bb874066b319796744b1ef019fca418",
+      "role": "guardia contextual VSM",
+      "authority": "Evita tratar señales B7 como diagnóstico VSM cerrado sin identidad, recursión y variedad validadas.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "Partes I-II; identidad, desdoblamiento, discrecionalidad"
+      ],
+      "notes": "No se implementa un gate VSM en esta fase."
+    },
+    {
+      "source_id": "AHE1",
+      "document": "Marco de Interpretación y Observación Explicativo Arquitectura Humana Empresarial_(AHE).docx",
+      "exists": true,
+      "sha256": "8f7e729d77429c6179403220dd1dd111f85a615ff8b9ffbafb675e702744cb7e",
+      "role": "guardia contextual AHE",
+      "authority": "Evita convertir huellas humanas en diagnóstico AHE final dentro de Capa 1.",
+      "direct_rule_source": false,
+      "sections_or_sheets_used": [
+        "naturaleza del instrumento; tres niveles; frontera diagnóstica"
+      ],
+      "notes": "No se implementa un gate AHE en esta fase."
+    }
+  ],
+  "excluded_internal_sources": [
+    "Instrucciones actualizadas para GPT personalizado.docx",
+    "Instrucciones_Maestras_y_Exhaustivas_para_IA_Arquitectura_Mínima_de_Negocio_(MMABP)_y_Diagnóstico_EVE™.docx"
+  ],
+  "dependencies": [
+    {
+      "chip_id": "EVE-00-METHOD-KERNEL",
+      "version": "0.2.0",
+      "required": true,
+      "role": "Reglas MMABP compiladas y source_refs D1."
+    },
+    {
+      "chip_id": "EVE-03-CANONICAL-CATALOG",
+      "version": "0.1.0",
+      "required": true,
+      "role": "source_node_registry y genealogía D8."
+    },
+    {
+      "chip_id": "EVE-04-RUNTIME-CATALOG",
+      "version": "0.2.0",
+      "required": true,
+      "role": "Interacciones 40+20, variables, rutas y estados corregidos."
+    },
+    {
+      "chip_id": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+      "version": "0.1.0",
+      "required": false,
+      "role": "Puente downstream deshabilitado en Fase 5."
+    }
+  ],
+  "document_complementarity": [
+    {
+      "document_id": "D1",
+      "completes": "Todos",
+      "relation": "Define qué se permite llamar MMABP y qué significa conformance/consistency.",
+      "must_not_replace": "No define por sí solo runtime, UI ni persistencia."
+    },
+    {
+      "document_id": "D8",
+      "completes": "Captura Capa 1",
+      "relation": "Conserva genealogía y nodos de las rutas críticas.",
+      "must_not_replace": "No decide 40+20 ni ejecuta gates."
+    },
+    {
+      "document_id": "D7",
+      "completes": "D8",
+      "relation": "Decide reducción 164→40+20 y prioridad de rutas.",
+      "must_not_replace": "No opera como dataset."
+    },
+    {
+      "document_id": "D5",
+      "completes": "D7",
+      "relation": "Gobierna gates, fronteras, QA y correcciones B7/C09.",
+      "must_not_replace": "No sustituye D6."
+    },
+    {
+      "document_id": "D6",
+      "completes": "D5",
+      "relation": "Ejecuta rutas, SEM, PST, readiness y QA como filas.",
+      "must_not_replace": "No inventa nodos ni reglas."
+    },
+    {
+      "document_id": "D4",
+      "completes": "D6",
+      "relation": "Convierte gates en componentes, eventos, API, persistencia y recomputación.",
+      "must_not_replace": "No redefine el catálogo."
+    },
+    {
+      "document_id": "D3",
+      "completes": "D4",
+      "relation": "Conecta gate outputs al organismo y protege frontera downstream.",
+      "must_not_replace": "No altera método ni catálogo."
+    },
+    {
+      "document_id": "D2",
+      "completes": "EVE02",
+      "relation": "Traduce inconsistency candidates después de readiness.",
+      "must_not_replace": "No se activa dentro de Fase 5."
+    }
+  ],
+  "integration_rules": [
+    {
+      "id": "INT-001",
+      "rule": "D1 manda sobre método MMABP; D5 gobierna; D6 ejecuta; D4 implementa; D3 integra.",
+      "blocking": true
+    },
+    {
+      "id": "INT-002",
+      "rule": "DOCX/PDF metodológicos se compilan a reglas; no se ejecutan como narrativa.",
+      "blocking": true
+    },
+    {
+      "id": "INT-003",
+      "rule": "XLSX se carga como fuente versionada y congelada; no se reinterpreta narrativamente.",
+      "blocking": true
+    },
+    {
+      "id": "INT-004",
+      "rule": "D8 valida genealogía; no se usa como entrevista visible.",
+      "blocking": true
+    },
+    {
+      "id": "INT-005",
+      "rule": "Conformance individual precede consistency.",
+      "blocking": true
+    },
+    {
+      "id": "INT-006",
+      "rule": "SEM y PST preparan candidatos; no diagnostican.",
+      "blocking": true
+    },
+    {
+      "id": "INT-007",
+      "rule": "Critical routes no cierran por IA ni texto libre sin ruta.",
+      "blocking": true
+    },
+    {
+      "id": "INT-008",
+      "rule": "Gate Engine emite candidatos de readiness; ReadinessEngine decide estado final.",
+      "blocking": true
+    },
+    {
+      "id": "INT-009",
+      "rule": "Inconsistency candidate no es patología; EVE02 se activa downstream y de forma explícita.",
+      "blocking": true
+    },
+    {
+      "id": "INT-010",
+      "rule": "B7/C20 solo readiness/preclassification; cero proyección directa.",
+      "blocking": true
+    },
+    {
+      "id": "INT-011",
+      "rule": "Una revisión invalida y recomputa dependientes con audit trail.",
+      "blocking": true
+    },
+    {
+      "id": "INT-012",
+      "rule": "Ningún gate expone Object Inventory, Membrane o SG Shadow en UI cliente.",
+      "blocking": true
+    }
+  ],
+  "failure_guards": [
+    {
+      "id": "FG-001",
+      "failure": "Usar Catálogo Madre como entrevista visible completa",
+      "consequence": "Sobrecarga cognitiva y ruptura de 40+20.",
+      "block": "UI/runtime design",
+      "gate_action": "reject_configuration",
+      "source_refs": [
+        "D7",
+        "D5:1"
+      ]
+    },
+    {
+      "id": "FG-002",
+      "failure": "Implementar desde narrativa DOCX en vez de XLSX",
+      "consequence": "Runtime ambiguo y no testeable.",
+      "block": "catalog loader",
+      "gate_action": "reject_activation",
+      "source_refs": [
+        "D5:2",
+        "D4:1",
+        "D6"
+      ]
+    },
+    {
+      "id": "FG-003",
+      "failure": "B7 genera MoC/IR/registry/export directo",
+      "consequence": "Diagnóstico prematuro y contaminación downstream.",
+      "block": "CR-B7",
+      "gate_action": "manual_review_required",
+      "source_refs": [
+        "D5:6.3",
+        "D6!Critical_Routes",
+        "D4:1"
+      ]
+    },
+    {
+      "id": "FG-004",
+      "failure": "Convertir satisfaction en receiver_feedback",
+      "consequence": "Rework falso, PF falso y OLC contaminado.",
+      "block": "CR-B3/C09",
+      "gate_action": "blocked_by_missing_canonical_route",
+      "source_refs": [
+        "D5:6.1",
+        "D5:6.2",
+        "D6!Critical_Routes"
+      ]
+    },
+    {
+      "id": "FG-005",
+      "failure": "Guardar pregunta compuesta como un solo texto",
+      "consequence": "Pérdida de trazabilidad, variables y QA.",
+      "block": "response ingest",
+      "gate_action": "blocked_by_missing_evidence",
+      "source_refs": [
+        "D5:7",
+        "D4:12",
+        "D6!UX_Subfield_Structure"
+      ]
+    },
+    {
+      "id": "FG-006",
+      "failure": "IA infiere ruta crítica",
+      "consequence": "Fabricación de hechos estructurales.",
+      "block": "critical route gate",
+      "gate_action": "manual_review_required",
+      "source_refs": [
+        "D6!Epistemic_Policy",
+        "D4:10"
+      ]
+    },
+    {
+      "id": "FG-007",
+      "failure": "Exponer Object Inventory/Membrane/SG Shadow en UI",
+      "consequence": "La UI muestra maquinaria interna al cliente.",
+      "block": "UI boundary",
+      "gate_action": "reject_projection",
+      "source_refs": [
+        "D3"
+      ]
+    },
+    {
+      "id": "FG-008",
+      "failure": "Saltar de evidencia a diagnóstico",
+      "consequence": "Violación de frontera Capa 1.",
+      "block": "diagnostic bridge",
+      "gate_action": "reject_transition",
+      "source_refs": [
+        "D4:1",
+        "D5:1",
+        "D2 downstream only"
+      ]
+    },
+    {
+      "id": "FG-009",
+      "failure": "C20 rutinario o simultáneo con B7 resuelto",
+      "consequence": "Carga innecesaria y preclasificación contaminada.",
+      "block": "B7 branching",
+      "gate_action": "reject_opening",
+      "source_refs": [
+        "D5:6.3",
+        "D6!Branching_Budget_Rules:BR-008"
+      ]
+    },
+    {
+      "id": "FG-010",
+      "failure": "Feedback textual sin receiver_feedback_route_missing",
+      "consequence": "Ruta crítica parece cerrada sin cierre canónico.",
+      "block": "C09",
+      "gate_action": "blocked_by_missing_canonical_route",
+      "source_refs": [
+        "D5:6.2",
+        "D6:C09"
+      ]
+    },
+    {
+      "id": "FG-011",
+      "failure": "Process State sin awaited event/timer/exit",
+      "consequence": "Deadlock y PF incompleto.",
+      "block": "PST",
+      "gate_action": "reentry_required",
+      "source_refs": [
+        "D5:8.2",
+        "D6!Process_State_Timer_Gates",
+        "D1:2.3.6"
+      ]
+    },
+    {
+      "id": "FG-012",
+      "failure": "Resolver ambigüedad semántica por default",
+      "consequence": "Clases/estados/atributos falsos.",
+      "block": "SEM",
+      "gate_action": "manual_review_required",
+      "source_refs": [
+        "D5:8.1",
+        "D6!Semantic_Resolution_Gates",
+        "D1:3.1.5"
+      ]
+    },
+    {
+      "id": "FG-013",
+      "failure": "Ejecutar consistencia antes de conformance",
+      "consequence": "Modelos pueden alinearse entre sí y seguir siendo falsos.",
+      "block": "MMABP consistency",
+      "gate_action": "not_evaluated_due_to_conformance",
+      "source_refs": [
+        "D1:4.1",
+        "D1:4.2"
+      ]
+    },
+    {
+      "id": "FG-014",
+      "failure": "Alinear modelos cosméticamente",
+      "consequence": "La contradicción real queda oculta.",
+      "block": "MMABP consistency",
+      "gate_action": "manual_review_required",
+      "source_refs": [
+        "D1:4.2"
+      ]
+    }
+  ],
+  "execution_pipeline": [
+    {
+      "order": 1,
+      "step": "validate_catalog_and_dependencies",
+      "description": "Verificar versión D6/EVE04, D8 y checksums; no activar si falta fuente."
+    },
+    {
+      "order": 2,
+      "step": "critical_route_gate",
+      "description": "Evaluar B0/B2/B3/B7 sobre variables y provenance."
+    },
+    {
+      "order": 3,
+      "step": "semantic_resolution_gate",
+      "description": "Ejecutar SEM gatillados antes de MoC/OLC."
+    },
+    {
+      "order": 4,
+      "step": "process_state_timer_gate",
+      "description": "Ejecutar PST gatillados antes de PF/OLC."
+    },
+    {
+      "order": 5,
+      "step": "mmabp_conformance_gate",
+      "description": "Evaluar cada vista contra realidad."
+    },
+    {
+      "order": 6,
+      "step": "mmabp_consistency_gate",
+      "description": "Evaluar solo vistas conformantes."
+    },
+    {
+      "order": 7,
+      "step": "emit_gate_summary",
+      "description": "Emitir blockers, gaps, reentry y readiness candidates."
+    },
+    {
+      "order": 8,
+      "step": "readiness_engine_external",
+      "description": "Delegar decisión final de readiness; diagnóstico y export permanecen bloqueados."
+    }
+  ],
+  "diagnostic_bridge": {
+    "enabled": false,
+    "target_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY@0.1.0",
+    "activation_preconditions": [
+      "conformance_complete",
+      "consistency_candidate_confirmed",
+      "readiness_allows_downstream",
+      "explicit_diagnostic_stage"
+    ],
+    "phase5_allowed_output": "inconsistency_candidate_only",
+    "phase5_forbidden_outputs": [
+      "pathology",
+      "final_diagnosis",
+      "VSM_closed_diagnosis",
+      "AHE_closed_diagnosis"
+    ]
+  },
+  "enums": {
+    "gate_status": [
+      "pass",
+      "fail",
+      "gap",
+      "ambiguous",
+      "manual_review_required",
+      "not_applicable",
+      "not_evaluated_due_to_conformance"
+    ],
+    "readiness_state": [
+      "ready",
+      "ready_with_flags",
+      "blocked_by_missing_evidence",
+      "blocked_by_contradiction",
+      "blocked_by_missing_canonical_route",
+      "manual_review_required",
+      "reentry_required"
+    ],
+    "severity": [
+      "blocker",
+      "critical",
+      "major",
+      "warning",
+      "info"
+    ],
+    "evaluation_mode": [
+      "deterministic",
+      "structured_semantic",
+      "human_validation_required"
+    ],
+    "failure_mode": [
+      "canonical_route_missing",
+      "semantic_ambiguity",
+      "process_state_without_timer",
+      "contradiction",
+      "missing_evidence",
+      "boundary_violation"
+    ]
+  },
+  "modules": {
+    "critical_route_gate": {
+      "role": "Validar las cuatro rutas canónicas blindadas antes de candidatos, readiness o consumo downstream.",
+      "input_contract": {
+        "required": [
+          "run_id",
+          "route_id",
+          "route_active",
+          "observed_source_codes",
+          "canonical_variables",
+          "epistemic_statuses",
+          "evidence_refs"
+        ],
+        "optional": [
+          "textual_signals",
+          "conditional_context",
+          "retry_count",
+          "max_retries",
+          "projection_attempts"
+        ]
+      },
+      "output_contract": [
+        "route_id",
+        "status",
+        "missing_variables",
+        "violations",
+        "audit_required",
+        "reentry_target",
+        "readiness_candidate",
+        "blocked_outputs"
+      ],
+      "routes": [
+        {
+          "route_id": "CR-B0-WorkMapIntake-semantic-entry",
+          "route_expression": "0.0 → 0.1 → 0.1a/0.D",
+          "rule": "Entrada robusta desde WorkMapIntake. Si la actividad llega parcial o fallida, Bloque 0 reconstruye sin inventar estructura.",
+          "failure_block": "No consolidar actividad como evidencia dura; conservar weak_context o activar reconstrucción guiada.",
+          "downstream": [
+            "SceneCanonicalRecord",
+            "EvidenceBundle",
+            "MDSB"
+          ],
+          "enforcement": "Ruta blindada. No relajar gates; si falla, ready_with_flags/reentry/manual_review según criticidad.",
+          "genealogy": [
+            {
+              "source_code": "0.0",
+              "source_node_ids": [
+                "B0_0_0"
+              ],
+              "master_node_ids": [
+                "C1B0-001"
+              ],
+              "canonical_variable_outputs": [
+                "semantic_preload_used + activity_semantic_* + semantic_review_attempt_count + block0_entry_mode"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "internal_derivation"
+              ]
+            },
+            {
+              "source_code": "0.1",
+              "source_node_ids": [
+                "B0_0_1"
+              ],
+              "master_node_ids": [
+                "C1B0-002"
+              ],
+              "canonical_variable_outputs": [
+                "activity_name_user_confirmed + semantic_confirmation_status + block0_entry_mode"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "confirmation_card"
+              ]
+            },
+            {
+              "source_code": "0.1a",
+              "source_node_ids": [
+                "B0_0_1a"
+              ],
+              "master_node_ids": [
+                "C1B0-003"
+              ],
+              "canonical_variable_outputs": [
+                "activity_name_user_confirmed + activity_semantic_structure_corrected + reconstructed_activity_minimum"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "conditional_question"
+              ]
+            },
+            {
+              "source_code": "0.D",
+              "source_node_ids": [
+                "B0_0_D"
+              ],
+              "master_node_ids": [
+                "C1B0-016"
+              ],
+              "canonical_variable_outputs": [
+                "activity_semantic_completion / semantic_gap_unresolved"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "clarification_node"
+              ]
+            },
+            {
+              "source_code": "block0_entry_control",
+              "source_node_ids": [
+                "B0_block0_entry_control"
+              ],
+              "master_node_ids": [
+                "C1B0-017"
+              ],
+              "canonical_variable_outputs": [],
+              "route_statuses": [
+                "sin_variable_directa"
+              ],
+              "node_types": [
+                "confirmation_card"
+              ]
+            }
+          ],
+          "source_codes": [
+            "0.0",
+            "0.1",
+            "0.1a",
+            "0.D",
+            "block0_entry_control"
+          ],
+          "block": "0",
+          "activation_condition": "Siempre al iniciar una actividad con o sin preload.",
+          "required_variables": [
+            "activity_name_user_confirmed",
+            "semantic_confirmation_status",
+            "block0_entry_mode"
+          ],
+          "conditional_requirements": [
+            {
+              "when": "preload parcial, fallido o no usable",
+              "require_any": [
+                "activity_semantic_structure_corrected",
+                "activity_semantic_completion",
+                "reconstructed_activity_minimum"
+              ],
+              "fail_if": [
+                "semantic_gap_unresolved"
+              ]
+            }
+          ],
+          "closure_condition": "Actividad confirmada/corregida o reconstruida por el usuario; ningún gap semántico crítico oculto.",
+          "reentry_target": "B0 / 0.1a / 0.D",
+          "blocked_outputs": [
+            "hard_evidence",
+            "SceneCanonicalRecord_ready",
+            "MDSB_candidate"
+          ],
+          "failure_state": "reentry_required",
+          "audit_required": true,
+          "ai_may_close_route": false,
+          "source_refs": [
+            "D6!Critical_Routes:CR-B0-WorkMapIntake-semantic-entry",
+            "D8!Critical_Routes:CR-B0-WorkMapIntake-semantic-entry",
+            "D5:6",
+            "D4:10"
+          ]
+        },
+        {
+          "route_id": "CR-B2-V3-transformation_exception",
+          "route_expression": "2.9 / transformation_exception_type → transformation_exception_exists → transformation_exception_description",
+          "rule": "La excepción de transformación se captura/deriva solo por ruta canónica; no desde texto libre sin trazabilidad.",
+          "failure_block": "CanonicalRouteException / ready_with_flags; no generar candidato PF/OLC si falta ruta.",
+          "downstream": [
+            "OperationalExceptionEvidence",
+            "EvidenceBundle",
+            "MDSB",
+            "Inventory/Registry"
+          ],
+          "enforcement": "Ruta blindada. No relajar gates; si falla, ready_with_flags/reentry/manual_review según criticidad.",
+          "genealogy": [
+            {
+              "source_code": "2.9",
+              "source_node_ids": [
+                "B2_2_9"
+              ],
+              "master_node_ids": [
+                "C1B2-020"
+              ],
+              "canonical_variable_outputs": [
+                "transformation_exception_type + transformation_exception_exists Regla de salida: transformation_exception_type conserva la respuesta literal/categórica de 2.9 como evidencia capturada. transformation_exception_exists se deriva canónicamente desde transformation_exception_type."
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "base_question"
+              ]
+            },
+            {
+              "source_code": "2.10",
+              "source_node_ids": [
+                "B2_2_10"
+              ],
+              "master_node_ids": [
+                "C1B2-021"
+              ],
+              "canonical_variable_outputs": [
+                "transformation_exception_description"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "causal_probe"
+              ]
+            },
+            {
+              "source_code": "2.11",
+              "source_node_ids": [
+                "B2_2_11"
+              ],
+              "master_node_ids": [
+                "C1B2-022"
+              ],
+              "canonical_variable_outputs": [
+                "transformation_hidden_changes"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "base_question"
+              ]
+            },
+            {
+              "source_code": "2.12",
+              "source_node_ids": [
+                "B2_2_12"
+              ],
+              "master_node_ids": [
+                "C1B2-023"
+              ],
+              "canonical_variable_outputs": [
+                "transformation_hidden_changes_description"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "conditional_question"
+              ]
+            }
+          ],
+          "source_codes": [
+            "2.9",
+            "2.10",
+            "2.11",
+            "2.12"
+          ],
+          "block": "2",
+          "activation_condition": "Siempre evaluar 2.9; abrir descripción si existe excepción.",
+          "required_variables": [
+            "transformation_exception_type",
+            "transformation_exception_exists"
+          ],
+          "conditional_requirements": [
+            {
+              "when": "transformation_exception_exists = true",
+              "require_all": [
+                "transformation_exception_description"
+              ]
+            },
+            {
+              "when": "transformation_hidden_changes indica cambio oculto",
+              "require_all": [
+                "transformation_hidden_changes_description"
+              ]
+            }
+          ],
+          "closure_condition": "Booleano derivado desde 2.9 y descripción capturada cuando existe excepción; no desde texto libre lateral.",
+          "reentry_target": "B2 / 2.9-2.12",
+          "blocked_outputs": [
+            "PF_candidate",
+            "OLC_candidate",
+            "OperationalExceptionEvidence_closed"
+          ],
+          "failure_state": "blocked_by_missing_canonical_route",
+          "audit_required": true,
+          "ai_may_close_route": false,
+          "source_refs": [
+            "D6!Critical_Routes:CR-B2-V3-transformation_exception",
+            "D8!Critical_Routes:CR-B2-V3-transformation_exception",
+            "D5:6",
+            "D4:10"
+          ]
+        },
+        {
+          "route_id": "CR-B3-R9-receiver_feedback",
+          "route_expression": "3.10 → 3.13 → 3.13a → receiver_feedback_exists → receiver_feedback",
+          "rule": "receiver_satisfaction no equivale a receiver_feedback. El feedback operativo exige señal de aviso, rechazo, devolución, corrección, recontacto o bloqueo.",
+          "failure_block": "receiver_feedback_route_missing / CanonicalRouteException / no crear rework desde satisfacción subjetiva.",
+          "downstream": [
+            "OperationalExceptionEvidence",
+            "EvidenceBundle",
+            "MDSB",
+            "Inventory/Registry PF/OLC"
+          ],
+          "enforcement": "Ruta blindada. No relajar gates; si falla, ready_with_flags/reentry/manual_review según criticidad.",
+          "genealogy": [
+            {
+              "source_code": "3.10",
+              "source_node_ids": [
+                "B3_3_10"
+              ],
+              "master_node_ids": [
+                "C1B3-010"
+              ],
+              "canonical_variable_outputs": [
+                "delivery_exception_exists"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "base_question"
+              ]
+            },
+            {
+              "source_code": "3.13",
+              "source_node_ids": [
+                "B3_3_13"
+              ],
+              "master_node_ids": [
+                "C1B3-013"
+              ],
+              "canonical_variable_outputs": [
+                "receiver_satisfaction"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "base_question"
+              ]
+            },
+            {
+              "source_code": "3.13a",
+              "source_node_ids": [
+                "B3_3_13a"
+              ],
+              "master_node_ids": [
+                "C1B3-014"
+              ],
+              "canonical_variable_outputs": [
+                "receiver_feedback; receiver_feedback_exists"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "causal_probe"
+              ]
+            },
+            {
+              "source_code": "3.D",
+              "source_node_ids": [
+                "B3_3_D"
+              ],
+              "master_node_ids": [
+                "C1B3-019"
+              ],
+              "canonical_variable_outputs": [
+                "receiver_feedback; receiver_feedback_exists; receiver_feedback_gap_flag"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "clarification_node"
+              ]
+            }
+          ],
+          "source_codes": [
+            "3.10",
+            "3.13",
+            "3.13a",
+            "3.D"
+          ],
+          "block": "3",
+          "activation_condition": "Evaluar si hay falla, ajuste, devolución, rechazo, corrección, recontacto o bloqueo del receptor.",
+          "required_variables": [
+            "delivery_exception_exists",
+            "receiver_satisfaction"
+          ],
+          "conditional_requirements": [
+            {
+              "when": "hay señal operativa de feedback o delivery_exception_exists = true",
+              "require_all": [
+                "receiver_feedback_exists"
+              ],
+              "require_any": [
+                "receiver_feedback",
+                "receiver_feedback_gap_flag"
+              ]
+            },
+            {
+              "when": "existe evidencia textual de feedback pero no cierra 3.13a",
+              "require_all": [
+                "receiver_feedback_route_missing"
+              ]
+            }
+          ],
+          "closure_condition": "receiver_satisfaction permanece separada; receiver_feedback cierra solo por 3.13a/3.D.",
+          "reentry_target": "B3 / 3.13a; B4/B6 si genera retorno, espera o retrabajo",
+          "blocked_outputs": [
+            "rework_candidate_from_satisfaction",
+            "PF_feedback_event",
+            "OLC_return_transition"
+          ],
+          "failure_state": "blocked_by_missing_canonical_route",
+          "audit_required": true,
+          "ai_may_close_route": false,
+          "source_refs": [
+            "D6!Critical_Routes:CR-B3-R9-receiver_feedback",
+            "D8!Critical_Routes:CR-B3-R9-receiver_feedback",
+            "D5:6",
+            "D4:10"
+          ]
+        },
+        {
+          "route_id": "CR-B7-AHE-boundary_guard",
+          "route_expression": "7.0 → 7.0a → 7.3 → 7.3a → 7.4",
+          "rule": "B7 transporta señal preclasificatoria no diagnóstica; no produce inventario, IR, export, VSM/AHE cerrado ni diagnóstico.",
+          "failure_block": "ManualReviewRequest / EvidenceInsufficiency / TransductionBlocker según caso.",
+          "downstream": [
+            "EvidenceBundle",
+            "Capa 2.0/2.5 prep"
+          ],
+          "enforcement": "Ruta blindada. No relajar gates; si falla, ready_with_flags/reentry/manual_review según criticidad.",
+          "genealogy": [
+            {
+              "source_code": "7.0",
+              "source_node_ids": [
+                "B7_7_0"
+              ],
+              "master_node_ids": [
+                "C1B7-001"
+              ],
+              "canonical_variable_outputs": [
+                "preclassification_scene_type; preclassification_chain_position; preclassification_vsm_role; preclassification_ahe_signal; preclassification_ahe_note; preclassification_mission_suggested; confidence_level; confidence_score; confidence_reasoning; preclassification_readiness; evidence_bundle_for_transduction"
+              ],
+              "route_statuses": [
+                "normal"
+              ],
+              "node_types": [
+                "internal_derivation"
+              ]
+            },
+            {
+              "source_code": "7.0a",
+              "source_node_ids": [
+                "B7_7_0a"
+              ],
+              "master_node_ids": [
+                "C1B7-002"
+              ],
+              "canonical_variable_outputs": [
+                "preclassification_ahe_level_dominant; preclassification_interpersonal_signal; preclassification_interpersonal_note; preclassification_ahe_bundle_refined"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "internal_derivation"
+              ]
+            },
+            {
+              "source_code": "7.3",
+              "source_node_ids": [
+                "B7_7_3"
+              ],
+              "master_node_ids": [
+                "C1B7-005"
+              ],
+              "canonical_variable_outputs": [
+                "user_clarification"
+              ],
+              "route_statuses": [
+                "normal"
+              ],
+              "node_types": [
+                "conditional_question"
+              ]
+            },
+            {
+              "source_code": "7.3a",
+              "source_node_ids": [
+                "B7_7_3a"
+              ],
+              "master_node_ids": [
+                "C1B7-006"
+              ],
+              "canonical_variable_outputs": [
+                "preclassification_interpersonal_confirmation; user_clarification"
+              ],
+              "route_statuses": [
+                "ruta_crítica"
+              ],
+              "node_types": [
+                "conditional_question"
+              ]
+            },
+            {
+              "source_code": "7.4",
+              "source_node_ids": [
+                "B7_7_4"
+              ],
+              "master_node_ids": [
+                "C1B7-007"
+              ],
+              "canonical_variable_outputs": [
+                "user_correction"
+              ],
+              "route_statuses": [
+                "normal"
+              ],
+              "node_types": [
+                "conditional_question"
+              ]
+            }
+          ],
+          "source_codes": [
+            "7.0",
+            "7.0a",
+            "7.3",
+            "7.3a",
+            "7.4"
+          ],
+          "block": "7",
+          "activation_condition": "Siempre al consolidar preclasificación de B7.",
+          "required_variables": [
+            "confidence_level",
+            "preclassification_readiness"
+          ],
+          "conditional_requirements": [
+            {
+              "when": "confianza media/baja o señales cruzadas",
+              "require_any": [
+                "user_confirmation",
+                "user_correction",
+                "user_clarification",
+                "manual_review_required"
+              ]
+            }
+          ],
+          "closure_condition": "Solo señal preclasificatoria trazable; cero proyección directa MoC/IR/registry/export/diagnóstico.",
+          "reentry_target": "B7 / B7-Q39 / B7-Q40 / C20 o manual review",
+          "blocked_outputs": [
+            "direct_MoC_output",
+            "direct_IR",
+            "direct_registry",
+            "direct_export",
+            "closed_VSM_diagnosis",
+            "closed_AHE_diagnosis"
+          ],
+          "failure_state": "manual_review_required",
+          "audit_required": true,
+          "ai_may_close_route": false,
+          "source_refs": [
+            "D6!Critical_Routes:CR-B7-AHE-boundary_guard",
+            "D8!Critical_Routes:CR-B7-AHE-boundary_guard",
+            "D5:6",
+            "D4:10"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "id": "CRT-ENG-001",
+          "label": "Genealogía obligatoria",
+          "assertion": "Toda ruta crítica debe resolver sus códigos a nodos D8 existentes antes de evaluarse.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "route.source_codes",
+            "source_node_registry"
+          ],
+          "pass_condition": "Todos los códigos tienen al menos un source_node_id.",
+          "on_fail": "blocked_by_missing_evidence",
+          "reentry_target": "catalog/source registry",
+          "source_refs": [
+            "D8!Critical_Routes",
+            "D8!Catalogo_Madre_Nodos",
+            "D4:10"
+          ]
+        },
+        {
+          "id": "CRT-ENG-002",
+          "label": "Ruta canónica antes que texto libre",
+          "assertion": "Una señal textual no cierra una variable estructural crítica si no pasó por su ruta canónica.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "route_status",
+            "provenance",
+            "canonical_variables"
+          ],
+          "pass_condition": "route_status=closed y variables requeridas tienen provenance permitido.",
+          "on_fail": "blocked_by_missing_canonical_route",
+          "reentry_target": "route.reentry_target",
+          "source_refs": [
+            "D5:6.1",
+            "D5:6.2",
+            "D6!Epistemic_Policy",
+            "D4:10"
+          ]
+        },
+        {
+          "id": "CRT-ENG-003",
+          "label": "La IA no fabrica cierre de ruta",
+          "assertion": "Una inferencia IA no puede cerrar una ruta crítica como captured_user_evidence sin confirmación o corrección.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "epistemic_status",
+            "confirmation_status"
+          ],
+          "pass_condition": "No existe cierre duro con ai_inferred_unconfirmed.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "source interaction",
+          "source_refs": [
+            "D6!Epistemic_Policy",
+            "D5:1",
+            "D4:1"
+          ]
+        },
+        {
+          "id": "CRT-ENG-004",
+          "label": "Bloqueo downstream por ruta fallida",
+          "assertion": "Una ruta crítica fallida bloquea sus candidatos estructurales y su export-preview downstream.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "route_result",
+            "candidate_state",
+            "payload_state"
+          ],
+          "pass_condition": "No hay candidate/payload promovido cuando route_result != pass.",
+          "on_fail": "blocked_by_missing_canonical_route",
+          "reentry_target": "route.reentry_target",
+          "source_refs": [
+            "D5:10",
+            "D5:11",
+            "D4:10",
+            "D4:13"
+          ]
+        },
+        {
+          "id": "CRT-ENG-005",
+          "label": "Audit log obligatorio",
+          "assertion": "Cierre, reapertura, override, reentry o fallo de ruta crítica genera registro de auditoría.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "audit_event"
+          ],
+          "pass_condition": "Existe audit_event con route_id, decision, evidence_refs y timestamp.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "audit trail",
+          "source_refs": [
+            "D5:5",
+            "D6!Epistemic_Policy",
+            "D4:24",
+            "D4:27"
+          ]
+        },
+        {
+          "id": "CRT-ENG-006",
+          "label": "Recomputación tras revisión",
+          "assertion": "La revisión de una respuesta invalida y recomputa variables, rutas, branching, readiness y payloads dependientes.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "revision_event",
+            "dependency_recompute_log"
+          ],
+          "pass_condition": "Todos los dependientes afectados quedaron stale/superseded y fueron recomputados.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "recompute pipeline",
+          "source_refs": [
+            "D4:24"
+          ]
+        },
+        {
+          "id": "CRT-ENG-007",
+          "label": "Presupuesto no relaja ruta crítica",
+          "assertion": "Agotar presupuesto causal no autoriza omitir B0/B2/B3/B7; se registra carry-forward o reentry.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "budget_state",
+            "route_states"
+          ],
+          "pass_condition": "Toda ruta crítica está cerrada o tiene gap/reentry explícito.",
+          "on_fail": "reentry_required",
+          "reentry_target": "critical route",
+          "source_refs": [
+            "D5:9",
+            "D6!Branching_Budget_Rules:BR-009",
+            "D7"
+          ]
+        },
+        {
+          "id": "CRT-ENG-008",
+          "label": "B7 sin diagnóstico ni proyección directa",
+          "assertion": "B7-Q39/B7-Q40/C20 no producen MoC, IR, registry, export ni diagnóstico directo.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "b7_outputs"
+          ],
+          "pass_condition": "Todos los outputs son readiness/preclassification/evidence only.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "B7 boundary review",
+          "source_refs": [
+            "D5:6.3",
+            "D6!Critical_Routes:CR-B7-AHE-boundary_guard",
+            "D4:1",
+            "D4:10"
+          ]
+        },
+        {
+          "id": "CRT-ENG-009",
+          "label": "C09 separa satisfacción y feedback",
+          "assertion": "receiver_satisfaction no puede materializar receiver_feedback ni rework sin 3.13a/3.D.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "receiver_satisfaction",
+            "receiver_feedback_route_status"
+          ],
+          "pass_condition": "Feedback/rework solo existe con ruta 3.13a/3.D cerrada.",
+          "on_fail": "blocked_by_missing_canonical_route",
+          "reentry_target": "B3/C09",
+          "source_refs": [
+            "D5:6.1",
+            "D5:6.2",
+            "D6!Critical_Routes:CR-B3-R9-receiver_feedback",
+            "D4:10"
+          ]
+        },
+        {
+          "id": "CRT-ENG-010",
+          "label": "Preguntas compuestas persisten subcampos",
+          "assertion": "Una interacción compuesta guarda cada subrespuesta y variable por separado.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "subfield_responses",
+            "canonical_variable_records"
+          ],
+          "pass_condition": "No existe single_textbox opaco para interacción compuesta.",
+          "on_fail": "blocked_by_missing_evidence",
+          "reentry_target": "interaction response",
+          "source_refs": [
+            "D5:7",
+            "D6!UX_Subfield_Structure",
+            "D4:12"
+          ]
+        }
+      ],
+      "algorithm": [
+        "Resolver route_id y genealogía contra D8.",
+        "Si route_active=false, devolver not_applicable sin cerrar variables.",
+        "Validar fuente, provenance y requisitos condicionales.",
+        "Aplicar guardias específicas B0/B2/B3/B7.",
+        "Bloquear outputs afectados si no pasa.",
+        "Emitir audit event y readiness candidate; no emitir readiness final."
+      ]
+    },
+    "semantic_resolution_gate": {
+      "role": "Resolver ambigüedad clase/estado/atributo/proceso/ISA/role/phase/end antes de MoC/OLC.",
+      "input_contract": {
+        "required": [
+          "run_id",
+          "gate_id",
+          "triggered",
+          "target_term",
+          "context",
+          "evidence_refs"
+        ],
+        "optional": [
+          "proposed_outcome",
+          "projection_attempted",
+          "retry_count",
+          "max_retries"
+        ]
+      },
+      "output_contract": [
+        "semantic_event_id",
+        "gate_id",
+        "outcome",
+        "status",
+        "action",
+        "blocked_projection",
+        "reentry_target",
+        "readiness_candidate"
+      ],
+      "gate_definitions": [
+        {
+          "gate_id": "SEM-001",
+          "risk_controlled": "Convertir estado en clase",
+          "trigger_condition": "B2 o MoC detecta etiqueta que parece estado",
+          "internal_checks": "¿Es entidad estable o condición temporal del objeto?",
+          "possible_outputs": [
+            "state",
+            "phase",
+            "class_candidate",
+            "ambiguous"
+          ],
+          "blocking_rule": "No proyectar a MoC como clase hasta resolver.",
+          "mmabp_target": "MoC/OLC",
+          "evaluation_mode": "structured_semantic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates:SEM-001",
+            "D5:8.1",
+            "D1:3.1.5",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "SEM-002",
+          "risk_controlled": "Convertir atributo en clase",
+          "trigger_condition": "Atributo descrito como entidad",
+          "internal_checks": "¿La propiedad tiene existencia independiente o solo califica a una clase?",
+          "possible_outputs": [
+            "attribute",
+            "class_candidate",
+            "ambiguous"
+          ],
+          "blocking_rule": "Si es atributo, no crear clase separada.",
+          "mmabp_target": "MoC",
+          "evaluation_mode": "structured_semantic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates:SEM-002",
+            "D5:8.1",
+            "D1:3.1.5",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "SEM-003",
+          "risk_controlled": "Convertir proceso en objeto",
+          "trigger_condition": "Verbo/actividad aparece como objeto",
+          "internal_checks": "¿Es cosa del negocio o trabajo realizado sobre una cosa?",
+          "possible_outputs": [
+            "process_candidate",
+            "object_candidate",
+            "ambiguous"
+          ],
+          "blocking_rule": "No crear objeto si solo es acción/proceso.",
+          "mmabp_target": "MoC/PF",
+          "evaluation_mode": "structured_semantic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates:SEM-003",
+            "D5:8.1",
+            "D1:3.1.5",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "SEM-004",
+          "risk_controlled": "ISA falso por 'tipo de'",
+          "trigger_condition": "Usuario dice tipo de sin especialización real",
+          "internal_checks": "¿La especialización tiene identidad conceptual estable y reglas propias?",
+          "possible_outputs": [
+            "ISA",
+            "attribute_value",
+            "role",
+            "phase",
+            "ambiguous"
+          ],
+          "blocking_rule": "No usar Jerarquía ISA como sustituto de atributo tipo.",
+          "mmabp_target": "MoC",
+          "evaluation_mode": "structured_semantic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates:SEM-004",
+            "D5:8.1",
+            "D1:3.1.5",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "SEM-005",
+          "risk_controlled": "Alias o duplicado conceptual",
+          "trigger_condition": "Dos nombres parecen referir a la misma clase",
+          "internal_checks": "Comparar significado, relaciones, estados y uso operativo.",
+          "possible_outputs": [
+            "same_concept",
+            "different_concept",
+            "synonym",
+            "ambiguous"
+          ],
+          "blocking_rule": "Conservar alias sin duplicar clase hasta confirmar.",
+          "mmabp_target": "MoC",
+          "evaluation_mode": "structured_semantic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates:SEM-005",
+            "D5:8.1",
+            "D1:3.1.5",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "SEM-006",
+          "risk_controlled": "Confusión role/phase/end",
+          "trigger_condition": "Clase cambia por contexto, etapa o terminación",
+          "internal_checks": "¿Es papel contextual, fase temporal o estado final?",
+          "possible_outputs": [
+            "role",
+            "phase",
+            "end",
+            "state",
+            "class"
+          ],
+          "blocking_rule": "No fijar como clase estática sin resolver dinámica.",
+          "mmabp_target": "MoC/OLC",
+          "evaluation_mode": "structured_semantic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates:SEM-006",
+            "D5:8.1",
+            "D1:3.1.5",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "SEM-007",
+          "risk_controlled": "Objeto fusionado/marsupial",
+          "trigger_condition": "Una respuesta mezcla ciclos de vida de objetos distintos",
+          "internal_checks": "Separar portador, documento, orden, entrega, aprobación, incidente.",
+          "possible_outputs": [
+            "split_objects_required",
+            "ambiguous"
+          ],
+          "blocking_rule": "No fusionar OLC de objetos distintos.",
+          "mmabp_target": "OLC/MoC",
+          "evaluation_mode": "structured_semantic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates:SEM-007",
+            "D5:8.1",
+            "D1:3.1.5",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "id": "SEM-ENG-001",
+          "label": "Gate antes de proyección",
+          "assertion": "Todo candidato ambiguo para MoC/OLC pasa por SEM antes de registry, IR o export.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "semantic_trigger",
+            "semantic_resolution_event"
+          ],
+          "pass_condition": "Si hay trigger, existe evento SEM resuelto antes de proyección.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "semantic gate",
+          "source_refs": [
+            "D5:8.1",
+            "D4:10",
+            "D6!Branching_Budget_Rules:BR-001"
+          ]
+        },
+        {
+          "id": "SEM-ENG-002",
+          "label": "Outputs cerrados",
+          "assertion": "El outcome del gate pertenece al conjunto permitido por su definición.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "gate_id",
+            "outcome"
+          ],
+          "pass_condition": "outcome ∈ possible_outputs.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "semantic gate",
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates",
+            "D4:3"
+          ]
+        },
+        {
+          "id": "SEM-ENG-003",
+          "label": "Ambigüedad bloquea proyección",
+          "assertion": "Outcome ambiguous no crea clase, estado, atributo, ISA, role, phase o end definitivo.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "outcome",
+            "projection_state"
+          ],
+          "pass_condition": "Si outcome=ambiguous, projection_state no es promoted.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "B2/semantic review",
+          "source_refs": [
+            "D5:8.1",
+            "D4:10"
+          ]
+        },
+        {
+          "id": "SEM-ENG-004",
+          "label": "Sin clase por defecto",
+          "assertion": "La ausencia de resolución no se interpreta como class_candidate.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "outcome"
+          ],
+          "pass_condition": "No hay default a class_candidate.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "semantic review",
+          "source_refs": [
+            "D6!Semantic_Resolution_Gates",
+            "D1:3.1.5"
+          ]
+        },
+        {
+          "id": "SEM-ENG-005",
+          "label": "Provenance preservada",
+          "assertion": "La resolución semántica conserva término original, contexto, evidencia y decisión.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "target_term",
+            "context",
+            "evidence_refs",
+            "decision"
+          ],
+          "pass_condition": "Todos los campos están presentes.",
+          "on_fail": "blocked_by_missing_evidence",
+          "reentry_target": "semantic event",
+          "source_refs": [
+            "D4:3",
+            "D4:27"
+          ]
+        },
+        {
+          "id": "SEM-ENG-006",
+          "label": "No sustituye evidencia",
+          "assertion": "La resolución interna no se reetiqueta como captured_user_evidence.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "epistemic_status"
+          ],
+          "pass_condition": "Outcome interno conserva derived_internal/light_inference o confirmación explícita.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "confirmation",
+          "source_refs": [
+            "D6!Epistemic_Policy",
+            "D5:1"
+          ]
+        },
+        {
+          "id": "SEM-ENG-007",
+          "label": "Reentry o revisión tras ambigüedad persistente",
+          "assertion": "Tras max_retries sin resolución, el gate no simula certeza y deriva a manual review.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "retry_count",
+            "max_retries",
+            "outcome"
+          ],
+          "pass_condition": "Ambigüedad persistente termina en manual_review_required.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "manual review",
+          "source_refs": [
+            "D5:11",
+            "D4:10"
+          ]
+        },
+        {
+          "id": "SEM-ENG-008",
+          "label": "Sin diagnóstico",
+          "assertion": "El gate clasifica naturaleza conceptual, no emite patología EVE, VSM ni AHE.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "gate_output"
+          ],
+          "pass_condition": "Output contiene resolución semántica y no diagnóstico.",
+          "on_fail": "manual_review_required",
+          "reentry_target": "boundary review",
+          "source_refs": [
+            "D5:1",
+            "D4:1",
+            "D2:downstream only"
+          ]
+        }
+      ],
+      "algorithm": [
+        "Evaluar trigger y seleccionar gate SEM exacto.",
+        "Solicitar/recibir outcome dentro del enum permitido.",
+        "Si ambiguous, bloquear proyección y abrir reentry/manual review.",
+        "Preservar término, contexto, evidence refs y provenance.",
+        "No reetiquetar inferencia como evidencia ni emitir diagnóstico."
+      ]
+    },
+    "process_state_timer_gate": {
+      "role": "Impedir PF con esperas, bloqueos o deadlocks sin evento, liberación, timer, estado de timeout y salida.",
+      "input_contract": {
+        "required": [
+          "run_id",
+          "gate_id",
+          "triggered",
+          "wait_context",
+          "evidence_refs"
+        ],
+        "optional": [
+          "awaited_event",
+          "release_condition",
+          "timer_event_or_timeout_rule",
+          "timeout_state",
+          "resolver_owner",
+          "exit_path",
+          "deadlock_risk"
+        ]
+      },
+      "output_contract": [
+        "pst_event_id",
+        "gate_id",
+        "status",
+        "missing_capture",
+        "deadlock_risk",
+        "blocked_process_state",
+        "reentry_target",
+        "readiness_candidate"
+      ],
+      "gate_definitions": [
+        {
+          "gate_id": "PST-001",
+          "trigger_condition": "B4-Q24 indica espera fuerte",
+          "required_capture": [
+            "awaited_event"
+          ],
+          "visible_or_internal": "visible si no se infiere con confianza",
+          "blocking_rule": "Bloquear Process State si no existe evento esperado.",
+          "output_variables": [
+            "awaited_event"
+          ],
+          "mmabp_target": "PF",
+          "evaluation_mode": "deterministic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Process_State_Timer_Gates:PST-001",
+            "D5:8.2",
+            "D1:2.3.6",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "PST-002",
+          "trigger_condition": "Hay bloqueo/deadlock",
+          "required_capture": [
+            "release_condition"
+          ],
+          "visible_or_internal": "visible/condicional",
+          "blocking_rule": "Bloquear salida si no hay condición de liberación.",
+          "output_variables": [
+            "release_condition"
+          ],
+          "mmabp_target": "PF/OLC",
+          "evaluation_mode": "deterministic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Process_State_Timer_Gates:PST-002",
+            "D5:8.2",
+            "D1:2.3.6",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "PST-003",
+          "trigger_condition": "La espera puede vencer o escalar",
+          "required_capture": [
+            "timer_event_or_timeout_rule"
+          ],
+          "visible_or_internal": "visible/condicional",
+          "blocking_rule": "Ninguna espera fuerte llega a PF sin timer o criterio de vencimiento.",
+          "output_variables": [
+            "timer_event",
+            "timeout_condition"
+          ],
+          "mmabp_target": "PF",
+          "evaluation_mode": "deterministic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Process_State_Timer_Gates:PST-003",
+            "D5:8.2",
+            "D1:2.3.6",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "PST-004",
+          "trigger_condition": "El tiempo vence o falla la condición",
+          "required_capture": [
+            "timeout_state"
+          ],
+          "visible_or_internal": "interno + confirmación si afecta estado",
+          "blocking_rule": "No crear transición OLC sin estado resultante.",
+          "output_variables": [
+            "timeout_state",
+            "failed_wait_state"
+          ],
+          "mmabp_target": "OLC",
+          "evaluation_mode": "deterministic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Process_State_Timer_Gates:PST-004",
+            "D5:8.2",
+            "D1:2.3.6",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "PST-005",
+          "trigger_condition": "Alguien desbloquea",
+          "required_capture": [
+            "resolver_owner"
+          ],
+          "visible_or_internal": "visible si no está claro",
+          "blocking_rule": "Si no hay dueño/resolutor, marcar deadlock_risk.",
+          "output_variables": [
+            "deadlock_resolution_owner"
+          ],
+          "mmabp_target": "PF/PM",
+          "evaluation_mode": "deterministic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Process_State_Timer_Gates:PST-005",
+            "D5:8.2",
+            "D1:2.3.6",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        },
+        {
+          "gate_id": "PST-006",
+          "trigger_condition": "La espera libera o falla",
+          "required_capture": [
+            "exit_path"
+          ],
+          "visible_or_internal": "visible/condicional",
+          "blocking_rule": "Sin salida válida, PF queda incompleto.",
+          "output_variables": [
+            "wait_exit_path"
+          ],
+          "mmabp_target": "PF/OLC",
+          "evaluation_mode": "deterministic",
+          "audit_required": true,
+          "diagnostic_translation_allowed": false,
+          "source_refs": [
+            "D6!Process_State_Timer_Gates:PST-006",
+            "D5:8.2",
+            "D1:2.3.6",
+            "D1:3.2.4",
+            "D4:10"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "id": "PST-ENG-001",
+          "label": "Espera fuerte activa gate",
+          "assertion": "Espera, bloqueo, fecha/hora obligante o deadlock activa PST antes de crear Process State.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "wait_signal",
+            "pst_event"
+          ],
+          "pass_condition": "Todo trigger fuerte tiene PST event.",
+          "on_fail": "reentry_required",
+          "reentry_target": "B4/C11",
+          "source_refs": [
+            "D5:8.2",
+            "D6!Branching_Budget_Rules:BR-004",
+            "D4:10"
+          ]
+        },
+        {
+          "id": "PST-ENG-002",
+          "label": "Evento esperado obligatorio",
+          "assertion": "Todo Process State identifica al menos un awaited_event externo o de soporte.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "awaited_event"
+          ],
+          "pass_condition": "awaited_event no vacío.",
+          "on_fail": "blocked_by_missing_evidence",
+          "reentry_target": "B4/C11",
+          "source_refs": [
+            "D1:2.3.6",
+            "D6!Process_State_Timer_Gates:PST-001"
+          ]
+        },
+        {
+          "id": "PST-ENG-003",
+          "label": "Condición de liberación obligatoria",
+          "assertion": "Un bloqueo o espera debe tener release_condition verificable.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "release_condition"
+          ],
+          "pass_condition": "release_condition no vacío cuando hay bloqueo.",
+          "on_fail": "reentry_required",
+          "reentry_target": "B4/C11",
+          "source_refs": [
+            "D6!Process_State_Timer_Gates:PST-002",
+            "D5:8.2"
+          ]
+        },
+        {
+          "id": "PST-ENG-004",
+          "label": "Timer o vencimiento obligatorio",
+          "assertion": "Ninguna espera fuerte llega a PF sin timer_event_or_timeout_rule.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "timer_event_or_timeout_rule"
+          ],
+          "pass_condition": "Existe evento de tiempo o regla de vencimiento.",
+          "on_fail": "reentry_required",
+          "reentry_target": "B4/C11",
+          "source_refs": [
+            "D1:2.3.6",
+            "D6!Process_State_Timer_Gates:PST-003"
+          ]
+        },
+        {
+          "id": "PST-ENG-005",
+          "label": "Estado resultante de timeout",
+          "assertion": "Si vence el tiempo, OLC identifica timeout_state o failed_wait_state.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "timeout_state"
+          ],
+          "pass_condition": "timeout_state existe cuando aplica timeout.",
+          "on_fail": "blocked_by_missing_evidence",
+          "reentry_target": "OLC candidate/B4",
+          "source_refs": [
+            "D6!Process_State_Timer_Gates:PST-004",
+            "D1:3.2.4"
+          ]
+        },
+        {
+          "id": "PST-ENG-006",
+          "label": "Resolutor visible",
+          "assertion": "Cuando una persona/unidad desbloquea, existe resolver_owner; si no, se marca deadlock_risk.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "resolver_owner_or_deadlock_flag"
+          ],
+          "pass_condition": "resolver_owner existe o deadlock_risk=true.",
+          "on_fail": "reentry_required",
+          "reentry_target": "B4/PM support",
+          "source_refs": [
+            "D6!Process_State_Timer_Gates:PST-005",
+            "D5:8.2"
+          ]
+        },
+        {
+          "id": "PST-ENG-007",
+          "label": "Ruta de salida obligatoria",
+          "assertion": "Toda espera tiene exit_path de liberación o fallo.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "exit_path"
+          ],
+          "pass_condition": "exit_path no vacío.",
+          "on_fail": "reentry_required",
+          "reentry_target": "B4/C11",
+          "source_refs": [
+            "D6!Process_State_Timer_Gates:PST-006",
+            "D1:2.3.6"
+          ]
+        },
+        {
+          "id": "PST-ENG-008",
+          "label": "Consistencia PF-OLC del timeout",
+          "assertion": "Evento, acción y estado de timeout deben coincidir entre PF y OLC.",
+          "severity": "blocker",
+          "evaluation_mode": "structured_semantic",
+          "required_evidence": [
+            "pf_timeout_event",
+            "pf_action",
+            "olc_timeout_transition"
+          ],
+          "pass_condition": "Secuencia event/reason→action→state coherente.",
+          "on_fail": "blocked_by_contradiction",
+          "reentry_target": "PF/OLC",
+          "source_refs": [
+            "D1:4.3.5",
+            "D1:4.4"
+          ]
+        },
+        {
+          "id": "PST-ENG-009",
+          "label": "Sin Process State huérfano",
+          "assertion": "No se promueve Process State sin awaited_event, release/timer y exit_path completos.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "pst_gate_results"
+          ],
+          "pass_condition": "PST-001, PST-002/PST-003 y PST-006 aplicables pasan.",
+          "on_fail": "reentry_required",
+          "reentry_target": "B4/C11",
+          "source_refs": [
+            "D5:8.2",
+            "D4:10"
+          ]
+        }
+      ],
+      "algorithm": [
+        "Detectar espera fuerte/bloqueo/timer/deadlock.",
+        "Ejecutar PST aplicables y validar capturas requeridas.",
+        "Bloquear Process State si falta evento, liberación/timer o salida.",
+        "Validar estado resultante en OLC cuando hay timeout.",
+        "Emitir gap/reentry; no inventar resolutor ni transición."
+      ]
+    },
+    "mmabp_conformance_gate": {
+      "role": "Evaluar cada PM, MoC, PF y OLC contra realidad antes de cualquier consistencia.",
+      "input_contract": {
+        "required": [
+          "run_id",
+          "model_candidates",
+          "applicable_rule_ids",
+          "rule_assessments",
+          "reality_evidence_refs"
+        ],
+        "optional": [
+          "manual_assessments",
+          "model_scope"
+        ]
+      },
+      "output_contract": [
+        "model_results",
+        "rule_results",
+        "missing_evidence",
+        "blocking_failures",
+        "can_enter_consistency",
+        "readiness_candidates"
+      ],
+      "principles": [
+        {
+          "id": "FND-001",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Realidad antes que implementacion",
+          "assertion": "El modelo conceptual debe representar la realidad del negocio antes de contaminarse con tecnologia, organigrama o detalles individuales de implementacion.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "real_world_fact",
+            "business_context",
+            "implementation_context_separated"
+          ],
+          "pass_condition": "El artefacto separa realidad del negocio de implementacion organizacional/tecnica.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:1.3.1",
+            "D1:FBA:1.3.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": "Si una regla nace de una herramienta o cargo, no entra como regla MMABP hasta que exista correspondencia factual."
+        },
+        {
+          "id": "FND-002",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Arquitectura minima completa y consistente",
+          "assertion": "La arquitectura minima debe ser pequena en modelos y elementos, pero completa, consistente, entendible y relativamente estable.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "pm_candidate",
+            "moc_candidate",
+            "pf_candidate",
+            "olc_candidate"
+          ],
+          "pass_condition": "Los cuatro modelos existen o hay evidencia explicita de por que un modelo permanece pendiente, sin sustituirlo por otro.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:1.3.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-003",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Cuatro vistas no jerarquicas",
+          "assertion": "PM, MoC, PF y OLC son vistas complementarias de una misma realidad; ninguna vista corrige a otra por autoridad.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "model_inventory",
+            "model_role_mapping"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:1.3.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-004",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Conformance antes que consistencia",
+          "assertion": "Primero se valida si cada modelo representa correctamente la realidad; despues se valida si los modelos no se contradicen entre si.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "conformance_results",
+            "consistency_results"
+          ],
+          "pass_condition": "No existe consistency_check ejecutado sobre modelos sin conformance_result individual.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.1",
+            "D1:FBA:4.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-005",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "No alineacion cosmetica",
+          "assertion": "Ante inconsistencia, no se fuerza un modelo a parecer consistente; se identifica cual representacion contradice la realidad factual y se corrige.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "inconsistency_record",
+            "factual_resolution_decision"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.7"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-006",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Tipos de consistencia",
+          "assertion": "La consistencia debe distinguir hechos, secuencia temporal y estructura; mezclar estos niveles produce falsos positivos.",
+          "severity": "blocker",
+          "check_type": "consistency",
+          "required_evidence": [
+            "factual_consistency_checks",
+            "temporal_consistency_checks",
+            "structural_consistency_checks"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.2",
+            "D1:FBA:4.3",
+            "D1:FBA:4.4",
+            "D1:FBA:4.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-007",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "Bloqueo por soporte insuficiente",
+          "assertion": "Si una regla, modelo, estado, evento, clase u operacion no esta sustentada por evidencia factual o fuente metodologica permitida, el kernel debe bloquear o enviar a revision manual.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "source_ref",
+            "evidence_item",
+            "confidence_status"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "manual_review_required",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D4:RUNTIME_TECH:Epistemologia explicita"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        },
+        {
+          "id": "FND-008",
+          "module": "fundamentals_mmabp_rules",
+          "model": null,
+          "label": "MMABP antes que salida estructural",
+          "assertion": "Toda salida estructural debe pasar por candidatos, conformance, consistencia y readiness antes de registry, IR, export o consumo por Produccion Paralela.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "structural_candidate_record",
+            "conformance_results",
+            "consistency_results",
+            "readiness_decision"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D4:RUNTIME_TECH:Principios no negociables",
+            "D5:RUNTIME_CATALOG:Contrato de salida"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null
+        }
+      ],
+      "engine_rules": [
+        {
+          "id": "CONF-ENG-001",
+          "label": "Realidad antes que implementación",
+          "assertion": "El modelo conceptual debe representar la realidad del negocio antes de contaminarse con tecnologia, organigrama o detalles individuales de implementacion.",
+          "severity": "blocker",
+          "evaluation_mode": "human_validation_required",
+          "required_evidence": [
+            "reality_evidence",
+            "model_candidate"
+          ],
+          "pass_condition": "El candidato representa el negocio y no tecnología/organigrama accidental.",
+          "on_fail": "blocked_by_contradiction",
+          "source_refs": [
+            "D1:1.3",
+            "EVE00:FND-001"
+          ]
+        },
+        {
+          "id": "CONF-ENG-002",
+          "label": "Conformance por cada vista",
+          "assertion": "PM, MoC, PF y OLC se evalúan individualmente contra realidad; ninguna vista sirve como autoridad para aprobar otra.",
+          "severity": "blocker",
+          "evaluation_mode": "structured_semantic",
+          "required_evidence": [
+            "model_candidates",
+            "model_conformance_results"
+          ],
+          "pass_condition": "Cada modelo aplicable tiene resultado independiente.",
+          "on_fail": "blocked_by_missing_evidence",
+          "source_refs": [
+            "D1:4.1",
+            "D1:4.2",
+            "EVE00:FND-003",
+            "EVE00:FND-004"
+          ]
+        },
+        {
+          "id": "CONF-ENG-003",
+          "label": "Sin consistencia antes de conformance",
+          "assertion": "No se ejecuta consistency gate para un modelo sin conformance_result suficiente.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "conformance_results",
+            "consistency_request"
+          ],
+          "pass_condition": "Toda vista del scope de consistencia tiene conformance pass o validación explícita.",
+          "on_fail": "not_evaluated_due_to_conformance",
+          "source_refs": [
+            "D1:4.1",
+            "D1:4.2",
+            "EVE00:FND-004",
+            "D4:1"
+          ]
+        },
+        {
+          "id": "CONF-ENG-004",
+          "label": "Ausencia no equivale a pass",
+          "assertion": "Falta de evidencia produce gap, no aprobación tácita.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "required_evidence_status"
+          ],
+          "pass_condition": "Todo pass cita evidencia; ausencias quedan gap.",
+          "on_fail": "blocked_by_missing_evidence",
+          "source_refs": [
+            "D1:4.1",
+            "EVE00:FND-007",
+            "D6!Epistemic_Policy"
+          ]
+        },
+        {
+          "id": "CONF-ENG-005",
+          "label": "Sin alineación cosmética",
+          "assertion": "Ante inconsistencia, no se fuerza un modelo a parecer consistente; se identifica cual representacion contradice la realidad factual y se corrige.",
+          "severity": "blocker",
+          "evaluation_mode": "human_validation_required",
+          "required_evidence": [
+            "inconsistency_record",
+            "factual_resolution_decision"
+          ],
+          "pass_condition": "La corrección se apoya en realidad factual.",
+          "on_fail": "manual_review_required",
+          "source_refs": [
+            "D1:4.2",
+            "EVE00:FND-005"
+          ]
+        },
+        {
+          "id": "CONF-ENG-006",
+          "label": "Resultado con evidencia y alcance",
+          "assertion": "Cada rule result declara modelo, regla, evidencia, status, missing fields y acción correctiva.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "rule_result_payload"
+          ],
+          "pass_condition": "Payload mínimo completo.",
+          "on_fail": "manual_review_required",
+          "source_refs": [
+            "D4:3",
+            "D4:27"
+          ]
+        },
+        {
+          "id": "CONF-ENG-007",
+          "label": "Bloqueo de salida estructural",
+          "assertion": "Un candidato no conformante no llega a registry, IR, export ni Producción Paralela.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "conformance_summary",
+            "candidate_state"
+          ],
+          "pass_condition": "Solo candidatos conformantes avanzan a consistency/readiness.",
+          "on_fail": "blocked_by_contradiction",
+          "source_refs": [
+            "D4:1",
+            "D5:10",
+            "EVE00:FND-008"
+          ]
+        },
+        {
+          "id": "CONF-ENG-008",
+          "label": "Revisión humana para juicio semántico",
+          "assertion": "Reglas que no pueden decidirse de forma determinista deben registrar assessment humano/asistido, no simular certeza.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "evaluation_mode",
+            "assessment"
+          ],
+          "pass_condition": "structured_semantic o human_validation_required tiene assessment trazable.",
+          "on_fail": "manual_review_required",
+          "source_refs": [
+            "D1:4.1",
+            "D4:27"
+          ]
+        }
+      ],
+      "model_rules": [
+        {
+          "id": "PM-001",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Trigger y estado objetivo obligatorios",
+          "assertion": "Cada proceso de negocio debe tener al menos un evento disparador y exactamente un estado objetivo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process.triggering_events",
+            "process.target_state"
+          ],
+          "pass_condition": "triggering_events >= 1 y target_state_count == 1.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PM"
+        },
+        {
+          "id": "PM-002",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Nombre orientado al estado objetivo",
+          "assertion": "El proceso se nombra por la actividad que conduce al estado objetivo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process.name",
+            "process.target_state"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PM"
+        },
+        {
+          "id": "PM-003",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Proceso en una sola funcion",
+          "assertion": "Cada proceso pertenece como maximo a una funcion de negocio.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "business_function_membership"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PM"
+        },
+        {
+          "id": "PM-004",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Funciones sin solape",
+          "assertion": "Las funciones de negocio no deben solaparse ni duplicar contenido.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "business_function_definitions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PM"
+        },
+        {
+          "id": "PM-005",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Ciclo E2E desde necesidad hasta satisfaccion",
+          "assertion": "Cada proceso de negocio debe cubrir el ciclo completo desde la expresion de la necesidad del cliente hasta su satisfaccion.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "customer_need",
+            "customer_satisfaction_state",
+            "e2e_scope"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PM"
+        },
+        {
+          "id": "PM-006",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Outsourcing visible, no detallado",
+          "assertion": "Los procesos tercerizados se incluyen en el Process Map, pero no se describen en detalle dentro del sistema modelado.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "outsourced_processes"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PM"
+        },
+        {
+          "id": "PM-007",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Eventos como cambios significativos",
+          "assertion": "Los eventos se nombran como ocurrencia de un cambio significativo en el entorno del proceso: estado de objeto, estado de cosas o paso del tiempo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "event.name",
+            "event.kind"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PM"
+        },
+        {
+          "id": "PM-008",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Estado objetivo como estado de objeto",
+          "assertion": "Los estados objetivo se nombran como estados de un objeto, no como tareas, areas o deseos abstractos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "target_state",
+            "object_state_ref"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PM"
+        },
+        {
+          "id": "PM-009",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "Soportes explicitos y recursivos",
+          "assertion": "Si un proceso usa servicios de procesos de soporte, esos soportes deben identificarse; la identificacion continua hasta procesos soporte elementales.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "support_process_links",
+            "support_function"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2.5",
+            "D1:FBA:2.2.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PM"
+        },
+        {
+          "id": "PM-010",
+          "module": "pm_rules",
+          "model": "PM",
+          "label": "PM no es PF ni flujo de datos",
+          "assertion": "El Process Map captura sincronizaciones, dependencias e intencion global; no debe convertirse en diagrama de tareas ni flujo de datos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "diagram_elements",
+            "synchronization_patterns"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PM"
+        },
+        {
+          "id": "MOC-001",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Clases nombradas por lo que representan",
+          "assertion": "Toda clase se nombra conforme a lo que representa: generalizacion de objetos especificos o superclase de clases con propiedades comunes.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "class.name",
+            "class.definition"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "MoC"
+        },
+        {
+          "id": "MOC-002",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Agregacion/composicion solo real",
+          "assertion": "Aggregation o composition se usa exclusivamente cuando existe agregacion real: un objeto X esta compuesto por objetos Y.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "relationship.kind",
+            "part_whole_evidence"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "MoC"
+        },
+        {
+          "id": "MOC-003",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Tipo no es atributo",
+          "assertion": "La clasificacion de objetos en tipos se maneja por especializaciones o roles, no por un atributo 'tipo'.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "classification_basis",
+            "attribute_list",
+            "specialization_list"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "MoC"
+        },
+        {
+          "id": "MOC-004",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Sin identificadores artificiales como atributos",
+          "assertion": "La clase no contiene identificadores o llaves artificiales como atributos conceptuales.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "attributes"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "MoC"
+        },
+        {
+          "id": "MOC-005",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Atributos y operaciones relevantes",
+          "assertion": "Cada clase se caracteriza por atributos y operaciones relevantes a su contenido conceptual.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "attributes",
+            "operations",
+            "class_definition"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "MoC"
+        },
+        {
+          "id": "MOC-006",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Roles correctamente modelados",
+          "assertion": "Si un objeto puede actuar en multiples roles simultaneos, se capturan roles en asociaciones; si los roles tienen atributos, se usa patron de especializaciones agregadas.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "role_evidence",
+            "role_attributes",
+            "association_roles"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.5"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "MoC"
+        },
+        {
+          "id": "MOC-007",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Operaciones basadas en evidencia",
+          "assertion": "Las operaciones de clase se especifican desde evidencia, especialmente OLC del objeto y atributos/asociaciones del propio MoC.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "operation_source",
+            "olc_transition_ref",
+            "attribute_or_association_ref"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "MoC"
+        },
+        {
+          "id": "MOC-008",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Generalizacion dinamica desde OLC",
+          "assertion": "Los estados del OLC se capturan en MoC como especializaciones con estereotipos phase para estados y end para pseudoestados finales.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "olc_states",
+            "dynamic_generalization",
+            "stereotype"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "MoC"
+        },
+        {
+          "id": "MOC-009",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "Relacion 1:N exige operaciones iterativas",
+          "assertion": "Una relacion 1:N requiere operaciones que permitan adicion y remocion iterativa de elementos del contenedor.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "relationship_multiplicity",
+            "add_operation",
+            "remove_operation"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "MoC"
+        },
+        {
+          "id": "MOC-010",
+          "module": "moc_rules",
+          "model": "MoC",
+          "label": "MoC no es base de datos",
+          "assertion": "El Model of Concepts representa clases reales y relaciones conceptuales; no debe reducirse a tabla, ID tecnico o esquema de persistencia.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "conceptual_class_evidence",
+            "technical_schema_noise"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.1"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "MoC"
+        },
+        {
+          "id": "PF-001",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Solo actividades intencionales del negocio modelado",
+          "assertion": "El PF contiene solo actividades intencionales del negocio modelado; actos del cliente, procesos tercerizados o entorno se representan como eventos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "activity_origin",
+            "event_origin"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-002",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Una tarea produce un estado de objeto",
+          "assertion": "Cada tarea se asigna a un solo estado de objeto que representa la meta de la tarea; si tiene metas alternativas, todas deben enumerarse.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "task",
+            "resulting_object_state"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-003",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Sincronizacion como Process State",
+          "assertion": "La sincronizacion con eventos del entorno se captura como Process State donde el proceso espera eventos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process_state",
+            "awaited_events"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-004",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Soporte conectado por sincronizacion",
+          "assertion": "La conexion entre proceso soportado y soporte se captura en el detalle del proceso soportado como Process State que sincroniza mediante eventos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "support_process_ref",
+            "supported_process_state",
+            "sync_event"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-005",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Gates AND OR XOR por logica",
+          "assertion": "AND, OR y XOR se usan conforme a su significado logico, incluyendo combinaciones validas de split y merge.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "gateway_type",
+            "gateway_condition"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-006",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Todo Process State con evento de tiempo",
+          "assertion": "Cuando se esperan eventos ad hoc, se debe manejar la posibilidad de que no ocurran mediante evento de tiempo o deadline.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process_state",
+            "timeout_event",
+            "deadline"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6",
+            "D5:RUNTIME_CATALOG:Process_State_Timer_Gates"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-007",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Evento nombrado como cambio externo",
+          "assertion": "El nombre del evento describe de forma breve y objetiva un cambio ocurrido fuera del proceso modelado.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "event.name",
+            "event.source"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-008",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Tareas nombradas como acciones hacia estado",
+          "assertion": "Las tareas se nombran como acciones que conducen al estado resultante del objeto asociado.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "task.name",
+            "resulting_object_state"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-009",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Condiciones completas de decision",
+          "assertion": "Para cada decision se listan las condiciones de todos los caminos posibles.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "decision_node",
+            "path_conditions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-010",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Split y merge solo con gates",
+          "assertion": "Cada division y union de flujo se modela usando gates, no otro mecanismo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "split_merge_element",
+            "gateway_type"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-011",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Inicio por trigger y fin por process ends",
+          "assertion": "Cada proceso inicia con evento disparador o conjunto logico de eventos y todos los flujos terminan en process ends.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "trigger_events",
+            "process_ends"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-012",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Detalle de process step cerrado",
+          "assertion": "Cada detalle de process step inicia con start point y todos sus flujos terminan con fin del process step.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process_step_detail",
+            "start_point",
+            "step_end"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-013",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Condiciones post-step coherentes",
+          "assertion": "Las condiciones de la decision posterior al process step deben corresponder con el detalle del process step.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "step_detail_outcomes",
+            "post_step_decision_conditions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-014",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "El detalle de tarea no espera entorno",
+          "assertion": "El detalle del process step no captura sincronizacion con el entorno mediante Process State.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "process_step_detail",
+            "awaiting_state"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-015",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "Normalizacion revela soportes ocultos",
+          "assertion": "La normalizacion del PF puede revelar procesos de soporte ocultos; si ocurre, se corrigen tanto PM como PF.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "normalization_result",
+            "hidden_support_process"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.5",
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "PF-016",
+          "module": "pf_rules",
+          "model": "PF",
+          "label": "PF sin contaminación organizacional",
+          "assertion": "El Process Flow debe modelar la algoritmia del proceso y su contexto de tarea; roles, cargos o carriles organizacionales no deben sustituir eventos, tareas, Process States ni objetos de datos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "diagram_structure",
+            "task_context",
+            "organizational_context_separated"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:2.3.3",
+            "D1:FBA:2.3.6"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "PF"
+        },
+        {
+          "id": "OLC-001",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Vida completa del objeto",
+          "assertion": "El OLC cubre todas las variaciones de la vida completa de un objeto, desde creacion hasta terminacion.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "object_class",
+            "initial_state",
+            "final_states",
+            "state_variants"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-002",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Estados relevantes completos",
+          "assertion": "El OLC captura todos los estados relevantes por los que un objeto de una clase puede pasar durante su vida.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "object_states",
+            "state_evidence"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-003",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Un solo objeto por ciclo",
+          "assertion": "Los estados se nombran como estados del objeto unico cuyo ciclo se modela; no se mezclan estados de otros objetos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "object_class",
+            "state_names"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-004",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Transicion con razon y operacion",
+          "assertion": "Todas las transiciones tienen razon de transicion y operacion, donde la operacion es propiedad del objeto.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "transition.reason",
+            "transition.operation",
+            "class.operations"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-005",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Razon como evento o expresion logica",
+          "assertion": "La razon de transicion es un evento o combinacion logica de eventos.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "transition.reason",
+            "event_expression"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-006",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Un comienzo",
+          "assertion": "El ciclo de vida de un objeto tiene un solo comienzo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "initial_pseudostate"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-007",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Al menos un pseudoestado final",
+          "assertion": "El ciclo de vida de un objeto tiene al menos un pseudoestado final.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "final_pseudostates"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-008",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Dos salidas por estado interno",
+          "assertion": "Desde cada estado no final debe haber al menos dos transiciones salientes.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "state.outgoing_transitions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-009",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Al menos una salida garantizada",
+          "assertion": "Para cada estado no final, al menos una transicion hacia otro estado debe estar garantizada a ocurrir.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "state.outgoing_transitions",
+            "guaranteed_transition"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-010",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "No limitar al sistema electronico",
+          "assertion": "El OLC debe capturar la vida completa de la entidad, no solo su reflejo en un sistema de informacion.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "real_world_lifecycle_scope",
+            "it_scope_boundary"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-011",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Sin branching/merging symbols",
+          "assertion": "No se usan simbolos de branching/merging para partir transiciones; solo transiciones directas entre estados.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "transition_structure"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-012",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Causa externa o paso del tiempo",
+          "assertion": "La razon de una transicion debe ser un cambio en otro objeto/estado de cosas o el paso del tiempo.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "transition.reason",
+            "external_event_or_time"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-013",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Operacion existente en clase",
+          "assertion": "La operacion especificada en la transicion debe existir como propiedad de la clase modelada.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "transition.operation",
+            "class.operation_list"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3",
+            "D1:FBA:3.2.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-014",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "No fusionar ciclos de clases distintas",
+          "assertion": "No se deben fusionar ciclos de vida de objetos de clases distintas en un solo OLC; el paralelismo puede revelar otro objeto.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "object_class",
+            "state_ownership"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-015",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "1:N reflejado como ciclo iterativo",
+          "assertion": "Cada relacion 1:N del MoC debe tener representacion iterativa en el OLC del objeto correspondiente.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "moc_relationship_multiplicity",
+            "olc_iteration_cycle"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3",
+            "D1:FBA:4.5.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-016",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Operacion ausente no permitida",
+          "assertion": "Las transiciones indican cuando una operacion puede ejecutarse; si no aparece en transiciones desde un estado, no esta permitida en ese estado.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "state",
+            "allowed_operations",
+            "transition.operation"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        },
+        {
+          "id": "OLC-017",
+          "module": "olc_rules",
+          "model": "OLC",
+          "label": "Cambios de atributos/enlaces deben estar en OLC",
+          "assertion": "Los cambios relevantes de atributos o relaciones del objeto deben estar cubiertos por transiciones del OLC, aunque no cambien el estado fundamental.",
+          "severity": "blocker",
+          "check_type": "conformance",
+          "required_evidence": [
+            "attribute_change_operation",
+            "association_change_operation",
+            "transition_or_self_loop"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:3.2.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONFORMANCE",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "reentry_target": "OLC"
+        }
+      ],
+      "model_rule_counts": {
+        "pm_rules": 10,
+        "moc_rules": 10,
+        "pf_rules": 16,
+        "olc_rules": 17
+      },
+      "algorithm": [
+        "Seleccionar reglas aplicables por modelo sin jerarquizar vistas.",
+        "Validar presencia de evidencia de realidad por regla.",
+        "Evaluar de forma determinista o solicitar assessment semántico/humano.",
+        "Ausencia produce gap; contradicción produce fail.",
+        "Calcular resultado individual por modelo.",
+        "Solo modelos conformantes pueden entrar a consistency gate."
+      ]
+    },
+    "mmabp_consistency_gate": {
+      "role": "Comprobar coherencia factual, temporal, estructural y compuesta entre vistas conformantes.",
+      "input_contract": {
+        "required": [
+          "run_id",
+          "model_conformance_results",
+          "applicable_rule_ids",
+          "rule_assessments",
+          "model_evidence_refs"
+        ],
+        "optional": [
+          "consistency_table_rows",
+          "manual_assessments",
+          "composite_scope"
+        ]
+      },
+      "output_contract": [
+        "rule_results",
+        "pairwise_results",
+        "composite_results",
+        "inconsistency_candidates",
+        "reentry_targets",
+        "readiness_candidates"
+      ],
+      "engine_rules": [
+        {
+          "id": "CONS-ENG-001",
+          "label": "Conformance prerequisite",
+          "assertion": "Consistency solo evalúa modelos individualmente conformantes.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "conformance_results"
+          ],
+          "pass_condition": "Todas las vistas del scope tienen conformance pass.",
+          "on_fail": "not_evaluated_due_to_conformance",
+          "source_refs": [
+            "D1:4.1",
+            "D1:4.2",
+            "EVE00:FND-004"
+          ]
+        },
+        {
+          "id": "CONS-ENG-002",
+          "label": "Correctitud y completitud",
+          "assertion": "Cada regla evalúa contradicción entre elementos y ausencia de elementos exigidos por otra vista.",
+          "severity": "blocker",
+          "evaluation_mode": "structured_semantic",
+          "required_evidence": [
+            "correctness_check",
+            "completeness_check"
+          ],
+          "pass_condition": "Ambos checks están presentes.",
+          "on_fail": "blocked_by_contradiction",
+          "source_refs": [
+            "D1:4.2"
+          ]
+        },
+        {
+          "id": "CONS-ENG-003",
+          "label": "Equivalencia semántica no literal",
+          "assertion": "Nombres naturales se comparan por significado intencionado, no por igualdad de cadenas.",
+          "severity": "blocker",
+          "evaluation_mode": "human_validation_required",
+          "required_evidence": [
+            "semantic_comparison"
+          ],
+          "pass_condition": "La comparación documenta significado y contexto.",
+          "on_fail": "manual_review_required",
+          "source_refs": [
+            "D1:4.2"
+          ]
+        },
+        {
+          "id": "CONS-ENG-004",
+          "label": "Factual antes de temporal/estructural",
+          "assertion": "La evaluación registra primero coherencia factual; después secuencia y estructura.",
+          "severity": "major",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "consistency_results_order"
+          ],
+          "pass_condition": "Factual checks se ejecutan antes de temporal/structural donde aplica.",
+          "on_fail": "manual_review_required",
+          "source_refs": [
+            "D1:4.3",
+            "D1:4.4",
+            "D1:4.5",
+            "EVE00:FND-006"
+          ]
+        },
+        {
+          "id": "CONS-ENG-005",
+          "label": "Temporal event-action-state",
+          "assertion": "PF↔OLC temporal compara event/reason → action → state.",
+          "severity": "blocker",
+          "evaluation_mode": "structured_semantic",
+          "required_evidence": [
+            "consistency_table_rows"
+          ],
+          "pass_condition": "Cada secuencia aplicable coincide o registra contradicción.",
+          "on_fail": "blocked_by_contradiction",
+          "source_refs": [
+            "D1:4.4"
+          ]
+        },
+        {
+          "id": "CONS-ENG-006",
+          "label": "Estructura alternativa e iterativa",
+          "assertion": "Alternativas PF/OLC y multiplicidad MoC/OLC se verifican como estructuras correspondientes.",
+          "severity": "blocker",
+          "evaluation_mode": "structured_semantic",
+          "required_evidence": [
+            "alternative_checks",
+            "iteration_checks"
+          ],
+          "pass_condition": "No hay alternativa/iteración unilateral sin justificación factual.",
+          "on_fail": "blocked_by_contradiction",
+          "source_refs": [
+            "D1:4.5.1",
+            "D1:4.5.2"
+          ]
+        },
+        {
+          "id": "CONS-ENG-007",
+          "label": "Compuestos después de pares",
+          "assertion": "Una consistencia de tres o cuatro vistas se calcula desde resultados pairwise y evidencia compuesta, no por promedio ciego.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "pairwise_results",
+            "composite_evidence"
+          ],
+          "pass_condition": "Todos los pares requeridos están evaluados.",
+          "on_fail": "blocked_by_missing_evidence",
+          "source_refs": [
+            "D1:4.2",
+            "D2:compartimentos compuestos"
+          ]
+        },
+        {
+          "id": "CONS-ENG-008",
+          "label": "Regreso a realidad factual",
+          "assertion": "Ante inconsistencia no se alinea un modelo al otro; se identifica qué representación contradice la realidad.",
+          "severity": "blocker",
+          "evaluation_mode": "human_validation_required",
+          "required_evidence": [
+            "inconsistency_record",
+            "factual_resolution_decision"
+          ],
+          "pass_condition": "La corrección propuesta cita evidencia de realidad.",
+          "on_fail": "manual_review_required",
+          "source_refs": [
+            "D1:4.2",
+            "EVE00:FND-005"
+          ]
+        },
+        {
+          "id": "CONS-ENG-009",
+          "label": "Puente diagnóstico desactivado",
+          "assertion": "Fase 5 solo emite inconsistency records; la traducción EVE ocurre downstream tras readiness.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "gate_output"
+          ],
+          "pass_condition": "No contiene patología ni diagnóstico final.",
+          "on_fail": "manual_review_required",
+          "source_refs": [
+            "D2",
+            "EVE02",
+            "D4:1"
+          ]
+        },
+        {
+          "id": "CONS-ENG-010",
+          "label": "Bloqueo downstream por contradicción",
+          "assertion": "Una inconsistencia blocker impide registry, IR, export y Producción Paralela hasta reentry/corrección.",
+          "severity": "blocker",
+          "evaluation_mode": "deterministic",
+          "required_evidence": [
+            "consistency_summary",
+            "candidate_state"
+          ],
+          "pass_condition": "No hay promoción con blocker activo.",
+          "on_fail": "blocked_by_contradiction",
+          "source_refs": [
+            "D4:1",
+            "D5:10",
+            "D5:11"
+          ]
+        }
+      ],
+      "method_rules": [
+        {
+          "id": "CONS-001",
+          "module": "consistency_rules",
+          "model": "PM↔MoC",
+          "label": "PM-MoC factual",
+          "assertion": "Los procesos y estados objetivo del PM deben referirse a objetos, estados y conceptos existentes o justificables en el MoC.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "pm.processes",
+            "pm.target_states",
+            "moc.classes",
+            "moc.phases"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.1"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-002",
+          "module": "consistency_rules",
+          "model": "PM↔PF",
+          "label": "PM-PF factual",
+          "assertion": "El PF de un proceso debe respetar los disparadores, fines/target states y relaciones de soporte declaradas en el PM.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "pm.triggering_events",
+            "pm.target_states",
+            "pf.triggering_events",
+            "pf.process_ends",
+            "support_sync"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.2",
+            "D1:FBA:4.8"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-003",
+          "module": "consistency_rules",
+          "model": "MoC↔PF",
+          "label": "MoC-PF factual",
+          "assertion": "El PF debe manipular objetos, estados y operaciones coherentes con las clases y propiedades definidas en el MoC.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "pf.task_object_states",
+            "moc.classes",
+            "moc.operations"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.3"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-004",
+          "module": "consistency_rules",
+          "model": "PF↔PF",
+          "label": "PF-PF factual",
+          "assertion": "Procesos que se sincronizan entre si deben usar eventos y estados compatibles entre el proceso soportado y el proceso soporte.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "support_process_trigger",
+            "supported_process_state",
+            "sync_events"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.4",
+            "D1:FBA:4.8"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-005",
+          "module": "consistency_rules",
+          "model": "PF↔OLC",
+          "label": "PF-OLC factual",
+          "assertion": "Los estados resultantes de tareas y las operaciones invocadas en PF deben existir y ser permitidas por el OLC correspondiente.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "pf.task_state",
+            "pf.action",
+            "olc.states",
+            "olc.transitions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.5",
+            "D1:FBA:4.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-006",
+          "module": "consistency_rules",
+          "model": "OLC↔MoC",
+          "label": "OLC-MoC factual",
+          "assertion": "El OLC debe usar atributos, relaciones, operaciones y estados que existan o esten reflejados en el MoC.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "olc.transition_reason",
+            "olc.operation",
+            "moc.attributes",
+            "moc.relationships",
+            "moc.operations"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.6",
+            "D1:FBA:4.5.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-007",
+          "module": "consistency_rules",
+          "model": "OLC↔OLC",
+          "label": "OLC-OLC factual",
+          "assertion": "Si una transicion OLC refiere el estado de otro objeto, ese estado debe existir en el OLC del objeto referenciado.",
+          "severity": "blocker",
+          "check_type": "factual_consistency",
+          "required_evidence": [
+            "olc.transition_reason_ref",
+            "referenced_olc.states"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.3.7"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-008",
+          "module": "consistency_rules",
+          "model": "PF↔OLC",
+          "label": "PF-OLC temporal",
+          "assertion": "La secuencia de estados impuesta por el PF no puede contradecir la secuencia causal definida en el OLC.",
+          "severity": "blocker",
+          "check_type": "temporal_consistency",
+          "required_evidence": [
+            "pf.event_action_state_sequence",
+            "olc.event_action_state_sequence"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-009",
+          "module": "consistency_rules",
+          "model": "PF↔OLC",
+          "label": "Tabla event/reason-action-state",
+          "assertion": "La evaluacion temporal debe comparar la sucesion event/reason -> action -> state entre PF y OLC.",
+          "severity": "blocker",
+          "check_type": "temporal_consistency",
+          "required_evidence": [
+            "consistency_table_rows"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-010",
+          "module": "consistency_rules",
+          "model": "PF↔OLC",
+          "label": "Alternativas PF-OLC",
+          "assertion": "Los estados de un objeto capturados como alternativas en PF deben ser alternativas en su OLC, y viceversa.",
+          "severity": "blocker",
+          "check_type": "structural_consistency",
+          "required_evidence": [
+            "pf.alternative_states",
+            "olc.alternative_states"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.5.1"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-011",
+          "module": "consistency_rules",
+          "model": "MoC↔OLC",
+          "label": "Multiplicidad MoC-OLC",
+          "assertion": "Cada asociacion 1:N del MoC debe reflejarse como ciclo iterativo en el OLC del objeto correspondiente.",
+          "severity": "blocker",
+          "check_type": "structural_consistency",
+          "required_evidence": [
+            "moc.multiplicity",
+            "olc.iteration_cycle"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.5.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-012",
+          "module": "consistency_rules",
+          "model": "MoC↔OLC",
+          "label": "Operaciones MoC-OLC",
+          "assertion": "Los cambios de atributos y relaciones definidos en MoC deben estar cubiertos por operaciones y transiciones del OLC.",
+          "severity": "blocker",
+          "check_type": "structural_consistency",
+          "required_evidence": [
+            "moc.attributes",
+            "moc.relationships",
+            "moc.operations",
+            "olc.transitions"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.5.2"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-013",
+          "module": "consistency_rules",
+          "model": "PM↔MoC↔PF",
+          "label": "Consistencia compuesta PM-MoC-PF",
+          "assertion": "PM, MoC y PF deben contar la misma historia factual: proceso declarado, objetos definidos y ejecucion detallada no se contradicen.",
+          "severity": "blocker",
+          "check_type": "composite_consistency",
+          "required_evidence": [
+            "pm",
+            "moc",
+            "pf"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.7"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-014",
+          "module": "consistency_rules",
+          "model": "PM↔PF↔OLC",
+          "label": "Consistencia compuesta PM-PF-OLC",
+          "assertion": "La intencion del proceso, su ejecucion y la causalidad de los objetos deben ser temporalmente posibles.",
+          "severity": "blocker",
+          "check_type": "composite_consistency",
+          "required_evidence": [
+            "pm.target_state",
+            "pf.sequence",
+            "olc.sequence"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.4"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        },
+        {
+          "id": "CONS-015",
+          "module": "consistency_rules",
+          "model": "PM↔MoC↔PF↔OLC",
+          "label": "Consistencia total PM-MoC-PF-OLC",
+          "assertion": "Las cuatro vistas deben formar un unico modelo de sistema de negocio sin contradicciones factuales, temporales ni estructurales.",
+          "severity": "blocker",
+          "check_type": "composite_consistency",
+          "required_evidence": [
+            "pm",
+            "moc",
+            "pf",
+            "olc",
+            "consistency_results"
+          ],
+          "pass_condition": "La evidencia disponible satisface la regla sin contradiccion material.",
+          "fail_state": "blocked_by_contradiction",
+          "corrective_action": "Regresar a la realidad factual, corregir el modelo afectado y reejecutar el gate.",
+          "source_refs": [
+            "D1:FBA:4.7"
+          ],
+          "eve_pathology_hint": null,
+          "operational_note": null,
+          "gate_id": "MMABP-CONSISTENCY",
+          "evaluation_mode": "structured_semantic",
+          "on_missing_evidence": "blocked_by_missing_evidence",
+          "on_failure": "blocked_by_contradiction",
+          "diagnostic_translation_allowed": false,
+          "audit_required": true,
+          "requires_conformance_pass": true
+        }
+      ],
+      "compartments": [
+        {
+          "compartment_id": "EVE02-CMP-001",
+          "name": "PM_MoC_Factual",
+          "inconsistency_type": "Factual",
+          "models": [
+            "PM",
+            "MoC"
+          ],
+          "models_implicated": "PM ↔ MoC",
+          "trigger_condition": "pm_moc_factual_inconsistency_detected",
+          "blocked_if": [
+            "pm_not_conformant",
+            "moc_not_conformant",
+            "missing_pm_moc_evidence"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-001"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-002",
+          "name": "PM_PF_Factual",
+          "inconsistency_type": "Factual",
+          "models": [
+            "PM",
+            "PF"
+          ],
+          "models_implicated": "PM ↔ PF",
+          "trigger_condition": "pm_pf_factual_inconsistency_detected",
+          "blocked_if": [
+            "pm_not_conformant",
+            "pf_not_conformant",
+            "missing_pm_pf_evidence"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-002"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-003",
+          "name": "MoC_PF_Factual",
+          "inconsistency_type": "Factual",
+          "models": [
+            "MoC",
+            "PF"
+          ],
+          "models_implicated": "MoC ↔ PF",
+          "trigger_condition": "moc_pf_factual_inconsistency_detected",
+          "blocked_if": [
+            "moc_not_conformant",
+            "pf_not_conformant",
+            "missing_moc_pf_evidence"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-003"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-004",
+          "name": "PF_OLC_Factual",
+          "inconsistency_type": "Factual",
+          "models": [
+            "PF",
+            "OLC"
+          ],
+          "models_implicated": "PF ↔ OLC",
+          "trigger_condition": "pf_olc_factual_inconsistency_detected",
+          "blocked_if": [
+            "pf_not_conformant",
+            "olc_not_conformant",
+            "missing_pf_olc_evidence"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-004"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-005",
+          "name": "OLC_MoC_Factual",
+          "inconsistency_type": "Factual",
+          "models": [
+            "OLC",
+            "MoC"
+          ],
+          "models_implicated": "OLC ↔ MoC",
+          "trigger_condition": "olc_moc_factual_inconsistency_detected",
+          "blocked_if": [
+            "olc_not_conformant",
+            "moc_not_conformant",
+            "missing_olc_moc_evidence"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-005"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-006",
+          "name": "PF_OLC_Temporal",
+          "inconsistency_type": "Temporal",
+          "models": [
+            "PF",
+            "OLC"
+          ],
+          "models_implicated": "PF ↔ OLC",
+          "trigger_condition": "pf_olc_temporal_inconsistency_detected",
+          "blocked_if": [
+            "pf_not_conformant",
+            "olc_not_conformant",
+            "missing_temporal_sequence_evidence"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-006"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-007",
+          "name": "PF_OLC_Structural_Alternatives",
+          "inconsistency_type": "StructuralAlternatives",
+          "models": [
+            "PF",
+            "OLC"
+          ],
+          "models_implicated": "PF ↔ OLC",
+          "trigger_condition": "pf_olc_structural_alternatives_inconsistency_detected",
+          "blocked_if": [
+            "pf_not_conformant",
+            "olc_not_conformant",
+            "missing_gateway_or_olc_branch_evidence"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-007"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-008",
+          "name": "OLC_MoC_Structural_Iterations",
+          "inconsistency_type": "StructuralIterations",
+          "models": [
+            "OLC",
+            "MoC"
+          ],
+          "models_implicated": "OLC ↔ MoC",
+          "trigger_condition": "olc_moc_structural_iteration_inconsistency_detected",
+          "blocked_if": [
+            "moc_not_conformant",
+            "olc_not_conformant",
+            "missing_cardinality_or_iteration_evidence"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-008"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-009",
+          "name": "PM_MoC_PF_Composite_Factual",
+          "inconsistency_type": "CompositeFactual",
+          "models": [
+            "PM",
+            "MoC",
+            "PF"
+          ],
+          "models_implicated": "PM ↔ MoC ↔ PF",
+          "trigger_condition": "pm_moc_pf_composite_factual_inconsistency_detected",
+          "blocked_if": [
+            "missing_any_pm_moc_pf_model",
+            "conformance_unchecked",
+            "missing_cross_model_trace"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-009"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-010",
+          "name": "PM_PF_OLC_Temporal_Intentional",
+          "inconsistency_type": "TemporalIntentional",
+          "models": [
+            "PM",
+            "PF",
+            "OLC"
+          ],
+          "models_implicated": "PM ↔ PF ↔ OLC",
+          "trigger_condition": "pm_pf_olc_temporal_intentional_inconsistency_detected",
+          "blocked_if": [
+            "missing_pm_pf_olc_model",
+            "conformance_unchecked",
+            "temporal_evidence_missing"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-010"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-011",
+          "name": "PM_MoC_OLC_Structural_Ontological",
+          "inconsistency_type": "StructuralOntological",
+          "models": [
+            "PM",
+            "MoC",
+            "OLC"
+          ],
+          "models_implicated": "PM ↔ MoC ↔ OLC",
+          "trigger_condition": "pm_moc_olc_structural_ontological_inconsistency_detected",
+          "blocked_if": [
+            "missing_pm_moc_olc_model",
+            "conformance_unchecked",
+            "ontology_or_lifecycle_trace_missing"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-011"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-012",
+          "name": "MoC_PF_OLC_Causal_Operational",
+          "inconsistency_type": "CausalOperational",
+          "models": [
+            "MoC",
+            "PF",
+            "OLC"
+          ],
+          "models_implicated": "MoC ↔ PF ↔ OLC",
+          "trigger_condition": "moc_pf_olc_causal_operational_inconsistency_detected",
+          "blocked_if": [
+            "missing_moc_pf_olc_model",
+            "conformance_unchecked",
+            "state_context_missing"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-012"
+          ]
+        },
+        {
+          "compartment_id": "EVE02-CMP-013",
+          "name": "PM_MoC_PF_OLC_Systemic_Total",
+          "inconsistency_type": "SystemicTotal",
+          "models": [
+            "PM",
+            "MoC",
+            "PF",
+            "OLC"
+          ],
+          "models_implicated": "PM ↔ MoC ↔ PF ↔ OLC",
+          "trigger_condition": "systemic_total_inconsistency_detected",
+          "blocked_if": [
+            "any_core_model_missing",
+            "conformance_unchecked",
+            "contradiction_chain_not_evidenced"
+          ],
+          "diagnostic_translation_chip": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+          "diagnostic_translation_enabled_in_phase5": false,
+          "gate_output": "inconsistency_candidate_only",
+          "source_refs": [
+            "D2:tabla",
+            "EVE02:EVE02-CMP-013"
+          ]
+        }
+      ],
+      "algorithm": [
+        "Verificar conformance pass de todas las vistas del scope.",
+        "Ejecutar factual checks de correctitud y completitud.",
+        "Ejecutar temporal PF↔OLC con event/reason→action→state.",
+        "Ejecutar structural checks de alternativas, iteraciones y operaciones.",
+        "Ejecutar compuestos desde resultados pairwise y evidencia adicional.",
+        "Emitir inconsistency candidates; no emitir patología ni diagnóstico."
+      ]
+    }
+  },
+  "source_to_target_mapping": [
+    {
+      "source": "D6!Critical_Routes",
+      "target": "modules.critical_route_gate.routes",
+      "status": "transduced_exact_plus_execution_contract",
+      "units": 4
+    },
+    {
+      "source": "D8!Critical_Routes + Catalogo_Madre_Nodos",
+      "target": "modules.critical_route_gate.routes[].genealogy",
+      "status": "transduced_exact",
+      "units": 18
+    },
+    {
+      "source": "D5:6.1-6.3,9,11 + D4:10,24",
+      "target": "modules.critical_route_gate.rules",
+      "status": "transduced_structured",
+      "units": 10
+    },
+    {
+      "source": "D6!Semantic_Resolution_Gates",
+      "target": "modules.semantic_resolution_gate.gate_definitions",
+      "status": "transduced_exact",
+      "units": 7
+    },
+    {
+      "source": "D5:8.1 + D4:3,10 + D1:3.1.5,3.2.4",
+      "target": "modules.semantic_resolution_gate.rules",
+      "status": "transduced_structured",
+      "units": 8
+    },
+    {
+      "source": "D6!Process_State_Timer_Gates",
+      "target": "modules.process_state_timer_gate.gate_definitions",
+      "status": "transduced_exact",
+      "units": 6
+    },
+    {
+      "source": "D5:8.2 + D4:3,10 + D1:2.3.6,3.2.4,4.3.5,4.4",
+      "target": "modules.process_state_timer_gate.rules",
+      "status": "transduced_structured",
+      "units": 9
+    },
+    {
+      "source": "D1 via EVE00 PM/MoC/PF/OLC rules",
+      "target": "modules.mmabp_conformance_gate.model_rules",
+      "status": "compiled_with_original_source_refs",
+      "units": 53
+    },
+    {
+      "source": "D1:1.3,4.1,4.2 + D4:1,3,27",
+      "target": "modules.mmabp_conformance_gate.engine_rules",
+      "status": "transduced_structured",
+      "units": 8
+    },
+    {
+      "source": "D1 via EVE00 consistency rules",
+      "target": "modules.mmabp_consistency_gate.method_rules",
+      "status": "compiled_with_original_source_refs",
+      "units": 15
+    },
+    {
+      "source": "D1:4.1-4.5 + D4:1 + D5:10-11",
+      "target": "modules.mmabp_consistency_gate.engine_rules",
+      "status": "transduced_structured",
+      "units": 10
+    },
+    {
+      "source": "D2 via EVE02 compartments",
+      "target": "modules.mmabp_consistency_gate.compartments",
+      "status": "downstream_reference_only",
+      "units": 13
+    },
+    {
+      "source": "D6!Readiness_Gaps_Reentry",
+      "target": "enums.readiness_states + gate readiness candidates",
+      "status": "transduced_exact",
+      "units": 7
+    },
+    {
+      "source": "D5+D7+D3",
+      "target": "integration_rules + failure_guards + boundaries",
+      "status": "transduced_structured",
+      "units": 14
+    }
+  ],
+  "counts": {
+    "critical_routes": 4,
+    "critical_route_engine_rules": 10,
+    "semantic_gates": 7,
+    "semantic_engine_rules": 8,
+    "process_state_timer_gates": 6,
+    "process_state_timer_engine_rules": 9,
+    "conformance_model_rules": 53,
+    "conformance_engine_rules": 8,
+    "consistency_method_rules": 15,
+    "consistency_engine_rules": 10,
+    "consistency_compartments": 13,
+    "atomic_rules_and_gate_definitions": 130,
+    "readiness_states": 7,
+    "failure_guards": 14,
+    "source_documents": 10
+  },
+  "installation_contract": {
+    "recommended_repo_path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/",
+    "required_dependency_versions": {
+      "EVE-00-METHOD-KERNEL": "0.2.0",
+      "EVE-03-CANONICAL-CATALOG": "0.1.0",
+      "EVE-04-RUNTIME-CATALOG": "0.2.0"
+    },
+    "activation_mode": "shadow_first",
+    "active_runtime_authority": false,
+    "product_wiring": false,
+    "registry_write": false,
+    "diagnosis_enabled": false,
+    "export_enabled": false,
+    "parallel_production_enabled": false
+  },
+  "dictamen": "READY_FOR_SHADOW_INTEGRATION; no instalado, no productivo y sin diagnóstico/export/transducción activos."
+}

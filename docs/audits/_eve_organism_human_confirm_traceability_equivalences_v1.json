@@ -1,0 +1,67 @@
+{
+  "audit_id": "EVE_ORGANISM_HUMAN_CONFIRM_TRACEABILITY_EQUIVALENCES_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "HUMAN_CONFIRM_TRACEABILITY_PACKET_READY_FOR_MIGUEL",
+  "source_dictamen": "TRACEABILITY_FIELDS_PARTIAL_REQUIRE_HUMAN_CONFIRMATION",
+  "fields_for_human_confirmation": [
+    {
+      "field_name": "idempotencyKey",
+      "classification": "SHADOW_CONTRACT_ONLY",
+      "current_scope": "shadow",
+      "current_confidence": "partial",
+      "strongest_evidence": "src/types/eve-organism-composition-root.ts:105"
+    },
+    {
+      "field_name": "correlationId",
+      "classification": "SHADOW_CONTRACT_ONLY",
+      "current_scope": "shadow",
+      "current_confidence": "partial",
+      "strongest_evidence": "src/types/eve-organism-composition-root.ts:106"
+    },
+    {
+      "field_name": "officialFlowRef",
+      "classification": "FIXTURE_CONTRACT_ONLY",
+      "current_scope": "fixture",
+      "current_confidence": "partial",
+      "strongest_evidence": "src/types/eve-organism-shadow-e2e.ts:75"
+    }
+  ],
+  "decision_options": [
+    "DECISION-A",
+    "DECISION-B",
+    "DECISION-C",
+    "DECISION-D",
+    "DECISION-E"
+  ],
+  "ROB_status_before_human_decision": {
+    "ROB-004": "ready_for_human_review",
+    "ROB-005": "open",
+    "ROB-008": "open"
+  },
+  "rob008": {
+    "remains_open": true,
+    "reason": "Even if Miguel confirms idempotencyKey, correlationId and officialFlowRef as valid canonical names, synthetic fixture fields remain fixture-only and do not become real evidence.",
+    "synthetic_fields_still_requiring_real_evidence": [
+      "idempotencyKey",
+      "correlationId",
+      "officialFlowRef"
+    ],
+    "evidence_required_to_close": [
+      "Non-fixture real signal carrying idempotencyKey or approved equivalent.",
+      "Non-fixture real signal carrying correlationId or approved equivalent.",
+      "Non-fixture real official flow/result reference carrying officialFlowRef or approved equivalent.",
+      "No-cableado proof that those fields are read without UI, WorkMap, Significado, DB/Supabase write, runtime mutation, registry, export or diagnosis."
+    ]
+  },
+  "no_modification_attestation": {
+    "src_modified": false,
+    "tests_modified": false,
+    "app_modified": false,
+    "db_modified": false,
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "registry_written": false,
+    "commit_created": false
+  },
+  "next_step": "MIGUEL_DECISION_TRACEABILITY_EQUIVALENCES_V1"
+}

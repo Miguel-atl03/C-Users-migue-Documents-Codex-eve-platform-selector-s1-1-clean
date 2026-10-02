@@ -1,0 +1,291 @@
+﻿{
+    "instruction":  "045-R2A",
+    "generated_at":  "2026-08-10T00:00:00-06:00",
+    "git_root":  "C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone/external-consumers/eve-platform-operational-baseline-c312",
+    "head":  "8becedf4940b9bd19ec9d9968b9308d34070b555",
+    "field_inventory":  [
+                            {
+                                "field":  "organization_id / tenant_id",
+                                "required_by":  [
+                                                    "runtime_internal_ingest_context",
+                                                    "persistence"
+                                                ],
+                                "authoritative_owner":  "runtime_run",
+                                "existing_material_source":  "role_runtime_session and activity_runtime_run rows carry tenant_id/organization_id",
+                                "client_must_send":  false,
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "src/app/api/participant/workmap/finalize/route.ts",
+                                "evidence_symbol":  "RuntimeSessionRow.catalog_version_id/tenant_id/organization_id; activity_runtime_run insert copies tenant_id/organization_id"
+                            },
+                            {
+                                "field":  "user/participant identity",
+                                "required_by":  [
+                                                    "ownership",
+                                                    "audit"
+                                                ],
+                                "authoritative_owner":  "authenticated_client_context",
+                                "existing_material_source":  "Authorization bearer token + resolveSceneOwner/session boundary + workmap profile materialization",
+                                "client_must_send":  false,
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "src/app/api/scenes/answers/route.ts; src/lib/session-boundary.ts",
+                                "evidence_symbol":  "resolveSceneOwner(request,{sessionId,sceneId,mode})"
+                            },
+                            {
+                                "field":  "sessionId",
+                                "required_by":  [
+                                                    "gaby_client_contract",
+                                                    "server_request_boundary"
+                                                ],
+                                "authoritative_owner":  "server_request_boundary",
+                                "existing_material_source":  "/api/scenes/answers payload and page.tsx databaseSessionId",
+                                "client_must_send":  true,
+                                "server_can_resolve":  false,
+                                "server_must_resolve":  false,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "src/app/page.tsx; src/app/api/scenes/answers/route.ts",
+                                "evidence_symbol":  "payload.sessionId"
+                            },
+                            {
+                                "field":  "case_id",
+                                "required_by":  [
+                                                    "runtime_internal_ingest_contract"
+                                                ],
+                                "authoritative_owner":  "runtime_run",
+                                "existing_material_source":  "role_runtime_session.case_id and workmap snapshot case_id",
+                                "client_must_send":  false,
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "src/app/api/participant/workmap/finalize/route.ts",
+                                "evidence_symbol":  "RuntimeSessionRow.case_id; WorkMapSnapshotRow.case_id"
+                            },
+                            {
+                                "field":  "roleRuntimeSessionId",
+                                "required_by":  [
+                                                    "runtime_run_resolution"
+                                                ],
+                                "authoritative_owner":  "runtime_run",
+                                "existing_material_source":  "finalize returns roleRuntimeSessionId; role_runtime_session row exists",
+                                "client_must_send":  "opaque_reference_allowed_but_not_semantic_authority",
+                                "server_can_resolve":  "possibly_from_session_and_participant_context",
+                                "server_must_resolve":  true,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "src/app/api/participant/workmap/finalize/route.ts; src/app/page.tsx",
+                                "evidence_symbol":  "payload.next.roleRuntimeSessionId; ParticipantWorkMapFinalizeResponse roleRuntimeSessionId field"
+                            },
+                            {
+                                "field":  "activityRuntimeRunId",
+                                "required_by":  [
+                                                    "runtime_run_resolution",
+                                                    "governed_execution_ingest"
+                                                ],
+                                "authoritative_owner":  "runtime_run",
+                                "existing_material_source":  "finalize creates/selects activity_runtime_run and returns activityRuntimeRunId",
+                                "client_must_send":  "opaque_reference_gap_currently_not_carried",
+                                "server_can_resolve":  "possibly_from session + activityId, but no live BFF binding proves this",
+                                "server_must_resolve":  true,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "src/app/api/participant/workmap/finalize/route.ts; src/app/page.tsx",
+                                "evidence_symbol":  "next.activityRuntimeRunId; createRun/activity_runtime_run insert"
+                            },
+                            {
+                                "field":  "catalog_version_id",
+                                "required_by":  [
+                                                    "runtime_internal_ingest_contract",
+                                                    "renderer",
+                                                    "persistence"
+                                                ],
+                                "authoritative_owner":  "catalog_version",
+                                "existing_material_source":  "role_runtime_session/activity_runtime_run store catalog_version_id; connected orchestrator rejects override and uses FULL active catalog constant",
+                                "client_must_send":  false,
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "runtime-40-20-connected-orchestrator-service.ts; finalize/route.ts",
+                                "evidence_symbol":  "catalog_version_id_override_rejected; RUNTIME_40_20_FULL_ACTIVE_CATALOG_VERSION_ID"
+                            },
+                            {
+                                "field":  "runtime_interaction_id",
+                                "required_by":  [
+                                                    "runtime_internal_ingest_contract"
+                                                ],
+                                "authoritative_owner":  "rendered_interaction_instance",
+                                "existing_material_source":  "render_next returns runtime_interaction_id and governed ingest body accepts interaction_id",
+                                "client_must_send":  "opaque_reference_emitted_by_server_or_server_resolved_current",
+                                "server_can_resolve":  "yes when run current state/open interaction exists",
+                                "server_must_resolve":  true,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "runtime-40-20-governed-execution-service.ts; runtime-40-20-interaction-renderer-service.ts",
+                                "evidence_symbol":  "render_next returns runtime_interaction_id; createInteractionViewModel.runtime_interaction_id"
+                            },
+                            {
+                                "field":  "interaction_instance_id",
+                                "required_by":  [
+                                                    "runtime_internal_ingest_contract",
+                                                    "persistence"
+                                                ],
+                                "authoritative_owner":  "rendered_interaction_instance",
+                                "existing_material_source":  "render_next creates runtime_interaction_instance and returns runtime_interaction_instance_id",
+                                "client_must_send":  "opaque_echo_optional_for_mismatch_check",
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  true,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "runtime-40-20-governed-execution-service.ts; runtime-40-20-pg-persistence-adapter.ts",
+                                "evidence_symbol":  "createInteractionInstance; open_instances.set(interactionId, instanceId)"
+                            },
+                            {
+                                "field":  "source_node_id",
+                                "required_by":  [
+                                                    "runtime_internal_ingest_contract",
+                                                    "evidence_item"
+                                                ],
+                                "authoritative_owner":  "source_capture_crosswalk",
+                                "existing_material_source":  "044-A.3M crosswalk maps runtime_interaction_id to source_node_id/source_code/capture_slot_kind",
+                                "client_must_send":  false,
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "runtime-40-20-source-capture-crosswalk.ts",
+                                "evidence_symbol":  "SourceCaptureRelation.source_node_id; getSourceCaptureSlotsForInteraction"
+                            },
+                            {
+                                "field":  "source_code",
+                                "required_by":  [
+                                                    "runtime_internal_ingest_contract",
+                                                    "evidence_item"
+                                                ],
+                                "authoritative_owner":  "source_capture_crosswalk",
+                                "existing_material_source":  "044-A.3M crosswalk and visible slot identity",
+                                "client_must_send":  "opaque_visible_control_ref_or answer key mapped to slot, not semantic authority",
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "runtime-40-20-source-capture-crosswalk.ts",
+                                "evidence_symbol":  "SourceCaptureSlot.source_code; assertSourceCodeBelongsToInteraction"
+                            },
+                            {
+                                "field":  "capture_slot_kind",
+                                "required_by":  [
+                                                    "runtime_internal_ingest_contract"
+                                                ],
+                                "authoritative_owner":  "source_capture_crosswalk",
+                                "existing_material_source":  "044-A.3M crosswalk",
+                                "client_must_send":  false,
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "runtime-40-20-source-capture-crosswalk.ts",
+                                "evidence_symbol":  "SourceCaptureSlot.capture_slot_kind"
+                            },
+                            {
+                                "field":  "source_trace",
+                                "required_by":  [
+                                                    "response_ingest",
+                                                    "audit",
+                                                    "evidence"
+                                                ],
+                                "authoritative_owner":  "rendered_interaction_instance",
+                                "existing_material_source":  "renderer builds source_trace; governed execution copies it into payload",
+                                "client_must_send":  false,
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  true,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "runtime-40-20-interaction-renderer-service.ts; runtime-40-20-governed-execution-service.ts",
+                                "evidence_symbol":  "createSourceTrace; payload.source_trace from viewModel.source_trace"
+                            },
+                            {
+                                "field":  "provenance_type",
+                                "required_by":  [
+                                                    "response_ingest",
+                                                    "evidence"
+                                                ],
+                                "authoritative_owner":  "source_capture_crosswalk",
+                                "existing_material_source":  "crosswalk relation has provenance_type; governed ingest builds bound source-capture answers",
+                                "client_must_send":  false,
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  true,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "runtime-40-20-source-capture-crosswalk.ts; runtime-40-20-governed-execution-service.ts",
+                                "evidence_symbol":  "SourceCaptureRelation.provenance_type; buildSourceCaptureBoundAnswers"
+                            },
+                            {
+                                "field":  "response_revision_number",
+                                "required_by":  [
+                                                    "response_ingest",
+                                                    "persistence"
+                                                ],
+                                "authoritative_owner":  "persistence_state",
+                                "existing_material_source":  "ResponseIngest requires revision; governed ingest currently assigns 1 for first response; persistence table carries revision",
+                                "client_must_send":  false,
+                                "server_can_resolve":  "first_revision_yes; later_revision_policy_needs server persistence lookup",
+                                "server_must_resolve":  true,
+                                "generated_server_side":  true,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "runtime-40-20-governed-execution-service.ts; runtime-40-20-staging-persistence-types.ts",
+                                "evidence_symbol":  "response_revision_number: 1; ResponseRecordStagingRow.response_revision_number"
+                            },
+                            {
+                                "field":  "idempotency_key",
+                                "required_by":  [
+                                                    "response_ingest",
+                                                    "persistence"
+                                                ],
+                                "authoritative_owner":  "server_request_boundary",
+                                "existing_material_source":  "governed ingest derives deterministic 044:run:interaction key; page has unrelated experience-event idempotency, not scene answer contract",
+                                "client_must_send":  "not as semantic Runtime authority; an opaque request token may be allowed in future",
+                                "server_can_resolve":  true,
+                                "server_must_resolve":  true,
+                                "generated_server_side":  true,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "runtime-40-20-governed-execution-service.ts; src/app/page.tsx",
+                                "evidence_symbol":  "idempotency_key: `044:${runId}:${interactionId}`; experience event idempotencyKey unrelated"
+                            },
+                            {
+                                "field":  "answer value(s)",
+                                "required_by":  [
+                                                    "gaby_client_contract",
+                                                    "response_ingest"
+                                                ],
+                                "authoritative_owner":  "user_answer",
+                                "existing_material_source":  "SceneQuestionnaireRunner sends selectedValue, selectedValues, freeText per question",
+                                "client_must_send":  true,
+                                "server_can_resolve":  false,
+                                "server_must_resolve":  false,
+                                "generated_server_side":  false,
+                                "missing_authoritative_source":  false,
+                                "evidence_path":  "src/components/SceneQuestionnaireRunner.tsx",
+                                "evidence_symbol":  "buildAnswer selectedValue/selectedValues/freeText"
+                            }
+                        ],
+    "final_classification":  "client_boundary_minimal_field_gap",
+    "security":  {
+                     "client_controls_lineage":  false,
+                     "client_controls_catalog_authority":  false,
+                     "client_controls_provenance":  false,
+                     "client_controls_readiness":  false,
+                     "client_controls_canonical_identity":  false,
+                     "staging_consulted":  "no",
+                     "production_consulted":  "no",
+                     "code_modified":  "no",
+                     "ui_modified":  "no",
+                     "commit_created":  "no"
+                 }
+}

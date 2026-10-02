@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Propuesta concepto · Estado A</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --eve-accent: #5c7d8f;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-body: "Source Sans 3", "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #eceff2;
+        color: var(--eve-ink);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        min-height: 900px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      /* ── Top registry band ── */
+      .registry {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 48px;
+        padding: 22px 56px;
+        border-bottom: 1px solid var(--eve-line);
+      }
+
+      .registry-mark {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+      }
+
+      .registry-mark sup {
+        font-size: 6px;
+        letter-spacing: 0;
+      }
+
+      .registry-strap {
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        text-align: center;
+      }
+
+      .registry-index {
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--eve-accent);
+      }
+
+      /* ── Main split: spine + field (NOT a scroll) ── */
+      .plate {
+        display: grid;
+        grid-template-columns: 420px 1fr;
+        min-height: 820px;
+      }
+
+      /* Left spine — brand atmosphere, stays while work happens right */
+      .spine {
+        position: relative;
+        padding: 56px 48px 56px 56px;
+        border-right: 1px solid var(--eve-line);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .spine::after {
+        content: "";
+        position: absolute;
+        top: 56px;
+        right: -1px;
+        width: 3px;
+        height: 120px;
+        background: var(--eve-accent);
+      }
+
+      .spine-claim {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 46px;
+        font-weight: 600;
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+      }
+
+      .spine-claim em {
+        display: block;
+        font-style: italic;
+        font-weight: 500;
+        color: color-mix(in srgb, var(--eve-ink) 88%, var(--eve-accent));
+      }
+
+      .spine-sub {
+        margin: 28px 0 0;
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--eve-mist);
+        max-width: 280px;
+      }
+
+      .spine-foot {
+        display: grid;
+        gap: 12px;
+      }
+
+      .spine-label {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--eve-accent);
+      }
+
+      .spine-room {
+        margin: 0;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        line-height: 1.35;
+      }
+
+      /* Right field — asymmetric capture layout */
+      .field {
+        padding: 44px 64px 56px 72px;
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+        gap: 0;
+      }
+
+      .field-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 36px;
+        font-size: 12px;
+        color: var(--eve-mist);
+      }
+
+      .field-meta button {
+        border: 0;
+        background: transparent;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .field-mark {
+        margin: 0 0 52px;
+        padding-left: 18%;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* Staggered two-zone capture — columns differ in width & vertical offset */
+      .capture {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 64px 80px;
+        align-items: start;
+      }
+
+      .capture-block {
+        position: relative;
+      }
+
+      .capture-block.b-offset {
+        margin-top: 72px;
+      }
+
+      .capture-block::before {
+        content: attr(data-index);
+        position: absolute;
+        top: 4px;
+        left: -28px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: var(--eve-accent);
+      }
+
+      .capture-q {
+        margin: 0 0 28px;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.35;
+        max-width: 36ch;
+      }
+
+      .capture-block.b-offset .capture-q {
+        font-size: 15px;
+        max-width: 32ch;
+      }
+
+      .capture-opts {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 14px;
+      }
+
+      .capture-opts li {
+        font-size: 14px;
+        line-height: 1.45;
+        color: var(--eve-mist);
+        cursor: default;
+      }
+
+      .capture-opts li.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .field-action {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 24px;
+        margin-top: 48px;
+        padding-top: 32px;
+        border-top: 1px solid var(--eve-line);
+      }
+
+      .field-action-note {
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .field-action button {
+        border: 0;
+        border-bottom: 1px solid var(--eve-ink);
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        padding: 0 0 5px;
+        cursor: pointer;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 18px;
+        left: 56px;
+        font-size: 8px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 70%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Propuesta concepto EVE Estado A">
+      <header class="registry">
+        <div class="registry-mark">EVE<sup>™</sup></div>
+        <div class="registry-strap">
+          Strategic &amp; Operational Architecture / Enterprise Viability Engine
+        </div>
+        <div class="registry-index">01 · Posición</div>
+      </header>
+
+      <div class="plate">
+        <aside class="spine">
+          <div>
+            <h1 class="spine-claim">
+              Lo que sostiene
+              <em>no siempre se ve.</em>
+            </h1>
+            <p class="spine-sub">Una forma distinta de mirar.</p>
+          </div>
+          <div class="spine-foot">
+            <p class="spine-label">Sala</p>
+            <p class="spine-room">[ Comienza tu levantamiento ]</p>
+          </div>
+        </aside>
+
+        <main class="field">
+          <div class="field-meta">
+            <span>Hola.</span>
+            <button type="button">Cerrar sesión</button>
+          </div>
+
+          <p class="field-mark">Antes de entrar al mapa, ubica tu lugar en la empresa.</p>
+
+          <div class="capture">
+            <section class="capture-block" data-index="A">
+              <h2 class="capture-q">¿Desde qué lugar participas normalmente en la empresa?</h2>
+              <ul class="capture-opts">
+                <li class="is-on">Soy dueño/a, socio/a o parte de la dirección general.</li>
+                <li>Estoy a cargo o dirijo un área.</li>
+                <li>Superviso o coordino el trabajo de otras personas.</li>
+                <li>Analizo información, datos o procesos de la empresa.</li>
+                <li>Apoyo en administración, ventas, producción, atención o soporte.</li>
+                <li>Participo como externo, asesor o proveedor.</li>
+                <li>Otro.</li>
+              </ul>
+            </section>
+
+            <section class="capture-block b-offset" data-index="B">
+              <h2 class="capture-q">¿Qué tan cerca estás de las decisiones?</h2>
+              <ul class="capture-opts">
+                <li>Las tomo directamente.</li>
+                <li class="is-on">Participo en decidirlas.</li>
+                <li>Las propongo o las preparo.</li>
+                <li>Las ejecuto cuando ya fueron decididas.</li>
+                <li>Las vivo como impacto, pero no participo mucho en decidirlas.</li>
+              </ul>
+            </section>
+          </div>
+
+          <footer class="field-action">
+            <span class="field-action-note">Posición · 2 de 2</span>
+            <button type="button">Guardar</button>
+          </footer>
+        </main>
+      </div>
+
+      <p class="proposal-tag">Propuesta concepto v1 · composición spine + campo</p>
+    </section>
+  </body>
+</html>

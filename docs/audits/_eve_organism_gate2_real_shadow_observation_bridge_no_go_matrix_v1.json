@@ -1,0 +1,28 @@
+{
+  "matrix_id": "EVE_ORGANISM_GATE2_REAL_SHADOW_OBSERVATION_BRIDGE_NO_GO_MATRIX_V1",
+  "bridge_id": "GATE2_REAL_SHADOW_OBSERVATION_BRIDGE_V1",
+  "mode": "DESIGN_ONLY",
+  "items": [
+    { "no_go_id": "BR-NG-001", "trigger": "tenant leak", "immediate_action": "quarantine affected bridge capability", "bridge_state_after_trigger": "QUARANTINED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-002", "trigger": "cross-tenant contamination", "immediate_action": "block event and preserve trace", "bridge_state_after_trigger": "BLOCKED_FOR_EVENT", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-003", "trigger": "missing tenant/session/activity context", "immediate_action": "reject event", "bridge_state_after_trigger": "BLOCKED_FOR_EVENT", "evidence_preserved": true, "human_review_required": false, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-004", "trigger": "missing provenance/sourceTrace", "immediate_action": "reject event", "bridge_state_after_trigger": "BLOCKED_FOR_EVENT", "evidence_preserved": true, "human_review_required": false, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-005", "trigger": "missing correlationId", "immediate_action": "reject event", "bridge_state_after_trigger": "BLOCKED_FOR_EVENT", "evidence_preserved": true, "human_review_required": false, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-006", "trigger": "missing idempotencyKey", "immediate_action": "reject event", "bridge_state_after_trigger": "BLOCKED_FOR_EVENT", "evidence_preserved": true, "human_review_required": false, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-007", "trigger": "officialOutcome stale", "immediate_action": "block event and require official outcome review", "bridge_state_after_trigger": "BLOCKED_FOR_EVENT", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-008", "trigger": "hidden divergence", "immediate_action": "pause affected bridge capability", "bridge_state_after_trigger": "DEGRADED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-009", "trigger": "write-capable adapter detected", "immediate_action": "block bridge", "bridge_state_after_trigger": "BLOCKED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-010", "trigger": "product write attempted", "immediate_action": "block bridge and quarantine evidence", "bridge_state_after_trigger": "BLOCKED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-011", "trigger": "registry write attempted", "immediate_action": "block bridge", "bridge_state_after_trigger": "BLOCKED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-012", "trigger": "export attempted", "immediate_action": "block bridge", "bridge_state_after_trigger": "BLOCKED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-013", "trigger": "final diagnosis attempted", "immediate_action": "block bridge", "bridge_state_after_trigger": "BLOCKED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-014", "trigger": "service_role boundary bypass", "immediate_action": "block bridge and require credential review", "bridge_state_after_trigger": "BLOCKED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-015", "trigger": "audit log tampering", "immediate_action": "quarantine and preserve audit evidence", "bridge_state_after_trigger": "QUARANTINED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-016", "trigger": "overcollection of client data", "immediate_action": "reject event and require privacy review", "bridge_state_after_trigger": "BLOCKED_FOR_EVENT", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-017", "trigger": "latency collapse beyond budget", "immediate_action": "degrade bridge capability", "bridge_state_after_trigger": "DEGRADED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-018", "trigger": "UI consuming organs/internal chips", "immediate_action": "block surface exposure", "bridge_state_after_trigger": "BLOCKED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-019", "trigger": "EVE-08 executing operation it audits", "immediate_action": "block audit/execution collapse", "bridge_state_after_trigger": "BLOCKED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-020", "trigger": "S3* becoming operator", "immediate_action": "block governance/operator collapse", "bridge_state_after_trigger": "BLOCKED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true },
+    { "no_go_id": "BR-NG-021", "trigger": "Parallel Production output crossing release gate", "immediate_action": "block release attempt", "bridge_state_after_trigger": "BLOCKED", "evidence_preserved": true, "human_review_required": true, "gate3_remains_false": true }
+  ]
+}

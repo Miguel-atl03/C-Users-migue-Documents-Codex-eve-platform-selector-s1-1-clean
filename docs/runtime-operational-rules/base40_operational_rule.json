@@ -1,0 +1,80 @@
+{
+  "rule_id": "BASE-40",
+  "name": "Regla Operativa de Suficiencia Sistémica — 40 Preguntas Base",
+  "version": "1.0.0",
+  "scope": "activity_runtime_run",
+  "applies_to": "toda actividad primaria que entra a Runtime profundo",
+  "source_docx": "docs/runtime-operational-rules/Regla_Operativa_40_Preguntas_Base_EVE_MMABP_Ajustada.docx",
+  "base_interactions_required": 40,
+  "mandatory_by_resolution": true,
+  "mandatory_as_visible_questions": false,
+  "silent_omission_allowed": false,
+  "ready_allowed_with_unresolved_base": false,
+  "ready_full_requires_all_base_resolved": true,
+  "parallel_production_requires_canonical_variables_provenance_readiness": true,
+  "allowed_states": [
+    "captured_user_evidence",
+    "user_confirmed_prefill",
+    "canonical_derivation_closed",
+    "internal_calculated_closed",
+    "not_applicable_with_evidence",
+    "ready_with_flag",
+    "blocked_by_missing_evidence",
+    "blocked_by_missing_canonical_route",
+    "reentry_required",
+    "manual_review_required",
+    "inferred_unconfirmed",
+    "skipped_silently"
+  ],
+  "state_rules": {
+    "skipped_silently": "prohibido",
+    "inferred_unconfirmed": "no permite cierre pleno",
+    "blocked_by_missing_evidence": "no permite ready",
+    "blocked_by_missing_canonical_route": "no permite ready",
+    "reentry_required": "no permite ready",
+    "manual_review_required": "no permite ready pleno"
+  },
+  "states_that_count_as_full_resolution": [
+    "captured_user_evidence",
+    "user_confirmed_prefill",
+    "canonical_derivation_closed",
+    "internal_calculated_closed",
+    "not_applicable_with_evidence"
+  ],
+  "states_that_block_ready": [
+    "blocked_by_missing_evidence",
+    "blocked_by_missing_canonical_route",
+    "reentry_required",
+    "skipped_silently"
+  ],
+  "states_that_block_ready_full": [
+    "inferred_unconfirmed",
+    "ready_with_flag",
+    "manual_review_required"
+  ],
+  "distribution": {
+    "block_0": ["B0-Q01", "B0-Q02", "B0-Q03", "B0-Q04"],
+    "block_0_5": ["B05-Q05", "B05-Q06", "B05-Q07"],
+    "block_1": ["B1-Q08", "B1-Q09", "B1-Q10", "B1-Q11"],
+    "block_2": ["B2-Q12", "B2-Q13", "B2-Q14", "B2-Q15", "B2-Q16", "B2-Q17"],
+    "block_3": ["B3-Q18", "B3-Q19", "B3-Q20", "B3-Q21", "B3-Q22"],
+    "block_4": ["B4-Q23", "B4-Q24", "B4-Q25", "B4-Q26", "B4-Q27", "B4-Q28"],
+    "block_5": ["B5-Q29", "B5-Q30", "B5-Q31", "B5-Q32", "B5-Q33"],
+    "block_6": ["B6-Q34", "B6-Q35", "B6-Q36", "B6-Q37", "B6-Q38"],
+    "block_7": ["B7-Q39", "B7-Q40"]
+  },
+  "closed_base_ids": [
+    "B0-Q01", "B0-Q02", "B0-Q03", "B0-Q04",
+    "B05-Q05", "B05-Q06", "B05-Q07",
+    "B1-Q08", "B1-Q09", "B1-Q10", "B1-Q11",
+    "B2-Q12", "B2-Q13", "B2-Q14", "B2-Q15", "B2-Q16", "B2-Q17",
+    "B3-Q18", "B3-Q19", "B3-Q20", "B3-Q21", "B3-Q22",
+    "B4-Q23", "B4-Q24", "B4-Q25", "B4-Q26", "B4-Q27", "B4-Q28",
+    "B5-Q29", "B5-Q30", "B5-Q31", "B5-Q32", "B5-Q33",
+    "B6-Q34", "B6-Q35", "B6-Q36", "B6-Q37", "B6-Q38",
+    "B7-Q39", "B7-Q40"
+  ],
+  "gate": "BaseResolutionGate",
+  "handoff_blocked_when_unresolved": ["EvidenceBundle", "MDSB"],
+  "conceptual_correction": "40/20 no significa consumo opcional reducido. Significa 40 base obligatorias por resolución por cada activity_runtime_run."
+}

@@ -1,0 +1,2442 @@
+{
+  "generatedAt": "2026-06-23T09:02:05.466Z",
+  "packagePath": "docs/chips/audit-and-governance/EVE_08_Audit_And_Governance_v0_1_1_candidate",
+  "countsFromPackage": {
+    "modules": 6,
+    "audit_trail_rules": 30,
+    "version_control_rules": 30,
+    "checksum_registry_rules": 30,
+    "override_log_rules": 30,
+    "manual_review_rules": 30,
+    "qa_activation_test_rules": 50,
+    "atomic_rules": 200,
+    "integration_rules": 20,
+    "failure_guards": 24,
+    "source_documents": 30,
+    "source_to_target_mappings": 20,
+    "source_proof_rows": 244,
+    "source_proof_unresolved": 0,
+    "brain_snapshot_artifacts": 78,
+    "brain_snapshot_chips": 8,
+    "initial_activation_blockers": 11,
+    "qa_activation_tests": 50,
+    "system_state_evidence_rows": 24,
+    "external_governance_evidence": 8
+  },
+  "targetUnitCounts": {
+    "modules": 6,
+    "atomicRules": 200,
+    "systemEvidenceRows": 24,
+    "declaredSourceToTargetMappings": 20,
+    "total": 250
+  },
+  "units": [
+    {
+      "unitId": "module:M8-AUDIT-TRAIL",
+      "unitType": "module",
+      "moduleKey": "audit_trail",
+      "module": "M8-AUDIT-TRAIL",
+      "entityName": "governance_audit_event",
+      "rulesDeclared": 30,
+      "status": "READY_FOR_SHADOW_GOVERNANCE_INTEGRATION_WITH_UPSTREAM_BLOCKERS"
+    },
+    {
+      "unitId": "module:M8-VERSION-CONTROL",
+      "unitType": "module",
+      "moduleKey": "version_control",
+      "module": "M8-VERSION-CONTROL",
+      "entityName": "chip_version_record",
+      "rulesDeclared": 30,
+      "status": "READY_FOR_SHADOW_GOVERNANCE_INTEGRATION_WITH_UPSTREAM_BLOCKERS"
+    },
+    {
+      "unitId": "module:M8-CHECKSUM-REGISTRY",
+      "unitType": "module",
+      "moduleKey": "checksum_registry",
+      "module": "M8-CHECKSUM-REGISTRY",
+      "entityName": "checksum_registry_entry",
+      "rulesDeclared": 30,
+      "status": "READY_FOR_SHADOW_GOVERNANCE_INTEGRATION_WITH_UPSTREAM_BLOCKERS"
+    },
+    {
+      "unitId": "module:M8-OVERRIDE-LOG",
+      "unitType": "module",
+      "moduleKey": "override_log",
+      "module": "M8-OVERRIDE-LOG",
+      "entityName": "governance_override_record",
+      "rulesDeclared": 30,
+      "status": "READY_FOR_SHADOW_GOVERNANCE_INTEGRATION_WITH_UPSTREAM_BLOCKERS"
+    },
+    {
+      "unitId": "module:M8-MANUAL-REVIEW",
+      "unitType": "module",
+      "moduleKey": "manual_review",
+      "module": "M8-MANUAL-REVIEW",
+      "entityName": "manual_review_record",
+      "rulesDeclared": 30,
+      "status": "READY_FOR_SHADOW_GOVERNANCE_INTEGRATION_WITH_UPSTREAM_BLOCKERS"
+    },
+    {
+      "unitId": "module:M8-QA-ACTIVATION-TESTS",
+      "unitType": "module",
+      "moduleKey": "qa_activation_tests",
+      "module": "M8-QA-ACTIVATION-TESTS",
+      "entityName": "qa_activation_result",
+      "rulesDeclared": 50,
+      "status": "READY_FOR_SHADOW_GOVERNANCE_INTEGRATION_WITH_UPSTREAM_BLOCKERS"
+    },
+    {
+      "unitId": "rule:AUD8-001",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "creation",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-001",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-002",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "identity",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-002",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-003",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "ordering",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-003",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-004",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "time",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-004",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-005",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "actor",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-005",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-006",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "scope",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-006",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-007",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "object",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-007",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-008",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "action",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-008",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-009",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "reason",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-009",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-010",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "delta",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-010",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-011",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "source_trace",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-011",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-012",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "correlation",
+      "blocking": false,
+      "severity": "high",
+      "sourceProofId": "SPM-AUD8-012",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-013",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "causation",
+      "blocking": false,
+      "severity": "high",
+      "sourceProofId": "SPM-AUD8-013",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-014",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "catalog_version",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-014",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-015",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "evidence_hash",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-015",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-016",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "outcome",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-016",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-017",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "severity",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-017",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-018",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "manual_review_link",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-018",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-019",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "override_link",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-019",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-020",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "retry",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-020",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-021",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "supersession",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-021",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-022",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "recompute",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-022",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-023",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "payload",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-023",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-024",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "critical_routes",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-024",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-025",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "b7_boundary",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-025",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-026",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "retention",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-026",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-027",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "immutability",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-027",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-028",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "hash_chain",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-028",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-029",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "replay",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-029",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:AUD8-030",
+      "unitType": "atomic_rule",
+      "module": "audit_trail",
+      "category": "export",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-AUD8-030",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-001",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "identity",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-001",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-002",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "semantic_version",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-002",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-003",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "stage",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-003",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-004",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "status",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-004",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-005",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "installation",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-005",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-006",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "dependency_lock",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-006",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-007",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "source_lock",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-007",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-008",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "generated_at",
+      "blocking": false,
+      "severity": "medium",
+      "sourceProofId": "SPM-VER8-008",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-009",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "change_reason",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-009",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-010",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "change_class",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-010",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-011",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "candidate_active",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-011",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-012",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "shadow_first",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-012",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-013",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "no_overwrite",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-013",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-014",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "frozen_xlsx",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-014",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-015",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "effective_period",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-015",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-016",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "supersedes",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-016",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-017",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "rollback_target",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-017",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-018",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "migration_state",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-018",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-019",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "compatibility",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-019",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-020",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "source_mismatch",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-020",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-021",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "equivalence",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-021",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-022",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "breaking_change",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-022",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-023",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "artifact_parity",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-023",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-024",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "manifest_parity",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-024",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-025",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "obsolete_labels",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-025",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-026",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "activation_state_machine",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-026",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-027",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "single_active",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-027",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-028",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "archive",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-028",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-029",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "brain_snapshot",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-029",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:VER8-030",
+      "unitType": "atomic_rule",
+      "module": "version_control",
+      "category": "snapshot_root",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-VER8-030",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-001",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "algorithm",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-001",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-002",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "path",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-002",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-003",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "size",
+      "blocking": false,
+      "severity": "high",
+      "sourceProofId": "SPM-CHK8-003",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-004",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "artifact_type",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-004",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-005",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "source_derived",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-005",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-006",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "manifest_self_hash",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-006",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-007",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "package_zip",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-007",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-008",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "source_checksum",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-008",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-009",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "dependency_checksum",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-009",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-010",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "proof_excerpt",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-010",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-011",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "mismatch_block",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-011",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-012",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "equivalence_triage",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-012",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-013",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "no_auto_rewrite",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-013",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-014",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "append_only",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-014",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-015",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "long_path",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-015",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-016",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "docx_binary",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-016",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-017",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "xlsx_binary",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-017",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-018",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "json_canonical",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-018",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-019",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "ts_raw",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-019",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-020",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "markdown_raw",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-020",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-021",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "proof_matrix",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-021",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-022",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "cert_report",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-022",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-023",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "audit_report",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-023",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-024",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "brain_root",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-024",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-025",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "chain_of_custody",
+      "blocking": false,
+      "severity": "high",
+      "sourceProofId": "SPM-CHK8-025",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-026",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "duplicate_path",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-026",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-027",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "missing_artifact",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-027",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-028",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "checksum_before_activation",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-028",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-029",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "audit_staleness",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-029",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:CHK8-030",
+      "unitType": "atomic_rule",
+      "module": "checksum_registry",
+      "category": "registry_export",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-CHK8-030",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-001",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "request",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-001",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-002",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "identity",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-002",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-003",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "actor",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-003",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-004",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "scope",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-004",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-005",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "reason",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-005",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-006",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "delta",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-006",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-007",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "target_rule",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-007",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-008",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "evidence",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-008",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-009",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "time",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-009",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-010",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "approval",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-010",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-011",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "separation_of_duties",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-011",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-012",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "methodological",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-012",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-013",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "critical_route",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-013",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-014",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "b7_boundary",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-014",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-015",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "final_export",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-015",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-016",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "registry_write",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-016",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-017",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "diagnosis",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-017",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-018",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "checksum",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-018",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-019",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "source_proof",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-019",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-020",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "dependency",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-020",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-021",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "wildcard",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-021",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-022",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "one_time",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-022",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-023",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "supersession",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-023",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-024",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "rollback",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-024",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-025",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "audit_link",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-025",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-026",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "manual_review_link",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-026",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-027",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "status_machine",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-027",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-028",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "exb031",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-028",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-029",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "false_positive_guard",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-029",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:OVR8-030",
+      "unitType": "atomic_rule",
+      "module": "override_log",
+      "category": "post_approval",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-OVR8-030",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-001",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "creation",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-001",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-002",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "identity",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-002",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-003",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "reason_enum",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-003",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-004",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "assignment",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-004",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-005",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "separation",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-005",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-006",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "scope",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-006",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-007",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "evidence_packet",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-007",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-008",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "rule_trace",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-008",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-009",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "due_at",
+      "blocking": false,
+      "severity": "high",
+      "sourceProofId": "SPM-MRV8-009",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-010",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "state_machine",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-010",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-011",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "decision_enum",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-011",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-012",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "decision_reason",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-012",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-013",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "reentry_target",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-013",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-014",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "no_overwrite",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-014",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-015",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "semantic_ambiguity",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-015",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-016",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "route_missing",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-016",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-017",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "contradiction",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-017",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-018",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "b7_risk",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-018",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-019",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "evidence_insufficient",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-019",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-020",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "override_request",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-020",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-021",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "checksum_mismatch",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-021",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-022",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "dependency_mismatch",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-022",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-023",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "source_proof_gap",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-023",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-024",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "qa_failure",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-024",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-025",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "escalation",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-025",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-026",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "conflict_of_interest",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-026",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-027",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "audit_event",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-027",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-028",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "closure_gate",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-028",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-029",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "no_auto_approval",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-029",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:MRV8-030",
+      "unitType": "atomic_rule",
+      "module": "manual_review",
+      "category": "output_boundary",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-MRV8-030",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-001",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "package_exists",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-001",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-002",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "required_artifacts",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-002",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-003",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "json_parse",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-003",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-004",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "manifest_parse",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-004",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-005",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "typescript_compile",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-005",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-006",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "module_presence",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-006",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-007",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "dependency_presence",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-007",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-008",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "dependency_versions",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-008",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-009",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "source_exists",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-009",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-010",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "source_sha",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-010",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-011",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "source_proof_rows",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-011",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-012",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "source_proof_status",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-012",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-013",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "rule_artifact_coverage",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-013",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-014",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "duplicate_ids",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-014",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-015",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "count_parity",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-015",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-016",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "manifest_inventory",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-016",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-017",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "manifest_self_integrity",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-017",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-018",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "brain_snapshot",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-018",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-019",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "method_boundary",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-019",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-020",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "diagnostic_boundary",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-020",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-021",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "catalog_coverage",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-021",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-022",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "runtime_budget",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-022",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-023",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "critical_routes",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-023",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-024",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "semantic_gate",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-024",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-025",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "pst_gate",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-025",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-026",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "execution_records",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-026",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-027",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "subfield_persistence",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-027",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-028",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "evidence_lineage",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-028",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-029",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "payload_governance",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-029",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-030",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "b7_no_projection",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-030",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-031",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "c09_feedback",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-031",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-032",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "exb031_vectors",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-032",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-033",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "no_productive_wiring",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-033",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-034",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "audit_trail",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-034",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-035",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "override_controls",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-035",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-036",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "manual_review_queue",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-036",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-037",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "checksum_registry",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-037",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-038",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "source_mismatch_triage",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-038",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-039",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "shadow_harness",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-039",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-040",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "shadow_no_side_effects",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-040",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-041",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "rollback_drill",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-041",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-042",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "activation_approval",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-042",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-043",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "single_authority",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-043",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-044",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "scope_security",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-044",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-045",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "stale_audits",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-045",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-046",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "status_consistency",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-046",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-047",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "dependency_qa",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-047",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-048",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "brain_activation_decision",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-048",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-049",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "post_activation_monitor",
+      "blocking": false,
+      "severity": "high",
+      "sourceProofId": "SPM-QA8-049",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "rule:QA8-050",
+      "unitType": "atomic_rule",
+      "module": "qa_activation_tests",
+      "category": "periodic_recertification",
+      "blocking": true,
+      "severity": "blocker",
+      "sourceProofId": "SPM-QA8-050",
+      "sourceProofStatus": "CERTIFIED"
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE00-IDENTITY",
+      "unitType": "system_state_evidence",
+      "scope": "chip_identity",
+      "subjectId": "EVE00",
+      "result": "pass",
+      "blocking": false
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE00-SOURCE-PROOF",
+      "unitType": "system_state_evidence",
+      "scope": "content_fidelity",
+      "subjectId": "EVE00",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE01-IDENTITY",
+      "unitType": "system_state_evidence",
+      "scope": "chip_identity",
+      "subjectId": "EVE01",
+      "result": "pass",
+      "blocking": false
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE01-SOURCE-PROOF",
+      "unitType": "system_state_evidence",
+      "scope": "content_fidelity",
+      "subjectId": "EVE01",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE02-IDENTITY",
+      "unitType": "system_state_evidence",
+      "scope": "chip_identity",
+      "subjectId": "EVE02",
+      "result": "pass",
+      "blocking": false
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE02-SOURCE-PROOF",
+      "unitType": "system_state_evidence",
+      "scope": "content_fidelity",
+      "subjectId": "EVE02",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE03-IDENTITY",
+      "unitType": "system_state_evidence",
+      "scope": "chip_identity",
+      "subjectId": "EVE03",
+      "result": "pass",
+      "blocking": false
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE03-SOURCE-PROOF",
+      "unitType": "system_state_evidence",
+      "scope": "content_fidelity",
+      "subjectId": "EVE03",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE04-IDENTITY",
+      "unitType": "system_state_evidence",
+      "scope": "chip_identity",
+      "subjectId": "EVE04",
+      "result": "pass",
+      "blocking": false
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE04-SOURCE-PROOF",
+      "unitType": "system_state_evidence",
+      "scope": "content_fidelity",
+      "subjectId": "EVE04",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE05-IDENTITY",
+      "unitType": "system_state_evidence",
+      "scope": "chip_identity",
+      "subjectId": "EVE05",
+      "result": "pass",
+      "blocking": false
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE05-SOURCE-PROOF",
+      "unitType": "system_state_evidence",
+      "scope": "content_fidelity",
+      "subjectId": "EVE05",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE06-IDENTITY",
+      "unitType": "system_state_evidence",
+      "scope": "chip_identity",
+      "subjectId": "EVE06",
+      "result": "pass",
+      "blocking": false
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE06-SOURCE-PROOF",
+      "unitType": "system_state_evidence",
+      "scope": "content_fidelity",
+      "subjectId": "EVE06",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE07-IDENTITY",
+      "unitType": "system_state_evidence",
+      "scope": "chip_identity",
+      "subjectId": "EVE07",
+      "result": "pass",
+      "blocking": false
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE07-SOURCE-PROOF",
+      "unitType": "system_state_evidence",
+      "scope": "content_fidelity",
+      "subjectId": "EVE07",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE03-PENDING-VARIABLES",
+      "unitType": "system_state_evidence",
+      "scope": "cross_chip_consistency",
+      "subjectId": "EVE03",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE04-VARIABLE-STATE",
+      "unitType": "system_state_evidence",
+      "scope": "cross_chip_consistency",
+      "subjectId": "EVE04",
+      "result": "pass",
+      "blocking": false
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE03-EVE04-RECONCILIATION",
+      "unitType": "system_state_evidence",
+      "scope": "cross_chip_consistency",
+      "subjectId": "EVE03↔EVE04",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE07-PROOF-STATE",
+      "unitType": "system_state_evidence",
+      "scope": "content_fidelity",
+      "subjectId": "EVE07",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE07-SHADOW-HARNESS",
+      "unitType": "system_state_evidence",
+      "scope": "shadow_evidence",
+      "subjectId": "EVE07",
+      "result": "flag",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE07-STALE-AUDITS",
+      "unitType": "system_state_evidence",
+      "scope": "audit_freshness",
+      "subjectId": "EVE07",
+      "result": "block",
+      "blocking": true
+    },
+    {
+      "unitId": "system_evidence:SYS-FULL-BRAIN-AUDIT-QUALITY",
+      "unitType": "system_state_evidence",
+      "scope": "audit_quality",
+      "subjectId": "FULL_BRAIN",
+      "result": "flag",
+      "blocking": false
+    },
+    {
+      "unitId": "system_evidence:SYS-EVE08-PREVIOUS-LINEAGE",
+      "unitType": "system_state_evidence",
+      "scope": "version_lineage",
+      "subjectId": "EVE08",
+      "result": "pass",
+      "blocking": false
+    },
+    {
+      "unitId": "source_to_target_mapping:1",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "EVE00",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:2",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "EVE01",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:3",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "EVE02",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:4",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "EVE03",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:5",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "EVE04",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:6",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "EVE05",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:7",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "EVE06",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:8",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "EVE07",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:9",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "D1",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:10",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "D3",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:11",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "D4",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:12",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "D5",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:13",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "D6",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:14",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "A07T",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:15",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "A07P",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:16",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "A07H",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:17",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "A07HJ",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:18",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "ABRAINJ",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:19",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "ABRAIN",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    },
+    {
+      "unitId": "source_to_target_mapping:20",
+      "unitType": "declared_source_to_target_mapping",
+      "sourceId": "BRAINZIP",
+      "target": null,
+      "sourceRole": null,
+      "status": null
+    }
+  ],
+  "sourceProofRowsAreEvidenceRowsNotTargetUnits": 244
+}

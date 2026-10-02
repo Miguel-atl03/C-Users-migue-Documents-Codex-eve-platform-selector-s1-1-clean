@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "B3-B7 AlignmentDelta Contract",
+  "type": "object",
+  "required": [
+    "id",
+    "case_id",
+    "state",
+    "source_ref",
+    "derivation_ref",
+    "governance_issue_refs",
+    "readiness_decision_ref",
+    "allowed_consumers",
+    "forbidden_consumers",
+    "audit_log"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "created",
+        "checked",
+        "with_findings",
+        "satisfied",
+        "blocked",
+        "archived"
+      ]
+    },
+    "source_ref": {
+      "type": "string"
+    },
+    "derivation_ref": {
+      "type": "string"
+    },
+    "governance_issue_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "readiness_decision_ref": {
+      "type": "string"
+    },
+    "allowed_consumers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_consumers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audit_log": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "implementation_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "materiality_level": {
+      "type": "string",
+      "enum": [
+        "L0 absent",
+        "L1 documented_only",
+        "L2 vocabulary_only",
+        "L3 guardrail_only",
+        "L4 contract_defined",
+        "L5 schema_present",
+        "L6 service_present",
+        "L7 tested_materiality",
+        "L8 executable_materiality"
+      ],
+      "const": "L4 contract_defined"
+    },
+    "materiality_rationale": {
+      "type": "string"
+    },
+    "alignment_delta_id": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "b3_status": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "b7_status": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "boundary_findings": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "readiness_effect": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    },
+    "contamination_risk": {
+      "type": [
+        "string",
+        "array",
+        "object",
+        "boolean",
+        "number",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

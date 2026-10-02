@@ -1,0 +1,163 @@
+{
+  "instruction": "040-C",
+  "title": "Runtime 40/20 mapping projection correction — CatalogLoader and RPC candidate aligned to staging contract",
+  "classification": "staging_mapping_projection_reconciled_local_only",
+  "next_gap": "corrected_staging_schema_and_boundary_deployment_authorization_required",
+  "workspace": "external-consumers/eve-platform",
+  "branch": "release/eve-c312-production",
+  "head_base": "8becedf4940b9bd19ec9d9968b9308d34070b555",
+  "commit_created": false,
+  "deployed": false,
+  "gate_1_alias_authority": {
+    "status": "passed",
+    "aliases": [
+      {
+        "alias": "interaction_group → interaction_group_source",
+        "source_field_exact": "CatalogLoader interactionDefinitions.interaction_group ← 031C interactions[].interaction_group",
+        "file_and_section": "runtime-40-20-staging-core-projection-map-040A.json projection_rows; loader service interactionDefinitions()",
+        "destination_column": "public.runtime_interaction_def.interaction_group_source",
+        "postgresql_contract": "eve_runtime_group_source NOT NULL (runtime-40-20-staging-core-contract-040A.json)",
+        "semantic_function": "Distinguishes base_40 vs causal_20 sheet group",
+        "material_consumer": "Staging typed column / enum cast",
+        "transformation": "explicit_authorized_alias (rename only)",
+        "semantic_loss": "none",
+        "tr_id": "TR-002|TR-003"
+      },
+      {
+        "alias": "group_normalized → interaction_group_normalized",
+        "source_field_exact": "CatalogLoader interactionDefinitions.group_normalized ← 031C interactions[].base_or_causal",
+        "file_and_section": "runtime-40-20-staging-core-projection-map-040A.json projection_rows; loader service interactionDefinitions()",
+        "destination_column": "public.runtime_interaction_def.interaction_group_normalized",
+        "postgresql_contract": "eve_runtime_group_normalized NOT NULL",
+        "semantic_function": "Normalized base/causal class",
+        "material_consumer": "Staging typed column / enum cast",
+        "transformation": "explicit_authorized_alias",
+        "semantic_loss": "none for the alias rename",
+        "tr_id": "TR-002|TR-003"
+      },
+      {
+        "alias": "function_name → function_label",
+        "source_field_exact": "CatalogLoader interactionDefinitions.function_name ← 031C interactions[].function",
+        "file_and_section": "runtime-40-20-staging-core-projection-map-040A.json projection_rows; loader service interactionDefinitions()",
+        "destination_column": "public.runtime_interaction_def.function_label",
+        "postgresql_contract": "text NOT NULL",
+        "semantic_function": "Human-readable functional label",
+        "material_consumer": "Staging typed column",
+        "transformation": "explicit_authorized_alias",
+        "semantic_loss": "none",
+        "tr_id": "TR-002|TR-003"
+      },
+      {
+        "alias": "raw_payload → raw_row_json",
+        "source_field_exact": "CatalogLoader interactionDefinitions.raw_payload = interaction (entire 031C object by assignment)",
+        "file_and_section": "runtime-40-20-canonical-catalog-draft-loader-service.ts interactionDefinitions(); projection-map-040A raw_payload row",
+        "destination_column": "public.runtime_interaction_def.raw_row_json",
+        "postgresql_contract": "jsonb NOT NULL DEFAULT '{}'::jsonb",
+        "semantic_function": "Exact authorized interaction record for audit/lineage",
+        "material_consumer": "Staging raw_row_json",
+        "transformation": "explicit_authorized_alias; no new JSON design; no field picking",
+        "semantic_loss": "none — assignment preserves the authorized source record intact",
+        "tr_id": "TR-002|TR-003",
+        "preservation_proof": "raw_payload: interaction assigns the full 031C interactions[] object by reference; not a reconstructed envelope; distinct from removed mapping_payload"
+      },
+      {
+        "alias": "subfield_ordinal → ordinal",
+        "source_field_exact": "CatalogLoader subfields.subfield_ordinal",
+        "file_and_section": "runtime-40-20-staging-core-projection-map-040A.json; loader service subfieldRows()",
+        "destination_column": "public.runtime_subfield_schema.ordinal",
+        "postgresql_contract": "integer NOT NULL DEFAULT 1",
+        "semantic_function": "Subfield display/order within interaction",
+        "material_consumer": "Staging ordinal",
+        "transformation": "explicit_authorized_alias",
+        "semantic_loss": "none",
+        "tr_id": "TR-005|TR-029"
+      }
+    ]
+  },
+  "gate_2_mapping_identity": {
+    "status": "passed",
+    "identity_tuple": [
+      "catalog_version_id",
+      "runtime_interaction_id",
+      "source_node_ref_id",
+      "mapping_role"
+    ],
+    "resolution_aids_not_persisted_as_identity": ["source_node_id", "source_code"],
+    "mapping_role_literal": "source_lineage",
+    "total_expected": 170,
+    "unique_keys": 170,
+    "duplicates": 0,
+    "unresolved_references": 0,
+    "source": "docs/eve/runtime/materialized/runtime-40-20-source-lineage-031.json relations[]"
+  },
+  "removed_fields": {
+    "mapping_ordinal": {
+      "classification_040B": "technical_serialization_order",
+      "must_exist_in_staging": false,
+      "removed_from": [
+        "sourceMappingRows",
+        "local postgres adapter INSERT",
+        "local postgres adapter EXCEPT ALL",
+        "local fixture DDL/UNIQUE",
+        "RPC candidate 040-C payload/insert",
+        "focal tests"
+      ]
+    },
+    "mapping_payload": {
+      "classification_040B": "redundant_technical_payload",
+      "must_exist_in_staging": false,
+      "lineage_authority_preserved_in": [
+        "runtime-40-20-source-lineage-031.json",
+        "runtime_catalog_artifact_section payload sections"
+      ],
+      "removed_from": [
+        "sourceMappingRows",
+        "local postgres adapter INSERT",
+        "local postgres adapter EXCEPT ALL",
+        "local fixture DDL",
+        "RPC candidate 040-C payload/insert",
+        "focal tests"
+      ]
+    }
+  },
+  "persistable_mapping_row": [
+    "catalog_version_id",
+    "runtime_interaction_id",
+    "source_node_ref_id",
+    "mapping_role",
+    "output_variable_name",
+    "route_id"
+  ],
+  "generated_by_postgresql": ["mapping_id", "created_at"],
+  "exact_comparison_fields": [
+    "catalog_version_id",
+    "runtime_interaction_id",
+    "source_node_id",
+    "source_code",
+    "mapping_role",
+    "output_variable_name",
+    "route_id"
+  ],
+  "exact_comparison_exclusions": [
+    "mapping_id",
+    "created_at",
+    "physical UUID source_node_ref_id as semantic identity"
+  ],
+  "artifacts": {
+    "rpc_candidate": "supabase/migrations/20260805203000_eve_runtime_40_20_governed_draft_load_rpc_candidate_040C.sql",
+    "rpc_rollback": "docs/eve/runtime/materialized/runtime-40-20-governed-draft-load-rpc-candidate-040C.rollback.sql",
+    "historical_039A_unmodified": "supabase/migrations/20260805174500_eve_runtime_40_20_governed_draft_load_rpc_candidate_039A.sql"
+  },
+  "security": {
+    "staging_consulted": "no",
+    "staging_writes": "none",
+    "production_consulted": "no",
+    "remote_writes": "none",
+    "catalog_loaded": "no",
+    "catalog_activated": "no",
+    "B0_modified": "no",
+    "B1_modified": "no",
+    "Gaby_modified": "no",
+    "commit_created": "no"
+  }
+}

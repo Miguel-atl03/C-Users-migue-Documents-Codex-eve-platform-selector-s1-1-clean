@@ -1,0 +1,144 @@
+{
+  "audit_id": "EVE-07-PARALLEL-PRODUCTION-INTERFACE-PACKAGE-INTAKE-SOURCE-AUDIT-V1",
+  "dictamen": "PARALLEL_PRODUCTION_INTERFACE_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED",
+  "inventory_level": "preliminary_only",
+  "sources": [
+    {
+      "sourceId": "D3",
+      "kind": "docx",
+      "role": "direct_rule_source",
+      "path": "docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx",
+      "sha256": "8b96eaa29282c042a714bbce80f0251e676425be91b766785e77c97f0c8bc31a",
+      "read": true,
+      "preliminary_units": ["sections 0-13 declared by package", "tables referenced by D3!Table4, D3!Table5, D3!Table6, D3!Table10, D3!Table11, D3!Table12", "rules R3, R4, R5, R8 referenced by package"],
+      "tables_detected": "not_exhaustive",
+      "notes": "Basic DOCX text/headings read through OOXML."
+    },
+    {
+      "sourceId": "D4",
+      "kind": "docx",
+      "role": "direct_rule_source",
+      "path": "docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx",
+      "sha256": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8",
+      "read": true,
+      "preliminary_units": ["sections 1,2,3,4,7,8.3,9,10,12,13,14,15,16,17,18,20,21,23,24,25,26,27,28", "SceneCanonicalRecordPatch", "EvidenceBundlePatch", "MMABPDesignSourceBundlePatch", "parallel_export_payload", "export blocker and endpoint boundary sections"],
+      "tables_detected": "not_exhaustive",
+      "notes": "Direct schema and payload contract source."
+    },
+    {
+      "sourceId": "D5",
+      "kind": "docx",
+      "role": "direct_rule_source",
+      "path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx",
+      "sha256": "fcda44fc8990ef0d19379c3425afb4a69186f6961a6f99d541d170826da1e318",
+      "read": true,
+      "preliminary_units": ["sections 1-12 declared by package", "B7/C09 guard sections", "SEM/PST and QA boundaries", "no-projection rules"],
+      "tables_detected": "not_exhaustive",
+      "notes": "Operational guard and no-projection source."
+    },
+    {
+      "sourceId": "D6",
+      "kind": "xlsx",
+      "role": "direct_rule_source",
+      "path": "docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx",
+      "sha256": "5be7bd2ed510c5f54ab0490535d11685f0ae981505575fdec38de8e4cdd3b2e0",
+      "read": true,
+      "preliminary_units": [
+        "Parallel_Production_Contract A1:E9",
+        "MMABP_Output_Map A1:L61",
+        "Canonical_Variables A1:J61",
+        "Critical_Routes A1:G5",
+        "Semantic_Resolution_Gates A1:G8",
+        "Process_State_Timer_Gates A1:G7",
+        "Readiness_Gaps_Reentry A1:E8",
+        "QA_Checklist A1:D13",
+        "Implementation_Dictionaries A1:C21"
+      ],
+      "headers_relevant": "headers visible as shared-string indices in basic OOXML pass; exact labels pending XLSX semantic extraction",
+      "notes": "Workbook sheets and dimensions read."
+    },
+    {
+      "sourceId": "D8",
+      "kind": "xlsx",
+      "role": "direct_rule_source",
+      "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+      "sha256": "09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2",
+      "read": true,
+      "preliminary_units": ["Catalogo_Madre_Nodos", "Source_Question_Registry", "Canonical_Variables", "Critical_Routes", "Readiness_Reentry_Gaps", "Epistemic_Governance"],
+      "headers_relevant": "sheet names read; dimensions absent in inspected OOXML",
+      "notes": "Required extended Windows path handling because normal literal path check failed on long path."
+    },
+    {
+      "sourceId": "EVE06",
+      "kind": "chip_package_directory",
+      "role": "direct_rule_source",
+      "path": "docs/chips/execution-engine/EVE_06_Execution_Engine_v0_1",
+      "read": true,
+      "preliminary_units": ["modules.activity_runtime_run", "modules.evidence_item", "modules.canonical_variable_record", "modules.structural_candidate_record", "execution_pipeline", "failure_guards", "installation_contract"],
+      "root_json_status": "READY_FOR_INDEPENDENT_QA_RERUN",
+      "main_json_sha256": "da24945129cfd23b6fd39739bc6b7c358a21b76ad5ee40e799a93bb8d276e1e5",
+      "package_not_wired": true,
+      "notes": "Documentary dependency only; no runtime connection."
+    },
+    {
+      "sourceId": "EVE05",
+      "kind": "chip_package_directory",
+      "role": "direct_rule_source",
+      "path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1",
+      "read": true,
+      "preliminary_units": ["modules", "execution_pipeline", "failure_guards", "enums", "installation_contract"],
+      "root_json_status": "READY_FOR_SHADOW_INTEGRATION",
+      "main_json_sha256": "7da3ab5891463bec6c1ffd90c410a3f6ee12e08d86827227d2a0ba7d62ecd9e4",
+      "package_not_wired": true,
+      "notes": "Documentary gate dependency only; no runtime authority."
+    },
+    {
+      "sourceId": "EVE04",
+      "kind": "chip_package_directory",
+      "role": "direct_rule_source",
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2",
+      "read": true,
+      "preliminary_units": ["modules", "integration_rules", "failure_guards", "source_to_target_mapping", "support", "flags"],
+      "root_json_status": "READY",
+      "main_json_sha256": "4c9b290b7976011850cdb6995c6f4bbc4d14ed3129e888eb235b9998a374b233",
+      "package_not_wired": true,
+      "notes": "Documentary runtime catalog dependency only; no Runtime active."
+    },
+    {
+      "sourceId": "EVE03",
+      "kind": "chip_package_directory",
+      "role": "contextual_dependency",
+      "path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1",
+      "read": true,
+      "preliminary_units": ["modules.source_node_registry", "modules.source_code_registry", "modules.canonical_variables", "modules.critical_routes", "modules.epistemic_policy"],
+      "root_json_status": "READY_WITH_FLAGS",
+      "main_json_sha256": "d34e9fc6fbc226641996da98fb42cc69efdd98158460bf2b7db123917d0226f7",
+      "package_not_wired": true,
+      "notes": "Contextual genealogy dependency; does not replace D8."
+    },
+    {
+      "sourceId": "D7",
+      "kind": "docx",
+      "role": "contextual_dependency",
+      "path": "docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx",
+      "sha256": "bee5478d5ef059641707a1e513f1977fbb3f25785754f1fa4eef93ddf9d774a2",
+      "read": true,
+      "preliminary_units": ["sections 0,1,2,4,5,8,10", "40+20 reduction context", "PM/MoC/PF/OLC context", "branching and QA context"],
+      "tables_detected": "not_exhaustive",
+      "notes": "Contextual architecture boundary."
+    },
+    {
+      "sourceId": "D1",
+      "kind": "pdf",
+      "role": "methodological_guard",
+      "path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/sources/Fundamentals of Business Architecture Modeling.pdf",
+      "sha256": "3dd3485afa518244cb600b4c479cad0ea11f242e88e4204b9422739ddf843147",
+      "read": true,
+      "preliminary_units": ["PDF header", "startxref", "EOF", "declared package sections 2.2.6, 2.3.6, 2.3.3, 3.1.5, 3.2.4, 4.1-4.5 not independently text-extracted in this task"],
+      "parseStatus": "methodological_guard_with_text_extraction_gap",
+      "notes": "Do not use D1 for material rule proof until exact text extraction/citation is available."
+    }
+  ],
+  "sourceUnitsInventoried": "preliminary_only",
+  "sourceToTargetMappingCreated": "preliminary_only"
+}

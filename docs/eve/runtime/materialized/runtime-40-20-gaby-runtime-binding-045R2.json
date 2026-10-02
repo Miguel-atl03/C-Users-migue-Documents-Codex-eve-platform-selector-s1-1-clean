@@ -1,0 +1,22 @@
+﻿{
+    "instruction":  "045-R2",
+    "status":  "blocked",
+    "classification":  "blocked_gaby_runtime_contract_field_missing",
+    "existing_real_boundary":  {
+                                   "finalize_route":  "src/app/api/participant/workmap/finalize/route.ts",
+                                   "material_status":  "role runtime session and activity runtime run are created/resumed by backend",
+                                   "evidence":  [
+                                                    "roleRuntimeSessionId returned",
+                                                    "activityRuntimeRunId returned",
+                                                    "catalog_version_id present in runtime row"
+                                                ]
+                               },
+    "missing_binding":  [
+                            "roleRuntimeSessionId is not propagated into SceneQuestionnaireRunner submit",
+                            "activityRuntimeRunId is not propagated into /api/scenes/answers",
+                            "catalog_version_id active FULL is not bound into the question source",
+                            "runtime_interaction_id is not present",
+                            "source_node_id/source_code/capture_slot_kind are not present"
+                        ],
+    "decision":  "Do not create a synthetic binding. Stop until the UI/runtime slot contract is materially supplied by an authorized boundary."
+}

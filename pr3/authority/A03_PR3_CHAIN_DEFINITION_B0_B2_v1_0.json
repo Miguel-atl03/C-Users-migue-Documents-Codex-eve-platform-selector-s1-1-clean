@@ -1,0 +1,86 @@
+{
+  "artifact_id": "EVE-PR3-CHAIN-DEFINITION-B0-B2-v1.0",
+  "chain_definition_id": "EVE-PR3-B0-B2-CHAIN",
+  "revision": "1.0",
+  "state": "DEFINED_NOT_DEPLOYED",
+  "scope": "B0→B0.5→B1→B2 only",
+  "nodes": [
+    {
+      "order": 1,
+      "object_key": "B0",
+      "binding_contract_set_id": "EVE-PR3-CS-B0-695fde9895d4748b",
+      "input": "WORKMAP_ACTIVITY_CONTEXT",
+      "output": "scene_anchor_bundle",
+      "ai_policy": "CONTRACT_AUTHORIZED_ONLY"
+    },
+    {
+      "order": 2,
+      "object_key": "B0.5",
+      "binding_contract_set_id": "EVE-PR3-CS-B0055-af216ca8a0b86903",
+      "input": "scene_anchor_bundle",
+      "output": "B05_TO_B1_CONTEXT_PACKAGE",
+      "ai_policy": "NO_AI"
+    },
+    {
+      "order": 3,
+      "object_key": "B1",
+      "binding_contract_set_id": "EVE-PR3-CS-B1-57b594ed1b5dd5f1",
+      "input": "B05_TO_B1_CONTEXT_PACKAGE",
+      "output": "B1_TO_B2_CONTEXT_PACKAGE",
+      "ai_policy": "NO_GENERATIVE_AI_DETERMINISTIC"
+    },
+    {
+      "order": 4,
+      "object_key": "B2",
+      "binding_contract_set_id": "EVE-PR3-CS-B2-1c1033ea2e74961f",
+      "input": "B1_TO_B2_CONTEXT_PACKAGE + preserved upstream refs",
+      "output": "B2_PILOT_EVIDENCE_PACKAGE",
+      "ai_policy": "EXACT_MODE_MAP"
+    }
+  ],
+  "edges": [
+    {
+      "from": "B0",
+      "to": "B0.5",
+      "required_members": [
+        "scene_anchor_bundle"
+      ],
+      "handoff_rule": "release_then_receipt_then_consumption"
+    },
+    {
+      "from": "B0.5",
+      "to": "B1",
+      "required_members": [
+        "scene_anchor_bundle",
+        "scene_macro_process_label",
+        "scene_enabled_next_step",
+        "scene_priority_source"
+      ],
+      "missing_policy": "blocked_by_missing_evidence",
+      "handoff_rule": "release_then_receipt_then_consumption"
+    },
+    {
+      "from": "B1",
+      "to": "B2",
+      "required_members": [
+        "scene_anchor_bundle",
+        "B0.5 context refs",
+        "trigger_pattern",
+        "trigger_exception_exists",
+        "trigger_source_normalized",
+        "trigger_channel_normalized",
+        "scene_trigger_confidence",
+        "scene_trigger_readiness",
+        "scene_consistency_flags"
+      ],
+      "missing_policy": "preserve unresolved/restrictions; downstream may not repair upstream",
+      "handoff_rule": "release_then_receipt_then_consumption"
+    }
+  ],
+  "next_resolution": "Runtime result + ChainDefinition dependency state; never UI hardcoding",
+  "retry_policy": "idempotent; no duplicate evidence/ledger/terminal transition",
+  "reentry_policy": "return defect to causal owner; reopen dependent set only",
+  "persistence_ref": "EVE-PR3-CLEAN-PERSISTENCE-MINIMUM-B0-B2-v1.0",
+  "legacy_dependency": "NONE",
+  "sha256": "6adb4a201188e93b04688437c8b99aa901806b764e8ef19725469e2ddc204d14"
+}

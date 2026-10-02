@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Lienzo + inscripción tipo código · mock visual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-inscription: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-inscription);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1100px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .registry {
+        position: absolute;
+        top: 36px;
+        left: 72px;
+        right: 72px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .registry-mark {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .registry-mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .registry-strap {
+        letter-spacing: 0.34em;
+        text-align: right;
+      }
+
+      .void-line-h {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        height: 1px;
+        background: var(--eve-line);
+        opacity: 0.55;
+      }
+
+      .void-line-h.top {
+        top: 108px;
+      }
+
+      .void-line-v {
+        position: absolute;
+        top: 380px;
+        bottom: 200px;
+        left: 50%;
+        width: 1px;
+        background: var(--eve-line);
+        opacity: 0.35;
+        transform: translateX(-50%);
+      }
+
+      .monument {
+        position: absolute;
+        top: 148px;
+        left: 72px;
+        max-width: 520px;
+      }
+
+      .monument-line {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 58px;
+        font-weight: 600;
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+        text-transform: none;
+      }
+
+      .monument-line em {
+        display: block;
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      .monument-sub {
+        margin: 28px 0 0;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        line-height: 1.5;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .meta {
+        position: absolute;
+        top: 148px;
+        right: 72px;
+        text-align: right;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 1.8;
+      }
+
+      .room {
+        position: absolute;
+        top: 420px;
+        right: 220px;
+        margin: 0;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-ink) 72%, var(--eve-mist));
+      }
+
+      .capture {
+        position: absolute;
+        bottom: 120px;
+        left: 72px;
+        right: 72px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 180px;
+        align-items: end;
+      }
+
+      .island {
+        max-width: 380px;
+      }
+
+      .island.b {
+        justify-self: end;
+        text-align: right;
+        margin-bottom: 48px;
+      }
+
+      .island-q {
+        margin: 0 0 20px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        line-height: 1.5;
+        color: var(--eve-ink);
+      }
+
+      .island-opts {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+      }
+
+      .island-opts li {
+        font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        line-height: 1.5;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .island-opts li.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .island.a .island-opts {
+        max-width: 36ch;
+      }
+
+      .island.b .island-opts {
+        margin-left: auto;
+        max-width: 32ch;
+      }
+
+      .trace {
+        position: absolute;
+        bottom: 52px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 0;
+        border-bottom: 1px solid var(--eve-ink);
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: var(--font-inscription);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        padding: 0 0 5px;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 18px;
+        left: 72px;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Mock visual — lienzo monumental + inscripción tipo código">
+      <header class="registry">
+        <span class="registry-mark">EVE<sup>™</sup></span>
+        <span class="registry-strap">
+          Strategic &amp; Operational Architecture / Enterprise Viability Engine
+        </span>
+      </header>
+
+      <div class="void-line-h top" aria-hidden="true"></div>
+      <div class="void-line-v" aria-hidden="true"></div>
+
+      <div class="monument">
+        <h1 class="monument-line">
+          Lo que sostiene
+          <em>no siempre se ve.</em>
+        </h1>
+        <p class="monument-sub">Una forma distinta de mirar.</p>
+      </div>
+
+      <div class="meta">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <p class="room">[ Comienza tu levantamiento ]</p>
+
+      <div class="capture">
+        <section class="island a">
+          <h2 class="island-q">¿Desde qué lugar participas normalmente en la empresa?</h2>
+          <ul class="island-opts">
+            <li class="is-on">Soy dueño/a, socio/a o parte de la dirección general.</li>
+            <li>Estoy a cargo o dirijo un área.</li>
+            <li>Superviso o coordino el trabajo de otras personas.</li>
+            <li>Analizo información, datos o procesos de la empresa.</li>
+            <li>Apoyo en administración, ventas, producción, atención o soporte.</li>
+            <li>Participo como externo, asesor o proveedor.</li>
+            <li>Otro.</li>
+          </ul>
+        </section>
+
+        <section class="island b">
+          <h2 class="island-q">¿Qué tan cerca estás de las decisiones?</h2>
+          <ul class="island-opts">
+            <li>Las tomo directamente.</li>
+            <li class="is-on">Participo en decidirlas.</li>
+            <li>Las propongo o las preparo.</li>
+            <li>Las ejecuto cuando ya fueron decididas.</li>
+            <li>Las vivo como impacto, pero no participo mucho en decidirlas.</li>
+          </ul>
+        </section>
+      </div>
+
+      <button class="trace" type="button">Guardar</button>
+
+      <p class="proposal-tag">Mock visual · lienzo monumental + inscripción tipo código</p>
+    </section>
+  </body>
+</html>

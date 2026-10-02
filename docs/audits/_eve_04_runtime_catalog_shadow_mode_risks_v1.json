@@ -1,0 +1,91 @@
+{
+  "riskMatrixId": "EVE-04-RUNTIME-CATALOG-SHADOW-MODE-RISKS-V1",
+  "mode": "runtime_catalog_shadow",
+  "status": "design_only",
+  "risks": [
+    {
+      "riskId": "RC-SHADOW-RISK-001",
+      "risk": "usar EVE-04 para ejecutar Runtime productivo",
+      "severity": "critical",
+      "mitigation": "disabled-by-default, no canTriggerRuntime, no product invoker"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-002",
+      "risk": "conectar al cerebro EVE antes de aprobacion visual",
+      "severity": "critical",
+      "mitigation": "canConnectEveBrain false and eveBrainConnection forbidden"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-003",
+      "risk": "escribir registry",
+      "severity": "critical",
+      "mitigation": "canWriteRegistry false and registry write blocked"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-004",
+      "risk": "activar diagnostico, IR o export",
+      "severity": "critical",
+      "mitigation": "requestedOutputType diagnosis, IR, final_export and registry_write are rejected"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-005",
+      "risk": "abrir causales por curiosidad analitica",
+      "severity": "high",
+      "mitigation": "branching_rule_blocks when no structural evidence exists"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-006",
+      "risk": "exceder causal budget 20",
+      "severity": "high",
+      "mitigation": "causal_budget_exhausted shadow state and gap flag"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-007",
+      "risk": "ocultar readiness gaps",
+      "severity": "high",
+      "mitigation": "missingReferences, gapFlags and requiredInputs are mandatory output fields"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-008",
+      "risk": "tratar ready_with_flags como ready final",
+      "severity": "high",
+      "mitigation": "readiness states are explicitly internal shadow signals only"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-009",
+      "risk": "perder provenance de interaccion compuesta",
+      "severity": "high",
+      "mitigation": "sourceTrace and evidenceRefs required for provenance-sensitive queries"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-010",
+      "risk": "convertir trench_phrase en invencion en vez de CCOV-001",
+      "severity": "high",
+      "mitigation": "CCOV-001 fixture requires B6-Q38, B6_6_8, 6.8, Phase3 and UP_B6"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-011",
+      "risk": "perder las 33 definiciones CVAR-001",
+      "severity": "high",
+      "mitigation": "CVAR-001 fixture locks 33/33 satisfied definitions"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-012",
+      "risk": "usar D1 o VSM1 como fuentes operacionales",
+      "severity": "medium",
+      "mitigation": "D1 and VSM1 are guard-only sources in design"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-013",
+      "risk": "usar D4 o D3 para redisenar el catalogo",
+      "severity": "medium",
+      "mitigation": "D4 and D3 are later technical/integration boundaries only"
+    },
+    {
+      "riskId": "RC-SHADOW-RISK-014",
+      "risk": "mutar WorkMap o Significado",
+      "severity": "critical",
+      "mitigation": "workmapMutation and significadoMutation forbidden; no product wiring"
+    }
+  ]
+}

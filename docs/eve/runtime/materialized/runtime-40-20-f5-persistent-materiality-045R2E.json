@@ -1,0 +1,60 @@
+﻿{
+    "instruction":  "045-R2E",
+    "objective":  "Materializacion persistente Fase 5 / Object Inventory",
+    "classification":  "blocked_f5_state_source_conformance",
+    "scene_binding_capability":  "not_evaluated_after_state_gate_block",
+    "remote_contact":  false,
+    "existing_f5c":  {
+                         "service":  "src/services/eve/object-binding/f5c-local-runtime-object-binding-service.ts",
+                         "types":  "src/services/eve/object-binding/f5c-local-binding-types.ts",
+                         "tests":  "src/services/eve/object-binding/f5c-local-runtime-object-binding-service.test.mjs",
+                         "materiality":  "partial_local_in_memory",
+                         "test_result":  "passed 10/10",
+                         "reusable_parts":  [
+                                                {
+                                                    "part":  "B3 satisfaction_to_feedback block",
+                                                    "classification":  "reusable_exact"
+                                                },
+                                                {
+                                                    "part":  "B7 non-diagnostic block",
+                                                    "classification":  "reusable_exact"
+                                                },
+                                                {
+                                                    "part":  "no remote/no SQL/no UI writes guards",
+                                                    "classification":  "reusable_exact"
+                                                },
+                                                {
+                                                    "part":  "binding result shape",
+                                                    "classification":  "reusable_with_persistence_adapter"
+                                                },
+                                                {
+                                                    "part":  "materialization event shape",
+                                                    "classification":  "reusable_with_persistence_adapter"
+                                                },
+                                                {
+                                                    "part":  "object definition vocabulary in TS union",
+                                                    "classification":  "local_test_only_until_crosswalked_to_69_definitions"
+                                                }
+                                            ]
+                     },
+    "gates":  {
+                  "gate_1_rector_sources":  "available; primary object inventory found under Downloads subfolder",
+                  "gate_2_f5c_conformance":  "partial reusable with persistence adapter",
+                  "gate_3_persistent_anatomy":  "not_created_due_to_state_gate",
+                  "gate_4_definition_fields":  "source_has_required_columns",
+                  "gate_5_states":  "blocked_f5_state_source_conformance",
+                  "gate_6_loader":  "not_created_due_to_state_gate",
+                  "gate_7_binding":  "not_promoted_due_to_state_gate",
+                  "gate_8_b3_b7":  "preexisting local guards passed",
+                  "gate_9_scene_objects":  "not_evaluated_after_state_gate_block",
+                  "gate_10_scene_authority":  "not_evaluated_after_state_gate_block",
+                  "gate_11_events":  "not_persisted_due_to_state_gate",
+                  "gate_12_baseline":  "69 definitions reproduced; 459 states not reproduced",
+                  "gate_13_smokes":  "not_run_after_state_gate_block; existing F5C 10/10 passed",
+                  "gate_14_pre_membrane":  "not_persisted_due_to_state_gate",
+                  "gate_15_no_intervention":  "passed by no code/sql/remote writes",
+                  "gate_16_persistence_boundary":  "not_created_due_to_state_gate",
+                  "gate_17_tests":  "F5C existing 10/10 only; broader tests not applicable after blocking gate",
+                  "gate_18_migration":  "not_created_due_to_state_gate"
+              }
+}

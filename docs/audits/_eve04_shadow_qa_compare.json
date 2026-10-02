@@ -1,0 +1,129 @@
+{
+  "dictamen": "SHADOW_QA_FAILED",
+  "failureReason": "Mandatory shadow service test failed because its git diff allowlist detected existing src/app tracked changes. Shadow service comparison itself passed and candidate state remains safe.",
+  "sourcesVerified": [
+    {
+      "path": "src/services/eve-04-runtime-catalog-shadow-service.ts",
+      "exists": true
+    },
+    {
+      "path": "tests/regression/eve-04-runtime-catalog-shadow-service.test.ts",
+      "exists": true
+    },
+    {
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1/EVE_04_Runtime_Catalog_v0_1.json",
+      "exists": true
+    },
+    {
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1/EVE_04_Runtime_Catalog_v0_1.manifest.json",
+      "exists": true
+    },
+    {
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1_1_candidate.json",
+      "exists": true
+    },
+    {
+      "path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1_1_candidate.manifest.json",
+      "exists": true
+    },
+    {
+      "path": "docs/audits/EVE04_SHADOW_CONNECTION_SERVICE_ONLY.md",
+      "exists": true
+    },
+    {
+      "path": "docs/audits/_eve04_shadow_connection_service_only.json",
+      "exists": true
+    }
+  ],
+  "comparison": {
+    "activePath": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1/EVE_04_Runtime_Catalog_v0_1.json",
+    "candidatePath": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1_1_candidate.json",
+    "activeContainsB6_6_8": false,
+    "candidateContainsB6_6_8": true,
+    "candidateContainsTrenchPhrase": true,
+    "activeReplaced": false,
+    "activeSha256": "df4674d5156d3747b6baf5906233c5b3d54378abd099870a5c0325f102c26dc0"
+  },
+  "shadowState": {
+    "runtimeAuthority": false,
+    "productionPromotion": false,
+    "diagnosisEnabled": false,
+    "exportEnabled": false,
+    "transductionEnabled": false,
+    "registryEnabled": false,
+    "parallelProductionEnabled": false
+  },
+  "flags": {
+    "ccov001": "RESOLVED_IN_CANDIDATE",
+    "cvar001": "OPEN_PENDING_SOURCE_GAP",
+    "readiness": "READY_WITH_FLAGS",
+    "certification": "NOT_CERTIFIED"
+  },
+  "filesCreatedOrModified": [
+    "tests/regression/eve-04-runtime-catalog-shadow-qa-compare.test.ts",
+    "docs/audits/EVE04_SHADOW_QA_COMPARE.md",
+    "docs/audits/_eve04_shadow_qa_compare.json"
+  ],
+  "commands": [
+    {
+      "command": "pwd",
+      "exitCode": 0,
+      "result": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform"
+    },
+    {
+      "command": "git status --short",
+      "exitCode": 0,
+      "result": "completed; dirty workspace present before/around QA"
+    },
+    {
+      "command": "git diff --name-only",
+      "exitCode": 0,
+      "result": "completed; tracked src/app/product diffs present"
+    },
+    {
+      "command": "git ls-files --others --exclude-standard",
+      "exitCode": 0,
+      "result": "completed; many untracked docs/chips/tests present"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-candidate-filenames.test.ts",
+      "exitCode": 0,
+      "result": "PASS 5/5"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-shadow-candidate.test.ts",
+      "exitCode": 0,
+      "result": "PASS 11/11"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-shadow-service.test.ts",
+      "exitCode": 1,
+      "result": "FAIL 1/10; git diff allowlist failed on pre-existing src/app/admin/runtime-vsm/page.tsx"
+    },
+    {
+      "command": "node --test tests/regression/eve-04-runtime-catalog-shadow-qa-compare.test.ts",
+      "exitCode": 0,
+      "result": "PASS 6/6"
+    }
+  ],
+  "noContaminationByThisTask": {
+    "srcAppTouched": false,
+    "apiTouched": false,
+    "runtimeProductiveTouched": false,
+    "productiveRegistryTouched": false,
+    "activeChipTouched": false,
+    "candidateTouched": false,
+    "docsRuntimeTouched": false,
+    "packageTouched": false
+  },
+  "observedPreExistingGitNoise": {
+    "trackedSrcAppDiffsPresent": true,
+    "serviceTestGitAllowlistBlockedFullPass": true
+  },
+  "remainingRisks": [
+    "CVAR-001 remains OPEN_PENDING_SOURCE_GAP.",
+    "Candidate remains NOT_CERTIFIED / READY_WITH_FLAGS.",
+    "Workspace dirty state prevents full green result for the existing shadow-service git allowlist test."
+  ],
+  "nextRecommendedStep": "PROMOTION_PRECHECK_AFTER_GIT_FIX"
+}

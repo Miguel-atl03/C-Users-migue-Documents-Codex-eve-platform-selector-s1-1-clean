@@ -1,0 +1,161 @@
+{
+  "contract_id": "EVE_ORGANISM_GATE2_REAL_SHADOW_OBSERVATION_BRIDGE_CONTRACT_V1",
+  "bridge_id": "GATE2_REAL_SHADOW_OBSERVATION_BRIDGE_V1",
+  "mode": "DESIGN_ONLY",
+  "input_contract": {
+    "name": "RealShadowObservableEvent",
+    "required_fields": [
+      "event_id",
+      "event_type",
+      "observed_at",
+      "source_system",
+      "source_environment",
+      "source_locator",
+      "tenant_id",
+      "session_id",
+      "activity_id",
+      "actor_ref",
+      "realClientIntent",
+      "realTenantContext",
+      "realSessionContext",
+      "realActivityContext",
+      "realRuntimeEvent",
+      "realEvidenceSignal",
+      "officialOutcome",
+      "provenance",
+      "sourceTrace",
+      "correlationId",
+      "idempotencyKey",
+      "officialFlowRef",
+      "redaction_status",
+      "data_minimization_attestation"
+    ],
+    "reject_rules": [
+      {
+        "reason": "MISSING_CONTEXT",
+        "when_missing_any": ["tenant_id", "session_id", "activity_id"],
+        "reject_event": true
+      },
+      {
+        "reason": "MISSING_PROVENANCE",
+        "when_missing_any": ["provenance", "sourceTrace"],
+        "reject_event": true
+      },
+      {
+        "reason": "MISSING_CORRELATION_ID",
+        "when_missing_any": ["correlationId"],
+        "reject_event": true
+      },
+      {
+        "reason": "MISSING_IDEMPOTENCY_KEY",
+        "when_missing_any": ["idempotencyKey"],
+        "reject_event": true
+      },
+      {
+        "reason": "MISSING_OFFICIAL_OUTCOME",
+        "when_missing_any": ["officialOutcome"],
+        "reject_event": true
+      },
+      {
+        "reason": "MISSING_SOURCE_ENVIRONMENT",
+        "when_missing_any": ["source_environment"],
+        "reject_event": true
+      },
+      {
+        "reason": "UNKNOWN_REDACTION_STATUS",
+        "when": "redaction_status == unknown",
+        "reject_event": true
+      },
+      {
+        "reason": "OVERCOLLECTION_RISK",
+        "when": "data_minimization_attestation == false",
+        "reject_event": true
+      }
+    ]
+  },
+  "shadow_outputs": {
+    "ShadowEvaluation": [
+      "event_id",
+      "correlationId",
+      "idempotencyKey",
+      "tenant_id",
+      "session_id",
+      "activity_id",
+      "evaluated_at",
+      "evaluation_mode",
+      "conformance_observation",
+      "consistency_observation",
+      "gate_observation",
+      "evidence_quality_observation",
+      "no_go_observation",
+      "produced_side_effects"
+    ],
+    "ShadowGateDecision": [
+      "decision_id",
+      "event_id",
+      "gate",
+      "decision_mode",
+      "would_allow",
+      "would_block",
+      "would_require_review",
+      "reasons",
+      "no_go_codes",
+      "grants_authority"
+    ],
+    "ShadowCandidateArtifact": [
+      "candidate_id",
+      "event_id",
+      "candidate_type",
+      "candidate_status",
+      "source_binding",
+      "evidence_binding",
+      "object_state_binding_if_available",
+      "not_for_client_delivery",
+      "not_for_registry_write",
+      "not_for_export",
+      "not_final_diagnosis"
+    ],
+    "ShadowGovernanceFinding": [
+      "finding_id",
+      "event_id",
+      "finding_type",
+      "severity",
+      "channel",
+      "requires_human_review",
+      "requires_degrade",
+      "requires_quarantine",
+      "grants_authority"
+    ],
+    "ShadowDivergenceReport": [
+      "divergence_id",
+      "event_id",
+      "correlationId",
+      "idempotencyKey",
+      "tenant_id",
+      "session_id",
+      "activity_id",
+      "officialOutcome",
+      "shadowOutcome",
+      "divergence_type",
+      "divergence_severity",
+      "reproducible_replay_ref",
+      "latency_observation",
+      "tenant_isolation_observation",
+      "evidence_traceability_observation",
+      "governance_review_required",
+      "s3_star_review_required",
+      "grants_authority",
+      "closes_blocker",
+      "closes_exit_condition"
+    ]
+  },
+  "separation_rule": {
+    "officialOutcome_not_shadowOutcome_not_divergence": true,
+    "officialOutcome": "official flow result",
+    "shadowOutcome": "EVE shadow observation or decision",
+    "divergence": "controlled comparison",
+    "grants_productive_authority": false,
+    "closes_gate3": false,
+    "enables_final_diagnosis": false
+  }
+}

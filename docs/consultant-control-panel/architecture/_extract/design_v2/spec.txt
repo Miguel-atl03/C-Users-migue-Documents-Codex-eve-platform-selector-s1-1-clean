@@ -1,0 +1,1383 @@
+Diseño del Panel de Control Operativo EVE
+Supervisión, intervención gobernada y descarga de Producción Paralela para Runtime 40+20 por actividad primaria
+Campo
+Valor
+Versión propuesta
+v1.0 de diseño funcional para implementación controlada
+Sistema modelado
+Plataforma EVE como sistema de producción de diagnóstico causal estructural
+Unidad operativa de monitoreo
+Usuario → CasoDiagnosticoEVE → Sesión → Actividad primaria → Runtime profundo 40+20 → SceneCanonicalRecord / EvidenceBundle / Producción Paralela
+Frontera
+El panel observa, gobierna y solicita reentry/intervención; no diagnostica, no monetiza, no inventa evidencia y no altera Capa 2.0/2.5.
+Regla madre
+40 base obligatorias por resolución; 20 causales evaluadas siempre y obligatorias si se activan; Producción Paralela descarga solo desde objetos/estados autorizados.
+Ajuste de alcance operativo
+v1.1 — Plataforma construida hasta Capa 1.0 y Producción Paralela; Capa 2.0, Capa 2.5 y Capa 3.0 quedan como paquetes descargables Excel para ejecución manual experta.
+Regla de alcance de ejecución
+El panel no debe presentar Capa 2.0, Capa 2.5 ni Capa 3.0 como módulos automatizados en plataforma. Debe presentar readiness, gaps, trazabilidad y descargas manuales.
+Excepción operativa
+Producción Paralela sí permanece como línea operativa de plataforma: inventario MMABP, QA de consistencia y generación de diagramas/código exportable, especialmente BPMN/Camunda cuando ArchitectureConsistencyAssessment está Satisfied.
+1. Dictamen operativo
+Decisión de diseño• El Panel de Control EVE debe operar como cabina de observación y gobierno del proceso, no como capa diagnóstica nueva.• Debe seguir la MBA de EVE: PM define procesos y target states; MoC define objetos; PF define espera, eventos, timers, rework y salidas; OLC autoriza estados.• Debe permitir intervención manual solo como reentry, aclaración, bloqueo, corrección de ruta, apertura de causal o manual review, siempre con trazabilidad.• No debe permitir que un operador convierta texto libre, prefill, satisfacción subjetiva o señal B7 en hecho estructural sin ruta canónica.
+2. Fuentes rectoras y regla de autoridad
+Fuente
+Uso en el panel
+MBA Empresa EVE v1.1 B3/B7
+Rector de negocio: procesos P-CORE/P-SUP, objetos MoC, PF, OLC, estados, timers y condiciones de no conformidad.
+Catálogo Runtime 40+20
+Define 40 interacciones base y hasta 20 causales máximas por actividad; cada interacción conserva nodos fuente, variables, cuadrantes MMABP y readiness.
+Regla Operativa 40 Base ajustada
+Define Base Resolution Gate: 40 base obligatorias por resolución para actividad primaria profunda.
+Regla Operativa 20 Causales ajustada
+Define Causal Closure Gate: C01–C20 evaluadas siempre; obligatorias si se activa condición documental.
+Capa 1.0
+Define expediente estructural canónico, SceneCanonicalRecord, EvidenceBundle y readiness; no diagnostica.
+Producción Paralela
+Consume mmabp_design_source_bundle y produce inventario, registries, MMABP-IR y export; no diagnostica ni infiere desde texto libre.
+Capa 2.0 / 2.5 con AHE
+Consume expedientes conformados; genera hipótesis VSM, inconsistencias MMABP, escenas evidenciales y agregación causal. AHE requiere materialidad MMABP + tensión VSM + interacción inducida.
+Ajuste operativo Capa 2.0/2.5/3.0 manual
+Regla de panel: esas capas no se ejecutan por ahora en plataforma; se descargan como workbooks Excel trazables para operación manual experta. Producción Paralela queda como excepción operativa para diagramas/código exportable.
+3. Principio estructural del panel
+El panel debe reflejar el Process Map de EVE: P-CORE-01 gobierna el caso diagnóstico completo y recibe milestones producidos por procesos de soporte. La pantalla de control no sustituye esos procesos: visualiza estados, timers, readiness, gaps, reentry y bloqueos, y permite acciones manuales dentro de las fronteras autorizadas.
+El panel debe tratar cada avance como transición Object[State]. No debe avanzar por ausencia de error. Debe existir evento, estado producido, proveniencia y operación autorizada.
+Proceso MBA
+Función
+Target state
+Uso operativo del panel
+P-CORE-01
+Producir diagnóstico causal EVE trazable
+CasoDiagnosticoEVE [Delivered]
+Monitorear milestones: SCR, EvidenceBundle, EscenaEvidencial, PeliculaCausal, Diagnóstico final, cierre.
+P-SUP-01
+Consolidar escena operativa regulada
+SceneCanonicalRecord [Consolidated]
+Monitorear 40 base, 20 causales, gaps, flags, B3/B7, conformance y consolidación.
+P-SUP-02
+Preparar EvidenceBundle
+EvidenceBundle [ReadyForTransduction]
+Monitorear trazabilidad, readiness, B3/B7 alignment y bloqueo de bundle.
+P-SUP-03
+Transducir evidencia por rol funcional
+EscenaEvidencial [Validated]
+Solo lectura: confirmar que bundle listo se consume y se construye escena causal situada.
+P-SUP-04
+Agregar causalidad empresarial
+PeliculaCausalAgregada [Aggregated]
+Solo lectura: monitorear si hay escenas suficientes y patrones multirol.
+P-SUP-05
+Componer síntesis experta
+DiagnosticoExpertoFinal [Delivered]
+Solo lectura: monitorear trazabilidad experta y entrega.
+P-SUP-06
+Producción Paralela MMABP
+InventarioMMABP [Resolved]
+Monitorear y descargar MDSB, candidatos, facts, registries, IR; rework por QA.
+P-SUP-07/08
+Conformance / consistency
+ArchitectureConsistencyAssessment [Satisfied]
+Monitorear findings, B3RouteCheck, B7BoundaryCheck, bloqueos y habilitación de export.
+P-SUP-09
+Exportación técnica
+ExportCodePackage [Generated]
+Descarga BPMN/PlantUML solo si ACA está Satisfied.
+PF-CLIENT-01
+Relación con cliente
+ClientEngagement [ClosedWithDeliveredCase]
+Monitorear necesidad, alcance, aceptación, sesiones y cierre.
+4. Arquitectura de pantalla
+La pantalla se diseña como una cabina con tres zonas: cabecera de caso, navegación por objetos/procesos y tablero de detalle. La cabecera fija el contexto; la navegación permite pasar de experiencia usuario a runtime, evidencia, producción paralela y QA; el detalle muestra estados y permite intervención gobernada.
+Zona de pantalla
+Contenido
+Función
+Cabecera persistente
+case_id, cliente, sesión, usuario, actividad actual, policyVersion runtime, PreRuntimeContextBundle, estado del caso, timers críticos.
+Saber dónde está el usuario y qué objeto gobierna el flujo.
+Columna izquierda
+Árbol: Caso → Sesiones → Actividades primarias → Runtime 40+20 → SCR → EvidenceBundle → Producción Paralela → Capa 2/2.5.
+Navegar sin perder trazabilidad.
+Zona central
+Vista seleccionada: Jornada, Runtime, Base Gate, Causal Gate, Objetos/Estados, Producción Paralela, QA, Auditoría.
+Operar cada control con detalle.
+Columna derecha
+Panel de intervención: acciones permitidas, bloqueo, reentry, preguntas de aclaración, apertura causal, manual review.
+Intervenir sin contaminar evidencia.
+Banda inferior
+Log de eventos, cambios de estado, timers, operator actions, descargas y warnings.
+Auditoría continua.
+5. Vistas obligatorias del panel
+Vista
+Qué muestra
+Campos mínimos
+Vista 1 — Experiencia usuario
+Login demo / Estado A / WorkMap / selector v1.3 / Significado / Bloque 0 / B0.5–B7.
+screen_state, sourceMode, savedWorkMapExists, flattenedActivitiesCount, selectedCount, currentActivity, continueEnabled.
+Vista 2 — Runtime por actividad
+Una fila por actividad primaria; estado profundo 40+20; readiness; gaps; timers; current block.
+activity_id, selectedSlot, selectionReasonCode, baseResolvedCount, causalTriggeredCount, causalOpenCount, runtimeReadiness.
+Vista 3 — Base Resolution Gate
+40 base por actividad, con estado de resolución estricto.
+B0-Q01..B7-Q40; estado, variable, protección PM/MoC/PF/OLC, bloqueo si falla.
+Vista 4 — Causal Closure Gate
+C01–C20 por actividad, evaluadas siempre.
+activationStatus, triggerEvidence, closureStatus, priority, blocksReady, reentryTarget.
+Vista 5 — Contexto pre-runtime
+Estado A + WorkMap completo + primarias + no primarias.
+functional_role_context, decision_level_context, workmap_area_context, responsibility_context, primary/non-primary contexts.
+Vista 6 — Objetos y estados MBA
+OLC de Caso, SCR, EvidenceBundle, EscenaEvidencial, Producción Paralela, ACA, Export.
+Object[State], allowedTransition, event, timer, blocked reason.
+Vista 7 — Producción Paralela
+MDSB, SourceSceneIndex, candidatos, facts, registries, IR, export.
+download eligibility, gaps, semantic resolution, ACA status, export readiness.
+Vista 8 — B3/B7 Governance
+receiver_feedback, route_ref, C09, PreclassificationRecord, boundary B7.
+B3RouteCheck, B7BoundaryCheck, B3B7AlignmentDelta.
+Vista 9 — Intervención manual
+Acciones permitidas y prohibidas, con auditoría.
+forceOpenCausal, requestReentry, addClarification, blockReady, manualReview, no evidence rewrite.
+Vista 10 — Auditoría y descargas
+Logs, pruebas de QA, bundle de evidencia, export packages.
+audit trail, export validation, downloaded artifacts, git/baseline optional.
+6. Monitoreo de la experiencia del usuario
+Etapa
+Contenido
+Campos a monitorear
+Control
+Login / Demo controlada
+Inicio de sesión o demo
+session_id, actor, sourceMode
+No debe arrastrar estado anterior sin reset.
+Estado A
+Lugar desde donde participa / rol funcional y cercanía a decisiones
+functional_role_context, decision_level_context
+Contexto gobernado; no diagnóstico ni autoridad real confirmada.
+WorkMap
+Áreas, responsabilidades, actividades
+workMapSnapshot, areas, responsibilities, activities, savedWithWarnings
+Fuente para selector; no evidencia MMABP confirmada.
+Selector primario v1.3
+Hasta 8 actividades primarias
+eligibleCount, selectedCount, selectedPrimaryActivities, nonPrimaryContextActivities
+Usuario no selecciona diagnóstico; EVE prioriza bajo política.
+Significado
+Ejecuta runtime por actividad primaria
+currentActivityIndex, currentActivityTitle, preRuntimeContextBundle
+Significado consume selección; no selecciona.
+Bloque 0
+Anclaje semántico y delimitación inicial
+B0-Q01..B0-Q04 status
+Prefill ≠ evidencia confirmada.
+B0.5–B7
+Runtime profundo
+base/causal/gap/readiness
+Base 40 resuelta + causales activadas cerradas.
+Cierre actividad
+Readiness/gaps/reentry
+activity_runtime_readiness
+No cerrar por conteo; cerrar por reglas de suficiencia.
+Post-runtime
+SCR/EvidenceBundle/MDSB
+SCR state, EvidenceBundle state, MDSB state
+Capa 1 no diagnostica.
+7. Base Resolution Gate — 40 preguntas base
+Para cada actividad primaria en runtime profundo, el panel debe mostrar las 40 interacciones base como una matriz de resolución. La matriz no significa 40 cajas de texto obligatorias; significa 40 estados obligatorios de resolución. Una base puede cerrarse por captura, confirmación, derivación canónica, cálculo interno, no aplicabilidad con evidencia, gap, reentry o manual review.
+Estado
+Uso permitido
+Permite avanzar
+captured_user_evidence
+El usuario respondió de forma directa durante runtime.
+Sí
+user_confirmed_prefill
+El sistema mostró prefill y el usuario confirmó o corrigió.
+Sí
+canonical_derivation_closed
+La variable fue derivada por ruta canónica documentada desde respuestas previas.
+Sí
+internal_calculated_closed
+Nodo interno calculado desde variables suficientes; ejemplo: brecha, confianza o readiness.
+Sí
+not_applicable_with_evidence
+La interacción no aplica y existe respuesta/condición explícita que lo justifica.
+Sí
+ready_with_flag
+La base avanza con flag visible y downstream conoce la insuficiencia.
+Sí, con restricciones
+blocked_by_missing_evidence
+Falta respuesta o dato estructural exigido.
+No
+blocked_by_missing_canonical_route
+Existe texto, pero no cerró la ruta canónica requerida.
+No
+reentry_required
+Debe volver al bloque fuente o aclaración asociada.
+No
+manual_review_required
+Ambigüedad no resoluble por runtime sin revisión experta.
+No
+inferred_unconfirmed
+El sistema infirió desde contexto, pero el usuario no confirmó.
+No como cierre pleno
+skipped_silently
+La interacción no se evaluó ni dejó estado.
+Prohibido
+Bloque
+Base mínima que debe quedar resuelta
+Readiness/bloqueo
+B0
+Confirmar/corregir actividad, descripción mínima, frecuencia/contexto/actor, inicio y cierre.
+No pasar a B0.5 si falta ancla, inicio, cierre o escala suficiente.
+B0.5
+Beneficiario, afectado, relación valor/daño, proceso contenedor, hito y prioridad.
+PM queda con flag o reentry si escena queda flotante.
+B1
+Fuente, canal, tipo, claridad, frecuencia, precondiciones y excepción de inicio.
+No pasar a B2 si trigger/precondición quedan no interpretables.
+B2
+Dimensión de transformación, entidad, atributos, acción causal, estados inicial/final, magnitud/iteración y excepción/cambio oculto.
+No pasar a B5 si dimensión dominante o estados no cierran.
+B3
+Salida, receptor, dependencia, criterios, mecanismo, falla, aceptación sin mezclar feedback.
+No permitir handoff sin receptor ni cerrar feedback operativo desde satisfacción.
+B4
+Dependencias, espera, timer/evento de tiempo, bloqueo, iteración, alternativas, paralelismo, pasos no oficiales y secuencia real.
+PF incompleto si hay espera fuerte sin evento/timer/resolución.
+B5
+Métrica comparable, capacidad nominal/real, recursos, discrecionalidad, restricciones, variedad residual y sostenibilidad.
+No calcular brecha si métrica nominal/real no es comparable.
+B6
+Workaround, retrabajo, información faltante, regla informal, sacrificio, desgaste, patrón repetitivo y mecanismo de compensación.
+AHE/VSM prep insuficiente si B6 queda superficial.
+B7
+Lectura interna, confidence, readiness, gaps, microconfirmación cuando aplique y frontera no diagnóstica.
+No enviar a Capa 2 si B7 marca baja confianza sin resolución o manual review.
+8. Matriz de control por interacción base B0-Q01 a B7-Q40
+Esta matriz debe aparecer en el panel por cada actividad primaria. Debe permitir filtrar por estado, bloque, protección MMABP, base faltante, reentry y bloqueo.
+ID
+B
+Función
+Nodos fuente
+Protección
+Cierre obligatorio
+Bloqueo si falla
+B0-Q01
+0
+Confirmación/corrección de actividad
+0.0, 0.1, 0.1a, 0.D
+Governance/Readiness; PM/PF soporte
+Debe cerrar activity_name_user_confirmed y semantic_confirmation_status. Prefill no confirmado queda ai_inferred_unconfirmed.
+Si falta confirmación o corrección: blocked_by_missing_evidence o reentry a B0.
+B0-Q02
+0
+Descripción operativa mínima
+0.2, 0.A, 0.C
+Governance/Readiness; PM/PF soporte
+Debe capturar activity_summary_literal o reconstrucción guiada con proveniencia.
+Si queda genérica o fuera de escala: reentry/clarification B0.
+B0-Q03
+0
+Frecuencia, contexto y actor inmediato
+0.3, 0.4, 0.5_actor_scope
+Governance/Readiness; PM/PF soporte
+Debe cerrar frecuencia, contexto típico y actor_scope; si hay variación activa C01.
+Si falta contexto/frecuencia/actor: activity_anchor_gap_flag.
+B0-Q04
+0
+Inicio y cierre de actividad
+0.6, 0.7, 0.B
+Governance/Readiness; PM/PF soporte
+Debe cerrar start_condition_hint y end_result_hint confirmados o corregidos.
+No pasar a B0.5 si falta inicio, cierre o escala suficiente.
+B05-Q05
+0.5
+Beneficiario funcional y actor afectado
+0.5.1, 0.5.1a, 0.5.1_rel, 0.5.1c, 0.5.1d
+PM
+Debe cerrar beneficiario, afectado, relación valor/daño y claridad. Si hay asimetría/ambigüedad activa C02.
+Si falta: PM sin cliente/daño; scene_frame_readiness con flag o reentry.
+B05-Q06
+0.5
+Proceso contenedor
+0.5.2, 0.5.B
+PM
+Debe cerrar scene_macro_process o marcar No estoy seguro con flag.
+Si falta proceso contenedor: escena flotante; reentry B0.5.
+B05-Q07
+0.5
+Hito habilitado y prioridad
+0.5.3, 0.5.4, 0.5.4a
+PM
+Debe cerrar milestone y priority_source/displacement_source.
+Si hito solo repite tarea local: 0.5.C o gap.
+B1-Q08
+1
+Fuente y canal del disparador
+1.1, 1.5
+PM/PF
+Debe cerrar trigger_source y trigger_channel; si múltiples fuentes/canales puede activar C03/1.C.
+Si falta origen/canal: inicio sin interfaz explícita; reentry B1.
+B1-Q09
+1
+Tipo y claridad del disparador
+1.2, 1.3
+PM/PF
+Debe cerrar trigger_type y trigger_clarity; ambigüedad activa C03/1.A.
+Si falta: no distinguir régimen planificado/reactivo ni claridad de inicio.
+B1-Q10
+1
+Frecuencia y patrón del disparador
+1.4
+PM/PF
+Debe cerrar trigger_frequency y trigger_pattern.
+Si falta: no comparar previsibilidad con carga real.
+B1-Q11
+1
+Precondiciones y excepción de inicio
+1.6, 1.7
+PM/PF
+Debe cerrar trigger_preconditions y trigger_exception_exists. Si hay excepción activa C03/1.8.
+Si falta: no separar inicio válido de inicio improvisado.
+B2-Q12
+2
+Objeto, sujeto o acción principal
+2.1, 2.1a, 2.1b, 2.1c
+MoC
+Debe cerrar transformation_primary_dimensions y entidad concreta. Si mezcla dimensiones activa C04.
+Si falta: transformación ontológicamente borrosa; no avanzar a B5.
+B2-Q13
+2
+Propiedades que cambian
+2.2_obj, 2.2_suj, 2.2_acc
+MoC
+Debe cerrar atributos/cualidades que cambian según entidad seleccionada.
+Si falta: no se identifica qué muta.
+B2-Q14
+2
+Acción transformadora y causa inmediata
+2.4a, 2.4b
+MoC/PF
+Debe cerrar transformation_causality_action y transformation_causality_trigger.
+Si falta: no hay causalidad directa de cambio.
+B2-Q15
+2
+Estado inicial y estado final
+2.5, 2.6
+MoC/OLC
+Debe cerrar transformation_state_initial y transformation_state_final.
+Si falta: no hay base para OLC ni PF→OLC.
+B2-Q16
+2
+Magnitud e iteración de transformación
+2.3, 2.7
+MoC/OLC/PF
+Debe cerrar magnitude e iteration regime. Múltiples ciclos activan C07.
+Si falta: se subcaptura complejidad y capacidad.
+B2-Q17
+2
+Excepción y cambio oculto de transformación
+2.9, 2.11
+PF/MoC/OLC
+Debe cerrar transformation_exception_exists e hidden_changes. Falla activa C05; cambio oculto activa C06.
+Si evidencia textual no cierra ruta 2.9/2.10: blocked_by_missing_canonical_route.
+B3-Q18
+3
+Salida y receptor directo
+3.1, 3.2, 3.A
+PF
+Debe cerrar output_object y primary_receiver.
+Si falta: handoff sin destinatario.
+B3-Q19
+3
+Naturaleza, dependencia e impacto del receptor
+3.3, 3.4, 3.5
+PF/PM/MoC
+Debe cerrar receiver_type, dependency e impact/next step.
+Si falta: no se sabe qué se rompe aguas abajo.
+B3-Q20
+3
+Criterios y mecanismo de entrega
+3.7, 3.8, 3.9, 3.B
+PF
+Debe cerrar quality_criteria, delivery_mechanism y frequency.
+Si falta: handoff sin estándar verificable.
+B3-Q21
+3
+Falla de entrega
+3.10
+PF
+Debe cerrar delivery_exception_exists. Si sí, activa C08 y puede activar C09.
+Si falta: no se detecta handoff defectuoso.
+B3-Q22
+3
+Aceptación del receptor y cambios recientes
+3.13, 3.14
+PF
+Debe cerrar receiver_satisfaction y recent_delivery_changes sin absorber feedback operativo. Si hay rechazo/corrección operativa, activa C09.
+Si mezcla satisfacción con feedback: receiver_feedback_route_missing.
+B4-Q23
+4
+Dependencias anterior y posterior
+4.1, 4.2, 4.A
+PF/PM
+Debe cerrar dependency_previous y dependency_next.
+Si falta: flujo sin dirección causal.
+B4-Q24
+4
+Espera, tiempo y bloqueo
+4.3, 4.4, 4.5
+PF/OLC
+Debe cerrar wait_time, time_event y deadlock_risk. Bloqueo/espera fuerte activa C11 y Process State/Timer Gate.
+Sin event/timer/resolution: PF incompleto y deadlock_risk.
+B4-Q25
+4
+Iteración del flujo
+4.6
+PF/OLC
+Debe cerrar iteration_pattern. Repetición activa C12.
+Si falta: no distinguir flujo lineal de recurrente.
+B4-Q26
+4
+Caminos alternativos
+4.7
+PF/OLC
+Debe cerrar route_alternatives. Si sí, activa C13.
+Si falta: alternativas sin condición causal.
+B4-Q27
+4
+Paralelismo y pasos no oficiales
+4.8, 4.9
+PF
+Debe cerrar parallelism_type y hidden_subprocess. Pasos ocultos activan C14.
+Si falta: proceso real queda oficialista.
+B4-Q28
+4
+Secuencia real, impacto y atasco
+4.10, 4.11, 4.12, 4.13
+PF/OLC
+Debe cerrar real_vs_official_sequence, blockage_impact, bottleneck y deviation_frequency. Secuencia alterada activa C14.
+Si falta: no se ubica el punto de fricción real.
+B5-Q29
+5
+Métrica de capacidad y brecha
+5.0, 5.0_auto, 5.1, 5.2, 5.3
+PF/PM
+Debe cerrar capacidad nominal/real en misma métrica y calcular brecha.
+Si no hay comparabilidad: blocked_by_metric_incomparability/reentry B2.
+B5-Q30
+5
+Recursos disponibles
+5.4, 5.5, 5.6
+PF/PM
+Debe cerrar personas, sistemas/herramientas y tiempo oficial.
+Si falta: no hay contexto de capacidad real.
+B5-Q31
+5
+Recursos requeridos
+5.7, 5.8
+PF/PM
+Debe cerrar personas/tiempo requeridos para operar sin sacrificio recurrente.
+Si falta: no se puede leer déficit de bargain.
+B5-Q32
+5
+Discrecionalidad y restricciones
+5.9, 5.10
+PF/PM
+Debe cerrar libertad de decisión y límites duros.
+Si falta: no se evalúa subsidiariedad/discrecionalidad.
+B5-Q33
+5
+Sacrificio, variedad residual y sostenibilidad
+5.11, 5.12, 5.14
+PF/PM; VSM prep
+Debe cerrar compensación estructural, residual variety y resource_bargain. Si escape/tensión activa C15.
+Si falta: VSM/resource bargain queda débil.
+B6-Q34
+6
+Workaround principal
+6.1
+PF/AHE prep
+Debe cerrar workaround_used y workaround_types.
+Si falta: se pierde parche local que sostiene la escena.
+B6-Q35
+6
+Retrabajo
+6.2
+PF/OLC/AHE prep
+Debe cerrar rework_present. Si sí, activa C16.
+Si falta: loops/rebotes ocultos no quedan trazados.
+B6-Q36
+6
+Información faltante y regla informal
+6.3, 6.4
+PF/VSM/AHE prep
+Debe cerrar missing_information e informal_rule_present. Si hay carencia/regla activa C17.
+Si falta: se pierde falla de coordinación/regla real.
+B6-Q37
+6
+Sacrificio, desgaste y costo de esfuerzo
+6.5, 6.6, 6.7
+PF/AHE prep
+Debe cerrar human_sacrifice, wear_accumulated y effort_cost. Si negativo/alto activa C18.
+Si falta: AHE prep pierde costo humano.
+B6-Q38
+6
+Patrón repetitivo y mecanismo de compensación
+6.9, 6.10, 6.11
+PF/OLC/AHE prep
+Debe cerrar repetitive_failure_pattern, residual_variety_absorption y compensation_primary_mechanism. Si hay patrón activa C19.
+Si falta: no hay mecanismo de compensación consolidado.
+B7-Q39
+7
+Confirmación de lectura preliminar
+7.0, 7.1, 7.4
+Governance/Readiness
+Debe consolidar preclassification/readiness sin generar diagnóstico, IR, registry o export directo.
+Si confianza media/baja sin microconfirmación: needs_microconfirmation/manual_review.
+B7-Q40
+7
+Microconfirmación de posición o tensión cruzada
+7.0a, 7.2, 7.3, 7.3a
+Governance/Readiness
+Debe cerrar chain_position/tensión cruzada solo como señal preclasificatoria no diagnóstica. Puede activar C20 si baja confianza.
+Si señales cruzadas quedan abiertas: needs_manual_review/reentry.
+9. Causal Closure Gate — 20 causales
+Las causales C01–C20 no son opcionales. El panel debe evaluarlas siempre por actividad primaria. Si la causal no se activa, debe quedar cerrada con evidencia de no activación. Si se activa, debe resolverse, enviarse a reentry, quedar como gap o manual review. Una causal activada y abierta impide ready pleno según su prioridad.
+Estado
+Definición
+Permite ready pleno
+not_triggered_with_evidence
+La condición de apertura fue evaluada y existe evidencia de que no aplica.
+Sí
+triggered_required
+La condición de apertura se activó; la causal debe desplegarse o resolverse por ruta canónica.
+No hasta cerrar
+answered_closed
+La causal activada fue respondida y cerró sus variables canónicas.
+Sí
+closed_by_confirmed_negative
+La causal se activó como duda, pero el usuario o ruta canónica confirma que no existe el fenómeno.
+Sí
+closed_not_applicable
+La causal no aplica por condición documentada del bloque.
+Sí
+activation_unknown
+No hay evidencia suficiente para saber si aplica.
+No
+triggered_unanswered
+Se activó, pero no fue preguntada ni resuelta.
+No
+route_missing
+Hay evidencia textual, pero no cerró por ruta canónica.
+No
+contradiction_flag
+La causal contradice otra evidencia y requiere reentry o manual review.
+No
+manual_review_required
+Ambigüedad no resoluble por runtime.
+No como ready pleno
+reentry_required
+Debe volver al bloque fuente.
+No
+Prioridad
+Causales
+Regla de cierre
+P0
+C05, C09, C11, C20
+Si se activan y no cierran, bloquear ready pleno. Solo permitir reentry, manual_review o blocked_by_missing_canonical_route.
+P1
+C02, C03, C04, C08, C13, C14, C15
+Si se activan y no cierran, no producir ready pleno. Puede quedar ready_with_flags solo si el gap es explícito y downstream no inventa.
+P2
+C16, C17, C18, C19
+Si se activan y no cierran, no declarar AHE prep suficiente. Capa 2/AHE debe recibir gap visible.
+P3
+C01, C06, C07, C10, C12
+Si se activan y no cierran, no omitir; cerrar con gap/reentry o bloquear el submodelo afectado.
+10. Matriz estricta C01–C20 en pantalla
+ID
+Prioridad/clase
+Activación documental
+Cierre obligatorio
+Bloqueo si falla
+Bloquea ready pleno
+C01
+P3 anclaje
+B0-Q03 variable o B0-Q02/B0-Q04 actividad no estable.
+causa de variación y caso especial
+activity_variation_gap / reentry B0
+No
+C02
+P1 encuadre PM
+Beneficio/daño/hito ambiguo o asimétrico.
+distribución valor/daño e hito real
+scene_frame_readiness flag / reentry B0.5
+No
+C03
+P1 disparador PM/PF
+B1-Q09 ambigüedad o B1-Q11 excepción de inicio.
+señal dominante, excepción y primer síntoma
+trigger_silence_risk / reentry B1
+No
+C04
+P1 MoC/OLC→B5
+B2-Q12 mezcla dimensiones o B5 no puede medir capacidad.
+dimensión dominante y ranking si triple dimensión
+needs_reentry_to_block_2 / no medir B5
+No
+C05
+P0 ruta crítica CR-B2
+B2-Q17 activa transformation_exception_exists.
+transformation_exception_type + description
+transformation_exception_route_unresolved / blocked_by_missing_canonical_route
+Sí
+C06
+P3 MoC/OLC/PF
+B2-Q17 detecta hidden_changes.
+cambios ocultos, quién los hace y dónde
+hidden_change_gap / reentry B2
+No
+C07
+P3 OLC/PF
+B2-Q16 múltiples ciclos.
+conteo/régimen típico de ciclos
+transformation_iteration_gap
+No
+C08
+P1 handoff PF
+B3-Q21 sí o B3-Q22 correcciones/rechazos.
+delivery_exception_type + impact
+delivery_exception_gap / reentry B3
+No
+C09
+P0 ruta crítica CR-B3
+B3-Q21/B3-Q22 indican falla, ajuste o señal operativa.
+receiver_feedback_exists + receiver_feedback + gap flags
+receiver_feedback_route_missing / blocked_by_missing_canonical_route
+Sí
+C10
+P3 handoff/MoC
+B3-Q18/B3-Q19 múltiples usuarios/accesos/impactos.
+receptores secundarios o descarte de multiplicidad
+secondary_receiver_gap
+No
+C11
+P0 Process State/Timer
+B4-Q24 bloqueo, espera sin evento o deadlock.
+deadlock_resolution + awaited_event + release_condition + timer/timeout + resolver + exit_path
+deadlock_risk / Process State bloqueado / reentry B4
+Sí
+C12
+P3 flujo PF
+B4-Q25 repetición.
+iteration_batching_mode
+iteration_mode_gap
+No
+C13
+P1 estructural PF/OLC
+B4-Q26 rutas alternativas.
+cantidad de caminos y condición de cada ruta
+route_alternative_gap / no modelar gateway sin condición
+No
+C14
+P1 flujo real PF
+B4-Q27/B4-Q28 hidden_subprocess o cambio de secuencia.
+razón de pasos extra/cambio de orden y caso común
+real_vs_official_sequence_gap / reentry B4
+No
+C15
+P1 VSM/resource bargain
+B5-Q29 brecha o B5-Q33 no absorción/bargain bajo.
+destino de variedad residual y cambio requerido
+residual_variety_gap / ready_with_flags o reentry B5
+No
+C16
+P2 PF/OLC/AHE prep
+B6-Q35 = sí.
+qué regresa, cuándo ocurre y quién debía hacerlo bien
+rework_evidence_gap / AHE-PF débil
+No
+C17
+P2 VSM/AHE prep
+B6-Q36 falta información o regla informal.
+respuesta ante carencia y autoridad/regla informal
+missing_information_gap / informal_rule_gap
+No
+C18
+P2 AHE prep
+B6-Q37 sacrificio, desgaste o costo alto.
+duración, conocimiento organizacional y reconocimiento
+human_sacrifice/wear_gap / AHE insuficiente
+No
+C19
+P2 AHE/VSM prep
+B6-Q38 patrón repetitivo, variedad residual o compensación interpersonal.
+circunstancias, recurrencia, intentos, dueño esperado y efecto interpersonal
+repetitive_failure_gap / interpersonal_compensation_gap
+No
+C20
+P0 frontera CR-B7
+Baja confianza, señales cruzadas o necesidad de corrección.
+corrección o manual_review/reentry sin diagnóstico
+needs_manual_review / blocked_by_insufficient_evidence
+Sí
+11. Estados de objetos y OLC que debe monitorear el panel
+La pantalla debe operar sobre objetos del MoC y estados autorizados por OLC. El panel debe mostrar estado actual, transición anterior, evento disparador, timer, proceso responsable y siguiente evento permitido.
+Objeto MoC/OLC
+Estados a monitorear
+Proceso responsable
+Regla de bloqueo
+CasoDiagnosticoEVE
+[Requested], [InDiagnosticProduction], [WithSceneCanonicalRecord], [ReadyForTransduction], [WithValidatedEvidentialScenes], [WithAggregatedCausalMovie], [WithDeliveredExpertDiagnosis], [Delivered], [ClosedWithoutSufficiency], [Cancelled]
+PF-CORE-01
+No cerrar desde DiagnosticoExpertoFinal; requiere confirmación de entrega/cierre.
+SceneCanonicalRecord
+[UnderConsolidation], [WithOriginalEvidence], [WithCanonicalDerivations], [WithVisibleGapsAndFlags], [ConformanceChecked], [Consolidated], [BlockedByInsufficientEvidence], [WithB3B7Alignment]
+P-SUP-01
+No consolidar sin evidencia original, proveniencia, gaps visibles y conformance.
+EvidenceBundle
+[Assembling], [WithSceneCanonicalRecord], [TraceabilityChecked], [ReadinessAssessmentPending], [ReadyForTransduction], [Blocked], [WithB3B7Alignment]
+P-SUP-02
+No listo sin SCR consolidado, trazabilidad y readiness satisfecho.
+EscenaEvidencial
+[Constructing], [WithMMABPElements], [WithVSMHypothesis], [WithMMABPInconsistency], [WithEVEManifestation], [AHESituated], [Validated], [BlockedByInsufficientCausality]
+P-SUP-03
+No validar sin MMABP + VSM + inconsistencia + actor funcional + AHE situada.
+PeliculaCausalAgregada
+[ScenesReceived], [AggregationEligible], [IndexBuilt], [PatternIdentified], [LossEstimated], [Composed], [Aggregated], [BlockedByInsufficientScenes]
+P-SUP-04
+No agregar con menos de 2 escenas validadas.
+PaqueteProduccionParalelaMMABP
+[SourceReceived], [SourceValidated], [CandidatesExtracted], [FactsConsolidated], [SemanticResolved], [RegistriesBuilt], [IRProjected], [InventoryResolved], [ReworkInProgress], [ExportBlocked], [WithB3B7AlignmentDelta]
+P-SUP-06
+No exportar si hay gap no recuperable, route exception o boundary violation.
+ArchitectureConsistencyAssessment
+[ConformanceEvaluating], [ConsistencyEvaluating], [CompositeEvaluating], [WithFindings], [Satisfied], [Blocked], [B3RouteChecked], [B7BoundaryChecked]
+P-SUP-07/08
+Conformance antes que consistency; Satisfied habilita export.
+ExportCodePackage
+[Requested], [GeneratingBPMN], [GeneratingPlantUML], [SyntaxValidating], [Generated], [Blocked]
+P-SUP-09
+Solo desde ACA [Satisfied].
+ReceiverFeedbackObject
+[Captured], [Classified], [RouteValidated], [LinkedToHandoff], [Accepted], [NeedsReview], [Blocked]
+B3/R9
+No deriva de satisfacción; requiere 3.13a/OEE/MDSB con route_ref.
+PreclassificationRecord
+[Derived], [Microconfirmed], [BoundaryChecked], [TransportedAsNonDiagnosticSignal], [ManualReviewRequired], [Archived]
+B7
+Solo metadata no diagnóstica; no structural fact, IR, export ni nodo cerrado.
+B3B7AlignmentDelta
+[Assembled], [B3Checked], [B7Checked], [FindingsIssued], [Resolved], [ResolvedWithFlags], [Blocked]
+P-SUP-06 / P-SUP-07/08
+Control de ruta/frontera para consumidores downstream.
+12. Producción Paralela y descargas
+El panel debe permitir descargar productos de Producción Paralela solo cuando su objeto fuente esté en estado autorizado. Las descargas no deben ocultar gaps ni flags. Si un paquete está bloqueado, la descarga permitida es de auditoría o de rework, no de entrega final.
+Descarga
+Condición de habilitación
+Restricción
+Trace/Audit runtime
+Siempre disponible para soporte interno
+No es evidence final; incluye estados, gaps, actions y timestamps.
+SceneCanonicalRecord
+SceneCanonicalRecord [Consolidated] o [Blocked] para auditoría
+Si [Blocked], descargar con reason y reentry target.
+EvidenceBundle
+EvidenceBundle [ReadyForTransduction] o [Blocked] para auditoría
+No alimentar Capa 2 si [Blocked].
+mmabp_design_source_bundle / MDSB
+SCR/EvidenceBundle listos y fuente lateral disponible
+No es inventario, diagrama ni diagnóstico.
+SourceSceneIndex
+PaqueteProduccionParalelaMMABP [SourceValidated]
+Índice de escenas fuente con confianza/gaps.
+StructuralCandidateSet
+Después de [CandidatesExtracted]
+Candidatos no son hechos estructurales.
+StructuralFactSet
+Después de [FactsConsolidated]
+Debe conservar evidencia y validación.
+InventarioMMABP
+InventarioMMABP [Resolved]
+Listo para QA; no equivale a export.
+QuadrantRegistrySet
+RegistriesBuilt
+Registros PM/PF/MoC/OLC; no diagramas todavía.
+MMABPIR
+IRProjected y sin findings bloqueantes
+IR no debe ocultar route exceptions ni boundary violations.
+ArchitectureConsistencyAssessment
+[Satisfied], [WithFindings] o [Blocked]
+Documento de QA; si no Satisfied, no export.
+BPMNCodePackage
+ArchitectureConsistencyAssessment [Satisfied] + generación BPMN validada
+PM/PF; XML validado.
+PlantUMLCodePackage
+ArchitectureConsistencyAssessment [Satisfied] + generación PlantUML validada
+MoC/OLC; sintaxis validada.
+ExportCodePackage
+ExportCodePackage [Generated]
+Entrega técnica completa. Si [Blocked], solo paquete de rework.
+13. Intervención manual permitida
+La intervención manual no puede reescribir evidencia. Debe operar como acción gobernada sobre estados, reentry, preguntas de aclaración o bloqueo. Toda acción debe conservar motivo, operador, timestamp, objeto afectado, estado anterior, estado nuevo, pregunta o variable impactada y regla invocada.
+Acción
+Cuándo se usa
+Restricción
+Estado/registro
+Pausar / reanudar runtime
+Usuario con problema, soporte operativo
+No cambia respuestas ni estados de evidencia.
+Audit log + reason.
+Abrir reentry a bloque
+Base faltante, causal abierta, route missing, contradiction, low confidence
+Solo al bloque/gate específico; no reiniciar todo sin causa.
+reentry_required + target.
+Forzar apertura causal Cxx
+Operador detecta señal textual o de trazabilidad que activa causal
+No puede cerrar variable sin respuesta/ruta canónica; abre pregunta o manual review.
+triggered_required + activation_evidence.
+Marcar no aplicable con evidencia
+La base/causal no aplica y existe evidencia base suficiente
+Prohibido usar como atajo por fatiga.
+not_applicable_with_evidence / not_triggered_with_evidence.
+Solicitar microaclaración
+Respuesta genérica, ambigua, tautológica o contradicción
+Debe mapear a source_nodes, canonical_variable o reentry_target; si no, queda como nota no canónica.
+clarification.
+Ajustar copy visible
+Pregunta confunde al usuario
+No puede cambiar nodos fuente, variables, cierre ni protección MMABP.
+UX copy override con versión.
+Agregar pregunta adicional
+Gap no cubierto por redacción actual
+Debe ser aclaración ligada a base/causal existente; no crear C21 ni nueva base sin gobierno documental.
+manual_clarification_request.
+Bloquear ready
+Base no resuelta, causal activada abierta, B3 route missing, B7 boundary violation, Process State sin timer
+No puede desbloquearse sin cierre, reentry, manual review o waiver documental si existe.
+blocked_by_missing_evidence / route / boundary.
+Abrir manual review
+Ambigüedad no resoluble por runtime
+No produce diagnóstico; detiene salida como ready pleno.
+manual_review_required.
+Descartar candidato Producción Paralela
+Candidato sin trazabilidad o derivado de B7
+Debe conservarse como finding; no borrar evidencia fuente.
+P-SUP-06 rework / finding.
+14. Intervenciones prohibidas
+Prohibición
+Motivo
+Editar respuesta del usuario
+Contamina evidencia capturada.
+Convertir prefill WorkMap en captured_user_evidence sin confirmación
+Viola proveniencia de Bloque 0.
+Cerrar base como resuelta sin estado permitido
+Rompe Base Resolution Gate.
+Cerrar causal activada como falsa sin evidencia negativa
+Rompe Causal Closure Gate.
+Crear receiver_feedback desde receiver_satisfaction
+Violación B3/R9.
+Usar B7 para generar candidato, IR, export, VSM/AHE cerrado o diagnóstico
+Violación frontera B7.
+Generar ExportCodePackage sin ArchitectureConsistencyAssessment [Satisfied]
+No conformidad de MBA.
+Mover findings de QA al proceso core
+QA debe devolver a P-SUP-06, no P-CORE-01.
+Crear Object[State] no autorizado por OLC
+Violación causal.
+Crear pregunta fuera del catálogo sin registrarla como aclaración o reentry
+Pérdida de trazabilidad.
+15. Alertas y desviaciones que debe mostrar el panel
+Alerta
+Condición
+Acción
+BASE_MISSING
+Una base B0-Q01..B7-Q40 no tiene estado de resolución.
+Bloquear ready; abrir Base Resolution Gate.
+CAUSAL_TRIGGERED_OPEN
+Causal activada sin cierre.
+Bloquear ready según prioridad; abrir Causal Closure Gate.
+CAUSAL_ACTIVATION_UNKNOWN
+No hay evidencia para saber si la causal aplica.
+Gap/reentry/manual review; no asumir falso.
+B3_ROUTE_MISSING
+Existe feedback operativo textual sin route_ref 3.13a/OEE/MDSB.
+Abrir reentry 3.13a o CanonicalRouteException.
+B7_BOUNDARY_VIOLATION
+B7 usado como candidato, diagnóstico, OEE, IR o export.
+Retirar candidato; conservar metadata; bloquear si persiste.
+PROCESS_STATE_WITHOUT_TIMER
+Espera fuerte sin awaited_event/timer/release_condition.
+Bloquear PF/OLC; abrir PST gate.
+MDSB_WEAK
+MDSB sin variables canónicas/gaps visibles.
+Bloquear Producción Paralela o ready_with_flags controlado.
+ACA_BLOCKED
+ArchitectureConsistencyAssessment [Blocked].
+No exportar; rework a P-SUP-06.
+EXPORT_NOT_ALLOWED
+Intento de export sin ACA [Satisfied].
+Bloquear descarga final.
+AHE_WEAK_TRACEABILITY
+AHE sin materialidad MMABP + tensión VSM + interacción inducida.
+No validar EscenaEvidencial; pedir reentry/QA.
+16. Capa 2.0, Capa 2.5 y AHE: monitoreo mínimo
+El panel no diagnostica, pero debe mostrar si Capa 1.0 dejó suficiente material para que Capa 2.0 y Capa 2.5 puedan operar sin inventar. La regla de control es que el expediente MMABP conformado debe preceder hipótesis VSM, inconsistencia MMABP, nodo EVE local, actor funcional, escena evidencial y AHE situada.
+Control
+Qué debe existir
+Objeto/estado
+Bloqueo
+Materialidad MMABP
+Elemento PM/MoC/PF/OLC extraído y trazado
+ElementoMMABP [Extracted]
+Si no existe, Capa 2 no inicia.
+Hipótesis VSM
+Sistema VSM candidato con justificación
+HipotesisVSMPrimaria [Formulated]
+No es diagnóstico.
+Inconsistencia MMABP
+Contradicción entre modelos
+InconsistenciaMMABP [Detected]
+Nodo EVE local nace aquí, no de síntoma aislado.
+Actor funcional
+Perspectiva VSM que vive/ve/regula tensión
+ActorFuncionalEVE vinculado
+Sin actor, la escena no está situada.
+Escena evidencial
+Actos observables: hacer, esperar, decidir, compensar, retrabajar, escalar o evitar
+EscenaEvidencial [Validated]
+Si causalidad insuficiente, bloquear.
+AHE material
+Interacción inducida por materialidad y regulación
+TraduccionAHEMaterial [Situated]
+No psicologizar cultura/actitud/liderazgo.
+Capa 2.5
+2..* EscenaEvidencial [Validated] + patrón multirol
+PeliculaCausalAgregada [Aggregated]
+No agregar por síntomas aislados.
+17. Wireframe textual del panel
+┌──────────────────────────────────────────────────────────────────────────────────────────────┐│ CABECERA: Cliente · CasoDiagnosticoEVE[estado] · Sesión · Usuario · Actividad n/N · Timers   │├───────────────┬──────────────────────────────────────────────────────────────┬───────────────┤│ NAVEGACIÓN    │ VISTA CENTRAL                                                │ INTERVENCIÓN  ││ Caso          │ 1. Jornada usuario                                           │ Pausar        ││ Sesiones      │ 2. Runtime actividad                                         │ Reentry       ││ Actividades   │ 3. 40 Base Gate                                              │ Abrir causal  ││ Runtime 40+20 │ 4. 20 Causal Gate                                            │ Aclaración    ││ SCR/Bundle    │ 5. Objetos/Estados MBA                                       │ Manual review ││ Prod. Paralela│ 6. Producción Paralela / Descargas                           │ Bloquear ready││ QA/Export     │ 7. B3/B7 / ACA / Export                                      │ Descargar     │├───────────────┴──────────────────────────────────────────────────────────────┴───────────────┤│ LOG: eventos · timers · gaps · source refs · operator actions · downloads · warnings          │└──────────────────────────────────────────────────────────────────────────────────────────────┘
+18. Contrato mínimo de datos para implementación del panel
+Vista/registro técnico
+Naturaleza
+Campos mínimos
+RuntimeActivityControlRecord
+No es objeto de negocio; vista técnica de una actividad primaria en ejecución.
+activity_id, activity_title, selectedSlot, currentBlock, baseStatus[], causalStatus[], readiness, gaps, timers, operatorActions[]
+BaseResolutionStatus
+Estado por B0-Q01..B7-Q40.
+base_id, block, status, canonical_variables, source_nodes, epistemic_status, closure_rule, blocking_gap, reentry_target
+CausalClosureStatus
+Estado por C01–C20.
+causal_id, activation_status, trigger_evidence, priority, closure_status, blocks_ready, reentry_target, manual_review
+PreRuntimeContextView
+Contexto Estado A + WorkMap.
+functional_role_context, decision_level_context, workmap_area_context, responsibility_context, primary_activity_context, non_primary_activity_context
+MBAObjectStateView
+Vista de objetos y estados OLC.
+object_type, object_id, current_state, last_event, next_allowed_events, timer, process_owner, blocked_reason
+ParallelProductionView
+Vista de P-SUP-06.
+source_bundle_ref, candidates, facts, registries, IR, ACA, export_state, downloads
+OperatorActionLog
+Auditoría técnica.
+operator, timestamp, action_type, reason, affected_object, previous_state, new_state, source_rule, user_visible
+19. Criterios de aceptación del panel
+ID
+Criterio
+CTRL-01
+El panel muestra el estado completo de la jornada usuario desde Estado A hasta runtime profundo.
+CTRL-02
+Por cada actividad primaria, existen 40 registros de base resolution o estados equivalentes.
+CTRL-03
+Por cada actividad primaria, existen 20 registros de causal closure o estados equivalentes.
+CTRL-04
+Ninguna causal C01–C20 queda sin evaluación.
+CTRL-05
+Una causal activada sin cierre bloquea ready pleno.
+CTRL-06
+El panel no permite crear receiver_feedback desde receiver_satisfaction.
+CTRL-07
+El panel no permite B7 como structural fact, IR, export ni diagnóstico.
+CTRL-08
+Toda intervención manual queda auditada y no altera evidencia original.
+CTRL-09
+Toda descarga de Producción Paralela respeta estados MBA y ACA.
+CTRL-10
+ExportCodePackage solo se habilita con ArchitectureConsistencyAssessment [Satisfied].
+CTRL-11
+Toda espera/Process State visible en panel muestra timer o salida causal.
+CTRL-12
+El panel permite identificar qué objeto está bloqueado y qué proceso debe recibir rework.
+CTRL-13
+El panel distingue con claridad contexto, evidencia, derivación, gap, readiness y diagnóstico posterior.
+20. Dictamen final de diseño
+Panel aprobado como cabina de gobierno operativo• Debe monitorear la experiencia de usuario y el runtime 40+20 como ejecución de reglas, no como encuesta.• Debe convertir las reglas de 40 base y 20 causales en controles visibles y auditables por actividad primaria.• Debe exponer objetos y estados de la MBA para saber dónde está el sistema: SCR, EvidenceBundle, EscenaEvidencial, Producción Paralela, ACA, Export.• Debe permitir intervención manual solo por reentry, aclaración, apertura causal, bloqueo o revisión; nunca por modificación de evidencia original.• Debe habilitar descargas de Producción Paralela solo desde estados autorizados y con gaps/flags visibles.
+Anexo — Fuentes rectoras utilizadas
+Documento
+Uso
+MMABP_Minimal_Business_Architecture_EVE_v1_1_B3_B7_alineado.docx
+MBA de EVE: PM, MoC, PF, OLC, objetos, estados, timers, rework, B3/B7 y criterios de no conformidad.
+Arquitectura_Runtime_40_20_EVE_MMABP.docx
+Definición de Runtime 40+20, distribución por bloque, rutas críticas y reglas de branching.
+Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx/xlsx
+Modelo operacional implementable, QA, fields, B3/C09, B7/C20, PST/Semantic gates.
+Regla_Operativa_40_Preguntas_Base_EVE_MMABP_Ajustada.docx
+Base Resolution Gate y estados estrictos de resolución.
+Regla_Operativa_20_Preguntas_Causales_EVE_MMABP_Ajustada.docx
+Causal Closure Gate, clasificación estricta C01–C20 y bloqueo por prioridad.
+Diseño estructural Plataforma EVE — Capa 1.0 para Producción Paralela.docx
+MDSB, producción paralela, registros PM/PF/MoC/OLC, IR, export y QA.
+Diseño estructural Plataforma EVE - Capa 2.0-2.5 con AHE.docx
+Transducción MMABP→VSM→EVE, AHE material, escena evidencial y agregación.
+21. Adenda de alcance operativo actual — Capa 1.0 + Producción Paralela en plataforma; Capa 2.0/2.5/3.0 manuales
+Esta adenda ajusta el diseño del panel sin eliminar, resumir ni sustituir el contenido anterior. Todo lo ya definido sobre Capa 2.0, Capa 2.5, AHE y Capa 3.0 permanece como referencia de salida, pero la operación actual de la plataforma debe leerse con una frontera más estricta: EVE ejecuta y gobierna Capa 1.0 y Producción Paralela; las capas posteriores se preparan como paquetes descargables para trabajo manual experto.
+21.1 Regla de alcance operativo
+Componente
+Estado en plataforma
+Qué debe hacer el panel
+Qué no debe hacer
+Capa 1.0 / Runtime 40+20
+Operativa en plataforma
+Monitorear experiencia, 40 base, 20 causales, gates, readiness, gaps, reentry, intervención manual gobernada.
+No cerrar readiness si faltan bases resueltas o causales activadas sin cierre.
+Producción Paralela
+Operativa en plataforma
+Monitorear mmabp_design_source_bundle, inventario, registros, IR, QA de conformance/consistency y generación de diagramas/código exportable.
+No diagnosticar ni inventar facts sin trazabilidad.
+Capa 2.0
+Manual fuera de plataforma
+Preparar descarga Excel con EvidenceBundle, SCR, variables canónicas, gaps, elementos MMABP candidatos y campos de trabajo manual para hipótesis VSM / inconsistencia / escena evidencial.
+No mostrar como motor automático ni marcar EscenaEvidencial [Validated] por sí sola.
+Capa 2.5
+Manual fuera de plataforma
+Preparar descarga Excel para agregación de escenas manuales, actores, nodos, señales monetizables, pérdida y trazabilidad.
+No presentar PeliculaCausalAgregada [Aggregated] como producto automático de plataforma.
+Capa 3.0
+Manual fuera de plataforma
+Preparar descarga Excel para síntesis experta, narrativa, teorema de inevitabilidad, recomendación y control de trazabilidad.
+No presentar DiagnosticoExpertoFinal [Delivered] como generado automáticamente.
+21.2 Reinterpretación de las vistas existentes del panel
+Vista ya definida
+Lectura ajustada
+Cambio de UI requerido
+Vista de Capa 1.0
+Permanece como vista operativa completa.
+Sin cambio de alcance: debe mostrar runtime profundo por actividad primaria, Base Resolution Gate, Causal Closure Gate, B3/B7 y readiness.
+Vista de Producción Paralela
+Permanece como vista operativa de plataforma.
+Debe priorizar descarga de diagramas/código Camunda cuando QA lo permita. Si PlantUML/Enterprise Architect no está implementado en esta etapa, debe aparecer como no habilitado o roadmap, no como disponible.
+Vista Capa 2.0 / 2.5 Estado
+Debe cambiarse a 'Descargas manuales Capa 2.0 / 2.5 / 3.0'.
+Reemplazar botones de ejecución por botones de descarga Excel y estado de preparación del paquete.
+Alertas y desviaciones
+Deben seguir mostrando si la evidencia no alcanza para capas posteriores.
+La alerta debe decir 'bloquea descarga manual fiable' o 'descarga con gaps', no 'bloquea motor Capa 2'.
+Objetos MBA — Estado global
+Debe distinguir objetos operativos en plataforma vs objetos downstream manuales.
+Agregar badge: Operativo, Descargable manual, No implementado.
+21.3 Centro de descargas ajustado
+Descarga
+Formato
+Condición mínima
+Contenido
+Uso
+Runtime 40+20 audit trail
+XLSX/CSV
+Disponible durante y después de Capa 1.0
+Estados de 40 base, C01–C20, gates, causal status, intervención manual, timestamps y operador.
+Soporte interno y auditoría de runtime.
+EvidenceBundle para Capa 2.0 manual
+XLSX
+EvidenceBundle [ReadyForTransduction] o ready_with_flags visible
+SCR, evidencias, variables canónicas, PM/MoC/PF/OLC, gaps, readiness, B3 receiver feedback, B7 preclassification metadata.
+Trabajo manual de transducción por consultor experto.
+Workbook Capa 2.0 manual
+XLSX
+EvidenceBundle exportable y trazabilidad completa o flags visibles
+Hojas para ElementoMMABP, HipotesisVSMPrimaria, InconsistenciaMMABP, NodoEVELocal, ActorFuncionalEVE, ActoObservable y EscenaEvidencial.
+Construcción manual de escenas evidenciales.
+Workbook Capa 2.5 manual
+XLSX
+Escenas evidenciales manuales disponibles o importadas por consultor
+SceneSet, AggregationIndex, PatronCausalMultirol, SenalMonetizable, PerdidaMonetizable y gaps.
+Agregación manual empresarial.
+Workbook Capa 3.0 manual
+XLSX
+Pelicula causal manual disponible
+SynthesisCase, narrativa, teorema de inevitabilidad, recomendación, trazabilidad y revisión experta.
+Composición manual del diagnóstico experto final.
+Producción Paralela — Camunda
+BPMN XML / ZIP
+ArchitectureConsistencyAssessment [Satisfied]
+PM/PF exportables para Camunda, trazabilidad, validation log, issues y versión.
+Diagramación y ejecución técnica de procesos permitidos.
+Producción Paralela — Paquete de gaps
+XLSX/ZIP
+Cuando QA o Causal/Base gate bloquea readiness
+Gaps, route exceptions, boundary violations, missing canonical routes, reentry targets.
+Corrección experta o reentrada gobernada.
+21.4 Regla de botones y acciones del consultor experto
+Acción UI
+Permitida en plataforma
+Condición
+Registro obligatorio
+Intervenir Runtime 40+20
+Sí
+Solo sobre Capa 1.0: pausar, reentry, agregar aclaración, activar causal, marcar manual_review.
+operator_id, reason, activity_id, block/question_id, before/after, timestamp.
+Agregar pregunta ad-hoc
+Sí, gobernado
+Solo como aclaración o soporte de evidencia; no sustituye pregunta base ni causal activada.
+question_text, source_rule, epistemic_status, target variable/gap.
+Cambiar causal activa
+Sí, gobernado
+Solo si la activación documental fue mal clasificada o falta CausalClosureGate.
+causal_id, activation evidence, closure state, reason.
+Forzar cierre ready
+No
+Prohibido si existe base sin resolución, causal activada abierta, gap crítico o route exception.
+Si se intenta, debe registrar bloqueo y alerta.
+Ejecutar Capa 2.0
+No
+No existe como operación automatizada actual.
+El panel solo descarga workbook manual.
+Ejecutar Capa 2.5
+No
+No existe como operación automatizada actual.
+El panel solo descarga workbook manual.
+Generar diagnóstico Capa 3.0
+No
+No existe como operación automatizada actual.
+El panel solo descarga workbook manual.
+Generar diagramas Camunda
+Sí
+Solo Producción Paralela con ACA [Satisfied].
+export_id, assessment_id, version, validation log.
+21.5 Etiquetas de UI obligatorias para evitar confusión de alcance
+Etiqueta anterior o riesgosa
+Etiqueta ajustada
+Motivo
+Capa 2.0 Estado
+Capa 2.0 — Excel manual
+Evita presentar Capa 2.0 como motor automatizado.
+Capa 2.5 Estado
+Capa 2.5 — Excel manual
+Evita presentar agregación causal como módulo operativo actual.
+Capa 3.0 Diagnóstico
+Capa 3.0 — Paquete manual de síntesis experta
+Evita que el panel sugiera generación automática de diagnóstico final.
+Ejecutar transducción
+Descargar paquete Capa 2.0
+La transducción será manual por consultor experto.
+Generar película causal
+Descargar paquete Capa 2.5
+La película causal se compone manualmente.
+Generar diagnóstico final
+Descargar paquete Capa 3.0
+La síntesis experta no se automatiza en esta etapa.
+Descargar Producción Paralela
+Descargar Producción Paralela / Camunda
+Mantiene la excepción operativa: diagramas/código exportable desde QA satisfecho.
+21.6 Wireframe minimalista ajustado
+┌──────────────────────────────────────────────────────────────────────────────────────────────┐│ CABECERA: Cliente · CasoDiagnosticoEVE[estado] · Sesión · Actividad n/N · Runtime v · Timer  │├────────────────┬──────────────────────────────────────────────────────┬──────────────────────┤│ NAV            │ PANEL PRINCIPAL C1.0                                  │ DESCARGAS / ESTADOS ││ • Casos        │ • Experiencia usuario                                  │ • EvidenceBundle XLSX││ • Runtime 40   │ • Actividades primarias                                │ • Capa 2.0 Excel     ││ • Causales 20  │ • Matriz Base 40                                       │ • Capa 2.5 Excel     ││ • Gates        │ • Matriz C01-C20                                       │ • Capa 3.0 Excel     ││ • Producción   │ • Gaps / Reentry / Manual review                       │ • Camunda BPMN       ││ • QA           │                                                        │ • Gaps package       │├────────────────┴──────────────────────────────────────────────────────┴──────────────────────┤│ ACCIONES: Pausar · Reentry · Agregar aclaración · Activar causal · Descargar · Bitácora      │└──────────────────────────────────────────────────────────────────────────────────────────────┘
+21.7 Reglas de habilitación de descargas manuales
+Paquete
+Habilitado cuando
+Si no se cumple
+Mensaje al consultor
+Capa 2.0 Excel manual
+EvidenceBundle está ReadyForTransduction o ready_with_flags visible.
+Generar paquete de gaps en lugar de paquete manual pleno.
+La Capa 2.0 manual no debe iniciar sin evidencia trazable o con gaps ocultos.
+Capa 2.5 Excel manual
+Existen escenas evidenciales manuales validadas o importadas por el consultor.
+Mostrar pendiente manual.
+La agregación empresarial requiere múltiples escenas validadas.
+Capa 3.0 Excel manual
+Existe película causal manual agregada y trazabilidad defendible.
+Mostrar pendiente manual.
+La síntesis experta no debe redactarse desde escenas sueltas.
+Camunda BPMN
+ArchitectureConsistencyAssessment [Satisfied] y export validation OK.
+ExportBlocked o ReworkInProgress.
+La exportación solo se genera desde consistencia satisfecha.
+21.8 Criterios de aceptación actualizados
+ID
+Criterio
+SCOPE-01
+El panel declara explícitamente que la plataforma ejecuta Capa 1.0 y Producción Paralela, no Capa 2.0/2.5/3.0.
+SCOPE-02
+Ningún botón debe decir 'Ejecutar Capa 2.0', 'Ejecutar Capa 2.5' o 'Generar diagnóstico Capa 3.0'.
+SCOPE-03
+Las capas posteriores deben aparecer como descargas Excel manuales con trazabilidad, gaps, flags y estado de readiness.
+SCOPE-04
+Producción Paralela debe mantenerse como operación de plataforma para inventario, QA y Camunda/BPMN cuando ACA esté Satisfied.
+SCOPE-05
+El panel debe distinguir objetos operativos de plataforma y objetos downstream manuales mediante estado o badge visible.
+SCOPE-06
+El panel debe permitir descargar paquetes de gaps cuando no exista suficiencia para workbook manual pleno.
+SCOPE-07
+El panel no debe convertir una descarga Excel en evidencia de diagnóstico, transducción o síntesis ya realizada.
+21.9 Dictamen del ajuste
+El diseño del panel queda ajustado a la frontera actual de implementación: Capa 1.0 y Producción Paralela son operativas en plataforma; Capa 2.0, Capa 2.5 y Capa 3.0 son salidas manuales descargables. El panel conserva el monitoreo de suficiencia para capas posteriores, pero lo expresa como readiness/exportabilidad y no como ejecución automática.
+22. Adenda de desacople usuario físico vs rol funcional dentro del mismo login
+Esta adenda agrega el ajuste operativo necesario para resolver el desacople entre la experiencia actual de cliente, que opera con un solo login por usuario físico, y la arquitectura EVE, que organiza el Runtime 40/20 por rol funcional. Esta adenda no elimina, resume ni reemplaza el contenido anterior del diseño del panel; lo especializa para que el Consultant Control Panel pueda observar correctamente usuarios que trabajan en más de un rol funcional dentro de la misma empresa cliente.
+22.1 Regla raíz
+Regla operativa: user_id no equivale a role_runtime_session.
+Un usuario físico conserva un solo login. Dentro de ese login, la plataforma puede crear uno o más role_runtime_session internos. Cada responsabilidad y actividad del WorkMap debe quedar asociada a un role_runtime_session antes de iniciar Significado y Runtime 40/20, o bien quedar marcada como mixed_unresolved, reentry_required o manual_review_required si la asignación funcional no puede estabilizarse.
+Concepto
+Uso correcto en plataforma
+Uso prohibido
+user_id
+Identidad técnica y sesión de acceso del participante cliente.
+No debe usarse como sustituto de rol funcional.
+role_runtime_session
+Unidad operativa del Runtime por perspectiva funcional dentro del mismo usuario.
+No debe requerir un segundo login.
+responsibility_id
+Responsabilidad redactada en WorkMap, asignable a un role_runtime_session.
+No debe quedar sin perfil funcional si el usuario opera más de un rol.
+activity_id
+Actividad WorkMap que puede abrir activity_runtime_run si es primaria.
+No debe perder su perfil funcional de origen.
+activity_runtime_run
+Ejecución del Runtime 40/20 para una actividad primaria situada en un role_runtime_session.
+No debe colgar solo de user_id sin contexto funcional.
+22.2 Ubicación del ajuste en el flujo existente
+El ajuste no crea otra cuenta de usuario ni duplica la identidad del participante. Se inserta como asignación funcional interna entre WorkMap y Significado, o como subpaso de revisión dentro de WorkMap, conservando el flujo material existente: Login → Estado A-B → WorkMap → Significado → Preguntas por actividad.
+Pantalla / tramo
+Comportamiento actual
+Ajuste requerido
+Login
+El usuario entra con un solo login.
+No cambia. No crear usuarios paralelos por rol.
+Estado A-B
+Captura lugar/perspectiva de participación y cercanía a decisiones.
+Debe alimentar propuesta inicial de perfil funcional, sin convertirla en evidencia MMABP confirmada.
+WorkMap
+El usuario redacta áreas, rol, responsabilidades y actividades.
+Debe permitir etiquetar responsabilidades y actividades con uno o más perfiles funcionales internos.
+Revisión de perfil funcional
+No está materializada como paso explícito.
+Debe existir como subpaso liviano: confirmar si todo pertenece a un solo perfil o separar perfiles funcionales.
+Significado
+Recibe actividades primarias seleccionadas y ejecuta Runtime.
+Debe recibir cada actividad con role_runtime_session_id, role_label y asignación de responsabilidad/actividad.
+Runtime 40/20
+Ejecuta activity_runtime_run por actividad primaria.
+Cada run debe colgar de case_id + user_id + role_runtime_session_id + activity_id.
+Panel de control
+Observa empresa, usuario, actividad, run y trazabilidad.
+Debe mostrar usuario físico expandible por perfiles funcionales internos.
+22.3 Estados de separación funcional
+La separación funcional no debe quedar como inferencia informal. Debe expresarse mediante estados de asignación que puedan ser auditados por el panel.
+Estado
+Significado
+Acción en UI / panel
+single_confirmed
+El usuario confirmó que todo su WorkMap pertenece a un solo perfil funcional.
+Continuar a selección primaria y Runtime con un role_runtime_session.
+multi_confirmed
+El usuario confirmó dos o más perfiles funcionales dentro del mismo login.
+Crear role_runtime_session por perfil y asignar responsabilidades/actividades.
+system_suggested_pending_confirmation
+La plataforma detectó mezcla probable, pero el usuario aún no confirmó.
+Mostrar revisión liviana antes de Significado o bloquear avance con microconfirmación.
+mixed_unresolved
+La mezcla funcional existe, pero el usuario no pudo o no quiso separarla.
+Permitir avance con flag si no bloquea; mostrar en panel como cobertura funcional débil.
+reentry_required
+La asignación funcional impide seleccionar actividades sin contaminar evidencia.
+Volver a WorkMap o revisión de perfiles.
+manual_review_required
+La mezcla funcional no puede resolverse por UI sin consultor.
+Enviar al panel con intervención auditada.
+22.4 Regla de asignación WorkMap → role_runtime_session
+Cada responsabilidad y actividad del WorkMap debe tener una asignación funcional explícita o un estado de excepción. La UI no debe exigir lenguaje técnico al usuario; puede usar chips visibles como “Finanzas”, “Compras”, “Operación”, “General / Mixto” o etiquetas derivadas del lenguaje de cliente.
+Elemento WorkMap
+Asignación requerida
+Persistencia mínima
+Área declarada
+Puede alimentar workmap_area_context y sugerir perfil funcional.
+area_id, area_label, source=workmap, epistemic_status=context_only.
+Responsabilidad
+Debe asociarse a un role_runtime_session o quedar mixed_unresolved.
+responsibility_id, role_runtime_session_id, assignment_status, confidence.
+Actividad
+Debe heredar perfil de responsabilidad o permitir ajuste específico.
+activity_id, role_runtime_session_id, assignment_status, confidence.
+Actividad primaria seleccionada
+Debe conservar role_runtime_session_id al crear activity_runtime_run.
+run_id, activity_id, role_runtime_session_id, selection_reason.
+Actividad secundaria
+Debe conservar su perfil funcional aunque no abra runtime completo.
+non_primary_context, role_runtime_session_id, promotion_condition.
+22.5 Regla de selección primaria con usuarios multirrol
+Para evitar fatiga extrema en PYMES, la regla inicial recomendada es mantener máximo 8 actividades primarias por usuario físico en una sesión estándar, distribuidas entre sus role_runtime_session según la política de señal arquitectónica y cobertura funcional. Si la operación futura autoriza más carga, se puede habilitar máximo 8 por role_runtime_session, pero eso debe ser una decisión explícita de alcance y experiencia, no una derivación automática.
+Modo
+Cuándo usarlo
+Regla
+8 por usuario físico
+Modo estándar recomendado para experiencia inicial.
+El selector elige hasta 8 actividades totales del usuario, conservando perfil funcional por actividad.
+8 por role_runtime_session
+Modo ampliado bajo autorización metodológica.
+Cada perfil funcional puede abrir hasta 8 actividades, con advertencia de carga cognitiva.
+Menos de 8 actividades elegibles
+Cuando el WorkMap total o el perfil tiene pocas actividades.
+Incluir todas las elegibles después de gates de calidad; no llenar cupos artificialmente.
+Perfil funcional sin actividad primaria
+Cuando un perfil existe pero no obtuvo actividad en el top 8.
+Marcar coverage_weak_for_role y conservar actividades como contexto.
+Actividad mixta de varios roles
+Cuando una actividad cruza perfiles funcionales.
+Asignar perfil dominante o marcar mixed_unresolved; no duplicar run salvo decisión metodológica.
+22.6 Impacto en Significado y B0
+Significado debe seguir siendo consumidor del selector, no selector. La diferencia es que ahora cada actividad primaria seleccionada llega con su perfil funcional interno. B0 puede usar ese contexto para orientar la tarjeta de actividad, pero no debe convertirlo en evidencia confirmada sin intervención del usuario.
+Campo que debe llegar a Significado
+Uso en UI
+Restricción epistemológica
+user_id
+Identifica participante físico.
+No equivale a rol funcional.
+role_runtime_session_id
+Sitúa la actividad dentro del perfil funcional.
+No es diagnóstico ni VSM cerrado.
+role_label_visible
+Etiqueta comprensible para el usuario: “Finanzas”, “Compras”, “Operación”.
+No mostrar jerga interna si no existe en UI cliente.
+responsibility_id
+Permite mostrar marco de responsabilidad de la actividad.
+No se convierte automáticamente en proceso PM.
+activity_id
+Actividad primaria que abre Runtime.
+No pierde su trazabilidad WorkMap.
+preRuntimeContextBundle
+Contexto de Estado A + WorkMap + selección.
+Contexto gobernado; no evidencia MMABP confirmada.
+22.7 QA y criterios de aceptación del ajuste multirrol
+ID
+Criterio
+MR-001
+Un usuario físico puede tener 1..* role_runtime_session sin crear logins adicionales.
+MR-002
+Toda responsabilidad tiene role_runtime_session_id o estado mixed_unresolved/reentry/manual_review.
+MR-003
+Toda actividad primaria que abre run conserva role_runtime_session_id.
+MR-004
+El selector no pierde política de máximo 8; si se usa 8 por usuario o 8 por rol debe quedar explícito.
+MR-005
+Las actividades secundarias conservan contexto funcional y no abren run completo por defecto.
+MR-006
+Significado recibe actividad con perfil funcional y no selecciona actividades.
+MR-007
+B0 puede usar perfil como contexto, pero no como evidencia confirmada.
+MR-008
+El panel muestra usuario físico expandible por perfiles funcionales.
+MR-009
+Toda reasignación manual de perfil conserva audit trail y no sobrescribe evidencia original.
+MR-010
+Las descargas incluyen columnas user_id y role_runtime_session_id cuando aplique.
+22.9 Dictamen de la adenda
+El ajuste resuelve el desacople entre experiencia de cliente y arquitectura EVE sin duplicar usuarios ni romper el Runtime. El usuario trabaja con un solo login; la plataforma crea perfiles funcionales internos cuando la evidencia del WorkMap lo requiere; Significado y Runtime operan por actividad primaria situada en role_runtime_session; y el Panel de Control monitorea empresa → caso → usuario físico → perfil funcional → actividad → run.

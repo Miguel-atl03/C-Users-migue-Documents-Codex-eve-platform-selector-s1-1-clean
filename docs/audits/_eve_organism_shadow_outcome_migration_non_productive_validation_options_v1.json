@@ -1,0 +1,63 @@
+{
+  "options_id": "SHADOW_OUTCOME_MIGRATION_NON_PRODUCTIVE_VALIDATION_OPTIONS_V1",
+  "options_total": 4,
+  "options": [
+    {
+      "id": "OPTION_A",
+      "name": "STATIC_SQL_REVIEW_ONLY",
+      "allowed_now": true,
+      "requires_db_connection": false,
+      "requires_supabase": false,
+      "requires_migration_execution": false,
+      "requires_sql_modification": false,
+      "validates_physical_schema": false,
+      "validates_static_contract": true,
+      "preserves_authority_false": true,
+      "risk_level": "low",
+      "reason": "No migration-specific safe no-op tooling was verified, while static validation can be reinforced without DB/Supabase connection or migration execution."
+    },
+    {
+      "id": "OPTION_B",
+      "name": "LOCAL_NO_OP_DRY_RUN_IF_TOOLING_EXISTS",
+      "allowed_now": false,
+      "requires_db_connection": false,
+      "requires_supabase": false,
+      "requires_migration_execution": false,
+      "requires_sql_modification": false,
+      "validates_physical_schema": false,
+      "validates_static_contract": true,
+      "preserves_authority_false": true,
+      "risk_level": "medium",
+      "reason": "Could be safe later only if explicit local/no-op migration tooling is proven for this migration."
+    },
+    {
+      "id": "OPTION_C",
+      "name": "NON_PRODUCTIVE_DB_ENV_REQUIRED_BEFORE_VALIDATION",
+      "allowed_now": false,
+      "requires_db_connection": true,
+      "requires_supabase": false,
+      "requires_migration_execution": true,
+      "requires_sql_modification": false,
+      "validates_physical_schema": true,
+      "validates_static_contract": true,
+      "preserves_authority_false": false,
+      "risk_level": "high",
+      "reason": "Physical validation may be needed before real observation, but it requires an explicitly authorized non-productive target that is not available in this step."
+    },
+    {
+      "id": "OPTION_D",
+      "name": "BLOCK_MIGRATION_VALIDATION_PATH",
+      "allowed_now": false,
+      "requires_db_connection": false,
+      "requires_supabase": false,
+      "requires_migration_execution": false,
+      "requires_sql_modification": false,
+      "validates_physical_schema": false,
+      "validates_static_contract": false,
+      "preserves_authority_false": true,
+      "risk_level": "medium",
+      "reason": "Not selected because the migration file and static review evidence exist."
+    }
+  ],
+  "selected_option": "OPTION_A"
+}

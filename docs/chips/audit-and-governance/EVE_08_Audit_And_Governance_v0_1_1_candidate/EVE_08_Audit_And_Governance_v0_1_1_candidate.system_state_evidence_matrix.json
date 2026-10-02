@@ -1,0 +1,639 @@
+{
+  "matrix_id": "EVE08-SYSTEM-STATE-EVIDENCE-MATRIX-V0.1.1",
+  "chip_id": "EVE-08-AUDIT-AND-GOVERNANCE",
+  "chip_version": "0.1.1-candidate",
+  "generated_at": "2026-06-23T21:54:57Z",
+  "snapshot_id": "EVE-SYSTEM-STATE-2026-06-23-WORKBENCH-CURRENT-001",
+  "snapshot_root_sha256": "fca10c110e202041e438b93c414b7aa1370ea5d24ec6e531406ecf41ae4f2f39",
+  "snapshot_root_policy": "SHA256 over canonical UTF-8 JSON of the ordered system-state evidence rows; internal workbench declarations may carry null source_sha256 pending independent QA.",
+  "summary": {
+    "row_count": 24,
+    "pass": 22,
+    "flag": 1,
+    "block": 1,
+    "blocking": 1,
+    "current_candidate_closeouts_used": true,
+    "stale_a07_evidence_excluded": true,
+    "d8_contextual_source_restored": true,
+    "productive_authority": false,
+    "independent_qa_required": true
+  },
+  "rows": [
+    {
+      "evidence_id": "SYS-EVE00-IDENTITY",
+      "scope": "chip_identity",
+      "subject_id": "EVE00",
+      "evidence_kind": "chip_json_identity",
+      "source_path": "docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/EVE_00_Method_Kernel_v0_2.json",
+      "source_sha256": "ecc63a64327a231d0b340c534b7ed13aa37b4634237130c3d8afb3d351be6312",
+      "source_locator": "$.identity_or_root",
+      "exact_observed_excerpt": "{\"chip_id\":\"EVE-00-METHOD-KERNEL\",\"status\":\"corrected_platform_source_scope\",\"version\":\"0.2.0\"}",
+      "exact_observed_excerpt_sha256": "cfd7a07520f2a7d5f92ef4c1a2eab5ddd375dd8d11f10bcf3f258539b9ffacb3",
+      "observed_value": {
+        "chip_id": "EVE-00-METHOD-KERNEL",
+        "version": "0.2.0",
+        "status": "corrected_platform_source_scope"
+      },
+      "expected_value": "identity and lifecycle state explicitly declared",
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Package identity is descriptive only; it does not grant productive authority."
+    },
+    {
+      "evidence_id": "SYS-EVE00-GOVERNANCE",
+      "scope": "governance_closure",
+      "subject_id": "EVE00",
+      "evidence_kind": "closeout_or_summary",
+      "source_path": "docs/audits/CLOSEOUT_EVE_00_METHOD_KERNEL_EXPANDED_PACKAGE_TESTS_V1.md",
+      "source_sha256": "433efc8292d832265e44c6f7b258eb58a2cd9e461e6acc072e220baae83ff3b2",
+      "source_locator": "## 1. Dictamen",
+      "exact_observed_excerpt": "# CLOSEOUT - EVE-00-METHOD-KERNEL-EXPANDED-PACKAGE-TESTS-V1\n\n## 1. Dictamen\n\n**METHOD_KERNEL_EXPANDED_TESTS_READY**\n\nLas pruebas ampliadas del paquete y del contrato de cableado controlado fueron creadas y pasan.\n\n## 2. Archivos modificados\n\n- `tests/regression/eve-00-method-kernel-package.test.ts`\n\n## 3. Archivos creados\n\n- `tests/regression/eve-00-method-kernel-controlled-wiring-contract.test.ts`\n- `docs/audits/AUDIT_EVE_00_METHOD_KERNEL_EXPANDED_PACKAGE_TESTS_V1.md`\n- `docs/audits/CLOSEOUT_EVE_00_METHOD_KERNEL_EXPANDED_PACKAGE_TESTS_V1.md`\n\n## 4. Tests ejecutados\n\n- `node --test tests/regression/eve-00-",
+      "exact_observed_excerpt_sha256": "49c00ceade2da554fe2b7697d062a09fd80314cf98c61bddd306dc1cb4250ad0",
+      "observed_value": {
+        "dictamen": "METHOD_KERNEL_EXPANDED_TESTS_READY",
+        "governance_state": "package tests and controlled-wiring contract pass; candidate remains non-productive"
+      },
+      "expected_value": {
+        "dictamen": "METHOD_KERNEL_EXPANDED_TESTS_READY",
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Accepted as current candidate-state evidence. Productive activation remains a separate controlled-wiring decision."
+    },
+    {
+      "evidence_id": "SYS-EVE01-IDENTITY",
+      "scope": "chip_identity",
+      "subject_id": "EVE01",
+      "evidence_kind": "chip_json_identity",
+      "source_path": "docs/chips/agent-constitution/EVE_01_Agent_Constitution_v0_1/EVE_01_Agent_Constitution_v0_1.json",
+      "source_sha256": "9c5f553cb980a1cc976ad915c7662aa1c230f6b7726dc22408458bf9150b4ff2",
+      "source_locator": "$.identity_or_root",
+      "exact_observed_excerpt": "{\"chip_id\":\"EVE-01-AGENT-CONSTITUTION\",\"stage\":\"01_agent_constitution\",\"status\":\"draft_ready_for_review\",\"version\":\"0.1.0\"}",
+      "exact_observed_excerpt_sha256": "f3cc35e4a417dddbbccc5a577ffe0ebe6c8b188f214dcac70cdd2836df56034a",
+      "observed_value": {
+        "chip_id": "EVE-01-AGENT-CONSTITUTION",
+        "version": "0.1.0",
+        "stage": "01_agent_constitution",
+        "status": "draft_ready_for_review"
+      },
+      "expected_value": "identity and lifecycle state explicitly declared",
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Package identity is descriptive only; it does not grant productive authority."
+    },
+    {
+      "evidence_id": "SYS-EVE01-GOVERNANCE",
+      "scope": "governance_closure",
+      "subject_id": "EVE01",
+      "evidence_kind": "closeout_or_summary",
+      "source_path": "docs/audits/CLOSEOUT_EVE_01_AGENT_CONSTITUTION_UI_TRACE_APPROVAL_V1.md",
+      "source_sha256": "836c9b783dd1a5896dd925c937db17dea64ce0f2a5c86d6b18f0e56e689162cc",
+      "source_locator": "## 1. Dictamen",
+      "exact_observed_excerpt": "# CLOSEOUT — EVE-01-AGENT-CONSTITUTION-UI-TRACE-APPROVAL-V1\n\n## 1. Dictamen\n\nAGENT_CONSTITUTION_SHADOW_UI_TRACE_APPROVED\n\n## 2. Evidencia de aprobación manual\n\nMiguel confirmó visualmente que los seis fixtures del harness dev-only devuelven MATCH true.\n\n## 3. Fixtures aprobados\n\n- capture_allowed_traced_evidence\n  - visualCheck: true\n  - match: true\n- missing_source_trace\n  - visualCheck: true\n  - match: true\n- scope_blocked_final_diagnosis\n  - visualCheck: true\n  - match: true\n- diagnostic_preclassification_candidate\n  - visualCheck: true\n  - match: true\n- parallel_preview_blocked_missing_readiness\n  - visualChe",
+      "exact_observed_excerpt_sha256": "95f254c829dec329a39a2311eb7be2b99c4eed0d98014eca951a682fe1e96f49",
+      "observed_value": {
+        "dictamen": "AGENT_CONSTITUTION_SHADOW_UI_TRACE_APPROVED",
+        "governance_state": "shadow UI trace approved; candidate not wired"
+      },
+      "expected_value": {
+        "dictamen": "AGENT_CONSTITUTION_SHADOW_UI_TRACE_APPROVED",
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Accepted as current candidate-state evidence. Productive activation remains a separate controlled-wiring decision."
+    },
+    {
+      "evidence_id": "SYS-EVE02-IDENTITY",
+      "scope": "chip_identity",
+      "subject_id": "EVE02",
+      "evidence_kind": "chip_json_identity",
+      "source_path": "docs/chips/diagnostic-ontology/EVE_02_Diagnostic_Ontology_v0_1/EVE_02_Diagnostic_Ontology_v0_1.json",
+      "source_sha256": "16a430802765c37eff0ba576345ab5d90a8ffbf933952a846bd2e6601498abf0",
+      "source_locator": "$.identity_or_root",
+      "exact_observed_excerpt": "{\"chip_id\":\"EVE-02-DIAGNOSTIC-ONTOLOGY\",\"package_id\":\"EVE_02_Diagnostic_Ontology_v0_1\",\"stage\":\"02_diagnostic_ontology\",\"status\":\"draft_ready_for_review\",\"version\":\"0.1.0\"}",
+      "exact_observed_excerpt_sha256": "7825f2fc70089a7f1af956a19957658c0d3a8a1f6edfde87f24df2179d29af84",
+      "observed_value": {
+        "chip_id": "EVE-02-DIAGNOSTIC-ONTOLOGY",
+        "package_id": "EVE_02_Diagnostic_Ontology_v0_1",
+        "version": "0.1.0",
+        "stage": "02_diagnostic_ontology",
+        "status": "draft_ready_for_review"
+      },
+      "expected_value": "identity and lifecycle state explicitly declared",
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Package identity is descriptive only; it does not grant productive authority."
+    },
+    {
+      "evidence_id": "SYS-EVE02-GOVERNANCE",
+      "scope": "governance_closure",
+      "subject_id": "EVE02",
+      "evidence_kind": "closeout_or_summary",
+      "source_path": "docs/audits/CLOSEOUT_EVE_02_DIAGNOSTIC_ONTOLOGY_UI_TRACE_APPROVAL_V1.md",
+      "source_sha256": "b570869e97bb42ccb37b3cea05a0950226c54fe9baf9b730fe64e3cd2680ce0c",
+      "source_locator": "## 1. Dictamen",
+      "exact_observed_excerpt": "# CLOSEOUT — EVE-02-DIAGNOSTIC-ONTOLOGY-UI-TRACE-APPROVAL-V1\n\n## 1. Dictamen\n\nDIAGNOSTIC_ONTOLOGY_SHADOW_UI_TRACE_APPROVED\n\n## 2. Evidencia de aprobación manual\n\nMiguel confirmó visualmente que el harness dev-only de EVE-02 funciona y que el resto de la validación visual está bien.\n\nLa aprobación manual cubre:\n\n- la pantalla dev-only carga correctamente;\n- el resto de la validación visual está bien;\n- los fixtures muestran resultado correcto;\n- los MATCH están correctos;\n- la trazabilidad es visible;\n- los safety flags están visibles;\n- no hay integración productiva.\n\n## 3. Ruta aprobada\n\nhttp://localhost:3000/dev/",
+      "exact_observed_excerpt_sha256": "32fa171219907c1ba83d0613081990835db7c31f0e027412d3675ce70f4616fa",
+      "observed_value": {
+        "dictamen": "DIAGNOSTIC_ONTOLOGY_SHADOW_UI_TRACE_APPROVED",
+        "governance_state": "content QA ready with gaps and shadow UI approved; candidate not wired"
+      },
+      "expected_value": {
+        "dictamen": "DIAGNOSTIC_ONTOLOGY_SHADOW_UI_TRACE_APPROVED",
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Accepted as current candidate-state evidence. Productive activation remains a separate controlled-wiring decision."
+    },
+    {
+      "evidence_id": "SYS-EVE03-IDENTITY",
+      "scope": "chip_identity",
+      "subject_id": "EVE03",
+      "evidence_kind": "chip_json_identity",
+      "source_path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/EVE_03_Canonical_Catalog_v0_1.json",
+      "source_sha256": "d34e9fc6fbc226641996da98fb42cc69efdd98158460bf2b7db123917d0226f7",
+      "source_locator": "$.identity_or_root",
+      "exact_observed_excerpt": "{\"chip_id\":\"EVE-03-CANONICAL-CATALOG\",\"package_id\":\"EVE_03_Canonical_Catalog_v0_1\",\"stage\":\"03_canonical_catalog\",\"status\":\"READY_WITH_FLAGS\",\"version\":\"0.1.0\"}",
+      "exact_observed_excerpt_sha256": "164eec3c6b7b72f396c01c5d49c3885a5980bbb26f9de335893730aaef117db0",
+      "observed_value": {
+        "chip_id": "EVE-03-CANONICAL-CATALOG",
+        "package_id": "EVE_03_Canonical_Catalog_v0_1",
+        "version": "0.1.0",
+        "stage": "03_canonical_catalog",
+        "status": "READY_WITH_FLAGS"
+      },
+      "expected_value": "identity and lifecycle state explicitly declared",
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Package identity is descriptive only; it does not grant productive authority."
+    },
+    {
+      "evidence_id": "SYS-EVE03-GOVERNANCE",
+      "scope": "governance_closure",
+      "subject_id": "EVE03",
+      "evidence_kind": "closeout_or_summary",
+      "source_path": "docs/audits/CLOSEOUT_EVE_03_CANONICAL_CATALOG_SHADOW_UI_TRACE_APPROVAL_V1.md",
+      "source_sha256": "10ee4f2b50c211c6dcb33153d035516da6dd0f68cbeed686aa4c18c73f5f801e",
+      "source_locator": "## 1. Dictamen",
+      "exact_observed_excerpt": "LOSEOUT - EVE-03-CANONICAL-CATALOG-SHADOW-UI-TRACE-APPROVAL-V1\n\n## 1. Dictamen\n\nCANONICAL_CATALOG_SHADOW_UI_TRACE_APPROVED\n\n## 2. Evidencia visual/manual reportada por Miguel\n\n- ruta revisada: http://localhost:3000/dev/canonical-catalog-shadow\n- navegador local: confirmado por revision visual/manual reportada por Miguel\n- elementos visibles confirmados:\n  - DEV HARNESS ONLY\n  - NOT PRODUCTIVE UI\n  - runtimeAuthority: false\n  - registryWrite: false\n  - productWiring: false\n  - chipId EVE-03-CANONICAL-CATALOG\n  - mode canonical_catalog_shadow\n  - status SHADOW_READY_NOT_WIRED\n  - source policy D8/D6/D5/D7/VSM1\n  - no",
+      "exact_observed_excerpt_sha256": "68739620689ff630c6833956899a36abf82f5c71876a41444a44678ad0446303",
+      "observed_value": {
+        "dictamen": "CANONICAL_CATALOG_SHADOW_UI_TRACE_APPROVED",
+        "governance_state": "package corrected, static tests and shadow UI approved; candidate not wired"
+      },
+      "expected_value": {
+        "dictamen": "CANONICAL_CATALOG_SHADOW_UI_TRACE_APPROVED",
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Accepted as current candidate-state evidence. Productive activation remains a separate controlled-wiring decision."
+    },
+    {
+      "evidence_id": "SYS-EVE04-IDENTITY",
+      "scope": "chip_identity",
+      "subject_id": "EVE04",
+      "evidence_kind": "chip_json_identity",
+      "source_path": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/EVE_04_Runtime_Catalog_v0_2.json",
+      "source_sha256": "4c9b290b7976011850cdb6995c6f4bbc4d14ed3129e888eb235b9998a374b233",
+      "source_locator": "$.identity_or_root",
+      "exact_observed_excerpt": "{\"certification_status\":\"VALIDATED\",\"chip_id\":\"EVE-04-RUNTIME-CATALOG\",\"installation_status\":\"NOT_INSTALLED\",\"package_id\":\"EVE_04_Runtime_Catalog_Chip_v0_2\",\"stage\":\"04_runtime_catalog\",\"status\":\"READY\",\"version\":\"0.2.0\"}",
+      "exact_observed_excerpt_sha256": "9de14cc8407f0275b5939905426b80d1e52bf4448ccfe382fa4204b1eb603e70",
+      "observed_value": {
+        "chip_id": "EVE-04-RUNTIME-CATALOG",
+        "package_id": "EVE_04_Runtime_Catalog_Chip_v0_2",
+        "version": "0.2.0",
+        "stage": "04_runtime_catalog",
+        "status": "READY",
+        "certification_status": "VALIDATED",
+        "installation_status": "NOT_INSTALLED"
+      },
+      "expected_value": "identity and lifecycle state explicitly declared",
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Package identity is descriptive only; it does not grant productive authority."
+    },
+    {
+      "evidence_id": "SYS-EVE04-GOVERNANCE",
+      "scope": "governance_closure",
+      "subject_id": "EVE04",
+      "evidence_kind": "closeout_or_summary",
+      "source_path": "docs/audits/CLOSEOUT_EVE_04_RUNTIME_CATALOG_RECORD_FIELD_SOURCE_QA_V1.md",
+      "source_sha256": "f2f9e268bd040ed99cf2554b607a6cb8dff68544fc6063cc8b6f64538f520556",
+      "source_locator": "## 1. Dictamen",
+      "exact_observed_excerpt": " CLOSEOUT - EVE-04-RUNTIME-CATALOG-RECORD-FIELD-SOURCE-QA-V1\n\n## 1. Dictamen\n\n**RUNTIME_CATALOG_RECORD_FIELD_QA_SATISFACTORY**\n\n## 2. Fuentes originales leidas\n\n- D6: `docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx`\n- D5: `docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx`\n- D7: `docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx`\n- D8: `docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx`\n- Phase3 vigente: `docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/EVE_03_Canonical_Cat",
+      "exact_observed_excerpt_sha256": "7f9997ffd6c2c938b7b10a93e2d470f779dc3bd21fead309949e4ab246e55b98",
+      "observed_value": {
+        "dictamen": "RUNTIME_CATALOG_RECORD_FIELD_QA_SATISFACTORY",
+        "governance_state": "record-field source QA satisfactory; candidate not installed"
+      },
+      "expected_value": {
+        "dictamen": "RUNTIME_CATALOG_RECORD_FIELD_QA_SATISFACTORY",
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Accepted as current candidate-state evidence. Productive activation remains a separate controlled-wiring decision."
+    },
+    {
+      "evidence_id": "SYS-EVE05-IDENTITY",
+      "scope": "chip_identity",
+      "subject_id": "EVE05",
+      "evidence_kind": "chip_json_identity",
+      "source_path": "docs/chips/gate-engine/EVE_05_Gate_Engine_v0_1/EVE_05_Gate_Engine_v0_1.json",
+      "source_sha256": "7da3ab5891463bec6c1ffd90c410a3f6ee12e08d86827227d2a0ba7d62ecd9e4",
+      "source_locator": "$.identity_or_root",
+      "exact_observed_excerpt": "{\"certification_status\":\"ARTIFACT_VALIDATED_NOT_ACTIVATED\",\"chip_id\":\"EVE-05-GATE-ENGINE\",\"installation_status\":\"NOT_INSTALLED\",\"package_id\":\"EVE_05_Gate_Engine_Chip_v0_1\",\"stage\":\"05_gate_engine\",\"status\":\"READY_FOR_SHADOW_INTEGRATION\",\"version\":\"0.1.0\"}",
+      "exact_observed_excerpt_sha256": "9ed5a78f72efd970c93ec6e1acf92a68108a7f6526252bbccb5582e66c9ae286",
+      "observed_value": {
+        "chip_id": "EVE-05-GATE-ENGINE",
+        "package_id": "EVE_05_Gate_Engine_Chip_v0_1",
+        "version": "0.1.0",
+        "stage": "05_gate_engine",
+        "status": "READY_FOR_SHADOW_INTEGRATION",
+        "certification_status": "ARTIFACT_VALIDATED_NOT_ACTIVATED",
+        "installation_status": "NOT_INSTALLED"
+      },
+      "expected_value": "identity and lifecycle state explicitly declared",
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Package identity is descriptive only; it does not grant productive authority."
+    },
+    {
+      "evidence_id": "SYS-EVE05-GOVERNANCE",
+      "scope": "governance_closure",
+      "subject_id": "EVE05",
+      "evidence_kind": "closeout_or_summary",
+      "source_path": "docs/audits/CLOSEOUT_EVE_05_GATE_ENGINE_CANDIDATE_CLOSEOUT_V1.md",
+      "source_sha256": "9a4e3bef4bd1badf2b9cb66a998227571b4919302cf9802a0063482e600563de",
+      "source_locator": "## 1. Dictamen",
+      "exact_observed_excerpt": "# CLOSEOUT - EVE-05-GATE-ENGINE-CANDIDATE-CLOSEOUT-V1\n\n## 1. Dictamen\n\n`GATE_ENGINE_CANDIDATE_SHADOW_DEV_HARNESS_APPROVED_NOT_WIRED`\n\n## 2. Estado final del chip\n\nEVE-05-GATE-ENGINE queda aprobado como shadow/dev-harness candidate, not wired.\n\nInstallation status: `NOT_INSTALLED`.\n\n## 3. Dictamenes consolidados\n\n- `GATE_ENGINE_PACKAGE_STAGED_READY_FOR_SOURCE_PREFLIGHT`\n- `GATE_ENGINE_RECTOR_SOURCES_READY`\n- `GATE_ENGINE_PACKAGE_INTAKE_READY_WITH_GAPS_NOT_WIRED`\n- `GATE_ENGINE_RECORD_RULE_QA_SATISFACTORY`\n- `GATE_ENGINE_STATIC_TESTS_READY_WITH_GAPS`\n- `GATE_ENGINE_SHADOW_MODE_DESIGN_READY_WITH_NOTES`\n- `GATE_ENGINE_SHADOW_MO",
+      "exact_observed_excerpt_sha256": "cc5e81b050cabac9b5505575cc9399f0c54962a6e4fca93fbec486410377e58e",
+      "observed_value": {
+        "dictamen": "GATE_ENGINE_CANDIDATE_SHADOW_DEV_HARNESS_APPROVED_NOT_WIRED",
+        "governance_state": "candidate closeout approved not wired"
+      },
+      "expected_value": {
+        "dictamen": "GATE_ENGINE_CANDIDATE_SHADOW_DEV_HARNESS_APPROVED_NOT_WIRED",
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Accepted as current candidate-state evidence. Productive activation remains a separate controlled-wiring decision."
+    },
+    {
+      "evidence_id": "SYS-EVE06-IDENTITY",
+      "scope": "chip_identity",
+      "subject_id": "EVE06",
+      "evidence_kind": "chip_json_identity",
+      "source_path": "docs/chips/execution-engine/EVE_06_Execution_Engine_v0_1/EVE_06_Execution_Engine_v0_1.json",
+      "source_sha256": "da24945129cfd23b6fd39739bc6b7c358a21b76ad5ee40e799a93bb8d276e1e5",
+      "source_locator": "$.identity_or_root",
+      "exact_observed_excerpt": "{\"certification_status\":\"WORKBENCH_REPAIRED_NOT_REAUDITED\",\"chip_id\":\"EVE-06-EXECUTION-ENGINE\",\"installation_status\":\"NOT_INSTALLED\",\"package_id\":\"EVE_06_Execution_Engine_Chip_v0_1\",\"stage\":\"06_execution_engine\",\"status\":\"READY_FOR_INDEPENDENT_QA_RERUN\",\"version\":\"0.1.0\"}",
+      "exact_observed_excerpt_sha256": "f2c4fb6a812885b8cb98c80558075a3d53d9476bc1a34a15bea85f122348f3f5",
+      "observed_value": {
+        "chip_id": "EVE-06-EXECUTION-ENGINE",
+        "package_id": "EVE_06_Execution_Engine_Chip_v0_1",
+        "version": "0.1.0",
+        "stage": "06_execution_engine",
+        "status": "READY_FOR_INDEPENDENT_QA_RERUN",
+        "certification_status": "WORKBENCH_REPAIRED_NOT_REAUDITED",
+        "installation_status": "NOT_INSTALLED"
+      },
+      "expected_value": "identity and lifecycle state explicitly declared",
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Package identity is descriptive only; it does not grant productive authority."
+    },
+    {
+      "evidence_id": "SYS-EVE06-GOVERNANCE",
+      "scope": "governance_closure",
+      "subject_id": "EVE06",
+      "evidence_kind": "closeout_or_summary",
+      "source_path": "docs/audits/CLOSEOUT_EVE_06_EXECUTION_ENGINE_RECORD_RULE_SOURCE_QA_V1_1.md",
+      "source_sha256": "f42a24e7088a69705f6f747eb1693d2458db4969f9c464b762afba897f78c7a0",
+      "source_locator": "## 1. Dictamen",
+      "exact_observed_excerpt": " CLOSEOUT - EVE-06-EXECUTION-ENGINE-RECORD-RULE-SOURCE-QA-V1_1\n\n## 1. Dictamen\n\nEXECUTION_ENGINE_RECORD_RULE_QA_SATISFACTORY\n\n## 2. Reparacion aplicada\n\nLa mesa externa declaro EXECUTION_ENGINE_WORKBENCH_CONTENT_SOURCE_ROLE_REPAIRED_READY_FOR_INDEPENDENT_QA_RERUN. En la revalidacion se confirma que D1 fue retirado como prueba directa en SCR, D8 fue agregado a SCR, STM6-016 cubre evidence_item/canonical_variable_record/structural_candidate_record, y los proofs quedan listos y aceptados por QA independiente.\n\n## 3. Cobertura QA\n\n- modules checked: 6/6\n- atomic rules checked: 135/135\n- failure guards checked: 18/18\n- in",
+      "exact_observed_excerpt_sha256": "78731a9004db62b507dde60767bfc40884361f745b562865601c92f91225e1cb",
+      "observed_value": {
+        "dictamen": "EXECUTION_ENGINE_RECORD_RULE_QA_SATISFACTORY",
+        "governance_state": "independent record/rule/source QA satisfactory; manual visual approved separately"
+      },
+      "expected_value": {
+        "dictamen": "EXECUTION_ENGINE_RECORD_RULE_QA_SATISFACTORY",
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Accepted as current candidate-state evidence. Productive activation remains a separate controlled-wiring decision."
+    },
+    {
+      "evidence_id": "SYS-EVE07-IDENTITY",
+      "scope": "chip_identity",
+      "subject_id": "EVE07",
+      "evidence_kind": "chip_json_identity",
+      "source_path": "docs/chips/parallel-production-interface/EVE_07_Parallel_Production_Interface_v0_1_2_candidate/EVE_07_Parallel_Production_Interface_v0_1_2_candidate.json",
+      "source_sha256": "0165cf66dbbf7fe291c62941583a377839f3adf0e3bfda86ba7e889bdfe71cff",
+      "source_locator": "$.identity_or_root",
+      "exact_observed_excerpt": "{\"activation_status\":\"SHADOW_ONLY\",\"certification_status\":\"WORKBENCH_REPAIRED_NOT_REAUDITED\",\"chip_id\":\"EVE-07-PARALLEL-PRODUCTION-INTERFACE\",\"installation_status\":\"NOT_INSTALLED\",\"package_id\":\"EVE_07_Parallel_Production_Interface_Chip_v0_1_2_candidate\",\"stage\":\"07_parallel_production_interface\",\"status\":\"READY_FOR_INDEPENDENT_QA_RERUN\",\"version\":\"0.1.2-candidate\"}",
+      "exact_observed_excerpt_sha256": "4f1825cb14c387ae3c63af1817c7c9ae710af24e0acf54c89303dd4d3f335fd0",
+      "observed_value": {
+        "chip_id": "EVE-07-PARALLEL-PRODUCTION-INTERFACE",
+        "package_id": "EVE_07_Parallel_Production_Interface_Chip_v0_1_2_candidate",
+        "version": "0.1.2-candidate",
+        "stage": "07_parallel_production_interface",
+        "status": "READY_FOR_INDEPENDENT_QA_RERUN",
+        "certification_status": "WORKBENCH_REPAIRED_NOT_REAUDITED",
+        "installation_status": "NOT_INSTALLED",
+        "activation_status": "SHADOW_ONLY"
+      },
+      "expected_value": "identity and lifecycle state explicitly declared",
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Package identity is descriptive only; it does not grant productive authority."
+    },
+    {
+      "evidence_id": "SYS-EVE07-GOVERNANCE",
+      "scope": "governance_closure",
+      "subject_id": "EVE07",
+      "evidence_kind": "closeout_or_summary",
+      "source_path": "docs/audits/_eve_07_parallel_production_interface_candidate_closeout_summary_v1.json",
+      "source_sha256": "9d62d85df6443fa82cc9b5d11c91f9686684211c9d5bf5685ceb26c5f1482fbf",
+      "source_locator": "$",
+      "exact_observed_excerpt": "{\"activationStatus\":\"SHADOW_ONLY\",\"candidateNotWired\":true,\"chipId\":\"EVE-07-PARALLEL-PRODUCTION-INTERFACE\",\"coverage\":{\"accepted\":258,\"certificationClaimUnverified\":0,\"certificationClaims\":\"16/16\",\"exb031\":\"checked\",\"exbBlockers\":\"34/34\",\"exportBlockerVectors\":\"6/6\",\"materialDifference\":false,\"pendingLocatorPrecision\":0,\"pendingSourceProof\":0,\"qaRows\":258,\"rejected\":0,\"sourceProofMatrixRows\":\"154/154\",\"sourceToTargetMappings\":\"26/26\"},\"devHarness\":\"PARALLEL_PRODUCTION_INTERFACE_DEV_HARNESS_VISUAL_READY_WITH_NOTES\",\"dictamen\":\"PARALLEL_PRODUCTION_INTERFACE_CANDIDATE_SHADOW_DEV_HARNESS_APPROVED_NOT_WIRED\",\"documentaryQa\":\"PARALLEL_PRODUCTION_INTERFACE_RECORD_RULE_QA_SATISFACTORY\",\"installationStatus\":\"NOT_INSTALLED\",\"liveNotes\":[{\"blocking\":false,\"id\":\"MODULE_TYPELESS_PACKAGE_JSON\",\"severity\":\"warning\"},{\"blocking\":false,\"id\":\"VISUAL_FIXTURE_LABEL_OVERFLOW\",\"severity\":\"minor\"}],\"manualVisualAudit\":\"PARALLEL_PRODUCTION_INTERFACE_MANUAL_VISUAL_AUDIT_APPROVED_WITH_NOTES\",\"noCableado\":{\"diagnosisEnabled\":false,\"eveBrainConnection\":false,\"finalExportEnabled\":false,\"parallelProductionEnabled\":false,\"productWiring\":false,\"registryWrite\":false,\"runtimeAuthority\":false,\"sqlEnabled\":false,\"supabaseWrite\":false},\"shadowDesign\":\"PARALLEL_PRODUCTION_INTERFACE_SHADOW_MODE_DESIGN_READY_WITH_NOTES\",\"shadowImplementation\":\"PARALLEL_PRODUCTION_INTERFACE_SHADOW_MODE_READY_WITH_NOTES\",\"staticTests\":\"PARALLEL_PRODUCTION_INTERFACE_STATIC_TESTS_READY_WITH_GAPS\",\"tests\":{\"eve00ToEve06Regression\":\"pass 219 / fail 0\",\"eve07DevHarness\":\"pass\",\"eve07PackageSourceDocumentary\":\"pass\",\"eve07ShadowMode\":\"pass\"},\"version\":\"0.1.2-candidate\"}",
+      "exact_observed_excerpt_sha256": "e56b676b424386b90203b1db0ee889d02f7090ab65b304300771f436a317b130",
+      "observed_value": {
+        "dictamen": "PARALLEL_PRODUCTION_INTERFACE_CANDIDATE_SHADOW_DEV_HARNESS_APPROVED_NOT_WIRED",
+        "governance_state": "candidate closeout approved not wired"
+      },
+      "expected_value": {
+        "dictamen": "PARALLEL_PRODUCTION_INTERFACE_CANDIDATE_SHADOW_DEV_HARNESS_APPROVED_NOT_WIRED",
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Accepted as current candidate-state evidence. Productive activation remains a separate controlled-wiring decision."
+    },
+    {
+      "evidence_id": "SYS-EVE03-EVE04-RECONCILIATION",
+      "scope": "cross_chip_consistency",
+      "subject_id": "EVE03↔EVE04",
+      "evidence_kind": "current_qa_and_package_correction",
+      "source_path": "docs/audits/CLOSEOUT_EVE_04_RUNTIME_CATALOG_RECORD_FIELD_SOURCE_QA_V1.md",
+      "source_sha256": "f2f9e268bd040ed99cf2554b607a6cb8dff68544fc6063cc8b6f64538f520556",
+      "source_locator": "## 1 Dictamen + CVAR-001 + coverageStatus",
+      "exact_observed_excerpt": "RUNTIME_CATALOG_RECORD_FIELD_QA_SATISFACTORY**\n\n## 2. Fuentes originales leidas\n\n- D6: `docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.xlsx`\n- D5: `docs/runtime/Catalogo_Runtime_40_20_EVE_MMABP_v1_1_1_Operacional_Ajustado.docx`\n- D7: `docs/runtime/Arquitectura_Runtime_40_20_EVE_MMABP.docx`\n- D8: `docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx`\n- Phase3 vigente: `docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/EVE_03_Canonical_Catalog_v0_1.json`\n- D4: `docs/runtime/EVE_Runtime_40_20_Especificacion_Tecnica_Ejecutable_v1_0_1.docx`\n- D3: `docs/runtime/EVE_Runtime_40_20_Capa_1_0_Produccion_Paralela_Conexion_Operativa_v2.docx`\n- D1: `docs/chips/method-kernel/EVE_00_Method_Kernel_v0_2/sources/Fundamentals of Business Architecture Modeling.pdf`\n- VSM1: `docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/Organizational Systems Managing Complexity with the Viable System model.pdf`\n- UP_B0..UP_B7: `docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/sources/upstream/`\n\n## 3. Criterio de satisfaccion documental\n\nEl objetivo fue satisfaccion completa chip vs rectores. No se aceptaron gaps de fidelidad documental, fila, campo, lineage, definicion, source_node, source_code, regla, readiness o branching. Si no hubiera satisfaccion completa, el chip volveria a mesa de trabajo.\n\n## 4. QA D6 fila/campo\n\n- `runtime_interactions_base_40`: 40/40 filas, IDs JSON/XLSX coinciden. Campos operacionales revisados satisfactoriamente. `B6-Q38` tiene transformaciones controladas por `CCOV-001`.\n- `runtime_interactions_causal_20`: 20/20 filas, IDs y campos de trigger/activation, burden/budget, variables canonicas, apertura causal y lineage satisfactorios.\n- `ux_subfield_str",
+      "exact_observed_excerpt_sha256": "d71ff58a609d47c50c0040893c79ebb88258f1da993a64306be0fc6948e1ba8b",
+      "observed_value": {
+        "eve03_package_correction_closeout": "present",
+        "eve04_record_field_qa": "RUNTIME_CATALOG_RECORD_FIELD_QA_SATISFACTORY",
+        "resolved_variable_definitions": 33,
+        "pending_source_node": 0,
+        "pending_source_code": 0,
+        "pending_source_proof": 0
+      },
+      "expected_value": {
+        "documentary_cross_chip_gap_resolved": true,
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Secondary support: docs/audits/CLOSEOUT_EVE_03_CANONICAL_CATALOG_PACKAGE_CORRECTION_V1.md. EVE03 remains READY_WITH_FLAGS; this row does not activate either chip."
+    },
+    {
+      "evidence_id": "SYS-D8-CANONICAL-CONTEXT",
+      "scope": "canonical_context",
+      "subject_id": "D8",
+      "evidence_kind": "xlsx_file_reality",
+      "source_path": "docs/chips/canonical-catalog/EVE_03_Canonical_Catalog_v0_1/sources/EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx",
+      "source_sha256": "09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2",
+      "source_locator": "Catalogo_Madre_Nodos; Source_Question_Registry; Canonical_Variables; Critical_Routes; Readiness_Reentry_Gaps",
+      "exact_observed_excerpt": "{\"exists\":true,\"readable\":true,\"role\":\"contextual_lineage_and_canonical_reference\",\"sha256\":\"09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2\"}",
+      "exact_observed_excerpt_sha256": "74316e30b1b07b1d25dcc57db70e019b6e80d11b11529a8c2c17d3f824403479",
+      "observed_value": {
+        "exists": true,
+        "readable": true,
+        "sha256": "09531a66fde4c8f17e88d591ae523992a6c42d448965ef52012c2c2de7d948a2",
+        "role": "contextual_lineage_and_canonical_reference"
+      },
+      "expected_value": {
+        "exists": true,
+        "readable": true,
+        "automatic_runtime_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "D8 is restored as explicit contextual genealogy evidence. It is not a primary source for automatic brain authority."
+    },
+    {
+      "evidence_id": "SYS-EVE06-SHADOW-HARNESS",
+      "scope": "shadow_evidence",
+      "subject_id": "EVE06",
+      "evidence_kind": "manual_visual_audit",
+      "source_path": "docs/audits/CLOSEOUT_EVE_06_EXECUTION_ENGINE_MANUAL_VISUAL_AUDIT_V1.md",
+      "source_sha256": "d24f5a85f5115bebfc6523895b95981ab70cb99af599f0d2e4fb05ec08b99710",
+      "source_locator": "## 1-10",
+      "exact_observed_excerpt": "# CLOSEOUT — EVE-06-EXECUTION-ENGINE-MANUAL-VISUAL-AUDIT-V1\n\n## 1. Dictamen\n\n`EXECUTION_ENGINE_MANUAL_VISUAL_AUDIT_APPROVED_WITH_NOTES`\n\n## 2. Evidencia visual registrada\n\nMiguel observo en navegador la ruta `/dev/eve-06-execution-engine-shadow` con el header EVE-06 Execution Engine Shadow Harness, chipId EVE-06-EXECUTION-ENGINE, mode execution_engine_shadow, status candidate not wired y documentary satisfaction satisfactory. Tambien observo runtimeAuthority false, registryWrite false, productWiring false, eveBrainConnection false, diagnosisEnabled false, exportEnabled false, sqlEnabled false y supabaseWrite false.\n\n## 3. Fixture final verificado\n\n- selectedFixture: `validate_no_registry_write_no_diagnosis_no_export`\n- match: `true`\n\n## 4. Safety rails confirmados\n\n- canBlockUserFlow: `false`\n- canModifyPayload: `false`\n- canWriteRegistry: `false`\n- canModifyCatalog: `false`\n- canTriggerRuntime: `false`\n- canTriggerDiagnosis: `false`\n- canTriggerExport: `false`\n- canExecuteSql: `false`\n- canWriteSupabase: `false`\n- canConnectEveBrain: `false`\n- runtimeAuthority: `false`\n- registryWrite: `false`\n- productWiring: `false`\n- eveBrainConnection: `false`\n- diagnosisEnabled: `false`\n- exportEnabled: `false`\n- sqlEnabled: `false`\n- supabaseWrite: `false`\n\n## 5. Protected counters confirmados\n\n- modules: `6/6`\n- atomic rules: `135/135`\n- failure guards: `18/18`\n- integration rules: `14/14`\n- source_to_target mappings: `20/20`\n- QA controls: `22/22`\n- schema fields: `54/54`\n- accepted: `310`\n- rejected: `0`\n- pending_source_proof: `0`\n- pending_locator_precision: `0`\n- source_role_mismatch: `0`\n- source_missing: `0`\n- wiring_risk_detected: `0`\n- materialDifference: `false`\n\n## 6. D1/D8/SCR confirmado\n\n- D1 direct proof SCR false\n- D8 present for SCR true\n- STM6-016 covers evidence_item, canonical_variable_record, structural_candidate_record\n\n## 7. No-cableado confirmado\n\n- no Runtime productivo\n- no WorkMap productivo\n- no Significado productivo\n- no registry\n- no runtimeAuthority\n- no Supabase\n- no SQL\n- no package.json\n- no conexion al cerebro EVE\n\n## 8. Notas vivas\n\n- MODULE_TYPELESS_PACKAGE_JSON no bloqueante.\n- Build warnings ajenos al harness siguen documentados: Tu",
+      "exact_observed_excerpt_sha256": "4eec827069283e52c5b9d5fbe92ed0a9dd1f6ba70ff0b1c191248abaed6605c5",
+      "observed_value": {
+        "dictamen": "EXECUTION_ENGINE_MANUAL_VISUAL_AUDIT_APPROVED_WITH_NOTES",
+        "candidate_not_wired": true,
+        "runtimeAuthority": false,
+        "registryWrite": false,
+        "productWiring": false,
+        "eveBrainConnection": false
+      },
+      "expected_value": {
+        "manual_visual_approved": true,
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Manual visual evidence confirms shadow/dev harness only."
+    },
+    {
+      "evidence_id": "SYS-EVE07-CANDIDATE-CLOSEOUT",
+      "scope": "candidate_closeout",
+      "subject_id": "EVE07",
+      "evidence_kind": "candidate_closeout_summary",
+      "source_path": "docs/audits/_eve_07_parallel_production_interface_candidate_closeout_summary_v1.json",
+      "source_sha256": "9d62d85df6443fa82cc9b5d11c91f9686684211c9d5bf5685ceb26c5f1482fbf",
+      "source_locator": "$.dictamen + $.noCableado + $.coverage",
+      "exact_observed_excerpt": "{\"candidateNotWired\":true,\"coverage\":{\"accepted\":258,\"certificationClaimUnverified\":0,\"certificationClaims\":\"16/16\",\"exb031\":\"checked\",\"exbBlockers\":\"34/34\",\"exportBlockerVectors\":\"6/6\",\"materialDifference\":false,\"pendingLocatorPrecision\":0,\"pendingSourceProof\":0,\"qaRows\":258,\"rejected\":0,\"sourceProofMatrixRows\":\"154/154\",\"sourceToTargetMappings\":\"26/26\"},\"dictamen\":\"PARALLEL_PRODUCTION_INTERFACE_CANDIDATE_SHADOW_DEV_HARNESS_APPROVED_NOT_WIRED\",\"noCableado\":{\"diagnosisEnabled\":false,\"eveBrainConnection\":false,\"finalExportEnabled\":false,\"parallelProductionEnabled\":false,\"productWiring\":false,\"registryWrite\":false,\"runtimeAuthority\":false,\"sqlEnabled\":false,\"supabaseWrite\":false}}",
+      "exact_observed_excerpt_sha256": "9dc31ba83a0e81c65e3f47dfa3bef0a19efeaf4002b85a71242526edd53e5cbf",
+      "observed_value": {
+        "dictamen": "PARALLEL_PRODUCTION_INTERFACE_CANDIDATE_SHADOW_DEV_HARNESS_APPROVED_NOT_WIRED",
+        "candidateNotWired": true,
+        "coverage": {
+          "sourceProofMatrixRows": "154/154",
+          "sourceToTargetMappings": "26/26",
+          "exbBlockers": "34/34",
+          "exb031": "checked",
+          "exportBlockerVectors": "6/6",
+          "certificationClaims": "16/16",
+          "qaRows": 258,
+          "accepted": 258,
+          "rejected": 0,
+          "pendingSourceProof": 0,
+          "pendingLocatorPrecision": 0,
+          "certificationClaimUnverified": 0,
+          "materialDifference": false
+        },
+        "noCableado": {
+          "runtimeAuthority": false,
+          "registryWrite": false,
+          "productWiring": false,
+          "eveBrainConnection": false,
+          "finalExportEnabled": false,
+          "parallelProductionEnabled": false,
+          "diagnosisEnabled": false,
+          "sqlEnabled": false,
+          "supabaseWrite": false
+        }
+      },
+      "expected_value": {
+        "dictamen": "PARALLEL_PRODUCTION_INTERFACE_CANDIDATE_SHADOW_DEV_HARNESS_APPROVED_NOT_WIRED",
+        "candidateNotWired": true,
+        "productive_authority": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Current machine-readable candidate closeout supersedes stale A07 preflight/harness evidence."
+    },
+    {
+      "evidence_id": "SYS-EVE08-PREVIOUS-LINEAGE",
+      "scope": "version_lineage",
+      "subject_id": "EVE08",
+      "evidence_kind": "previous_package_inventory",
+      "source_path": "EVE_08_Audit_And_Governance_v0_1_candidate/*",
+      "source_sha256": "7815b3465fe769a8869fefa2df32c396e1c4d9b09664a059cd0946dda37d8863",
+      "source_locator": "previous_package_file_hashes",
+      "exact_observed_excerpt": "{\"artifacts\":{\"AUDIT_EVE_08_Audit_And_Governance_v0_1_candidate_CERTIFICATION.md\":\"b3efe807a4fa80f4f6ca087ae6a86ba4654048a31d0ada63ee2a8d3b26544ac2\",\"EVE_08_Audit_And_Governance_v0_1_candidate.certification_report.json\":\"7a3342d5d00b5a776f02e3ed010f8af9d1db32f53d36c357843a218cdc0bfcfb\",\"EVE_08_Audit_And_Governance_v0_1_candidate.docx\":\"9f4dab5e82fcfdde88570710a0e603cdb3947b4b715b663f111cf9786e91198a\",\"EVE_08_Audit_And_Governance_v0_1_candidate.json\":\"b0d6027b1989f9601fc0487421d4f16086c5f1996dd912b27e9633d5ccf7097a\",\"EVE_08_Audit_And_Governance_v0_1_candidate.manifest.json\":\"8620c278aa2451644c4fc956423d36cefa4c87c0ce121dcb2136e550ab4ca0b6\",\"EVE_08_Audit_And_Governance_v0_1_candidate.md\":\"0d99a87f8175d9598da66bbffbc9c07fa02865cf52a2603537b382876355957d\",\"EVE_08_Audit_And_Governance_v0_1_candidate.source_proof_matrix.json\":\"d6120d3f91bb886decc0f86c200c9db635c5dccd39ebac598d44c3aeaa94bdc4\",\"EVE_08_Audit_And_Governance_v0_1_candidate.ts\":\"fa45569b60b2ecb938d0857867e56c2e30e7ccaf48fea7ebf87ba1baf39db7e7\"},\"version\":\"0.1.0-candidate\"}",
+      "exact_observed_excerpt_sha256": "11187c2cfddefaaf616671a389501130a3f4a7d73a83e1ea4f1c0e30296d02c2",
+      "observed_value": {
+        "version": "0.1.0-candidate",
+        "artifacts": {
+          "EVE_08_Audit_And_Governance_v0_1_candidate.docx": "9f4dab5e82fcfdde88570710a0e603cdb3947b4b715b663f111cf9786e91198a",
+          "EVE_08_Audit_And_Governance_v0_1_candidate.md": "0d99a87f8175d9598da66bbffbc9c07fa02865cf52a2603537b382876355957d",
+          "EVE_08_Audit_And_Governance_v0_1_candidate.json": "b0d6027b1989f9601fc0487421d4f16086c5f1996dd912b27e9633d5ccf7097a",
+          "EVE_08_Audit_And_Governance_v0_1_candidate.certification_report.json": "7a3342d5d00b5a776f02e3ed010f8af9d1db32f53d36c357843a218cdc0bfcfb",
+          "EVE_08_Audit_And_Governance_v0_1_candidate.source_proof_matrix.json": "d6120d3f91bb886decc0f86c200c9db635c5dccd39ebac598d44c3aeaa94bdc4",
+          "EVE_08_Audit_And_Governance_v0_1_candidate.ts": "fa45569b60b2ecb938d0857867e56c2e30e7ccaf48fea7ebf87ba1baf39db7e7",
+          "EVE_08_Audit_And_Governance_v0_1_candidate.manifest.json": "8620c278aa2451644c4fc956423d36cefa4c87c0ce121dcb2136e550ab4ca0b6",
+          "AUDIT_EVE_08_Audit_And_Governance_v0_1_candidate_CERTIFICATION.md": "b3efe807a4fa80f4f6ca087ae6a86ba4654048a31d0ada63ee2a8d3b26544ac2"
+        }
+      },
+      "expected_value": "superseded predecessor preserved",
+      "result": "pass",
+      "blocking": false,
+      "required_action": "preserve predecessor; do not overwrite",
+      "notes": null
+    },
+    {
+      "evidence_id": "SYS-EVE08-WORKBENCH-STATE",
+      "scope": "workbench_state",
+      "subject_id": "EVE08",
+      "evidence_kind": "workbench_repair_declaration",
+      "source_path": "docs/audits/CLOSEOUT_EVE_08_AUDIT_AND_GOVERNANCE_WORKBENCH_CONTENT_REPAIR_V1.md",
+      "source_sha256": null,
+      "source_locator": "## 1-12",
+      "exact_observed_excerpt": "{\"aliases_resolved\":27,\"certification_status\":\"WORKBENCH_REPAIRED_NOT_REAUDITED\",\"proof_rows_ready\":244,\"stale_a07_primary_proofs_remaining\":0,\"status\":\"READY_FOR_INDEPENDENT_QA_RERUN\"}",
+      "exact_observed_excerpt_sha256": "e1a27e531e8811b5b26142cc2bd7e26b4208189af2df7d268ba2d0f2f5387bdb",
+      "observed_value": {
+        "status": "READY_FOR_INDEPENDENT_QA_RERUN",
+        "certification_status": "WORKBENCH_REPAIRED_NOT_REAUDITED",
+        "proof_rows_ready": 244,
+        "aliases_resolved": 27,
+        "stale_a07_primary_proofs_remaining": 0
+      },
+      "expected_value": {
+        "independent_qa_required": true,
+        "productive_authority": false
+      },
+      "result": "flag",
+      "blocking": false,
+      "required_action": "independent record/rule/source QA rerun",
+      "notes": "Hash is populated in companion file-reality artifacts; this row is a workbench declaration, not final proof."
+    },
+    {
+      "evidence_id": "SYS-BRAIN-ACTIVATION-CONTROLS",
+      "scope": "brain_activation",
+      "subject_id": "FULL_BRAIN",
+      "evidence_kind": "activation_contract",
+      "source_path": "docs/chips/audit-and-governance/EVE_08_Audit_And_Governance_v0_1_1_candidate/EVE_08_Audit_And_Governance_v0_1_1_candidate.json",
+      "source_sha256": null,
+      "source_locator": "$.activation_contract",
+      "exact_observed_excerpt": "{\"automatic_promotion\":false,\"human_activation_approval\":false,\"human_approval_required\":true,\"rollback_drill_evidence\":false,\"rollback_drill_required\":true,\"single_active_authority_switch\":false}",
+      "exact_observed_excerpt_sha256": "76015d06d5dc24483aee01e515c7fe7bca505d7dafbbfc0cb230a52be686d6a0",
+      "observed_value": {
+        "rollback_drill_required": true,
+        "human_approval_required": true,
+        "automatic_promotion": false,
+        "rollback_drill_evidence": false,
+        "human_activation_approval": false,
+        "single_active_authority_switch": false
+      },
+      "expected_value": {
+        "rollback_drill_evidence": true,
+        "human_activation_approval": true,
+        "single_active_authority_switch": true
+      },
+      "result": "block",
+      "blocking": true,
+      "required_action": "complete rollback drill, human approval and single-active-authority switch plan",
+      "notes": "This blocker is intentional and prevents any implicit brain connection."
+    },
+    {
+      "evidence_id": "SYS-NO-CABLEADO-AGGREGATE",
+      "scope": "no_cableado",
+      "subject_id": "EVE00–EVE08",
+      "evidence_kind": "aggregate_boundary_check",
+      "source_path": "docs/chips/audit-and-governance/EVE_08_Audit_And_Governance_v0_1_1_candidate/EVE_08_Audit_And_Governance_v0_1_1_candidate.json",
+      "source_sha256": null,
+      "source_locator": "$.activation_contract + current candidate closeouts",
+      "exact_observed_excerpt": "{\"diagnosisEnabled\":false,\"eveBrainConnection\":false,\"finalExportEnabled\":false,\"parallelProductionEnabled\":false,\"productWiring\":false,\"registryWrite\":false,\"runtimeAuthority\":false,\"sqlEnabled\":false,\"supabaseWrite\":false}",
+      "exact_observed_excerpt_sha256": "82a7e6ea2a3b5f21392a3eab89a16812520f33f0fbaf283773a3253b055cca50",
+      "observed_value": {
+        "runtimeAuthority": false,
+        "registryWrite": false,
+        "productWiring": false,
+        "eveBrainConnection": false,
+        "finalExportEnabled": false,
+        "parallelProductionEnabled": false,
+        "diagnosisEnabled": false,
+        "sqlEnabled": false,
+        "supabaseWrite": false
+      },
+      "expected_value": {
+        "all_productive_capabilities": false
+      },
+      "result": "pass",
+      "blocking": false,
+      "required_action": "none",
+      "notes": "Aggregate guard only; does not grant authority."
+    }
+  ]
+}

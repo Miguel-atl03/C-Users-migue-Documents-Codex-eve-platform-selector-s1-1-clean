@@ -1,0 +1,274 @@
+/**
+ * B0 Memoria operativa — secuencia void (freeze BUILD 4.3).
+ * Source mock: deliverables/design/eve-b0-secuencia-void-v4.html
+ */
+
+.screen {
+  position: relative;
+  min-height: 100svh;
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: 88px 72px 120px;
+  background: var(--eve-sheet, #fafbfc);
+  color: var(--eve-ink, #12141a);
+  font-family: var(--font-eve-mono, "IBM Plex Mono", "Consolas", monospace);
+  -webkit-font-smoothing: antialiased;
+  scroll-margin-top: 0;
+}
+
+.intro {
+  margin: 0 0 56px;
+  max-width: 260px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--eve-ink, #12141a);
+  opacity: 0;
+  transition:
+    color 900ms ease,
+    opacity 900ms ease;
+}
+
+.introVisible {
+  opacity: 1;
+}
+
+.introMist {
+  color: var(--eve-mist, #7a8190);
+}
+
+.memoryBand {
+  transition: color 700ms ease;
+}
+
+.memoryBandMist .stepLabel,
+.memoryBandMist .stepValue {
+  color: var(--eve-mist, #7a8190) !important;
+  transition: color 700ms ease;
+}
+
+.flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 3.5vw, 56px);
+  align-items: start;
+  min-height: 160px;
+}
+
+.flowStep {
+  min-width: 0;
+  max-width: 34ch;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.flowStepActive {
+  opacity: 1;
+  visibility: visible;
+}
+
+.stepLabel {
+  margin: 0;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--eve-ink, #12141a);
+  min-height: 1.4em;
+  white-space: nowrap;
+  transition: color 700ms ease;
+}
+
+.stepValue {
+  display: block;
+  margin: 20px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--eve-ink, #12141a);
+  max-width: 44ch;
+  min-height: 3em;
+  outline: none;
+  width: 100%;
+  transition: color 700ms ease;
+}
+
+.stepValueEditing {
+  color: var(--eve-ink, #12141a) !important;
+  cursor: text;
+}
+
+.cursor {
+  display: inline-block;
+  width: 1px;
+  height: 0.95em;
+  margin-left: 1px;
+  background: currentColor;
+  vertical-align: text-bottom;
+  animation: b0MemoriaBlink 900ms step-end infinite;
+}
+
+.cursorHidden {
+  display: none;
+}
+
+@keyframes b0MemoriaBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.confirmIsland {
+  margin-top: 72px;
+  max-width: 520px;
+  min-height: 88px;
+}
+
+.confirmQuestion {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--eve-ink, #12141a);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.confirmQuestionVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.confirmActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  margin-top: 28px;
+  min-height: 1.6em;
+}
+
+.confirmChoice {
+  border: 0;
+  background: transparent;
+  padding: 4px 0;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--eve-ink, #12141a);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    color 500ms ease,
+    opacity 400ms ease;
+}
+
+.confirmChoiceReady {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.confirmChoiceSelected {
+  font-weight: 700;
+}
+
+.confirmChoiceMist {
+  color: var(--eve-mist, #7a8190);
+}
+
+.confirmChoice:hover {
+  color: var(--eve-ink, #12141a);
+}
+
+.confirmSep {
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  margin: 0 18px;
+  background: var(--eve-line, #d8dce2);
+  opacity: 0;
+  visibility: hidden;
+  flex-shrink: 0;
+}
+
+.confirmSepVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.confirmHint {
+  margin: 14px 0 0;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--eve-mist, #7a8190);
+  opacity: 0;
+}
+
+.confirmHintVisible {
+  opacity: 1;
+}
+
+.opsNotify {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  max-width: 48ch;
+  margin: 0;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--eve-mist, #7a8190);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+  z-index: 20;
+  font-family: var(--font-eve-mono, "IBM Plex Mono", "Consolas", monospace);
+}
+
+.opsNotifyVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 900px) {
+  .screen {
+    padding: 72px 24px 96px;
+  }
+
+  .flow {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro,
+  .stepLabel,
+  .stepValue,
+  .confirmChoice,
+  .opsNotify {
+    transition: none;
+  }
+
+  .cursor {
+    animation: none;
+  }
+}

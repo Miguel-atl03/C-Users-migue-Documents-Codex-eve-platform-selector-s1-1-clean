@@ -1,0 +1,182 @@
+{
+  "fixtureSetId": "EVE-07-PARALLEL-PRODUCTION-INTERFACE-SHADOW-MODE-FIXTURES-V1",
+  "mode": "parallel_production_interface_shadow",
+  "fixtures": [
+    {
+      "fixtureId": "resolve_scr_payload",
+      "inputSummary": {"queryType": "resolve_scr_payload", "module": "scr_payload", "payloadType": "scr_payload"},
+      "expectedReadinessState": "ppi_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "scr_payload_shadow_candidate",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D4", "D6", "D8"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canModifyPayload": false, "canWriteRegistry": false, "canTriggerExport": false, "canTriggerParallelProduction": false},
+      "expectedBlockedActions": ["payload_mutation", "registry_write", "final_export", "parallel_production"]
+    },
+    {
+      "fixtureId": "resolve_evidence_bundle_payload",
+      "inputSummary": {"queryType": "resolve_evidence_bundle_payload", "module": "evidence_bundle_payload", "payloadType": "evidence_bundle_payload"},
+      "expectedReadinessState": "ppi_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "evidence_bundle_shadow_candidate",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D4", "D6", "EVE06"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canModifyPayload": false, "canWriteRegistry": false, "canTriggerExport": false, "canTriggerParallelProduction": false},
+      "expectedBlockedActions": ["final_evidence_bundle", "registry_write", "final_export", "parallel_production"]
+    },
+    {
+      "fixtureId": "resolve_mdsb_payload",
+      "inputSummary": {"queryType": "resolve_mdsb_payload", "module": "mdsb_payload", "payloadType": "mdsb_payload"},
+      "expectedReadinessState": "ppi_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "mdsb_shadow_candidate",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D4", "D5", "D6"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canTriggerDiagnosis": false, "canWriteRegistry": false, "canTriggerExport": false, "canTriggerParallelProduction": false},
+      "expectedBlockedActions": ["final_diagnosis", "registry_write", "final_export", "parallel_production"]
+    },
+    {
+      "fixtureId": "resolve_mmabp_ir_candidate",
+      "inputSummary": {"queryType": "resolve_mmabp_ir_candidate", "module": "mmabp_ir_candidate", "requestedOutputType": "candidate_only"},
+      "expectedReadinessState": "ppi_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "mmabp_ir_candidate_shadow",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D5", "D6", "D8", "EVE06"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canTriggerRuntime": false, "canWriteRegistry": false, "canTriggerExport": false, "canTriggerParallelProduction": false},
+      "expectedBlockedActions": ["ir_finalization", "runtime_trigger", "registry_write", "final_export"]
+    },
+    {
+      "fixtureId": "resolve_registry_candidate",
+      "inputSummary": {"queryType": "resolve_registry_candidate", "module": "registry_candidate", "requestedOutputType": "candidate_only"},
+      "expectedReadinessState": "ppi_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "registry_candidate_shadow",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D5", "D6", "EVE04"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canWriteRegistry": false, "canTriggerExport": false, "canTriggerParallelProduction": false},
+      "expectedBlockedActions": ["registry_write", "runtime_manifest_mutation", "final_export", "parallel_production"]
+    },
+    {
+      "fixtureId": "resolve_export_blockers",
+      "inputSummary": {"queryType": "resolve_export_blockers", "module": "export_blockers"},
+      "expectedReadinessState": "ppi_lookup_ready",
+      "expectedResolved": true,
+      "expectedEntityKind": "export_blocker_set_shadow",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D4", "D5", "EVE05"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canTriggerExport": false, "canTriggerParallelProduction": false, "canWriteRegistry": false},
+      "expectedBlockedActions": ["final_export", "parallel_production", "registry_write"]
+    },
+    {
+      "fixtureId": "validate_payload_schema_valid",
+      "inputSummary": {"queryType": "validate_payload_schema", "payloadType": "scr_payload", "sourceTrace": ["D4", "D6"]},
+      "expectedReadinessState": "payload_schema_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "payload_schema_validation",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D4", "D6"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canModifyPayload": false},
+      "expectedBlockedActions": ["payload_mutation"]
+    },
+    {
+      "fixtureId": "validate_source_proof_valid",
+      "inputSummary": {"queryType": "validate_source_proof", "ruleId": "REGC-006", "sourceDocumentId": "D5"},
+      "expectedReadinessState": "source_proof_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "source_proof_validation",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["REGC-006", "D5"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canWriteRegistry": false},
+      "expectedBlockedActions": ["source_role_override", "registry_write"]
+    },
+    {
+      "fixtureId": "validate_export_blocker_valid",
+      "inputSummary": {"queryType": "validate_export_blocker", "blockerCode": "EXB-013", "sourceDocumentId": "EVE05"},
+      "expectedReadinessState": "export_blocker_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "export_blocker_validation",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["EXB-013", "EVE05"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canTriggerExport": false},
+      "expectedBlockedActions": ["final_export"]
+    },
+    {
+      "fixtureId": "validate_exb_031_override_requested_not_audited",
+      "inputSummary": {"queryType": "validate_exb_031", "blockerCode": "EXB-031", "context": {"overrideRequested": true, "overrideAudited": false}},
+      "expectedReadinessState": "exb_031_violation_detected",
+      "expectedResolved": false,
+      "expectedEntityKind": "exb_031_boundary_validation",
+      "expectedGapFlags": ["EXB_031_OVERRIDE_NOT_AUDITED"],
+      "expectedRuleIdsOrSourceTrace": ["EXB-031", "D4", "D5"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canTriggerExport": false, "canTriggerParallelProduction": false},
+      "expectedBlockedActions": ["override_acceptance", "final_export", "parallel_production"]
+    },
+    {
+      "fixtureId": "validate_exb_031_override_audited",
+      "inputSummary": {"queryType": "validate_exb_031", "blockerCode": "EXB-031", "context": {"overrideRequested": true, "overrideAudited": true}},
+      "expectedReadinessState": "exb_031_valid",
+      "expectedResolved": true,
+      "expectedEntityKind": "exb_031_boundary_validation",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["EXB-031", "D4", "D5"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canTriggerExport": false, "canTriggerParallelProduction": false},
+      "expectedBlockedActions": ["final_export", "parallel_production"]
+    },
+    {
+      "fixtureId": "validate_no_export_no_registry_no_parallel_production",
+      "inputSummary": {"queryType": "validate_no_export", "context": {"registryWrite": false, "parallelProduction": false}},
+      "expectedReadinessState": "no_export_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "safety_boundary_validation",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D3", "D4", "D5"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canWriteRegistry": false, "canTriggerExport": false, "canTriggerParallelProduction": false},
+      "expectedBlockedActions": ["registry_write", "final_export", "parallel_production"]
+    },
+    {
+      "fixtureId": "validate_documentary_satisfaction",
+      "inputSummary": {"queryType": "validate_documentary_satisfaction"},
+      "expectedReadinessState": "documentary_satisfaction_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "documentary_satisfaction_summary",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["QA_V1_1", "154/154", "26/26", "34/34", "EXB-031"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canWriteRegistry": false, "canTriggerExport": false, "canTriggerParallelProduction": false},
+      "expectedBlockedActions": ["certification_by_shadow_harness", "final_export", "registry_write"]
+    },
+    {
+      "fixtureId": "detect_missing_source_proof",
+      "inputSummary": {"queryType": "validate_source_proof", "ruleId": "UNKNOWN-RULE", "sourceTrace": []},
+      "expectedReadinessState": "source_proof_missing",
+      "expectedResolved": false,
+      "expectedEntityKind": "source_proof_gap",
+      "expectedGapFlags": ["SOURCE_PROOF_MISSING"],
+      "expectedRuleIdsOrSourceTrace": [],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canWriteRegistry": false, "canTriggerExport": false},
+      "expectedBlockedActions": ["accept_untraced_rule", "registry_write", "final_export"]
+    },
+    {
+      "fixtureId": "detect_missing_payload",
+      "inputSummary": {"queryType": "resolve_scr_payload", "payloadId": "missing-payload"},
+      "expectedReadinessState": "ppi_lookup_not_found",
+      "expectedResolved": false,
+      "expectedEntityKind": "missing_payload",
+      "expectedGapFlags": ["PPI_LOOKUP_NOT_FOUND"],
+      "expectedRuleIdsOrSourceTrace": [],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canModifyPayload": false, "canWriteRegistry": false},
+      "expectedBlockedActions": ["payload_mutation", "registry_write", "final_export"]
+    },
+    {
+      "fixtureId": "validate_registry_candidate_boundary",
+      "inputSummary": {"queryType": "validate_registry_candidate_boundary", "module": "registry_candidate"},
+      "expectedReadinessState": "registry_candidate_boundary_confirmed",
+      "expectedResolved": true,
+      "expectedEntityKind": "registry_boundary_validation",
+      "expectedGapFlags": [],
+      "expectedRuleIdsOrSourceTrace": ["D5", "EVE04"],
+      "expectedSafetyFlags": {"runtimeAuthority": false, "canWriteRegistry": false, "canTriggerRuntime": false},
+      "expectedBlockedActions": ["registry_write", "runtime_manifest_mutation", "runtime_trigger"]
+    }
+  ]
+}

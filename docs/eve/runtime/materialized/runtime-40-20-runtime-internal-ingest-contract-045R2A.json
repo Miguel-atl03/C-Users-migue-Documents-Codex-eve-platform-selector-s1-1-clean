@@ -1,0 +1,47 @@
+﻿{
+    "instruction":  "045-R2A",
+    "contract_name":  "Runtime internal ingest contract",
+    "required_internal_fields":  [
+                                     "case_id",
+                                     "catalog_version_id",
+                                     "activity_runtime_run_id",
+                                     "role_runtime_session_id",
+                                     "runtime_interaction_id",
+                                     "runtime_interaction_instance_id",
+                                     "source_node_id",
+                                     "source_code",
+                                     "capture_slot_kind",
+                                     "source_trace",
+                                     "provenance_type",
+                                     "response_revision_number",
+                                     "idempotency_key",
+                                     "subfield_answers"
+                                 ],
+    "server_resolved_fields":  [
+                                   "case_id",
+                                   "catalog_version_id",
+                                   "activity_runtime_run_id",
+                                   "role_runtime_session_id",
+                                   "runtime_interaction_id",
+                                   "runtime_interaction_instance_id",
+                                   "source_node_id",
+                                   "source_code",
+                                   "capture_slot_kind",
+                                   "source_trace",
+                                   "provenance_type",
+                                   "response_revision_number",
+                                   "idempotency_key"
+                               ],
+    "user_supplied_fields":  [
+                                 "selected value",
+                                 "selected values",
+                                 "free text",
+                                 "confirmation/correction value"
+                             ],
+    "existing_adapter_materiality":  "existing_service_extendable",
+    "evidence":  [
+                     "runtime-40-20-governed-execution-service.ts imports ingestRuntime4020ResponseLocal and has action ingest_response",
+                     "ingestResponse builds RuntimeResponsePayload server-side",
+                     "runtime-40-20-pg-persistence-adapter.ts has createInteractionInstance/createResponseBundle"
+                 ]
+}

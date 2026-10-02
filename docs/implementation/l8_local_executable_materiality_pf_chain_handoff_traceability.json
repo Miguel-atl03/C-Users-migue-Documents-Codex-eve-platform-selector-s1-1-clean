@@ -1,0 +1,50 @@
+{
+  "audit_id": "L8_LOCAL_EXECUTABLE_MATERIALITY_PF_CHAIN_HANDOFF_V1",
+  "implementation_allowed": true,
+  "runtime_40_20_full_allowed": false,
+  "production_integration_allowed": false,
+  "diagnosis_delivery_allowed": false,
+  "no_go_triggered": false,
+  "local_chain_stages": [
+    "B3",
+    "B7",
+    "PF_SUP_03",
+    "PF_SUP_04",
+    "PF_SUP_05",
+    "MATERIALITY_EVALUATOR"
+  ],
+  "files_created": [
+    "src/services/eve/materiality/l8-local-pf-chain-handoff-types.ts",
+    "src/services/eve/materiality/l8-local-pf-chain-handoff-orchestrator.ts",
+    "src/services/eve/materiality/l8-local-pf-chain-handoff-orchestrator.test.mjs",
+    "docs/implementation/l8_local_executable_materiality_pf_chain_handoff_closeout.md",
+    "docs/implementation/l8_local_executable_materiality_pf_chain_handoff_traceability.json"
+  ],
+  "files_modified": [],
+  "test_execution": {
+    "command": "node --test src/services/eve/materiality/l8-local-pf-chain-handoff-orchestrator.test.mjs",
+    "status": "passed",
+    "reason": ""
+  },
+  "materiality": {
+    "before": "L7 tested_materiality",
+    "after": "L8 executable_materiality",
+    "local_only": true,
+    "not_production_integration": true,
+    "next_authorization_required": true
+  },
+  "boundary": {
+    "runtime_40_20_full_opened": false,
+    "production_integration_opened": false,
+    "diagnosis_created": false,
+    "registry_created": false,
+    "ir_created": false,
+    "export_created": false,
+    "delivered_created": false,
+    "delivery_authorized": false,
+    "supabase_touched": false,
+    "sql_created": false,
+    "env_read": false
+  },
+  "next_authorization_required": true
+}

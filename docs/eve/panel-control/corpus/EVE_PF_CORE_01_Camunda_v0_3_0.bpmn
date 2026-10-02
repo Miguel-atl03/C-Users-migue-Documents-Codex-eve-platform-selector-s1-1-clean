@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_EVE_PF_CORE_01_v0_3_0" targetNamespace="https://empresa-eve.ai/mmabp/pf/core01/v0.3.0" exporter="Camunda Modeler" exporterVersion="5.43.1">
+  <bpmn:message id="Message_01" name="Solicitud diagnóstica aceptada" />
+  <bpmn:message id="Message_02" name="SceneCanonicalRecord [Consolidated] recibido" />
+  <bpmn:message id="Message_03" name="EvidenceBundle [ReadyForTransduction] recibido" />
+  <bpmn:message id="Message_04" name="EscenaEvidencial [Validated] recibida" />
+  <bpmn:message id="Message_05" name="PeliculaCausal [Aggregated] recibida" />
+  <bpmn:message id="Message_06" name="DiagnosticoExpertoFinal [Delivered] recibido" />
+  <bpmn:message id="Message_07" name="Confirmación de entrega/cierre de caso recibida" />
+  <bpmn:message id="Message_08" name="Cliente cancela" />
+  <bpmn:message id="Message_09" name="Reentrada evidencial requerida" />
+  <bpmn:message id="Message_10" name="Revisión experta requerida" />
+  <bpmn:process id="PF_CORE_01_Producir_Diagnostico_Causal_EVE_Trazable" name="PF-CORE-01 — Producir diagnóstico causal EVE trazable" isExecutable="false">
+    <bpmn:startEvent id="Start_SolicitudDiagnostica" name="Solicitud diagnóstica aceptada">
+      <bpmn:messageEventDefinition messageRef="Message_01" />
+    </bpmn:startEvent>
+    <bpmn:subProcess id="Step_AbrirCaso" name="Apertura del caso diagnóstico">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1vpw29o">
+        <bpmn:targetRef>DO_Case_InProduction</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Step_RegistrarSCR" name="Registrar SceneCanonicalRecord consolidado">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1iawb5h">
+        <bpmn:targetRef>DO_Case_WithSCR</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Step_RegistrarEB" name="Registrar EvidenceBundle listo para transducción">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1x3n2b0">
+        <bpmn:targetRef>DO_Case_ReadyForTransduction</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Step_RegistrarEscenas" name="Registrar escenas evidenciales validadas">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1f6ehjn">
+        <bpmn:targetRef>DO_Case_WithScenes</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Step_RegistrarPelicula" name="Registrar película causal agregada">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_13232tk">
+        <bpmn:targetRef>DO_Case_WithMovie</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Step_RegistrarDiagnostico" name="Registrar diagnóstico experto final">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_07f3w0w">
+        <bpmn:targetRef>DO_Case_WithDiagnosis</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Step_CerrarEntregado" name="Cerrar caso entregado">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0y2u7og">
+        <bpmn:targetRef>DO_Case_Delivered</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Step_CerrarSinSuficiencia" name="Cerrar caso sin suficiencia">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_00kbqrt">
+        <bpmn:targetRef>DO_Case_ClosedWithoutSufficiency</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Step_CancelarCaso" name="Cancelar caso">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1ywsbv0">
+        <bpmn:targetRef>DO_Case_Cancelled</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Step_ReabrirCaptura" name="Reabrir captura estructural" />
+    <bpmn:subProcess id="Step_ReabrirAgregacion" name="Reabrir agregación / síntesis" />
+    <bpmn:eventBasedGateway id="GW_PS_EsperarSCR" name="«Process State» Esperando SceneCanonicalRecord [Consolidated]" />
+    <bpmn:eventBasedGateway id="GW_PS_EsperarEB" name="«Process State» Esperando EvidenceBundle [ReadyForTransduction]" />
+    <bpmn:eventBasedGateway id="GW_PS_EsperarEscenas" name="«Process State» Esperando EscenaEvidencial [Validated]" />
+    <bpmn:eventBasedGateway id="GW_PS_EsperarPelicula" name="«Process State» Esperando PeliculaCausal [Aggregated]" />
+    <bpmn:eventBasedGateway id="GW_PS_EsperarDiagnostico" name="«Process State» Esperando DiagnosticoExpertoFinal [Delivered]" />
+    <bpmn:eventBasedGateway id="GW_PS_EsperarCierre" name="«Process State» Esperando confirmación de entrega/cierre" />
+    <bpmn:intermediateCatchEvent id="EV_SCR_Received" name="SceneCanonicalRecord [Consolidated] recibido">
+      <bpmn:messageEventDefinition messageRef="Message_02" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_SCR_Timer" name="timer_scene_record_consolidated_expirado">
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration>${max_tiempo_scene_record_consolidated}</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Cancel_01" name="Cliente cancela">
+      <bpmn:messageEventDefinition messageRef="Message_08" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_EB_Received" name="EvidenceBundle [ReadyForTransduction] recibido">
+      <bpmn:messageEventDefinition messageRef="Message_03" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_EB_Timer" name="timer_evidence_bundle_ready_expirado">
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration>${max_tiempo_evidence_bundle_ready}</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Cancel_02" name="Cliente cancela">
+      <bpmn:messageEventDefinition messageRef="Message_08" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Escenas_Received" name="EscenaEvidencial [Validated] recibida">
+      <bpmn:messageEventDefinition messageRef="Message_04" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Escenas_Timer" name="timer_escena_evidencial_validated_expirado">
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration>${max_tiempo_escena_evidencial_validated}</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Reentry_01" name="Reentrada evidencial requerida">
+      <bpmn:messageEventDefinition messageRef="Message_09" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Pelicula_Received" name="PeliculaCausal [Aggregated] recibida">
+      <bpmn:messageEventDefinition messageRef="Message_05" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Pelicula_Timer" name="timer_pelicula_causal_aggregated_expirado">
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration>${max_tiempo_pelicula_causal_aggregated}</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Reentry_02" name="Reentrada evidencial requerida">
+      <bpmn:messageEventDefinition messageRef="Message_09" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Diagnostico_Received" name="DiagnosticoExpertoFinal [Delivered] recibido">
+      <bpmn:messageEventDefinition messageRef="Message_06" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Diagnostico_Timer" name="timer_diagnostico_final_delivered_expirado">
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration>${max_tiempo_diagnostico_final_delivered}</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Review_Required" name="Revisión experta requerida">
+      <bpmn:messageEventDefinition messageRef="Message_10" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Closure_Confirmed" name="Confirmación de entrega/cierre de caso recibida">
+      <bpmn:messageEventDefinition messageRef="Message_07" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Closure_Timer" name="timer_confirmacion_cierre_expirado">
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration>${max_tiempo_confirmacion_cierre}</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="EV_Cancel_03" name="Cliente cancela">
+      <bpmn:messageEventDefinition messageRef="Message_08" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="End_Delivered" name="CasoDiagnosticoEVE [Delivered]" />
+    <bpmn:endEvent id="End_ClosedWithoutSufficiency" name="CasoDiagnosticoEVE [ClosedWithoutSufficiency]" />
+    <bpmn:endEvent id="End_Cancelled" name="CasoDiagnosticoEVE [Cancelled]" />
+    <bpmn:sequenceFlow id="F_Start_Open" sourceRef="Start_SolicitudDiagnostica" targetRef="Step_AbrirCaso" />
+    <bpmn:sequenceFlow id="F_Open_PS1" sourceRef="Step_AbrirCaso" targetRef="GW_PS_EsperarSCR" />
+    <bpmn:sequenceFlow id="F_PS1_SCR" sourceRef="GW_PS_EsperarSCR" targetRef="EV_SCR_Received" />
+    <bpmn:sequenceFlow id="F_PS1_Timer" sourceRef="GW_PS_EsperarSCR" targetRef="EV_SCR_Timer" />
+    <bpmn:sequenceFlow id="F_PS1_Cancel" sourceRef="GW_PS_EsperarSCR" targetRef="EV_Cancel_01" />
+    <bpmn:sequenceFlow id="F_SCR_Register" sourceRef="EV_SCR_Received" targetRef="Step_RegistrarSCR" />
+    <bpmn:sequenceFlow id="F_Timer_Close1" sourceRef="EV_SCR_Timer" targetRef="Step_CerrarSinSuficiencia" />
+    <bpmn:sequenceFlow id="F_Cancel_Cancel1" sourceRef="EV_Cancel_01" targetRef="Step_CancelarCaso" />
+    <bpmn:sequenceFlow id="F_RegisterSCR_PS2" sourceRef="Step_RegistrarSCR" targetRef="GW_PS_EsperarEB" />
+    <bpmn:sequenceFlow id="F_PS2_EB" sourceRef="GW_PS_EsperarEB" targetRef="EV_EB_Received" />
+    <bpmn:sequenceFlow id="F_PS2_Timer" sourceRef="GW_PS_EsperarEB" targetRef="EV_EB_Timer" />
+    <bpmn:sequenceFlow id="F_PS2_Cancel" sourceRef="GW_PS_EsperarEB" targetRef="EV_Cancel_02" />
+    <bpmn:sequenceFlow id="F_EB_Register" sourceRef="EV_EB_Received" targetRef="Step_RegistrarEB" />
+    <bpmn:sequenceFlow id="F_Timer_Close2" sourceRef="EV_EB_Timer" targetRef="Step_CerrarSinSuficiencia" />
+    <bpmn:sequenceFlow id="F_Cancel_Cancel2" sourceRef="EV_Cancel_02" targetRef="Step_CancelarCaso" />
+    <bpmn:sequenceFlow id="F_RegisterEB_PS3" sourceRef="Step_RegistrarEB" targetRef="GW_PS_EsperarEscenas" />
+    <bpmn:sequenceFlow id="F_PS3_Escenas" sourceRef="GW_PS_EsperarEscenas" targetRef="EV_Escenas_Received" />
+    <bpmn:sequenceFlow id="F_PS3_Timer" sourceRef="GW_PS_EsperarEscenas" targetRef="EV_Escenas_Timer" />
+    <bpmn:sequenceFlow id="F_PS3_Reentry" sourceRef="GW_PS_EsperarEscenas" targetRef="EV_Reentry_01" />
+    <bpmn:sequenceFlow id="F_Escenas_Register" sourceRef="EV_Escenas_Received" targetRef="Step_RegistrarEscenas" />
+    <bpmn:sequenceFlow id="F_Timer_Close3" sourceRef="EV_Escenas_Timer" targetRef="Step_CerrarSinSuficiencia" />
+    <bpmn:sequenceFlow id="F_Reentry_Reopen1" sourceRef="EV_Reentry_01" targetRef="Step_ReabrirCaptura" />
+    <bpmn:sequenceFlow id="F_Reopen_PS1" name="loop a captura" sourceRef="Step_ReabrirCaptura" targetRef="GW_PS_EsperarSCR" />
+    <bpmn:sequenceFlow id="F_RegisterEscenas_PS4" sourceRef="Step_RegistrarEscenas" targetRef="GW_PS_EsperarPelicula" />
+    <bpmn:sequenceFlow id="F_PS4_Pelicula" sourceRef="GW_PS_EsperarPelicula" targetRef="EV_Pelicula_Received" />
+    <bpmn:sequenceFlow id="F_PS4_Timer" sourceRef="GW_PS_EsperarPelicula" targetRef="EV_Pelicula_Timer" />
+    <bpmn:sequenceFlow id="F_PS4_Reentry" sourceRef="GW_PS_EsperarPelicula" targetRef="EV_Reentry_02" />
+    <bpmn:sequenceFlow id="F_Pelicula_Register" sourceRef="EV_Pelicula_Received" targetRef="Step_RegistrarPelicula" />
+    <bpmn:sequenceFlow id="F_Timer_Close4" sourceRef="EV_Pelicula_Timer" targetRef="Step_CerrarSinSuficiencia" />
+    <bpmn:sequenceFlow id="F_Reentry_Reopen2" sourceRef="EV_Reentry_02" targetRef="Step_ReabrirCaptura" />
+    <bpmn:sequenceFlow id="F_RegisterPelicula_PS5" sourceRef="Step_RegistrarPelicula" targetRef="GW_PS_EsperarDiagnostico" />
+    <bpmn:sequenceFlow id="F_PS5_Diagnostico" sourceRef="GW_PS_EsperarDiagnostico" targetRef="EV_Diagnostico_Received" />
+    <bpmn:sequenceFlow id="F_PS5_Timer" sourceRef="GW_PS_EsperarDiagnostico" targetRef="EV_Diagnostico_Timer" />
+    <bpmn:sequenceFlow id="F_PS5_Review" sourceRef="GW_PS_EsperarDiagnostico" targetRef="EV_Review_Required" />
+    <bpmn:sequenceFlow id="F_Diagnostico_Register" sourceRef="EV_Diagnostico_Received" targetRef="Step_RegistrarDiagnostico" />
+    <bpmn:sequenceFlow id="F_Timer_Close5" sourceRef="EV_Diagnostico_Timer" targetRef="Step_CerrarSinSuficiencia" />
+    <bpmn:sequenceFlow id="F_Review_ReopenAgg" sourceRef="EV_Review_Required" targetRef="Step_ReabrirAgregacion" />
+    <bpmn:sequenceFlow id="F_ReopenAgg_PS4" name="loop a agregación" sourceRef="Step_ReabrirAgregacion" targetRef="GW_PS_EsperarPelicula" />
+    <bpmn:sequenceFlow id="F_RegisterDiagnostico_PS6" sourceRef="Step_RegistrarDiagnostico" targetRef="GW_PS_EsperarCierre" />
+    <bpmn:sequenceFlow id="F_PS6_Closure" sourceRef="GW_PS_EsperarCierre" targetRef="EV_Closure_Confirmed" />
+    <bpmn:sequenceFlow id="F_PS6_Timer" sourceRef="GW_PS_EsperarCierre" targetRef="EV_Closure_Timer" />
+    <bpmn:sequenceFlow id="F_PS6_Cancel" sourceRef="GW_PS_EsperarCierre" targetRef="EV_Cancel_03" />
+    <bpmn:sequenceFlow id="F_Closure_Close" sourceRef="EV_Closure_Confirmed" targetRef="Step_CerrarEntregado" />
+    <bpmn:sequenceFlow id="F_ClosureTimer_Close" name="cierre por política" sourceRef="EV_Closure_Timer" targetRef="Step_CerrarEntregado" />
+    <bpmn:sequenceFlow id="F_Cancel_Cancel3" sourceRef="EV_Cancel_03" targetRef="Step_CancelarCaso" />
+    <bpmn:sequenceFlow id="F_CloseDelivered_End" sourceRef="Step_CerrarEntregado" targetRef="End_Delivered" />
+    <bpmn:sequenceFlow id="F_CloseWithoutSuff_End" sourceRef="Step_CerrarSinSuficiencia" targetRef="End_ClosedWithoutSufficiency" />
+    <bpmn:sequenceFlow id="F_Cancel_End" sourceRef="Step_CancelarCaso" targetRef="End_Cancelled" />
+    <bpmn:dataObjectReference id="DO_Case_InProduction" name="CasoDiagnosticoEVE [InDiagnosticProduction]" dataObjectRef="DataObject_0nx7upg" />
+    <bpmn:dataObject id="DataObject_0nx7upg" />
+    <bpmn:dataObjectReference id="DO_Case_WithSCR" name="CasoDiagnosticoEVE [WithSceneCanonicalRecord]" dataObjectRef="DataObject_1p38w8z" />
+    <bpmn:dataObject id="DataObject_1p38w8z" />
+    <bpmn:dataObjectReference id="DO_Case_ReadyForTransduction" name="CasoDiagnosticoEVE [ReadyForTransduction]" dataObjectRef="DataObject_0iaaqnk" />
+    <bpmn:dataObject id="DataObject_0iaaqnk" />
+    <bpmn:dataObjectReference id="DO_Case_ClosedWithoutSufficiency" name="CasoDiagnosticoEVE [ClosedWithoutSufficiency]" dataObjectRef="DataObject_11i9zh4" />
+    <bpmn:dataObject id="DataObject_11i9zh4" />
+    <bpmn:dataObjectReference id="DO_Case_WithMovie" name="CasoDiagnosticoEVE [WithAggregatedCausalMovie]" dataObjectRef="DataObject_0plmm2l" />
+    <bpmn:dataObject id="DataObject_0plmm2l" />
+    <bpmn:dataObjectReference id="DO_Case_WithDiagnosis" name="CasoDiagnosticoEVE [WithDeliveredExpertDiagnosis]" dataObjectRef="DataObject_1nhw4a9" />
+    <bpmn:dataObject id="DataObject_1nhw4a9" />
+    <bpmn:dataObjectReference id="DO_Case_Cancelled" name="CasoDiagnosticoEVE [Cancelled]" dataObjectRef="DataObject_1a8sytl" />
+    <bpmn:dataObject id="DataObject_1a8sytl" />
+    <bpmn:dataObjectReference id="DO_Case_WithScenes" name="CasoDiagnosticoEVE [WithValidatedEvidentialScenes]" dataObjectRef="DataObject_0up4vjc" />
+    <bpmn:dataObject id="DataObject_0up4vjc" />
+    <bpmn:dataStoreReference id="DO_Case_Delivered" name="CasoDiagnosticoEVE [Delivered]" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_PF_CORE_01_v0_3_0">
+    <bpmndi:BPMNPlane id="BPMNPlane_PF_CORE_01_v0_3_0" bpmnElement="PF_CORE_01_Producir_Diagnostico_Causal_EVE_Trazable">
+      <bpmndi:BPMNShape id="Start_SolicitudDiagnostica_di" bpmnElement="Start_SolicitudDiagnostica">
+        <dc:Bounds x="1050" y="130" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1040" y="80" width="56" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_AbrirCaso_di" bpmnElement="Step_AbrirCaso" isExpanded="false">
+        <dc:Bounds x="940" y="200" width="260" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_RegistrarSCR_di" bpmnElement="Step_RegistrarSCR" isExpanded="false">
+        <dc:Bounds x="940" y="515" width="260" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_RegistrarEB_di" bpmnElement="Step_RegistrarEB" isExpanded="false">
+        <dc:Bounds x="940" y="830" width="260" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_RegistrarEscenas_di" bpmnElement="Step_RegistrarEscenas" isExpanded="false">
+        <dc:Bounds x="940" y="1145" width="260" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_RegistrarPelicula_di" bpmnElement="Step_RegistrarPelicula" isExpanded="false">
+        <dc:Bounds x="940" y="1460" width="260" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_RegistrarDiagnostico_di" bpmnElement="Step_RegistrarDiagnostico" isExpanded="false">
+        <dc:Bounds x="940" y="1775" width="260" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_CerrarEntregado_di" bpmnElement="Step_CerrarEntregado" isExpanded="false">
+        <dc:Bounds x="940" y="2090" width="260" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_CerrarSinSuficiencia_di" bpmnElement="Step_CerrarSinSuficiencia" isExpanded="false">
+        <dc:Bounds x="1600" y="1090" width="260" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_CancelarCaso_di" bpmnElement="Step_CancelarCaso" isExpanded="false">
+        <dc:Bounds x="410" y="1090" width="260" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_ReabrirCaptura_di" bpmnElement="Step_ReabrirCaptura" isExpanded="false">
+        <dc:Bounds x="580" y="1190" width="260" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Step_ReabrirAgregacion_di" bpmnElement="Step_ReabrirAgregacion" isExpanded="false">
+        <dc:Bounds x="450" y="1520" width="260" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_PS_EsperarSCR_di" bpmnElement="GW_PS_EsperarSCR">
+        <dc:Bounds x="1045" y="350" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1099" y="377" width="81" height="66" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_PS_EsperarEB_di" bpmnElement="GW_PS_EsperarEB">
+        <dc:Bounds x="1045" y="665" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1097" y="697" width="86" height="66" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_PS_EsperarEscenas_di" bpmnElement="GW_PS_EsperarEscenas">
+        <dc:Bounds x="1045" y="980" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1096" y="1013" width="87" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_PS_EsperarPelicula_di" bpmnElement="GW_PS_EsperarPelicula">
+        <dc:Bounds x="1045" y="1295" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1100.5" y="1323" width="81" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_PS_EsperarDiagnostico_di" bpmnElement="GW_PS_EsperarDiagnostico">
+        <dc:Bounds x="1045" y="1610" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1095" y="1643" width="90" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_PS_EsperarCierre_di" bpmnElement="GW_PS_EsperarCierre">
+        <dc:Bounds x="1045" y="1925" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1099" y="1953" width="81" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_SCR_Received_di" bpmnElement="EV_SCR_Received">
+        <dc:Bounds x="1050" y="435" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="959" y="464" width="81" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_SCR_Timer_di" bpmnElement="EV_SCR_Timer">
+        <dc:Bounds x="1340" y="435" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1314" y="471" width="88" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Cancel_01_di" bpmnElement="EV_Cancel_01">
+        <dc:Bounds x="760" y="435" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="672" y="446" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_EB_Received_di" bpmnElement="EV_EB_Received">
+        <dc:Bounds x="1050" y="750" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="967" y="786" width="86" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_EB_Timer_di" bpmnElement="EV_EB_Timer">
+        <dc:Bounds x="1340" y="750" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1315" y="786" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Cancel_02_di" bpmnElement="EV_Cancel_02">
+        <dc:Bounds x="760" y="750" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="674" y="761" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Escenas_Received_di" bpmnElement="EV_Escenas_Received">
+        <dc:Bounds x="1050" y="1065" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="956" y="1101" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Escenas_Timer_di" bpmnElement="EV_Escenas_Timer">
+        <dc:Bounds x="1340" y="1065" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1315" y="1101" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Reentry_01_di" bpmnElement="EV_Reentry_01">
+        <dc:Bounds x="760" y="1065" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="698" y="1063" width="52" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Pelicula_Received_di" bpmnElement="EV_Pelicula_Received">
+        <dc:Bounds x="1050" y="1380" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="973" y="1416" width="73" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Pelicula_Timer_di" bpmnElement="EV_Pelicula_Timer">
+        <dc:Bounds x="1340" y="1380" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1317" y="1416" width="82" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Reentry_02_di" bpmnElement="EV_Reentry_02">
+        <dc:Bounds x="760" y="1380" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="752" y="1416" width="52" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Diagnostico_Received_di" bpmnElement="EV_Diagnostico_Received">
+        <dc:Bounds x="1050" y="1695" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="955" y="1731" width="90" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Diagnostico_Timer_di" bpmnElement="EV_Diagnostico_Timer">
+        <dc:Bounds x="1340" y="1695" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1315" y="1731" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Review_Required_di" bpmnElement="EV_Review_Required">
+        <dc:Bounds x="760" y="1695" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="737" y="1731" width="82" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Closure_Confirmed_di" bpmnElement="EV_Closure_Confirmed">
+        <dc:Bounds x="1050" y="2010" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="958" y="2046" width="84" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Closure_Timer_di" bpmnElement="EV_Closure_Timer">
+        <dc:Bounds x="1340" y="2010" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1389" y="2008" width="82" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EV_Cancel_03_di" bpmnElement="EV_Cancel_03">
+        <dc:Bounds x="760" y="2010" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="740" y="2046" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Delivered_di" bpmnElement="End_Delivered">
+        <dc:Bounds x="1039" y="2265" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1022" y="2315" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_ClosedWithoutSufficiency_di" bpmnElement="End_ClosedWithoutSufficiency">
+        <dc:Bounds x="1705" y="1235" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1686" y="1285" width="89" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Cancelled_di" bpmnElement="End_Cancelled">
+        <dc:Bounds x="515" y="1335" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="498" y="1385" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0n3cp2v_di" bpmnElement="DO_Case_InProduction">
+        <dc:Bounds x="1412" y="210" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1387" y="285" width="87" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0ruxxpr_di" bpmnElement="DO_Case_WithSCR">
+        <dc:Bounds x="1412" y="525" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1386" y="600" width="89" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_10dpb2v_di" bpmnElement="DO_Case_ReadyForTransduction">
+        <dc:Bounds x="1412" y="850" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1387" y="925" width="86" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0lkkdi7_di" bpmnElement="DO_Case_ClosedWithoutSufficiency">
+        <dc:Bounds x="2012" y="1105" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1985" y="1180" width="89" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_165zam9_di" bpmnElement="DO_Case_WithMovie">
+        <dc:Bounds x="1412" y="1470" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1388" y="1545" width="84" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_02a94o9_di" bpmnElement="DO_Case_WithDiagnosis">
+        <dc:Bounds x="1412" y="1785" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1388" y="1860" width="85" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1ocpn86_di" bpmnElement="DO_Case_Cancelled">
+        <dc:Bounds x="182" y="1102" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="158" y="1177" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0on1vtz_di" bpmnElement="DO_Case_WithScenes">
+        <dc:Bounds x="1412" y="1155" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1387" y="1230" width="86" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1dzgjo2_di" bpmnElement="DO_Case_Delivered">
+        <dc:Bounds x="1405" y="2100" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1388" y="2175" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1vpw29o_di" bpmnElement="DataOutputAssociation_1vpw29o">
+        <di:waypoint x="1200" y="245" />
+        <di:waypoint x="1412" y="245" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1iawb5h_di" bpmnElement="DataOutputAssociation_1iawb5h">
+        <di:waypoint x="1200" y="560" />
+        <di:waypoint x="1412" y="560" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1x3n2b0_di" bpmnElement="DataOutputAssociation_1x3n2b0">
+        <di:waypoint x="1200" y="879" />
+        <di:waypoint x="1412" y="885" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1f6ehjn_di" bpmnElement="DataOutputAssociation_1f6ehjn">
+        <di:waypoint x="1200" y="1190" />
+        <di:waypoint x="1412" y="1190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_13232tk_di" bpmnElement="DataOutputAssociation_13232tk">
+        <di:waypoint x="1200" y="1505" />
+        <di:waypoint x="1412" y="1505" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_07f3w0w_di" bpmnElement="DataOutputAssociation_07f3w0w">
+        <di:waypoint x="1200" y="1820" />
+        <di:waypoint x="1412" y="1820" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0y2u7og_di" bpmnElement="DataOutputAssociation_0y2u7og">
+        <di:waypoint x="1200" y="2135" />
+        <di:waypoint x="1405" y="2135" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_00kbqrt_di" bpmnElement="DataOutputAssociation_00kbqrt">
+        <di:waypoint x="1860" y="1137" />
+        <di:waypoint x="2012" y="1140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1ywsbv0_di" bpmnElement="DataOutputAssociation_1ywsbv0">
+        <di:waypoint x="410" y="1138" />
+        <di:waypoint x="218" y="1140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Start_Open_di" bpmnElement="F_Start_Open">
+        <di:waypoint x="1068" y="166" />
+        <di:waypoint x="1068" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Open_PS1_di" bpmnElement="F_Open_PS1">
+        <di:waypoint x="1070" y="290" />
+        <di:waypoint x="1070" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS1_SCR_di" bpmnElement="F_PS1_SCR">
+        <di:waypoint x="1070" y="400" />
+        <di:waypoint x="1070" y="435" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS1_Timer_di" bpmnElement="F_PS1_Timer">
+        <di:waypoint x="1095" y="375" />
+        <di:waypoint x="1358" y="375" />
+        <di:waypoint x="1358" y="435" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS1_Cancel_di" bpmnElement="F_PS1_Cancel">
+        <di:waypoint x="1045" y="375" />
+        <di:waypoint x="778" y="375" />
+        <di:waypoint x="778" y="435" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_SCR_Register_di" bpmnElement="F_SCR_Register">
+        <di:waypoint x="1068" y="471" />
+        <di:waypoint x="1070" y="515" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Timer_Close1_di" bpmnElement="F_Timer_Close1">
+        <di:waypoint x="1376" y="453" />
+        <di:waypoint x="1600" y="453" />
+        <di:waypoint x="1600" y="1030" />
+        <di:waypoint x="1690" y="1030" />
+        <di:waypoint x="1690" y="1090" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Cancel_Cancel1_di" bpmnElement="F_Cancel_Cancel1">
+        <di:waypoint x="785" y="469" />
+        <di:waypoint x="785" y="600" />
+        <di:waypoint x="523" y="600" />
+        <di:waypoint x="523" y="1090" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_RegisterSCR_PS2_di" bpmnElement="F_RegisterSCR_PS2">
+        <di:waypoint x="1070" y="605" />
+        <di:waypoint x="1070" y="665" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS2_EB_di" bpmnElement="F_PS2_EB">
+        <di:waypoint x="1070" y="715" />
+        <di:waypoint x="1070" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS2_Timer_di" bpmnElement="F_PS2_Timer">
+        <di:waypoint x="1095" y="690" />
+        <di:waypoint x="1358" y="690" />
+        <di:waypoint x="1358" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS2_Cancel_di" bpmnElement="F_PS2_Cancel">
+        <di:waypoint x="1045" y="690" />
+        <di:waypoint x="778" y="690" />
+        <di:waypoint x="778" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_EB_Register_di" bpmnElement="F_EB_Register">
+        <di:waypoint x="1068" y="786" />
+        <di:waypoint x="1070" y="830" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Timer_Close2_di" bpmnElement="F_Timer_Close2">
+        <di:waypoint x="1376" y="768" />
+        <di:waypoint x="1510" y="768" />
+        <di:waypoint x="1510" y="1100" />
+        <di:waypoint x="1600" y="1100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Cancel_Cancel2_di" bpmnElement="F_Cancel_Cancel2">
+        <di:waypoint x="778" y="786" />
+        <di:waypoint x="778" y="920" />
+        <di:waypoint x="560" y="920" />
+        <di:waypoint x="560" y="1090" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_RegisterEB_PS3_di" bpmnElement="F_RegisterEB_PS3">
+        <di:waypoint x="1070" y="920" />
+        <di:waypoint x="1070" y="980" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS3_Escenas_di" bpmnElement="F_PS3_Escenas">
+        <di:waypoint x="1070" y="1030" />
+        <di:waypoint x="1070" y="1065" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS3_Timer_di" bpmnElement="F_PS3_Timer">
+        <di:waypoint x="1095" y="1005" />
+        <di:waypoint x="1358" y="1005" />
+        <di:waypoint x="1358" y="1065" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS3_Reentry_di" bpmnElement="F_PS3_Reentry">
+        <di:waypoint x="1045" y="1005" />
+        <di:waypoint x="778" y="1005" />
+        <di:waypoint x="778" y="1065" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Escenas_Register_di" bpmnElement="F_Escenas_Register">
+        <di:waypoint x="1068" y="1101" />
+        <di:waypoint x="1070" y="1145" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Timer_Close3_di" bpmnElement="F_Timer_Close3">
+        <di:waypoint x="1375" y="1079" />
+        <di:waypoint x="1470" y="1079" />
+        <di:waypoint x="1470" y="1140" />
+        <di:waypoint x="1600" y="1142" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Reentry_Reopen1_di" bpmnElement="F_Reentry_Reopen1">
+        <di:waypoint x="778" y="1101" />
+        <di:waypoint x="778" y="1146" />
+        <di:waypoint x="710" y="1146" />
+        <di:waypoint x="710" y="1190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Reopen_PS1_di" bpmnElement="F_Reopen_PS1">
+        <di:waypoint x="580" y="1230" />
+        <di:waypoint x="360" y="1230" />
+        <di:waypoint x="360" y="375" />
+        <di:waypoint x="1045" y="375" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="375" y="786" width="70" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_RegisterEscenas_PS4_di" bpmnElement="F_RegisterEscenas_PS4">
+        <di:waypoint x="1070" y="1235" />
+        <di:waypoint x="1070" y="1295" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS4_Pelicula_di" bpmnElement="F_PS4_Pelicula">
+        <di:waypoint x="1070" y="1345" />
+        <di:waypoint x="1070" y="1380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS4_Timer_di" bpmnElement="F_PS4_Timer">
+        <di:waypoint x="1095" y="1320" />
+        <di:waypoint x="1358" y="1320" />
+        <di:waypoint x="1358" y="1380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS4_Reentry_di" bpmnElement="F_PS4_Reentry">
+        <di:waypoint x="1058" y="1333" />
+        <di:waypoint x="1040" y="1350" />
+        <di:waypoint x="778" y="1350" />
+        <di:waypoint x="778" y="1380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Pelicula_Register_di" bpmnElement="F_Pelicula_Register">
+        <di:waypoint x="1068" y="1416" />
+        <di:waypoint x="1070" y="1460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Timer_Close4_di" bpmnElement="F_Timer_Close4">
+        <di:waypoint x="1376" y="1398" />
+        <di:waypoint x="1560" y="1398" />
+        <di:waypoint x="1560" y="1170" />
+        <di:waypoint x="1600" y="1170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Reentry_Reopen2_di" bpmnElement="F_Reentry_Reopen2">
+        <di:waypoint x="778" y="1380" />
+        <di:waypoint x="778" y="1300" />
+        <di:waypoint x="710" y="1300" />
+        <di:waypoint x="710" y="1270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_RegisterPelicula_PS5_di" bpmnElement="F_RegisterPelicula_PS5">
+        <di:waypoint x="1070" y="1550" />
+        <di:waypoint x="1070" y="1610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS5_Diagnostico_di" bpmnElement="F_PS5_Diagnostico">
+        <di:waypoint x="1070" y="1660" />
+        <di:waypoint x="1070" y="1695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS5_Timer_di" bpmnElement="F_PS5_Timer">
+        <di:waypoint x="1095" y="1635" />
+        <di:waypoint x="1358" y="1635" />
+        <di:waypoint x="1358" y="1695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS5_Review_di" bpmnElement="F_PS5_Review">
+        <di:waypoint x="1045" y="1635" />
+        <di:waypoint x="778" y="1635" />
+        <di:waypoint x="778" y="1695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Diagnostico_Register_di" bpmnElement="F_Diagnostico_Register">
+        <di:waypoint x="1068" y="1731" />
+        <di:waypoint x="1070" y="1775" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Timer_Close5_di" bpmnElement="F_Timer_Close5">
+        <di:waypoint x="1376" y="1713" />
+        <di:waypoint x="1600" y="1713" />
+        <di:waypoint x="1600" y="1170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Review_ReopenAgg_di" bpmnElement="F_Review_ReopenAgg">
+        <di:waypoint x="778" y="1731" />
+        <di:waypoint x="580" y="1731" />
+        <di:waypoint x="580" y="1600" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_ReopenAgg_PS4_di" bpmnElement="F_ReopenAgg_PS4">
+        <di:waypoint x="450" y="1560" />
+        <di:waypoint x="380" y="1560" />
+        <di:waypoint x="380" y="1320" />
+        <di:waypoint x="1045" y="1320" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="386" y="1430" width="88" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_RegisterDiagnostico_PS6_di" bpmnElement="F_RegisterDiagnostico_PS6">
+        <di:waypoint x="1070" y="1865" />
+        <di:waypoint x="1070" y="1925" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS6_Closure_di" bpmnElement="F_PS6_Closure">
+        <di:waypoint x="1070" y="1975" />
+        <di:waypoint x="1070" y="2010" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS6_Timer_di" bpmnElement="F_PS6_Timer">
+        <di:waypoint x="1095" y="1950" />
+        <di:waypoint x="1358" y="1950" />
+        <di:waypoint x="1358" y="2010" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_PS6_Cancel_di" bpmnElement="F_PS6_Cancel">
+        <di:waypoint x="1045" y="1950" />
+        <di:waypoint x="778" y="1950" />
+        <di:waypoint x="778" y="2010" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Closure_Close_di" bpmnElement="F_Closure_Close">
+        <di:waypoint x="1068" y="2046" />
+        <di:waypoint x="1070" y="2090" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_ClosureTimer_Close_di" bpmnElement="F_ClosureTimer_Close">
+        <di:waypoint x="1358" y="2046" />
+        <di:waypoint x="1358" y="2110" />
+        <di:waypoint x="1200" y="2110" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1243" y="2088" width="85" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Cancel_Cancel3_di" bpmnElement="F_Cancel_Cancel3">
+        <di:waypoint x="760" y="2028" />
+        <di:waypoint x="300" y="2028" />
+        <di:waypoint x="300" y="1200" />
+        <di:waypoint x="390" y="1200" />
+        <di:waypoint x="390" y="1150" />
+        <di:waypoint x="410" y="1148" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_CloseDelivered_End_di" bpmnElement="F_CloseDelivered_End">
+        <di:waypoint x="1066" y="2180" />
+        <di:waypoint x="1066" y="2265" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_CloseWithoutSuff_End_di" bpmnElement="F_CloseWithoutSuff_End">
+        <di:waypoint x="1730" y="1180" />
+        <di:waypoint x="1730" y="1235" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_Cancel_End_di" bpmnElement="F_Cancel_End">
+        <di:waypoint x="540" y="1180" />
+        <di:waypoint x="540" y="1335" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_AbrirCaso" />
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_RegistrarSCR" />
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_RegistrarEB" />
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_RegistrarEscenas" />
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_RegistrarPelicula" />
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_RegistrarDiagnostico" />
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_CerrarEntregado" />
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_CerrarSinSuficiencia" />
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_CancelarCaso" />
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_ReabrirCaptura" />
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="Step_ReabrirAgregacion" />
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,39 @@
+﻿{
+    "instruction":  "045-R2A",
+    "classification":  "client_boundary_minimal_field_gap",
+    "principle":  "Gaby must send user answer values plus server-issued opaque references only. It must not author catalog, lineage, source_trace, provenance, or semantic Runtime identity.",
+    "client_must_send":  [
+                             "sessionId",
+                             "sceneId or server-issued scene reference",
+                             "answer value(s)"
+                         ],
+    "client_may_need_to_echo":  [
+                                    "activityRuntimeRunId or equivalent server-issued run reference",
+                                    "runtime_interaction_instance_id or equivalent server-issued visible interaction token",
+                                    "visible slot key emitted by Runtime renderer when multiple controls are visible"
+                                ],
+    "client_must_not_send_as_authority":  [
+                                              "catalog_version_id",
+                                              "source_trace",
+                                              "provenance_type",
+                                              "source_node_id",
+                                              "source_code",
+                                              "capture_slot_kind",
+                                              "tenant_id",
+                                              "organization_id",
+                                              "case_id",
+                                              "response_revision_number"
+                                          ],
+    "current_live_payload":  [
+                                 "sessionId",
+                                 "sceneId",
+                                 "answers[].questionCode",
+                                 "answers[].blockId",
+                                 "answers[].selectedValue",
+                                 "answers[].selectedValues",
+                                 "answers[].freeText",
+                                 "answers[].answerNature",
+                                 "answers[].canonicalVariable"
+                             ],
+    "current_gap":  "The live payload lacks a server-issued opaque Runtime run/interaction/slot reference. questionCode is a legacy catalog key, not a governed Runtime slot identity."
+}

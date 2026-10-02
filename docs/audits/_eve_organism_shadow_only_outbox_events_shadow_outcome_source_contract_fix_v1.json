@@ -1,0 +1,114 @@
+{
+  "dictamen": "SHADOW_ONLY_OUTBOX_EVENTS_SHADOW_OUTCOME_SOURCE_CONTRACT_REQUIRES_FUTURE_MIGRATION",
+  "target_blocker": "missing_verified_shadow_outcome_mapping",
+  "source": "shadow_only_outbox_events",
+  "source_schema_verification": {
+    "schema_verified": true,
+    "evidence_files": [
+      "sql/migrations/2026-06-27-create-shadow-only-outbox-events.sql",
+      "docs/audits/_eve_organism_option_a_shadow_only_outbox_logical_schema_v1.json",
+      "docs/audits/_eve_organism_option_a_shadow_only_outbox_real_migration_structure_v1.json",
+      "docs/audits/_eve_organism_option_a_non_productive_shadow_outbox_provisioning_v1.json",
+      "docs/audits/_eve_organism_option_a_non_productive_shadow_outbox_dynamic_tests_v1.json"
+    ],
+    "columns_or_fields_found": [
+      "outbox_event_id",
+      "source_event_id",
+      "source_system",
+      "source_environment",
+      "source_locator",
+      "emitted_at",
+      "captured_at",
+      "tenant_id",
+      "session_id",
+      "activity_id",
+      "actor_ref",
+      "real_client_intent",
+      "real_tenant_context",
+      "real_session_context",
+      "real_activity_context",
+      "real_runtime_event",
+      "real_evidence_signal",
+      "official_outcome",
+      "provenance",
+      "source_trace",
+      "correlation_id",
+      "idempotency_key",
+      "official_flow_ref",
+      "redaction_status",
+      "data_minimization_attestation",
+      "payload_hash",
+      "previous_event_hash",
+      "checksum_chain_ref",
+      "replay_ref",
+      "latency_observation_ref",
+      "append_only_attestation",
+      "no_write_attestation",
+      "schema_version",
+      "contract_version",
+      "created_at",
+      "writer_identity_ref",
+      "reviewer_identity_ref",
+      "governance_review_ref",
+      "s3_star_review_ref",
+      "event_status"
+    ],
+    "source_of_truth": "migration",
+    "schema_confidence": "high"
+  },
+  "shadow_outcome_field_found": false,
+  "verified_field_name": null,
+  "mapping_updated": false,
+  "future_migration_required": true,
+  "adapter_implementation_unblocked": false,
+  "semantic_verification": {
+    "exact_shadow_outcome_found": false,
+    "official_outcome_forbidden_as_shadow_outcome": true,
+    "payload_derived_forbidden": true,
+    "registry_export_diagnosis_forbidden": true,
+    "gate3_fase9_runtime_forbidden": true
+  },
+  "authority": {
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "observer_created": false,
+    "observer_authorized": false,
+    "real_observation_authorized": false,
+    "read_only_observer_authorized": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "db_written": false,
+    "ui_touched": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "productive_brain_connection": false
+  },
+  "gaps": [
+    {
+      "gap_id": "missing_verified_shadow_outcome_mapping",
+      "severity": "critical",
+      "description": "No exact shadow outcome field exists in verified shadow_only_outbox_events schema."
+    },
+    {
+      "gap_id": "future_shadow_outcome_migration_required",
+      "severity": "high",
+      "description": "A future migration or equivalent source contract is required to add shadow_outcome."
+    }
+  ],
+  "gap_counts": {
+    "total": 2,
+    "critical": 1,
+    "high": 1
+  },
+  "blockers": [
+    {
+      "blocker_id": "missing_verified_shadow_outcome_mapping",
+      "severity": "critical",
+      "description": "Adapter implementation remains blocked until shadow_outcome is present with exact semantics."
+    }
+  ],
+  "blockers_total": 1,
+  "next_step": "DESIGN_SHADOW_ONLY_OUTBOX_EVENTS_SHADOW_OUTCOME_FUTURE_MIGRATION_V1"
+}

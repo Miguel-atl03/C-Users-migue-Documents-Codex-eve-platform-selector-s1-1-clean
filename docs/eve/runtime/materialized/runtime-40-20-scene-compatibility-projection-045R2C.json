@@ -1,0 +1,21 @@
+{
+    "instruction":  "045-R2C",
+    "scene_projection_status":  "not_materialized",
+    "scene_tables":  [
+                         "scene_question_answers",
+                         "scene_answer_provenance"
+                     ],
+    "current_legacy_path":  {
+                                "route":  "src/app/api/scenes/answers/route.ts",
+                                "repository":  "src/services/scene-repository.ts",
+                                "status":  "direct_scene_write_still_present"
+                            },
+    "legacy_consumers":  [
+                             "scene-derivation-engine",
+                             "scene-light-preclassification-engine",
+                             "scene-canonical-record-builder",
+                             "SceneQuestionnaireRunner"
+                         ],
+    "required_transition_for_runtime_sessions":  "superseded_for_runtime_sessions_or_delegate_to_Runtime_then_project_after_commit",
+    "blocked_reason":  "No Runtime outbox and no Runtime scene identity binding; cannot safely project."
+}

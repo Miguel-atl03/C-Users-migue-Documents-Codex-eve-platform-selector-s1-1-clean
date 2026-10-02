@@ -1,0 +1,193 @@
+{
+  "dictamen": "MIGUEL_BRIDGE_READER_IMPLEMENTATION_SCOPE_DECISION_READY_WITH_GAPS",
+  "generated_at": "2026-06-27T19:09:46.6971575-06:00",
+  "scope_decision_prepared": true,
+  "bridge_reader_implemented": false,
+  "metadata_consistency_fix_applied": true,
+  "final_counts": {
+    "gaps_total": 3,
+    "critical_gaps": 0,
+    "high_gaps": 2,
+    "medium_gaps": 1,
+    "blockers_total": 0
+  },
+  "sequence_position": {
+    "current_frontier": "MIGUEL_BRIDGE_READER_IMPLEMENTATION_SCOPE_DECISION_V1",
+    "previous_milestone": "GATE2_REAL_SHADOW_BRIDGE_READER_IMPLEMENTATION_PLAN_V1",
+    "previous_commit": "15ed0c860c635ff6e0e45f6452b9194c3091a196",
+    "next_recommended": "APPROVE_NON_PRODUCTIVE_BRIDGE_READER_IMPLEMENTATION_ONLY"
+  },
+  "evidence_found": [
+    {
+      "path": "docs/audits/AUDIT_EVE_ORGANISM_GATE2_REAL_SHADOW_BRIDGE_READER_IMPLEMENTATION_PLAN_V1.md",
+      "evidence": "audit markdown exists"
+    },
+    {
+      "path": "docs/audits/_eve_organism_gate2_real_shadow_bridge_reader_implementation_plan_v1.json",
+      "evidence": "plan json exists and declares mode BRIDGE_READER_IMPLEMENTATION_PLAN_ONLY"
+    },
+    {
+      "path": "docs/audits/_eve_organism_gate2_real_shadow_bridge_reader_contracts_v1.json",
+      "evidence": "defines ShadowOutboxReaderContract and BridgeReaderResult"
+    },
+    {
+      "path": "docs/audits/_eve_organism_gate2_real_shadow_bridge_reader_evidence_requirements_v1.json",
+      "evidence": "defines 20 future evidence requirements"
+    },
+    {
+      "path": "docs/audits/_eve_organism_gate2_real_shadow_bridge_reader_no_go_matrix_v1.json",
+      "evidence": "defines 25 No-Go rules blocking bridge implementation, real observation, Gate 3 and Fase 9"
+    }
+  ],
+  "evidence_not_found": [
+    {
+      "item": "Miguel explicit approval for non-productive bridge reader implementation",
+      "status": "not_found_in_current_scope"
+    },
+    {
+      "item": "implemented bridge reader service",
+      "status": "not_found_expected"
+    },
+    {
+      "item": "real observer",
+      "status": "not_found_expected"
+    }
+  ],
+  "recommended_option": {
+    "id": "OPTION_A",
+    "decision": "APPROVE_NON_PRODUCTIVE_BRIDGE_READER_IMPLEMENTATION_ONLY",
+    "recommended": true,
+    "reason": "The prior plan exists and keeps bridge, reader, observer, runtime, product, real observation, Gate 3, Fase 9, registry, export and diagnosis disabled. The future implementation can be scoped to non-productive read-only shadow-only functions and tests."
+  },
+  "authority": {
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "observer_created": false,
+    "observer_authorized": false,
+    "real_observation_authorized": false,
+    "read_only_observer_authorized": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "db_written": false,
+    "ui_touched": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "productive_brain_connection": false
+  },
+  "option_a_scope": {
+    "non_productive": true,
+    "read_only": true,
+    "shadow_only": true,
+    "fixture_or_local_allowed": true,
+    "db_write_allowed": false,
+    "observer_allowed": false,
+    "registry_export_allowed": false,
+    "diagnosis_allowed": false,
+    "gate3_allowed": false,
+    "fase9_allowed": false
+  },
+  "future_allowed_files": [
+    "src/types/eve-organism-gate2-real-shadow-bridge-reader.ts",
+    "src/services/eve-organism-gate2-real-shadow-bridge-reader.ts",
+    "tests/regression/eve-organism-gate2-real-shadow-bridge-reader.test.ts",
+    "docs/audits/AUDIT_EVE_ORGANISM_GATE2_REAL_SHADOW_BRIDGE_READER_OFFLINE_CONTROLLED_V1.md",
+    "docs/audits/_eve_organism_gate2_real_shadow_bridge_reader_offline_controlled_v1.json",
+    "docs/audits/_eve_organism_gate2_real_shadow_bridge_reader_test_matrix_v1.json"
+  ],
+  "future_forbidden_files": [
+    "app/**",
+    "components/**",
+    "sql/**",
+    "supabase/**",
+    "migrations/**",
+    "db/**",
+    "docs/chips/**",
+    "docs/runtime/**",
+    "package.json",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock"
+  ],
+  "gaps": [
+    {
+      "id": "BRIDGE-READER-SCOPE-GAP-001",
+      "severity": "high",
+      "title": "Miguel implementation approval pending",
+      "description": "This package prepares the scope decision but does not contain the explicit approval to implement.",
+      "evidence": [
+        "Current frontier is MIGUEL_BRIDGE_READER_IMPLEMENTATION_SCOPE_DECISION_V1"
+      ],
+      "gap_not_blocker": true,
+      "blocks_option_a": false,
+      "requires_resolution_before_or_during_implementation": true,
+      "requires_resolution_before_commit": false,
+      "requires_resolution_before_promotion": true,
+      "required_resolution": "Miguel must explicitly approve APPROVE_NON_PRODUCTIVE_BRIDGE_READER_IMPLEMENTATION_ONLY."
+    },
+    {
+      "id": "BRIDGE-READER-SCOPE-GAP-002",
+      "severity": "high",
+      "title": "Owner and reviewers pending",
+      "description": "Owner, S3* reviewer and EVE-08 reviewer are required before implementation.",
+      "evidence": [
+        "Bridge reader evidence requirements BR-EV-002, BR-EV-003 and BR-EV-004 are not_collected."
+      ],
+      "gap_not_blocker": true,
+      "blocks_option_a": false,
+      "requires_resolution_before_or_during_implementation": true,
+      "requires_resolution_before_commit": false,
+      "requires_resolution_before_promotion": true,
+      "required_resolution": "Assign owner, S3* reviewer and EVE-08 reviewer."
+    },
+    {
+      "id": "BRIDGE-READER-SCOPE-GAP-003",
+      "severity": "medium",
+      "title": "Future file names are proposed candidates",
+      "description": "The future implementation file names are candidates, not verified existing files.",
+      "evidence": [
+        "Prior plan defines future components and contracts but does not create implementation files."
+      ],
+      "gap_not_blocker": true,
+      "blocks_option_a": false,
+      "requires_resolution_before_or_during_implementation": true,
+      "requires_resolution_before_commit": false,
+      "requires_resolution_before_promotion": false,
+      "required_resolution": "Confirm names in the future implementation prompt before code creation."
+    }
+  ],
+  "blockers_total": 0,
+  "critical_blockers_total": 0,
+  "blockers": [],
+  "evidence_required_for_future_implementation": [
+    "Miguel explicit approval for APPROVE_NON_PRODUCTIVE_BRIDGE_READER_IMPLEMENTATION_ONLY",
+    "owner assigned",
+    "S3* reviewer assigned",
+    "EVE-08 reviewer assigned",
+    "read boundary approved",
+    "reader credentials design approved or explicitly avoided for fixture/local pure mode",
+    "no service_role proof",
+    "no product write proof",
+    "no registry/export/diagnosis proof",
+    "event contract validation plan approved",
+    "dedupe/replay plan approved",
+    "shadow evaluation invocation boundary approved",
+    "divergence report schema approved",
+    "test plan approved",
+    "rollback/degrade plan approved"
+  ],
+  "no_modification_attestation": {
+    "src_modified": false,
+    "tests_modified": false,
+    "app_modified": false,
+    "db_modified": false,
+    "supabase_modified": false,
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "commit_created": false,
+    "staged_changes": false
+  }
+}

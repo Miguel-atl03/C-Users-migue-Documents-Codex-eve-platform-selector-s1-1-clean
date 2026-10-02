@@ -1,0 +1,391 @@
+{
+  "audit_id": "EVE_ORGANISM_SHADOW_E2E_SCENARIO_PLAN_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "planned_total": 30,
+  "categories": [
+    "A_REPLAY_SEGURO",
+    "B_COMPARACION_OFICIAL_VS_SHADOW",
+    "C_NO_CABLEADO",
+    "D_CONTEXTO_Y_SEGURIDAD",
+    "E_ALGEDONIC_NO_GO"
+  ],
+  "coverage": {
+    "no_cableado_covered": true,
+    "algedonic_covered": true,
+    "cross_tenant_covered": true,
+    "tenant_session_activity_covered": true,
+    "provenance_covered": true,
+    "idempotency_correlation_covered": true,
+    "official_flow_untouched_covered": true
+  },
+  "scenarios": [
+    {
+      "scenario_id": "E2E-A-001",
+      "category": "A_REPLAY_SEGURO",
+      "input_signal_shape": "fixture with tenant/session/activity complete",
+      "expected_shadow_command": "gateAdvisory SHADOW dryRun command with full context",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "parallel trace contains ClientIntent through AuditShadowRecord",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-A-002",
+      "category": "A_REPLAY_SEGURO",
+      "input_signal_shape": "fixture with WorkMap-shaped activity payload",
+      "expected_shadow_command": "objectBinding SHADOW dryRun command",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "activityId and sourcePath included as evidence provenance",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-A-003",
+      "category": "A_REPLAY_SEGURO",
+      "input_signal_shape": "fixture with Significado-like intent payload",
+      "expected_shadow_command": "candidateGeneration SHADOW dryRun command",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "clientIntent mapped without touching Significado flow",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-A-004",
+      "category": "A_REPLAY_SEGURO",
+      "input_signal_shape": "fixture with runtime-like response",
+      "expected_shadow_command": "runtimeCapture SHADOW dryRun command",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "runtime-like response recorded as rawObservedPayload only",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-A-005",
+      "category": "A_REPLAY_SEGURO",
+      "input_signal_shape": "fixture with evidence provenance",
+      "expected_shadow_command": "evidenceInputs include provenance.sourceId and sourcePath",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "evidence projected with provenance guard",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-A-006",
+      "category": "A_REPLAY_SEGURO",
+      "input_signal_shape": "fixture with candidate sourceTrace",
+      "expected_shadow_command": "candidateInputs include sourceTrace",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "candidate source trace preserved",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-B-007",
+      "category": "B_COMPARACION_OFICIAL_VS_SHADOW",
+      "input_signal_shape": "officialFlowRef present",
+      "expected_shadow_command": "command includes correlationId linked to officialFlowRef",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "comparison can link official and shadow refs",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-B-008",
+      "category": "B_COMPARACION_OFICIAL_VS_SHADOW",
+      "input_signal_shape": "official result snapshot plus shadow replay",
+      "expected_shadow_command": "command consumes snapshot without mutation",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "official result remains read-only",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-B-009",
+      "category": "B_COMPARACION_OFICIAL_VS_SHADOW",
+      "input_signal_shape": "accepted shadow replay",
+      "expected_shadow_command": "dryRun true",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "shadow trace generated in memory",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-B-010",
+      "category": "B_COMPARACION_OFICIAL_VS_SHADOW",
+      "input_signal_shape": "official outcome differs from shadow recommendation",
+      "expected_shadow_command": "gateAdvisory command only",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "divergence registered as comparison, not correction",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-B-011",
+      "category": "B_COMPARACION_OFICIAL_VS_SHADOW",
+      "input_signal_shape": "false blocker candidate replay",
+      "expected_shadow_command": "command maps to blocker and comparison event",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-011"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "false blocker visible as audit event",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-B-012",
+      "category": "B_COMPARACION_OFICIAL_VS_SHADOW",
+      "input_signal_shape": "fixture with latency and replay metadata",
+      "expected_shadow_command": "command keeps replay metadata in evidence summary",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "latency/replay metadata recorded",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-C-013",
+      "category": "C_NO_CABLEADO",
+      "input_signal_shape": "databaseWrite attempted",
+      "expected_shadow_command": "forbiddenSideEffects.databaseWrite true",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-007"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "DB write blocked",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-C-014",
+      "category": "C_NO_CABLEADO",
+      "input_signal_shape": "registry write attempted",
+      "expected_shadow_command": "requestedCapability registryWrite",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-003"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "registry write blocked",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-C-015",
+      "category": "C_NO_CABLEADO",
+      "input_signal_shape": "final export attempted",
+      "expected_shadow_command": "requestedCapability finalExport",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-004"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "export blocked",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-C-016",
+      "category": "C_NO_CABLEADO",
+      "input_signal_shape": "diagnosis attempted",
+      "expected_shadow_command": "requestedCapability diagnosis",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-005"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "diagnosis blocked",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-C-017",
+      "category": "C_NO_CABLEADO",
+      "input_signal_shape": "UI exposure attempted",
+      "expected_shadow_command": "requestedCapability uiExposure",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-008"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "UI touch blocked",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-C-018",
+      "category": "C_NO_CABLEADO",
+      "input_signal_shape": "production authority attempted",
+      "expected_shadow_command": "requestedCapability productiveRuntimeAuthority",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-006"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "production authority blocked",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-D-019",
+      "category": "D_CONTEXTO_Y_SEGURIDAD",
+      "input_signal_shape": "missing tenant/session/activity",
+      "expected_shadow_command": "empty tenantId or sessionId or activityId",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-001"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "missing context blocker visible",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-D-020",
+      "category": "D_CONTEXTO_Y_SEGURIDAD",
+      "input_signal_shape": "missing provenance in evidence",
+      "expected_shadow_command": "evidenceInputs without provenance",
+      "expected_status": "SHADOW_DEGRADED",
+      "expected_blockers": [
+        "OCR-BLK-013"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "provenance gap visible",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-D-021",
+      "category": "D_CONTEXTO_Y_SEGURIDAD",
+      "input_signal_shape": "missing idempotency/correlation",
+      "expected_shadow_command": "empty idempotencyKey or correlationId",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-012"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "idempotency/correlation blocker visible",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-D-022",
+      "category": "D_CONTEXTO_Y_SEGURIDAD",
+      "input_signal_shape": "cross-tenant contamination attempt",
+      "expected_shadow_command": "tenantId differs from officialFlowRef tenant",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-001"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "tenant boundary risk comparison",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-D-023",
+      "category": "D_CONTEXTO_Y_SEGURIDAD",
+      "input_signal_shape": "unaudited override",
+      "expected_shadow_command": "overrideRequested true and overrideAudited false",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-009"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "override blocked",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-D-024",
+      "category": "D_CONTEXTO_Y_SEGURIDAD",
+      "input_signal_shape": "Supabase environment absent",
+      "expected_shadow_command": "fixture-only command with no Supabase dependency",
+      "expected_status": "SHADOW_ACCEPTED",
+      "expected_blockers": [],
+      "expected_no_cableado": true,
+      "expected_trace": "harness runs offline",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-E-025",
+      "category": "E_ALGEDONIC_NO_GO",
+      "input_signal_shape": "gate bypass signal",
+      "expected_shadow_command": "requestedState ACTIVE",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-010"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "gate bypass routes to no-go",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-E-026",
+      "category": "E_ALGEDONIC_NO_GO",
+      "input_signal_shape": "evidence corruption signal",
+      "expected_shadow_command": "evidence missing provenance or inconsistent source",
+      "expected_status": "SHADOW_DEGRADED",
+      "expected_blockers": [
+        "OCR-BLK-013"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "evidence corruption visible",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-E-027",
+      "category": "E_ALGEDONIC_NO_GO",
+      "input_signal_shape": "registry/export attempt",
+      "expected_shadow_command": "forbiddenSideEffects registryWrite and finalExport",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-003",
+        "OCR-BLK-004"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "registry/export attempt blocked",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-E-028",
+      "category": "E_ALGEDONIC_NO_GO",
+      "input_signal_shape": "tenant leak signal",
+      "expected_shadow_command": "officialFlowRef tenant mismatch",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-001"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "tenant leak quarantined",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-E-029",
+      "category": "E_ALGEDONIC_NO_GO",
+      "input_signal_shape": "critical damage route",
+      "expected_shadow_command": "databaseWrite plus productiveRuntimeAuthority",
+      "expected_status": "SHADOW_QUARANTINED",
+      "expected_blockers": [
+        "OCR-BLK-006",
+        "OCR-BLK-007"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "critical damage routes to QUARANTINED",
+      "expected_official_flow_untouched": true
+    },
+    {
+      "scenario_id": "E2E-E-030",
+      "category": "E_ALGEDONIC_NO_GO",
+      "input_signal_shape": "non-critical divergence",
+      "expected_shadow_command": "candidate missing sourceTrace",
+      "expected_status": "SHADOW_DEGRADED",
+      "expected_blockers": [
+        "OCR-BLK-014"
+      ],
+      "expected_no_cableado": true,
+      "expected_trace": "non-critical divergence routes to DEGRADED",
+      "expected_official_flow_untouched": true
+    }
+  ]
+}

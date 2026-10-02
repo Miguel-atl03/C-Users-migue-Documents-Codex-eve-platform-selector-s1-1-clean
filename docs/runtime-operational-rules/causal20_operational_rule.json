@@ -1,0 +1,80 @@
+{
+  "rule_id": "CAUSAL-20",
+  "name": "Regla Operativa de Suficiencia Sistémica — 20 Preguntas Causales",
+  "version": "1.0.0",
+  "scope": "activity_runtime_run",
+  "applies_to": "toda actividad primaria después de procesar bases fuente",
+  "source_docx": "docs/runtime-operational-rules/Regla_Operativa_20_Preguntas_Causales_EVE_MMABP_Ajustada.docx",
+  "causals_evaluated_always": true,
+  "causals_displayed_always": false,
+  "triggered_causal_required_to_close": true,
+  "activation_unknown_cannot_be_assumed_false": true,
+  "ready_full_blocked_by_open_triggered_causal": true,
+  "allowed_states": [
+    "not_triggered_with_evidence",
+    "triggered_required",
+    "answered_closed",
+    "closed_by_confirmed_negative",
+    "closed_not_applicable",
+    "activation_unknown",
+    "triggered_unanswered",
+    "route_missing",
+    "contradiction_flag",
+    "manual_review_required",
+    "reentry_required"
+  ],
+  "closed_states": [
+    "not_triggered_with_evidence",
+    "answered_closed",
+    "closed_by_confirmed_negative",
+    "closed_not_applicable"
+  ],
+  "open_blocking_states": [
+    "triggered_required",
+    "activation_unknown",
+    "triggered_unanswered",
+    "route_missing",
+    "contradiction_flag",
+    "manual_review_required",
+    "reentry_required"
+  ],
+  "distribution": {
+    "block_0": ["C01"],
+    "block_0_5": ["C02"],
+    "block_1": ["C03"],
+    "block_2": ["C04", "C05", "C06", "C07"],
+    "block_3": ["C08", "C09", "C10"],
+    "block_4": ["C11", "C12", "C13", "C14"],
+    "block_5": ["C15"],
+    "block_6": ["C16", "C17", "C18", "C19"],
+    "block_7": ["C20"]
+  },
+  "closed_causal_ids": [
+    "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10",
+    "C11", "C12", "C13", "C14", "C15", "C16", "C17", "C18", "C19", "C20"
+  ],
+  "priority_blocking": {
+    "P0": {
+      "ids": ["C05", "C09", "C11", "C20"],
+      "rule": "Si se activan y no cierran, bloquear ready pleno."
+    },
+    "P1": {
+      "ids": ["C02", "C03", "C04", "C08", "C13", "C14", "C15"],
+      "rule": "Si se activan y no cierran, no producir ready pleno; puede ready_with_flags solo con gap explícito."
+    },
+    "P2": {
+      "ids": ["C16", "C17", "C18", "C19"],
+      "rule": "Si se activan y no cierran, no declarar AHE prep suficiente."
+    },
+    "P3": {
+      "ids": ["C01", "C06", "C07", "C10", "C12"],
+      "rule": "Si se activan y no cierran, no omitir; cerrar con gap/reentry o bloquear submodelo afectado."
+    }
+  },
+  "c20_boundary": {
+    "non_diagnostic": true,
+    "forbids": ["diagnostico_final", "IR", "registry", "export_productivo", "inventario_cerrado", "VSM_cerrado", "AHE_cerrado"]
+  },
+  "gate": "CausalClosureGate",
+  "conceptual_correction": "Las causales C01–C20 no se preguntan siempre, pero sí se evalúan siempre. Si la condición se cumple, la causal queda obligatoria para cerrar readiness."
+}

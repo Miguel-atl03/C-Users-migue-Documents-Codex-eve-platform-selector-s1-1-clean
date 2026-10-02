@@ -1,0 +1,87 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P3R_SUPABASE_ENVIRONMENT_BINDING_MIGRATION_APPLICATION_COMPLETED",
+  "plan_phase": "Production activation — P3-R Supabase environment binding and migration application",
+  "generated_at": "2026-07-08T01:10:00-06:00",
+  "commands": [
+    {
+      "command": "npx supabase --version",
+      "status": "passed",
+      "result": "2.109.1"
+    },
+    {
+      "command": "docker --version",
+      "status": "passed",
+      "result": "29.5.3"
+    },
+    {
+      "command": "npx supabase init",
+      "status": "passed",
+      "notes": "Created supabase/config.toml"
+    },
+    {
+      "command": "npx supabase start",
+      "status": "passed",
+      "notes": "First attempt failed (Docker daemon stopped + registry rate limit); second attempt succeeded after Docker Desktop start and image cache."
+    },
+    {
+      "command": "npx supabase db reset",
+      "status": "passed",
+      "notes": "Finished supabase db reset on branch main"
+    },
+    {
+      "command": "npx supabase db lint",
+      "status": "passed",
+      "result": "No schema errors found"
+    },
+    {
+      "command": "node scripts/eve/production-activation/p3-validate-runtime-schema.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/eve/production-activation/p3-validate-rls-policies.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/eve/production-activation/p3-scan-service-role-exposure.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npx tsc --noEmit --pretty false",
+      "status": "passed",
+      "cwd": "workspace_long_path"
+    },
+    {
+      "command": "npm run build",
+      "status": "passed",
+      "cwd": "C:/eve/platform",
+      "notes": "Build from long workspace path failed (Windows MAX_PATH / Turbopack); canonical short path passed per activation convention."
+    },
+    {
+      "command": "node --test src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff.test.mjs",
+      "status": "passed",
+      "tests": 39
+    },
+    {
+      "command": "node --test src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane.test.mjs",
+      "status": "passed",
+      "tests": 885
+    },
+    {
+      "command": "docker exec supabase_db_eve-platform psql (schema real validation)",
+      "status": "passed"
+    },
+    {
+      "command": "docker exec supabase_db_eve-platform psql (RLS real validation)",
+      "status": "passed"
+    },
+    {
+      "command": "MCP list_tables (remote read-only comparison)",
+      "status": "passed"
+    },
+    {
+      "command": "MCP execute_sql (remote)",
+      "status": "not_run",
+      "reason": "Blocked: remote classified production/unknown; read-only policy"
+    }
+  ]
+}

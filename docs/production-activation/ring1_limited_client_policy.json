@@ -1,0 +1,47 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING1_LIMITED_CLIENT_POLICY",
+  "generated_at": "2026-07-08T22:35:00.000Z",
+  "authorization_ref": "ring1-authorization-internal-test-tenant-20260708",
+  "ring": 1,
+  "ring_name": "internal_test_tenant_limited_client",
+  "allowed_user_type": "internal_test_client",
+  "real_external_client_enabled": false,
+  "production_public_access_enabled": false,
+  "client_ui_mode": "limited_safe_client",
+  "bff_mode": "client_safe_bff_local_or_staging",
+  "allowed_client_capabilities": [
+    "view_client_safe_result_states",
+    "navigate_limited_client_ui_test_tenant",
+    "interact_with_guided_questionnaire_test_scope",
+    "view_resultado_en_revision_or_equivalent_safe_states"
+  ],
+  "prohibited_client_capabilities": [
+    "public_unauthenticated_access",
+    "public_signup_or_self_service_onboarding",
+    "real_external_customer_session",
+    "diagnosis_final_view",
+    "external_export_download",
+    "consultant_only_artifacts_exposure",
+    "ir_registry_or_internal_engine_exposure",
+    "production_parallel_productive_outputs"
+  ],
+  "client_membrane_constraints": {
+    "client_safe_result_only": true,
+    "no_diagnosis_final": true,
+    "no_export_productivo": true,
+    "no_internal_leakage": true,
+    "scope_tenant_case_run_enforced": true
+  },
+  "mba_constraints": {
+    "conformance_before_consistency": true,
+    "b3_c09_evidence_required": true,
+    "b7_no_diagnosis_ir_registry_export": true,
+    "no_causal_jump_capture_to_diagnosis": true,
+    "outputs_as_object_state": true
+  },
+  "structural_framework_refs": {
+    "client_membrane": "src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane-service.ts",
+    "client_bff": "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff-service.ts",
+    "fase9_client_membrane": "documented_in_marco_estructural"
+  }
+}

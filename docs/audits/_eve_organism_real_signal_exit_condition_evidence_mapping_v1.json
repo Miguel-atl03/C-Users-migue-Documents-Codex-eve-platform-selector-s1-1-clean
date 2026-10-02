@@ -1,0 +1,524 @@
+{
+  "dictamen": "REAL_SIGNAL_EVIDENCE_COLLECTION_PLAN_SPECIFICITY_FIXED_REPLAY_ONLY_CONTINUES",
+  "generated_at": "2026-06-25T06:29:30.090Z",
+  "specificityFixApplied": true,
+  "planStatus": "specificity_fixed_replay_only_continues",
+  "observerAuthorized": false,
+  "realObservationAuthorized": false,
+  "readOnlyObserverDesignAuthorized": false,
+  "blockersClosedByPlan": 0,
+  "exitConditionsClosedByPlan": 0,
+  "operationallyClosedExitConditions": 0,
+  "evidencePriorityOrder": [
+    "P0_tenant_auth_isolation",
+    "P1_no_mutation_boundary",
+    "P2_provenance_sourceTrace",
+    "P3_idempotency_correlation_officialFlowRef",
+    "P4_mba_anchor_PM_MoC_PF_OLC",
+    "P5_b3_b7_boundary"
+  ],
+  "productOwnerEvidenceResponseRequiredFields": [
+    "evidence_id",
+    "evidence_owner",
+    "evidence_locator",
+    "source_system",
+    "source_environment",
+    "timestamp_or_version",
+    "proof_type",
+    "redaction_status",
+    "why_not_fixture",
+    "related_contract_field",
+    "related_blocker",
+    "related_exit_condition"
+  ],
+  "nonAcceptableEvidence": [
+    "narrative_only_answer_without_locator",
+    "screenshot_without_source_path_or_timestamp",
+    "fixture",
+    "synthetic_field",
+    "test_only_payload",
+    "replay_only_output",
+    "verbal_confirmation_without_artifact",
+    "code_comment_without_runtime_evidence",
+    "unversioned_document",
+    "unowned_evidence"
+  ],
+  "gate2": {
+    "replay_only_continues": true,
+    "observer_authorized": false,
+    "real_observation_authorized": false,
+    "read_only_observer_design_authorized": false
+  },
+  "audit_id": "eve_organism_real_signal_exit_condition_evidence_mapping_v1",
+  "total": 18,
+  "closed_by_fix": 0,
+  "still_open_operationally": 18,
+  "exit_conditions": [
+    {
+      "exitConditionId": "EC-01",
+      "requirement": "tenantId real",
+      "priority": "P0_tenant_auth_isolation",
+      "contractFields": [
+        "operational_context.tenantId"
+      ],
+      "requiredRealEvidence": [
+        "real tenantId attached to real signal"
+      ],
+      "minimumAcceptableProof": "runtime/product artifact with locator, timestamp/version and owner",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "product_owner + technical_inventory",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-02",
+      "requirement": "organizationId real",
+      "priority": "P0_tenant_auth_isolation",
+      "contractFields": [
+        "operational_context.organizationId"
+      ],
+      "requiredRealEvidence": [
+        "real organizationId attached to real signal"
+      ],
+      "minimumAcceptableProof": "runtime/product artifact with locator, timestamp/version and owner",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "product_owner + technical_inventory",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-03",
+      "requirement": "sessionId/activityId real",
+      "priority": "P0_tenant_auth_isolation",
+      "contractFields": [
+        "operational_context.sessionId",
+        "operational_context.activityId"
+      ],
+      "requiredRealEvidence": [
+        "real sessionId and activityId when signal is activity-level"
+      ],
+      "minimumAcceptableProof": "product artifact or audit log with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "product_owner + audit_log",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-04",
+      "requirement": "actorId/userId real",
+      "priority": "P0_tenant_auth_isolation",
+      "contractFields": [
+        "operational_context.actorId",
+        "operational_context.userId"
+      ],
+      "requiredRealEvidence": [
+        "real actorId or userId tied to signal context"
+      ],
+      "minimumAcceptableProof": "product artifact or audit log with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "product_owner + audit_log",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-05",
+      "requirement": "provenance real",
+      "priority": "P2_provenance_sourceTrace",
+      "contractFields": [
+        "traceability.provenance"
+      ],
+      "requiredRealEvidence": [
+        "real provenance attached to signal"
+      ],
+      "minimumAcceptableProof": "source artifact/audit log with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "product_owner + audit_log",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-06",
+      "requirement": "sourceTrace real",
+      "priority": "P2_provenance_sourceTrace",
+      "contractFields": [
+        "traceability.sourceTrace"
+      ],
+      "requiredRealEvidence": [
+        "real sourceTrace attached to signal"
+      ],
+      "minimumAcceptableProof": "source trace record with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "product_owner + audit_log",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-07",
+      "requirement": "idempotencyKey/correlationId real",
+      "priority": "P3_idempotency_correlation_officialFlowRef",
+      "contractFields": [
+        "traceability.idempotencyKey",
+        "traceability.correlationId"
+      ],
+      "requiredRealEvidence": [
+        "real idempotencyKey and correlationId from product flow"
+      ],
+      "minimumAcceptableProof": "audit/runtime inventory with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "technical_inventory + audit_log",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-08",
+      "requirement": "officialFlowRef real",
+      "priority": "P3_idempotency_correlation_officialFlowRef",
+      "contractFields": [
+        "traceability.officialFlowRef"
+      ],
+      "requiredRealEvidence": [
+        "officialFlowRef or approved equivalent with locator"
+      ],
+      "minimumAcceptableProof": "versioned flow mapping with owner",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "product_owner + manual_review",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-09",
+      "requirement": "no UI touch",
+      "priority": "P1_no_mutation_boundary",
+      "contractFields": [
+        "no_mutation_boundary.uiTouchAllowed"
+      ],
+      "requiredRealEvidence": [
+        "proof UI touch is false"
+      ],
+      "minimumAcceptableProof": "read-only/no-touch boundary proof",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "technical_inventory",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-10",
+      "requirement": "no WorkMap mutation",
+      "priority": "P1_no_mutation_boundary",
+      "contractFields": [
+        "no_mutation_boundary.workMapMutationAllowed"
+      ],
+      "requiredRealEvidence": [
+        "proof WorkMap mutation is false"
+      ],
+      "minimumAcceptableProof": "read-only boundary proof",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "technical_inventory",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-11",
+      "requirement": "no Significado mutation",
+      "priority": "P1_no_mutation_boundary",
+      "contractFields": [
+        "no_mutation_boundary.significadoMutationAllowed"
+      ],
+      "requiredRealEvidence": [
+        "proof Significado mutation is false"
+      ],
+      "minimumAcceptableProof": "read-only boundary proof",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "technical_inventory",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-12",
+      "requirement": "no DB write",
+      "priority": "P1_no_mutation_boundary",
+      "contractFields": [
+        "no_mutation_boundary.dbWriteAllowed"
+      ],
+      "requiredRealEvidence": [
+        "proof DB write is false"
+      ],
+      "minimumAcceptableProof": "read-only/no-write inventory",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "technical_inventory",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-13",
+      "requirement": "no Supabase write/read boundary",
+      "priority": "P0_tenant_auth_isolation",
+      "contractFields": [
+        "no_mutation_boundary.supabaseWriteAllowed",
+        "security_boundary.rlsReadBoundaryRequiredIfDB"
+      ],
+      "requiredRealEvidence": [
+        "proof Supabase write false and RLS/read boundary if DB appears"
+      ],
+      "minimumAcceptableProof": "Supabase/RLS inventory with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "technical_inventory",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-14",
+      "requirement": "no runtime mutation",
+      "priority": "P1_no_mutation_boundary",
+      "contractFields": [
+        "no_mutation_boundary.runtimeMutationAllowed"
+      ],
+      "requiredRealEvidence": [
+        "proof runtime mutation is false"
+      ],
+      "minimumAcceptableProof": "runtime inventory with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "technical_inventory",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-15",
+      "requirement": "no registry/export/diagnosis",
+      "priority": "P1_no_mutation_boundary",
+      "contractFields": [
+        "no_mutation_boundary.registryWriteAllowed",
+        "no_mutation_boundary.exportAllowed",
+        "no_mutation_boundary.diagnosisAllowed"
+      ],
+      "requiredRealEvidence": [
+        "proof registry/export/diagnosis are false"
+      ],
+      "minimumAcceptableProof": "boundary review with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "technical_inventory + manual_review",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-16",
+      "requirement": "tenant isolation/RLS/auth boundary",
+      "priority": "P0_tenant_auth_isolation",
+      "contractFields": [
+        "security_boundary.authBoundaryRequired",
+        "security_boundary.tenantIsolationRequired",
+        "security_boundary.rlsReadBoundaryRequiredIfDB"
+      ],
+      "requiredRealEvidence": [
+        "proof auth, tenant isolation, and RLS/read boundary if DB appears"
+      ],
+      "minimumAcceptableProof": "security policy or inventory with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "technical_inventory",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-17",
+      "requirement": "MBA Object[State] and PF event",
+      "priority": "P4_mba_anchor_PM_MoC_PF_OLC",
+      "contractFields": [
+        "mba_anchor.pmProcessId",
+        "mba_anchor.pfEvent",
+        "mba_anchor.objectState",
+        "mba_anchor.mocClass",
+        "mba_anchor.olcTransitionEvent"
+      ],
+      "requiredRealEvidence": [
+        "proof signal maps to MBA-authorized process/event/object/state/class/transition"
+      ],
+      "minimumAcceptableProof": "MBA mapping record with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "manual_review + product_owner",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    },
+    {
+      "exitConditionId": "EC-18",
+      "requirement": "B3/B7 boundary clean",
+      "priority": "P5_b3_b7_boundary",
+      "contractFields": [
+        "b3_b7_boundary.receiverSatisfactionAllowedAsFeedback",
+        "b3_b7_boundary.receiverFeedbackRequiresRouteRef",
+        "b3_b7_boundary.b7InterpretationLimitRequired",
+        "b3_b7_boundary.b7DiagnosticUseAllowed",
+        "b3_b7_boundary.b7StructuralFactAllowed"
+      ],
+      "requiredRealEvidence": [
+        "proof receiver_satisfaction not feedback, B3 routeRef exists, and B7 is non-diagnostic/non-structural"
+      ],
+      "minimumAcceptableProof": "B3/B7 review record with locator",
+      "currentStatus": "still_open_operationally",
+      "structuralStatus": "structurally_defined_but_unproven",
+      "canBeClosedByContractAlone": false,
+      "canBeClosedByPlanAlone": false,
+      "evidenceCollectionMethod": "manual_review + audit_log",
+      "rejectedIf": [
+        "fixture_only",
+        "synthetic_only",
+        "replay_only_without_real_locator",
+        "narrative_without_artifact",
+        "missing_owner",
+        "missing_timestamp_or_version"
+      ]
+    }
+  ]
+}

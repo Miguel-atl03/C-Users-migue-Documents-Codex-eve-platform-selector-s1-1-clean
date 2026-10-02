@@ -1,0 +1,97 @@
+{
+  "task_id": "SHADOW_CONNECT_RUNTIME_CATALOG_CANDIDATE_04_V0_1_1",
+  "dictamen": "SHADOW_SOURCE_MISSING",
+  "dictamen_reason": "Strict section-3 candidate filenames EVE_04_Runtime_Catalog_v0_1_1_candidate.manifest.json and EVE_04_Runtime_Catalog_v0_1_1_candidate.json are absent. Alias files EVE_04_Runtime_Catalog_v0_1.manifest.json and EVE_04_Runtime_Catalog_v0_1.json exist inside the candidate folder.",
+  "verified_routes": {
+    "active_runtime_catalog": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1",
+    "active_manifest": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1/EVE_04_Runtime_Catalog_v0_1.manifest.json",
+    "active_json": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1/EVE_04_Runtime_Catalog_v0_1.json",
+    "shadow_candidate_dir": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate",
+    "shadow_candidate_manifest_strict": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1_1_candidate.manifest.json",
+    "shadow_candidate_manifest_alias": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1.manifest.json",
+    "shadow_candidate_json_strict": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1_1_candidate.json",
+    "shadow_candidate_json_alias": "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_1_1_candidate/EVE_04_Runtime_Catalog_v0_1.json",
+    "apply_ccov_audit": "docs/audits/EVE_RUNTIME_CATALOG_SURGICAL_PATCH_01_APPLY_CCOV.md",
+    "patch_diff": "docs/audits/_eve_runtime_catalog_surgical_patch_01_patch_diff.json"
+  },
+  "source_presence": {
+    "active_manifest": true,
+    "active_json": true,
+    "candidate_dir": true,
+    "candidate_manifest_strict": false,
+    "candidate_manifest_alias": true,
+    "candidate_json_strict": false,
+    "candidate_json_alias": true,
+    "apply_ccov_audit": true,
+    "patch_diff": true
+  },
+  "candidate_content_checks": {
+    "B6-Q38": true,
+    "B6_6_8": true,
+    "trench_phrase": true,
+    "NOT_CERTIFIED": true,
+    "READY_WITH_FLAGS": true,
+    "CVAR-001_OPEN": true
+  },
+  "active_chip_immutability": {
+    "active_json_sha256_expected": "df4674d5156d3747b6baf5906233c5b3d54378abd099870a5c0325f102c26dc0",
+    "active_json_sha256_observed": "df4674d5156d3747b6baf5906233c5b3d54378abd099870a5c0325f102c26dc0",
+    "unchanged": true
+  },
+  "platform_inventory": {
+    "chip_registry_found": true,
+    "chip_registry_path": "src/config/rector-docs-registry.ts",
+    "eve04_in_rector_registry": false,
+    "active_runtime_catalog_loader": "src/runtime/capa1-runtime-manifest.ts",
+    "active_runtime_catalog_source": "src/runtime/capa-1-v2-1-runtime-manifest.json",
+    "active_default_catalog_api": "src/app/api/questionnaire/catalog/route.ts",
+    "active_default_version": "FULL_V03",
+    "eve04_chip_loader_found": false,
+    "shadow_mode_precedent_found": true,
+    "shadow_mode_precedent_path": "src/services/eve-03-canonical-catalog-shadow-service.ts",
+    "eve04_shadow_service_found": false
+  },
+  "connection_point_analysis": {
+    "recommended_shadow_entrypoint": "NEW: src/services/eve-04-runtime-catalog-shadow-service.ts",
+    "recommended_domain_entrypoint": "NEW: src/domain/eve-04-runtime-catalog-shadow.ts",
+    "recommended_dev_harness": "NEW: src/app/dev/runtime-catalog-shadow/page.tsx",
+    "forbidden_entrypoints": [
+      "src/runtime/capa1-runtime-manifest.ts",
+      "src/app/api/questionnaire/catalog/route.ts",
+      "src/config/rector-docs-registry.ts without explicit human approval"
+    ],
+    "multiple_shadow_entrypoints_found": true,
+    "multiple_shadow_entrypoints": [
+      "Mirror EVE-03 shadow service pattern (recommended)",
+      "Extend RECTOR_DOCS_REGISTRY with non-authoritative candidate entry (report only)",
+      "Filesystem-only validation harness under docs/audits (no runtime load)"
+    ],
+    "human_decision_required": true,
+    "human_decision_topics": [
+      "Accept alias candidate filenames or rename to strict v0_1_1_candidate.* before shadow loader wiring",
+      "Choose single shadow entrypoint among service mirror vs registry metadata vs docs-only harness"
+    ]
+  },
+  "risks": [
+    "Strict filename mismatch can break loaders that expect v0_1_1_candidate.* paths.",
+    "No dedicated EVE04 shadow loader exists; premature wiring into capa1-runtime-manifest would promote candidate to product.",
+    "RECTOR_DOCS_REGISTRY currently has no EVE04 chip entry; adding candidate there without runtimeAuthority=false could be misread as promotion.",
+    "CVAR-001 remains OPEN_PENDING_SOURCE_GAP; shadow connect must not be interpreted as certification.",
+    "Multiple plausible entrypoints require explicit human choice before APPLY_SHADOW_CONNECTION."
+  ],
+  "non_contamination": {
+    "product_touched": false,
+    "active_chip_replaced": false,
+    "diagnosis_export_transduction_activated": false,
+    "src_app_modified": false,
+    "apis_modified": false,
+    "package_json_modified": false,
+    "docs_runtime_modified": false
+  },
+  "files_created_or_modified_by_this_preflight": [
+    "docs/audits/EVE04_SHADOW_CONNECT_PREFLIGHT.md",
+    "docs/audits/_eve04_shadow_connect_preflight.json",
+    "tests/regression/eve-04-runtime-catalog-shadow-candidate.test.ts"
+  ],
+  "recommended_next_step": "REQUEST_HUMAN_DECISION"
+}

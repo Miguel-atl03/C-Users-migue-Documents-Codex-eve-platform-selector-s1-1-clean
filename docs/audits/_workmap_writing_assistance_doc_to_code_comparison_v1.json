@@ -1,0 +1,186 @@
+{
+  "auditId": "CHIP-RECTOR-WORKMAP-WRITING-ASSISTANCE-DOCUMENT-ONLY-V1",
+  "sourcePath": "docs/workmap/source/GUIA_DE_REDACCION_DE_RESPONSABILIDADES_Y_ACTIVIDADES_DE_UN_ROL_FUNCIONAL.docx",
+  "generatedDocument": "docs/workmap/workmap-writing-assistance-chip.md",
+  "runtimeAuthority": false,
+  "comparison": [
+    {
+      "documentRuleId": "RESP_FORMULA_ESPEJO",
+      "documentRule": "Responsabilidad = Verbo de Acción Verificable + Objeto de Discrecionalidad + Contexto de Regulación + Restricción.",
+      "sourceLocator": "DOCX paragraphs 003-009",
+      "codeStatus": "partially_implemented",
+      "codePaths": [
+        "src/components/WorkMapIntake.tsx:268",
+        "src/components/WorkMapIntake.tsx:276",
+        "src/services/work-map-responsibility-validation.ts:216",
+        "src/services/work-map-responsibility-validation.ts:245",
+        "src/services/work-map-responsibility-validation.ts:660"
+      ],
+      "testCoverage": [
+        "tests/regression/work-map-save-validation.test.ts"
+      ],
+      "riskIfWiredNow": "El documento exige contexto de regulación y restricción; el código actual separa propósito y límite/criterio con reglas más tolerantes. Cablear rígidamente puede volver inválidas redacciones hoy aceptadas o perfectibles.",
+      "notes": "Coincide la idea central, pero el código usa sujeto Yo, purpose y scope/criterion como aproximación operativa."
+    },
+    {
+      "documentRuleId": "RESP_POWER_VERBS",
+      "documentRule": "Usar verbos de poder verificables; evitar apoyar, ayudar y gestionar.",
+      "sourceLocator": "DOCX paragraphs 007, 010-023, 099-103",
+      "codeStatus": "partially_implemented",
+      "codePaths": [
+        "src/components/WorkMapIntake.tsx:178",
+        "src/services/work-map-responsibility-validation.ts:629",
+        "src/services/work-map-responsibility-validation.ts:675"
+      ],
+      "testCoverage": [
+        "tests/regression/work-map-save-validation.test.ts"
+      ],
+      "riskIfWiredNow": "El DOCX trata gestionar como verbo débil para responsabilidades, pero el código permite gestiono como verbo de actividad. Un cableado ingenuo podría bloquear actividades legítimas.",
+      "notes": "La UI incluye lista ampliada de verbos de responsabilidad. La prohibición de verbos débiles no aparece como blacklist documental rígida en código."
+    },
+    {
+      "documentRuleId": "RESP_TASK_VS_RESPONSIBILITY",
+      "documentRule": "Distinguir tarea manual de responsabilidad como discrecionalidad y accountability.",
+      "sourceLocator": "DOCX paragraphs 024-040, 079-098",
+      "codeStatus": "implemented_in_code",
+      "codePaths": [
+        "src/components/WorkMapIntake.tsx:268",
+        "src/components/WorkMapIntake.tsx:276",
+        "src/services/work-map-responsibility-validation.ts:451",
+        "src/services/work-map-responsibility-validation.ts:463"
+      ],
+      "testCoverage": [
+        "tests/regression/work-map-save-validation.test.ts"
+      ],
+      "riskIfWiredNow": "Bajo si se conserva como guía humana; medio si se convierte en hard gate.",
+      "notes": "La UI ya dice que responsabilidad no es tarea suelta y el coach pide objeto, propósito y límite."
+    },
+    {
+      "documentRuleId": "ACT_FORMULA_TRANSFORMACION",
+      "documentRule": "Actividad = Verbo de Acción Operativa + Insumo/Objeto + Procedimiento/Estándar + Producto/Salida.",
+      "sourceLocator": "DOCX paragraphs 043-050",
+      "codeStatus": "implemented_in_code",
+      "codePaths": [
+        "src/components/WorkMapIntake.tsx:317",
+        "src/components/WorkMapIntake.tsx:335",
+        "src/components/WorkMapIntake.tsx:339",
+        "src/components/WorkMapIntake.tsx:343",
+        "src/components/WorkMapIntake.tsx:347",
+        "src/services/work-map-activity-validation.ts:620",
+        "src/services/work-map-activity-validation.ts:630",
+        "src/services/work-map-activity-validation.ts:631",
+        "src/services/work-map-activity-validation.ts:643"
+      ],
+      "testCoverage": [
+        "tests/regression/work-map-save-validation.test.ts",
+        "tests/regression/workmap-to-block0-prefill.test.ts"
+      ],
+      "riskIfWiredNow": "Medio: el código contiene heurísticas adicionales y excepciones de lenguaje no presentes en el DOCX.",
+      "notes": "El parser actual detecta action, object, how y result, alineado con la Fórmula de Transformación."
+    },
+    {
+      "documentRuleId": "ACT_OPERATIONAL_VERBS",
+      "documentRule": "Usar verbos operativos para actividad y diferenciarlos de verbos de poder.",
+      "sourceLocator": "DOCX paragraphs 047, 051-061, 124-126",
+      "codeStatus": "implemented_differently",
+      "codePaths": [
+        "src/services/work-map-activity-validation.ts:1",
+        "src/components/WorkMapIntake.tsx:193"
+      ],
+      "testCoverage": [
+        "tests/regression/work-map-save-validation.test.ts"
+      ],
+      "riskIfWiredNow": "El código tiene una lista más amplia que el DOCX e incluye gestiono/protocolizo/habilito/solicito. Usar solo la lista documental podría degradar casos ya cubiertos por pruebas.",
+      "notes": "La intención coincide, la lista exacta difiere."
+    },
+    {
+      "documentRuleId": "ACT_BAD_GOOD_EXAMPLES",
+      "documentRule": "Usar ejemplos de actividad vs responsabilidad para mostrar transformación concreta.",
+      "sourceLocator": "DOCX paragraphs 062-078, 111-123",
+      "codeStatus": "partially_implemented",
+      "codePaths": [
+        "src/components/WorkMapIntake.tsx:317",
+        "src/components/WorkMapIntake.tsx:327",
+        "src/services/work-map-activity-validation.ts:1451",
+        "src/services/work-map-activity-validation.ts:1462",
+        "src/services/work-map-activity-validation.ts:1478"
+      ],
+      "testCoverage": [
+        "tests/regression/work-map-save-validation.test.ts"
+      ],
+      "riskIfWiredNow": "El código evita ejemplos inventados en asistencia. Si se cablean ejemplos del DOCX dentro del coach, se puede romper la regla emergente de no inventar contexto.",
+      "notes": "El lateral usa ejemplo visual; la asistencia dinámica evita 'Por ejemplo' en múltiples tests."
+    },
+    {
+      "documentRuleId": "AREA_SELECTION_REAL_PARTICIPATION",
+      "documentRule": "Elegir áreas donde el trabajo participa realmente; no solo departamento formal; incluir impacto, información, coordinación, entrega y desbloqueo.",
+      "sourceLocator": "DOCX paragraphs 127-129",
+      "codeStatus": "implemented_in_code",
+      "codePaths": [
+        "src/components/WorkMapIntake.tsx:89"
+      ],
+      "testCoverage": [],
+      "riskIfWiredNow": "Bajo como copy; medio si se agregan gates de área sin tests.",
+      "notes": "El texto del DOCX está reflejado casi literalmente en el guide de área."
+    },
+    {
+      "documentRuleId": "NO_RUNTIME_EVIDENCE",
+      "documentRule": "El chip ayuda a redactar pero no convierte WorkMap en evidencia Runtime confirmada.",
+      "sourceLocator": "Derived task boundary + DOCX purpose",
+      "codeStatus": "implemented_in_code",
+      "codePaths": [
+        "src/services/workmap-to-block0-prefill.ts",
+        "tests/regression/workmap-to-block0-prefill.test.ts"
+      ],
+      "testCoverage": [
+        "tests/regression/workmap-to-block0-prefill.test.ts"
+      ],
+      "riskIfWiredNow": "Alto si se mezcla asistencia WorkMap con evidencia confirmada B0.",
+      "notes": "Prefill usa estados inferred/context_from_workmap y no captured_user_evidence."
+    },
+    {
+      "documentRuleId": "H12_SAVE_COVERAGE_ONLY",
+      "documentRule": "No bloquear Guardar H12 por semántica si el contrato vigente es coverage-only.",
+      "sourceLocator": "Task boundary; comparison against current operation",
+      "codeStatus": "code_has_extra_behavior_not_in_doc",
+      "codePaths": [
+        "src/components/WorkMapIntake.tsx:1049",
+        "src/services/work-map-operational-readiness.ts",
+        "tests/regression/work-map-operational-readiness.test.ts"
+      ],
+      "testCoverage": [
+        "tests/regression/work-map-operational-readiness.test.ts",
+        "tests/regression/work-map-save-validation.test.ts"
+      ],
+      "riskIfWiredNow": "Alto: cablear el documento como hard validation puede romper el contrato H12 coverage-only.",
+      "notes": "El DOCX no modela readiness H12, attempts, syntax vs coverage ni allowed_with_warning."
+    },
+    {
+      "documentRuleId": "EMERGENT_ASSISTANCE_GUARDRAILS",
+      "documentRule": "Reglas emergentes de asistencia: no ejemplos inventados, no checklist, no frases ambiguas, asistencia contextual por objeto.",
+      "sourceLocator": "Current code/tests only",
+      "codeStatus": "code_has_extra_behavior_not_in_doc",
+      "codePaths": [
+        "src/services/work-map-activity-validation.ts:36",
+        "src/services/work-map-activity-validation.ts:1451",
+        "src/services/work-map-activity-validation.ts:1572",
+        "tests/regression/work-map-save-validation.test.ts"
+      ],
+      "testCoverage": [
+        "tests/regression/work-map-save-validation.test.ts"
+      ],
+      "riskIfWiredNow": "Alto: el DOCX no contiene estas defensas finas; sustituir el coach actual por el documento degradaría comportamiento probado.",
+      "notes": "Debe mantenerse como operación actual hasta fase separada de alineación."
+    },
+    {
+      "documentRuleId": "DOCUMENT_ONLY_STATUS",
+      "documentRule": "Documentar sin cablear; no JSON ejecutable, no TS validator, no runtimeAuthority.",
+      "sourceLocator": "Task scope",
+      "codeStatus": "do_not_wire_yet",
+      "codePaths": [],
+      "testCoverage": [],
+      "riskIfWiredNow": "Crítico: cablear ahora violaría alcance y podría romper comportamiento emergente.",
+      "notes": "Este JSON es audit/comparison, no catálogo ejecutable."
+    }
+  ]
+}

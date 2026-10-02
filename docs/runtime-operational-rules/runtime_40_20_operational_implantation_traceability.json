@@ -1,0 +1,49 @@
+{
+  "implantation_id": "EVE_RUNTIME_40_20_OPERATIONAL_RULES_IMPLANT_BASE40_CAUSAL20_V1",
+  "implanted_at": "2026-07-11",
+  "runtime_40_20_operational_rules_version": "1.0.0",
+  "sources": {
+    "base40_docx": "docs/runtime-operational-rules/Regla_Operativa_40_Preguntas_Base_EVE_MMABP_Ajustada.docx",
+    "causal20_docx": "docs/runtime-operational-rules/Regla_Operativa_20_Preguntas_Causales_EVE_MMABP_Ajustada.docx",
+    "base40_json": "docs/runtime-operational-rules/base40_operational_rule.json",
+    "base40_md": "docs/runtime-operational-rules/base40_operational_rule.md",
+    "causal20_json": "docs/runtime-operational-rules/causal20_operational_rule.json",
+    "causal20_md": "docs/runtime-operational-rules/causal20_operational_rule.md"
+  },
+  "services": {
+    "base40_rule": "src/services/eve/runtime-40-20/operational-rules/base40-operational-rule.ts",
+    "causal20_rule": "src/services/eve/runtime-40-20/operational-rules/causal20-operational-rule.ts",
+    "base_resolution_gate": "src/services/eve/runtime-40-20/operational-rules/base-resolution-gate.ts",
+    "causal_closure_gate": "src/services/eve/runtime-40-20/operational-rules/causal-closure-gate.ts",
+    "readiness_guard": "src/services/eve/runtime-40-20/operational-rules/runtime-40-20-readiness-guard.ts"
+  },
+  "surfaces": {
+    "consultant_panel_area_3": "src/components/consultant/control-panel/EveOperationalTracePanel.tsx",
+    "ccp_types": "src/services/eve/consultant-control-panel/consultant-control-panel-types.ts",
+    "ccp_service": "src/services/eve/consultant-control-panel/consultant-control-panel-service.ts",
+    "ambar_fixture": "src/services/eve/consultant-control-panel/fixtures/cerveceria-ambar-ancestral-fixture.ts",
+    "ccp_data_contract": "docs/consultant-control-panel/consultant_control_panel_data_contract.json"
+  },
+  "gates": {
+    "BaseResolutionGate": {
+      "total_required": 40,
+      "skipped_silently_forbidden": true,
+      "inferred_unconfirmed_blocks_ready_full": true
+    },
+    "CausalClosureGate": {
+      "total_required_evaluations": 20,
+      "p0_blockers": ["C05", "C09", "C11", "C20"],
+      "c20_non_diagnostic": true
+    }
+  },
+  "boundary": {
+    "production_touched": false,
+    "supabase_touched": false,
+    "sql_executed": false,
+    "migration_modified": false,
+    "manual_controls_activated": false,
+    "downloads_activated": false,
+    "diagnosis_final_automatic_created": false,
+    "productive_export_executed": false
+  }
+}

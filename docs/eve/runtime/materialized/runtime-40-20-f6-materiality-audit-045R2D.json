@@ -1,0 +1,95 @@
+﻿{
+    "instruction":  "045-R2D",
+    "generated_at":  "2026-08-09T00:00:00-06:00",
+    "overall_materiality":  "specification_only_absent_productive",
+    "remote_contact":  false,
+    "code_changes":  false,
+    "pieces":  [
+                   {
+                       "piece":  "runtime_event_outbox",
+                       "schema":  "not_found",
+                       "code":  "not_found_productive",
+                       "tests":  "not_found",
+                       "callers":  "not_found",
+                       "persistence":  "absent",
+                       "status":  "absent"
+                   },
+                   {
+                       "piece":  "runtime_state_snapshot",
+                       "schema":  "not_found",
+                       "code":  "not_found_productive",
+                       "tests":  "not_found",
+                       "callers":  "not_found",
+                       "persistence":  "absent",
+                       "status":  "absent"
+                   },
+                   {
+                       "piece":  "control_plane_projection_job",
+                       "schema":  "not_found",
+                       "code":  "not_found",
+                       "persistence":  "absent",
+                       "status":  "absent"
+                   },
+                   {
+                       "piece":  "no_go_evaluation_result",
+                       "schema":  "not_found",
+                       "code":  "local NO_GO constants only",
+                       "persistence":  "not_persisted",
+                       "status":  "specification_only"
+                   },
+                   {
+                       "piece":  "export_boundary_check",
+                       "schema":  "not_found",
+                       "code":  "local boundary flags only",
+                       "persistence":  "not_persisted",
+                       "status":  "specification_only"
+                   },
+                   {
+                       "piece":  "rls_probe_result",
+                       "schema":  "not_found",
+                       "code":  "not_found",
+                       "persistence":  "absent",
+                       "status":  "absent"
+                   },
+                   {
+                       "piece":  "handoff_patch_record",
+                       "schema":  "not_found",
+                       "code":  "not_found_productive",
+                       "persistence":  "absent",
+                       "status":  "absent"
+                   },
+                   {
+                       "piece":  "review_control_event",
+                       "schema":  "not_found",
+                       "code":  "review strings/local flags only",
+                       "persistence":  "absent",
+                       "status":  "specification_only"
+                   },
+                   {
+                       "piece":  "no_go_status_snapshot",
+                       "schema":  "not_found",
+                       "code":  "NO_GO constants only",
+                       "persistence":  "not_persisted",
+                       "status":  "specification_only"
+                   },
+                   {
+                       "piece":  "shadow_only_outbox_events",
+                       "schema":  "not_productive_runtime_event_outbox",
+                       "code":  "bridge reader source/adapters",
+                       "persistence":  "shadow_only",
+                       "status":  "specification_only"
+                   }
+               ],
+    "conclusion":  "F6 contract/shadow vocabulary exists, but productive Runtime outbox, snapshot, handoff boundary, review-control persistence, worker and replay are absent.",
+    "evidence_files":  [
+                           "src/services/eve/object-binding/f5c-local-runtime-object-binding-service.ts",
+                           "src/services/eve/object-binding/f5c-local-binding-types.ts",
+                           "src/services/eve/object-binding/f5c-local-runtime-object-binding-service.test.mjs",
+                           "docs/implementation/f5c_local_runtime_object_binding_closeout.md",
+                           "docs/implementation/runtime_40_20_phase9_gap_audit_readiness_object_membrane_persistence_boundary_local_contract_closeout.md",
+                           "src/types/eve-organism-gate2-real-shadow-bridge-reader.ts",
+                           "src/types/eve-organism-bridge-reader-real-source-adapter.ts",
+                           "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-governed-execution-service.ts",
+                           "src/services/eve/runtime-40-20/execution-connected/runtime-40-20-staging-persistence-types.ts"
+                       ]
+}

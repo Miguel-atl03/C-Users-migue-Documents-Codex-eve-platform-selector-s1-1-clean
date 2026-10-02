@@ -1,0 +1,124 @@
+{
+  "registry_package_id": "CLIENTE_001_QUADRANT_REGISTRIES_V1",
+  "registry_package_type": "quadrant_registry_package",
+  "registry_version": "1.0.0",
+  "source_inventory_id": "CLIENTE_001_MMABP_FACTS_V1",
+  "client_id": "CLIENTE_001",
+  "registries": {
+    "PM": {
+      "quadrant": "PM",
+      "elements": [
+        {
+          "element_id": "PM_PROC_001",
+          "element_type": "business_process",
+          "label": "Gestionar solicitud",
+          "source_fact_ids": ["FACT_000001", "FACT_000002"],
+          "trigger_events": [],
+          "target_states": ["Solicitud en espera de aprobacion legal"],
+          "support_markers": ["Seguimiento informal por chat para obtener aprobacion"],
+          "conformance_status": "pending",
+          "consistency_status": "pending"
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "PM_GAP_001",
+          "gap_type": "missing_trigger_event",
+          "description": "Falta trigger explicito para cerrar PM Registry.",
+          "source_fact_ids": ["FACT_000001"]
+        }
+      ]
+    },
+    "PF": {
+      "quadrant": "PF",
+      "elements": [
+        {
+          "element_id": "PF_PSTATE_001",
+          "element_type": "process_state",
+          "label": "Solicitud en espera de aprobacion legal",
+          "source_fact_ids": ["FACT_000001"],
+          "awaited_events": ["Aprobacion legal recibida"],
+          "timer_event": null,
+          "conformance_status": "pending",
+          "consistency_status": "pending"
+        },
+        {
+          "element_id": "PF_WORKAROUND_001",
+          "element_type": "workaround",
+          "label": "Seguimiento informal por chat para obtener aprobacion",
+          "source_fact_ids": ["FACT_000002"],
+          "informal_support": true,
+          "conformance_status": "pending",
+          "consistency_status": "pending"
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "PF_GAP_001",
+          "gap_type": "missing_timer_event",
+          "description": "Process State requiere timer antes de diagramacion.",
+          "source_fact_ids": ["FACT_000001"]
+        }
+      ]
+    },
+    "MoC": {
+      "quadrant": "MoC",
+      "elements": [
+        {
+          "element_id": "MOC_CLASS_001",
+          "element_type": "class",
+          "label": "Solicitud",
+          "business_concept": "Objeto de negocio que cambia de estado durante la aprobacion.",
+          "source_fact_ids": ["FACT_000003"],
+          "conformance_status": "pending",
+          "consistency_status": "pending"
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "MOC_GAP_001",
+          "gap_type": "missing_object_details",
+          "description": "La clase Solicitud existe como concepto de negocio; atributos y operaciones quedan pendientes para export estable."
+        }
+      ]
+    },
+    "OLC": {
+      "quadrant": "OLC",
+      "elements": [
+        {
+          "element_id": "OLC_STATE_001",
+          "element_type": "object_state",
+          "label": "Pendiente de aprobacion legal",
+          "object_class": "Solicitud",
+          "source_fact_ids": ["FACT_000001"],
+          "incoming_reason": "Solicitud queda detenida por aprobacion legal pendiente",
+          "conformance_status": "pending",
+          "consistency_status": "pending"
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "OLC_GAP_001",
+          "gap_type": "missing_transition_reason_detail",
+          "description": "La transicion completa requiere razon/evento y operacion MoC antes de OLC-IR.",
+          "source_fact_ids": ["FACT_000001"]
+        }
+      ]
+    }
+  },
+  "registry_readiness": {
+    "status": "registries_ready_with_gaps",
+    "notes": [
+      "PM, PF y OLC tienen elementos iniciales trazados.",
+      "MoC declara la clase de negocio Solicitud y mantiene gap no bloqueante de atributos/operaciones."
+    ]
+  },
+  "boundaries": {
+    "not_diagram": true,
+    "not_mmabp_ir": true,
+    "not_diagnostic": true,
+    "not_capa2_readiness": true,
+    "not_monetization": true,
+    "not_final_narrative": true
+  }
+}

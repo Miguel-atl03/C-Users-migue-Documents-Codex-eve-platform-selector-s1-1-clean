@@ -1,0 +1,114 @@
+{
+  "instruction": "045-R1",
+  "artifact": "runtime-40-20-gaby-runtime-contract-gap-045R1",
+  "audit_mode": "read_only_checkout",
+  "gap_case": "B",
+  "classification_basis": "real Gaby boundary exists but lacks complete Runtime 40/20 scope, catalog coupling, and BFF conformance",
+  "required_runtime_scope_observed_from_bff": {
+    "tenant_id": "required",
+    "case_id": "required",
+    "role_id": "required for interaction/answer",
+    "activity_id": "required for interaction/answer",
+    "run_id": "required for interaction/answer/review",
+    "client_session_id": "optional",
+    "correlation_id": "required",
+    "idempotency_key": "required for answer mutation",
+    "evidence": [
+      "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff-types.ts:14-23",
+      "src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff-service.ts:54-118"
+    ]
+  },
+  "gaby_live_fields": {
+    "case_id": {
+      "present": true,
+      "evidence": [
+        "src/app/page.tsx:610-628",
+        "src/lib/participant-context.ts:250-253"
+      ]
+    },
+    "participant_id": {
+      "present": true,
+      "evidence": [
+        "src/lib/participant-context.ts:258-261"
+      ]
+    },
+    "profile_id": {
+      "present": true,
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:515"
+      ]
+    },
+    "role_runtime_session_id": {
+      "present": true,
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:517"
+      ]
+    },
+    "activity_runtime_run_id": {
+      "present": true,
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:518"
+      ]
+    },
+    "activity_id": {
+      "present": true,
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:519",
+        "src/components/SceneQuestionnaireRunner.tsx:250"
+      ]
+    },
+    "scene_id": {
+      "present": true,
+      "evidence": [
+        "src/components/SceneQuestionnaireRunner.tsx:251"
+      ]
+    },
+    "runtime_interaction_id": {
+      "present": false,
+      "evidence": [
+        "src/components/SceneQuestionnaireRunner.tsx:244-260"
+      ]
+    },
+    "catalog_version_id": {
+      "present_in_runtime_session_backend": true,
+      "present_in_live_question_submit": false,
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:42-53",
+        "src/app/api/participant/workmap/finalize/route.ts:209-214",
+        "src/app/page.tsx:1977-2009"
+      ]
+    },
+    "tenant_id": {
+      "present_in_finalize_backend": true,
+      "present_in_live_question_submit": false,
+      "evidence": [
+        "src/app/api/participant/workmap/finalize/route.ts:48-50",
+        "src/app/page.tsx:1977-2009"
+      ]
+    },
+    "idempotency_key": {
+      "present_for_experience_event": true,
+      "present_for_scene_answers": false,
+      "evidence": [
+        "src/app/page.tsx:721-763",
+        "src/app/page.tsx:1977-2009"
+      ]
+    }
+  },
+  "contract_gaps": [
+    "Current question render is client-side from capa1-runtime-manifest, not from Runtime 40/20 catalog.",
+    "Current answer persistence writes scene_question_answers, not Runtime 40/20 response/interaction organs.",
+    "Scene answer submit lacks Runtime BFF scope fields: tenant_id, role_id, run_id and idempotency_key.",
+    "The BFF answer route is not live from the Gaby UI and fails the no-direct-Supabase import guard.",
+    "runtime_interaction_id is not present in the live SceneQuestionnaireRunner answer object.",
+    "catalog_version_id is read in finalize backend but not carried through the question/answer submit boundary."
+  ],
+  "gap_cases": {
+    "A_all_contract_ready": false,
+    "B_identity_or_bff_contract_partial": true,
+    "C_legacy_supersession_required": "partial_true_for_scene_catalog",
+    "D_no_boundary": false,
+    "E_architecture_conflict": false
+  },
+  "final_recommendation": "Do not wire Runtime 40/20 directly into the UI yet. First close the BFF scope and guard gap, then connect the existing workmap finalize identity output to a governed Runtime question/answer boundary."
+}

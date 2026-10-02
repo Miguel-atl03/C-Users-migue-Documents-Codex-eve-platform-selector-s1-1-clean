@@ -1,0 +1,114 @@
+{
+  "audit_id": "EVE_ORGANISM_GATE2_PERSISTENT_BLOCKERS_V2",
+  "generated_at": "2026-06-25T02:40:16.020Z",
+  "dictamen": "REPLAY_ONLY_CONTINUES_V2_READY_FOR_REAL_OBSERVABLE_SIGNAL_CONTRACT_DESIGN",
+  "blockers": [
+    {
+      "blocker_id": "ROB-001",
+      "title": "No safe real entrypoint",
+      "severity": "critical",
+      "current_status": "open",
+      "evidence_status": "not_proven",
+      "why_not_cleared": "Observer candidates ready_for_design = 0; no safe real entrypoint exists.",
+      "evidence_required_to_clear": "Produce a documented real entrypoint with tenant/session/activity, provenance/sourceTrace, idempotency/correlation, officialFlowRef and no DB/UI/Supabase/runtime mutation proof.",
+      "forbidden_while_open": "real observer adapter, UI hook, WorkMap hook, Significado hook, runtime connector, DB observer, Supabase read, registry/export candidate real"
+    },
+    {
+      "blocker_id": "ROB-002",
+      "title": "Tenant/session/activity incomplete",
+      "severity": "high",
+      "current_status": "partial_not_sufficient",
+      "evidence_status": "partial_not_sufficient",
+      "why_not_cleared": "Some identity/context fields appear in type/product code, but no safe observed real signal proves the complete set.",
+      "evidence_required_to_clear": "Real signal evidence must include tenantId, organizationId, sessionId and activityId from a non-mutating read-only source.",
+      "forbidden_while_open": "using synthetic fixture tenant/session/activity as real observation evidence"
+    },
+    {
+      "blocker_id": "ROB-003",
+      "title": "Provenance/sourceTrace incomplete",
+      "severity": "high",
+      "current_status": "partial_not_sufficient",
+      "evidence_status": "partial_not_sufficient",
+      "why_not_cleared": "Provenance/sourceTrace evidence is partial and bound to product/shadow contexts; not enough for real observation.",
+      "evidence_required_to_clear": "Provide real provenance and candidate sourceTrace evidence with source path, source id/line or equivalent stable origin, without touching WorkMap/Significado/UI/DB.",
+      "forbidden_while_open": "treating fixture-only sourceTrace as real production trace"
+    },
+    {
+      "blocker_id": "ROB-004",
+      "title": "Idempotency/correlation incomplete",
+      "severity": "high",
+      "current_status": "reduced_not_cleared",
+      "evidence_status": "reduced_not_cleared",
+      "why_not_cleared": "Human decision accepts idempotencyKey/correlationId only as shadow contract fields; real evidence remains missing.",
+      "evidence_required_to_clear": "Produce real idempotencyKey and correlationId evidence, or a documented read-only derivation rule that does not write DB or touch runtime.",
+      "forbidden_while_open": "creating correlation/idempotency values in production state for observation"
+    },
+    {
+      "blocker_id": "ROB-005",
+      "title": "officialFlowRef missing",
+      "severity": "high",
+      "current_status": "reduced_not_cleared",
+      "evidence_status": "reduced_not_cleared",
+      "why_not_cleared": "officialFlowRef is accepted only as future canonical name; current real official-flow evidence remains missing.",
+      "evidence_required_to_clear": "Provide officialFlowRef evidence from a read-only source that does not activate or mutate the official flow.",
+      "forbidden_while_open": "running official flow or generating export/registry output to manufacture officialFlowRef"
+    },
+    {
+      "blocker_id": "ROB-006",
+      "title": "UI/WorkMap/Significado touch risk",
+      "severity": "critical",
+      "current_status": "open",
+      "evidence_status": "not_proven",
+      "why_not_cleared": "WorkMap/Significado/UI touch risks remain; no passive seam outside product surfaces is proven.",
+      "evidence_required_to_clear": "Show proof of a passive observer seam outside UI/app/components/pages and outside WorkMap/Significado mutation paths.",
+      "forbidden_while_open": "UI hook, WorkMap hook, Significado hook, app/API wiring, product observer wiring"
+    },
+    {
+      "blocker_id": "ROB-007",
+      "title": "Supabase/DB boundary not proven",
+      "severity": "critical",
+      "current_status": "open",
+      "evidence_status": "not_proven",
+      "why_not_cleared": "No no-Supabase or controlled read-only Supabase/DB boundary with tenant/auth/RLS proof is established.",
+      "evidence_required_to_clear": "Document no-DB proof, or if a read boundary appears, prove controlled read-only access, RLS/auth/tenant isolation, and zero write paths.",
+      "forbidden_while_open": "DB observer, Supabase read, SQL execution, migrations, RLS-affecting changes"
+    },
+    {
+      "blocker_id": "ROB-008",
+      "title": "Synthetic fixture fields cannot become real evidence",
+      "severity": "high",
+      "current_status": "open",
+      "evidence_status": "not_proven",
+      "why_not_cleared": "Synthetic fixture values remain fixture-only and cannot clear real signal requirements.",
+      "evidence_required_to_clear": "Replace each synthetic fixture-only value with real observed evidence, or keep the lane replay-only.",
+      "forbidden_while_open": "promoting fixture-only tenant/session/activity/provenance/correlation/officialFlowRef as real evidence"
+    },
+    {
+      "blocker_id": "ROB-009",
+      "title": "Real observer design not allowed yet",
+      "severity": "high",
+      "current_status": "open",
+      "evidence_status": "not_proven",
+      "why_not_cleared": "Read-only observer design remains unauthorized until real signal boundaries are closed.",
+      "evidence_required_to_clear": "Clear ROB-001 through ROB-008 and rerun preflight before enabling a read-only observer design allowlist.",
+      "forbidden_while_open": "src/types/eve-organism-real-observation.ts, real observation adapter, real observer tests until explicitly allowed by a future preflight"
+    },
+    {
+      "blocker_id": "ROB-010",
+      "title": "Replay-only lane remains the authorized Gate 2 path",
+      "severity": "medium",
+      "current_status": "open",
+      "evidence_status": "not_proven",
+      "why_not_cleared": "Replay-only lane remains the only authorized Gate 2 path.",
+      "evidence_required_to_clear": "Keep continuation work inside replay-only lane until real evidence clears the blockers.",
+      "forbidden_while_open": "productive shadow activation, runtime connector, registry/export candidate real, diagnosis enablement"
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "open": 6,
+    "reduced_not_cleared": 2,
+    "partial_not_sufficient": 2,
+    "cleared": 0
+  }
+}

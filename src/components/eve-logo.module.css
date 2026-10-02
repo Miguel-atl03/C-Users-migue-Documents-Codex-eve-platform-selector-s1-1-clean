@@ -1,0 +1,81 @@
+.root {
+  --eve-mark-height: 24px;
+  --eve-text-size: 14px;
+  --eve-gap: 8px;
+  --eve-tracking: 0.4em;
+  --eve-tm-size: 7px;
+  --eve-wordmark-color: #272a32;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--eve-gap);
+  max-width: 100%;
+}
+
+.size_sm {
+  --eve-mark-height: 12px;
+  --eve-text-size: 7px;
+  --eve-gap: 6px;
+  --eve-tracking: 0.42em;
+  --eve-tm-size: 4px;
+}
+
+.size_md {
+  --eve-mark-height: 24px;
+  --eve-text-size: 14px;
+  --eve-gap: 8px;
+  --eve-tracking: 0.4em;
+  --eve-tm-size: 7px;
+}
+
+.variant_default {
+  --eve-wordmark-color: #272a32;
+}
+
+.variant_muted {
+  --eve-wordmark-color: #4d4d4d;
+}
+
+.variant_on-dark {
+  --eve-wordmark-color: rgba(255, 255, 255, 0.9);
+}
+
+.mark {
+  display: block;
+  width: auto;
+  height: var(--eve-mark-height);
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.variant_on-dark .mark {
+  filter: brightness(0) invert(1);
+  opacity: 0.88;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--eve-mark-height);
+}
+
+.letters {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: var(--eve-text-size);
+  font-weight: 600;
+  letter-spacing: var(--eve-tracking);
+  line-height: 1;
+  color: var(--eve-wordmark-color);
+  white-space: nowrap;
+}
+
+.tm {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: var(--eve-tm-size);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  vertical-align: top;
+  margin-left: 1px;
+  color: var(--eve-wordmark-color);
+}

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Campo de inscripciones · mock v2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1100px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      /* ── registro perimetral ── */
+      .registry {
+        position: absolute;
+        top: 36px;
+        left: 72px;
+        right: 72px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .registry-mark {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .registry-mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .registry-strap {
+        letter-spacing: 0.34em;
+      }
+
+      .void-line-h {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        height: 1px;
+        background: var(--eve-line);
+        opacity: 0.5;
+      }
+
+      .void-line-h.top {
+        top: 108px;
+      }
+
+      .void-line-h.mid {
+        top: 580px;
+        opacity: 0.28;
+      }
+
+      /* centro vacío — el protagonista */
+      .void-chamber {
+        position: absolute;
+        top: 580px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1px;
+        height: 420px;
+        background: var(--eve-line);
+        opacity: 0.32;
+      }
+
+      .void-frame {
+        position: absolute;
+        top: 580px;
+        left: 480px;
+        right: 480px;
+        bottom: 72px;
+        border: 0;
+        pointer-events: none;
+      }
+
+      /* ── monumento serif — único bloque de lectura ── */
+      .monument {
+        position: absolute;
+        top: 148px;
+        left: 72px;
+        max-width: 480px;
+      }
+
+      .monument-line {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 56px;
+        font-weight: 600;
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+      }
+
+      .monument-line em {
+        display: block;
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      .monument-sub {
+        margin: 24px 0 0;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .meta {
+        position: absolute;
+        top: 148px;
+        right: 72px;
+        text-align: right;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 2;
+      }
+
+      /* marca de sala — flota en el void, no encima de opciones */
+      .room {
+        position: absolute;
+        top: 468px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-ink) 55%, var(--eve-mist));
+        white-space: nowrap;
+      }
+
+      /* ── campo de inscripciones: opciones en el plano, NO stack ── */
+      .field {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .anchor {
+        position: absolute;
+        margin: 0;
+        max-width: 26ch;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+      }
+
+      .anchor-a {
+        top: 612px;
+        left: 72px;
+      }
+
+      .anchor-b {
+        top: 612px;
+        right: 72px;
+        max-width: 24ch;
+        text-align: right;
+      }
+
+      .mark {
+        position: absolute;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.07em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        max-width: 22ch;
+      }
+
+      .mark.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .mark-a1 {
+        top: 668px;
+        left: 72px;
+        max-width: 28ch;
+      }
+
+      .mark-a2 {
+        top: 702px;
+        left: 318px;
+        max-width: 18ch;
+      }
+
+      .mark-a3 {
+        top: 748px;
+        left: 96px;
+        max-width: 20ch;
+      }
+
+      .mark-a4 {
+        top: 778px;
+        left: 340px;
+        max-width: 16ch;
+      }
+
+      .mark-a5 {
+        top: 828px;
+        left: 72px;
+        max-width: 30ch;
+      }
+
+      .mark-a6 {
+        top: 878px;
+        left: 280px;
+        max-width: 19ch;
+      }
+
+      .mark-a7 {
+        top: 928px;
+        left: 120px;
+      }
+
+      .mark-b1 {
+        top: 668px;
+        right: 340px;
+        text-align: right;
+        max-width: 16ch;
+      }
+
+      .mark-b2 {
+        top: 712px;
+        right: 72px;
+        text-align: right;
+        max-width: 22ch;
+      }
+
+      .mark-b3 {
+        top: 762px;
+        right: 300px;
+        text-align: right;
+        max-width: 18ch;
+      }
+
+      .mark-b4 {
+        top: 808px;
+        right: 96px;
+        text-align: right;
+        max-width: 24ch;
+      }
+
+      .mark-b5 {
+        top: 868px;
+        right: 260px;
+        text-align: right;
+        max-width: 28ch;
+      }
+
+      /* trazas de registro — marcan zona periférica, no catálogo */
+      .zone-tick {
+        position: absolute;
+        background: var(--eve-line);
+        opacity: 0.4;
+      }
+
+      .zone-tick.a1 {
+        top: 652px;
+        left: 72px;
+        width: 48px;
+        height: 1px;
+      }
+
+      .zone-tick.a2 {
+        top: 652px;
+        left: 72px;
+        width: 1px;
+        height: 32px;
+      }
+
+      .zone-tick.b1 {
+        top: 652px;
+        right: 72px;
+        width: 48px;
+        height: 1px;
+      }
+
+      .zone-tick.b2 {
+        top: 652px;
+        right: 72px;
+        width: 1px;
+        height: 32px;
+      }
+
+      .trace {
+        position: absolute;
+        bottom: 52px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 0;
+        border-bottom: 1px solid var(--eve-ink);
+        background: transparent;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 0 0 5px;
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 18px;
+        left: 72px;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Mock — campo de inscripciones en void">
+      <header class="registry">
+        <span class="registry-mark">EVE<sup>™</sup></span>
+        <span class="registry-strap">
+          Strategic &amp; Operational Architecture / Enterprise Viability Engine
+        </span>
+      </header>
+
+      <div class="void-line-h top" aria-hidden="true"></div>
+      <div class="void-line-h mid" aria-hidden="true"></div>
+      <div class="void-chamber" aria-hidden="true"></div>
+
+      <div class="monument">
+        <h1 class="monument-line">
+          Lo que sostiene
+          <em>no siempre se ve.</em>
+        </h1>
+        <p class="monument-sub">Una forma distinta de mirar.</p>
+      </div>
+
+      <div class="meta">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <p class="room">[ Comienza tu levantamiento ]</p>
+
+      <!-- Campo A: participación — marcas dispersas, sin columna -->
+      <div class="field" aria-hidden="false">
+        <span class="zone-tick a1" aria-hidden="true"></span>
+        <span class="zone-tick a2" aria-hidden="true"></span>
+        <span class="zone-tick b1" aria-hidden="true"></span>
+        <span class="zone-tick b2" aria-hidden="true"></span>
+
+        <p class="anchor anchor-a">¿Desde qué lugar participas normalmente en la empresa?</p>
+        <p class="mark mark-a1 is-on">Soy dueño/a, socio/a o parte de la dirección general.</p>
+        <p class="mark mark-a2">Estoy a cargo o dirijo un área.</p>
+        <p class="mark mark-a3">Superviso o coordino el trabajo de otras personas.</p>
+        <p class="mark mark-a4">Analizo información, datos o procesos.</p>
+        <p class="mark mark-a5">Apoyo en administración, ventas, producción, atención o soporte.</p>
+        <p class="mark mark-a6">Participo como externo, asesor o proveedor.</p>
+        <p class="mark mark-a7">Otro.</p>
+
+        <p class="anchor anchor-b">¿Qué tan cerca estás de las decisiones?</p>
+        <p class="mark mark-b1">Las tomo directamente.</p>
+        <p class="mark mark-b2 is-on">Participo en decidirlas.</p>
+        <p class="mark mark-b3">Las propongo o las preparo.</p>
+        <p class="mark mark-b4">Las ejecuto cuando ya fueron decididas.</p>
+        <p class="mark mark-b5">Las vivo como impacto, pero no participo mucho en decidirlas.</p>
+      </div>
+
+      <button class="trace" type="button">Guardar</button>
+
+      <p class="proposal-tag">Mock v2 · campo de inscripciones · void central · sin stack</p>
+    </section>
+  </body>
+</html>

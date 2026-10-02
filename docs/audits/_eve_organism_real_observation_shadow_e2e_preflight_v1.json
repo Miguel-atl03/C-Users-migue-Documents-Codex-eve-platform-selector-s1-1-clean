@@ -1,0 +1,72 @@
+{
+  "audit_id": "EVE_ORGANISM_REAL_OBSERVATION_SHADOW_E2E_PREFLIGHT_V1",
+  "generated_at": "2026-06-24T00:00:00.000Z",
+  "dictamen": "REAL_OBSERVATION_PREFLIGHT_READY_WITH_FIXTURE_FIRST_ONLY",
+  "base": {
+    "pwd": "C:\\Users\\migue\\Documents\\Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone\\external-consumers\\eve-platform",
+    "git_top": "C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone",
+    "head": "6022c42ceac35861ea287d5602120dad0b2d27b7",
+    "commit_contains_6022c42": true,
+    "node_version": "v24.15.0",
+    "package_manager": "npm/package-lock.json",
+    "framework": "Next.js 16.2.5",
+    "dirty_tree_count": 866,
+    "staged_files_count": 0
+  },
+  "offline_harness": {
+    "artifacts_exist": true,
+    "artifact_parse_ok": true,
+    "test_command": "node --test tests/regression/eve-organism-shadow-e2e-adapter.test.ts",
+    "test_passed": true,
+    "test_summary": "44 passed / 0 failed; MODULE_TYPELESS_PACKAGE_JSON warning non-blocking"
+  },
+  "signals_summary": {
+    "candidates_total": 1028,
+    "safe_read_only": 0,
+    "safe_fixture_replay": 278,
+    "with_tenant_session_activity": 12,
+    "with_provenance": 178,
+    "with_correlation_or_idempotency": 19
+  },
+  "recommended_entrypoint": {
+    "recommended": "fixture/replay strengthening only",
+    "decision": "reject_real_observation_for_now",
+    "risk_level": "high",
+    "reason": "No real entrypoint simultaneously proves tenant/session/activity, provenance/sourceTrace, idempotency/correlation, no UI touch, no DB write, no Supabase requirement, and no product-domain mutation."
+  },
+  "gap_summary": {
+    "total": 11,
+    "critical": 0,
+    "high": 10,
+    "medium": 1
+  },
+  "no_cableado": {
+    "db_write_allowed": false,
+    "registry_write_allowed": false,
+    "export_allowed": false,
+    "diagnosis_allowed": false,
+    "ui_touch_allowed": false,
+    "runtime_mutation_allowed": false,
+    "production_authority_allowed": false
+  },
+  "future_allowlist": [
+    "tests/fixtures/eve-organism-shadow-e2e/*.json",
+    "tests/regression/eve-organism-shadow-e2e-replay-fixtures.test.ts",
+    "docs/audits/AUDIT_EVE_ORGANISM_SHADOW_E2E_REPLAY_FIXTURES_V1.md",
+    "docs/audits/_eve_organism_shadow_e2e_replay_fixtures_v1.json"
+  ],
+  "next_step": "REPLAY_FIXTURES_STRENGTHENING_V1",
+  "no_modification_attestation": {
+    "src_modified": false,
+    "tests_modified": false,
+    "chips_modified": false,
+    "runtime_modified": false,
+    "organism_docs_modified": false,
+    "package_json_modified": false,
+    "db_modified": false,
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "registry_written": false,
+    "commit_created": false
+  }
+}

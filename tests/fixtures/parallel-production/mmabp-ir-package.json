@@ -1,0 +1,135 @@
+{
+  "ir_package_id": "CLIENTE_001_MMABP_IR_V1",
+  "ir_package_type": "mmabp_ir_package",
+  "ir_version": "1.0.0",
+  "source_registry_package_id": "CLIENTE_001_QUADRANT_REGISTRIES_V1",
+  "client_id": "CLIENTE_001",
+  "conformance_status": "passed",
+  "consistency_status": "passed",
+  "conformance_report_id": "CLIENTE_001_CONFORMANCE_REPORT_V1",
+  "consistency_report_id": "CLIENTE_001_CONSISTENCY_REPORT_V1",
+  "models": {
+    "PM_IR": {
+      "quadrant": "PM",
+      "elements": [
+        {
+          "ir_element_id": "PM_IR_PROC_001",
+          "ir_element_type": "business_process",
+          "label": "Gestionar solicitud",
+          "source_registry_element_ids": ["PM_PROC_001"],
+          "source_fact_ids": ["FACT_000001", "FACT_000002"],
+          "target_states": ["Solicitud en espera de aprobacion legal"],
+          "support_markers": ["Seguimiento informal por chat para obtener aprobacion"],
+          "conformance_status": "pending",
+          "consistency_status": "pending"
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "PM_IR_GAP_001",
+          "gap_type": "missing_trigger_event",
+          "description": "Falta trigger explicito antes de PM-IR completo.",
+          "source_registry_element_ids": ["PM_PROC_001"],
+          "source_fact_ids": ["FACT_000001"]
+        }
+      ]
+    },
+    "PF_IR": {
+      "quadrant": "PF",
+      "elements": [
+        {
+          "ir_element_id": "PF_IR_PSTATE_001",
+          "ir_element_type": "process_state",
+          "label": "Solicitud en espera de aprobacion legal",
+          "source_registry_element_ids": ["PF_PSTATE_001"],
+          "source_fact_ids": ["FACT_000001"],
+          "awaited_events": ["Aprobacion legal recibida"],
+          "timer_event": null,
+          "conformance_status": "pending",
+          "consistency_status": "pending"
+        },
+        {
+          "ir_element_id": "PF_IR_WORKAROUND_001",
+          "ir_element_type": "workaround",
+          "label": "Seguimiento informal por chat para obtener aprobacion",
+          "source_registry_element_ids": ["PF_WORKAROUND_001"],
+          "source_fact_ids": ["FACT_000002"],
+          "conformance_status": "pending",
+          "consistency_status": "pending"
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "PF_IR_GAP_001",
+          "gap_type": "missing_timer_event",
+          "description": "Process State requiere timer antes de export package.",
+          "source_registry_element_ids": ["PF_PSTATE_001"],
+          "source_fact_ids": ["FACT_000001"]
+        }
+      ]
+    },
+    "MoC_IR": {
+      "quadrant": "MoC",
+      "elements": [
+        {
+          "ir_element_id": "MOC_IR_CLASS_001",
+          "ir_element_type": "class",
+          "label": "Solicitud",
+          "business_concept": "Objeto de negocio que cambia de estado durante la aprobacion.",
+          "source_registry_element_ids": ["MOC_CLASS_001"],
+          "source_fact_ids": ["FACT_000003"],
+          "attributes": [],
+          "operations": [],
+          "conformance_status": "pending",
+          "consistency_status": "pending"
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "MOC_IR_GAP_001",
+          "gap_type": "missing_object_details",
+          "description": "La clase Solicitud puede diagramarse como candidata; atributos y operaciones requieren evidencia adicional para export estable.",
+          "source_registry_element_ids": ["MOC_CLASS_001"],
+          "source_fact_ids": ["FACT_000003"]
+        }
+      ]
+    },
+    "OLC_IR": {
+      "quadrant": "OLC",
+      "elements": [
+        {
+          "ir_element_id": "OLC_IR_STATE_001",
+          "ir_element_type": "object_state",
+          "label": "Pendiente de aprobacion legal",
+          "source_registry_element_ids": ["OLC_STATE_001"],
+          "source_fact_ids": ["FACT_000001"],
+          "object_class": "Solicitud",
+          "design_gap_ids": ["DGAP_MOC_SUPPORT_001"],
+          "conformance_status": "pending",
+          "consistency_status": "pending"
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "OLC_IR_GAP_001",
+          "gap_type": "missing_transition_reason_detail",
+          "description": "Transicion completa requiere razon/evento y operacion MoC antes de exportacion.",
+          "source_registry_element_ids": ["OLC_STATE_001"],
+          "source_fact_ids": ["FACT_000001"]
+        }
+      ]
+    }
+  },
+  "ir_readiness": {
+    "status": "ir_ready_with_gaps",
+    "notes": ["IR parcial listo para QA de conformance/consistency, no para exportacion final."]
+  },
+  "boundaries": {
+    "not_diagram": true,
+    "not_export_package": true,
+    "not_diagnostic": true,
+    "not_capa2_readiness": true,
+    "not_monetization": true,
+    "not_final_narrative": true
+  }
+}

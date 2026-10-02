@@ -1,0 +1,75 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_P8_COMMAND_RESULTS",
+  "generated_at": "2026-07-08T18:45:30.000Z",
+  "commands": {
+    "typecheck": {
+      "command": "npx tsc --noEmit --pretty false",
+      "status": "passed",
+      "exit_code": 0
+    },
+    "build": {
+      "command": "npx next build --webpack",
+      "status": "passed",
+      "exit_code": 0,
+      "note": "npm run build (Turbopack) fails on Windows due to repo path length; webpack build succeeds"
+    },
+    "parallel_production_test": {
+      "command": "node --test src/services/eve/runtime-40-20/parallel-production/runtime-40-20-parallel-production.test.mjs",
+      "status": "passed",
+      "tests": 31,
+      "exit_code": 0
+    },
+    "consultant_result_test": {
+      "command": "node --test src/services/eve/runtime-40-20/consultant-result/runtime-40-20-consultant-result.test.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    "client_result_test": {
+      "command": "node --test src/services/eve/runtime-40-20/client-result/runtime-40-20-client-result.test.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    "gates_readiness_test": {
+      "command": "node --test src/services/eve/runtime-40-20/gates-readiness/runtime-40-20-gates-readiness.test.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    "runtime_real_test": {
+      "command": "node --test src/services/eve/runtime-40-20/runtime-real/runtime-40-20-runtime-real.test.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    "client_bff_test": {
+      "command": "node --test src/services/eve/runtime-40-20/client-bff/runtime-40-20-client-bff.test.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    "client_membrane_test": {
+      "command": "node --test src/services/eve/runtime-40-20/client-membrane/runtime-40-20-client-membrane.test.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    "supabase_status": {
+      "command": "npx supabase status",
+      "status": "passed",
+      "supabase_local_available": true,
+      "exit_code": 0
+    },
+    "p8_smoke": {
+      "command": "node scripts/eve/production-activation/p8-controlled-parallel-production-local-smoke.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    "p8_payload_validator": {
+      "command": "node scripts/eve/production-activation/p8-validate-parallel-production-payloads.mjs",
+      "status": "passed",
+      "exit_code": 0
+    },
+    "p8_boundary_scan": {
+      "command": "node scripts/eve/production-activation/p8-scan-parallel-production-boundaries.mjs",
+      "status": "passed",
+      "exit_code": 0
+    }
+  },
+  "all_passed": true
+}

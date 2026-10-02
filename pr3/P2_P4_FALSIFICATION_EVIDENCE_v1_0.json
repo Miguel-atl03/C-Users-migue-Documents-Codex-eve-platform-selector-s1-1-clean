@@ -1,0 +1,169 @@
+{
+  "artifact_id": "EVE-PR3-P2-P4-FALSIFICATION-EVIDENCE-v1.0",
+  "state": "PASS",
+  "errors": [],
+  "checks": {
+    "portable_limits_verifier": {
+      "state": "PASS",
+      "errors": [],
+      "checks": {
+        "b2_limits": {
+          "count": 4,
+          "values": {
+            "B2-LIMIT-MAX-USER-ROUNDS-v1.1": 4,
+            "B2-LIMIT-TEXT-LENGTH-v1.1": 4096,
+            "B2-LIMIT-CONTEXT-SELECTION-v1.1": 32768,
+            "B2-LIMIT-UI-TURN-v1.1": 8
+          },
+          "profile_sha256": "7c795ea221de055777ed5d97be3767ca71c94e3fc217d28de98564f01499f78f",
+          "mvp_limits_sha256": "74e892238dae80e56de956b37addb48211005da5e1db39590fc7f866d03b1bf4",
+          "interaction_gate_count": 10
+        },
+        "a06": {
+          "logical_records": 32,
+          "field_mappings": 341,
+          "command_receipt_fields": 19
+        },
+        "a07": {
+          "key_profile_count": 32,
+          "command_vectors": 8,
+          "operations": [
+            "ISSUE_ACTION_TOKEN",
+            "OPEN_OR_RESUME",
+            "SUBMIT_RESPONSE",
+            "SUBMIT_CORRECTION",
+            "RESUME",
+            "INTERNAL_AI",
+            "HUMAN_EXCEPTION",
+            "HANDOFF",
+            "READ_STATE"
+          ]
+        },
+        "a04": {
+          "receipt_bound_ops": {
+            "ISSUE_ACTION_TOKEN": true,
+            "OPEN_OR_RESUME": true,
+            "SUBMIT_RESPONSE": true,
+            "SUBMIT_CORRECTION": true,
+            "RESUME": true,
+            "INTERNAL_AI": true,
+            "HUMAN_EXCEPTION": true,
+            "HANDOFF": true
+          },
+          "read_state_equivalent": "PURE_READ_EQUIVALENT_NO_COMMAND_RECEIPT_WRITE",
+          "B2_overlay_ref": "EVE-PR3-B2-IMPLEMENTATION-LIMIT-RESOLUTION-v1.0"
+        },
+        "dto": {
+          "id": "EVE-PR3-A04-TRANSPORT-CONTRACT-v1.1",
+          "command_receipt": true
+        }
+      }
+    },
+    "p2_schema": {
+      "tables": 32,
+      "fields": 341,
+      "sql_sha256": "c398bc0916439444290300d6cc163e707c0925292178546af0e0ad9a4fedeee3",
+      "mapping_sha256": "414d9356cc813550f8f33fc1b0cde7f5db06f3c051276888f2c9c3590b85e44e",
+      "legacy_reuse": "NONE"
+    },
+    "p2_authority_seed": {
+      "seed_counts": {
+        "authority_artifact": 28,
+        "contract_set": 4,
+        "object_binding": 4,
+        "chain_definition": 1
+      },
+      "migration_sha256": "e7cf8b04e46f5e1068d7d164770451c69c7fbbc11da93f84f216f9602a8e7c4b"
+    },
+    "a07_vectors": {
+      "count": 12,
+      "all_identity_hashes_match": true
+    },
+    "p4_surface": {
+      "routes": [
+        "action-token",
+        "open-or-resume",
+        "respond",
+        "correct",
+        "resume",
+        "state"
+      ],
+      "feature_gate": true,
+      "legacy_auth_reuse": false,
+      "production_runtime_adapter": "BLOCKED_UNTIL_PROMOTED_ADAPTER"
+    },
+    "command_receipt_implementation": {
+      "covered_now": [
+        "ISSUE_ACTION_TOKEN",
+        "OPEN_OR_RESUME",
+        "SUBMIT_RESPONSE",
+        "SUBMIT_CORRECTION",
+        "RESUME"
+      ],
+      "deferred_owner_operations": [
+        "INTERNAL_AI",
+        "HUMAN_EXCEPTION",
+        "HANDOFF"
+      ],
+      "deferred_state": "IDENTITY_SCOPE_AND_GENERIC_RECEIPT_PRIMITIVE_ALREADY_DEFINED__HANDLERS_BELONG_TO_P3_A09_A10",
+      "pure_read": "READ_STATE"
+    },
+    "p4_qa_paths": {
+      "render": true,
+      "response": true,
+      "correction_api": true,
+      "retry": true,
+      "help": true,
+      "fallback": true,
+      "reentry": true,
+      "resume": true
+    },
+    "p4_command_receipt_qa": {
+      "artifact_id": "EVE-PR3-P4-COMMAND-RECEIPT-QA-EVIDENCE-v1.0",
+      "state": "PASS",
+      "errors": [],
+      "checks": {
+        "issue_action_token": {
+          "first": "ACCEPTED",
+          "retry": "IDEMPOTENT_REPLAY",
+          "different_payload": "IDEMPOTENCY_CONFLICT",
+          "allocated_client_event_id": "evt-fixed-1"
+        },
+        "open_or_resume": {
+          "first": "ACCEPTED",
+          "retry": "IDEMPOTENT_REPLAY",
+          "same_allocated_ids": true,
+          "retry_side_effect_count": 0
+        },
+        "submit_response": {
+          "first_side_effect_count": 4,
+          "retry_side_effect_count": 0,
+          "different_payload": "IDEMPOTENCY_CONFLICT"
+        },
+        "submit_correction": {
+          "revision": 2,
+          "supersedes": "resp-1",
+          "retry_side_effect_count": 0
+        },
+        "resume": {
+          "first_side_effect_count": 0,
+          "retry_side_effect_count": 0,
+          "same_result": true
+        },
+        "read_state": {
+          "receipt_delta": 0,
+          "projection": {
+            "chain_run_id": "cr-fixed",
+            "context_revision": "ctx-2"
+          }
+        }
+      },
+      "receipt_count": 5,
+      "side_effect_count": 11,
+      "scope": "DETERMINISTIC_CONTRACT_QA_ONLY__NOT_PROMOTED_RUNTIME_OR_DATABASE_EXECUTION"
+    }
+  },
+  "limits": {
+    "does_not_certify": "PostgreSQL deployment, promoted Runtime adapter, clean browser auth, real B0→B2 execution or pilot readiness."
+  }
+}

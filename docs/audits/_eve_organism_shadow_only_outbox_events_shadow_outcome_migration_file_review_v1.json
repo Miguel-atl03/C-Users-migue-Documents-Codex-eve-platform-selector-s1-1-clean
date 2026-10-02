@@ -1,0 +1,92 @@
+{
+  "dictamen": "SHADOW_ONLY_OUTBOX_EVENTS_SHADOW_OUTCOME_MIGRATION_FILE_REVIEW_BLOCKED_BY_CONSTRAINT_SCOPE",
+  "reviewed_migration_file": "sql/migrations/2026-06-28-add_shadow_outcome_to_shadow_only_outbox_events.sql",
+  "migration_executed": false,
+  "sql_modified_by_review": false,
+  "json_validation": {
+    "all_parse": true
+  },
+  "fields_confirmed": [
+    "shadow_outcome",
+    "shadow_outcome_provenance",
+    "shadow_outcome_schema_version",
+    "shadow_outcome_generated_at",
+    "shadow_outcome_producer",
+    "shadow_outcome_checksum",
+    "shadow_outcome_evidence_refs",
+    "shadow_outcome_no_go_flags",
+    "shadow_outcome_readiness",
+    "shadow_outcome_source_ref"
+  ],
+  "dml_scan": {
+    "passed": true,
+    "forbidden_dml_detected": false
+  },
+  "forbidden_source_scan": {
+    "passed": true,
+    "forbidden_sources_detected": [],
+    "notes": [
+      "official_outcome is mentioned only as comparison target and explicitly not as source",
+      "registry/export/diagnosis/UI/Gate 3/Fase 9/productive runtime are mentioned only as prohibited sources or prohibited authority"
+    ]
+  },
+  "rls_review": {
+    "rls_relaxed": false,
+    "update_delete_enabled": false,
+    "permissive_policy_created": false
+  },
+  "constraint_scope_review": {
+    "constraints_guarded": true,
+    "conrelid_or_regclass_filter_present": false,
+    "blocked_by_constraint_scope": true,
+    "blocker": "pg_constraint guards filter by conname but do not filter by conrelid or table regclass"
+  },
+  "metadata_constraint_review": {
+    "passed": true
+  },
+  "producer_constraint_review": {
+    "passed": true,
+    "allowed_producer": "EVE_SHADOW_NON_PRODUCTIVE"
+  },
+  "idempotency_review": {
+    "passed": false,
+    "add_column_if_not_exists": true,
+    "constraint_creation_guarded": true,
+    "constraint_guard_table_scoped": false
+  },
+  "authority": {
+    "runtime_connected": false,
+    "shadow_activated": false,
+    "observer_created": false,
+    "observer_authorized": false,
+    "real_observation_authorized": false,
+    "read_only_observer_authorized": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false,
+    "db_written": false,
+    "ui_touched": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "productive_brain_connection": false
+  },
+  "gaps": [
+    {
+      "gap_id": "GAP-CONSTRAINT-SCOPE-001",
+      "severity": "critical",
+      "description": "Constraint existence checks must include conrelid or table regclass filter for shadow_only_outbox_events."
+    }
+  ],
+  "blockers": [
+    {
+      "blocker_id": "CONSTRAINT_SCOPE_NOT_TABLE_SCOPED",
+      "severity": "critical",
+      "description": "pg_constraint guards filter only by conname and can false-positive against a constraint name on another relation."
+    }
+  ],
+  "commit_readiness": {
+    "ready": false,
+    "recommended_next_step": "FIX_SHADOW_ONLY_OUTBOX_EVENTS_SHADOW_OUTCOME_MIGRATION_CONSTRAINT_SCOPE_V1"
+  }
+}

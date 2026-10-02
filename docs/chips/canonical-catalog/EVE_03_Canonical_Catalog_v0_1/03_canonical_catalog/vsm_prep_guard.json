@@ -1,0 +1,120 @@
+{
+  "rules": [
+    {
+      "vsm_rule_id": "VSM-PREP-001",
+      "name": "Señal preparatoria, no diagnóstico",
+      "rule": "Los candidatos S1-S5, S3* y canal algedónico del Catálogo Madre se conservan como preparación. No fijan una estructura viable, una recursión ni un arquetipo.",
+      "applies_to": "Todos los nodos",
+      "runtime_action": "store_candidate_signal_only",
+      "prohibited_action": "emit_closed_vsm_diagnosis",
+      "source": "D8.VSM_AHE_Prep + Organizational Systems cap. 6"
+    },
+    {
+      "vsm_rule_id": "VSM-PREP-002",
+      "name": "Identidad antes de asignación sistémica",
+      "rule": "Antes de interpretar funciones VSM deben estar delimitados el sistema en foco, la transformación y los actores relevantes.",
+      "applies_to": "B0, B0.5, B1",
+      "runtime_action": "capture_identity_inputs",
+      "prohibited_action": "assign_system_function_without_identity",
+      "source": "Organizational Systems cap. 7 (nombrar sistemas)"
+    },
+    {
+      "vsm_rule_id": "VSM-PREP-003",
+      "name": "Desdoblamiento como hipótesis",
+      "rule": "Las relaciones entre actividades primarias, secundarias y reguladoras se tratan como hipótesis de desdoblamiento de complejidad hasta validación con actores y evidencia.",
+      "applies_to": "B2-B6",
+      "runtime_action": "store_unfolding_hypothesis",
+      "prohibited_action": "freeze_recursion_from_single_answer",
+      "source": "Organizational Systems cap. 8"
+    },
+    {
+      "vsm_rule_id": "VSM-PREP-004",
+      "name": "Funciones sistémicas no equivalen a cuadrantes MMABP",
+      "rule": "Implementación, coordinación, cohesión, inteligencia y política son funciones VSM; PM, MoC, PF y OLC son vistas MMABP. No deben fusionarse ni sustituirse.",
+      "applies_to": "Todos los nodos con mapping MMABP/VSM",
+      "runtime_action": "keep_dual_metadata",
+      "prohibited_action": "translate_one_to_one_without_evidence",
+      "source": "Organizational Systems cap. 6 + Fundamentals MMABP"
+    },
+    {
+      "vsm_rule_id": "VSM-PREP-005",
+      "name": "Variedad sustentada en evidencia",
+      "rule": "Una señal de desbalance de variedad requiere evidencia de demanda, capacidad de respuesta, perturbación, coordinación o regulación; no basta una etiqueta intuitiva.",
+      "applies_to": "B3-B6",
+      "runtime_action": "capture_variety_evidence",
+      "prohibited_action": "infer_variety_gap_from_label_only",
+      "source": "Organizational Systems caps. 4 y 6"
+    },
+    {
+      "vsm_rule_id": "VSM-PREP-006",
+      "name": "Discreción exige información y canales",
+      "rule": "La discrecionalidad reguladora debe trazarse junto con información apropiada y canales de comunicación; la ausencia se registra como gap, no como función viable.",
+      "applies_to": "B4-B6",
+      "runtime_action": "link_discretion_information_channel",
+      "prohibited_action": "close_regulatory_function_without_information",
+      "source": "Organizational Systems caps. 9 y 10"
+    },
+    {
+      "vsm_rule_id": "VSM-PREP-007",
+      "name": "Recursión explícita",
+      "rule": "Toda asignación VSM posterior debe declarar nivel de recursión y sistema en foco. La Capa 1 solo conserva señales de posible función.",
+      "applies_to": "Todos",
+      "runtime_action": "require_recursion_before_diagnosis",
+      "prohibited_action": "reuse_s1_s5_across_recursions_implicitly",
+      "source": "Organizational Systems caps. 5, 6 y 8"
+    },
+    {
+      "vsm_rule_id": "VSM-PREP-008",
+      "name": "Canal algedónico como excepción crítica",
+      "rule": "La mención de canal algedónico se conserva como candidato de señal crítica y no como evidencia automática de que el canal exista o funcione.",
+      "applies_to": "Nodos con canal algedónico candidato",
+      "runtime_action": "flag_algedonic_candidate",
+      "prohibited_action": "declare_algedonic_channel_operational",
+      "source": "D8.VSM_AHE_Prep + Organizational Systems cap. 6"
+    }
+  ],
+  "dictionary": [
+    {
+      "code": "S1",
+      "function_name": "implementación",
+      "use_in_phase_3": "candidate_signal",
+      "note": "Actividad primaria/implementación; no fijar recursión."
+    },
+    {
+      "code": "S2",
+      "function_name": "coordinación",
+      "use_in_phase_3": "candidate_signal",
+      "note": "Señal de coordinación/estabilización; no diagnóstico."
+    },
+    {
+      "code": "S3",
+      "function_name": "cohesión",
+      "use_in_phase_3": "candidate_signal",
+      "note": "Señal de cohesión/regulación interna; no diagnóstico."
+    },
+    {
+      "code": "S3*",
+      "function_name": "monitoreo/auditoría",
+      "use_in_phase_3": "candidate_signal",
+      "note": "Observación complementaria; requiere evidencia y alcance."
+    },
+    {
+      "code": "S4",
+      "function_name": "inteligencia",
+      "use_in_phase_3": "candidate_signal",
+      "note": "Relación con entorno/futuro; no diagnóstico."
+    },
+    {
+      "code": "S5",
+      "function_name": "política",
+      "use_in_phase_3": "candidate_signal",
+      "note": "Identidad/política; no diagnóstico."
+    },
+    {
+      "code": "algedonic_channel",
+      "function_name": "señal crítica",
+      "use_in_phase_3": "candidate_signal",
+      "note": "No asumir existencia ni efectividad."
+    }
+  ]
+}

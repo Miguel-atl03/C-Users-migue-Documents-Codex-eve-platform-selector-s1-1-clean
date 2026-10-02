@@ -1,0 +1,137 @@
+{
+  "audit_id": "_eve_organism_shadow_e2e_gap_index_v1",
+  "generated_at": "2026-06-24T20:26:02.801Z",
+  "dictamen": "SHADOW_E2E_PREFLIGHT_READY_WITH_GAPS",
+  "gaps": [
+    {
+      "gap_id": "G2-GAP-001",
+      "type": "SHADOW_E2E_ENTRYPOINT_UNKNOWN",
+      "severity": "critical",
+      "affected_area": "future adapter",
+      "evidence_path": "src/services/eve-organism-shadow-e2e-adapter.ts",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "No committed read-only adapter currently maps official flow traffic into EveOrganismShadowCommand.",
+      "next_evidence_needed": "Design and test an offline/read-only adapter entrypoint."
+    },
+    {
+      "gap_id": "G2-GAP-002",
+      "type": "TENANT_CONTEXT_NOT_PROVEN",
+      "severity": "high",
+      "affected_area": "real-flow signals",
+      "evidence_path": "src/**",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "Gate 2 needs proven tenant context in duplicated signal payloads.",
+      "next_evidence_needed": "Trace tenantId from official flow into a read-only shadow input fixture."
+    },
+    {
+      "gap_id": "G2-GAP-005",
+      "type": "IDEMPOTENCY_CORRELATION_MISSING",
+      "severity": "high",
+      "affected_area": "signal correlation",
+      "evidence_path": "src/**",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "Shadow E2E must not duplicate ambiguity without idempotency/correlation.",
+      "next_evidence_needed": "Define injected correlationId and idempotencyKey source."
+    },
+    {
+      "gap_id": "G2-GAP-006",
+      "type": "DB_WRITE_RISK",
+      "severity": "high",
+      "affected_area": "Gate 2 boundary",
+      "evidence_path": "src/services",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "Real flow adapters can accidentally call persistence if not isolated.",
+      "next_evidence_needed": "Add tests proving adapter never imports DB/Supabase/write APIs."
+    },
+    {
+      "gap_id": "G2-GAP-007",
+      "type": "UI_TOUCH_RISK",
+      "severity": "high",
+      "affected_area": "UI boundary",
+      "evidence_path": "src/app components",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "Gate 2 must not change client UI or official WorkMap/Significado behavior.",
+      "next_evidence_needed": "Keep adapter out of UI and use captured payload fixtures or read-only event duplication."
+    },
+    {
+      "gap_id": "G2-GAP-008",
+      "type": "REGISTRY_EXPORT_RISK",
+      "severity": "high",
+      "affected_area": "registry/export boundary",
+      "evidence_path": "src/services",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "Shadow candidates must not become registry writes or final exports.",
+      "next_evidence_needed": "Add no registry/export guard in future E2E harness."
+    },
+    {
+      "gap_id": "G2-GAP-009",
+      "type": "SUPABASE_ENV_RISK",
+      "severity": "medium",
+      "affected_area": "environment",
+      "evidence_path": "src/**",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "Future adapter must not require Supabase env for preflight/harness.",
+      "next_evidence_needed": "Prove no process.env/Supabase requirement in E2E adapter tests."
+    },
+    {
+      "gap_id": "G2-GAP-010",
+      "type": "DIRTY_TREE_RISK",
+      "severity": "medium",
+      "affected_area": "repo state",
+      "evidence_path": "git status --short",
+      "evidence_line": 1,
+      "why_it_blocks_or_conditions_gate2": "Large dirty tree can obscure future E2E changes.",
+      "next_evidence_needed": "Use exact allowlist and staged-diff verification for next task."
+    },
+    {
+      "gap_id": "G2-GAP-011",
+      "type": "AUTH_BOUNDARY_UNKNOWN",
+      "severity": "high",
+      "affected_area": "auth/tenant boundary",
+      "evidence_path": "src/app",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "Observable routes mention auth/session but Gate 2 authority boundary is not proven.",
+      "next_evidence_needed": "Document read-only auth/tenant observation contract."
+    },
+    {
+      "gap_id": "G2-GAP-012",
+      "type": "RLS_NOT_PROVEN",
+      "severity": "high",
+      "affected_area": "DB boundary",
+      "evidence_path": "supabase/DB",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "No RLS proof should be assumed; Gate 2 must avoid DB writes.",
+      "next_evidence_needed": "If DB observation is ever needed, require separate RLS audit first."
+    },
+    {
+      "gap_id": "G2-GAP-013",
+      "type": "REVIEW_APPROVAL_PATH_UNKNOWN",
+      "severity": "medium",
+      "affected_area": "review/approval",
+      "evidence_path": "src/**",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "Review/approval/result path is not proven as shadow-safe.",
+      "next_evidence_needed": "Inventory official review/approval events before E2E traffic."
+    },
+    {
+      "gap_id": "G2-GAP-014",
+      "type": "ROLLBACK_PATH_UNKNOWN",
+      "severity": "medium",
+      "affected_area": "rollback",
+      "evidence_path": "src/**",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "Gate 2 remains non-binding but rollback/kill semantics for harness are not specified.",
+      "next_evidence_needed": "Define harness stop/rollback controls for shadow observer."
+    },
+    {
+      "gap_id": "G2-GAP-015",
+      "type": "GATE2_NO_CABLEADO_GUARD_MISSING",
+      "severity": "high",
+      "affected_area": "future tests",
+      "evidence_path": "tests/regression",
+      "evidence_line": null,
+      "why_it_blocks_or_conditions_gate2": "Current guards cover root; future E2E adapter needs its own no-cableado guard.",
+      "next_evidence_needed": "Create E2E adapter test asserting no UI/DB/runtime/registry/export side effects."
+    }
+  ]
+}

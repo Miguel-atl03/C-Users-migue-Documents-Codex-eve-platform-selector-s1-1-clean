@@ -1,0 +1,599 @@
+{
+  "instruction": "Codex 038-B - Cerrar integridad de contenido en el reintento del CatalogLoader",
+  "status": "materialized",
+  "classification_final": "catalogloader_minimal_materialized_local_only",
+  "catalog_version_id": "EVE_RUNTIME_40_20_FULL_OA_V1_1_1_MC1_0_IH_EF614C98B10611411C6AA62E0332856E726F4DC622D42EDBB550F4A4221A604F",
+  "defect_closed": {
+    "previous_behavior": "retry accepted persisted rows when row counts matched, without proving byte/content equivalence of business fields",
+    "corrected_behavior": "retry computes expected_minus_persisted and persisted_minus_expected for every authorized table before any transaction can start",
+    "blocker_on_difference": "blocked_catalog_identity_content_conflict",
+    "transaction_result_on_conflict": "not_started",
+    "writes_performed_on_conflict": 0
+  },
+  "comparison_scope": {
+    "tables": [
+      "runtime_catalog_version",
+      "runtime_catalog_artifact_section",
+      "source_node_ref",
+      "runtime_interaction_def",
+      "runtime_interaction_mapping",
+      "runtime_subfield_schema",
+      "runtime_branching_rule",
+      "runtime_epistemic_rule",
+      "runtime_variable_map"
+    ],
+    "includes": "business fields, provenance fields, checksums, semantic raw literals, and artifact payload_json",
+    "excludes": "database generated UUIDs, timestamps, and physical surrogate identities",
+    "mapping_resolution": "runtime_interaction_mapping comparison resolves source_node_ref_id to source_node_id and source_question_code_intact"
+  },
+  "table_comparison_contract": [
+    {
+      "table": "runtime_catalog_version",
+      "stable_key": [
+        "catalog_version_id"
+      ],
+      "compared_fields": [
+        "status",
+        "catalog_family",
+        "catalog_scope",
+        "catalog_variant",
+        "runtime_version_label",
+        "mother_catalog_version",
+        "runtime_xlsx_sha256",
+        "mother_xlsx_sha256",
+        "source_docx_filename",
+        "source_docx_checksum",
+        "identity_components_json",
+        "canonical_identity_serialization_sha256"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "table": "runtime_catalog_artifact_section",
+      "stable_key": [
+        "catalog_version_id",
+        "section_key"
+      ],
+      "compared_fields": [
+        "artifact_kind",
+        "source_file",
+        "source_sheet",
+        "source_checksum",
+        "payload_json"
+      ],
+      "excluded_physical_fields": [
+        "artifact_section_id",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "table": "source_node_ref",
+      "stable_key": [
+        "catalog_version_id",
+        "source_node_id",
+        "source_question_code_intact"
+      ],
+      "compared_fields": [
+        "source_block",
+        "original_catalog_question_text",
+        "source_file",
+        "source_checksum",
+        "raw_representation"
+      ],
+      "excluded_physical_fields": [
+        "source_node_ref_id",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "table": "runtime_interaction_def",
+      "stable_key": [
+        "catalog_version_id",
+        "runtime_interaction_id"
+      ],
+      "compared_fields": [
+        "interaction_family",
+        "interaction_kind",
+        "interaction_order",
+        "runtime_label",
+        "prompt_text",
+        "answer_mode",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "source_checksum",
+        "legacy_columns_null"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "table": "runtime_interaction_mapping",
+      "stable_key": [
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "source_node_id",
+        "source_question_code_intact"
+      ],
+      "compared_fields": [
+        "mapping_kind",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "trace_id",
+        "source_checksum"
+      ],
+      "excluded_physical_fields": [
+        "runtime_interaction_mapping_id",
+        "source_node_ref_id",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "table": "runtime_subfield_schema",
+      "stable_key": [
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "subfield_key"
+      ],
+      "compared_fields": [
+        "subfield_label",
+        "answer_mode",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "source_checksum"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "table": "runtime_branching_rule",
+      "stable_key": [
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "field_name"
+      ],
+      "compared_fields": [
+        "raw_literal",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "source_column",
+        "trace_id",
+        "source_checksum"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "table": "runtime_epistemic_rule",
+      "stable_key": [
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "field_name"
+      ],
+      "compared_fields": [
+        "raw_literal",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "source_column",
+        "trace_id",
+        "source_checksum"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "table": "runtime_variable_map",
+      "stable_key": [
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "field_name"
+      ],
+      "compared_fields": [
+        "raw_literal",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "source_column",
+        "trace_id",
+        "source_checksum"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ]
+    }
+  ],
+  "equal_count_content_conflict_tests": [
+    {
+      "table": "runtime_catalog_version",
+      "counts_equal": true,
+      "content_conflict_detected": true,
+      "writes_performed": 0,
+      "alteration": "one persisted non-identity content/provenance field changed while row count remains equal",
+      "comparison_key": [
+        "catalog_version_id"
+      ],
+      "compared_fields": [
+        "status",
+        "catalog_family",
+        "catalog_scope",
+        "catalog_variant",
+        "runtime_version_label",
+        "mother_catalog_version",
+        "runtime_xlsx_sha256",
+        "mother_xlsx_sha256",
+        "source_docx_filename",
+        "source_docx_checksum",
+        "identity_components_json",
+        "canonical_identity_serialization_sha256"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ],
+      "blocker": "blocked_catalog_identity_content_conflict"
+    },
+    {
+      "table": "runtime_catalog_artifact_section",
+      "counts_equal": true,
+      "content_conflict_detected": true,
+      "writes_performed": 0,
+      "alteration": "one persisted non-identity content/provenance field changed while row count remains equal",
+      "comparison_key": [
+        "catalog_version_id",
+        "section_key"
+      ],
+      "compared_fields": [
+        "artifact_kind",
+        "source_file",
+        "source_sheet",
+        "source_checksum",
+        "payload_json"
+      ],
+      "excluded_physical_fields": [
+        "artifact_section_id",
+        "created_at",
+        "updated_at"
+      ],
+      "blocker": "blocked_catalog_identity_content_conflict"
+    },
+    {
+      "table": "source_node_ref",
+      "counts_equal": true,
+      "content_conflict_detected": true,
+      "writes_performed": 0,
+      "alteration": "one persisted non-identity content/provenance field changed while row count remains equal",
+      "comparison_key": [
+        "catalog_version_id",
+        "source_node_id",
+        "source_question_code_intact"
+      ],
+      "compared_fields": [
+        "source_block",
+        "original_catalog_question_text",
+        "source_file",
+        "source_checksum",
+        "raw_representation"
+      ],
+      "excluded_physical_fields": [
+        "source_node_ref_id",
+        "created_at",
+        "updated_at"
+      ],
+      "blocker": "blocked_catalog_identity_content_conflict"
+    },
+    {
+      "table": "runtime_interaction_def",
+      "counts_equal": true,
+      "content_conflict_detected": true,
+      "writes_performed": 0,
+      "alteration": "one persisted non-identity content/provenance field changed while row count remains equal",
+      "comparison_key": [
+        "catalog_version_id",
+        "runtime_interaction_id"
+      ],
+      "compared_fields": [
+        "interaction_family",
+        "interaction_kind",
+        "interaction_order",
+        "runtime_label",
+        "prompt_text",
+        "answer_mode",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "source_checksum",
+        "legacy_columns_null"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ],
+      "blocker": "blocked_catalog_identity_content_conflict"
+    },
+    {
+      "table": "runtime_interaction_mapping",
+      "counts_equal": true,
+      "content_conflict_detected": true,
+      "writes_performed": 0,
+      "alteration": "one persisted non-identity content/provenance field changed while row count remains equal",
+      "comparison_key": [
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "source_node_id",
+        "source_question_code_intact"
+      ],
+      "compared_fields": [
+        "mapping_kind",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "trace_id",
+        "source_checksum"
+      ],
+      "excluded_physical_fields": [
+        "runtime_interaction_mapping_id",
+        "source_node_ref_id",
+        "created_at",
+        "updated_at"
+      ],
+      "blocker": "blocked_catalog_identity_content_conflict"
+    },
+    {
+      "table": "runtime_subfield_schema",
+      "counts_equal": true,
+      "content_conflict_detected": true,
+      "writes_performed": 0,
+      "alteration": "one persisted non-identity content/provenance field changed while row count remains equal",
+      "comparison_key": [
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "subfield_key"
+      ],
+      "compared_fields": [
+        "subfield_label",
+        "answer_mode",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "source_checksum"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ],
+      "blocker": "blocked_catalog_identity_content_conflict"
+    },
+    {
+      "table": "runtime_branching_rule",
+      "counts_equal": true,
+      "content_conflict_detected": true,
+      "writes_performed": 0,
+      "alteration": "one persisted non-identity content/provenance field changed while row count remains equal",
+      "comparison_key": [
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "field_name"
+      ],
+      "compared_fields": [
+        "raw_literal",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "source_column",
+        "trace_id",
+        "source_checksum"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ],
+      "blocker": "blocked_catalog_identity_content_conflict"
+    },
+    {
+      "table": "runtime_epistemic_rule",
+      "counts_equal": true,
+      "content_conflict_detected": true,
+      "writes_performed": 0,
+      "alteration": "one persisted non-identity content/provenance field changed while row count remains equal",
+      "comparison_key": [
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "field_name"
+      ],
+      "compared_fields": [
+        "raw_literal",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "source_column",
+        "trace_id",
+        "source_checksum"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ],
+      "blocker": "blocked_catalog_identity_content_conflict"
+    },
+    {
+      "table": "runtime_variable_map",
+      "counts_equal": true,
+      "content_conflict_detected": true,
+      "writes_performed": 0,
+      "alteration": "one persisted non-identity content/provenance field changed while row count remains equal",
+      "comparison_key": [
+        "catalog_version_id",
+        "runtime_interaction_id",
+        "field_name"
+      ],
+      "compared_fields": [
+        "raw_literal",
+        "source_file",
+        "source_sheet",
+        "source_row",
+        "source_column",
+        "trace_id",
+        "source_checksum"
+      ],
+      "excluded_physical_fields": [
+        "created_at",
+        "updated_at"
+      ],
+      "blocker": "blocked_catalog_identity_content_conflict"
+    }
+  ],
+  "partial_or_missing_content_tests": [
+    {
+      "table": "runtime_catalog_artifact_section",
+      "alteration": "one persisted section deleted after successful load",
+      "content_conflict_detected": true,
+      "writes_performed": 0
+    },
+    {
+      "table": "runtime_interaction_mapping",
+      "alteration": "one persisted mapping deleted after successful load",
+      "content_conflict_detected": true,
+      "writes_performed": 0
+    },
+    {
+      "table": "runtime_subfield_schema",
+      "alteration": "one persisted subfield deleted after successful load",
+      "content_conflict_detected": true,
+      "writes_performed": 0
+    },
+    {
+      "table": "runtime_branching_rule",
+      "alteration": "one persisted branching row deleted after successful load",
+      "content_conflict_detected": true,
+      "writes_performed": 0
+    },
+    {
+      "table": "runtime_epistemic_rule",
+      "alteration": "one persisted epistemic row deleted after successful load",
+      "content_conflict_detected": true,
+      "writes_performed": 0
+    },
+    {
+      "table": "runtime_variable_map",
+      "alteration": "one persisted variable row deleted after successful load",
+      "content_conflict_detected": true,
+      "writes_performed": 0
+    },
+    {
+      "table": "runtime_catalog_version_root_mutation",
+      "alteration": "catalog_version root evidence changed after successful load",
+      "content_conflict_detected": true,
+      "writes_performed": 0
+    },
+    {
+      "table": "source_node_ref",
+      "alteration": "one persisted source node deleted after successful load",
+      "content_conflict_detected": true,
+      "writes_performed": 0
+    },
+    {
+      "table": "runtime_interaction_def",
+      "alteration": "one persisted interaction definition deleted after successful load",
+      "content_conflict_detected": true,
+      "writes_performed": 0
+    }
+  ],
+  "successful_load_counts": {
+    "catalog_versions": 1,
+    "artifact_sections": 33,
+    "source_nodes": 164,
+    "interaction_definitions": 60,
+    "interaction_mappings": 170,
+    "subfields": 57,
+    "branching_rules": 120,
+    "epistemic_rules": 300,
+    "variable_maps": 300,
+    "semantic_total": 720
+  },
+  "rollback_checks": [
+    {
+      "failure_point": "version",
+      "rollback_complete": true
+    },
+    {
+      "failure_point": "sections",
+      "rollback_complete": true
+    },
+    {
+      "failure_point": "nodes",
+      "rollback_complete": true
+    },
+    {
+      "failure_point": "definitions",
+      "rollback_complete": true
+    },
+    {
+      "failure_point": "mappings",
+      "rollback_complete": true
+    },
+    {
+      "failure_point": "subfields",
+      "rollback_complete": true
+    },
+    {
+      "failure_point": "branching",
+      "rollback_complete": true
+    },
+    {
+      "failure_point": "epistemic",
+      "rollback_complete": true
+    },
+    {
+      "failure_point": "variables",
+      "rollback_complete": true
+    }
+  ],
+  "preflight_evidence": {
+    "artifact_section_payloads_038A_sha256": "f280ee53484b09a5978f9a5087722b850cd39ba7652abca84b80388789d76fdc",
+    "source_node_registry_038A_sha256": "0f43f16dce820c06b2ae0398a7f88d61901bf42fd7583a567be09622e4b8623f",
+    "source_docx_checksum": "b95256c7e32e14da82c4b623ae6b08d972cf1171ab5046564fed2ff9e6f24dd8",
+    "artifact_sections": 33,
+    "source_nodes": 164,
+    "mappings": 170
+  },
+  "verification": {
+    "postgres_local_integration": "passed",
+    "lint_focal": "passed",
+    "typecheck": "passed",
+    "build": "passed",
+    "remote_contact": "none"
+  },
+  "security": {
+    "staging_consulted": "no",
+    "staging_writes": "none",
+    "production_consulted": "no",
+    "remote_database_writes": "none",
+    "remote_migrations": "none",
+    "rpc_bff_created": "no",
+    "catalog_activated": "no",
+    "b0_modified": "no",
+    "b1_modified": "no",
+    "gaby_modified": "no",
+    "commit_created": "no"
+  },
+  "next_gap": "public_runtime_catalog_draft_governed_staging_boundary_required"
+}

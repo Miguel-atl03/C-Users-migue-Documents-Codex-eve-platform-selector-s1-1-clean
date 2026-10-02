@@ -1,0 +1,4829 @@
+{
+  "workbook": "docs\\policies\\PrimaryActivitySelectionPolicy_EVE_MMABP_v1_2_Operacional.xlsx",
+  "sheetCount": 43,
+  "sheets": [
+    {
+      "name": "Version_Control",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 37,
+      "columns": [
+        "Campo",
+        "Contenido"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Campo",
+            "Contenido"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Nombre del artefacto",
+            "PrimaryActivitySelectionPolicy — Selector técnico de actividades primarias EVE/MMABP"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Versión",
+            "v1.2 operacional — conserva v1.0/v1.1 y agrega política <=8 actividades, Context Bundle Estado A/WorkMap/Significado y confirmación de Significado como pantalla de ejecución Runtime 40/20"
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Fecha",
+            "2026-06-14"
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Tipo de artefacto",
+            "Workbook implementable para selección de máximo 8 actividades primarias desde WorkMap"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": true,
+        "payload": true
+      }
+    },
+    {
+      "name": "Authority_Rules",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 9,
+      "columns": [
+        "Artefacto",
+        "Autoridad",
+        "No debe hacer",
+        "Uso en la pantalla"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Artefacto",
+            "Autoridad",
+            "No debe hacer",
+            "Uso en la pantalla"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Catálogo Madre v1.0",
+            "Fuente canónica de nodos, códigos originales, rutas críticas y corpus documental.",
+            "No define por sí solo la carga visible 40+20 ni la selección de actividades.",
+            "No se muestra al usuario; alimenta trazabilidad interna."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Catálogo Runtime v1.1 DOCX",
+            "Norma de reglas operativas del Runtime 40+20.",
+            "No es base de datos ni artefacto ejecutable directo.",
+            "Sirve como manual de comportamiento de UI/motor."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Catálogo Runtime v1.1 XLSX",
+            "Fuente implementable para interfaz, motor y QA del Runtime por actividad.",
+            "No selecciona actividades primarias desde WorkMap.",
+            "Se ejecuta solo sobre actividades primarias ya seleccionadas."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "PrimaryActivitySelectionPolicy XLSX",
+            "Fuente implementable para elegir hasta 8 actividades primarias.",
+            "No diagnostica, no reemplaza Runtime, no reescribe WorkMap.",
+            "Gobierna pantalla previa al Runtime."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": false,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Methodology_Overview",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 8,
+      "columns": [
+        "Fase",
+        "Nombre",
+        "Objetivo",
+        "Regla clínica",
+        "Salida"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Fase",
+            "Nombre",
+            "Objetivo",
+            "Regla clínica",
+            "Salida"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "0",
+            "Ingesta WorkMap",
+            "Recibir actividades con área, responsabilidad, activityId, responsibilityId, texto literal y advertencias.",
+            "No inferir estructura dura desde texto débil sin confirmación.",
+            "ActivityCandidateList"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "1",
+            "Normalización semántica mínima",
+            "Resolver duplicados, alias, granularidad y si el texto describe una actividad de trabajo.",
+            "No convertir área, rol, valor, opinión o resultado deseado en actividad primaria.",
+            "NormalizedActivityCandidates"
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "2",
+            "Gates de elegibilidad",
+            "Bloquear o enviar a revisión actividades sin trazabilidad, no accionables, duplicadas o con ambigüedad excesiva.",
+            "La selección empieza descartando falsos candidatos, no rankeando todo.",
+            "Eligible/Review/Blocked"
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "3",
+            "Scoring estructural",
+            "Medir potencial para revelar PM, MoC, PF, OLC, fricción, variedad, capacidad, handoff y compensación.",
+            "Se prioriza capacidad de producir evidencia diagramable, no importancia subjetiva del usuario.",
+            "SelectorScore"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Input_Schema",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 16,
+      "columns": [
+        "Campo",
+        "Origen",
+        "Tipo",
+        "Obligatorio",
+        "Uso",
+        "Regla"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Campo",
+            "Origen",
+            "Tipo",
+            "Obligatorio",
+            "Uso",
+            "Regla"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "workmap_id",
+            "WorkMap",
+            "string",
+            "Sí",
+            "Trazabilidad del mapa completo.",
+            "No seleccionar sin mapa de origen."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "area_id",
+            "WorkMap",
+            "string",
+            "Sí",
+            "Cobertura por área.",
+            "Permite balance, no diagnóstico."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "area_label",
+            "WorkMap",
+            "string",
+            "Sí",
+            "Texto visible y contexto.",
+            "No confundir área con actividad."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "responsibility_id",
+            "WorkMap",
+            "string",
+            "Sí",
+            "Relación responsabilidad → actividad.",
+            "Gate duro si falta."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Eligibility_Gates",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 11,
+      "columns": [
+        "Gate",
+        "Nombre",
+        "Condición de aprobación",
+        "Falla si...",
+        "Acción",
+        "Impacto"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Gate",
+            "Nombre",
+            "Condición de aprobación",
+            "Falla si...",
+            "Acción",
+            "Impacto"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "G1",
+            "Trazabilidad WorkMap",
+            "activity_id y responsibility_id existen.",
+            "No hay ID o no hay relación actividad-responsabilidad.",
+            "Bloquear hasta corregir WorkMap.",
+            "Evita actividad huérfana."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "G2",
+            "Actividad de trabajo",
+            "El texto describe trabajo accionable, no área, rol, valor o emoción.",
+            "Es 'ventas', 'liderazgo', 'estrés', 'clientes' o etiqueta abstracta.",
+            "Revisión semántica B0.",
+            "Protege conformance."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "G3",
+            "Granularidad correcta",
+            "No es macroproceso total ni microclick técnico.",
+            "Es demasiado amplia, microtarea o ambigua.",
+            "Normalizar, dividir o fusionar.",
+            "Evita Runtime inviable."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "G4",
+            "No duplicado/alias",
+            "No repite otra actividad con distinto nombre.",
+            "Alias probable o duplicado exacto.",
+            "Resolver alias o merge.",
+            "Evita sobreselección artificial."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Scoring_Weights",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 47,
+      "columns": [
+        "Bloque de pesos",
+        "Criterio",
+        "Peso",
+        "Descripción"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Bloque de pesos",
+            "Criterio",
+            "Peso",
+            "Descripción"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Composite",
+            "MMABP_Potential",
+            0.45,
+            "Capacidad de producir evidencia para PM/MoC/PF/OLC."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Composite",
+            "Friction_Variety",
+            0.25,
+            "Señales de bloqueo, espera, retrabajo, capacidad, variedad residual."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Composite",
+            "Coverage",
+            0.15,
+            "Cobertura de responsabilidades, área, valor y procesos soporte/externalidad."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Composite",
+            "Evidence_Feasibility",
+            0.1,
+            "Calidad semántica y factibilidad de aplicar Runtime sin contaminar evidencia."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": true,
+        "payload": true
+      }
+    },
+    {
+      "name": "Selector_Template",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 1,
+      "columns": [
+        "activity_id",
+        "responsibility_id",
+        "area",
+        "functional_role",
+        "activity_label",
+        "activity_description",
+        "workmap_trace_ok",
+        "is_work_activity",
+        "granularity_status",
+        "duplicate_or_alias",
+        "semantic_clarity_0_5",
+        "process_context_0_5",
+        "customer_receiver_hint_0_5",
+        "trigger_hint_0_5",
+        "transformation_object_0_5",
+        "state_change_0_5",
+        "handoff_dependency_0_5",
+        "wait_timer_blocking_0_5",
+        "variability_frequency_0_5",
+        "capacity_pressure_0_5",
+        "workaround_rework_0_5",
+        "info_gap_rule_informal_0_5",
+        "human_compensation_0_5",
+        "support_external_process_0_5",
+        "strategic_value_or_loss_0_5",
+        "coverage_uniqueness_0_5",
+        "runtime_feasibility_0_5",
+        "evidence_quality_0_5",
+        "Hard_Gate",
+        "MMABP_Potential",
+        "Friction_Variety",
+        "Coverage_Score",
+        "Evidence_Feasibility",
+        "Critical_Boost",
+        "Burden_Risk",
+        "Total_Selector_Score",
+        "Selector_Rank",
+        "Initial_Selection_Status",
+        "Coverage_Class",
+        "Override_Policy",
+        "Final_Selection_Status",
+        "Dominant_Reason",
+        "Runtime_Opening_Profile",
+        "Reentry_Review_Policy",
+        "Notes"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "activity_id",
+            "responsibility_id",
+            "area",
+            "functional_role",
+            "activity_label",
+            "activity_description",
+            "workmap_trace_ok",
+            "is_work_activity",
+            "granularity_status",
+            "duplicate_or_alias",
+            "semantic_clarity_0_5",
+            "process_context_0_5",
+            "customer_receiver_hint_0_5",
+            "trigger_hint_0_5",
+            "transformation_object_0_5",
+            "state_change_0_5",
+            "handoff_dependency_0_5",
+            "wait_timer_blocking_0_5",
+            "variability_frequency_0_5",
+            "capacity_pressure_0_5",
+            "workaround_rework_0_5",
+            "info_gap_rule_informal_0_5",
+            "human_compensation_0_5",
+            "support_external_process_0_5",
+            "strategic_value_or_loss_0_5",
+            "coverage_uniqueness_0_5",
+            "runtime_feasibility_0_5",
+            "evidence_quality_0_5",
+            "Hard_Gate",
+            "MMABP_Potential",
+            "Friction_Variety",
+            "Coverage_Score",
+            "Evidence_Feasibility",
+            "Critical_Boost",
+            "Burden_Risk",
+            "Total_Selector_Score",
+            "Selector_Rank",
+            "Initial_Selection_Status",
+            "Coverage_Class",
+            "Override_Policy",
+            "Final_Selection_Status",
+            "Dominant_Reason",
+            "Runtime_Opening_Profile",
+            "Reentry_Review_Policy",
+            "Notes"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Coverage_Balance",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 10,
+      "columns": [
+        "Regla",
+        "Descripción",
+        "Aplicación",
+        "Motivo"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Regla",
+            "Descripción",
+            "Aplicación",
+            "Motivo"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "B1",
+            "Máximo 8 actividades primarias",
+            "Si final_selection_count > 8, bloquear avance a Runtime.",
+            "Protege carga operativa."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "B2",
+            "No concentración excesiva",
+            "No más de 3 actividades de la misma responsabilidad, salvo si el WorkMap solo contiene esa responsabilidad.",
+            "Evita ceguera local."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "B3",
+            "Cobertura MMABP mínima",
+            "Si existen candidatas, seleccionar al menos una con alta transformación/estado, una con handoff/dependencia y una con fricción/capacidad/workaround.",
+            "Protege PM/MoC/PF/OLC."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "B4",
+            "Actividades soporte visibles",
+            "Si un soporte aparece como cuello de botella, dependencia o workaround recurrente, puede promoverse a primaria.",
+            "Evita soporte oculto en PM."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Selection_Flow",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 16,
+      "columns": [
+        "Paso",
+        "Pseudocódigo / regla de motor"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Paso",
+            "Pseudocódigo / regla de motor"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "1",
+            "candidate_list = ingest(WorkMap.areas.responsibilities.activities)"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "2",
+            "candidate_list = attach_traceability(workmap_id, area_id, responsibility_id, activity_id, role_functional)"
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "3",
+            "candidate_list = normalize_aliases_and_granularity(candidate_list)"
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "4",
+            "for each activity: apply Eligibility_Gates G1..G10"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "UX_Contract",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 9,
+      "columns": [
+        "Pantalla / componente",
+        "Debe mostrar",
+        "No debe mostrar",
+        "Regla de interacción"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Pantalla / componente",
+            "Debe mostrar",
+            "No debe mostrar",
+            "Regla de interacción"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "WorkMap completo",
+            "Todas las actividades como contexto.",
+            "No marcar las no primarias como inútiles.",
+            "Las no seleccionadas siguen vivas para contexto/reentry."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Selección propuesta",
+            "Hasta 8 actividades primarias con chips de razón: transformación, handoff, bloqueo, capacidad, workaround, cobertura.",
+            "No decir 'EVE diagnosticó'.",
+            "Se presenta como priorización metodológica para evaluación."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Corrección del usuario",
+            "Opciones: no pertenece a mi rol, está duplicada, ya no ocurre, está mal redactada, dividir/fusionar.",
+            "No ofrecer 'elige tus 8 favoritas'.",
+            "Corrección factual dispara recálculo."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Actividad ambigua",
+            "Solicitar microconfirmación B0: '¿A qué trabajo concreto te refieres?'.",
+            "No inventar objeto/proceso.",
+            "Si no se resuelve, queda en revisión."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Runtime_Handoff",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 17,
+      "columns": [
+        "Campo payload",
+        "Tipo",
+        "Obligatorio",
+        "Descripción",
+        "Consumidor"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Campo payload",
+            "Tipo",
+            "Obligatorio",
+            "Descripción",
+            "Consumidor"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "runtime_activity_id",
+            "string",
+            "Sí",
+            "ID derivado para abrir Runtime 40+20.",
+            "Runtime"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "activity_id",
+            "string",
+            "Sí",
+            "ID original WorkMap.",
+            "Runtime / Auditoría"
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "responsibility_id",
+            "string",
+            "Sí",
+            "Trazabilidad a responsabilidad.",
+            "Runtime / MBA"
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "area_id",
+            "string",
+            "Sí",
+            "Trazabilidad a área.",
+            "Runtime / Contexto"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "NonPrimary_Context",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 7,
+      "columns": [
+        "Estado no primario",
+        "Cuándo aplica",
+        "Qué se conserva",
+        "Puede promoverse si...",
+        "Riesgo evitado"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Estado no primario",
+            "Cuándo aplica",
+            "Qué se conserva",
+            "Puede promoverse si...",
+            "Riesgo evitado"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Contexto / backlog",
+            "Actividad elegible pero fuera del top 8 o no necesaria por balance.",
+            "activityId, responsibilityId, texto, score, razón.",
+            "Otro run, nuevo rol, reentry, cambio de prioridad estructural.",
+            "Borrado de realidad."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Soporte candidato",
+            "Actividad soporte habilita/repara/sincroniza otra actividad.",
+            "Relación con primaria, dependencia, evento.",
+            "Aparece como cuello de botella, workaround o proceso soporte oculto.",
+            "Ocultar soporte en proceso principal."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Alias / merge",
+            "Actividad duplica otra con distinto lenguaje.",
+            "Mapa de equivalencia semántica.",
+            "Se demuestra que no es alias sino objeto/handoff distinto.",
+            "Duplicidad artificial."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Revisión semántica",
+            "Texto pobre, ambiguo o no accionable.",
+            "Texto literal y reason code.",
+            "Usuario aclara actividad concreta.",
+            "Inferencia falsa."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "MMABP_Rationale",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 13,
+      "columns": [
+        "Elemento selector",
+        "Relación MMABP",
+        "Por qué importa para seleccionar actividades"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Elemento selector",
+            "Relación MMABP",
+            "Por qué importa para seleccionar actividades"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "process_context_0_5",
+            "PM",
+            "Permite ubicar la actividad en proceso contenedor, intención, cliente/necesidad y soporte."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "customer_receiver_hint_0_5",
+            "PM/PF",
+            "Evita actividad flotante; prepara handoff, satisfacción y feedback."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "trigger_hint_0_5",
+            "PM/PF",
+            "Sin disparador, Runtime arranca desde reacción subjetiva y no desde evento."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "transformation_object_0_5",
+            "MoC/PF/OLC",
+            "Identifica objeto de negocio y evita PF sin objeto."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": false,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": false
+      }
+    },
+    {
+      "name": "QA_Checklist",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 28,
+      "columns": [
+        "QA_ID",
+        "Prueba",
+        "Criterio de aprobación",
+        "Estado"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "QA_ID",
+            "Prueba",
+            "Criterio de aprobación",
+            "Estado"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "QA-01",
+            "Máximo 8 primarias",
+            "Dashboard final_primary_count <= 8."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "QA-02",
+            "Trazabilidad completa",
+            "Toda primaria tiene activity_id, responsibility_id y role_functional."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "QA-03",
+            "No selección de bloqueadas",
+            "Ninguna actividad con Hard_Gate=BLOQUEADA tiene Final_Selection_Status primaria."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "QA-04",
+            "Revisión no entra a Runtime",
+            "Actividades en REVISIÓN no entran sin override justificado."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": true,
+        "payload": true
+      }
+    },
+    {
+      "name": "Implementation_Dicts",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 12,
+      "columns": [
+        "Diccionario",
+        "Valores"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Diccionario",
+            "Valores"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Sí/No",
+            "Sí | No"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "granularity_status",
+            "Correcta | Demasiado amplia | Microtarea | Ambigua"
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "duplicate_or_alias",
+            "No | Posible | Sí"
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "score_0_5",
+            "0 | 1 | 2 | 3 | 4 | 5"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Dashboard",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 12,
+      "columns": [
+        "Métrica",
+        "Valor",
+        "Regla/alerta"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Métrica",
+            "Valor",
+            "Regla/alerta"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Actividades cargadas",
+            0
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Elegibles",
+            0
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "En revisión",
+            0
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Bloqueadas",
+            0
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": false
+      }
+    },
+    {
+      "name": "Example_Run",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 11,
+      "columns": [
+        "activity_id",
+        "responsibility_id",
+        "area",
+        "functional_role",
+        "activity_label",
+        "activity_description",
+        "workmap_trace_ok",
+        "is_work_activity",
+        "granularity_status",
+        "duplicate_or_alias",
+        "semantic_clarity_0_5",
+        "process_context_0_5",
+        "customer_receiver_hint_0_5",
+        "trigger_hint_0_5",
+        "transformation_object_0_5",
+        "state_change_0_5",
+        "handoff_dependency_0_5",
+        "wait_timer_blocking_0_5",
+        "variability_frequency_0_5",
+        "capacity_pressure_0_5",
+        "workaround_rework_0_5",
+        "info_gap_rule_informal_0_5",
+        "human_compensation_0_5",
+        "support_external_process_0_5",
+        "strategic_value_or_loss_0_5",
+        "coverage_uniqueness_0_5",
+        "runtime_feasibility_0_5",
+        "evidence_quality_0_5",
+        "Hard_Gate",
+        "MMABP_Potential",
+        "Friction_Variety",
+        "Coverage_Score",
+        "Evidence_Feasibility",
+        "Critical_Boost",
+        "Burden_Risk",
+        "Total_Selector_Score",
+        "Selector_Rank",
+        "Initial_Selection_Status",
+        "Coverage_Class",
+        "Override_Policy",
+        "Final_Selection_Status",
+        "Dominant_Reason",
+        "Runtime_Opening_Profile",
+        "Reentry_Review_Policy",
+        "Notes"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "activity_id",
+            "responsibility_id",
+            "area",
+            "functional_role",
+            "activity_label",
+            "activity_description",
+            "workmap_trace_ok",
+            "is_work_activity",
+            "granularity_status",
+            "duplicate_or_alias",
+            "semantic_clarity_0_5",
+            "process_context_0_5",
+            "customer_receiver_hint_0_5",
+            "trigger_hint_0_5",
+            "transformation_object_0_5",
+            "state_change_0_5",
+            "handoff_dependency_0_5",
+            "wait_timer_blocking_0_5",
+            "variability_frequency_0_5",
+            "capacity_pressure_0_5",
+            "workaround_rework_0_5",
+            "info_gap_rule_informal_0_5",
+            "human_compensation_0_5",
+            "support_external_process_0_5",
+            "strategic_value_or_loss_0_5",
+            "coverage_uniqueness_0_5",
+            "runtime_feasibility_0_5",
+            "evidence_quality_0_5",
+            "Hard_Gate",
+            "MMABP_Potential",
+            "Friction_Variety",
+            "Coverage_Score",
+            "Evidence_Feasibility",
+            "Critical_Boost",
+            "Burden_Risk",
+            "Total_Selector_Score",
+            "Selector_Rank",
+            "Initial_Selection_Status",
+            "Coverage_Class",
+            "Override_Policy",
+            "Final_Selection_Status",
+            "Dominant_Reason",
+            "Runtime_Opening_Profile",
+            "Reentry_Review_Policy",
+            "Notes"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "A001",
+            "R001",
+            "Operaciones",
+            "Rol A",
+            "Procesar pedido delivery",
+            "Tomar, validar y pasar pedido delivery a cocina/reparto",
+            "Sí",
+            "Sí",
+            "Correcta",
+            "No",
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            3,
+            4,
+            4,
+            4,
+            3,
+            3,
+            4,
+            5,
+            5,
+            4,
+            5,
+            "ELEGIBLE",
+            95.2,
+            75,
+            97,
+            91,
+            7,
+            2,
+            91.9,
+            2,
+            "Primaria propuesta",
+            "Transformación/OLC",
+            "",
+            "Primaria propuesta",
+            "Cobertura",
+            "40+20 probable",
+            "Enviar a Runtime"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "A002",
+            "R001",
+            "Operaciones",
+            "Rol A",
+            "Actualizar inventario",
+            "Registrar entrada/salida de productos al cierre",
+            "Sí",
+            "Sí",
+            "Correcta",
+            "No",
+            4,
+            4,
+            3,
+            3,
+            5,
+            5,
+            3,
+            2,
+            4,
+            3,
+            2,
+            2,
+            1,
+            3,
+            4,
+            4,
+            5,
+            4,
+            "ELEGIBLE",
+            75.4,
+            48.4,
+            77,
+            89,
+            2,
+            2,
+            68.2,
+            6,
+            "Primaria propuesta",
+            "Transformación/OLC",
+            "",
+            "Primaria propuesta",
+            "Evidencia/feasibilidad",
+            "40 base + causales selectivas",
+            "Enviar a Runtime"
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "A003",
+            "R002",
+            "Servicio",
+            "Rol A",
+            "Atender reclamo de cliente",
+            "Recibir reclamo, revisar causa y coordinar corrección",
+            "Sí",
+            "Sí",
+            "Correcta",
+            "No",
+            5,
+            5,
+            5,
+            4,
+            4,
+            4,
+            5,
+            4,
+            5,
+            4,
+            5,
+            4,
+            4,
+            4,
+            5,
+            5,
+            4,
+            5,
+            "ELEGIBLE",
+            88.2,
+            89,
+            97,
+            91,
+            10,
+            2,
+            95.3,
+            1,
+            "Primaria propuesta",
+            "Handoff/Flujo",
+            "",
+            "Primaria propuesta",
+            "Cobertura",
+            "40+20 probable",
+            "Enviar a Runtime"
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "A004",
+            "R003",
+            "Administración",
+            "Rol A",
+            "Revisar factura rechazada",
+            "Resolver devolución o rechazo de factura por cliente/proveedor",
+            "Sí",
+            "Sí",
+            "Correcta",
+            "No",
+            5,
+            4,
+            4,
+            4,
+            5,
+            5,
+            5,
+            4,
+            3,
+            3,
+            5,
+            4,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            "ELEGIBLE",
+            88.8,
+            78.8,
+            77,
+            91,
+            9,
+            2,
+            89,
+            3,
+            "Primaria propuesta",
+            "Transformación/OLC",
+            "",
+            "Primaria propuesta",
+            "Evidencia/feasibilidad",
+            "40+20 probable",
+            "Enviar a Runtime"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "v1_1_Change_Log",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 14,
+      "columns": [
+        "Elemento",
+        "Contenido"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Elemento",
+            "Contenido"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Propósito",
+            "Registrar los ajustes de v1.1 sin eliminar el contenido v1.0."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Problema corregido",
+            "El v1.0 podía leerse como demasiado estricto al evaluar actividades aún no procesadas por Runtime."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Corrección madre",
+            "La selección de actividades primarias se define como priorización bajo incertidumbre, no como diagramability readiness confirmado."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Cambio terminológico",
+            "Evidence Potential se alinea a Signal Potential. Diagramability Readiness se alinea a Runtime Probe Priority."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Signal_Method_v1_1",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 12,
+      "columns": [
+        "Sección",
+        "Regla / contenido",
+        "Implicación operativa",
+        "Riesgo que evita"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Sección",
+            "Regla / contenido",
+            "Implicación operativa",
+            "Riesgo que evita"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Principio rector",
+            "WorkMap entrega redacción del usuario, no evidencia MMABP cerrada.",
+            "El selector opera con señales débiles y confianza limitada.",
+            "Rigidez prematura."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Definición",
+            "Potencial de Señal Arquitectónica = probabilidad prudente de que Runtime pueda extraer evidencia útil para PM/MoC/PF/OLC.",
+            "Se prioriza lo prometedor para indagación profunda, no lo ya diagramable.",
+            "Confundir selección con diagnóstico."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "PM Signal",
+            "La actividad sugiere entrega, receptor, cliente, hito, resultado, soporte o necesidad.",
+            "Abre posibilidad de construir Process Map después del Runtime.",
+            "PM burocrático sin cliente/trigger/target state."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "MoC Signal",
+            "La actividad contiene sustantivos de negocio reconocibles: pedido, caso, solicitud, factura, cliente, documento, aprobación.",
+            "Abre posibilidad de clases, atributos, relaciones, roles, phases o ends.",
+            "Ceguera ontológica."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "PreRuntime_Rules_v1_1",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 11,
+      "columns": [
+        "Regla_ID",
+        "Regla",
+        "Aplicación",
+        "Estado esperado"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Regla_ID",
+            "Regla",
+            "Aplicación",
+            "Estado esperado"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "PR-01",
+            "La selección es priorización bajo incertidumbre.",
+            "No exigir cliente/objeto/estado/trigger explícitos antes de Runtime.",
+            "Selector prudente."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "PR-02",
+            "Una señal débil puede justificar selección si la actividad tiene densidad operativa.",
+            "Tratar verbos y sustantivos como hipótesis de indagación, no como hechos.",
+            "Hipótesis trazable."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "PR-03",
+            "Unknown no es cero.",
+            "Blanco/unknown queda neutral o activa revisión; no bloquea por sí solo.",
+            "Menos falsos negativos."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "PR-04",
+            "Solo bloquear cuando no se pueda ejecutar Runtime de forma razonable.",
+            "Vacío, no actividad, duplicado evidente, microtarea, responsabilidad genérica o proceso demasiado amplio.",
+            "Gates duros mínimos."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Scoring_Model_v1_1",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 15,
+      "columns": [
+        "Bloque",
+        "Criterio",
+        "Peso / escala",
+        "Definición v1.1",
+        "Nota operacional"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Bloque",
+            "Criterio",
+            "Peso / escala",
+            "Definición v1.1",
+            "Nota operacional"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Composite",
+            "Architectural_Signal_Potential",
+            0.3,
+            "Promedio ponderado de señales PM/MoC/PF/OLC bajo incertidumbre.",
+            "No requiere evidencia cerrada."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Composite",
+            "Operational_Centrality",
+            0.2,
+            "La actividad parece central para la responsabilidad/rol o afecta continuidad de trabajo.",
+            "No confundir con preferencia del usuario."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Composite",
+            "Handoff_or_Dependency_Signal",
+            0.15,
+            "Señales de receptor, entrega, espera, coordinación o dependencia.",
+            "Alta prioridad para PF/PM."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Composite",
+            "Transformation_or_Object_Signal",
+            0.15,
+            "Señales de objeto de negocio, validación, creación, modificación, aprobación o cierre.",
+            "Alta prioridad para MoC/OLC."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Selector_Template_v1_1",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 1,
+      "columns": [
+        "activity_id",
+        "responsibility_id",
+        "area",
+        "functional_role",
+        "activity_label",
+        "activity_description",
+        "workmap_trace_ok",
+        "is_work_activity",
+        "granularity_status",
+        "duplicate_or_alias_status",
+        "user_text_density_0_3",
+        "semantic_clarity_0_3",
+        "pm_signal_0_3",
+        "moc_signal_0_3",
+        "pf_signal_0_3",
+        "olc_signal_0_3",
+        "operational_centrality_0_3",
+        "handoff_dependency_signal_0_3",
+        "transformation_object_signal_0_3",
+        "friction_exception_signal_0_3",
+        "coverage_diversity_0_3",
+        "vagueness_risk_0_3",
+        "granularity_risk_0_3",
+        "duplicate_alias_risk_0_3",
+        "unknown_signal_count",
+        "Hard_Gate",
+        "Architectural_Signal_Potential",
+        "Operational_Centrality_Score",
+        "Handoff_Dependency_Score",
+        "Transformation_Object_Score",
+        "Friction_Exception_Score",
+        "Coverage_Diversity_Score",
+        "Penalty_Total",
+        "PrimaryActivitySelectionScore",
+        "Selector_Rank",
+        "Slot_Candidate",
+        "Initial_Selection_Status",
+        "Manual_Review_Need",
+        "Final_Selection_Status",
+        "Runtime_Opening_Profile",
+        "Runtime_Probe_Priority",
+        "PM_Probe_Hypothesis",
+        "MoC_Probe_Hypothesis",
+        "PF_Probe_Hypothesis",
+        "OLC_Probe_Hypothesis",
+        "Notes"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "activity_id",
+            "responsibility_id",
+            "area",
+            "functional_role",
+            "activity_label",
+            "activity_description",
+            "workmap_trace_ok",
+            "is_work_activity",
+            "granularity_status",
+            "duplicate_or_alias_status",
+            "user_text_density_0_3",
+            "semantic_clarity_0_3",
+            "pm_signal_0_3",
+            "moc_signal_0_3",
+            "pf_signal_0_3",
+            "olc_signal_0_3",
+            "operational_centrality_0_3",
+            "handoff_dependency_signal_0_3",
+            "transformation_object_signal_0_3",
+            "friction_exception_signal_0_3",
+            "coverage_diversity_0_3",
+            "vagueness_risk_0_3",
+            "granularity_risk_0_3",
+            "duplicate_alias_risk_0_3",
+            "unknown_signal_count",
+            "Hard_Gate",
+            "Architectural_Signal_Potential",
+            "Operational_Centrality_Score",
+            "Handoff_Dependency_Score",
+            "Transformation_Object_Score",
+            "Friction_Exception_Score",
+            "Coverage_Diversity_Score",
+            "Penalty_Total",
+            "PrimaryActivitySelectionScore",
+            "Selector_Rank",
+            "Slot_Candidate",
+            "Initial_Selection_Status",
+            "Manual_Review_Need",
+            "Final_Selection_Status",
+            "Runtime_Opening_Profile",
+            "Runtime_Probe_Priority",
+            "PM_Probe_Hypothesis",
+            "MoC_Probe_Hypothesis",
+            "PF_Probe_Hypothesis",
+            "OLC_Probe_Hypothesis",
+            "Notes"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Slot_Balance_v1_1",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 11,
+      "columns": [
+        "Slot",
+        "Criterio",
+        "Cómo se asigna",
+        "Regla de prudencia"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Slot",
+            "Criterio",
+            "Cómo se asigna",
+            "Regla de prudencia"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "1",
+            "Mayor score total elegible",
+            "Actividad elegible con mayor PrimaryActivitySelectionScore.",
+            "No diagnostica; solo prioriza Runtime."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "2",
+            "Mayor score total elegible",
+            "Siguiente actividad elegible no duplicada.",
+            "Mantener diversidad de responsabilidad/área si hay empate."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "3",
+            "Mayor score total elegible",
+            "Siguiente actividad elegible no duplicada.",
+            "Evitar ocho actividades del mismo microflujo."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "4",
+            "Mayor score total elegible",
+            "Siguiente actividad elegible no duplicada.",
+            "Preferir diversidad de objeto/entrega."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Runtime_Handoff_v1_1",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 16,
+      "columns": [
+        "Campo payload",
+        "Obligatorio",
+        "Descripción",
+        "Fuente en selector",
+        "Nota"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Campo payload",
+            "Obligatorio",
+            "Descripción",
+            "Fuente en selector",
+            "Nota"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "activity_id",
+            "Sí",
+            "ID de actividad WorkMap seleccionada.",
+            "Selector_Template_v1_1",
+            "Trazabilidad."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "responsibility_id",
+            "Sí",
+            "Responsabilidad asociada.",
+            "Selector_Template_v1_1",
+            "Trazabilidad."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "area",
+            "Sí",
+            "Área declarada.",
+            "Selector_Template_v1_1",
+            "Contexto."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "functional_role",
+            "Sí",
+            "Rol funcional evaluado.",
+            "Selector_Template_v1_1",
+            "Unidad por rol."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": false,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "QA_v1_1",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 13,
+      "columns": [
+        "QA_ID",
+        "Prueba",
+        "Criterio de aprobación",
+        "Riesgo controlado"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "QA_ID",
+            "Prueba",
+            "Criterio de aprobación",
+            "Riesgo controlado"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "QA-v1.1-01",
+            "Máximo 8 primarias",
+            "Final_Selection_Status primaria <= 8.",
+            "Sobrecarga UX."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "QA-v1.1-02",
+            "No gates MMABP duros prematuros",
+            "No bloquear por falta explícita de cliente, objeto, estado, receptor, timer o transición en WorkMap.",
+            "Rigidez prematura."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "QA-v1.1-03",
+            "Unknown no equivale a cero",
+            "Las señales en blanco se tratan neutral o revisión, no como 0 automático.",
+            "Falsos negativos."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "QA-v1.1-04",
+            "Gates duros mínimos",
+            "Bloquear solo vacío/no actividad/duplicado evidente/microtarea/demasiado amplia/responsabilidad genérica.",
+            "Selección punitiva."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Dashboard_v1_1",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 14,
+      "columns": [
+        "Métrica",
+        "Valor",
+        "Regla / alerta"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Métrica",
+            "Valor",
+            "Regla / alerta"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Actividades cargadas",
+            0,
+            "Informativo"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Elegibles",
+            0,
+            "Informativo"
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "En revisión",
+            0,
+            "Puede alimentar slot exploratorio o reentry"
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Bloqueadas",
+            0,
+            "Corregir WorkMap/B0"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": false,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Example_Run_v1_1",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 12,
+      "columns": [
+        "activity_id",
+        "responsibility_id",
+        "area",
+        "functional_role",
+        "activity_label",
+        "activity_description",
+        "workmap_trace_ok",
+        "is_work_activity",
+        "granularity_status",
+        "duplicate_or_alias_status",
+        "user_text_density_0_3",
+        "semantic_clarity_0_3",
+        "pm_signal_0_3",
+        "moc_signal_0_3",
+        "pf_signal_0_3",
+        "olc_signal_0_3",
+        "operational_centrality_0_3",
+        "handoff_dependency_signal_0_3",
+        "transformation_object_signal_0_3",
+        "friction_exception_signal_0_3",
+        "coverage_diversity_0_3",
+        "vagueness_risk_0_3",
+        "granularity_risk_0_3",
+        "duplicate_alias_risk_0_3",
+        "unknown_signal_count",
+        "Hard_Gate",
+        "Architectural_Signal_Potential",
+        "Operational_Centrality_Score",
+        "Handoff_Dependency_Score",
+        "Transformation_Object_Score",
+        "Friction_Exception_Score",
+        "Coverage_Diversity_Score",
+        "Penalty_Total",
+        "PrimaryActivitySelectionScore",
+        "Selector_Rank",
+        "Slot_Candidate",
+        "Initial_Selection_Status",
+        "Manual_Review_Need",
+        "Final_Selection_Status",
+        "Runtime_Opening_Profile",
+        "Runtime_Probe_Priority",
+        "PM_Probe_Hypothesis",
+        "MoC_Probe_Hypothesis",
+        "PF_Probe_Hypothesis",
+        "OLC_Probe_Hypothesis",
+        "Notes"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "activity_id",
+            "responsibility_id",
+            "area",
+            "functional_role",
+            "activity_label",
+            "activity_description",
+            "workmap_trace_ok",
+            "is_work_activity",
+            "granularity_status",
+            "duplicate_or_alias_status",
+            "user_text_density_0_3",
+            "semantic_clarity_0_3",
+            "pm_signal_0_3",
+            "moc_signal_0_3",
+            "pf_signal_0_3",
+            "olc_signal_0_3",
+            "operational_centrality_0_3",
+            "handoff_dependency_signal_0_3",
+            "transformation_object_signal_0_3",
+            "friction_exception_signal_0_3",
+            "coverage_diversity_0_3",
+            "vagueness_risk_0_3",
+            "granularity_risk_0_3",
+            "duplicate_alias_risk_0_3",
+            "unknown_signal_count",
+            "Hard_Gate",
+            "Architectural_Signal_Potential",
+            "Operational_Centrality_Score",
+            "Handoff_Dependency_Score",
+            "Transformation_Object_Score",
+            "Friction_Exception_Score",
+            "Coverage_Diversity_Score",
+            "Penalty_Total",
+            "PrimaryActivitySelectionScore",
+            "Selector_Rank",
+            "Slot_Candidate",
+            "Initial_Selection_Status",
+            "Manual_Review_Need",
+            "Final_Selection_Status",
+            "Runtime_Opening_Profile",
+            "Runtime_Probe_Priority",
+            "PM_Probe_Hypothesis",
+            "MoC_Probe_Hypothesis",
+            "PF_Probe_Hypothesis",
+            "OLC_Probe_Hypothesis",
+            "Notes"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "A001",
+            "R001",
+            "Operaciones",
+            "Rol A",
+            "Revisar pedidos antes de enviarlos",
+            "Revisar pedidos antes de enviarlos a cocina/reparto",
+            "Sí",
+            "Sí",
+            "Correcta",
+            "No",
+            3,
+            3,
+            2,
+            3,
+            3,
+            2,
+            3,
+            2,
+            3,
+            2,
+            3,
+            1,
+            0,
+            0,
+            0,
+            "ELEGIBLE",
+            83.3,
+            100,
+            66.7,
+            100,
+            66.7,
+            100,
+            8,
+            78.7,
+            4,
+            "Slot 1-5: alto potencial",
+            "Primaria propuesta",
+            "No",
+            "Primaria propuesta",
+            "40+20 probable",
+            "Alta",
+            "Prometedora",
+            "Prometedora",
+            "Prometedora",
+            "Prometedora",
+            "Señales suficientes para Runtime; no modelar aún pedido como clase confirmada."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "A002",
+            "R001",
+            "Operaciones",
+            "Rol A",
+            "Actualizar inventario",
+            "Registrar entrada/salida de productos al cierre",
+            "Sí",
+            "Sí",
+            "Correcta",
+            "No",
+            2,
+            3,
+            1,
+            3,
+            2,
+            2,
+            2,
+            1,
+            3,
+            1,
+            2,
+            1,
+            0,
+            0,
+            0,
+            "ELEGIBLE",
+            66.7,
+            66.7,
+            33.3,
+            100,
+            33.3,
+            66.7,
+            8,
+            55.3,
+            6,
+            "Slot 7: transformación/objeto",
+            "Primaria propuesta",
+            "No",
+            "Primaria propuesta",
+            "40 base + causales selectivas",
+            "Media",
+            "Débil / validar en B0.5-B1",
+            "Prometedora",
+            "Prometedora",
+            "Prometedora",
+            "Transformación clara, aunque menor fricción."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "A003",
+            "R002",
+            "Servicio",
+            "Rol A",
+            "Atender reclamo de cliente",
+            "Recibir reclamo, revisar causa y coordinar corrección",
+            "Sí",
+            "Sí",
+            "Correcta",
+            "No",
+            3,
+            3,
+            3,
+            3,
+            3,
+            2,
+            3,
+            3,
+            2,
+            3,
+            3,
+            0,
+            0,
+            0,
+            0,
+            "ELEGIBLE",
+            91.7,
+            100,
+            100,
+            66.7,
+            100,
+            100,
+            0,
+            92.5,
+            1,
+            "Slot 1-5: alto potencial",
+            "Primaria propuesta",
+            "No",
+            "Primaria propuesta",
+            "40+20 probable",
+            "Alta",
+            "Prometedora",
+            "Prometedora",
+            "Prometedora",
+            "Prometedora",
+            "Alto valor para handoff, PF y feedback posterior."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "A004",
+            "R003",
+            "Administración",
+            "Rol A",
+            "Revisar factura rechazada",
+            "Resolver devolución o rechazo de factura por cliente/proveedor",
+            "Sí",
+            "Sí",
+            "Correcta",
+            "No",
+            3,
+            3,
+            2,
+            3,
+            3,
+            3,
+            2,
+            3,
+            3,
+            3,
+            2,
+            0,
+            0,
+            0,
+            0,
+            "ELEGIBLE",
+            91.7,
+            66.7,
+            100,
+            100,
+            100,
+            66.7,
+            0,
+            87.5,
+            2,
+            "Slot 1-5: alto potencial",
+            "Primaria propuesta",
+            "No",
+            "Primaria propuesta",
+            "40+20 probable",
+            "Alta",
+            "Prometedora",
+            "Prometedora",
+            "Prometedora",
+            "Prometedora",
+            "Prometedora para OLC por rechazo/devolución."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "v1_2_Change_Log",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 12,
+      "columns": [
+        "Campo",
+        "Contenido"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Campo",
+            "Contenido"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Versión agregada",
+            "v1.2 operacional — Selección bajo incertidumbre + política para menos de 8 actividades + contexto Estado A/WorkMap/Significado + ejecución Runtime en Significado"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Regla de intervención",
+            "No se elimina contenido v1.0/v1.1; no se resume contenido original; se agregan hojas *_v1_2, filas y columnas; solo se alinea redacción donde el ajuste narrativo lo exige."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Cambio conceptual 1",
+            "Si hay <=8 actividades elegibles, no se aplica ranking competitivo: se evalúan todas las elegibles, después de limpieza semántica, control de duplicados, macro/micro actividad y cobertura del rol."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Cambio conceptual 2",
+            "Más información no siempre es mejor. Mejor es información trazable, confirmada, contextualizada y útil para conformance/consistency futura."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": true,
+        "payload": true
+      }
+    },
+    {
+      "name": "Under8_Policy_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 12,
+      "columns": [
+        "Regla / Caso",
+        "Condición",
+        "Acción EVE",
+        "Qué NO debe ocurrir",
+        "Salida técnica"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Regla / Caso",
+            "Condición",
+            "Acción EVE",
+            "Qué NO debe ocurrir",
+            "Salida técnica"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Regla madre",
+            "eligible_activity_count <= 8",
+            "Seleccionar todas las actividades elegibles después de gates mínimos y limpieza semántica.",
+            "No llenar cupos artificialmente; no forzar ranking competitivo.",
+            "selection_mode = non_competitive_inclusion"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Cero actividades elegibles",
+            "eligible_activity_count = 0",
+            "Bloquear ejecución de Runtime y reentrar a WorkMap.",
+            "No inventar actividades; no usar responsabilidades como actividades.",
+            "reentry_required = WorkMap"
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "1 a 3 actividades elegibles",
+            "1 <= eligible_activity_count <= 3",
+            "Ejecutar todas, pero activar control de cobertura del rol.",
+            "No asumir que el rol queda suficientemente cubierto.",
+            "role_coverage_flag = review"
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "4 a 7 actividades elegibles",
+            "4 <= eligible_activity_count <= 7",
+            "Ejecutar todas si pasan gates mínimos.",
+            "No excluir por bajo score relativo si son elegibles.",
+            "selected_for_runtime = all_eligible"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Screen_Sequence_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 7,
+      "columns": [
+        "Pantalla / Motor",
+        "Momento",
+        "Función",
+        "Qué produce",
+        "Qué NO produce"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Pantalla / Motor",
+            "Momento",
+            "Función",
+            "Qué produce",
+            "Qué NO produce"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Estado A",
+            "Inicio de plataforma",
+            "Captura rol funcional, nivel de decisión, alcance de autoridad, tipo de decisiones y frontera del rol.",
+            "RoleContext, decision_level, authority_scope, functional_role_context",
+            "No selecciona actividades; no diagnostica; no modela PM/MoC/PF/OLC."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "WorkMap",
+            "Después de Estado A",
+            "Captura áreas, responsabilidades y actividades; conserva texto literal y trazabilidad área → responsabilidad → actividad.",
+            "WorkMapInventory, responsibilityId, activityId, activity_text, savedWithWarnings",
+            "No ejecuta Runtime; no confirma evidencia estructural profunda."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Selector interno EVE",
+            "Entre WorkMap y Significado",
+            "Evalúa actividades bajo incertidumbre. Si hay <=8 elegibles selecciona todas; si hay >8 prioriza máximo 8.",
+            "PrimaryActivitySelectionBundle, NonPrimaryContext, selection_mode",
+            "No es una pantalla delegada al usuario; no diagnostica."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Significado de tu Trabajo",
+            "Después del selector",
+            "Ejecuta Runtime 40/20 sobre cada actividad primaria seleccionada. El usuario ve una actividad primaria y contesta interacciones base/causales.",
+            "RuntimeEvidence por actividad, captured/confirmed evidence, gaps, readiness",
+            "No debe ser selector diagnóstico; no produce VSM/AHE cerrado; no monetiza."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": false,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Context_Bundle_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 12,
+      "columns": [
+        "Fuente",
+        "Dato / Campo",
+        "Estado epistemológico inicial",
+        "Uso en selector",
+        "Uso en Runtime Significado",
+        "Uso posterior PM/MoC/PF/OLC",
+        "Regla de contaminación"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Fuente",
+            "Dato / Campo",
+            "Estado epistemológico inicial",
+            "Uso en selector",
+            "Uso en Runtime Significado",
+            "Uso posterior PM/MoC/PF/OLC",
+            "Regla de contaminación"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Estado A",
+            "functional_role",
+            "captured_user_evidence",
+            "Delimita perspectiva del usuario y rol que produce WorkMap.",
+            "Contextualiza wording: 'en tu rol de...'",
+            "Actor funcional, frontera, posible role en MoC.",
+            "Puede ser evidencia capturada si fue respondida/confirmada por usuario."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Estado A",
+            "decision_level",
+            "captured_user_evidence",
+            "Ayuda a detectar tensión entre actividad y autoridad.",
+            "Calibra preguntas de discrecionalidad, escalamiento y autorización.",
+            "PF: autoridad de tarea/handoff; OLC: quién puede causar transición.",
+            "No convierte autoridad inferida en hecho de proceso sin Runtime."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Estado A",
+            "authority_scope",
+            "captured_user_evidence/confirmed",
+            "Detecta actividad fuera de frontera del rol.",
+            "Prellena o microconfirma escalamiento, aprobación, control.",
+            "PM/PF: frontera actor/proceso; MoC: role contextual.",
+            "Si contradice WorkMap, marcar contradiction_flag, no corregir en silencio."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "WorkMap",
+            "area",
+            "captured_user_evidence",
+            "Agrupa actividades y balancea cobertura.",
+            "Contextualiza actividad dentro de área.",
+            "PM: proceso/área de contexto; PF: no usar como swimlane.",
+            "Área no debe convertirse en swimlane PF."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Context_Epistemic_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 9,
+      "columns": [
+        "Estado epistemológico",
+        "Definición",
+        "Puede prellenar UI",
+        "Puede contar como evidencia estructural",
+        "Requiere confirmación",
+        "Ejemplo"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Estado epistemológico",
+            "Definición",
+            "Puede prellenar UI",
+            "Puede contar como evidencia estructural",
+            "Requiere confirmación",
+            "Ejemplo"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "captured_user_evidence",
+            "Lo dijo o confirmó explícitamente el usuario.",
+            "Sí",
+            "Sí, con trazabilidad.",
+            "No, ya fue capturado; puede requerir reconfirmación si contradice otro dato.",
+            "Actividad escrita por usuario en WorkMap."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "inferred_from_workmap",
+            "Deducción débil desde texto, área, responsabilidad o relación WorkMap.",
+            "Sí, como sugerencia.",
+            "No, salvo confirmación posterior.",
+            "Sí si afectará variable canónica.",
+            "Inferir que 'pedido' podría ser objeto de negocio."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "confirmed_in_runtime",
+            "Dato previamente inferido o contextual que fue confirmado durante Runtime.",
+            "Sí",
+            "Sí.",
+            "Ya confirmado.",
+            "El usuario confirma que 'pedido' es el objeto trabajado."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "derived_internal",
+            "Dato calculado por regla interna desde variables confirmadas.",
+            "No siempre",
+            "Sí solo si la regla está documentada.",
+            "No si deriva de hechos confirmados; sí si tiene baja confianza.",
+            "selection_mode derivado de conteo de elegibles."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Activity_Quality_Gates_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 11,
+      "columns": [
+        "Gate",
+        "Nombre",
+        "Condición",
+        "Acción",
+        "Es bloqueo duro",
+        "Justificación"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Gate",
+            "Nombre",
+            "Condición",
+            "Acción",
+            "Es bloqueo duro",
+            "Justificación"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "AQG-01",
+            "Non empty activity",
+            "activity_label/activity_description no vacío",
+            "Permitir evaluación si hay texto mínimo.",
+            "Sí",
+            "Sin texto no hay unidad de trabajo."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "AQG-02",
+            "Belongs to role/workmap trace",
+            "activity_id y responsibility_id vinculados a WorkMap/Estado A",
+            "Permitir si hay trazabilidad o activar microconfirmación.",
+            "Sí/Review",
+            "Sin trazabilidad, la actividad flota."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "AQG-03",
+            "Work activity not abstract value",
+            "Debe describir acción de trabajo, no valor genérico ('ser responsable')",
+            "Pedir concreción o excluir.",
+            "Sí",
+            "Runtime necesita actividad observable."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "AQG-04",
+            "Duplicate/alias resolution",
+            "Actividad similar a otra candidata",
+            "Consolidar, fusionar o elegir formulación más rica.",
+            "Sí si duplicado confirmado",
+            "Evita fatiga y respuestas redundantes."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Selection_Mode_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 5,
+      "columns": [
+        "Selection Mode",
+        "Condición",
+        "Cómo opera",
+        "Pantalla usuario",
+        "Payload hacia Runtime",
+        "Observación"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Selection Mode",
+            "Condición",
+            "Cómo opera",
+            "Pantalla usuario",
+            "Payload hacia Runtime",
+            "Observación"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "reentry_required",
+            "eligible_activity_count = 0",
+            "No hay actividades elegibles; pedir corrección de WorkMap.",
+            "Mensaje de retorno breve: 'necesitamos actividades concretas para continuar'.",
+            "No runtime_payload.",
+            "No inventar actividades."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "non_competitive_inclusion",
+            "1 <= eligible_activity_count <= 8",
+            "No ranking competitivo. Todas las elegibles pasan a Runtime, con orden sugerido y flags de calidad/cobertura.",
+            "Se muestra lista de actividades que se profundizarán.",
+            "primary_activities = all eligible.",
+            "El máximo 8 es límite, no objetivo a llenar."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "competitive_selection",
+            "eligible_activity_count > 8",
+            "Aplicar scoring bajo incertidumbre, balance, duplicados, slot exploratorio y máximo 8.",
+            "No pedir elección diagnóstica al usuario; puede mostrar 'profundizaremos estas actividades'.",
+            "primary_activities = top selected max 8; non_primary_context = remainder.",
+            "Conserva WorkMap completo como contexto."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "manual_review_required",
+            "Contradicciones fuertes, duplicados no resolubles o granularidad confusa",
+            "Pedir microconfirmación o revisión interna antes de Runtime.",
+            "Pregunta breve orientada a aclarar, no diagnosticar.",
+            "runtime_payload se bloquea o sale con flags.",
+            "No avanzar con falsa claridad."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Significado_Runtime_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 9,
+      "columns": [
+        "Elemento de pantalla",
+        "Función visible",
+        "Función técnica",
+        "Regla de diseño",
+        "Qué no debe hacer"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Elemento de pantalla",
+            "Función visible",
+            "Función técnica",
+            "Regla de diseño",
+            "Qué no debe hacer"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Encabezado de actividad",
+            "Muestra 'Actividad X de N' y nombre de la actividad primaria.",
+            "Fija activity_id/runtime_context_id.",
+            "Debe usar lenguaje del usuario y responsabilidad/área como contexto.",
+            "No mostrar PM/MoC/PF/OLC ni scoring interno."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Orientación inicial",
+            "Explica que se profundizará en cómo ocurre la actividad.",
+            "Reduce fricción y prepara respuestas.",
+            "Debe decir que puede haber preguntas adicionales si algo necesita aclaración.",
+            "No decir 'te estamos diagnosticando'."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Interacciones base",
+            "Muestra las 40 interacciones base como tarjetas/progreso.",
+            "Captura evidencia canónica por actividad.",
+            "Preguntas compuestas deben tener subcampos persistibles.",
+            "No mostrar 40 como cuestionario punitivo."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Causales adaptativas",
+            "Aparecen solo si el motor detecta señal/gap/ruta crítica.",
+            "Cierra variables canónicas o inconsistencias potenciales.",
+            "Debe explicar 'necesito aclarar este punto'.",
+            "No abrir por rutina ni curiosidad."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Runtime_ContextRules_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 9,
+      "columns": [
+        "Regla",
+        "Aplicación",
+        "Ejemplo correcto",
+        "Ejemplo incorrecto",
+        "Estado epistemológico"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Regla",
+            "Aplicación",
+            "Ejemplo correcto",
+            "Ejemplo incorrecto",
+            "Estado epistemológico"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Prellenar sin contaminar",
+            "Usar contexto para reducir carga, no para cerrar variables.",
+            "Parece que esta actividad vive en la responsabilidad X. ¿Es correcto?",
+            "Guardar responsabilidad inferida como conformance confirmada.",
+            "inferred_from_workmap → confirmed_in_runtime si acepta"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Contextualizar preguntas",
+            "Incluir rol/responsabilidad/actividad en texto visible.",
+            "En tu rol de supervisor, cuando validas pedidos...",
+            "¿Qué gatilla esto? sin contexto.",
+            "context_only + captured_user_evidence"
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "No usar áreas como swimlanes",
+            "Área puede orientar, no estructura PF.",
+            "Contexto de área: Operaciones.",
+            "PF con carriles por área.",
+            "context_only"
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "No delegar selección diagnóstica",
+            "EVE selecciona; usuario confirma hechos.",
+            "Vamos a profundizar estas actividades detectadas.",
+            "Elige las 8 más importantes para diagnosticar.",
+            "derived_internal"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": false,
+        "balance": true,
+        "modes": false,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "NonCompetitive_Log_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 14,
+      "columns": [
+        "Campo",
+        "Descripción",
+        "Valor esperado / ejemplo",
+        "Obligatorio"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Campo",
+            "Descripción",
+            "Valor esperado / ejemplo",
+            "Obligatorio"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "selection_run_id",
+            "ID del run de selección",
+            "SEL-2026-06-14-001",
+            "Sí"
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "selection_mode",
+            "Modo aplicado",
+            "non_competitive_inclusion",
+            "Sí"
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "eligible_activity_count",
+            "Conteo de actividades elegibles tras gates",
+            "5",
+            "Sí"
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "raw_activity_count",
+            "Conteo original de WorkMap",
+            "6",
+            "Sí"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "QA_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 13,
+      "columns": [
+        "ID",
+        "Prueba de aceptación v1.2",
+        "Criterio esperado",
+        "Falla si"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "ID",
+            "Prueba de aceptación v1.2",
+            "Criterio esperado",
+            "Falla si"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "QA12-01",
+            "Menos de 8 elegibles",
+            "Si hay 1–8 elegibles, selection_mode = non_competitive_inclusion y selected = todas las elegibles.",
+            "Se aplica ranking competitivo y se excluye una actividad elegible sin razón de gate."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "QA12-02",
+            "Cero elegibles",
+            "selection_mode = reentry_required; no hay payload Runtime.",
+            "Se inventa actividad o se envía responsabilidad como actividad."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "QA12-03",
+            "Más de 8 elegibles",
+            "selection_mode = competitive_selection; selected_count <= 8.",
+            "Se seleccionan más de 8 o se delega al usuario la elección diagnóstica."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "QA12-04",
+            "No llenar cupos",
+            "Si hay 5 elegibles, se envían 5, no 8.",
+            "Se crean actividades artificiales o se promueven contextos."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": true,
+        "payload": true
+      }
+    },
+    {
+      "name": "Selector_Template_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 1,
+      "columns": [
+        "selection_run_id",
+        "raw_activity_count",
+        "eligible_activity_count",
+        "selection_mode_input_optional",
+        "activity_id",
+        "responsibility_id",
+        "area",
+        "functional_role",
+        "decision_level",
+        "authority_scope",
+        "activity_label",
+        "activity_description",
+        "workmap_trace_ok",
+        "belongs_to_role",
+        "is_work_activity",
+        "granularity_status",
+        "duplicate_or_alias_status",
+        "context_status",
+        "user_text_density_0_3",
+        "semantic_clarity_0_3",
+        "pm_signal_0_3",
+        "moc_signal_0_3",
+        "pf_signal_0_3",
+        "olc_signal_0_3",
+        "operational_centrality_0_3",
+        "handoff_dependency_signal_0_3",
+        "transformation_object_signal_0_3",
+        "friction_exception_signal_0_3",
+        "coverage_diversity_0_3",
+        "uncertainty_level_0_3",
+        "ambiguity_probe_value_0_3",
+        "vagueness_risk_0_3",
+        "granularity_risk_0_3",
+        "duplicate_alias_risk_0_3",
+        "role_coverage_flag",
+        "workmap_coverage_gap",
+        "Hard_Gate",
+        "Eligibility_Status",
+        "Selection_Mode",
+        "Architectural_Signal_Potential",
+        "Context_Quality_Score",
+        "Penalty_Total",
+        "PrimaryActivitySelectionScore",
+        "Rank_If_Competitive",
+        "Select_If_Under8",
+        "Select_If_Over8",
+        "Final_Selection_Status",
+        "Runtime_Order",
+        "Runtime_Opening_Profile",
+        "Runtime_Probe_Priority",
+        "PreRuntime_Context_Status",
+        "Runtime_Handoff_Ready",
+        "PM_Probe_Hypothesis",
+        "MoC_Probe_Hypothesis",
+        "PF_Probe_Hypothesis",
+        "OLC_Probe_Hypothesis",
+        "Notes"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "selection_run_id",
+            "raw_activity_count",
+            "eligible_activity_count",
+            "selection_mode_input_optional",
+            "activity_id",
+            "responsibility_id",
+            "area",
+            "functional_role",
+            "decision_level",
+            "authority_scope",
+            "activity_label",
+            "activity_description",
+            "workmap_trace_ok",
+            "belongs_to_role",
+            "is_work_activity",
+            "granularity_status",
+            "duplicate_or_alias_status",
+            "context_status",
+            "user_text_density_0_3",
+            "semantic_clarity_0_3",
+            "pm_signal_0_3",
+            "moc_signal_0_3",
+            "pf_signal_0_3",
+            "olc_signal_0_3",
+            "operational_centrality_0_3",
+            "handoff_dependency_signal_0_3",
+            "transformation_object_signal_0_3",
+            "friction_exception_signal_0_3",
+            "coverage_diversity_0_3",
+            "uncertainty_level_0_3",
+            "ambiguity_probe_value_0_3",
+            "vagueness_risk_0_3",
+            "granularity_risk_0_3",
+            "duplicate_alias_risk_0_3",
+            "role_coverage_flag",
+            "workmap_coverage_gap",
+            "Hard_Gate",
+            "Eligibility_Status",
+            "Selection_Mode",
+            "Architectural_Signal_Potential",
+            "Context_Quality_Score",
+            "Penalty_Total",
+            "PrimaryActivitySelectionScore",
+            "Rank_If_Competitive",
+            "Select_If_Under8",
+            "Select_If_Over8",
+            "Final_Selection_Status",
+            "Runtime_Order",
+            "Runtime_Opening_Profile",
+            "Runtime_Probe_Priority",
+            "PreRuntime_Context_Status",
+            "Runtime_Handoff_Ready",
+            "PM_Probe_Hypothesis",
+            "MoC_Probe_Hypothesis",
+            "PF_Probe_Hypothesis",
+            "OLC_Probe_Hypothesis",
+            "Notes"
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Implementation_Dicts_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 12,
+      "columns": [
+        "Dictionary",
+        "Allowed Values",
+        "Applies to",
+        "Meaning"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Dictionary",
+            "Allowed Values",
+            "Applies to",
+            "Meaning"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "yes_no_review",
+            "yes;no;review",
+            "workmap_trace_ok, belongs_to_role, is_work_activity",
+            "Minimum gate values."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "granularity_status",
+            "fit;too_macro;too_micro;context_only;review",
+            "granularity_status",
+            "Whether the activity is delimitable for Runtime."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "duplicate_or_alias_status",
+            "unique;alias_review;duplicate_confirmed;consolidated",
+            "duplicate_or_alias_status",
+            "Alias/duplicate handling before Runtime."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "context_status",
+            "primary_candidate;context_only",
+            "context_status",
+            "Whether activity can be primary or only context."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    },
+    {
+      "name": "Example_Run_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 17,
+      "columns": [
+        "selection_run_id",
+        "raw_activity_count",
+        "eligible_activity_count",
+        "selection_mode_input_optional",
+        "activity_id",
+        "responsibility_id",
+        "area",
+        "functional_role",
+        "decision_level",
+        "authority_scope",
+        "activity_label",
+        "activity_description",
+        "workmap_trace_ok",
+        "belongs_to_role",
+        "is_work_activity",
+        "granularity_status",
+        "duplicate_or_alias_status",
+        "context_status",
+        "user_text_density_0_3",
+        "semantic_clarity_0_3",
+        "pm_signal_0_3",
+        "moc_signal_0_3",
+        "pf_signal_0_3",
+        "olc_signal_0_3",
+        "operational_centrality_0_3",
+        "handoff_dependency_signal_0_3",
+        "transformation_object_signal_0_3",
+        "friction_exception_signal_0_3",
+        "coverage_diversity_0_3",
+        "uncertainty_level_0_3",
+        "ambiguity_probe_value_0_3",
+        "vagueness_risk_0_3",
+        "granularity_risk_0_3",
+        "duplicate_alias_risk_0_3",
+        "role_coverage_flag",
+        "workmap_coverage_gap",
+        "Hard_Gate",
+        "Eligibility_Status",
+        "Selection_Mode",
+        "Architectural_Signal_Potential",
+        "Context_Quality_Score",
+        "Penalty_Total",
+        "PrimaryActivitySelectionScore",
+        "Rank_If_Competitive",
+        "Select_If_Under8",
+        "Select_If_Over8",
+        "Final_Selection_Status",
+        "Runtime_Order",
+        "Runtime_Opening_Profile",
+        "Runtime_Probe_Priority",
+        "PreRuntime_Context_Status",
+        "Runtime_Handoff_Ready",
+        "PM_Probe_Hypothesis",
+        "MoC_Probe_Hypothesis",
+        "PF_Probe_Hypothesis",
+        "OLC_Probe_Hypothesis",
+        "Notes"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "selection_run_id",
+            "raw_activity_count",
+            "eligible_activity_count",
+            "selection_mode_input_optional",
+            "activity_id",
+            "responsibility_id",
+            "area",
+            "functional_role",
+            "decision_level",
+            "authority_scope",
+            "activity_label",
+            "activity_description",
+            "workmap_trace_ok",
+            "belongs_to_role",
+            "is_work_activity",
+            "granularity_status",
+            "duplicate_or_alias_status",
+            "context_status",
+            "user_text_density_0_3",
+            "semantic_clarity_0_3",
+            "pm_signal_0_3",
+            "moc_signal_0_3",
+            "pf_signal_0_3",
+            "olc_signal_0_3",
+            "operational_centrality_0_3",
+            "handoff_dependency_signal_0_3",
+            "transformation_object_signal_0_3",
+            "friction_exception_signal_0_3",
+            "coverage_diversity_0_3",
+            "uncertainty_level_0_3",
+            "ambiguity_probe_value_0_3",
+            "vagueness_risk_0_3",
+            "granularity_risk_0_3",
+            "duplicate_alias_risk_0_3",
+            "role_coverage_flag",
+            "workmap_coverage_gap",
+            "Hard_Gate",
+            "Eligibility_Status",
+            "Selection_Mode",
+            "Architectural_Signal_Potential",
+            "Context_Quality_Score",
+            "Penalty_Total",
+            "PrimaryActivitySelectionScore",
+            "Rank_If_Competitive",
+            "Select_If_Under8",
+            "Select_If_Over8",
+            "Final_Selection_Status",
+            "Runtime_Order",
+            "Runtime_Opening_Profile",
+            "Runtime_Probe_Priority",
+            "PreRuntime_Context_Status",
+            "Runtime_Handoff_Ready",
+            "PM_Probe_Hypothesis",
+            "MoC_Probe_Hypothesis",
+            "PF_Probe_Hypothesis",
+            "OLC_Probe_Hypothesis",
+            "Notes"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "RUN-U8-001",
+            6,
+            5,
+            "",
+            "A001",
+            "R-ORD",
+            "Operaciones",
+            "Coordinador de pedidos",
+            "operativo/coordinación",
+            "coordina y escala",
+            "Validar pedidos antes de despacho",
+            "Revisar que el pedido esté correcto antes de enviarlo.",
+            "yes",
+            "yes",
+            "yes",
+            "fit",
+            "unique",
+            "primary_candidate",
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            2,
+            1,
+            1,
+            0,
+            0,
+            0,
+            "ok",
+            false,
+            "pass",
+            "eligible",
+            "non_competitive_inclusion",
+            2,
+            2,
+            0,
+            1.9500000000000002,
+            "",
+            "selected",
+            "",
+            "selected_for_runtime",
+            1,
+            "base_40_standard",
+            "media",
+            "context_ready",
+            "ready",
+            "PM: posible proceso contenedor, actor/cliente, trigger o resultado a confirmar en Runtime.",
+            "MoC: posibles objetos de negocio y relaciones a confirmar; no modelar sin Runtime.",
+            "PF: posibles pasos, handoffs, esperas o rutas a reconstruir.",
+            "OLC: posibles estados/transiciones a confirmar si el objeto cambia.",
+            "Ejemplo v1.2: muestra selección no competitiva cuando <=8 y competitiva cuando >8."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "RUN-U8-001",
+            6,
+            5,
+            "",
+            "A002",
+            "R-ORD",
+            "Operaciones",
+            "Coordinador de pedidos",
+            "operativo/coordinación",
+            "coordina y escala",
+            "Confirmar inventario disponible",
+            "Confirmar disponibilidad antes de comprometer entrega.",
+            "yes",
+            "yes",
+            "yes",
+            "fit",
+            "unique",
+            "primary_candidate",
+            2,
+            2,
+            1,
+            2,
+            2,
+            2,
+            2,
+            1,
+            2,
+            2,
+            2,
+            1,
+            1,
+            0,
+            0,
+            0,
+            "ok",
+            false,
+            "pass",
+            "eligible",
+            "non_competitive_inclusion",
+            1.75,
+            2,
+            0,
+            1.825,
+            "",
+            "selected",
+            "",
+            "selected_for_runtime",
+            2,
+            "base_40_standard",
+            "media",
+            "context_ready",
+            "ready",
+            "PM: posible proceso contenedor, actor/cliente, trigger o resultado a confirmar en Runtime.",
+            "MoC: posibles objetos de negocio y relaciones a confirmar; no modelar sin Runtime.",
+            "PF: posibles pasos, handoffs, esperas o rutas a reconstruir.",
+            "OLC: posibles estados/transiciones a confirmar si el objeto cambia.",
+            "Ejemplo v1.2: muestra selección no competitiva cuando <=8 y competitiva cuando >8."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "RUN-U8-001",
+            6,
+            5,
+            "",
+            "A003",
+            "R-DEL",
+            "Logística",
+            "Coordinador de pedidos",
+            "operativo/coordinación",
+            "coordina y escala",
+            "Coordinar entrega con repartidor",
+            "Coordinar salida y entrega con el repartidor asignado.",
+            "yes",
+            "yes",
+            "yes",
+            "fit",
+            "unique",
+            "primary_candidate",
+            2,
+            2,
+            2,
+            1,
+            3,
+            1,
+            3,
+            3,
+            1,
+            2,
+            3,
+            1,
+            1,
+            0,
+            0,
+            0,
+            "ok",
+            false,
+            "pass",
+            "eligible",
+            "non_competitive_inclusion",
+            1.75,
+            2,
+            0,
+            2.2749999999999995,
+            "",
+            "selected",
+            "",
+            "selected_for_runtime",
+            3,
+            "base_40_standard",
+            "alta",
+            "context_ready",
+            "ready",
+            "PM: posible proceso contenedor, actor/cliente, trigger o resultado a confirmar en Runtime.",
+            "MoC: posibles objetos de negocio y relaciones a confirmar; no modelar sin Runtime.",
+            "PF: posibles pasos, handoffs, esperas o rutas a reconstruir.",
+            "OLC: posibles estados/transiciones a confirmar si el objeto cambia.",
+            "Ejemplo v1.2: muestra selección no competitiva cuando <=8 y competitiva cuando >8."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "RUN-U8-001",
+            6,
+            5,
+            "",
+            "A004",
+            "R-CS",
+            "Atención",
+            "Coordinador de pedidos",
+            "operativo/coordinación",
+            "coordina y escala",
+            "Resolver reclamos de clientes",
+            "Atender reclamos cuando el cliente reporta problemas.",
+            "yes",
+            "yes",
+            "yes",
+            "fit",
+            "unique",
+            "primary_candidate",
+            2,
+            2,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            2,
+            2,
+            0,
+            0,
+            0,
+            "ok",
+            false,
+            "pass",
+            "eligible",
+            "non_competitive_inclusion",
+            2.25,
+            2,
+            0,
+            2.3750000000000004,
+            "",
+            "selected",
+            "",
+            "selected_for_runtime",
+            4,
+            "base_40_plus_uncertainty_probes",
+            "exploratoria",
+            "context_ready",
+            "ready_with_flags",
+            "PM: posible proceso contenedor, actor/cliente, trigger o resultado a confirmar en Runtime.",
+            "MoC: posibles objetos de negocio y relaciones a confirmar; no modelar sin Runtime.",
+            "PF: posibles pasos, handoffs, esperas o rutas a reconstruir.",
+            "OLC: posibles estados/transiciones a confirmar si el objeto cambia.",
+            "Ejemplo v1.2: muestra selección no competitiva cuando <=8 y competitiva cuando >8."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": true,
+        "payload": true
+      }
+    },
+    {
+      "name": "Dashboard_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 11,
+      "columns": [
+        "Métrica v1.2",
+        "Fórmula / Valor",
+        "Interpretación"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Métrica v1.2",
+            "Fórmula / Valor",
+            "Interpretación"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "Total actividades ejemplo",
+            16,
+            "Actividades candidatas cargadas en Example_Run_v1_2."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "Seleccionadas para Runtime",
+            11,
+            "Actividades que pasarían a Significado/Runtime."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "Reentry required",
+            0,
+            "Candidatas sin actividades elegibles."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "Modo no competitivo",
+            6,
+            "Filas pertenecientes a runs con <=8 actividades elegibles."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": false,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": true,
+        "payload": false
+      }
+    },
+    {
+      "name": "Significado_Handoff_v1_2",
+      "maxRow": 0,
+      "maxColumn": 0,
+      "nonEmptyRows": 21,
+      "columns": [
+        "Payload Field",
+        "Source",
+        "Required",
+        "Purpose in Significado Runtime",
+        "Epistemic Status",
+        "Notes"
+      ],
+      "firstRows": [
+        {
+          "rowNumber": 1,
+          "values": [
+            "Payload Field",
+            "Source",
+            "Required",
+            "Purpose in Significado Runtime",
+            "Epistemic Status",
+            "Notes"
+          ]
+        },
+        {
+          "rowNumber": 2,
+          "values": [
+            "selection_run_id",
+            "Selector interno EVE",
+            "Sí",
+            "Agrupa selección y evidencia por run.",
+            "derived_internal",
+            "No visible necesariamente."
+          ]
+        },
+        {
+          "rowNumber": 3,
+          "values": [
+            "selection_mode",
+            "Selector interno EVE",
+            "Sí",
+            "Explica si actividades fueron incluidas todas o priorizadas.",
+            "derived_internal",
+            "No se muestra como scoring técnico al usuario."
+          ]
+        },
+        {
+          "rowNumber": 4,
+          "values": [
+            "primary_activity_list",
+            "Selector interno EVE",
+            "Sí",
+            "Lista de actividades que Significado recorrerá una por una.",
+            "derived_internal + captured labels",
+            "Máximo 8; si <=8 elegibles, todas."
+          ]
+        },
+        {
+          "rowNumber": 5,
+          "values": [
+            "activity_id",
+            "WorkMap",
+            "Sí",
+            "Identificador de actividad primaria en Runtime.",
+            "captured_user_evidence",
+            "Nunca mezclar evidence bundles entre activity_id."
+          ]
+        }
+      ],
+      "flags": {
+        "scoring": true,
+        "gates": true,
+        "balance": true,
+        "modes": true,
+        "metadata": false,
+        "payload": true
+      }
+    }
+  ],
+  "keywordHits": {
+    "scoring": [
+      {
+        "sheet": "Version_Control",
+        "row": 12,
+        "text": "Autoridad selector | Este workbook define scoring, gates, balance y payload de selección primaria"
+      },
+      {
+        "sheet": "Authority_Rules",
+        "row": 7,
+        "text": "Significado | Señal auxiliar de transición, anclaje o confirmación contextual. | No debe convertir al usuario en selector diagnóstico. | Puede aportar señales blandas; no sustituye scoring EVE."
+      },
+      {
+        "sheet": "Methodology_Overview",
+        "row": 5,
+        "text": "3 | Scoring estructural | Medir potencial para revelar PM, MoC, PF, OLC, fricción, variedad, capacidad, handoff y compensación. | Se prioriza capacidad de producir evidencia diagramable, no importancia subjetiva del usuario. | SelectorScore"
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 9,
+        "text": "activity_description | WorkMap | string | Deseable | Texto semántico para scoring. | Si es débil, B0 puede reconstruir, pero no inventar."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 1,
+        "text": "Bloque de pesos | Criterio | Peso | Descripción"
+      },
+      {
+        "sheet": "Selector_Template",
+        "row": 1,
+        "text": "activity_id | responsibility_id | area | functional_role | activity_label | activity_description | workmap_trace_ok | is_work_activity | granularity_status | duplicate_or_alias | semantic_clarity_0_5 | process_context_0_5 | customer_receiver_hint_0_5 | trigger_hint_0_5 | transformation_object_0_5 | state_change_0_5 | handoff_dependency_0_5 | wait_timer_blocking_0_5 | variability_frequency_0_5 | capacity_pressure_0_5 | workaround_rework_0_5 | info_gap_rule_informal_0_5 | human_compensation_0_5 | "
+      },
+      {
+        "sheet": "Coverage_Balance",
+        "row": 6,
+        "text": "B5 | No seleccionar solo por dolor subjetivo | La prioridad emocional de Significado no supera gates ni score estructural. | Evita sesgo de disponibilidad."
+      },
+      {
+        "sheet": "Selection_Flow",
+        "row": 6,
+        "text": "5 | if gate == BLOQUEADA: store as non_primary_context with reason; do not score as selectable"
+      },
+      {
+        "sheet": "Selection_Flow",
+        "row": 9,
+        "text": "8 | selector_score = 0.45*MMABP + 0.25*Friction + 0.15*Coverage + 0.10*Evidence + boost - 0.15*burden"
+      },
+      {
+        "sheet": "Selection_Flow",
+        "row": 10,
+        "text": "9 | sort eligible candidates by selector_score descending"
+      },
+      {
+        "sheet": "UX_Contract",
+        "row": 6,
+        "text": "Actividad primaria seleccionada | Estado: lista para Runtime 40+20. | No mostrar scoring completo técnico si genera ruido. | Mostrar razón resumida y transparente."
+      },
+      {
+        "sheet": "Runtime_Handoff",
+        "row": 9,
+        "text": "selection_score | number | Sí | Score final del selector. | Auditoría"
+      },
+      {
+        "sheet": "NonPrimary_Context",
+        "row": 2,
+        "text": "Contexto / backlog | Actividad elegible pero fuera del top 8 o no necesaria por balance. | activityId, responsibilityId, texto, score, razón. | Otro run, nuevo rol, reentry, cambio de prioridad estructural. | Borrado de realidad."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 13,
+        "text": "QA-12 | Auditable | Score, gate, razón y override quedan registrados."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 16,
+        "text": "QA-14 v1.1 | Unknown no es cero | Señales en blanco no se convierten automáticamente en score 0."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 26,
+        "text": "QA-v1.2-03 | >8 elegibles | Aplicar scoring/balance; máximo 8. | No delegar al usuario elección diagnóstica."
+      },
+      {
+        "sheet": "Implementation_Dicts",
+        "row": 5,
+        "text": "score_0_5 | 0 | 1 | 2 | 3 | 4 | 5"
+      },
+      {
+        "sheet": "Dashboard",
+        "row": 7,
+        "text": "Promedio score elegible"
+      },
+      {
+        "sheet": "Example_Run",
+        "row": 1,
+        "text": "activity_id | responsibility_id | area | functional_role | activity_label | activity_description | workmap_trace_ok | is_work_activity | granularity_status | duplicate_or_alias | semantic_clarity_0_5 | process_context_0_5 | customer_receiver_hint_0_5 | trigger_hint_0_5 | transformation_object_0_5 | state_change_0_5 | handoff_dependency_0_5 | wait_timer_blocking_0_5 | variability_frequency_0_5 | capacity_pressure_0_5 | workaround_rework_0_5 | info_gap_rule_informal_0_5 | human_compensation_0_5 | "
+      },
+      {
+        "sheet": "v1_1_Change_Log",
+        "row": 9,
+        "text": "Fórmula nueva | PrimaryActivitySelectionScore = 0.30 Architectural_Signal + 0.20 Operational_Centrality + 0.15 Handoff + 0.15 Transformation + 0.10 Friction + 0.10 Coverage - Penalties."
+      },
+      {
+        "sheet": "Scoring_Model_v1_1",
+        "row": 1,
+        "text": "Bloque | Criterio | Peso / escala | Definición v1.1 | Nota operacional"
+      },
+      {
+        "sheet": "Scoring_Model_v1_1",
+        "row": 2,
+        "text": "Composite | Architectural_Signal_Potential | 0.3 | Promedio ponderado de señales PM/MoC/PF/OLC bajo incertidumbre. | No requiere evidencia cerrada."
+      },
+      {
+        "sheet": "Scoring_Model_v1_1",
+        "row": 11,
+        "text": "Scale | Signal score | 0/1/2/3/unknown | 0 = no señal; 1 = débil; 2 = moderada; 3 = fuerte; unknown = no disponible. | Unknown se trata neutral o revisión, no cero automático."
+      },
+      {
+        "sheet": "Scoring_Model_v1_1",
+        "row": 12,
+        "text": "Threshold | ELEGIBLE | >= trazabilidad + actividad real + granularidad viable | No exige cliente/objeto/estado explícito. | Gates mínimos."
+      },
+      {
+        "sheet": "Scoring_Model_v1_1",
+        "row": 13,
+        "text": "Threshold | REVISIÓN | Ambigua pero potencialmente reveladora | Puede ocupar slot exploratorio si no desplaza cobertura crítica. | Justificar razón."
+      },
+      {
+        "sheet": "Scoring_Model_v1_1",
+        "row": 14,
+        "text": "Threshold | BLOQUEADA | Vacía, no actividad, duplicada evidente, microtarea o demasiado amplia | No entra a Runtime profundo. | Requiere corrección factual."
+      },
+      {
+        "sheet": "Scoring_Model_v1_1",
+        "row": 15,
+        "text": "Formula | PrimaryActivitySelectionScore | 0.30*A + 0.20*O + 0.15*H + 0.15*T + 0.10*F + 0.10*C - P | A=Architectural Signal, O=Operational, H=Handoff, T=Transformation, F=Friction, C=Coverage, P=Penalties. | Puntuación para ranking, no diagnóstico."
+      },
+      {
+        "sheet": "Selector_Template_v1_1",
+        "row": 1,
+        "text": "activity_id | responsibility_id | area | functional_role | activity_label | activity_description | workmap_trace_ok | is_work_activity | granularity_status | duplicate_or_alias_status | user_text_density_0_3 | semantic_clarity_0_3 | pm_signal_0_3 | moc_signal_0_3 | pf_signal_0_3 | olc_signal_0_3 | operational_centrality_0_3 | handoff_dependency_signal_0_3 | transformation_object_signal_0_3 | friction_exception_signal_0_3 | coverage_diversity_0_3 | vagueness_risk_0_3 | granularity_risk_0_3 | dupl"
+      },
+      {
+        "sheet": "Slot_Balance_v1_1",
+        "row": 2,
+        "text": "1 | Mayor score total elegible | Actividad elegible con mayor PrimaryActivitySelectionScore. | No diagnostica; solo prioriza Runtime."
+      },
+      {
+        "sheet": "Slot_Balance_v1_1",
+        "row": 3,
+        "text": "2 | Mayor score total elegible | Siguiente actividad elegible no duplicada. | Mantener diversidad de responsabilidad/área si hay empate."
+      }
+    ],
+    "gates": [
+      {
+        "sheet": "Version_Control",
+        "row": 12,
+        "text": "Autoridad selector | Este workbook define scoring, gates, balance y payload de selección primaria"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 17,
+        "text": "EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx | Fuente canónica de nodos, rutas críticas, variables y mapeo MMABP"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 19,
+        "text": "Catalogo_Runtime_40_20_v1_1_VALIDADO.xlsx | Define 40 base, 20 causales, gates, payload y QA del Runtime"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 35,
+        "text": "Regla de selección v1.2 | 0 elegibles = reentry; 1–8 elegibles = non_competitive_inclusion; >8 elegibles = competitive_selection."
+      },
+      {
+        "sheet": "Methodology_Overview",
+        "row": 4,
+        "text": "2 | Gates de elegibilidad | Bloquear o enviar a revisión actividades sin trazabilidad, no accionables, duplicadas o con ambigüedad excesiva. | La selección empieza descartando falsos candidatos, no rankeando todo. | Eligible/Review/Blocked"
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 1,
+        "text": "Campo | Origen | Tipo | Obligatorio | Uso | Regla"
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 5,
+        "text": "responsibility_id | WorkMap | string | Sí | Relación responsabilidad → actividad. | Gate duro si falta."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 7,
+        "text": "activity_id | WorkMap | string | Sí | Identificador de actividad candidata. | Gate duro si falta."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 10,
+        "text": "savedWithWarnings | WorkMap | boolean | Sí | Señal de calidad del WorkMap. | Penaliza evidencia, puede abrir revisión."
+      },
+      {
+        "sheet": "Eligibility_Gates",
+        "row": 1,
+        "text": "Gate | Nombre | Condición de aprobación | Falla si... | Acción | Impacto"
+      },
+      {
+        "sheet": "Eligibility_Gates",
+        "row": 2,
+        "text": "G1 | Trazabilidad WorkMap | activity_id y responsibility_id existen. | No hay ID o no hay relación actividad-responsabilidad. | Bloquear hasta corregir WorkMap. | Evita actividad huérfana."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 1,
+        "text": "Bloque de pesos | Criterio | Peso | Descripción"
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 3,
+        "text": "Composite | Friction_Variety | 0.25 | Señales de bloqueo, espera, retrabajo, capacidad, variedad residual."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 20,
+        "text": "Friction | wait_timer_blocking_0_5 | 0.18 | Espera, bloqueo o deadlock."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 45,
+        "text": "v1.1 agregado | Friction_or_Exception_Signal | 0.1 | Señales de excepción, rework, bloqueo o workaround."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 50,
+        "text": "v1.1 agregado | Gates duros mínimos | sí | Bloquean solo vacío/no actividad/duplicado evidente/microtarea/demasiado amplia/responsabilidad genérica."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 51,
+        "text": "v1.1 agregado | Gates MMABP prematuros | no | No bloquear por falta explícita de cliente, objeto, estado, receptor, timer o transición."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 53,
+        "text": "v1.2 agregado | Selection_Mode | derivado | 0 elegibles = reentry_required; 1–8 = non_competitive_inclusion; >8 = competitive_selection."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 57,
+        "text": "v1.2 agregado | Activity quality gates | vacío/duplicado/macro/micro/contextual | Limpieza antes de Runtime; no ranking cuando <=8 elegibles."
+      },
+      {
+        "sheet": "Selector_Template",
+        "row": 1,
+        "text": "activity_id | responsibility_id | area | functional_role | activity_label | activity_description | workmap_trace_ok | is_work_activity | granularity_status | duplicate_or_alias | semantic_clarity_0_5 | process_context_0_5 | customer_receiver_hint_0_5 | trigger_hint_0_5 | transformation_object_0_5 | state_change_0_5 | handoff_dependency_0_5 | wait_timer_blocking_0_5 | variability_frequency_0_5 | capacity_pressure_0_5 | workaround_rework_0_5 | info_gap_rule_informal_0_5 | human_compensation_0_5 | "
+      },
+      {
+        "sheet": "Coverage_Balance",
+        "row": 2,
+        "text": "B1 | Máximo 8 actividades primarias | Si final_selection_count > 8, bloquear avance a Runtime. | Protege carga operativa."
+      },
+      {
+        "sheet": "Coverage_Balance",
+        "row": 6,
+        "text": "B5 | No seleccionar solo por dolor subjetivo | La prioridad emocional de Significado no supera gates ni score estructural. | Evita sesgo de disponibilidad."
+      },
+      {
+        "sheet": "Selection_Flow",
+        "row": 5,
+        "text": "4 | for each activity: apply Eligibility_Gates G1..G10"
+      },
+      {
+        "sheet": "Selection_Flow",
+        "row": 6,
+        "text": "5 | if gate == BLOQUEADA: store as non_primary_context with reason; do not score as selectable"
+      },
+      {
+        "sheet": "Selection_Flow",
+        "row": 7,
+        "text": "6 | if gate == REVISIÓN: route to B0 microconfirmation or semantic_resolution; do not send to Runtime yet"
+      },
+      {
+        "sheet": "Selection_Flow",
+        "row": 8,
+        "text": "7 | for each eligible activity: compute MMABP_Potential, Friction_Variety, Coverage, Evidence_Feasibility, Critical_Boost, Burden_Risk"
+      },
+      {
+        "sheet": "Selection_Flow",
+        "row": 10,
+        "text": "9 | sort eligible candidates by selector_score descending"
+      },
+      {
+        "sheet": "UX_Contract",
+        "row": 2,
+        "text": "WorkMap completo | Todas las actividades como contexto. | No marcar las no primarias como inútiles. | Las no seleccionadas siguen vivas para contexto/reentry."
+      },
+      {
+        "sheet": "UX_Contract",
+        "row": 3,
+        "text": "Selección propuesta | Hasta 8 actividades primarias con chips de razón: transformación, handoff, bloqueo, capacidad, workaround, cobertura. | No decir 'EVE diagnosticó'. | Se presenta como priorización metodológica para evaluación."
+      },
+      {
+        "sheet": "UX_Contract",
+        "row": 7,
+        "text": "Actividad no primaria | Estado: contexto/backlog/soporte/alias/bloqueada/revisión. | No eliminarla. | Puede promoverse en otro run o por reentry."
+      }
+    ],
+    "balance": [
+      {
+        "sheet": "Version_Control",
+        "row": 3,
+        "text": "Versión | v1.2 operacional — conserva v1.0/v1.1 y agrega política <=8 actividades, Context Bundle Estado A/WorkMap/Significado y confirmación de Significado como pantalla de ejecución Runtime 40/20"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 5,
+        "text": "Tipo de artefacto | Workbook implementable para selección de máximo 8 actividades primarias desde WorkMap"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 7,
+        "text": "Salida principal | Lista priorizada de hasta 8 actividades primarias para ejecutar Runtime 40+20"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 8,
+        "text": "No debe hacer | No diagnostica, no monetiza, no reemplaza Runtime 40+20, no produce diagramas ni Capa 2"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 10,
+        "text": "Autoridad canónica | Catálogo Madre Capa 1 v1.0 conserva nodos/códigos/corpus documental"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 12,
+        "text": "Autoridad selector | Este workbook define scoring, gates, balance y payload de selección primaria"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 13,
+        "text": "Límite UX posterior | Máximo 8 actividades primarias; cada primaria puede abrir 40 base + hasta 20 causales"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 17,
+        "text": "EVE_Catalogo_Madre_Capa1_v1_0_Bloques_0_0_5_1_7.xlsx | Fuente canónica de nodos, rutas críticas, variables y mapeo MMABP"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 18,
+        "text": "EVE_Catalogo_Madre_Capa1_v1_0_Readme.docx | Confirma 164 nodos, hojas, rutas críticas y regla de uso"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 22,
+        "text": "Diseño estructural Plataforma EVE — Capa 1.0 para Producción Paralela | Define consumidor estructural de evidencias y registros MMABP"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 23,
+        "text": "Diseño estructural Capa 2.0/2.5 EVE con AHE | Define que Capa 2 consume expediente conformado; no debe recibir diagnóstico crudo"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 27,
+        "text": "Salida v1.1 | Top 8 candidatas para Runtime profundo + backlog/contexto no primario + razones auditables."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 31,
+        "text": "Cambio v1.2 — menos de 8 actividades | Si actividades elegibles <=8, no se aplica ranking competitivo: se seleccionan todas las elegibles, con control de calidad, cobertura y duplicados."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 35,
+        "text": "Regla de selección v1.2 | 0 elegibles = reentry; 1–8 elegibles = non_competitive_inclusion; >8 elegibles = competitive_selection."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 36,
+        "text": "Regla epistemológica v1.2 | inferred_from_workmap puede prellenar o sugerir, pero no cuenta como captured_user_evidence sin confirmación."
+      },
+      {
+        "sheet": "Authority_Rules",
+        "row": 5,
+        "text": "PrimaryActivitySelectionPolicy XLSX | Fuente implementable para elegir hasta 8 actividades primarias. | No diagnostica, no reemplaza Runtime, no reescribe WorkMap. | Gobierna pantalla previa al Runtime."
+      },
+      {
+        "sheet": "Authority_Rules",
+        "row": 8,
+        "text": "Producción Paralela MBA | Consumidor estructural de evidencia ya capturada y gobernada. | No modifica el catálogo ni selecciona actividades. | No visible en interfaz de captura."
+      },
+      {
+        "sheet": "Methodology_Overview",
+        "row": 5,
+        "text": "3 | Scoring estructural | Medir potencial para revelar PM, MoC, PF, OLC, fricción, variedad, capacidad, handoff y compensación. | Se prioriza capacidad de producir evidencia diagramable, no importancia subjetiva del usuario. | SelectorScore"
+      },
+      {
+        "sheet": "Methodology_Overview",
+        "row": 6,
+        "text": "4 | Balance de portafolio | Evitar que las 8 queden concentradas en una sola responsabilidad, tipo de problema o microzona. | Top 8 puro puede ser miope; debe preservar cobertura sistémica. | BalancedPrimarySet"
+      },
+      {
+        "sheet": "Methodology_Overview",
+        "row": 8,
+        "text": "6 | Payload a Runtime 40+20 | Enviar a Runtime hasta 8 actividades con trazabilidad, razón de selección, perfil de apertura y contexto no primario. | Runtime no debe arrancar sin actividad primaria gobernada. | RuntimeActivityPayload"
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 3,
+        "text": "area_id | WorkMap | string | Sí | Cobertura por área. | Permite balance, no diagnóstico."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 6,
+        "text": "responsibility_label | WorkMap | string | Sí | Contexto funcional. | Ayuda a balance."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 12,
+        "text": "semantic_quality_hint | WorkMap/IA | 0-5 | Deseable | Claridad semántica preliminar. | No convierte inferencia en evidencia capturada."
+      },
+      {
+        "sheet": "Eligibility_Gates",
+        "row": 9,
+        "text": "G8 | Factibilidad UX | Puede recorrerse en Runtime sin fatiga extrema. | Actividad exige dividirse antes. | Dividir o seleccionar subactividad. | Protege experiencia."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 2,
+        "text": "Composite | MMABP_Potential | 0.45 | Capacidad de producir evidencia para PM/MoC/PF/OLC."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 3,
+        "text": "Composite | Friction_Variety | 0.25 | Señales de bloqueo, espera, retrabajo, capacidad, variedad residual."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 4,
+        "text": "Composite | Coverage | 0.15 | Cobertura de responsabilidades, área, valor y procesos soporte/externalidad."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 12,
+        "text": "MMABP | transformation_object_0_5 | 0.18 | MoC/OLC/PF: objeto transformado."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 15,
+        "text": "MMABP | wait_timer_blocking_0_5 | 0.08 | PF/OLC: Process State/timer."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 16,
+        "text": "MMABP | support_external_process_0_5 | 0.08 | PM/PF: soporte explícito o externalidad."
+      }
+    ],
+    "modes": [
+      {
+        "sheet": "Version_Control",
+        "row": 21,
+        "text": "Fundamentals of Business Architecture Modeling | Fuente primaria MMABP: PM, MoC, PF, OLC, conformance y consistencia"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 35,
+        "text": "Regla de selección v1.2 | 0 elegibles = reentry; 1–8 elegibles = non_competitive_inclusion; >8 elegibles = competitive_selection."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 53,
+        "text": "v1.2 agregado | Selection_Mode | derivado | 0 elegibles = reentry_required; 1–8 = non_competitive_inclusion; >8 = competitive_selection."
+      },
+      {
+        "sheet": "Selector_Template",
+        "row": 1,
+        "text": "activity_id | responsibility_id | area | functional_role | activity_label | activity_description | workmap_trace_ok | is_work_activity | granularity_status | duplicate_or_alias | semantic_clarity_0_5 | process_context_0_5 | customer_receiver_hint_0_5 | trigger_hint_0_5 | transformation_object_0_5 | state_change_0_5 | handoff_dependency_0_5 | wait_timer_blocking_0_5 | variability_frequency_0_5 | capacity_pressure_0_5 | workaround_rework_0_5 | info_gap_rule_informal_0_5 | human_compensation_0_5 | "
+      },
+      {
+        "sheet": "UX_Contract",
+        "row": 2,
+        "text": "WorkMap completo | Todas las actividades como contexto. | No marcar las no primarias como inútiles. | Las no seleccionadas siguen vivas para contexto/reentry."
+      },
+      {
+        "sheet": "UX_Contract",
+        "row": 7,
+        "text": "Actividad no primaria | Estado: contexto/backlog/soporte/alias/bloqueada/revisión. | No eliminarla. | Puede promoverse en otro run o por reentry."
+      },
+      {
+        "sheet": "Runtime_Handoff",
+        "row": 17,
+        "text": "reentry_policy | enum | Sí | Ninguna, B0, semantic_resolution, manual_review. | Runtime/Gobierno"
+      },
+      {
+        "sheet": "NonPrimary_Context",
+        "row": 2,
+        "text": "Contexto / backlog | Actividad elegible pero fuera del top 8 o no necesaria por balance. | activityId, responsibilityId, texto, score, razón. | Otro run, nuevo rol, reentry, cambio de prioridad estructural. | Borrado de realidad."
+      },
+      {
+        "sheet": "MMABP_Rationale",
+        "row": 12,
+        "text": "evidence_quality_0_5 | Conformance | Prioriza actividades donde se puede modelar sin inventar."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 19,
+        "text": "QA-17 v1.1 | Reentry B0/B0.5 | Actividad ambigua prometedora puede ir a reconstrucción, no descarte automático."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 24,
+        "text": "QA-v1.2-01 | <=8 elegibles | Todas las elegibles seleccionadas; selection_mode = non_competitive_inclusion. | No excluir actividad elegible por ranking relativo."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 25,
+        "text": "QA-v1.2-02 | 0 elegibles | No Runtime; reentry a WorkMap. | No inventar actividades ni promover responsabilidades genéricas."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 26,
+        "text": "QA-v1.2-03 | >8 elegibles | Aplicar scoring/balance; máximo 8. | No delegar al usuario elección diagnóstica."
+      },
+      {
+        "sheet": "Implementation_Dicts",
+        "row": 11,
+        "text": "Reentry_Review_Policy | Enviar a Runtime | Microconfirmación B0 | Resolución semántica | Manual review | Corregir WorkMap/B0"
+      },
+      {
+        "sheet": "Example_Run",
+        "row": 1,
+        "text": "activity_id | responsibility_id | area | functional_role | activity_label | activity_description | workmap_trace_ok | is_work_activity | granularity_status | duplicate_or_alias | semantic_clarity_0_5 | process_context_0_5 | customer_receiver_hint_0_5 | trigger_hint_0_5 | transformation_object_0_5 | state_change_0_5 | handoff_dependency_0_5 | wait_timer_blocking_0_5 | variability_frequency_0_5 | capacity_pressure_0_5 | workaround_rework_0_5 | info_gap_rule_informal_0_5 | human_compensation_0_5 | "
+      },
+      {
+        "sheet": "Scoring_Model_v1_1",
+        "row": 9,
+        "text": "Penalty | Too_Vague_to_Probe_Penalty | 0-24 | Penaliza actividad demasiado vaga para abrir Runtime sin reconstrucción previa. | Puede ir a reentry/B0."
+      },
+      {
+        "sheet": "Scoring_Model_v1_1",
+        "row": 11,
+        "text": "Scale | Signal score | 0/1/2/3/unknown | 0 = no señal; 1 = débil; 2 = moderada; 3 = fuerte; unknown = no disponible. | Unknown se trata neutral o revisión, no cero automático."
+      },
+      {
+        "sheet": "Slot_Balance_v1_1",
+        "row": 9,
+        "text": "8 | Exploratoria | Actividad en REVISIÓN o ambigua con señales de soporte oculto, workaround, borde sistémico o alta cobertura. | No abrir si compromete trazabilidad; puede quedar como reentry B0/B0.5."
+      },
+      {
+        "sheet": "QA_v1_1",
+        "row": 12,
+        "text": "QA-v1.1-11 | Reentry B0/B0.5 | Actividad ambigua pero valiosa no se descarta automáticamente; puede ir a reconstrucción. | Falso descarte."
+      },
+      {
+        "sheet": "Dashboard_v1_1",
+        "row": 4,
+        "text": "En revisión | 0 | Puede alimentar slot exploratorio o reentry"
+      },
+      {
+        "sheet": "Example_Run_v1_1",
+        "row": 2,
+        "text": "A001 | R001 | Operaciones | Rol A | Revisar pedidos antes de enviarlos | Revisar pedidos antes de enviarlos a cocina/reparto | Sí | Sí | Correcta | No | 3 | 3 | 2 | 3 | 3 | 2 | 3 | 2 | 3 | 2 | 3 | 1 | 0 | 0 | 0 | ELEGIBLE | 83.3 | 100 | 66.7 | 100 | 66.7 | 100 | 8 | 78.7 | 4 | Slot 1-5: alto potencial | Primaria propuesta | No | Primaria propuesta | 40+20 probable | Alta | Prometedora | Prometedora | Prometedora | Prometedora | Señales suficientes para Runtime; no modelar aún pedido como clase c"
+      },
+      {
+        "sheet": "Example_Run_v1_1",
+        "row": 9,
+        "text": "A008 | R006 | RRHH | Rol A | Capacitar nuevo colaborador | Entrenar a una persona en procedimientos y herramientas | Sí | Sí | Correcta | No | 2 | 2 | 1 | 2 | 2 | 1 | 2 | 1 | 1 | 1 | 2 | 1 | 0 | 0 | 0 | ELEGIBLE | 50 | 66.7 | 33.3 | 33.3 | 33.3 | 66.7 | 8 | 40.3 | 8 | Slot 8 posible: exploratorio | Primaria propuesta | No | Primaria propuesta | 40 base + probes mínimos | Baja | Débil / validar en B0.5-B1 | Prometedora | Prometedora | Débil / validar en B2-B4 | Señal moderada; puede quedar como c"
+      },
+      {
+        "sheet": "v1_2_Change_Log",
+        "row": 9,
+        "text": "Cambio metodológico | Se agrega Selection Mode: competitive_selection cuando actividades elegibles > 8; non_competitive_inclusion cuando 1–8 actividades elegibles; reentry_required cuando no hay actividades elegibles."
+      },
+      {
+        "sheet": "v1_2_Change_Log",
+        "row": 11,
+        "text": "Salida nueva | Lista de actividades primarias seleccionadas + contexto completo no primario + modo de selección + cobertura de rol + estado epistemológico del contexto."
+      },
+      {
+        "sheet": "Under8_Policy_v1_2",
+        "row": 2,
+        "text": "Regla madre | eligible_activity_count <= 8 | Seleccionar todas las actividades elegibles después de gates mínimos y limpieza semántica. | No llenar cupos artificialmente; no forzar ranking competitivo. | selection_mode = non_competitive_inclusion"
+      },
+      {
+        "sheet": "Under8_Policy_v1_2",
+        "row": 3,
+        "text": "Cero actividades elegibles | eligible_activity_count = 0 | Bloquear ejecución de Runtime y reentrar a WorkMap. | No inventar actividades; no usar responsabilidades como actividades. | reentry_required = WorkMap"
+      },
+      {
+        "sheet": "Under8_Policy_v1_2",
+        "row": 7,
+        "text": "Más de 8 actividades elegibles | eligible_activity_count > 8 | Aplicar Potencial de Señal Arquitectónica + balance + slot exploratorio. | No pedir al usuario que elija diagnósticamente las 8. | selection_mode = competitive_selection"
+      },
+      {
+        "sheet": "Under8_Policy_v1_2",
+        "row": 9,
+        "text": "Actividad demasiado macro | La actividad parece responsabilidad, proceso completo o mandato amplio | Pedir desglose breve antes de Runtime. | No ejecutar Runtime sobre 'gestionar operaciones' sin delimitar actividad. | granularity_status = too_macro; reentry/microclarification"
+      },
+      {
+        "sheet": "Screen_Sequence_v1_2",
+        "row": 2,
+        "text": "Estado A | Inicio de plataforma | Captura rol funcional, nivel de decisión, alcance de autoridad, tipo de decisiones y frontera del rol. | RoleContext, decision_level, authority_scope, functional_role_context | No selecciona actividades; no diagnostica; no modela PM/MoC/PF/OLC."
+      },
+      {
+        "sheet": "Screen_Sequence_v1_2",
+        "row": 4,
+        "text": "Selector interno EVE | Entre WorkMap y Significado | Evalúa actividades bajo incertidumbre. Si hay <=8 elegibles selecciona todas; si hay >8 prioriza máximo 8. | PrimaryActivitySelectionBundle, NonPrimaryContext, selection_mode | No es una pantalla delegada al usuario; no diagnostica."
+      }
+    ],
+    "metadata": [
+      {
+        "sheet": "Version_Control",
+        "row": 3,
+        "text": "Versión | v1.2 operacional — conserva v1.0/v1.1 y agrega política <=8 actividades, Context Bundle Estado A/WorkMap/Significado y confirmación de Significado como pantalla de ejecución Runtime 40/20"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 4,
+        "text": "Fecha | 2026-06-14"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 31,
+        "text": "Cambio v1.2 — menos de 8 actividades | Si actividades elegibles <=8, no se aplica ranking competitivo: se seleccionan todas las elegibles, con control de calidad, cobertura y duplicados."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 32,
+        "text": "Cambio v1.2 — más información | Más información no es siempre mejor: solo es útil si aumenta trazabilidad, confirmación, contextualización y valor para conformance/consistency futura."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 33,
+        "text": "Cambio v1.2 — pantalla Significado | Significado de tu Trabajo ya ejecuta Runtime 40/20 por actividad primaria seleccionada; no es selector visible ni diagnóstico."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 34,
+        "text": "Cambio v1.2 — contexto previo | Estado A, WorkMap y Significado forman un PreRuntime Context Bundle que contextualiza y prellena sin contaminar evidencia."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 35,
+        "text": "Regla de selección v1.2 | 0 elegibles = reentry; 1–8 elegibles = non_competitive_inclusion; >8 elegibles = competitive_selection."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 36,
+        "text": "Regla epistemológica v1.2 | inferred_from_workmap puede prellenar o sugerir, pero no cuenta como captured_user_evidence sin confirmación."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 37,
+        "text": "Regla de intervención v1.2 | No se elimina ni resume contenido previo; se agregan hojas *_v1_2, columnas, filas y plantillas operativas."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 38,
+        "text": "Estado v1.2 | Listo para revisión/implementación como política de selección + contexto previo + handoff hacia pantalla Significado Runtime."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 53,
+        "text": "v1.2 agregado | Selection_Mode | derivado | 0 elegibles = reentry_required; 1–8 = non_competitive_inclusion; >8 = competitive_selection."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 54,
+        "text": "v1.2 agregado | Under8 policy | seleccionar todas elegibles | El máximo 8 es límite de carga, no objetivo a llenar."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 55,
+        "text": "v1.2 agregado | Context Bundle | Estado A + WorkMap + Significado | El contexto ayuda a seleccionar y contextualizar, pero no sustituye evidencia Runtime."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 56,
+        "text": "v1.2 agregado | Role coverage check | review/gap | Con pocas actividades y rol amplio, se avanza con flags o microconfirmación."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 57,
+        "text": "v1.2 agregado | Activity quality gates | vacío/duplicado/macro/micro/contextual | Limpieza antes de Runtime; no ranking cuando <=8 elegibles."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 58,
+        "text": "v1.2 agregado | Significado Runtime | pantalla de ejecución | Significado recibe actividades primarias seleccionadas y ejecuta 40/20 por actividad."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 59,
+        "text": "v1.2 agregado | Non-primary activities | context_only/backlog | No se eliminan del expediente; conservan trazabilidad del WorkMap."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 24,
+        "text": "QA-v1.2-01 | <=8 elegibles | Todas las elegibles seleccionadas; selection_mode = non_competitive_inclusion. | No excluir actividad elegible por ranking relativo."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 25,
+        "text": "QA-v1.2-02 | 0 elegibles | No Runtime; reentry a WorkMap. | No inventar actividades ni promover responsabilidades genéricas."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 26,
+        "text": "QA-v1.2-03 | >8 elegibles | Aplicar scoring/balance; máximo 8. | No delegar al usuario elección diagnóstica."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 27,
+        "text": "QA-v1.2-04 | Context bundle | Estado A/WorkMap/Significado viajan con estado epistemológico. | No confundir contexto con evidencia estructural confirmada."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 28,
+        "text": "QA-v1.2-05 | Significado ejecuta Runtime | Pantalla muestra actividad primaria y corre 40 base + hasta 20 causales. | Significado se comporta como selector visible o diagnóstico."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 29,
+        "text": "QA-v1.2-06 | Pocas actividades vs rol amplio | Activar role_coverage_flag/workmap_coverage_gap. | Avanzar sin flag pese a cobertura dudosa."
+      },
+      {
+        "sheet": "QA_Checklist",
+        "row": 30,
+        "text": "QA-v1.2-07 | Duplicados/macro/micro | Consolidar, pedir desglose o agrupar antes del Runtime. | Correr 40/20 sobre duplicados o unidades no delimitables."
+      },
+      {
+        "sheet": "v1_2_Change_Log",
+        "row": 2,
+        "text": "Versión agregada | v1.2 operacional — Selección bajo incertidumbre + política para menos de 8 actividades + contexto Estado A/WorkMap/Significado + ejecución Runtime en Significado"
+      },
+      {
+        "sheet": "QA_v1_2",
+        "row": 1,
+        "text": "ID | Prueba de aceptación v1.2 | Criterio esperado | Falla si"
+      },
+      {
+        "sheet": "Example_Run_v1_2",
+        "row": 2,
+        "text": "RUN-U8-001 | 6 | 5 | A001 | R-ORD | Operaciones | Coordinador de pedidos | operativo/coordinación | coordina y escala | Validar pedidos antes de despacho | Revisar que el pedido esté correcto antes de enviarlo. | yes | yes | yes | fit | unique | primary_candidate | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 2 | 1 | 1 | 0 | 0 | 0 | ok | False | pass | eligible | non_competitive_inclusion | 2 | 2 | 0 | 1.9500000000000002 | selected | selected_for_runtime | 1 | base_40_standard | media | context_ready"
+      },
+      {
+        "sheet": "Example_Run_v1_2",
+        "row": 3,
+        "text": "RUN-U8-001 | 6 | 5 | A002 | R-ORD | Operaciones | Coordinador de pedidos | operativo/coordinación | coordina y escala | Confirmar inventario disponible | Confirmar disponibilidad antes de comprometer entrega. | yes | yes | yes | fit | unique | primary_candidate | 2 | 2 | 1 | 2 | 2 | 2 | 2 | 1 | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | ok | False | pass | eligible | non_competitive_inclusion | 1.75 | 2 | 0 | 1.825 | selected | selected_for_runtime | 2 | base_40_standard | media | context_ready | ready | P"
+      },
+      {
+        "sheet": "Example_Run_v1_2",
+        "row": 4,
+        "text": "RUN-U8-001 | 6 | 5 | A003 | R-DEL | Logística | Coordinador de pedidos | operativo/coordinación | coordina y escala | Coordinar entrega con repartidor | Coordinar salida y entrega con el repartidor asignado. | yes | yes | yes | fit | unique | primary_candidate | 2 | 2 | 2 | 1 | 3 | 1 | 3 | 3 | 1 | 2 | 3 | 1 | 1 | 0 | 0 | 0 | ok | False | pass | eligible | non_competitive_inclusion | 1.75 | 2 | 0 | 2.2749999999999995 | selected | selected_for_runtime | 3 | base_40_standard | alta | context_ready "
+      },
+      {
+        "sheet": "Example_Run_v1_2",
+        "row": 5,
+        "text": "RUN-U8-001 | 6 | 5 | A004 | R-CS | Atención | Coordinador de pedidos | operativo/coordinación | coordina y escala | Resolver reclamos de clientes | Atender reclamos cuando el cliente reporta problemas. | yes | yes | yes | fit | unique | primary_candidate | 2 | 2 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 2 | 2 | 0 | 0 | 0 | ok | False | pass | eligible | non_competitive_inclusion | 2.25 | 2 | 0 | 2.3750000000000004 | selected | selected_for_runtime | 4 | base_40_plus_uncertainty_probes | exploratoria"
+      }
+    ],
+    "payload": [
+      {
+        "sheet": "Version_Control",
+        "row": 3,
+        "text": "Versión | v1.2 operacional — conserva v1.0/v1.1 y agrega política <=8 actividades, Context Bundle Estado A/WorkMap/Significado y confirmación de Significado como pantalla de ejecución Runtime 40/20"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 5,
+        "text": "Tipo de artefacto | Workbook implementable para selección de máximo 8 actividades primarias desde WorkMap"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 6,
+        "text": "Unidad evaluada | Actividad de trabajo del WorkMap, asociada a rol funcional y responsabilidad"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 12,
+        "text": "Autoridad selector | Este workbook define scoring, gates, balance y payload de selección primaria"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 15,
+        "text": "Regla epistemológica v1.1 | Unknown no equivale a cero. La ausencia de un elemento explícito en WorkMap no prueba inexistencia; solo activa prudencia, microconfirmación o revisión."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 19,
+        "text": "Catalogo_Runtime_40_20_v1_1_VALIDADO.xlsx | Define 40 base, 20 causales, gates, payload y QA del Runtime"
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 34,
+        "text": "Cambio v1.2 — contexto previo | Estado A, WorkMap y Significado forman un PreRuntime Context Bundle que contextualiza y prellena sin contaminar evidencia."
+      },
+      {
+        "sheet": "Version_Control",
+        "row": 36,
+        "text": "Regla epistemológica v1.2 | inferred_from_workmap puede prellenar o sugerir, pero no cuenta como captured_user_evidence sin confirmación."
+      },
+      {
+        "sheet": "Authority_Rules",
+        "row": 4,
+        "text": "Catálogo Runtime v1.1 XLSX | Fuente implementable para interfaz, motor y QA del Runtime por actividad. | No selecciona actividades primarias desde WorkMap. | Se ejecuta solo sobre actividades primarias ya seleccionadas."
+      },
+      {
+        "sheet": "Authority_Rules",
+        "row": 5,
+        "text": "PrimaryActivitySelectionPolicy XLSX | Fuente implementable para elegir hasta 8 actividades primarias. | No diagnostica, no reemplaza Runtime, no reescribe WorkMap. | Gobierna pantalla previa al Runtime."
+      },
+      {
+        "sheet": "Authority_Rules",
+        "row": 6,
+        "text": "WorkMap | Fuente primaria de inventario de áreas, responsabilidades y actividades. | No decide por sí solo qué es estructuralmente más útil. | Pantalla de origen y contexto total."
+      },
+      {
+        "sheet": "Methodology_Overview",
+        "row": 2,
+        "text": "0 | Ingesta WorkMap | Recibir actividades con área, responsabilidad, activityId, responsibilityId, texto literal y advertencias. | No inferir estructura dura desde texto débil sin confirmación. | ActivityCandidateList"
+      },
+      {
+        "sheet": "Methodology_Overview",
+        "row": 3,
+        "text": "1 | Normalización semántica mínima | Resolver duplicados, alias, granularidad y si el texto describe una actividad de trabajo. | No convertir área, rol, valor, opinión o resultado deseado en actividad primaria. | NormalizedActivityCandidates"
+      },
+      {
+        "sheet": "Methodology_Overview",
+        "row": 8,
+        "text": "6 | Payload a Runtime 40+20 | Enviar a Runtime hasta 8 actividades con trazabilidad, razón de selección, perfil de apertura y contexto no primario. | Runtime no debe arrancar sin actividad primaria gobernada. | RuntimeActivityPayload"
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 2,
+        "text": "workmap_id | WorkMap | string | Sí | Trazabilidad del mapa completo. | No seleccionar sin mapa de origen."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 3,
+        "text": "area_id | WorkMap | string | Sí | Cobertura por área. | Permite balance, no diagnóstico."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 4,
+        "text": "area_label | WorkMap | string | Sí | Texto visible y contexto. | No confundir área con actividad."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 5,
+        "text": "responsibility_id | WorkMap | string | Sí | Relación responsabilidad → actividad. | Gate duro si falta."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 6,
+        "text": "responsibility_label | WorkMap | string | Sí | Contexto funcional. | Ayuda a balance."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 7,
+        "text": "activity_id | WorkMap | string | Sí | Identificador de actividad candidata. | Gate duro si falta."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 8,
+        "text": "activity_label | WorkMap | string | Sí | Texto visible corto. | Debe describir trabajo accionable."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 9,
+        "text": "activity_description | WorkMap | string | Deseable | Texto semántico para scoring. | Si es débil, B0 puede reconstruir, pero no inventar."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 10,
+        "text": "savedWithWarnings | WorkMap | boolean | Sí | Señal de calidad del WorkMap. | Penaliza evidencia, puede abrir revisión."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 11,
+        "text": "literal_user_text | WorkMap | string | Deseable | Proveniencia literal. | No se sobreescribe con inferencia."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 12,
+        "text": "semantic_quality_hint | WorkMap/IA | 0-5 | Deseable | Claridad semántica preliminar. | No convierte inferencia en evidencia capturada."
+      },
+      {
+        "sheet": "Input_Schema",
+        "row": 15,
+        "text": "role_functional | WorkMap/EVE | string | Sí | Unidad funcional para Runtime. | Runtime 40+20 aplica por actividad primaria por rol funcional."
+      },
+      {
+        "sheet": "Eligibility_Gates",
+        "row": 2,
+        "text": "G1 | Trazabilidad WorkMap | activity_id y responsibility_id existen. | No hay ID o no hay relación actividad-responsabilidad. | Bloquear hasta corregir WorkMap. | Evita actividad huérfana."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 42,
+        "text": "v1.1 agregado | Operational_Centrality | 0.2 | Centralidad operativa en WorkMap."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 46,
+        "text": "v1.1 agregado | Coverage_Diversity_Value | 0.1 | Valor de diversidad respecto al resto del WorkMap."
+      },
+      {
+        "sheet": "Scoring_Weights",
+        "row": 55,
+        "text": "v1.2 agregado | Context Bundle | Estado A + WorkMap + Significado | El contexto ayuda a seleccionar y contextualizar, pero no sustituye evidencia Runtime."
+      }
+    ]
+  }
+}

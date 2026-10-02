@@ -1,0 +1,4 @@
+-- 045-R2G STAGING MATERIALIZATION EVIDENCE
+-- Schema already existed in staging; no CREATE TABLE was executed by this instruction.
+-- Smoke rows were inserted transactionally from F5 smoke_id 045R2FR-f5-pre-membrane-smoke.
+-- Use the verify and rollback files for audit/reversal of smoke rows.

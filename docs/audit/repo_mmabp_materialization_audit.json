@@ -1,0 +1,211 @@
+{
+  "tramo": "DISCOVERY_REPO_VS_MBA_RECTOR_PM_CAPA1_PP_PF_SUP_01_09_V1",
+  "dictamen": "DISCOVERY_REPO_VS_MBA_RECTOR_PM_CAPA1_PP_PF_SUP_01_09_COMPLETED",
+  "repo_visibility": "full",
+  "rector_found": true,
+  "no_go_triggered": false,
+  "processes": [
+    {
+      "id": "P-SUP-01",
+      "pf_id": "PF-SUP-01",
+      "rector_name": "Consolidar escena operativa regulada",
+      "governed_object": "SceneCanonicalRecord",
+      "trigger": "EvidenciaInicialSuficiente / SolicitudConsolidacionEscena",
+      "target_state": "SceneCanonicalRecord[Consolidated]",
+      "status": "partial",
+      "materiality_types": ["service_logic", "runtime_stub", "test"],
+      "paths": [
+        "src/services/mba/domain-state-registry.mjs",
+        "src/services/mba/adapters/capa1-observer.mjs",
+        "src/services/session-intermediate-output-builder.ts",
+        "tests/regression/mba-control-plane/mba-control-plane.test.mjs"
+      ],
+      "gaps": ["Dedicated isolated SceneCanonicalRecord service not found."],
+      "notes": "Capa 1 observation and ledger can materialize SCR[Consolidated], but persistence-facing builder remains the main concrete surface."
+    },
+    {
+      "id": "P-SUP-02",
+      "pf_id": "PF-SUP-02",
+      "rector_name": "Preparar EvidenceBundle para transduccion",
+      "governed_object": "EvidenceBundle",
+      "trigger": "SCRDisponible / TrazabilidadVerificada",
+      "target_state": "EvidenceBundle[ReadyForTransduction]",
+      "status": "partial",
+      "materiality_types": ["service_logic", "runtime_stub", "test"],
+      "paths": [
+        "src/services/mba/domain-state-registry.mjs",
+        "src/services/mba/adapters/capa1-observer.mjs",
+        "src/services/session-intermediate-output-builder.ts",
+        "scripts/phase1-capa1-runtime-contract.test.mjs",
+        "tests/regression/mba-control-plane/mba-control-plane.test.mjs"
+      ],
+      "gaps": ["TransductionReadinessAssessment not found as a first-class service/type name."],
+      "notes": "EvidenceBundle readiness is represented and tested through MBA ledger and runtime contract checks."
+    },
+    {
+      "id": "P-SUP-03",
+      "pf_id": "PF-SUP-03",
+      "rector_name": "Transducir evidencia por rol funcional",
+      "governed_object": "EscenaEvidencial",
+      "trigger": "BundleConsumido",
+      "target_state": "EscenaEvidencial[Validated]",
+      "status": "partial",
+      "materiality_types": ["type_contract", "runtime_stub"],
+      "paths": ["src/services/mba/domain-state-registry.mjs"],
+      "gaps": ["Dedicated PF-SUP-03 transduction service/test not found."],
+      "notes": "States and transitions exist; execution materiality remains incomplete."
+    },
+    {
+      "id": "P-SUP-04",
+      "pf_id": "PF-SUP-04",
+      "rector_name": "Agregar causalidad empresarial",
+      "governed_object": "PeliculaCausalAgregada",
+      "trigger": "EscenasAgregablesDisponibles",
+      "target_state": "PeliculaCausalAgregada[Aggregated]",
+      "status": "partial",
+      "materiality_types": ["type_contract", "guard_rule", "test"],
+      "paths": [
+        "src/services/mba/domain-state-registry.mjs",
+        "src/services/mba/nonconformance-rules.mjs",
+        "tests/regression/mba-control-plane/mba-control-plane.test.mjs"
+      ],
+      "gaps": ["Dedicated aggregation service for P-SUP-04 not found."],
+      "notes": "Aggregation is represented and guarded, not proven as final causal movie production."
+    },
+    {
+      "id": "P-SUP-05",
+      "pf_id": "PF-SUP-05",
+      "rector_name": "Componer sintesis experta",
+      "governed_object": "DiagnosticoExpertoFinal",
+      "trigger": "PeliculaRecibida",
+      "target_state": "DiagnosticoExpertoFinal[Delivered]",
+      "status": "partial",
+      "materiality_types": ["type_contract", "guard_rule"],
+      "paths": [
+        "src/services/mba/domain-state-registry.mjs",
+        "src/services/mba/nonconformance-rules.mjs"
+      ],
+      "gaps": ["Final expert synthesis service/output not authorized or implemented in this scope."],
+      "notes": "Delivery is guarded by MBA rules; final diagnosis remains outside current materiality."
+    },
+    {
+      "id": "P-SUP-06",
+      "pf_id": "PF-SUP-06",
+      "rector_name": "Producir inventario MMABP y diagramacion",
+      "governed_object": "PaqueteProduccionParalelaMMABP",
+      "trigger": "SourceBundleDisponible",
+      "target_state": "InventoryResolved / IRProjected",
+      "status": "exists",
+      "materiality_types": ["doc_only", "schema_or_migration", "service_logic", "fixture", "test"],
+      "paths": [
+        "docs/capa1-parallel-production-design-handoff-contract.md",
+        "schemas/parallel-production/structural-fact.schema.json",
+        "schemas/parallel-production/quadrant-registry.schema.json",
+        "schemas/parallel-production/mmabp-ir.schema.json",
+        "src/services/parallel-production/runtime/",
+        "scripts/validate-parallel-production.mjs",
+        "tests/regression/parallel-production/",
+        "tests/fixtures/parallel-production/"
+      ],
+      "gaps": ["Scope is candidate/shadow bounded, not final production."],
+      "notes": "Strongest materiality in the audited range."
+    },
+    {
+      "id": "P-SUP-07",
+      "pf_id": "PF-SUP-07",
+      "rector_name": "Resolver gaps y validar conformance",
+      "governed_object": "ArchitectureConsistencyAssessment",
+      "trigger": "ConformanceCompletada",
+      "target_state": "ConsistencyEvaluating / WithFindings / Satisfied",
+      "status": "exists",
+      "materiality_types": ["schema_or_migration", "service_logic", "test"],
+      "paths": [
+        "src/services/parallel-production/runtime/assessment-run.mjs",
+        "schemas/parallel-production/conformance-report.schema.json",
+        "schemas/parallel-production/consistency-report.schema.json",
+        "tests/regression/parallel-production/conformance-consistency-report.test.mjs",
+        "tests/regression/mba-control-plane/mba-control-plane.test.mjs"
+      ],
+      "gaps": ["Implemented jointly as P-SUP-07/08."],
+      "notes": "Assessment can classify findings and route rework."
+    },
+    {
+      "id": "P-SUP-08",
+      "pf_id": "PF-SUP-08",
+      "rector_name": "Validar consistency y composite assessment",
+      "governed_object": "ArchitectureConsistencyAssessment",
+      "trigger": "ConsistencyCompletada / FindingsClasificados",
+      "target_state": "Satisfied / WithFindings",
+      "status": "exists",
+      "materiality_types": ["schema_or_migration", "service_logic", "guard_rule", "test"],
+      "paths": [
+        "src/services/parallel-production/runtime/assessment-run.mjs",
+        "src/services/mba/governance-finding-normalizer.mjs",
+        "src/services/mba/nonconformance-rules.mjs",
+        "tests/regression/mba-control-plane/mba-control-plane.test.mjs"
+      ],
+      "gaps": ["PF-SUP-08 is not separated from PF-SUP-07 in naming."],
+      "notes": "WithFindings returns to P-SUP-06 and is not Satisfied."
+    },
+    {
+      "id": "P-SUP-09",
+      "pf_id": "PF-SUP-09",
+      "rector_name": "Generar codigo exportable Camunda / Enterprise Architect",
+      "governed_object": "ExportCodePackage / candidate_export_package",
+      "trigger": "BPMNGenerated / PlantUMLGenerated / syntax validation",
+      "target_state": "Generated or Blocked",
+      "status": "exists",
+      "materiality_types": ["schema_or_migration", "service_logic", "fixture", "test"],
+      "paths": [
+        "src/services/parallel-production/runtime/candidate-export-generate.mjs",
+        "schemas/parallel-production/candidate-export-package.schema.json",
+        "schemas/parallel-production/diagram-code-generation-package.schema.json",
+        "scripts/parallel-production/generators/",
+        "tests/regression/parallel-production/candidate-export-package.test.mjs",
+        "tests/fixtures/parallel-production/generated-candidate-files/"
+      ],
+      "gaps": ["Final export remains prohibited unless ACA is Satisfied and syntax gates pass."],
+      "notes": "Candidate export is materialized; final export is explicitly bounded."
+    }
+  ],
+  "pf_review": [
+    {"pf_id": "PF-SUP-01", "reviewed": true, "summary": "SCR trigger/object/target states and timers present; partial implementation."},
+    {"pf_id": "PF-SUP-02", "reviewed": true, "summary": "EvidenceBundle readiness states and timers present; partial implementation."},
+    {"pf_id": "PF-SUP-03", "reviewed": true, "summary": "EscenaEvidencial states/timer present; dedicated service/test absent."},
+    {"pf_id": "PF-SUP-04", "reviewed": true, "summary": "PeliculaCausalAgregada states/timer and guard rules present; service gap remains."},
+    {"pf_id": "PF-SUP-05", "reviewed": true, "summary": "DiagnosticoExpertoFinal states/timer and delivery guards present; final output not authorized."},
+    {"pf_id": "PF-SUP-06", "reviewed": true, "summary": "Parallel production inventory/registry/IR materiality exists."},
+    {"pf_id": "PF-SUP-07", "reviewed": true, "summary": "Conformance/assessment logic exists, combined with PF-SUP-08."},
+    {"pf_id": "PF-SUP-08", "reviewed": true, "summary": "Consistency/findings/rework logic exists, combined with PF-SUP-07."},
+    {"pf_id": "PF-SUP-09", "reviewed": true, "summary": "Candidate export/generator materiality exists; final export gated."}
+  ],
+  "b3_b7": {
+    "receiver_feedback": {
+      "status": "partial",
+      "paths": [
+        "fixtures/canonical/capa-1/v2.1/question-catalog-v2-1.master.json",
+        "fixtures/canonical/capa-1/v2.1/canonical-dictionary-v2-1.json",
+        "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/EVE_04_Runtime_Catalog_v0_2.ts",
+        "scripts/phase1-capa1-runtime-contract.test.mjs"
+      ],
+      "gaps": ["ReceiverFeedbackObject service/schema not found."]
+    },
+    "b7_boundary": {
+      "status": "partial",
+      "paths": [
+        "docs/chips/runtime-catalog/EVE_04_Runtime_Catalog_v0_2/EVE_04_Runtime_Catalog_v0_2.ts",
+        "docs/chips/agent-constitution/EVE_01_Agent_Constitution_v0_1/EVE_01_Agent_Constitution_v0_1.ts",
+        "src/types/eve-organism-gate2-signal-guardrails.ts",
+        "src/types/eve-organism-gate2-authority-guardrails.ts"
+      ],
+      "gaps": ["PreclassificationRecord, interpretation_limit and non_diagnostic_signal_only not found as dedicated service/schema materiality."]
+    }
+  },
+  "no_go_findings": [],
+  "files_created": [
+    "docs/audit/repo_mmabp_materialization_audit.md",
+    "docs/audit/repo_mmabp_materialization_audit.json",
+    "docs/audit/repo_mmabp_materialization_findings.md"
+  ],
+  "next_step": "DETAILED_PROCESS_GAP_ANALYSIS_PF_SUP_03_04_05_AND_B3_B7_V1"
+}

@@ -1,0 +1,39 @@
+{
+  "report_id": "CLIENTE_001_CONSISTENCY_REPORT_V1",
+  "report_type": "consistency_report",
+  "client_id": "CLIENTE_001",
+  "source_registry_package_id": "CLIENTE_001_QUADRANT_REGISTRIES_V1",
+  "source_mmabp_ir_package_id": "CLIENTE_001_MMABP_IR_V1",
+  "checked_cross_quadrant_relations": [
+    "PM_PF",
+    "PF_OLC",
+    "MoC_PF",
+    "MoC_OLC",
+    "PM_PF_OLC"
+  ],
+  "consistency_status": "passed_with_warnings",
+  "findings": [
+    {
+      "finding_id": "CONS_FINDING_001",
+      "element_id": "PF_IR_PSTATE_001",
+      "rule_id": "PF_STATE_TRACED_TO_OLC_STATE",
+      "status": "passed",
+      "reason": "El estado de proceso PF se sostiene en el mismo fact que el estado OLC.",
+      "source_evidence_ids": ["EVID_001", "EVID_002"],
+      "source_fact_ids": ["FACT_000001"],
+      "gap_ids": []
+    },
+    {
+      "finding_id": "CONS_FINDING_002",
+      "element_id": "OLC_IR_STATE_001",
+      "rule_id": "OLC_OBJECT_CLASS_TRACED_TO_MOC",
+      "status": "passed_with_warning",
+      "reason": "El estado OLC usa la clase de negocio Solicitud declarada en MoC; atributos/operaciones quedan como warning no bloqueante.",
+      "source_evidence_ids": ["EVID_003"],
+      "source_fact_ids": ["FACT_000003"],
+      "gap_ids": ["DGAP_MOC_SUPPORT_001"]
+    }
+  ],
+  "blocking_gaps": [],
+  "warnings": ["MoC permanece como gap de soporte para PlantUML estable: DGAP_MOC_SUPPORT_001."]
+}

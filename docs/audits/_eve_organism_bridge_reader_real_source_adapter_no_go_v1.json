@@ -1,0 +1,31 @@
+{
+  "no_go_id": "BRIDGE_READER_REAL_SOURCE_ADAPTER_NO_GO_V1",
+  "rules_total": 25,
+  "rules": [
+    { "no_go_id": "ADAPTER-NG-001", "condition": "Fuente no existe.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Verify shadow_only_outbox_events source exists in approved non-productive/read-only target." },
+    { "no_go_id": "ADAPTER-NG-002", "condition": "Fuente no es shadow-only.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Prove source is shadow-only." },
+    { "no_go_id": "ADAPTER-NG-003", "condition": "Fuente requiere write capability.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Remove write capability and prove read-only access." },
+    { "no_go_id": "ADAPTER-NG-004", "condition": "Fuente requiere observer real.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Remove observer dependency." },
+    { "no_go_id": "ADAPTER-NG-005", "condition": "Fuente requiere Gate 3.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Remove Gate 3 dependency." },
+    { "no_go_id": "ADAPTER-NG-006", "condition": "Fuente requiere Fase 9.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Remove Fase 9 dependency." },
+    { "no_go_id": "ADAPTER-NG-007", "condition": "Falta tenantId.", "severity": "high", "blocks_implementation": true, "required_resolution": "Require tenantId mapping." },
+    { "no_go_id": "ADAPTER-NG-008", "condition": "Falta sessionId.", "severity": "high", "blocks_implementation": true, "required_resolution": "Require sessionId mapping." },
+    { "no_go_id": "ADAPTER-NG-009", "condition": "Falta activityId.", "severity": "high", "blocks_implementation": true, "required_resolution": "Require activityId mapping." },
+    { "no_go_id": "ADAPTER-NG-010", "condition": "Falta correlationId.", "severity": "high", "blocks_implementation": true, "required_resolution": "Require correlationId mapping." },
+    { "no_go_id": "ADAPTER-NG-011", "condition": "Falta idempotencyKey.", "severity": "high", "blocks_implementation": true, "required_resolution": "Require idempotencyKey mapping." },
+    { "no_go_id": "ADAPTER-NG-012", "condition": "Falta provenance.", "severity": "high", "blocks_implementation": true, "required_resolution": "Require provenance mapping." },
+    { "no_go_id": "ADAPTER-NG-013", "condition": "Falta sourceRef.", "severity": "high", "blocks_implementation": true, "required_resolution": "Require sourceRef or official_flow_ref mapping." },
+    { "no_go_id": "ADAPTER-NG-014", "condition": "Falta occurredAt.", "severity": "high", "blocks_implementation": true, "required_resolution": "Require captured_at/emitted_at mapping." },
+    { "no_go_id": "ADAPTER-NG-015", "condition": "Falta officialOutcome o shadowOutcome para comparacion.", "severity": "high", "blocks_implementation": true, "required_resolution": "Prove officialOutcome and shadowOutcome path without diagnosis/export/authority." },
+    { "no_go_id": "ADAPTER-NG-016", "condition": "Se detecta registryWrite.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Remove registry write path." },
+    { "no_go_id": "ADAPTER-NG-017", "condition": "Se detecta exportGenerated.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Remove export path." },
+    { "no_go_id": "ADAPTER-NG-018", "condition": "Se detecta diagnosisEnabled.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Remove diagnosis path." },
+    { "no_go_id": "ADAPTER-NG-019", "condition": "Se detecta productiveWrite.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Remove productive write path." },
+    { "no_go_id": "ADAPTER-NG-020", "condition": "Se detecta tenant mix no permitido.", "severity": "high", "blocks_implementation": true, "required_resolution": "Enforce tenant boundary." },
+    { "no_go_id": "ADAPTER-NG-021", "condition": "Se detecta replay poisoning risk.", "severity": "high", "blocks_implementation": true, "required_resolution": "Enforce idempotency and checksum controls." },
+    { "no_go_id": "ADAPTER-NG-022", "condition": "Se detecta stale official outcome.", "severity": "high", "blocks_implementation": true, "required_resolution": "Require freshness/provenance proof." },
+    { "no_go_id": "ADAPTER-NG-023", "condition": "Se detecta audit/source tampering risk.", "severity": "high", "blocks_implementation": true, "required_resolution": "Require immutable checksum/source proof." },
+    { "no_go_id": "ADAPTER-NG-024", "condition": "Se detecta adapter con imports write-capable.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Remove write-capable imports." },
+    { "no_go_id": "ADAPTER-NG-025", "condition": "Se detecta dependencia de app/UI/runtime productivo.", "severity": "critical", "blocks_implementation": true, "required_resolution": "Remove app/UI/productive runtime dependency." }
+  ]
+}

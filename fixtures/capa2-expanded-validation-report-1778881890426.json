@@ -1,0 +1,895 @@
+{
+  "generatedAt": "2026-05-15T21:51:30.425Z",
+  "calibrationReports": [
+    "fixtures\\capa2-calibration-report-1778881870746.json",
+    "fixtures\\capa2-calibration-report-1778881881755.json"
+  ],
+  "mutationReport": "fixtures\\capa2-boundary-mutation-report-1778874096797.json",
+  "gate": {
+    "passed": false,
+    "recommendation": "Capa 2 por sesion no debe pasar todavia a Capa 2.5; la validacion ampliada justifica una micro-ronda posterior basada en evidencia nueva.",
+    "checks": [
+      {
+        "id": "known_case_accuracy_at_least_75_percent",
+        "passed": true,
+        "value": 0.857,
+        "threshold": 0.75
+      },
+      {
+        "id": "mutation_boundary_checks_pass",
+        "passed": true,
+        "value": [
+          {
+            "id": "baseline_case3_is_n03",
+            "passed": true,
+            "detail": "N03"
+          },
+          {
+            "id": "reinforce_n03_stays_n03",
+            "passed": true,
+            "detail": "N03"
+          },
+          {
+            "id": "reinforce_n06_switches_n06",
+            "passed": true,
+            "detail": "N06"
+          },
+          {
+            "id": "remove_temporal_break_stays_n03",
+            "passed": true,
+            "detail": "N03"
+          }
+        ]
+      },
+      {
+        "id": "no_single_root_above_60_percent_in_expanded_validation",
+        "passed": true,
+        "value": {
+          "dominantRoot": "N06",
+          "share": 0.375
+        },
+        "threshold": 0.6
+      },
+      {
+        "id": "no_high_confidence_known_divergences",
+        "passed": false,
+        "value": [
+          {
+            "roleNumber": 3,
+            "expected": "N04",
+            "actual": "N06",
+            "confidence": "high",
+            "sourceReport": "fixtures\\capa2-calibration-report-1778881881755.json"
+          }
+        ]
+      },
+      {
+        "id": "expert_review_visible_for_nonfinal_outputs",
+        "passed": true,
+        "value": 0
+      }
+    ]
+  },
+  "aggregate": {
+    "totalSessions": 8,
+    "knownExpectedSessions": 7,
+    "matchedKnownSessions": 6,
+    "accuracy": 0.857,
+    "rootCounts": {
+      "N06": 3,
+      "N04": 1,
+      "N03": 2,
+      "N10": 2
+    },
+    "dominantRoot": {
+      "nodeId": "N06",
+      "count": 3,
+      "share": 0.375
+    },
+    "highConfidenceDivergences": 1
+  },
+  "sessions": [
+    {
+      "sourceReport": "fixtures\\capa2-calibration-report-1778881870746.json",
+      "roleNumber": 1,
+      "roleName": "Planificador de Producción",
+      "sessionId": "70b511a5-738d-4a5b-8a73-0fc3a44440ab",
+      "expectedRootCanonical": "N06",
+      "actualRootCode": "N06",
+      "actualRoot": "N06 Tortura Causal (El Doble Vinculo)",
+      "status": "matched_expected_root",
+      "confidence": "high",
+      "needsReentry": false,
+      "needsExpertReview": true,
+      "ranking": [
+        {
+          "nodeId": "N06",
+          "label": "N06 Tortura Causal",
+          "score": 42
+        },
+        {
+          "nodeId": "N10",
+          "label": "N10 Promesa Imposible",
+          "score": 31.2
+        }
+      ],
+      "keyStructuralSignals": [
+        {
+          "signal": "explicit_n04_breach",
+          "family": "strong_breach",
+          "count": 3
+        },
+        {
+          "signal": "informal_operation",
+          "family": "symptom_compensation",
+          "count": 3
+        },
+        {
+          "signal": "temporal_dependency_break",
+          "family": "temporal_olc_break",
+          "count": 3
+        },
+        {
+          "signal": "workaround_as_symptom",
+          "family": "symptom_compensation",
+          "count": 3
+        }
+      ],
+      "dominantBundle": {
+        "nodeId": "N06",
+        "ruleId": "R-N06-TORTURA-CAUSAL-MVP",
+        "sceneName": "Recepción de Orden con Fecha Imposible",
+        "supportScore": 15.4,
+        "weakenScore": 1.4,
+        "net": 14,
+        "supports": [
+          {
+            "variable": "structural_signal.temporal_dependency_break",
+            "tier": "primary",
+            "weight": 3,
+            "reason": "La escena deriva una ruptura temporal/OLC previa al workaround."
+          },
+          {
+            "variable": "blocking_impact",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "Condicion de espera, bloqueo o cuello de botella."
+          },
+          {
+            "variable": "deadlock_risk",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "Riesgo, falla o excepcion activa."
+          },
+          {
+            "variable": "dependency_previous",
+            "tier": "primary",
+            "weight": 1,
+            "reason": "Dependencia explicita en la escena."
+          },
+          {
+            "variable": "dependency_next",
+            "tier": "primary",
+            "weight": 1,
+            "reason": "Dependencia explicita en la escena."
+          }
+        ],
+        "weakens": [
+          {
+            "variable": "deadlock_resolution",
+            "tier": "primary",
+            "weight": 0.7,
+            "reason": "Hay senal parcial de salida, alternativa o visibilidad."
+          },
+          {
+            "variable": "alternative_paths",
+            "tier": "primary",
+            "weight": 0.7,
+            "reason": "Hay senal parcial de salida, alternativa o visibilidad."
+          }
+        ]
+      },
+      "ablationRootChanges": []
+    },
+    {
+      "sourceReport": "fixtures\\capa2-calibration-report-1778881870746.json",
+      "roleNumber": 2,
+      "roleName": "Jefe de Calidad",
+      "sessionId": "3417eb84-54ba-4067-8a0d-dd9a35411948",
+      "expectedRootCanonical": "N04",
+      "actualRootCode": "N04",
+      "actualRoot": "N04 Violacion Causal (El Politico)",
+      "status": "matched_expected_root",
+      "confidence": "high",
+      "needsReentry": false,
+      "needsExpertReview": true,
+      "ranking": [
+        {
+          "nodeId": "N04",
+          "label": "N04 Violacion Causal",
+          "score": 45.6
+        },
+        {
+          "nodeId": "N10",
+          "label": "N10 Promesa Imposible",
+          "score": 31.2
+        },
+        {
+          "nodeId": "N06",
+          "label": "N06 Tortura Causal",
+          "score": 30
+        }
+      ],
+      "keyStructuralSignals": [
+        {
+          "signal": "explicit_n04_breach",
+          "family": "strong_breach",
+          "count": 3
+        },
+        {
+          "signal": "informal_operation",
+          "family": "symptom_compensation",
+          "count": 3
+        },
+        {
+          "signal": "workaround_as_symptom",
+          "family": "symptom_compensation",
+          "count": 3
+        }
+      ],
+      "dominantBundle": {
+        "nodeId": "N04",
+        "ruleId": "R-N04-VIOLACION-CAUSAL-MVP",
+        "sceneName": "Inspección Final que Detecta Defectos",
+        "supportScore": 15.7,
+        "weakenScore": 0.5,
+        "net": 15.2,
+        "supports": [
+          {
+            "variable": "structural_signal.explicit_n04_breach",
+            "tier": "primary",
+            "weight": 5,
+            "reason": "causal_breach_explicit: existe bundle estructural compuesto para N04."
+          },
+          {
+            "variable": "informacion_faltante",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "La escena declara informacion faltante dentro de una violacion causal explicita."
+          },
+          {
+            "variable": "delivery_failure_exists",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "Hay falla sin feedback claro en una escena con breach causal explicito."
+          },
+          {
+            "variable": "regla_informal_conocida",
+            "tier": "primary",
+            "weight": 1.5,
+            "reason": "La escena declara regla informal conocida dentro de una violacion causal explicita."
+          },
+          {
+            "variable": "hidden_subprocess",
+            "tier": "primary",
+            "weight": 1.5,
+            "reason": "La escena declara subproceso oculto asociado a ruptura causal fuerte."
+          }
+        ],
+        "weakens": [
+          {
+            "variable": "validation_rule",
+            "tier": "primary",
+            "weight": 0.5,
+            "reason": "Existe alguna regla o feedback que reduce la opacidad."
+          }
+        ]
+      },
+      "ablationRootChanges": [
+        {
+          "groupName": "informal_hidden",
+          "rootAfterRemoval": "N10",
+          "rootAfterHalfWeight": "N04"
+        }
+      ]
+    },
+    {
+      "sourceReport": "fixtures\\capa2-calibration-report-1778881870746.json",
+      "roleNumber": 3,
+      "roleName": "Supervisor de Línea de Producción",
+      "sessionId": "9e36352c-3086-4899-8b56-a046612f9b0e",
+      "expectedRootCanonical": "N03",
+      "actualRootCode": "N03",
+      "actualRoot": "N03 Anarquia Operacional (El Heroe)",
+      "status": "matched_expected_root",
+      "confidence": "high",
+      "needsReentry": false,
+      "needsExpertReview": true,
+      "ranking": [
+        {
+          "nodeId": "N03",
+          "label": "N03 Anarquia Operacional",
+          "score": 44.1
+        },
+        {
+          "nodeId": "N06",
+          "label": "N06 Tortura Causal",
+          "score": 33
+        },
+        {
+          "nodeId": "N10",
+          "label": "N10 Promesa Imposible",
+          "score": 28.2
+        },
+        {
+          "nodeId": "N04",
+          "label": "N04 Violacion Causal",
+          "score": 1.57
+        }
+      ],
+      "keyStructuralSignals": [
+        {
+          "signal": "explicit_n04_breach",
+          "family": "strong_breach",
+          "count": 3
+        },
+        {
+          "signal": "system_parallel_as_primary_truth",
+          "family": "stable_informal_architecture",
+          "count": 3
+        },
+        {
+          "signal": "workaround_as_coordination_architecture",
+          "family": "stable_informal_architecture",
+          "count": 3
+        }
+      ],
+      "dominantBundle": {
+        "nodeId": "N03",
+        "ruleId": "R-N03-ANARQUIA-OPERACIONAL-MVP",
+        "sceneName": "Recepción de Orden de Trabajo Incompleta",
+        "supportScore": 14.700000000000001,
+        "weakenScore": 0,
+        "net": 14.7,
+        "supports": [
+          {
+            "variable": "workaround_used",
+            "tier": "primary",
+            "weight": 2.5,
+            "reason": "La escena declara workaround dentro de una arquitectura informal estable."
+          },
+          {
+            "variable": "sacrificio_humano",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "La escena declara sacrificio humano dentro de una arquitectura informal que sostiene el flujo."
+          },
+          {
+            "variable": "structural_signal.workaround_as_coordination_architecture",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "El expediente presenta el workaround como arquitectura normal de operacion y no como reaccion temporal."
+          },
+          {
+            "variable": "structural_signal.system_parallel_as_primary_truth",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "La escena deriva sistema paralelo o multiple verdad operativa como fuente primaria de coordinacion."
+          },
+          {
+            "variable": "workaround_types",
+            "tier": "primary",
+            "weight": 1,
+            "reason": "Tipo de workaround declarado dentro de una arquitectura informal estable."
+          }
+        ],
+        "weakens": []
+      },
+      "ablationRootChanges": [
+        {
+          "groupName": "workaround_compensation",
+          "rootAfterRemoval": "N06",
+          "rootAfterHalfWeight": "N06"
+        },
+        {
+          "groupName": "alternative_deviation",
+          "rootAfterRemoval": "N06",
+          "rootAfterHalfWeight": "N03"
+        }
+      ]
+    },
+    {
+      "sourceReport": "fixtures\\capa2-calibration-report-1778881881755.json",
+      "roleNumber": 1,
+      "roleName": "Caso 1",
+      "sessionId": "e0771989-ca31-4647-89f0-834ed73482e7",
+      "expectedRootCanonical": "N03",
+      "actualRootCode": "N03",
+      "actualRoot": "N03 Anarquia Operacional (El Heroe)",
+      "status": "matched_expected_root",
+      "confidence": "high",
+      "needsReentry": false,
+      "needsExpertReview": true,
+      "ranking": [
+        {
+          "nodeId": "N03",
+          "label": "N03 Anarquia Operacional",
+          "score": 100.2
+        },
+        {
+          "nodeId": "N06",
+          "label": "N06 Tortura Causal",
+          "score": 60
+        },
+        {
+          "nodeId": "N10",
+          "label": "N10 Promesa Imposible",
+          "score": 56.4
+        },
+        {
+          "nodeId": "N04",
+          "label": "N04 Violacion Causal",
+          "score": 5.85
+        }
+      ],
+      "keyStructuralSignals": [
+        {
+          "signal": "explicit_n04_breach",
+          "family": "strong_breach",
+          "count": 6
+        },
+        {
+          "signal": "system_parallel_as_primary_truth",
+          "family": "stable_informal_architecture",
+          "count": 6
+        },
+        {
+          "signal": "workaround_as_coordination_architecture",
+          "family": "stable_informal_architecture",
+          "count": 6
+        }
+      ],
+      "dominantBundle": {
+        "nodeId": "N03",
+        "ruleId": "R-N03-ANARQUIA-OPERACIONAL-MVP",
+        "sceneName": "Recepción y Validación de Órdenes de Trabajo",
+        "supportScore": 16.7,
+        "weakenScore": 0,
+        "net": 16.7,
+        "supports": [
+          {
+            "variable": "workaround_used",
+            "tier": "primary",
+            "weight": 2.5,
+            "reason": "La escena declara workaround dentro de una arquitectura informal estable."
+          },
+          {
+            "variable": "sacrificio_humano",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "La escena declara sacrificio humano dentro de una arquitectura informal que sostiene el flujo."
+          },
+          {
+            "variable": "absorcion_variedad_residual",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "Aparece absorcion de variedad residual como parte de una arquitectura informal estable."
+          },
+          {
+            "variable": "structural_signal.workaround_as_coordination_architecture",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "El expediente presenta el workaround como arquitectura normal de operacion y no como reaccion temporal."
+          },
+          {
+            "variable": "structural_signal.system_parallel_as_primary_truth",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "La escena deriva sistema paralelo o multiple verdad operativa como fuente primaria de coordinacion."
+          }
+        ],
+        "weakens": []
+      },
+      "ablationRootChanges": [
+        {
+          "groupName": "workaround_compensation",
+          "rootAfterRemoval": "N06",
+          "rootAfterHalfWeight": "N03"
+        }
+      ]
+    },
+    {
+      "sourceReport": "fixtures\\capa2-calibration-report-1778881881755.json",
+      "roleNumber": 2,
+      "roleName": "Caso 2",
+      "sessionId": "d7d2ff32-c319-4c66-b866-a30fffaffa79",
+      "expectedRootCanonical": "N06",
+      "actualRootCode": "N06",
+      "actualRoot": "N06 Tortura Causal (El Doble Vinculo)",
+      "status": "matched_expected_root",
+      "confidence": "medium",
+      "needsReentry": false,
+      "needsExpertReview": true,
+      "ranking": [
+        {
+          "nodeId": "N06",
+          "label": "N06 Tortura Causal",
+          "score": 65
+        },
+        {
+          "nodeId": "N10",
+          "label": "N10 Promesa Imposible",
+          "score": 62.4
+        },
+        {
+          "nodeId": "N03",
+          "label": "N03 Anarquia Operacional",
+          "score": 10.2
+        },
+        {
+          "nodeId": "N04",
+          "label": "N04 Violacion Causal",
+          "score": 2.7
+        }
+      ],
+      "keyStructuralSignals": [
+        {
+          "signal": "explicit_n04_breach",
+          "family": "strong_breach",
+          "count": 6
+        },
+        {
+          "signal": "informal_operation",
+          "family": "symptom_compensation",
+          "count": 6
+        },
+        {
+          "signal": "temporal_dependency_break",
+          "family": "temporal_olc_break",
+          "count": 1
+        }
+      ],
+      "dominantBundle": {
+        "nodeId": "N06",
+        "ruleId": "R-N06-TORTURA-CAUSAL-MVP",
+        "sceneName": "Planificación en Reversa (Desde la Fecha de Entrega Hacia Atrás)",
+        "supportScore": 15.4,
+        "weakenScore": 1.4,
+        "net": 14,
+        "supports": [
+          {
+            "variable": "structural_signal.temporal_dependency_break",
+            "tier": "primary",
+            "weight": 3,
+            "reason": "La escena deriva una ruptura temporal/OLC previa al workaround."
+          },
+          {
+            "variable": "blocking_impact",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "Condicion de espera, bloqueo o cuello de botella."
+          },
+          {
+            "variable": "deadlock_risk",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "Riesgo, falla o excepcion activa."
+          },
+          {
+            "variable": "dependency_previous",
+            "tier": "primary",
+            "weight": 1,
+            "reason": "Dependencia explicita en la escena."
+          },
+          {
+            "variable": "dependency_next",
+            "tier": "primary",
+            "weight": 1,
+            "reason": "Dependencia explicita en la escena."
+          }
+        ],
+        "weakens": [
+          {
+            "variable": "deadlock_resolution",
+            "tier": "primary",
+            "weight": 0.7,
+            "reason": "Hay senal parcial de salida, alternativa o visibilidad."
+          },
+          {
+            "variable": "alternative_paths",
+            "tier": "primary",
+            "weight": 0.7,
+            "reason": "Hay senal parcial de salida, alternativa o visibilidad."
+          }
+        ]
+      },
+      "ablationRootChanges": []
+    },
+    {
+      "sourceReport": "fixtures\\capa2-calibration-report-1778881881755.json",
+      "roleNumber": 3,
+      "roleName": "Caso 3",
+      "sessionId": "abc1cf18-d2e0-4599-a4ce-2e49dc34946b",
+      "expectedRootCanonical": "N04",
+      "actualRootCode": "N06",
+      "actualRoot": "N06 Tortura Causal (El Doble Vinculo)",
+      "status": "diverged_from_expected_root",
+      "confidence": "high",
+      "needsReentry": false,
+      "needsExpertReview": true,
+      "ranking": [
+        {
+          "nodeId": "N06",
+          "label": "N06 Tortura Causal",
+          "score": 54
+        },
+        {
+          "nodeId": "N04",
+          "label": "N04 Violacion Causal",
+          "score": 21.58
+        },
+        {
+          "nodeId": "N10",
+          "label": "N10 Promesa Imposible",
+          "score": 20.4
+        },
+        {
+          "nodeId": "N03",
+          "label": "N03 Anarquia Operacional",
+          "score": 15
+        }
+      ],
+      "keyStructuralSignals": [
+        {
+          "signal": "explicit_n04_breach",
+          "family": "strong_breach",
+          "count": 6
+        },
+        {
+          "signal": "informal_operation",
+          "family": "symptom_compensation",
+          "count": 6
+        }
+      ],
+      "dominantBundle": {
+        "nodeId": "N04",
+        "ruleId": "R-N04-VIOLACION-CAUSAL-MVP",
+        "sceneName": "Presión para Liberar Producto Defectuoso",
+        "supportScore": 17.2,
+        "weakenScore": 0.5,
+        "net": 16.7,
+        "supports": [
+          {
+            "variable": "structural_signal.explicit_n04_breach",
+            "tier": "primary",
+            "weight": 5,
+            "reason": "causal_breach_explicit: existe bundle estructural compuesto para N04."
+          },
+          {
+            "variable": "informacion_faltante",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "La escena declara informacion faltante dentro de una violacion causal explicita."
+          },
+          {
+            "variable": "delivery_failure_exists",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "Hay falla sin feedback claro en una escena con breach causal explicito."
+          },
+          {
+            "variable": "regla_informal",
+            "tier": "primary",
+            "weight": 1.5,
+            "reason": "Aparece regla informal asociada a una violacion causal explicita."
+          },
+          {
+            "variable": "regla_informal_conocida",
+            "tier": "primary",
+            "weight": 1.5,
+            "reason": "La escena declara regla informal conocida dentro de una violacion causal explicita."
+          }
+        ],
+        "weakens": [
+          {
+            "variable": "validation_rule",
+            "tier": "primary",
+            "weight": 0.5,
+            "reason": "Existe alguna regla o feedback que reduce la opacidad."
+          }
+        ]
+      },
+      "ablationRootChanges": []
+    },
+    {
+      "sourceReport": "fixtures\\capa2-calibration-report-1778881881755.json",
+      "roleNumber": 4,
+      "roleName": "Caso 4",
+      "sessionId": "04507304-a886-4a98-a402-e5a321174feb",
+      "expectedRootCanonical": "N10",
+      "actualRootCode": "N10",
+      "actualRoot": "N10 Promesa Imposible (La Falsa Discrecion)",
+      "status": "matched_expected_root",
+      "confidence": "high",
+      "needsReentry": false,
+      "needsExpertReview": true,
+      "ranking": [
+        {
+          "nodeId": "N10",
+          "label": "N10 Promesa Imposible",
+          "score": 62.4
+        },
+        {
+          "nodeId": "N06",
+          "label": "N06 Tortura Causal",
+          "score": 36
+        },
+        {
+          "nodeId": "N03",
+          "label": "N03 Anarquia Operacional",
+          "score": 8.4
+        }
+      ],
+      "keyStructuralSignals": [
+        {
+          "signal": "informal_operation",
+          "family": "symptom_compensation",
+          "count": 6
+        }
+      ],
+      "dominantBundle": {
+        "nodeId": "N10",
+        "ruleId": "R-N10-PROMESA-IMPOSIBLE-MVP",
+        "sceneName": "Definición de Metas Anuales Ambiciosas",
+        "supportScore": 10.4,
+        "weakenScore": 0,
+        "net": 10.4,
+        "supports": [
+          {
+            "variable": "brecha_capacidad_5_3",
+            "tier": "primary",
+            "weight": 3,
+            "reason": "Brecha positiva entre capacidad nominal y real."
+          },
+          {
+            "variable": "capacidad_real_5_2",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "La capacidad real queda por debajo de la nominal."
+          },
+          {
+            "variable": "resource_bargain_5_14",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "Senal de promesa, capacidad o discrecion tensionada."
+          },
+          {
+            "variable": "constreñimientos_5_10",
+            "tier": "primary",
+            "weight": 1,
+            "reason": "Senal de promesa, capacidad o discrecion tensionada."
+          },
+          {
+            "variable": "variedad_residual_5_12",
+            "tier": "primary",
+            "weight": 1,
+            "reason": "Senal de promesa, capacidad o discrecion tensionada."
+          }
+        ],
+        "weakens": []
+      },
+      "ablationRootChanges": [
+        {
+          "groupName": "capacity_bargain",
+          "rootAfterRemoval": "N06",
+          "rootAfterHalfWeight": "N10"
+        }
+      ]
+    },
+    {
+      "sourceReport": "fixtures\\capa2-calibration-report-1778881881755.json",
+      "roleNumber": 5,
+      "roleName": "Caso 5",
+      "sessionId": "a575a5eb-82a5-4dfc-956b-caca80adfe55",
+      "expectedRootCanonical": null,
+      "actualRootCode": "N10",
+      "actualRoot": "N10 Promesa Imposible (La Falsa Discrecion)",
+      "status": "ambiguous_or_not_applicable",
+      "confidence": "medium",
+      "needsReentry": false,
+      "needsExpertReview": true,
+      "ranking": [
+        {
+          "nodeId": "N10",
+          "label": "N10 Promesa Imposible",
+          "score": 62.4
+        },
+        {
+          "nodeId": "N06",
+          "label": "N06 Tortura Causal",
+          "score": 60
+        },
+        {
+          "nodeId": "N03",
+          "label": "N03 Anarquia Operacional",
+          "score": 15
+        },
+        {
+          "nodeId": "N04",
+          "label": "N04 Violacion Causal",
+          "score": 5.85
+        }
+      ],
+      "keyStructuralSignals": [
+        {
+          "signal": "explicit_n04_breach",
+          "family": "strong_breach",
+          "count": 6
+        },
+        {
+          "signal": "informal_operation",
+          "family": "symptom_compensation",
+          "count": 6
+        }
+      ],
+      "dominantBundle": {
+        "nodeId": "N10",
+        "ruleId": "R-N10-PROMESA-IMPOSIBLE-MVP",
+        "sceneName": "Recepción de Órdenes de Compra Urgentes",
+        "supportScore": 10.4,
+        "weakenScore": 0,
+        "net": 10.4,
+        "supports": [
+          {
+            "variable": "brecha_capacidad_5_3",
+            "tier": "primary",
+            "weight": 3,
+            "reason": "Brecha positiva entre capacidad nominal y real."
+          },
+          {
+            "variable": "capacidad_real_5_2",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "La capacidad real queda por debajo de la nominal."
+          },
+          {
+            "variable": "resource_bargain_5_14",
+            "tier": "primary",
+            "weight": 2,
+            "reason": "Senal de promesa, capacidad o discrecion tensionada."
+          },
+          {
+            "variable": "constreñimientos_5_10",
+            "tier": "primary",
+            "weight": 1,
+            "reason": "Senal de promesa, capacidad o discrecion tensionada."
+          },
+          {
+            "variable": "variedad_residual_5_12",
+            "tier": "primary",
+            "weight": 1,
+            "reason": "Senal de promesa, capacidad o discrecion tensionada."
+          }
+        ],
+        "weakens": []
+      },
+      "ablationRootChanges": [
+        {
+          "groupName": "workaround_compensation",
+          "rootAfterRemoval": "N06",
+          "rootAfterHalfWeight": "N10"
+        },
+        {
+          "groupName": "alternative_deviation",
+          "rootAfterRemoval": "N06",
+          "rootAfterHalfWeight": "N10"
+        },
+        {
+          "groupName": "capacity_bargain",
+          "rootAfterRemoval": "N06",
+          "rootAfterHalfWeight": "N06"
+        }
+      ]
+    }
+  ]
+}

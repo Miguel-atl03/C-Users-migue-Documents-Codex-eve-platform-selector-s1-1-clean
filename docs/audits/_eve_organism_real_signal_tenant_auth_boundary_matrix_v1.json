@@ -1,0 +1,103 @@
+{
+  "audit_id": "EVE_ORGANISM_REAL_SIGNAL_BOUNDARY_EVIDENCE_REQUEST_V1",
+  "generated_at": "2026-06-25T02:23:38.498Z",
+  "dictamen": "BOUNDARY_EVIDENCE_PARTIAL_REPLAY_ONLY_CONTINUES",
+  "matrix": [
+    {
+      "boundary_id": "BND-001",
+      "file_path": "src/types/eve-organism-composition-root.ts",
+      "line_number": 93,
+      "line_excerpt": "tenantId: string;",
+      "field_or_check": "tenantId",
+      "boundary_type": "tenant",
+      "applies_to_signal": true,
+      "can_support_observer": "partial",
+      "confidence": "weak",
+      "reason": "Type contract field only; not a real observed signal."
+    },
+    {
+      "boundary_id": "BND-002",
+      "file_path": "src/types/eve-organism-composition-root.ts",
+      "line_number": 94,
+      "line_excerpt": "organizationId: string;",
+      "field_or_check": "organizationId",
+      "boundary_type": "organization",
+      "applies_to_signal": true,
+      "can_support_observer": "partial",
+      "confidence": "weak",
+      "reason": "Type contract field only; not a real observed signal."
+    },
+    {
+      "boundary_id": "BND-003",
+      "file_path": "src/types/eve-organism-composition-root.ts",
+      "line_number": 95,
+      "line_excerpt": "sessionId: string;",
+      "field_or_check": "sessionId",
+      "boundary_type": "tenant",
+      "applies_to_signal": true,
+      "can_support_observer": "partial",
+      "confidence": "partial",
+      "reason": "Appears in command/audit types and product APIs, but no safe real observer signal proves it."
+    },
+    {
+      "boundary_id": "BND-004",
+      "file_path": "src/types/eve-organism-composition-root.ts",
+      "line_number": 96,
+      "line_excerpt": "activityId: string;",
+      "field_or_check": "activityId",
+      "boundary_type": "tenant",
+      "applies_to_signal": true,
+      "can_support_observer": "partial",
+      "confidence": "partial",
+      "reason": "Appears in command/audit types and product APIs, but not as safe real observer evidence."
+    },
+    {
+      "boundary_id": "BND-005",
+      "file_path": "src/lib/session-boundary.ts",
+      "line_number": 42,
+      "line_excerpt": "throw new Error(\"Commercial mode requires an authenticated Supabase user.\");",
+      "field_or_check": "bearer auth required for commercial mode",
+      "boundary_type": "auth",
+      "applies_to_signal": "unknown",
+      "can_support_observer": "partial",
+      "confidence": "partial",
+      "reason": "Auth boundary exists for product requests, but observer read-only boundary is not designed/proven."
+    },
+    {
+      "boundary_id": "BND-006",
+      "file_path": "src/lib/session-boundary.ts",
+      "line_number": 161,
+      "line_excerpt": ".eq(\"usuario_id\", eveUser.user.eveUserId)",
+      "field_or_check": "session owner filter",
+      "boundary_type": "user",
+      "applies_to_signal": "unknown",
+      "can_support_observer": "partial",
+      "confidence": "partial",
+      "reason": "Owner filter is explicit for session access; tenant/org/RLS proof remains incomplete."
+    },
+    {
+      "boundary_id": "BND-007",
+      "file_path": "src/lib/session-boundary.ts",
+      "line_number": 197,
+      "line_excerpt": ".eq(\"usuarios.email\", DEMO_USER_EMAIL)",
+      "field_or_check": "demo session filter",
+      "boundary_type": "user",
+      "applies_to_signal": "unknown",
+      "can_support_observer": "partial",
+      "confidence": "weak",
+      "reason": "Demo filter exists but does not prove production tenant isolation."
+    },
+    {
+      "boundary_id": "BND-008",
+      "file_path": "repo_search",
+      "field_or_check": "RLS/policy",
+      "line_number": null,
+      "line_excerpt": "No RLS policy artifact inspected in allowed paths proved observer-safe read-only behavior.",
+      "boundary_type": "RLS",
+      "applies_to_signal": "unknown",
+      "can_support_observer": false,
+      "confidence": "not_proven",
+      "reason": "No explicit RLS boundary was proven in source files read for this task."
+    }
+  ]
+}

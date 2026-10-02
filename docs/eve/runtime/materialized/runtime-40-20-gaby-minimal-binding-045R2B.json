@@ -1,0 +1,64 @@
+﻿{
+    "metadata":  {
+                     "instruction":  "045-R2B",
+                     "git_root":  "C:/Users/migue/Documents/Catalogo de preguntas y funcionalidad operativa - Implementacion-significado-clean-clone/external-consumers/eve-platform-operational-baseline-c312",
+                     "head":  "8becedf4940b9bd19ec9d9968b9308d34070b555",
+                     "final_classification":  "blocked_gaby_runtime_write_atomicity_gap",
+                     "staging_consulted":  "no",
+                     "staging_writes":  "none",
+                     "production_consulted":  "no",
+                     "remote_writes":  "none",
+                     "code_modified":  [
+
+                                       ],
+                     "sql_modified":  [
+
+                                      ],
+                     "B0_modified":  "no",
+                     "B1_modified":  "no",
+                     "Gaby_modified":  "no",
+                     "commit_created":  "no"
+                 },
+    "observed_client_contract":  {
+                                     "source":  "src/components/SceneQuestionnaireRunner.tsx",
+                                     "sends":  [
+                                                   "sessionId",
+                                                   "sceneId",
+                                                   "activityId",
+                                                   "questionCode",
+                                                   "blockId",
+                                                   "selectedValue",
+                                                   "selectedValues",
+                                                   "freeText",
+                                                   "instrumentVersion",
+                                                   "answerNature",
+                                                   "canonicalVariable"
+                                               ],
+                                     "gap":  [
+                                                 "canonicalVariable still emitted from legacy manifest",
+                                                 "no server-issued Runtime binding prop",
+                                                 "client/local manifest remains question source"
+                                             ]
+                                 },
+    "required_contract":  [
+                              "sessionId",
+                              "sceneId or server-issued scene ref",
+                              "answer values",
+                              "server-issued opaque Runtime refs only when needed"
+                          ],
+    "forbidden_client_authority":  [
+                                       "catalog_version_id",
+                                       "source_node_id",
+                                       "free semantic source_code",
+                                       "capture_slot_kind",
+                                       "source_trace",
+                                       "provenance_type",
+                                       "case_id",
+                                       "tenant_id",
+                                       "organization_id",
+                                       "revision",
+                                       "readiness",
+                                       "canonical_variable"
+                                   ],
+    "status":  "not_materialized_due_atomicity_block"
+}

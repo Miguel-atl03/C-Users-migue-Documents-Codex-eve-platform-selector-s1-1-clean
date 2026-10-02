@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVE — Mapa de trabajo · mock v1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --eve-ink: #12141a;
+        --eve-sheet: #fafbfc;
+        --eve-mist: #7a8190;
+        --eve-line: #d8dce2;
+        --eve-accent: #5c7d8f;
+        --font-display: "Cormorant Garamond", "Times New Roman", serif;
+        --font-code: "IBM Plex Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ebee;
+        color: var(--eve-ink);
+        font-family: var(--font-code);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        position: relative;
+        width: 1440px;
+        height: 1200px;
+        margin: 0 auto;
+        background: var(--eve-sheet);
+        overflow: hidden;
+      }
+
+      .registry {
+        position: absolute;
+        top: 36px;
+        left: 72px;
+        right: 72px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+      }
+
+      .registry-mark {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      .registry-mark sup {
+        font-size: 5px;
+        letter-spacing: 0;
+      }
+
+      .meta {
+        position: absolute;
+        top: 72px;
+        right: 72px;
+        text-align: right;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        line-height: 2;
+      }
+
+      /* Continuidad de hoja: el monumento queda como eco, no como hero de esta sala */
+      .echo {
+        position: absolute;
+        top: 96px;
+        left: 72px;
+        max-width: 340px;
+      }
+
+      .echo-line {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        color: color-mix(in srgb, var(--eve-ink) 42%, var(--eve-mist));
+      }
+
+      .echo-line em {
+        display: block;
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      .echo-sub {
+        margin: 12px 0 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 70%, transparent);
+      }
+
+      .threshold {
+        position: absolute;
+        top: 210px;
+        left: 72px;
+        right: 72px;
+        height: 1px;
+        background: var(--eve-line);
+      }
+
+      .room {
+        position: absolute;
+        top: 236px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-ink) 55%, var(--eve-mist));
+        white-space: nowrap;
+      }
+
+      /* Señal en el void — susurro metodológico, no UI */
+      .signal {
+        position: absolute;
+        top: 292px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 320px;
+        text-align: center;
+        pointer-events: none;
+      }
+
+      .signal-glyph {
+        display: block;
+        width: 11px;
+        height: 11px;
+        margin: 0 auto 14px;
+        image-rendering: pixelated;
+        background:
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 0 0 / 4px 4px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 4px 0 / 4px 4px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 0 4px / 4px 4px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 0 8px / 4px 4px no-repeat,
+          linear-gradient(var(--eve-mist), var(--eve-mist)) 4px 8px / 4px 4px no-repeat;
+        opacity: 0.5;
+      }
+
+      .signal-copy {
+        margin: 0;
+        font-size: 7px;
+        font-weight: 400;
+        letter-spacing: 0.16em;
+        line-height: 1.75;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 68%, transparent);
+      }
+
+      .signal-copy span {
+        display: block;
+      }
+
+      /* Banda 1 — ubicación: islas en el plano, no stack centrado */
+      .band-q {
+        position: absolute;
+        top: 390px;
+        left: 72px;
+        margin: 0;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 36ch;
+      }
+
+      .area {
+        position: absolute;
+        margin: 0;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        color: var(--eve-mist);
+        max-width: 28ch;
+      }
+
+      .area.is-on {
+        color: var(--eve-ink);
+        font-weight: 600;
+      }
+
+      /* Distribución asimétrica — void en el centro */
+      .a1 {
+        top: 440px;
+        left: 72px;
+      }
+      .a2 {
+        top: 440px;
+        left: 380px;
+      }
+      .a3 {
+        top: 440px;
+        right: 320px;
+        text-align: right;
+      }
+      .a4 {
+        top: 440px;
+        right: 72px;
+        text-align: right;
+      }
+
+      .a5 {
+        top: 500px;
+        left: 120px;
+      }
+      .a6 {
+        top: 500px;
+        left: 420px;
+      }
+      .a7 {
+        top: 500px;
+        right: 280px;
+        text-align: right;
+      }
+      .a8 {
+        top: 500px;
+        right: 72px;
+        text-align: right;
+      }
+
+      .a9 {
+        top: 560px;
+        left: 200px;
+      }
+      .a10 {
+        top: 560px;
+        right: 200px;
+        text-align: right;
+      }
+      .a11 {
+        top: 560px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+      }
+
+      .band-line {
+        position: absolute;
+        top: 620px;
+        left: 200px;
+        right: 200px;
+        height: 1px;
+        background: var(--eve-line);
+        opacity: 0.7;
+      }
+
+      /* Banda 2 — responsabilidad como anotación grabada */
+      .resp-band {
+        position: absolute;
+        top: 660px;
+        left: 72px;
+        width: 520px;
+      }
+
+      .resp-q {
+        margin: 0 0 22px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 42ch;
+      }
+
+      .annotation {
+        margin: 0;
+        padding: 0 0 10px;
+        border-bottom: 1px solid var(--eve-ink);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        line-height: 1.5;
+        color: var(--eve-ink);
+        max-width: 48ch;
+      }
+
+      /* Banda 3 — actividades: segunda isla a la derecha */
+      .act-band {
+        position: absolute;
+        top: 660px;
+        right: 72px;
+        width: 520px;
+        text-align: right;
+      }
+
+      .act-q {
+        margin: 0 0 22px 0;
+        margin-left: auto;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: var(--eve-ink);
+        max-width: 36ch;
+      }
+
+      .act-line {
+        margin: 0 0 28px auto;
+        padding: 0 0 10px;
+        border-bottom: 1px solid var(--eve-line);
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        line-height: 1.5;
+        max-width: 46ch;
+        text-align: right;
+      }
+
+      .act-line.is-on {
+        border-bottom-color: var(--eve-ink);
+        color: var(--eve-ink);
+        font-weight: 500;
+      }
+
+      .act-line.is-empty {
+        color: color-mix(in srgb, var(--eve-mist) 75%, transparent);
+        font-weight: 400;
+      }
+
+      .inline-action {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 80%, transparent);
+      }
+
+      /* Segunda área elegida, aún sin grabar — solo marca de presencia */
+      .pending-area {
+        position: absolute;
+        top: 920px;
+        left: 72px;
+        width: 480px;
+      }
+
+      .pending-kicker {
+        margin: 0 0 10px;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 70%, transparent);
+      }
+
+      .pending-q {
+        margin: 0;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        line-height: 1.45;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 88%, var(--eve-ink));
+        max-width: 42ch;
+      }
+
+      .pending-placeholder {
+        margin: 16px 0 0;
+        font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        color: color-mix(in srgb, var(--eve-mist) 70%, transparent);
+        max-width: 42ch;
+      }
+
+      .pending-line {
+        margin: 10px 0 0;
+        width: 320px;
+        height: 1px;
+        background: var(--eve-line);
+      }
+
+      .trace {
+        position: absolute;
+        bottom: 56px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 0;
+        border-bottom: 1px solid color-mix(in srgb, var(--eve-mist) 55%, var(--eve-line));
+        background: transparent;
+        color: color-mix(in srgb, var(--eve-mist) 80%, transparent);
+        font-family: var(--font-code);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 0 0 5px;
+      }
+
+      .status-whisper {
+        position: absolute;
+        bottom: 88px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        width: min(520px, 70%);
+        text-align: center;
+        font-size: 8px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        line-height: 1.55;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 72%, transparent);
+      }
+
+      .proposal-tag {
+        position: absolute;
+        bottom: 18px;
+        left: 72px;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--eve-mist) 55%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="screen" aria-label="Mock — Mapa de trabajo · parcialmente lleno">
+      <header class="registry">
+        <span class="registry-mark">EVE<sup>™</sup></span>
+        <span>Strategic &amp; Operational Architecture / Enterprise Viability Engine</span>
+      </header>
+
+      <div class="echo" aria-hidden="true">
+        <p class="echo-line">
+          Lo que sostiene
+          <em>no siempre se ve.</em>
+        </p>
+        <p class="echo-sub">Una forma distinta de mirar.</p>
+      </div>
+
+      <div class="meta">
+        <span>Hola.</span><br />
+        <span>Cerrar sesión</span>
+      </div>
+
+      <div class="threshold" aria-hidden="true"></div>
+
+      <p class="room">[ Mapa de tu trabajo ]</p>
+
+      <aside class="signal" aria-hidden="true">
+        <span class="signal-glyph"></span>
+        <p class="signal-copy">
+          <span>No buscamos tu departamento formal.</span>
+          <span>Buscamos en qué parte de la operación</span>
+          <span>tu trabajo realmente interviene.</span>
+        </p>
+      </aside>
+
+      <!-- Banda ubicación — copy oficial -->
+      <p class="band-q">¿Dónde participa tu trabajo?</p>
+
+      <p class="area a1 is-on">Operaciones / Producción</p>
+      <p class="area a2">I+D / Innovación</p>
+      <p class="area a3">Logística / Entrega</p>
+      <p class="area a4 is-on">Ventas / Comercial</p>
+
+      <p class="area a5">Gestión de Talento (RRHH)</p>
+      <p class="area a6">Finanzas y Tesorería</p>
+      <p class="area a7">Tecnología e Infraestructura</p>
+      <p class="area a8">Administración / Legal</p>
+
+      <p class="area a9">Marketing Estratégico</p>
+      <p class="area a10">Planeación y Estrategia</p>
+      <p class="area a11">Otra área</p>
+
+      <div class="band-line" aria-hidden="true"></div>
+
+      <!-- Banda responsabilidad — área activa parcialmente grabada -->
+      <section class="resp-band">
+        <p class="resp-q">De qué respondes en Operaciones / Producción</p>
+        <p class="annotation">
+          Asegurar que la línea de ensamble cumpla el plan diario de producción sin detener entregas.
+        </p>
+      </section>
+
+      <!-- Banda actividades — una marcada, una pendiente -->
+      <section class="act-band">
+        <p class="act-q">Qué haces para cumplirlo</p>
+        <p class="act-line is-on">
+          1. Revisar el tablero de órdenes y liberar la secuencia del turno.
+        </p>
+        <p class="act-line is-empty">
+          2. Redacta una actividad concreta de tu trabajo
+        </p>
+        <p class="inline-action">+ Agregar otra actividad</p>
+      </section>
+
+      <!-- Segunda área elegida: presente, aún sin anotación (solo copy oficial) -->
+      <section class="pending-area">
+        <p class="pending-kicker">Ventas / Comercial</p>
+        <p class="pending-q">De qué respondes en Ventas / Comercial</p>
+        <p class="pending-placeholder">Describe la responsabilidad principal</p>
+        <div class="pending-line" aria-hidden="true"></div>
+      </section>
+
+      <p class="status-whisper">
+        Escribe al menos una responsabilidad y dos actividades por cada área elegida.
+      </p>
+
+      <button class="trace" type="button">Guardar</button>
+      <p class="proposal-tag">Mock v1 · mapa de trabajo · parcialmente llena · copy oficial</p>
+    </section>
+  </body>
+</html>

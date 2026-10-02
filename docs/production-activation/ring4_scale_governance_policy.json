@@ -1,0 +1,91 @@
+{
+  "dictamen": "EVE_PRODUCTION_ACTIVATION_RING4_SCALE_GOVERNANCE_POLICY",
+  "generated_at": "2026-07-09T07:48:00.000Z",
+  "authorization_ref": "ring4-authorization-expanded-production-scale-governance-20260709",
+  "ring": 4,
+  "ring_name": "expanded_production_scale_governance",
+  "version": "1.0.0",
+  "gradual_scale_required": true,
+  "traffic_ramp_required": true,
+  "tenant_ramp_required": true,
+  "case_ramp_required": true,
+  "error_budget_required": true,
+  "slo_required": true,
+  "rollback_threshold_required": true,
+  "abort_threshold_required": true,
+  "manual_override_requires_audit": true,
+  "gate_over_chip_required": true,
+  "no_unsupervised_diagnosis": true,
+  "no_external_export_without_readiness_and_authority": true,
+  "governance_principles": [
+    {
+      "id": "R4-SG-01",
+      "principle": "scale_only_after_ring3_controlled_production_accepted",
+      "mandatory": true,
+      "ring3_precedent": true
+    },
+    {
+      "id": "R4-SG-02",
+      "principle": "phased_expansion_with_documented_ramp_plan",
+      "mandatory": true
+    },
+    {
+      "id": "R4-SG-03",
+      "principle": "error_budget_consumption_triggers_scale_pause",
+      "mandatory": true
+    },
+    {
+      "id": "R4-SG-04",
+      "principle": "slo_breach_triggers_rollback_evaluation",
+      "mandatory": true
+    },
+    {
+      "id": "R4-SG-05",
+      "principle": "human_authorization_required_for_each_scale_phase",
+      "mandatory": true
+    },
+    {
+      "id": "R4-SG-06",
+      "principle": "consultant_review_required_before_scale_phase",
+      "mandatory": true
+    },
+    {
+      "id": "R4-SG-07",
+      "principle": "no_go_clean_required_before_scale_up",
+      "mandatory": true
+    },
+    {
+      "id": "R4-SG-08",
+      "principle": "observability_green_required_before_scale_up",
+      "mandatory": true
+    },
+    {
+      "id": "R4-SG-09",
+      "principle": "manual_override_requires_audit_trail",
+      "mandatory": true
+    },
+    {
+      "id": "R4-SG-10",
+      "principle": "gate_over_chip_enforced_for_all_scale_decisions",
+      "mandatory": true
+    }
+  ],
+  "ring3_baseline": {
+    "ring3_closeout_ref": "docs/production-activation/ring3_controlled_production_execution_closeout.md",
+    "ring3_no_go_clean": true,
+    "ring3_execution_completed": true,
+    "controlled_production_scope_created": true,
+    "rollback_drill_passed": true,
+    "abort_drill_passed": true,
+    "observability_passed": true
+  },
+  "mba_constraints": {
+    "b3_c09_evidence_route_required": true,
+    "b7_no_diagnosis_ir_registry_export": true,
+    "no_causal_jump_capture_to_diagnosis": true,
+    "outputs_as_object_state": true
+  },
+  "activation_allowed_general_production": false,
+  "qa_green_real_general_created": false,
+  "public_broad_access_enabled": false
+}

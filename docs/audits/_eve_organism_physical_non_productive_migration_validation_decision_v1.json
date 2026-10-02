@@ -1,0 +1,48 @@
+{
+  "dictamen": "PHYSICAL_NON_PRODUCTIVE_MIGRATION_VALIDATION_DECISION_DECIDED_PLAN_DESIGN",
+  "base_observer_plan_commit": "b9b14910242ed453a6450a362d3c88c9d29a251d",
+  "selected_option": {
+    "id": "OPTION_A",
+    "name": "DESIGN_PHYSICAL_NON_PRODUCTIVE_MIGRATION_VALIDATION_PLAN_V1",
+    "reason": "Physical non-productive migration validation is required before observer creation, but the validation plan can be designed without executing migration, modifying SQL, connecting DB/Supabase, creating observer, or connecting real source."
+  },
+  "decision": {
+    "physical_validation_plan_design_allowed": true,
+    "physical_validation_execution_allowed": false,
+    "migration_execution_allowed": false,
+    "sql_modification_allowed": false,
+    "db_connection_allowed_now": false,
+    "supabase_connection_allowed_now": false,
+    "observer_creation_allowed": false,
+    "source_connection_allowed": false,
+    "real_table_read_allowed": false
+  },
+  "migration": {
+    "migration_file": "sql/migrations/2026-06-28-add_shadow_outcome_to_shadow_only_outbox_events.sql",
+    "migration_file_available": true,
+    "migration_executed": false,
+    "sql_modified": false
+  },
+  "authority": {
+    "db_connected": false,
+    "supabase_connected": false,
+    "source_connected": false,
+    "real_table_read": false,
+    "observer_created": false,
+    "gate2_real_shadow_closed": false,
+    "gate3_ready": false,
+    "fase9_started": false,
+    "registry_written": false,
+    "export_generated": false,
+    "diagnosis_enabled": false
+  },
+  "remaining_gaps": [
+    {
+      "id": "physical_non_productive_migration_validation_not_executed",
+      "severity": "high",
+      "status": "open_blocks_observer_creation_not_plan"
+    }
+  ],
+  "blockers": [],
+  "next_step": "DESIGN_PHYSICAL_NON_PRODUCTIVE_MIGRATION_VALIDATION_PLAN_V1"
+}

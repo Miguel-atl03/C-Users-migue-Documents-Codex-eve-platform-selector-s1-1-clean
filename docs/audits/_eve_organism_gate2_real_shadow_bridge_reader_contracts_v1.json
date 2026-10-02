@@ -1,0 +1,78 @@
+{
+  "contracts_id": "EVE_ORGANISM_GATE2_REAL_SHADOW_BRIDGE_READER_CONTRACTS_V1",
+  "contracts": {
+    "ShadowOutboxReaderContract": {
+      "required_read_fields_total": 29,
+      "required_read_fields": [
+        "outbox_event_id",
+        "tenant_id",
+        "session_id",
+        "activity_id",
+        "actor_ref",
+        "source_event_id",
+        "source_system",
+        "source_environment",
+        "source_locator",
+        "real_client_intent",
+        "real_tenant_context",
+        "real_session_context",
+        "real_activity_context",
+        "real_runtime_event",
+        "real_evidence_signal",
+        "official_outcome",
+        "provenance",
+        "source_trace",
+        "correlation_id",
+        "idempotency_key",
+        "official_flow_ref",
+        "redaction_status",
+        "data_minimization_attestation",
+        "payload_hash",
+        "checksum_chain_ref",
+        "replay_ref",
+        "event_status",
+        "schema_version",
+        "contract_version"
+      ],
+      "rules": [
+        "missing tenant/session/activity: reject",
+        "missing provenance/sourceTrace: reject",
+        "missing correlation/idempotency: reject",
+        "missing officialOutcome: reject",
+        "redaction_status unknown: reject",
+        "data_minimization false: reject",
+        "event_status not accepted_for_shadow_outbox: reject unless governance review",
+        "checksum mismatch: quarantine",
+        "replay_ref missing: reject"
+      ]
+    },
+    "BridgeReaderResult": {
+      "fields": [
+        "accepted",
+        "rejected",
+        "rejection_reason",
+        "outbox_event_id",
+        "correlation_id",
+        "idempotency_key",
+        "tenant_id",
+        "session_id",
+        "activity_id",
+        "shadowEvaluation_ref",
+        "shadowGateDecision_ref",
+        "shadowCandidateArtifact_ref",
+        "shadowGovernanceFinding_ref",
+        "shadowDivergenceReport_ref",
+        "s3_star_review_required",
+        "algedonic_alert_ref",
+        "produced_side_effects",
+        "grants_authority",
+        "closes_gate3",
+        "closes_exit_condition"
+      ],
+      "produced_side_effects": false,
+      "grants_authority": false,
+      "closes_gate3": false,
+      "closes_exit_condition": false
+    }
+  }
+}
