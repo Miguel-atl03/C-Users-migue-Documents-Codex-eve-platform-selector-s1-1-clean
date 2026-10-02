@@ -1,0 +1,12 @@
+alter table eve_pr3.a_i_operation add column if not exists provider_ref text;
+alter table eve_pr3.a_i_operation add column if not exists model_id text;
+alter table eve_pr3.a_i_operation add column if not exists model_version text;
+alter table eve_pr3.a_i_operation add column if not exists prompt_profile_ref text;
+alter table eve_pr3.a_i_operation add column if not exists prompt_profile_revision text;
+alter table eve_pr3.a_i_operation add column if not exists response_schema_ref text;
+alter table eve_pr3.a_i_operation add column if not exists instructions_sha256 text;
+alter table eve_pr3.a_i_operation add column if not exists input_payload_sha256 text;
+alter table eve_pr3.a_i_operation add column if not exists provider_request_id text;
+alter table eve_pr3.a_i_operation add column if not exists usage jsonb;
+alter table eve_pr3.a_i_operation add column if not exists completed_at timestamptz;
+alter table eve_pr3.a_i_operation add column if not exists failure_code text;
