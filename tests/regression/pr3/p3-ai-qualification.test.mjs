@@ -40,3 +40,10 @@ test("P3 uses different generator/evaluator candidate configurations without cla
  assert.equal(plan.evaluator_candidate_configuration.provider_ref,plan.generator_configuration.provider_ref);
  assert.match(plan.qualification_dimensions.evaluator_candidate_evidence.join(" "),/same provider/);
 });
+
+
+test("P3 candidate evaluator cannot self-authorize live semantic findings",()=>{
+ assert.equal(plan.evaluator_candidate_configuration.live_finding_authority,"FINDING_ONLY_UNTIL_REFERENCE_OR_A10_ADJUDICATION");
+ assert.match(plan.evaluator_candidate_configuration.circularity_guard,/cannot make its own live FAIL\/HOLD result an authoritative hard falsifier/i);
+ assert.equal(plan.execution_boundaries.no_a10_promotion,true);
+});
