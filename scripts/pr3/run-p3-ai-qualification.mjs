@@ -180,8 +180,7 @@ async function main(){
     case_id:row.fixture_id,object_key:"REFERENCE_BANK",criterion_scope:[criterion],
     source_context:{fixture_class:fixture,synthetic:true},
     governed_intent:{criterion,reference_bank:"EVALUATOR-REFERENCE-QUALIFICATION-BANK-v0.2.1"},
-    proposal_or_fixture:{fixture_text:fixture,not_product_model_output:true},
-    reference_judgment:expected
+    proposal_or_fixture:{fixture_text:fixture,not_product_model_output:true}
    });
    const observed=review.result.results.find(x=>x.criterion_id===criterion)?.outcome??"UNKNOWN";
    row.observed=observed;row.agreement=observed===expected;
