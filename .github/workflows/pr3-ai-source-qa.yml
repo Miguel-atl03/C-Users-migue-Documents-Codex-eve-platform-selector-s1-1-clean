@@ -1,0 +1,47 @@
+name: PR3 AI Source QA
+
+on:
+  push:
+    branches:
+      - pr3-pilot
+    paths:
+      - "src/services/eve/pr3/ai/**"
+      - "pr3/authority/**"
+      - "scripts/pr3/**"
+      - "tests/regression/pr3/**"
+      - "package.json"
+      - ".github/workflows/pr3-ai-source-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ai-source-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_PUBLIC_EVE_PR3_PILOT_ENABLED: "false"
+      NEXT_PUBLIC_EVE_PR3_SUPABASE_URL: "https://keqrkyumfyhfivllvdbl.supabase.co"
+      NEXT_PUBLIC_EVE_PR3_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_ci_noncredential_placeholder"
+      EVE_PR3_EXPECTED_PROJECT_REF: "keqrkyumfyhfivllvdbl"
+      EVE_PR3_PILOT_AUTH_MODE: "disabled"
+      EVE_PR3_RUNTIME_ADAPTER: "blocked"
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install reproducibly
+        run: npm ci --no-audit --no-fund
+      - name: Typecheck
+        run: npm run typecheck
+      - name: PR3 regression suite
+        run: npm run test:pr3
+      - name: Scoped AI lint
+        run: npx eslint src/services/eve/pr3/ai scripts/pr3/run-p3-ai-qualification.mjs tests/regression/pr3/a08-b0-ai.test.mjs tests/regression/pr3/a09-b2-ai.test.mjs tests/regression/pr3/a08-a09-ai-adapters.test.mjs tests/regression/pr3/p3-ai-qualification.test.mjs
+      - name: Production build
+        run: npm run build
