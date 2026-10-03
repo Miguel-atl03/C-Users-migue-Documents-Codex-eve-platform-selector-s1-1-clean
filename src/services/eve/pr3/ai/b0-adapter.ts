@@ -44,7 +44,7 @@ export class B0ProductionAiAdapter{
 
   const base:AioRecord={
    ai_operation_id:identity.record_id,object_run_id:input.object_run_id,interaction_key:input.interaction_key,operation:"render",
-   profile_ref:`${B0_PROFILE_ID}@${B0_PROFILE_REVISION}`,intent_ref:intentRef(input),context_revision:req.observation_context_revision,context_sources:req.context_sources,
+   profile_ref:B0_PROFILE_ID,intent_ref:intentRef(input),context_revision:req.observation_context_revision,context_sources:req.context_sources,
    generator_ref:generatorRef(),status:"requested",requested_at:input.requested_at,provider_ref:B0_AI_PROVIDER_REF,model_id:B0_AI_MODEL_ID,model_version:B0_AI_MODEL_ID,
    prompt_profile_ref:B0_PROMPT_PROFILE_REF,prompt_profile_revision:B0_PROMPT_PROFILE_REVISION,response_schema_ref:B0_RESPONSE_SCHEMA_REF,
    instructions_sha256:b0InstructionsSha256(),input_payload_sha256:b0InputSha256(req),provider_request_id:null,usage:null,completed_at:null,failure_code:null
