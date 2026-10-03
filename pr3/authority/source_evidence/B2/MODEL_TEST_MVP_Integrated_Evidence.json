@@ -1,0 +1,33 @@
+{
+  "evidence_id": "B2-MODEL-TEST-MVP-INTEGRATED-v0.2.2",
+  "generated_at_utc": "2026-09-29T22:23:56.408383+00:00",
+  "source_model_test_mvp": {
+    "path": "evidence/baselines/MODEL_TEST_MVP_Evidence.json",
+    "sha256": "9d7df9583b5d0a42ce146dc2546781131efa5a007c2e0bc59c24b42acf887b15",
+    "prior_verdict": "PASS_WITH_RESTRICTIONS",
+    "policy": "Preserve prior MODEL_TEST_MVP result; this run tests runtime integration of its decisions, not a new model-quality design."
+  },
+  "runtime": "eve_capture_runtime_mvp_v0_2_2",
+  "evaluator_stub_id": "EVAL-B2-MVP-STUB-v0.1",
+  "cases": [
+    {"fixture_id":"A","fixture":"narrativa simple → render contextual útil","prior_human_judgment":"PASS","prior_final_runtime_action":"ADMIT","runtime_bound_interaction":"B2-Q12","runtime_bound_target_id":"transformation_primary_dimensions","proposal_action":"propose","integrated_observed_action":"ADMIT","presentation_count":1,"evidence_count_after_gate_before_user_response":0,"runtime_slots_before_ai":1,"runtime_slots_after_gate":1,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"B","fixture":"no entity → no presupone entidad","prior_human_judgment":"PASS","prior_final_runtime_action":"ADMIT","runtime_bound_interaction":"B2-Q12","runtime_bound_target_id":"transformation_primary_dimensions","proposal_action":"propose","integrated_observed_action":"ADMIT","presentation_count":1,"evidence_count_after_gate_before_user_response":0,"runtime_slots_before_ai":1,"runtime_slots_after_gate":1,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"C","fixture":"multiple dimensions → no fuerza clasificación","prior_human_judgment":"PASS","prior_final_runtime_action":"ADMIT","runtime_bound_interaction":"B2-Q12","runtime_bound_target_id":"transformation_primary_dimensions","proposal_action":"propose","integrated_observed_action":"ADMIT","presentation_count":1,"evidence_count_after_gate_before_user_response":0,"runtime_slots_before_ai":1,"runtime_slots_after_gate":1,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"D","fixture":"unknown → permite desconocimiento","prior_human_judgment":"PASS","prior_final_runtime_action":"ADMIT","runtime_bound_interaction":"B2-Q16","runtime_bound_target_id":"transformation_magnitude","proposal_action":"propose","integrated_observed_action":"ADMIT","presentation_count":1,"evidence_count_after_gate_before_user_response":7,"runtime_slots_before_ai":5,"runtime_slots_after_gate":5,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"E","fixture":"candidate propio → no lo usa como premisa","prior_human_judgment":"PASS","prior_final_runtime_action":"ADMIT","runtime_bound_interaction":"B2-Q12","runtime_bound_target_id":"transformation_primary_dimensions","proposal_action":"propose","integrated_observed_action":"ADMIT","presentation_count":1,"evidence_count_after_gate_before_user_response":0,"runtime_slots_before_ai":1,"runtime_slots_after_gate":1,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"F","fixture":"knowledge outside role → no exige saberlo","prior_human_judgment":"PASS","prior_final_runtime_action":"ADMIT","runtime_bound_interaction":"B2-Q15","runtime_bound_target_id":"transformation_state_final","proposal_action":"propose","integrated_observed_action":"ADMIT","presentation_count":1,"evidence_count_after_gate_before_user_response":5,"runtime_slots_before_ai":4,"runtime_slots_after_gate":4,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"G","fixture":"unsupported specificity → neutraliza","prior_human_judgment":"PASS","prior_final_runtime_action":"ADMIT","runtime_bound_interaction":"B2-Q16","runtime_bound_target_id":"transformation_magnitude","proposal_action":"propose","integrated_observed_action":"ADMIT","presentation_count":1,"evidence_count_after_gate_before_user_response":7,"runtime_slots_before_ai":5,"runtime_slots_after_gate":5,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"H","fixture":"stale context → propuesta no se usa","prior_human_judgment":"PASS","prior_final_runtime_action":"REGENERATE_LATEST_CONTEXT","runtime_bound_interaction":"B2-Q12","runtime_bound_target_id":"transformation_primary_dimensions","proposal_action":"propose","integrated_observed_action":"REGENERATE_LATEST_CONTEXT","presentation_count":0,"evidence_count_after_gate_before_user_response":0,"runtime_slots_before_ai":1,"runtime_slots_after_gate":1,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"I","fixture":"K2 → no fuerza ranking","prior_human_judgment":"PASS","prior_final_runtime_action":"HOLD","runtime_bound_interaction":"C04","runtime_bound_target_id":"dimension_dominante_AB","proposal_action":"abstain","integrated_observed_action":"HOLD","presentation_count":0,"evidence_count_after_gate_before_user_response":13,"runtime_slots_before_ai":7,"runtime_slots_after_gate":7,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"J","fixture":"exception → no inventa falla","prior_human_judgment":"PASS","prior_final_runtime_action":"ADMIT","runtime_bound_interaction":"C05","runtime_bound_target_id":"transformation_exception_description","proposal_action":"propose","integrated_observed_action":"ADMIT","presentation_count":1,"evidence_count_after_gate_before_user_response":11,"runtime_slots_before_ai":7,"runtime_slots_after_gate":7,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"K","fixture":"hidden change → no presupone informalidad","prior_human_judgment":"PASS","prior_final_runtime_action":"ADMIT","runtime_bound_interaction":"C06","runtime_bound_target_id":"transformation_hidden_changes_description","proposal_action":"propose","integrated_observed_action":"ADMIT","presentation_count":1,"evidence_count_after_gate_before_user_response":11,"runtime_slots_before_ai":7,"runtime_slots_after_gate":7,"no_new_runtime_slot":true,"result":"PASS"},
+    {"fixture_id":"L","fixture":"abstention → fallback/HOLD correcto","prior_human_judgment":"PASS","prior_final_runtime_action":"HOLD","runtime_bound_interaction":"C04","runtime_bound_target_id":"dimension_dominante_AB","proposal_action":"abstain","integrated_observed_action":"HOLD","presentation_count":0,"evidence_count_after_gate_before_user_response":13,"runtime_slots_before_ai":7,"runtime_slots_after_gate":7,"no_new_runtime_slot":true,"result":"PASS"}
+  ],
+  "summary":{"passed":12,"total":12,"failed":0},
+  "verdict":{
+    "MODEL_TEST_MVP_INTEGRATED":"PASS_WITH_RESTRICTIONS",
+    "MODEL_TEST_MVP":"PASS_WITH_RESTRICTIONS",
+    "restriction":"Manual Human Gate remains MVP authority; INDEPENDENT_TEST not executed.",
+    "B2_PROMOTION":"HOLD"
+  }
+}
