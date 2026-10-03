@@ -81,23 +81,27 @@ const b2Cases=[
 
 function b2Request(c){
  const source=evidenceSource(`P3-B2-${c.id}-E1`,c.literal,1);
+ const spec=b2.B2_TARGETS[c.target];
+ const runtimeRef=Object.entries(b2.B2_RUNTIME_BINDINGS).find(([,binding])=>binding.intent_refs.some((ref)=>ref.includes(`::${spec.question_code} ·`)))?.[0];
+ if(!runtimeRef) throw new Error(`P3_B2_RUNTIME_BINDING_MISSING:${c.target}`);
+ const runtimeBinding=b2.B2_RUNTIME_BINDINGS[runtimeRef];
  return {
   request_id:`p3-b2-${c.id}`,
   profile_ref:"EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",
   operation:c.operation,
   scope:{case_id:`P3-CASE-${c.id}`,activity_id:`P3-ACT-${c.id}`},
   target_ids:[c.target],
-  canonical_anchor_ref:b2.B2_TARGETS[c.target].question_code,
+  canonical_anchor_ref:runtimeRef,
   context_revision:c.context_revision,
   context_sources:[source],
   gaps:[],
   operation_limits:{max_questions_per_proposal:2,max_semantic_candidates:8},
-  fallback_ref:{policy:"SAFE_CANONICAL_FALLBACK_OR_HOLD"},
+  fallback_ref:"Resolve per-subfield fallback policy; activation != fallback_eligibility != presentation.",
   review_policy_ref:"B2-RP-AI-PROPOSAL-G1.1",
-  normative_context_ref:`P3-INTENT-${c.id}`,
-  observational_context_ref:`P3-OBS-${c.id}`,
+  normative_context_ref:runtimeBinding.intent_refs[0],
+  observational_context_ref:runtimeBinding.cluster_refs[0],
   generator_ref:"P3:gpt-6-luna",
-  context_policy_ref:"P3-REFERENCE-CONTEXT-v1"
+  context_policy_ref:"B2-CONTEXT-POLICY-G1.1"
  };
 }
 
