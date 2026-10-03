@@ -1,6 +1,6 @@
 {
   "artifact_id": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.0",
-  "state": "SOURCE_IMPLEMENTED__P3_REAL_MODEL_QUALIFICATION_PENDING",
+  "state": "SOURCE_IMPLEMENTED__P3_REAL_MODEL_QUALIFICATION_PENDING__RENDER_AND_INTERNAL_ROUTING",
   "authority": {
     "prompt": "PROMPT PR3 v1.2.1",
     "ai_architecture": "EVE-C1-IA-ARQUITECTURA-TRANSVERSAL-1.2.1",
@@ -35,7 +35,12 @@
     "timeout_ms": 20000,
     "max_output_tokens": 1400,
     "max_transport_retries": 1,
-    "qualification_state": "PENDING_P3"
+    "qualification_state": "PENDING_P3",
+    "authorized_operations": [
+      "render",
+      "classify_genericity",
+      "classify_scale"
+    ]
   },
   "b0_contract_projection": {
     "operation": "render",
@@ -74,7 +79,10 @@
     "unknown/unconfirmed is preserved; abstention routes to canonical safe fallback/hold.",
     "AI cannot decide branching, readiness, business truth, handoff, VSM diagnosis, AHE diagnosis, or MMABP fact creation.",
     "Every support reference in a proposal must resolve to an authorized context_source evidence_id.",
-    "Context revision mismatch stales the proposal; no silent rebasing."
+    "Context revision mismatch stales the proposal; no silent rebasing.",
+    "B0 classify_genericity and classify_scale are internal routing assessments only; neither creates captured_user_evidence nor business truth.",
+    "B0 classify_scale cannot close TRAVERSABLE_ACTIVITY without valid support bound to the exact semantic anchor/context request.",
+    "B0 abstention in classify_scale always degrades to SCALE_UNKNOWN regardless of contradictory status payload."
   ],
   "does_not_authorize": [
     "B0 semantic change",
@@ -92,6 +100,64 @@
     "adapter_module": "src/services/eve/pr3/ai/b0-adapter.ts",
     "conformance_test": "tests/regression/pr3/a08-b0-ai.test.mjs",
     "runtime_activation": "NOT_AUTHORIZED_BY_A08",
-    "live_model_calls": "NOT_EXECUTED_IN_A08"
+    "live_model_calls": "NOT_EXECUTED_IN_A08",
+    "routing_provider_module": "src/services/eve/pr3/ai/b0-routing.ts",
+    "routing_operations": [
+      "classify_genericity",
+      "classify_scale"
+    ]
+  },
+  "internal_routing_operations": {
+    "classify_genericity": {
+      "authority": "promoted B0 Cognitive Adapter routing only; not business evidence",
+      "decision_contract": {
+        "purpose": "routing_control_only_not_business_evidence",
+        "decision_rule": "Classify whether the confirmed/corrected activity label remains too generic to distinguish this activity from similar ones. If materially ambiguous, return GENERICITY_UNKNOWN."
+      },
+      "output": {
+        "genericity_status": [
+          "SPECIFIC_ACTIVITY",
+          "GENERIC_ACTIVITY",
+          "GENERICITY_UNKNOWN"
+        ],
+        "evidence_refs": "authorized_evidence keys only",
+        "brief_reason": "short structural-semantic reason"
+      },
+      "safe_fallback": "MODEL_UNAVAILABLE|invalid|abstention/no admissible output => GENERICITY_UNKNOWN",
+      "user_evidence_authority": false
+    },
+    "classify_scale": {
+      "authority": "promoted B0 C6 Cognitive Adapter semantic routing only; internal_routing_assessment, not business evidence",
+      "target_id": "C6_scale_assessment",
+      "states": [
+        "TRAVERSABLE_ACTIVITY",
+        "MACROPROCESS_TOO_BROAD",
+        "MICROACTION_TOO_NARROW",
+        "SCALE_UNKNOWN"
+      ],
+      "systemic_distinction": "STRUCTURAL_COMPLETENESS != OPERATIONAL_SCALE",
+      "request_binding_required": [
+        "request_id",
+        "context_revision",
+        "anchor_fingerprint",
+        "target_id",
+        "authorized_evidence",
+        "decision_contract"
+      ],
+      "response_binding_required": [
+        "action",
+        "scale_status",
+        "evidence_refs",
+        "brief_reason",
+        "request_id",
+        "context_revision",
+        "anchor_fingerprint",
+        "target_id"
+      ],
+      "positive_support_rule": "TRAVERSABLE_ACTIVITY requires non-empty evidence_refs and every ref must resolve to non-empty authorized_evidence.",
+      "abstention_precedence": "action=abstain => effective SCALE_UNKNOWN regardless of scale_status payload",
+      "safe_fallback": "MODEL_UNAVAILABLE|invalid schema|binding/support reject|abstain|semantic uncertainty => SCALE_UNKNOWN -> 0.C",
+      "user_evidence_authority": false
+    }
   }
 }
