@@ -5,8 +5,8 @@ import test from "node:test";
 
 const root=path.resolve(import.meta.dirname,"../../..");
 const a10=JSON.parse(fs.readFileSync(path.join(root,"pr3/authority/A10_PR3_EVALUATOR_AUTHORITY_DETERMINATION_PROCEDURE_v1_0.json"),"utf8"));
-const p3=JSON.parse(fs.readFileSync(path.join(root,"pr3/authority/P3_PR3_PRODUCTION_AI_QUALIFICATION_PLAN_v1_0.json"),"utf8");
-const candidate=JSON.parse(fs.readFileSync(path.join(root,"pr3/authority/source_evidence/B2/EvaluatorAuthorityRecord_CANDIDATE.json"),"utf8");
+const p3=JSON.parse(fs.readFileSync(path.join(root,"pr3/authority/P3_PR3_PRODUCTION_AI_QUALIFICATION_PLAN_v1_0.json"),"utf8"));
+const candidate=JSON.parse(fs.readFileSync(path.join(root,"pr3/authority/source_evidence/B2/EvaluatorAuthorityRecord_CANDIDATE.json"),"utf8"));
 
 test("A10 preserves candidate scope and does not self-authorize",()=>{
  assert.equal(a10.current_determination,"NOT_READY__P3_REAL_MODEL_EVIDENCE_NOT_YET_PRESENT");
