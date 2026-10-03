@@ -100,7 +100,7 @@ test("A09 deterministic target causes zero provider calls and zero AI records",a
  };
  const result=await adapter.execute(input);
  assert.equal(result.status,"safe_fallback");
- assert.match(result.reason,/a09_deterministic_target_forbids_model/);
+ assert.match(result.reason,/DETERMINISTIC_ONLY_NO_MODEL_CALL/);
  assert.equal(calls,0);
  assert.equal(store.operations.size,0);
  assert.equal(store.proposals.size,0);
@@ -229,4 +229,48 @@ test("A08 routing rejects observation/context mismatch before any provider autho
   output_schema:{status:["SPECIFIC_ACTIVITY","GENERIC_ACTIVITY","GENERICITY_UNKNOWN"],evidence_refs:"list",brief_reason:"string"},
   authority:"ai_semantic_routing_control_not_business_evidence"
  }),/B0_ROUTING_REQUEST_CONTEXT_MISMATCH/);
+});
+
+
+test("A09 mixed Runtime interaction filters deterministic target out of provider payload",async()=>{
+ const {MemoryPr3AiStore}=svc("ai/store.ts");
+ const {B2ProductionAiAdapter}=svc("ai/b2-adapter.ts");
+ const store=new MemoryPr3AiStore();
+ let calls=0, seenTargets=null;
+ const literal="El ajuste cambia bastante el resultado, pero no tengo una medida exacta.";
+ const quote="cambia bastante";
+ const start=Array.from(literal.slice(0,literal.indexOf(quote))).length;
+ const end=start+Array.from(quote).length;
+ const provider={async propose(req){
+  calls++;seenTargets=[...req.target_ids];
+  assert.deepEqual(req.target_ids,["transformation_magnitude"]);
+  return {
+   provider_ref:"openai.responses.v1",provider_request_id:"resp-mixed",model_id:"gpt-6-luna",model_version:"gpt-6-luna",usage:null,
+   proposal:{
+    request_id:req.request_id,context_revision:req.context_revision,systemic_intent_ref:req.normative_context_ref,observation_context_ref:req.observational_context_ref,action:"propose",
+    questions:[{target_id:"transformation_magnitude",text:"Cuando haces esta actividad, ¿qué tanto cambia lo principal con respecto a cómo llegó?",supports:[{evidence_id:"E-MIX-1",revision:1,start,end,quote}],neutral:true}],
+    candidates:[],issues:[],
+    reflexive_receipt:{evidence_used_refs:["E-MIX-1"],assumptions_added:[],material_alternatives:[],presupposition_confirmation_risks:[],observer_scope_control:"within_role_scope",specificity_action:"contextualize",remaining_gaps:[]}
+   }
+  };
+ }};
+ const adapter=new B2ProductionAiAdapter(store,provider);
+ const input={
+  object_run_id:"or-b2-mixed",interaction_key:"ii-b2-mixed",server_command_event_id:"srv-b2-mixed",requested_at:"2026-10-03T03:14:00.000000Z",
+  b2_request:{
+   request_id:"req-b2-mixed",profile_ref:"EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",operation:"render",
+   scope:{case_id:"CASE-MIX",activity_id:"ACT-MIX"},target_ids:["transformation_magnitude","transformation_iterations"],canonical_anchor_ref:"B2-Q16",context_revision:"ctx-mix-r1",
+   context_sources:[{evidence_id:"E-MIX-1",revision:1,literal,epistemic_class:"synthetic_reference_literal"}],gaps:[],
+   operation_limits:{max_questions_per_proposal:2,max_semantic_candidates:8},fallback_ref:"Resolve per-subfield fallback policy; activation != fallback_eligibility != presentation.",
+   review_policy_ref:"B2-RP-AI-PROPOSAL-G1.1",normative_context_ref:"B2-SIE-K3-v0.8C::2.3 · normativo; nunca evidence_context.",observational_context_ref:"K3"
+  }
+ };
+ const result=await adapter.execute(input);
+ assert.equal(result.status,"waiting_review");
+ assert.equal(calls,1);
+ assert.deepEqual(seenTargets,["transformation_magnitude"]);
+ assert.equal(store.operations.size,1);
+ assert.equal(store.proposals.size,1);
+ const proposal=[...store.proposals.values()][0];
+ assert.ok(!JSON.stringify(proposal.payload).includes("transformation_iterations"));
 });
