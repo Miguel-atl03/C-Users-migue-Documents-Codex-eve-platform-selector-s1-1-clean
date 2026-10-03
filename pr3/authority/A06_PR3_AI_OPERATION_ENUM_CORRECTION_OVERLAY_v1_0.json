@@ -5,9 +5,9 @@
   "causal_owner": "Persistence mapping / AI operation source fidelity",
   "affected_record": "AIOperation",
   "affected_field": "operation",
-  "previous_source_path": "render|candidate|classify_scale|semantic_review-support as authorized",
-  "corrected_source_path": "render|candidate|clarification|classify_scale|semantic_review-support as authorized",
-  "reason": "The promoted B2 AI exchange contract revision 1.1 explicitly authorizes operation_enum render|candidate|clarification. The physical column is text and requires no migration.",
+  "previous_source_path": "render|candidate|clarification|classify_scale|semantic_review-support as authorized",
+  "corrected_source_path": "render|candidate|clarification|classify_genericity|classify_scale|semantic_review-support as authorized",
+  "reason": "Promoted B2 AI exchange authorizes render|candidate|clarification, while promoted B0 runtime executes render plus internal Cognitive Adapter routing operations classify_genericity and classify_scale. Physical column remains text; no migration or field-count change.",
   "physical_schema_change": false,
   "logical_record_count_change": false,
   "logical_field_count_change": false,
@@ -24,8 +24,9 @@
     "P4"
   ],
   "reentry_scope": [
+    "A08",
     "A09",
     "A11 consistency reading of AIOperation.operation"
   ],
-  "falsifier": "Any promoted source proving B2 clarification is not an AI operation, or any physical DB constraint forbidding clarification."
+  "falsifier": "Any promoted source proving one of clarification, classify_genericity, or classify_scale is not an authorized AI operation, or any physical DB constraint forbidding the value."
 }
