@@ -65,12 +65,13 @@
   "p3": {
     "plan_ref": "P3-PR3-PRODUCTION-AI-QUALIFICATION-PLAN-v1.0",
     "harness": "scripts/pr3/run-p3-ai-qualification.mjs",
-    "dry_preflight_result": "BLOCKED_REAL_MODEL_SECRET_NOT_AVAILABLE",
+    "dry_preflight_result": "BLOCKED_AI_GATEWAY_AUTH_NOT_AVAILABLE_OUTSIDE_VERCEL_CONTEXT",
     "dry_preflight_hard_falsifiers": 0,
-    "real_model_execution_state": "NOT_EXECUTED__ONLY_OPENAI_API_CREDENTIAL_MISSING",
-    "material_requirement": "EVE_PR3_OPENAI_API_KEY in secure execution context; this is now the only remaining material dependency for P3 real-model execution.",
+    "real_model_execution_state": "NOT_EXECUTED__CODEX_VERCEL_PROJECT_OIDC_EXECUTION_PENDING",
+    "material_requirement": "Authenticated Codex Vercel CLI project context already established by P4; acquire ephemeral project OIDC via vercel project token. No user-managed provider credential is required.",
     "on_demand_workflow": ".github/workflows/pr3-p3-real-model-qualification.yml",
-    "current_source_head": "367662f401e21f9337ac3e583318aea5b99fbdeb"
+    "executor_command": "npm run qualify:pr3-ai:vercel-oidc",
+    "executor_task": "pr3/tasks/P3_A10_CODEX_EXECUTION_TASK_v1_0.md"
   },
   "A10": "PROCEDURE_IMPLEMENTED__AUTHORITY_DECISION_BLOCKED_UNTIL_P3_REAL_MODEL_EVIDENCE",
   "real_user_pilot": "HOLD"
