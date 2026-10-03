@@ -24,6 +24,9 @@ test("A08 keeps provider binding pending P3 qualification",()=>{
  assert.equal(binding.provider_binding.store,false);
  assert.deepEqual(binding.provider_binding.tools,[]);
  assert.equal(binding.provider_binding.qualification_state,"PENDING_P3");
+ assert.deepEqual(binding.provider_binding.authorized_operations,["render","classify_genericity","classify_scale"]);
+ assert.equal(binding.source_implementation.routing_provider_module,"src/services/eve/pr3/ai/b0-routing.ts");
+ assert.deepEqual(binding.source_implementation.routing_operations,["classify_genericity","classify_scale"]);
 });
 
 test("A08 preserves A11 generator/evaluator/admission/evidence separation",()=>{
@@ -45,4 +48,17 @@ test("A08 target surface is exact B0 promoted render surface",()=>{
  assert.equal(binding.b0_contract_projection.operation_limits.may_decide_branch,false);
  assert.equal(binding.b0_contract_projection.operation_limits.may_create_evidence,false);
  assert.equal(binding.b0_contract_projection.operation_limits.may_diagnose,false);
+});
+
+
+test("A08 internal routing remains non-evidence and preserves conservative scale authority",()=>{
+ const genericity=binding.internal_routing_operations.classify_genericity;
+ const scale=binding.internal_routing_operations.classify_scale;
+ assert.equal(genericity.user_evidence_authority,false);
+ assert.equal(scale.user_evidence_authority,false);
+ assert.match(genericity.authority,/routing only/i);
+ assert.equal(scale.systemic_distinction,"STRUCTURAL_COMPLETENESS != OPERATIONAL_SCALE");
+ assert.match(scale.positive_support_rule,/non-empty evidence_refs/i);
+ assert.match(scale.abstention_precedence,/SCALE_UNKNOWN/);
+ assert.match(scale.safe_fallback,/SCALE_UNKNOWN/);
 });
