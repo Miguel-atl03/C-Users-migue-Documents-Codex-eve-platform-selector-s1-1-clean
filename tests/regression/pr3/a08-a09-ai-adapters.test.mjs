@@ -169,3 +169,64 @@ test("A09 wrong Runtime anchor is rejected before provider or persistence",async
  assert.equal(store.operations.size,0);
  assert.equal(store.proposals.size,0);
 });
+
+
+test("A08 genericity routing rejects unauthorized support references",()=>{
+ const {validateB0RoutingRequest,validateB0RoutingResult}=svc("ai/b0-routing.ts");
+ const request={
+  request_id:"req-genericity",operation:"classify_genericity",run_id:"run-genericity",
+  observation_context_revision:"ctx-g-r1",context_revision:"ctx-g-r1",
+  authorized_evidence:{activity_name_user_confirmed:"Gestionar"},
+  decision_contract:{purpose:"routing_control_only_not_business_evidence",decision_rule:"If materially ambiguous, return GENERICITY_UNKNOWN."},
+  output_schema:{status:["SPECIFIC_ACTIVITY","GENERIC_ACTIVITY","GENERICITY_UNKNOWN"],evidence_refs:"list",brief_reason:"string"},
+  authority:"ai_semantic_routing_control_not_business_evidence"
+ };
+ validateB0RoutingRequest(request);
+ assert.throws(()=>validateB0RoutingResult(request,{genericity_status:"SPECIFIC_ACTIVITY",evidence_refs:["not_authorized"],brief_reason:"specific"}),/B0_ROUTING_EVIDENCE_REF_INVALID/);
+ assert.equal(validateB0RoutingResult(request,{genericity_status:"GENERICITY_UNKNOWN",evidence_refs:[],brief_reason:"insufficient material"}),"GENERICITY_UNKNOWN");
+});
+
+test("A08 scale routing enforces exact response binding before routing authority",()=>{
+ const {validateB0RoutingRequest,validateB0RoutingResult}=svc("ai/b0-routing.ts");
+ const request={
+  request_id:"req-scale",operation:"classify_scale",run_id:"run-scale",
+  observation_context_revision:"ctx-s-r1",context_revision:"ctx-s-r1",
+  authorized_evidence:{activity_name_user_confirmed:"Validar datos fiscales",semantic_structure:{action_verb:"validar",input_object:"datos fiscales",product_output:"solicitud liberada"}},
+  decision_contract:{rule_id:"C6",purpose:"routing_control_only_not_business_evidence"},
+  output_schema:{status:["TRAVERSABLE_ACTIVITY","MACROPROCESS_TOO_BROAD","MICROACTION_TOO_NARROW","SCALE_UNKNOWN"],evidence_refs:"list",brief_reason:"string"},
+  authority:"ai_semantic_routing_control_not_business_evidence",
+  target_id:"C6_scale_assessment",anchor_fingerprint:"anchor-scale-1"
+ };
+ validateB0RoutingRequest(request);
+ const mismatch={action:"propose",scale_status:"TRAVERSABLE_ACTIVITY",evidence_refs:["activity_name_user_confirmed"],brief_reason:"bounded",request_id:"other",context_revision:"ctx-s-r1",anchor_fingerprint:"anchor-scale-1",target_id:"C6_scale_assessment"};
+ assert.throws(()=>validateB0RoutingResult(request,mismatch),/B0_SCALE_RESPONSE_BINDING_MISMATCH/);
+});
+
+test("A08 scale positive closure requires support and abstention always degrades to SCALE_UNKNOWN",()=>{
+ const {validateB0RoutingResult}=svc("ai/b0-routing.ts");
+ const request={
+  request_id:"req-scale-2",operation:"classify_scale",run_id:"run-scale-2",
+  observation_context_revision:"ctx-s2-r1",context_revision:"ctx-s2-r1",
+  authorized_evidence:{activity_name_user_confirmed:"Validar datos fiscales"},
+  decision_contract:{rule_id:"C6",purpose:"routing_control_only_not_business_evidence"},
+  output_schema:{status:["TRAVERSABLE_ACTIVITY","MACROPROCESS_TOO_BROAD","MICROACTION_TOO_NARROW","SCALE_UNKNOWN"],evidence_refs:"list",brief_reason:"string"},
+  authority:"ai_semantic_routing_control_not_business_evidence",
+  target_id:"C6_scale_assessment",anchor_fingerprint:"anchor-scale-2"
+ };
+ const positive={action:"propose",scale_status:"TRAVERSABLE_ACTIVITY",evidence_refs:[],brief_reason:"bounded",request_id:"req-scale-2",context_revision:"ctx-s2-r1",anchor_fingerprint:"anchor-scale-2",target_id:"C6_scale_assessment"};
+ assert.throws(()=>validateB0RoutingResult(request,positive),/B0_SCALE_POSITIVE_WITHOUT_SUPPORT/);
+ const abstain={action:"abstain",scale_status:"TRAVERSABLE_ACTIVITY",evidence_refs:["activity_name_user_confirmed"],brief_reason:"cannot establish scale safely",request_id:"req-scale-2",context_revision:"ctx-s2-r1",anchor_fingerprint:"anchor-scale-2",target_id:"C6_scale_assessment"};
+ assert.equal(validateB0RoutingResult(request,abstain),"SCALE_UNKNOWN");
+});
+
+test("A08 routing rejects observation/context mismatch before any provider authority",()=>{
+ const {validateB0RoutingRequest}=svc("ai/b0-routing.ts");
+ assert.throws(()=>validateB0RoutingRequest({
+  request_id:"req-mismatch",operation:"classify_genericity",run_id:"run-mismatch",
+  observation_context_revision:"ctx-old",context_revision:"ctx-new",
+  authorized_evidence:{activity_name_user_confirmed:"Gestionar"},
+  decision_contract:{purpose:"routing_control_only_not_business_evidence"},
+  output_schema:{status:["SPECIFIC_ACTIVITY","GENERIC_ACTIVITY","GENERICITY_UNKNOWN"],evidence_refs:"list",brief_reason:"string"},
+  authority:"ai_semantic_routing_control_not_business_evidence"
+ }),/B0_ROUTING_REQUEST_CONTEXT_MISMATCH/);
+});
