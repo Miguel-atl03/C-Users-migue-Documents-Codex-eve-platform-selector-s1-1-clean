@@ -1,0 +1,92 @@
+name: PR3 AI Gateway Diagnostic
+
+on:
+  push:
+    branches: [pr3-pilot]
+    paths:
+      - "pr3/trigger/P3_GATEWAY_DIAGNOSTIC_v1_0.txt"
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: pr3-pilot
+          fetch-depth: 0
+
+      - name: Run safe gateway diagnostics
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp pr3/evidence
+          if [ -z "${AI_GATEWAY_API_KEY:-}" ]; then
+            echo '{"artifact_id":"P3-AI-GATEWAY-DIAGNOSTIC-v1.0","auth_present":false}' > pr3/evidence/P3_AI_GATEWAY_DIAGNOSTIC_v1_0.json
+            exit 0
+          fi
+
+          probe() {
+            model="$1"
+            out=".tmp/$(echo "$model" | tr '/.' '__').json"
+            code="$(curl -sS -o "$out" -w "%{http_code}"               -X POST "https://ai-gateway.vercel.sh/v1/responses"               -H "Authorization: Bearer $AI_GATEWAY_API_KEY"               -H "Content-Type: application/json"               -d "{\"model\":\"$model\",\"store\":false,\"input\":\"Return exactly OK.\",\"max_output_tokens\":16}")"
+            MODEL="$model" CODE="$code" FILE="$out" node - <<'NODE'
+          const fs=require("fs");
+          const model=process.env.MODEL, code=Number(process.env.CODE), file=process.env.FILE;
+          let p={}; try{p=JSON.parse(fs.readFileSync(file,"utf8"));}catch{}
+          const e=p && typeof p.error==="object" ? p.error : {};
+          const safe={
+            model,
+            http_status:code,
+            ok:code>=200&&code<300,
+            provider_request_id:typeof p.id==="string"?p.id:null,
+            observed_model:typeof p.model==="string"?p.model:null,
+            response_status:typeof p.status==="string"?p.status:null,
+            error_type:typeof e.type==="string"?e.type:null,
+            error_code:typeof e.code==="string"?e.code:null,
+            error_message:typeof e.message==="string"?e.message.slice(0,500):null
+          };
+          fs.appendFileSync(".tmp/probes.ndjson",JSON.stringify(safe)+"\n");
+          NODE
+            rm -f "$out"
+          }
+
+          probe "openai/gpt-6-luna"
+          probe "openai/gpt-6-sol"
+          probe "openai/gpt-6-luna-fast"
+
+          node - <<'NODE'
+          const fs=require("fs");
+          const probes=fs.readFileSync(".tmp/probes.ndjson","utf8").trim().split("\n").filter(Boolean).map(JSON.parse);
+          const out={
+            artifact_id:"P3-AI-GATEWAY-DIAGNOSTIC-v1.0",
+            executed_at:new Date().toISOString(),
+            source_head:process.env.GITHUB_SHA,
+            auth_present:true,
+            probes,
+            token_values_recorded:false
+          };
+          fs.writeFileSync("pr3/evidence/P3_AI_GATEWAY_DIAGNOSTIC_v1_0.json",JSON.stringify(out,null,2)+"\n");
+          NODE
+
+      - name: Secret-value scan
+        shell: bash
+        run: |
+          if grep -R -E '(Bearer [A-Za-z0-9._=-]{20,}|vck_[A-Za-z0-9_-]{12,})' pr3/evidence/P3_AI_GATEWAY_DIAGNOSTIC_v1_0.json; then
+            echo "secret-looking value detected"
+            exit 1
+          fi
+
+      - name: Commit diagnostic evidence
+        shell: bash
+        run: |
+          git config user.name "eve-pr3-evidence-bot"
+          git config user.email "eve-pr3-evidence-bot@users.noreply.github.com"
+          git add pr3/evidence/P3_AI_GATEWAY_DIAGNOSTIC_v1_0.json
+          git commit -m "Freeze PR3 AI Gateway diagnostic evidence"
+          git push origin HEAD:pr3-pilot
