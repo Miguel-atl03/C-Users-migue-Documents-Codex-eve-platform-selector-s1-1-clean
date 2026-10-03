@@ -101,18 +101,19 @@ function b2Request(c){
  };
 }
 
-const referenceBank=[
- ["A","render fiel","PASS","intent_fidelity"],["B","pregunta inductiva","FAIL","intent_fidelity"],["C","candidato IA usado como premisa","FAIL","reflexive_integrity"],
- ["D","conocimiento fuera del rol","FAIL","observer_fidelity"],["E","unsupported specificity","FAIL","reflexive_integrity"],["F","alternativa material omitida","FAIL","reflexive_integrity"],
- ["G","stale context","FAIL","narrative_canonical_fidelity"],["H","target incorrecto","FAIL","narrative_canonical_fidelity"],["I","cita correcta pero interpretación no soportada","FAIL","reflexive_integrity"],
- ["J","unknown legítimo","PASS","observer_fidelity"],["K","fallback seguro","PASS","narrative_canonical_fidelity"],["L","K2 fallback estático prohibido","FAIL","intent_fidelity"],
- ["M","self-check limpio pero propuesta defectuosa","FAIL","reflexive_integrity"],["N","cambio sutil de intención","FAIL","intent_fidelity"],["O","lenguaje cotidiano distinto al canon pero fiel","PASS","intent_fidelity"]
-];
+const evaluatorBankPath=path.join(root,"pr3/authority/source_evidence/B2/Evaluator_Qualification_Evidence.json");
+const evaluatorBankSource=JSON.parse(fs.readFileSync(evaluatorBankPath,"utf8"));
+const referenceBank=evaluatorBankSource.cases.map((item)=>[
+ item.fixture_id.replace("EVAL-REF-",""),
+ item.proposal_exact.fixture_text,
+ item.reference_judgment,
+ item.criterion_expected,
+]);
 
 async function evaluateLive(objectKey,caseId,request,proposal,governedIntent){
  return runP3EvaluatorCandidate({
   case_id:`${objectKey}-${caseId}`,object_key:objectKey,criterion_scope:["intent_fidelity","observer_fidelity","reflexive_integrity","narrative_canonical_fidelity"],
-  source_context:request,governed_intent:governedIntent,proposal_or_fixture:proposal,reference_judgment:null
+  source_context:request,governed_intent:governedIntent,proposal_or_fixture:proposal
  });
 }
 
@@ -124,7 +125,11 @@ async function main(){
   started_at:startedAt,
   generator:{provider:"OpenAI",model_requested:"gpt-6-luna",store:false,tools:[]},
   evaluator_candidate:{provider:"OpenAI",model_requested:P3_EVALUATOR_MODEL_ID,authority_state:"CANDIDATE_ONLY",automatic_admission:false},
-  source_evidence:{b0_model_test_sha256:"4a2e9a4404a0962dc09a874441de329f70dc90a722cd035d3dcf2f70fdbcaabf",b2_model_test_sha256:"9d7df9583b5d0a42ce146dc2546781131efa5a007c2e0bc59c24b42acf887b15",evaluator_reference_bank_sha256:"3852c6d4e69639c001f738dce133352472d06ca3ba3675973077a2d1c7b36fb6"},
+  source_evidence:{
+   b0_model_test:{path:"pr3/authority/source_evidence/B0/B0_MODEL_TEST_MVP_Evidence.json",sha256:"4a2e9a4404a0962dc09a874441de329f70dc90a722cd035d3dcf2f70fdbcaabf"},
+   b2_integrated_model_test:{path:"pr3/authority/source_evidence/B2/MODEL_TEST_MVP_Integrated_Evidence.json",sha256:"f88dd88aa3a02350940862058d718ea4477ea0caef58dc85c8530a4073e70586",baseline_sha256:"9d7df9583b5d0a42ce146dc2546781131efa5a007c2e0bc59c24b42acf887b15"},
+   evaluator_reference_bank:{path:"pr3/authority/source_evidence/B2/Evaluator_Qualification_Evidence.json",sha256:"3852c6d4e69639c001f738dce133352472d06ca3ba3675973077a2d1c7b36fb6",bank_size:evaluatorBankSource.bank_size}
+  },
   deterministic_preflight:{},
   b0_cases:[],b2_cases:[],reference_bank:[],
   hard_falsifiers:[],
