@@ -19,13 +19,13 @@ test("A08 binds exact promoted B0 identity",()=>{
 });
 
 test("A08 keeps provider binding pending P3 qualification",()=>{
- assert.equal(binding.provider_binding.provider_ref,"openai.responses.v1");
- assert.equal(binding.provider_binding.model_id,"gpt-6-luna");
+ assert.equal(binding.provider_binding.provider_ref,"vercel.ai_gateway.openresponses.v1");
+ assert.equal(binding.provider_binding.model_id,"openai/gpt-5.4-mini");
  assert.equal(binding.provider_binding.store,false);
  assert.deepEqual(binding.provider_binding.tools,[]);
- assert.equal(binding.provider_binding.qualification_state,"PENDING_P3");
+ assert.equal(binding.provider_binding.qualification_state,"PENDING_P3_GATEWAY_REAL_MODEL_EXECUTION");
  assert.deepEqual(binding.provider_binding.authorized_operations,["render","classify_genericity","classify_scale"]);
- assert.equal(binding.source_implementation.routing_provider_module,"src/services/eve/pr3/ai/b0-routing.ts");
+ assert.equal(binding.source_implementation.routing_provider_module,"src/services/eve/pr3/ai/b0-routing.ts");\n assert.equal(binding.provider_binding.auth_mode,"VERCEL_OIDC_TOKEN_AUTOMATIC__AI_GATEWAY_API_KEY_LOCAL_FALLBACK");\n assert.equal(binding.provider_binding.prompt_training,"DISALLOWED");
  assert.deepEqual(binding.source_implementation.routing_operations,["classify_genericity","classify_scale"]);
 });
 
