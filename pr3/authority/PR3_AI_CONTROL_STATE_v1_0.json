@@ -21,16 +21,16 @@
     "A08": {
       "state": "SOURCE_IMPLEMENTED_CONFORMED__P3_REAL_MODEL_QUALIFICATION_PENDING",
       "authority_ref": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.0",
-      "provider_ref": "openai.responses.v1",
-      "model_requested": "gpt-6-luna",
+      "provider_ref": "vercel.ai_gateway.openresponses.v1",
+      "model_requested": "openai/gpt-5.4-mini",
       "source_qa": "PASS",
       "runtime_activation": false
     },
     "A09": {
       "state": "SOURCE_IMPLEMENTED_CONFORMED__P3_REAL_MODEL_QUALIFICATION_PENDING",
       "authority_ref": "A09-PR3-B2-PRODUCTION-AI-MODE-BINDING-v1.0",
-      "provider_ref": "openai.responses.v1",
-      "model_requested": "gpt-6-luna",
+      "provider_ref": "vercel.ai_gateway.openresponses.v1",
+      "model_requested": "openai/gpt-5.4-mini",
       "exact_mode_counts": {
         "AI_DEFAULT_CONTEXTUAL_RENDER": 1,
         "AI_OPTIONAL_CONTEXTUAL_RENDER": 18,
@@ -42,12 +42,13 @@
       "runtime_activation": false
     },
     "P3": {
-      "state": "HARNESS_IMPLEMENTED__REAL_MODEL_EXECUTION_BLOCKED",
+      "state": "HARNESS_IMPLEMENTED__VERCEL_OIDC_EXECUTION_PENDING",
       "plan_ref": "P3-PR3-PRODUCTION-AI-QUALIFICATION-PLAN-v1.0",
       "workflow": ".github/workflows/pr3-p3-real-model-qualification.yml",
       "command": "npm run qualify:pr3-ai",
-      "only_material_blocker": "EVE_PR3_OPENAI_API_KEY_NOT_AVAILABLE_IN_SECURE_EXECUTION_CONTEXT",
-      "dry_preflight": "PASS__BLOCKED_REAL_MODEL_SECRET_NOT_AVAILABLE__0_HARD_FALSIFIERS"
+      "only_material_blocker": null,
+      "dry_preflight": "PASS__BLOCKED_AI_GATEWAY_AUTH_NOT_AVAILABLE_OUTSIDE_VERCEL__0_HARD_FALSIFIERS",
+      "execution_path": "Vercel temporary qualifier using automatic VERCEL_OIDC_TOKEN"
     },
     "A10": {
       "state": "DECISION_PROCEDURE_IMPLEMENTED__NOT_RUN",
@@ -89,5 +90,5 @@
     "candidate != evidence",
     "proposal != evidence"
   ],
-  "next_action": "Provide EVE_PR3_OPENAI_API_KEY securely to the P3 execution context and run PR3 P3 Real Model Qualification. Do not activate runtime or grant evaluator authority before P3 evidence."
+  "next_action": "Deploy temporary P3 qualifier to Vercel, execute exact generator/evaluator qualification through AI Gateway OIDC, freeze evidence, then run A10."
 }
