@@ -1,0 +1,97 @@
+name: PR3 P3 GPT6 Real Model Qualification
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - pr3-pilot
+    paths:
+      - "pr3/trigger/P3_GPT6_EXECUTE_v1_1.txt"
+
+permissions:
+  contents: write
+
+jobs:
+  p3-gpt6-real-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
+      NEXT_PUBLIC_EVE_PR3_PILOT_ENABLED: "false"
+      EVE_PR3_RUNTIME_ADAPTER: "blocked"
+    steps:
+      - name: Checkout exact successor source
+        uses: actions/checkout@v4
+        with:
+          ref: pr3-pilot
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install reproducibly
+        run: npm ci --no-audit --no-fund
+      - name: Structural gate at exact GPT-6 successor head
+        run: |
+          npm run typecheck
+          npm run test:pr3
+      - name: Execute P3 GPT-6 successor real-model qualification
+        id: p3
+        continue-on-error: true
+        run: npm run qualify:pr3-ai:gpt6
+      - name: Execute guarded A10 v1.1 decision input
+        id: a10
+        if: steps.p3.outcome == 'success'
+        continue-on-error: true
+        run: npm run decide:pr3-evaluator:gpt6
+      - name: Freeze exact evidence
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p pr3/evidence
+          if [ -f .tmp/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_1.json ]; then
+            cp .tmp/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_1.json pr3/evidence/
+          fi
+          if [ -f .tmp/A10_PR3_EVALUATOR_AUTHORITY_DECISION_INPUT_v1_1.json ]; then
+            cp .tmp/A10_PR3_EVALUATOR_AUTHORITY_DECISION_INPUT_v1_1.json pr3/evidence/
+          fi
+          if [ ! -f pr3/evidence/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_1.json ]; then
+            echo "P3 evidence missing; refusing to fabricate receipt."
+            exit 1
+          fi
+      - name: Secret scan frozen evidence
+        if: always()
+        shell: bash
+        run: |
+          set -e
+          if grep -R -E '(VERCEL_OIDC_TOKEN|AI_GATEWAY_API_KEY|SUPABASE_SERVICE_ROLE_KEY|session[_-]?token|Bearer [A-Za-z0-9._-]{20,})' pr3/evidence/*.json; then
+            echo "Potential secret material detected in frozen evidence."
+            exit 1
+          fi
+      - name: Commit frozen evidence
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "eve-pr3-evidence-bot"
+          git config user.email "eve-pr3-evidence-bot@users.noreply.github.com"
+          git add pr3/evidence
+          if git diff --cached --quiet; then
+            echo "No evidence delta to commit."
+          else
+            git commit -m "Freeze PR3 P3 GPT-6 real-model qualification evidence"
+            git push origin HEAD:pr3-pilot
+          fi
+      - name: Enforce P3 and A10 boundary
+        if: always()
+        shell: bash
+        run: |
+          if [ "${{ steps.p3.outcome }}" != "success" ]; then
+            echo "P3 GPT-6 qualification did not close; frozen evidence is authoritative for reentry."
+            exit 1
+          fi
+          if [ "${{ steps.a10.outcome }}" != "success" ]; then
+            echo "P3 closed but A10 decision input did not close."
+            exit 1
+          fi
+          echo "P3 closed and A10 decision input produced. STOP for Center authority decision."
