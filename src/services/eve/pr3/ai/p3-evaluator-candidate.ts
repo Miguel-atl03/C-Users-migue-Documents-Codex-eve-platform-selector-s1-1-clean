@@ -55,7 +55,6 @@ export type P3EvaluatorInput={
  source_context:unknown;
  governed_intent:unknown;
  proposal_or_fixture:unknown;
- reference_judgment?:string|null;
 };
 
 function outputText(payload:Record<string,unknown>):string{
