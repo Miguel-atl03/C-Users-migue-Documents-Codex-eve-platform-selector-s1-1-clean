@@ -3,7 +3,7 @@ import path from "node:path";
 import vm from "node:vm";
 import ts from "typescript";
 import { createRequire } from "node:module";
-import { createHash, randomUUID } from "node:crypto";
+import { createHash } from "node:crypto";
 
 const require=createRequire(import.meta.url);
 const root=path.resolve(import.meta.dirname,"../..");
@@ -34,11 +34,8 @@ function svc(relative){return loadTs(path.join(serviceRoot,relative));}
 function sha(value){return createHash("sha256").update(typeof value==="string"?value:JSON.stringify(value)).digest("hex");}
 function now(){return new Date().toISOString();}
 function evidenceSource(id,literal,revision=1){return {evidence_id:id,revision,literal,epistemic_class:"synthetic_reference_literal"};}
-function supportRange(source,quote){const chars=Array.from(source.literal),q=Array.from(quote);const text=chars.join(""),idx=text.indexOf(q.join(""));if(idx<0) throw new Error(`fixture quote not found: ${quote}`);const start=Array.from(text.slice(0,idx)).length;return {evidence_id:source.evidence_id,revision:source.revision,start,end:start+q.length,quote};}
 
-const {
- B0_PROFILE_ID,B0RuntimeAiRequest:_,OpenAiB0ResponsesProvider
-}=Object.assign({},svc("ai/b0-binding.ts"),svc("ai/openai-responses.ts"));
+const {OpenAiB0ResponsesProvider}=svc("ai/openai-responses.ts");
 const b0=svc("ai/b0-binding.ts"),b2=svc("ai/b2-binding.ts");
 const {OpenAiB2ResponsesProvider}=svc("ai/b2-openai-responses.ts");
 const {runB0RoutingOperation}=svc("ai/b0-routing.ts");
