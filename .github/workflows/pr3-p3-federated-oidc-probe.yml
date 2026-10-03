@@ -1,0 +1,162 @@
+name: PR3 P3 Federated OIDC Auth Probe
+
+on:
+  push:
+    branches: [pr3-pilot]
+    paths:
+      - "pr3/trigger/P3_FEDERATED_OIDC_PROBE_v1_0.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  federated-oidc-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact PR3 source
+        uses: actions/checkout@v4
+        with:
+          ref: pr3-pilot
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install reproducibly
+        run: npm ci --no-audit --no-fund
+
+      - name: Acquire GitHub OIDC without logging token
+        id: oidc
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp
+          response="$(curl -fsS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=vercel")"
+          RESPONSE="$response" node - <<'NODE'
+          const fs=require("fs");
+          const p=JSON.parse(process.env.RESPONSE);
+          if(typeof p.value!=="string"||p.value.length<80) process.exit(2);
+          fs.writeFileSync(".tmp/github-oidc",p.value,{mode:0o600});
+          NODE
+          echo "available=true" >> "$GITHUB_OUTPUT"
+
+      - name: Probe Vercel project-token federation
+        id: project
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          token="$(cat .tmp/github-oidc)"
+          status="$(curl -sS -o .tmp/project-token-response.json -w "%{http_code}"             -X POST             -H "Authorization: Bearer $token"             -H "Content-Type: application/json"             "https://api.vercel.com/v1/projects/eve-pr3-pilot/token?teamId=team_vIXDaESfRrxfIN94peNcpgTd"             -d '{"source":"github-actions-oidc-probe"}')"
+          echo "http_status=$status" >> "$GITHUB_OUTPUT"
+          if [ "$status" = "200" ]; then
+            node - <<'NODE'
+            const fs=require("fs");
+            const p=JSON.parse(fs.readFileSync(".tmp/project-token-response.json","utf8"));
+            const t=p.token;
+            if(typeof t!=="string"||t.length<80) process.exit(2);
+            fs.writeFileSync(".tmp/vercel-project-oidc",t,{mode:0o600});
+            NODE
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+          rm -f .tmp/project-token-response.json
+
+      - name: Probe direct AI Gateway federation
+        id: gateway
+        if: steps.project.outputs.available != 'true'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          token="$(cat .tmp/github-oidc)"
+          status="$(curl -sS -o .tmp/gateway-response.json -w "%{http_code}"             -X POST             -H "Authorization: Bearer $token"             -H "Content-Type: application/json"             "https://ai-gateway.vercel.sh/v1/responses"             -d '{"model":"openai/gpt-6-luna","store":false,"input":"Return only OK.","max_output_tokens":8}')"
+          echo "http_status=$status" >> "$GITHUB_OUTPUT"
+          if [ "$status" = "200" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+          rm -f .tmp/gateway-response.json
+
+      - name: Execute P3 if a federated path actually worked
+        id: p3
+        if: steps.project.outputs.available == 'true' || steps.gateway.outputs.available == 'true'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f .tmp/vercel-project-oidc ]; then
+            export VERCEL_OIDC_TOKEN="$(cat .tmp/vercel-project-oidc)"
+          else
+            export VERCEL_OIDC_TOKEN="$(cat .tmp/github-oidc)"
+          fi
+          npm run qualify:pr3-ai:gpt6
+          unset VERCEL_OIDC_TOKEN
+          rm -f .tmp/vercel-project-oidc .tmp/github-oidc
+
+      - name: Execute guarded A10 only after P3
+        id: a10
+        if: steps.p3.outcome == 'success'
+        continue-on-error: true
+        run: npm run decide:pr3-evaluator:gpt6 -- .tmp/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_1.json
+
+      - name: Freeze probe receipt and any material evidence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .tmp/github-oidc .tmp/vercel-project-oidc
+          mkdir -p pr3/evidence
+          [ -f .tmp/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_1.json ] && cp .tmp/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_1.json pr3/evidence/ || true
+          [ -f .tmp/A10_PR3_EVALUATOR_AUTHORITY_DECISION_INPUT_v1_1.json ] && cp .tmp/A10_PR3_EVALUATOR_AUTHORITY_DECISION_INPUT_v1_1.json pr3/evidence/ || true
+          node - <<'NODE'
+          const fs=require("fs");
+          const receipt={
+            artifact_id:"P3-FEDERATED-OIDC-PROBE-RECEIPT-v1.0",
+            executed_at:new Date().toISOString(),
+            source_head:process.env.GITHUB_SHA,
+            github_oidc_acquired:"${{ steps.oidc.outputs.available }}"==="true",
+            vercel_project_token_http_status:"${{ steps.project.outputs.http_status }}",
+            vercel_project_token_available:"${{ steps.project.outputs.available }}"==="true",
+            direct_ai_gateway_http_status:"${{ steps.gateway.outputs.http_status }}",
+            direct_ai_gateway_available:"${{ steps.gateway.outputs.available }}"==="true",
+            p3_outcome:"${{ steps.p3.outcome }}",
+            a10_outcome:"${{ steps.a10.outcome }}",
+            token_values_recorded:false,
+            b0_automatic_admission_authority_gap:"OPEN",
+            p5:"HOLD",
+            real_user_pilot:"HOLD"
+          };
+          fs.writeFileSync("pr3/evidence/P3_FEDERATED_OIDC_PROBE_RECEIPT_v1_0.json",JSON.stringify(receipt,null,2)+"\n");
+          NODE
+
+      - name: Commit exact probe evidence
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "eve-pr3-evidence-bot"
+          git config user.email "eve-pr3-evidence-bot@users.noreply.github.com"
+          git add pr3/evidence
+          if ! git diff --cached --quiet; then
+            git commit -m "Freeze PR3 federated OIDC auth probe evidence"
+            git push origin HEAD:pr3-pilot
+          fi
+
+      - name: Institutional stop
+        if: always()
+        shell: bash
+        run: |
+          if [ "${{ steps.p3.outcome }}" = "success" ] && [ "${{ steps.a10.outcome }}" = "success" ]; then
+            echo "P3_CLOSED__A10_READY_FOR_CENTER_AUTHORITY_DECISION"
+            exit 0
+          fi
+          echo "FEDERATED_OIDC_PATH_NOT_AVAILABLE_OR_P3_NOT_CLOSED"
+          exit 3
