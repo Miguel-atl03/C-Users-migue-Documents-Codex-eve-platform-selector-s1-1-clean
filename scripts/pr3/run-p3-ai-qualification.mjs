@@ -232,6 +232,26 @@ async function main(){
  for(const [target,spec] of Object.entries(b2.B2_TARGETS)){
   if(spec.ai_mode==="DETERMINISTIC" && spec.ops.length!==0) evidence.hard_falsifiers.push(`DETERMINISTIC_HAS_AI_OP:${target}`);
  }
+ const mixedPreflight=b2.prepareB2AiRequest({
+  object_run_id:"or-p3-mixed-preflight",interaction_key:"ii-p3-mixed-preflight",server_command_event_id:"srv-p3-mixed-preflight",requested_at:"2026-10-03T00:00:00.000000Z",
+  b2_request:{
+   request_id:"p3-mixed-preflight",profile_ref:"EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",operation:"render",
+   scope:{case_id:"P3-MIXED",activity_id:"P3-MIXED-ACT"},
+   target_ids:["transformation_magnitude","transformation_iterations"],canonical_anchor_ref:"B2-Q16",context_revision:"ctx-p3-mixed-r1",
+   context_sources:[evidenceSource("P3-MIXED-E1","El ajuste cambia bastante, pero no tengo una medida exacta.",1)],gaps:[],
+   operation_limits:{max_questions_per_proposal:2,max_semantic_candidates:8},
+   fallback_ref:"Resolve per-subfield fallback policy; activation != fallback_eligibility != presentation.",
+   review_policy_ref:"B2-RP-AI-PROPOSAL-G1.1",
+   normative_context_ref:"B2-SIE-K3-v0.8C::2.3 · normativo; nunca evidence_context.",
+   observational_context_ref:"K3"
+  }
+ });
+ evidence.deterministic_preflight.b2_mixed_mode_filtering={
+  runtime_target_ids:mixedPreflight.runtime_request.target_ids,
+  provider_target_ids:mixedPreflight.provider_request?.target_ids??[],
+  deterministic_target_ids:mixedPreflight.deterministic_target_ids
+ };
+ if((mixedPreflight.provider_request?.target_ids??[]).includes("transformation_iterations")) evidence.hard_falsifiers.push("MIXED_INTERACTION_DETERMINISTIC_TARGET_LEAKED_TO_PROVIDER");
  if(!process.env.EVE_PR3_OPENAI_API_KEY?.trim()){
   evidence.qualification_determination="BLOCKED_REAL_MODEL_SECRET_NOT_AVAILABLE";
   evidence.completed_at=now();
