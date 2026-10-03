@@ -1,8 +1,8 @@
 import "server-only";
 import { canonicalJson,sha256Utf8 } from "../canonical";
 
-export const B0_ROUTING_PROVIDER_REF="openai.responses.v1" as const;
-export const B0_ROUTING_MODEL_ID="gpt-6-luna" as const;
+export const B0_ROUTING_PROVIDER_REF="vercel.ai_gateway.openresponses.v1" as const;
+export const B0_ROUTING_MODEL_ID="openai/gpt-5.4-mini" as const;
 export const B0_ROUTING_PROMPT_PROFILE_REF="EVE-PR3-B0-INTERNAL-ROUTING-PROMPT" as const;
 export const B0_ROUTING_PROMPT_PROFILE_REVISION="1.0" as const;
 
@@ -134,11 +134,12 @@ async function once(apiKey:string,request:B0RoutingRequest):Promise<B0RoutingPro
  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),20_000);
  try{
   const schema=request.operation==="classify_scale"?scaleSchema:genericitySchema;
-  const response=await fetch("https://api.openai.com/v1/responses",{
+  const response=await fetch("https://ai-gateway.vercel.sh/v1/responses",{
    method:"POST",
    headers:{"Content-Type":"application/json","Authorization":`Bearer ${apiKey}`},
    signal:controller.signal,
    body:JSON.stringify({
+    providerOptions:{gateway:{disallowPromptTraining:true}},
     model:B0_ROUTING_MODEL_ID,
     store:false,
     reasoning:{effort:"none"},
@@ -149,7 +150,7 @@ async function once(apiKey:string,request:B0RoutingRequest):Promise<B0RoutingPro
    })
   });
   const payload=await response.json().catch(()=>({})) as Record<string,unknown>;
-  if(!response.ok){const retryable=response.status===408||response.status===409||response.status===429||response.status>=500;throw new B0RoutingProviderError(`OPENAI_HTTP_${response.status}`,"OpenAI Responses request failed",retryable);}
+  if(!response.ok){const retryable=response.status===408||response.status===409||response.status===429||response.status>=500;throw new B0RoutingProviderError(`OPENAI_HTTP_${response.status}`,"Vercel AI Gateway Responses request failed",retryable);}
   if(payload.status!=="completed") throw new B0RoutingProviderError(`OPENAI_STATUS_${String(payload.status??"UNKNOWN").toUpperCase()}`);
   let result:B0GenericityResult|B0ScaleResult;
   try{result=JSON.parse(outputText(payload)) as B0GenericityResult|B0ScaleResult;}catch(error){if(error instanceof B0RoutingProviderError) throw error;throw new B0RoutingProviderError("OPENAI_STRUCTURED_OUTPUT_PARSE_FAILED");}
@@ -163,8 +164,8 @@ async function once(apiKey:string,request:B0RoutingRequest):Promise<B0RoutingPro
 }
 
 export async function runB0RoutingOperation(request:B0RoutingRequest):Promise<B0RoutingProviderResult>{
- const apiKey=process.env.EVE_PR3_OPENAI_API_KEY?.trim();
- if(!apiKey) throw new B0RoutingProviderError("OPENAI_API_KEY_NOT_CONFIGURED");
+ const apiKey=(process.env.AI_GATEWAY_API_KEY ?? process.env.VERCEL_OIDC_TOKEN)?.trim();
+ if(!apiKey) throw new B0RoutingProviderError("AI_GATEWAY_AUTH_NOT_CONFIGURED");
  try{return await once(apiKey,request);}catch(error){if(!(error instanceof B0RoutingProviderError)||!error.retryable) throw error;return once(apiKey,request);}
 }
 export function b0RoutingInstructionsSha256(){return sha256Utf8(B0_ROUTING_INSTRUCTIONS);}
