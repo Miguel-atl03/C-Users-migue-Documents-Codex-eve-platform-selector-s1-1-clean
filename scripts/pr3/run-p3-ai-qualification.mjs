@@ -168,7 +168,7 @@ async function main(){
    const result=await b2Provider.propose(req);
    row.provider={request_id:result.provider_request_id,model_version:result.model_version,usage:result.usage,proposal_sha256:sha(result.proposal),proposal:result.proposal};
    try{b2.assertB2Proposal(req,result.proposal);row.deterministic_conformance="PASS";}catch(error){row.deterministic_conformance="FAIL";row.error=String(error);evidence.hard_falsifiers.push(`B2_CONTRACT:${c.id}:${String(error)}`);}
-   if(row.deterministic_conformance==="PASS") row.evaluator=await evaluateLive("B2",c.id,req,result.proposal,{target:c.target,canonical_question:b2.B2_TARGETS[c.target].question,required_information:c.required_information,expected_reference_action:c.expected});
+   if(row.deterministic_conformance==="PASS") row.evaluator=await evaluateLive("B2",c.id,req,result.proposal,{target:c.target,canonical_question:b2.B2_TARGETS[c.target].question,required_information:c.required_information});
   }catch(error){row.error=String(error);evidence.hard_falsifiers.push(`B2_PROVIDER:${c.id}:${String(error)}`);}
   evidence.b2_cases.push(row);
  }
