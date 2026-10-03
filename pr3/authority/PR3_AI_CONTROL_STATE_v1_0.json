@@ -1,0 +1,93 @@
+{
+  "artifact_id": "PR3-AI-CONTROL-STATE-v1.0",
+  "authority": "PROMPT PR3 v1.2.1 + SETUP_INSTITUCIONAL_RAZONAMIENTO_TRIPILAR PR3 v1.2",
+  "mode": "SYSTEMIC_RECURSIVE_CAUSAL",
+  "updated_at": "2026-10-03T05:15:00Z",
+  "baseline": {
+    "P2": "DEPLOYED_CLEAN_TARGET_CONFORMED",
+    "P4": "REAL_DEPLOYMENT_CONFORMED",
+    "supabase_project_ref": "keqrkyumfyhfivllvdbl",
+    "source_branch": "pr3-pilot",
+    "source_head_after_control_state_parent": "adb0d73fed78af5570545715e30ba974368cd482"
+  },
+  "AI_sequence": [
+    "A08",
+    "A09",
+    "P3",
+    "A10",
+    "P5_REAL_USER_E2E"
+  ],
+  "states": {
+    "A08": {
+      "state": "SOURCE_IMPLEMENTED_CONFORMED__P3_REAL_MODEL_QUALIFICATION_PENDING",
+      "authority_ref": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.0",
+      "provider_ref": "openai.responses.v1",
+      "model_requested": "gpt-6-luna",
+      "source_qa": "PASS",
+      "runtime_activation": false
+    },
+    "A09": {
+      "state": "SOURCE_IMPLEMENTED_CONFORMED__P3_REAL_MODEL_QUALIFICATION_PENDING",
+      "authority_ref": "A09-PR3-B2-PRODUCTION-AI-MODE-BINDING-v1.0",
+      "provider_ref": "openai.responses.v1",
+      "model_requested": "gpt-6-luna",
+      "exact_mode_counts": {
+        "AI_DEFAULT_CONTEXTUAL_RENDER": 1,
+        "AI_OPTIONAL_CONTEXTUAL_RENDER": 18,
+        "AI_CONDITIONAL_CLARIFICATION": 3,
+        "DETERMINISTIC": 4
+      },
+      "deterministic_zero_model_call": "CONFORMED_IN_SOURCE_QA",
+      "source_qa": "PASS",
+      "runtime_activation": false
+    },
+    "P3": {
+      "state": "HARNESS_IMPLEMENTED__REAL_MODEL_EXECUTION_BLOCKED",
+      "plan_ref": "P3-PR3-PRODUCTION-AI-QUALIFICATION-PLAN-v1.0",
+      "workflow": ".github/workflows/pr3-p3-real-model-qualification.yml",
+      "command": "npm run qualify:pr3-ai",
+      "only_material_blocker": "EVE_PR3_OPENAI_API_KEY_NOT_AVAILABLE_IN_SECURE_EXECUTION_CONTEXT",
+      "dry_preflight": "PASS__BLOCKED_REAL_MODEL_SECRET_NOT_AVAILABLE__0_HARD_FALSIFIERS"
+    },
+    "A10": {
+      "state": "DECISION_PROCEDURE_IMPLEMENTED__NOT_RUN",
+      "procedure_ref": "A10-PR3-EVALUATOR-AUTHORITY-DETERMINATION-PROCEDURE-v1.0",
+      "command": "npm run decide:pr3-evaluator",
+      "current_candidate": "EVE-B2-EVALUATOR-AUTHORITY-CANDIDATE-v0.2.1",
+      "candidate_status": "CANDIDATE",
+      "authorized_evaluator": "NOT_AVAILABLE",
+      "automatic_admission": false,
+      "dependency": "P3 real-model evidence"
+    },
+    "P5_REAL_USER_E2E": "HOLD"
+  },
+  "source_qa": {
+    "workflow": "PR3 AI Source QA",
+    "latest_success_run_id": 37099119719,
+    "tested_sha": "367662f401e21f9337ac3e583318aea5b99fbdeb",
+    "result": "PASS",
+    "checks": [
+      "npm ci",
+      "typecheck",
+      "PR3 regression suite",
+      "P3 dry preflight",
+      "scoped AI lint",
+      "production build"
+    ]
+  },
+  "preserved": [
+    "B0 promoted semantics",
+    "B0.5 NO_AI",
+    "B1 NO_GENERATIVE_AI_DETERMINISTIC",
+    "B2 promoted semantics and EXACT_MODE_MAP",
+    "A04",
+    "A05",
+    "A07",
+    "P2",
+    "P4",
+    "40+20 budget",
+    "candidate != evidence",
+    "proposal != evidence"
+  ],
+  "next_action": "Provide EVE_PR3_OPENAI_API_KEY securely to the P3 execution context and run PR3 P3 Real Model Qualification. Do not activate runtime or grant evaluator authority before P3 evidence."
+}
