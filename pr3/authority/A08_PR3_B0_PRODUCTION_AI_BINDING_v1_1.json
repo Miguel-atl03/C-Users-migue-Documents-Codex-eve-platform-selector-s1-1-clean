@@ -1,0 +1,176 @@
+{
+  "artifact_id": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.1",
+  "state": "SUCCESSOR_SOURCE_IMPLEMENTED__P3_GPT6_REAL_MODEL_QUALIFICATION_PENDING__RENDER_AND_INTERNAL_ROUTING",
+  "authority": {
+    "prompt": "PROMPT PR3 v1.2.1",
+    "ai_architecture": "EVE-C1-IA-ARQUITECTURA-TRANSVERSAL-1.2.1",
+    "b0_profile": {
+      "id": "EVE-B0-PR1-OPERATIONAL-PROFILE",
+      "revision": "0.1-R4",
+      "sha256": "17df2c5b5ae151d692126b0b3fcc0301a9ef89dbf5ffc5683c2e32a0c968b30c"
+    },
+    "b0_mother_contract": {
+      "id": "EVE-C1-B0-MOTHER-CONTRACT",
+      "revision": "1.0",
+      "sha256": "d3a752a79a3bada722eb184365853b6f169202973ad488e43beb7fc9309fc042"
+    },
+    "b0_runtime": {
+      "file": "B0_RUNTIME_MVP_v0_1_R8P_PROMOTED_SELF_CONTAINED.zip",
+      "sha256": "3c3e3b2c02222be601ce1f2ae9548c0fca146e4f9857dd7f2b06f6d0314145c8"
+    },
+    "a06": "A06-PR3-AUTHORITATIVE-PERSISTENCE-MAPPING-v1.4",
+    "a07": "EVE-PR3-IDENTITY-REVISION-IDEMPOTENCY-LEDGER-CONTRACT-v1.2",
+    "a11": "A11-PR3-AI-PROVENANCE-LEDGER-v1.0"
+  },
+  "provider_binding": {
+    "provider_ref": "vercel.ai_gateway.openresponses.v1",
+    "endpoint": "https://ai-gateway.vercel.sh/v1/responses",
+    "model_id": "openai/gpt-6-luna",
+    "reasoning_effort": "none",
+    "store": false,
+    "tools": [],
+    "prompt_profile_ref": "EVE-PR3-B0-RENDER-PROMPT",
+    "prompt_profile_revision": "1.0",
+    "response_schema_ref": "EVE-PR3-B0-AI-PROPOSAL-SCHEMA@1.0",
+    "timeout_ms": 20000,
+    "max_output_tokens": 1400,
+    "max_transport_retries": 1,
+    "qualification_state": "PENDING_P3_GPT6_REAL_MODEL_EXECUTION",
+    "authorized_operations": [
+      "render",
+      "classify_genericity",
+      "classify_scale"
+    ],
+    "auth_mode": "VERCEL_OIDC_TOKEN_AUTOMATIC__AI_GATEWAY_API_KEY_LOCAL_FALLBACK",
+    "prompt_training": "DISALLOWED"
+  },
+  "b0_contract_projection": {
+    "operation": "render",
+    "role_observation_policy_ref": "B0-ROE-v0.1",
+    "reflexive_observation_policy_ref": "B0-AROR-v0.1",
+    "context_revision_required": true,
+    "stale_policy": "REJECT_AND_RECOMPOSE_OR_SAFE_FALLBACK",
+    "private_model_memory_as_source": false,
+    "fallback_policy": "SAFE_CANONICAL_FALLBACK_OR_HOLD",
+    "human_review_policy": "HUMAN_GATE_MVP",
+    "operation_limits": {
+      "may_change_canon": false,
+      "may_decide_branch": false,
+      "may_create_evidence": false,
+      "may_diagnose": false
+    }
+  },
+  "allowed_target_ids": [
+    "0.1",
+    "0.1a",
+    "0.3",
+    "0.3a",
+    "0.4",
+    "0.5_actor_scope",
+    "0.6",
+    "0.8",
+    "0.8a",
+    "0.A",
+    "0.B",
+    "0.C",
+    "0.D"
+  ],
+  "epistemic_invariants": [
+    "AIProposal is never captured_user_evidence or EvidenceItem.",
+    "User confirmation/correction is required before visible AI wording can create user evidence.",
+    "unknown/unconfirmed is preserved; abstention routes to canonical safe fallback/hold.",
+    "AI cannot decide branching, readiness, business truth, handoff, VSM diagnosis, AHE diagnosis, or MMABP fact creation.",
+    "Every support reference in a proposal must resolve to an authorized context_source evidence_id.",
+    "Context revision mismatch stales the proposal; no silent rebasing.",
+    "B0 classify_genericity and classify_scale are internal routing assessments only; neither creates captured_user_evidence nor business truth.",
+    "B0 classify_scale cannot close TRAVERSABLE_ACTIVITY without valid support bound to the exact semantic anchor/context request.",
+    "B0 abstention in classify_scale always degrades to SCALE_UNKNOWN regardless of contradictory status payload."
+  ],
+  "does_not_authorize": [
+    "B0 semantic change",
+    "B2 AI binding",
+    "Evaluator qualification",
+    "AdmissionDecision",
+    "User evidence promotion",
+    "Production runtime activation"
+  ],
+  "next_gate": "P3 v1.1 GPT-6 real-model qualification; then A10 v1.1 decision input",
+  "source_implementation": {
+    "binding_module": "src/services/eve/pr3/ai/b0-binding.ts",
+    "provider_module": "src/services/eve/pr3/ai/openai-responses-gpt6.ts",
+    "persistence_module": "src/services/eve/pr3/ai/store.ts",
+    "adapter_module": "src/services/eve/pr3/ai/b0-adapter.ts",
+    "conformance_test": "tests/regression/pr3/a08-b0-ai.test.mjs",
+    "runtime_activation": "NOT_AUTHORIZED_BY_A08",
+    "live_model_calls": "NOT_EXECUTED_IN_A08_V1_1__P3_GPT6_GATEWAY_EXECUTION_REQUIRED",
+    "routing_provider_module": "src/services/eve/pr3/ai/b0-routing-gpt6.ts",
+    "routing_operations": [
+      "classify_genericity",
+      "classify_scale"
+    ]
+  },
+  "internal_routing_operations": {
+    "classify_genericity": {
+      "authority": "promoted B0 Cognitive Adapter routing only; not business evidence",
+      "decision_contract": {
+        "purpose": "routing_control_only_not_business_evidence",
+        "decision_rule": "Classify whether the confirmed/corrected activity label remains too generic to distinguish this activity from similar ones. If materially ambiguous, return GENERICITY_UNKNOWN."
+      },
+      "output": {
+        "genericity_status": [
+          "SPECIFIC_ACTIVITY",
+          "GENERIC_ACTIVITY",
+          "GENERICITY_UNKNOWN"
+        ],
+        "evidence_refs": "authorized_evidence keys only",
+        "brief_reason": "short structural-semantic reason"
+      },
+      "safe_fallback": "MODEL_UNAVAILABLE|invalid|abstention/no admissible output => GENERICITY_UNKNOWN",
+      "user_evidence_authority": false
+    },
+    "classify_scale": {
+      "authority": "promoted B0 C6 Cognitive Adapter semantic routing only; internal_routing_assessment, not business evidence",
+      "target_id": "C6_scale_assessment",
+      "states": [
+        "TRAVERSABLE_ACTIVITY",
+        "MACROPROCESS_TOO_BROAD",
+        "MICROACTION_TOO_NARROW",
+        "SCALE_UNKNOWN"
+      ],
+      "systemic_distinction": "STRUCTURAL_COMPLETENESS != OPERATIONAL_SCALE",
+      "request_binding_required": [
+        "request_id",
+        "context_revision",
+        "anchor_fingerprint",
+        "target_id",
+        "authorized_evidence",
+        "decision_contract"
+      ],
+      "response_binding_required": [
+        "action",
+        "scale_status",
+        "evidence_refs",
+        "brief_reason",
+        "request_id",
+        "context_revision",
+        "anchor_fingerprint",
+        "target_id"
+      ],
+      "positive_support_rule": "TRAVERSABLE_ACTIVITY requires non-empty evidence_refs and every ref must resolve to non-empty authorized_evidence.",
+      "abstention_precedence": "action=abstain => effective SCALE_UNKNOWN regardless of scale_status payload",
+      "safe_fallback": "MODEL_UNAVAILABLE|invalid schema|binding/support reject|abstain|semantic uncertainty => SCALE_UNKNOWN -> 0.C",
+      "user_evidence_authority": false
+    }
+  },
+  "technical_binding_basis": {
+    "source_contract_rule": "Provider/model technical limits are implementation-owned and downstream of semantic context selection; promoted B0 canon is provider-agnostic.",
+    "selected_generator_model": "openai/gpt-6-luna",
+    "selection_reason": "GPT-6 Luna preserves the efficient focused/high-volume generator role, structured output, and Responses API capability without authority expansion.",
+    "transport_auth": "Vercel OIDC in deployed environment; no user-managed OpenAI API key required."
+  },
+  "revision": "1.1",
+  "supersedes": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.0",
+  "change_class": "TECHNICAL_MODEL_REBIND_ONLY__NO_PROMOTED_SEMANTIC_DELTA",
+  "governance_overlay_ref": "PR3-GPT6-REBINDING-CONTROL-OVERLAY-v1.0",
+  "b0_automatic_admission_authority_gap": "OPEN__QUALIFICATION_DOES_NOT_GRANT_ADMISSION_AUTHORITY"
+}

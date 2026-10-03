@@ -1,0 +1,12 @@
+import assert from "node:assert/strict";
+import fs from "node:fs"; import path from "node:path"; import test from "node:test";
+const root=path.resolve(import.meta.dirname,"../../.."); const read=p=>JSON.parse(fs.readFileSync(path.join(root,p),"utf8"));
+const a08=read("pr3/authority/A08_PR3_B0_PRODUCTION_AI_BINDING_v1_1.json");
+const a09=read("pr3/authority/A09_PR3_B2_PRODUCTION_AI_MODE_BINDING_v1_1.json");
+const p3=read("pr3/authority/P3_PR3_PRODUCTION_AI_QUALIFICATION_PLAN_v1_1.json");
+const a10=read("pr3/authority/A10_PR3_EVALUATOR_AUTHORITY_DETERMINATION_PROCEDURE_v1_1.json");
+const overlay=read("pr3/authority/PR3_GPT6_REBINDING_CONTROL_OVERLAY_v1_0.json");
+const old08=read("pr3/authority/A08_PR3_B0_PRODUCTION_AI_BINDING_v1_0.json"); const old09=read("pr3/authority/A09_PR3_B2_PRODUCTION_AI_MODE_BINDING_v1_0.json");
+test("GPT6 successor preserves immutable predecessors",()=>{assert.equal(old08.provider_binding.model_id,"openai/gpt-5.4-mini");assert.equal(old09.provider_binding.model_id,"openai/gpt-5.4-mini");assert.equal(a08.supersedes,old08.artifact_id);assert.equal(a09.supersedes,old09.artifact_id);assert.equal(a08.provider_binding.model_id,"openai/gpt-6-luna");assert.equal(a09.provider_binding.model_id,"openai/gpt-6-luna");assert.equal(p3.evaluator_candidate_configuration.model_id,"openai/gpt-6-sol");});
+test("Authority boundaries survive rebinding",()=>{assert.equal(p3.systemic_autonomy_trace_requirement.schema,"SystemicAutonomyTrace/1.1");assert.equal(a10.preserved_candidate_scope.target_class,"B2_CAPTURE_RENDER");assert.equal(a10.authority_output_constraints.scope_expansion_forbidden,true);assert.equal(a10.authority_output_constraints.automatic_admission,false);assert.equal(a10.max_local_result,"READY_FOR_CENTER_AUTHORITY_DECISION");assert.equal(overlay.b0_automatic_admission_authority_gap.state,"OPEN");});
+test("B2 deterministic zero-call map is unchanged",()=>{assert.deepEqual(a09.mode_map_declared,{AI_DEFAULT_CONTEXTUAL_RENDER:1,AI_OPTIONAL_CONTEXTUAL_RENDER:18,AI_CONDITIONAL_CLARIFICATION:3,DETERMINISTIC:4});for(const id of a09.deterministic_zero_model_call_targets){assert.equal(a09.target_variable_mode_map[id].ai_mode,"DETERMINISTIC");assert.deepEqual(a09.target_variable_mode_map[id].ops,[]);}});

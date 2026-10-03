@@ -1,0 +1,87 @@
+{
+  "artifact_id": "A10-PR3-EVALUATOR-AUTHORITY-DETERMINATION-PROCEDURE-v1.1",
+  "state": "SUCCESSOR_PROCEDURE_IMPLEMENTED__AUTHORITY_DECISION_BLOCKED_UNTIL_P3_GPT6_EVIDENCE",
+  "purpose": "Provide a deterministic, non-self-authorizing decision procedure for promoting or rejecting the B2 evaluator candidate after P3 real-model qualification. This procedure does not itself grant authority.",
+  "authority_inputs": [
+    "PROMPT PR3 v1.2.1",
+    "SETUP_INSTITUCIONAL_RAZONAMIENTO_TRIPILAR PR3 v1.2",
+    "P3-PR3-PRODUCTION-AI-QUALIFICATION-PLAN-v1.1",
+    "EVE-B2-EVALUATOR-AUTHORITY-CANDIDATE-v0.3.0-GPT6",
+    "EVALUATOR-REFERENCE-QUALIFICATION-BANK-v0.2.1",
+    "A11-PR3-AI-PROVENANCE-LEDGER-v1.0",
+    "PR3-GPT6-REBINDING-CONTROL-OVERLAY-v1.0",
+    "SystemicAutonomyTrace/1.1"
+  ],
+  "preserved_candidate_scope": {
+    "profile_ref": "EVE-C1-B2-OPERATIONAL-PROJECTION-G1@1.1",
+    "operation": "render",
+    "locale": "es",
+    "target_class": "B2_CAPTURE_RENDER",
+    "criterion_ids": [
+      "intent_fidelity",
+      "observer_fidelity",
+      "reflexive_integrity",
+      "narrative_canonical_fidelity"
+    ],
+    "interaction_classes": [
+      "B2_CAPTURE_RENDER"
+    ],
+    "independence_class": "partially_independent"
+  },
+  "preconditions": [
+    "P3 evidence artifact exists and its own SHA-256 reproduces.",
+    "P3 qualification_determination == EVIDENCE_READY_FOR_A10_AUTHORITY_DETERMINATION.",
+    "P3 hard_falsifiers is empty.",
+    "Reference bank has exactly 15 cases, agree=15, disagree=0, unknown_or_error=0.",
+    "Exact evaluator provider/model/configuration is recorded from real provider responses.",
+    "Exact generator provider/model/configuration for the evaluated B2 render cases is recorded.",
+    "No evaluator output claimed authority or automatic admission.",
+    "No B2 promoted contract/profile/runtime identity changed during qualification."
+  ],
+  "decision_rules": {
+    "NOT_READY": [
+      "P3 evidence absent.",
+      "P3 evidence hash invalid.",
+      "Any required provenance field missing.",
+      "Any required real-model execution missing."
+    ],
+    "REJECT": [
+      "Any P3 hard falsifier remains active.",
+      "Reference-bank disagreement or evaluation execution error exists.",
+      "Evaluator attempted to claim authority, admission, or business truth.",
+      "Observed evaluator configuration does not match the configuration actually qualified."
+    ],
+    "READY_FOR_CENTER_AUTHORITY_DECISION": [
+      "All preconditions satisfied.",
+      "No hard falsifier active.",
+      "No expansion of qualified_scope beyond candidate source.",
+      "Authority record to be emitted as a new successor revision/identity; source candidate remains immutable."
+    ]
+  },
+  "authority_output_constraints": {
+    "automatic_admission": false,
+    "default_status_if_approved": "RESTRICTED",
+    "scope_expansion_forbidden": true,
+    "production_evaluator_scope": "Exact qualified B2_CAPTURE_RENDER scope only; candidate/clarification and all other operations remain unauthorized.",
+    "generator_compatibility_rule": "Bind exact generator model/configuration observed in P3; any material generator change invalidates authority.",
+    "recertification_triggers": [
+      "generator_change",
+      "context_policy_change",
+      "profile_revision_change",
+      "criterion_change",
+      "evaluator_model_change",
+      "evaluator_prompt_change",
+      "provider_behavior_change_material_to_scope"
+    ],
+    "candidate_record_immutable": true,
+    "new_successor_required": true
+  },
+  "center_decision_required": true,
+  "stop_condition": "EVALUATOR_AUTHORITY_CHANGE_REQUIRING_PROMOTION",
+  "current_determination": "NOT_READY__P3_GPT6_REAL_MODEL_EVIDENCE_NOT_YET_PRESENT",
+  "next_action": "Execute P3 v1.1 GPT-6 qualification; generate decision input only; STOP for Center authority decision.",
+  "revision": "1.1",
+  "supersedes": "A10-PR3-EVALUATOR-AUTHORITY-DETERMINATION-PROCEDURE-v1.0",
+  "b0_automatic_admission_authority_gap": "OPEN__NOT_AN_A10_SCOPE__BLOCKS_P5_IF_UNRESOLVED",
+  "max_local_result": "READY_FOR_CENTER_AUTHORITY_DECISION"
+}

@@ -1,0 +1,100 @@
+{
+  "artifact_id": "PR3-AI-CONTROL-STATE-v1.1",
+  "authority": "PROMPT PR3 v1.2.1 + SETUP_INSTITUCIONAL_RAZONAMIENTO_TRIPILAR PR3 v1.2",
+  "mode": "SYSTEMIC_RECURSIVE_CAUSAL",
+  "updated_at": "2026-10-03T05:55:03Z",
+  "baseline": {
+    "P2": "DEPLOYED_CLEAN_TARGET_CONFORMED",
+    "P4": "REAL_DEPLOYMENT_CONFORMED",
+    "supabase_project_ref": "keqrkyumfyhfivllvdbl",
+    "source_branch": "pr3-pilot",
+    "source_head_after_control_state_parent": "adb0d73fed78af5570545715e30ba974368cd482"
+  },
+  "AI_sequence": [
+    "A08",
+    "A09",
+    "P3",
+    "A10",
+    "P5_REAL_USER_E2E"
+  ],
+  "states": {
+    "A08": {
+      "state": "GPT6_SUCCESSOR_SOURCE_MATERIALIZED__SOURCE_QA_PENDING",
+      "authority_ref": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.1",
+      "predecessor_ref": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.0",
+      "provider_ref": "vercel.ai_gateway.openresponses.v1",
+      "model_requested": "openai/gpt-6-luna",
+      "runtime_activation": false
+    },
+    "A09": {
+      "state": "GPT6_SUCCESSOR_SOURCE_MATERIALIZED__SOURCE_QA_PENDING",
+      "authority_ref": "A09-PR3-B2-PRODUCTION-AI-MODE-BINDING-v1.1",
+      "predecessor_ref": "A09-PR3-B2-PRODUCTION-AI-MODE-BINDING-v1.0",
+      "provider_ref": "vercel.ai_gateway.openresponses.v1",
+      "model_requested": "openai/gpt-6-luna",
+      "exact_mode_counts": {
+        "AI_DEFAULT_CONTEXTUAL_RENDER": 1,
+        "AI_OPTIONAL_CONTEXTUAL_RENDER": 18,
+        "AI_CONDITIONAL_CLARIFICATION": 3,
+        "DETERMINISTIC": 4
+      },
+      "runtime_activation": false
+    },
+    "P3": {
+      "state": "AUTHORIZED_AFTER_FOCAL_GOVERNANCE_CORRECTION__GPT6_SUCCESSOR_SOURCE_QA_PENDING",
+      "plan_ref": "P3-PR3-PRODUCTION-AI-QUALIFICATION-PLAN-v1.1",
+      "command": "npm run qualify:pr3-ai:gpt6:vercel-oidc",
+      "executor_task": "pr3/tasks/P3_A10_CODEX_EXECUTION_TASK_v1_1_GPT6.md",
+      "real_model_execution_state": "NOT_EXECUTED"
+    },
+    "A10": {
+      "state": "SUCCESSOR_DECISION_PROCEDURE_IMPLEMENTED__NOT_RUN",
+      "procedure_ref": "A10-PR3-EVALUATOR-AUTHORITY-DETERMINATION-PROCEDURE-v1.1",
+      "current_candidate": "EVE-B2-EVALUATOR-AUTHORITY-CANDIDATE-v0.3.0-GPT6",
+      "candidate_status": "CANDIDATE",
+      "authorized_evaluator": "NOT_AVAILABLE",
+      "qualified_scope": "B2_CAPTURE_RENDER_ONLY",
+      "automatic_admission": false,
+      "max_local_result": "READY_FOR_CENTER_AUTHORITY_DECISION"
+    },
+    "P5_REAL_USER_E2E": "HOLD",
+    "B0_AUTOMATIC_ADMISSION_AUTHORITY_GAP": "OPEN__DOES_NOT_BLOCK_P3__BLOCKS_P5"
+  },
+  "source_qa": {
+    "workflow": "PR3 AI Source QA",
+    "latest_success_run_id": 37101259030,
+    "tested_sha": "f0ea0cfde0efb853beaa4ccb1ff4d15537b30167",
+    "result": "PASS",
+    "checks": [
+      "npm ci",
+      "typecheck",
+      "PR3 regression suite",
+      "P3 dry preflight",
+      "scoped AI lint",
+      "production build"
+    ]
+  },
+  "preserved": [
+    "B0 promoted semantics",
+    "B0.5 NO_AI",
+    "B1 NO_GENERATIVE_AI_DETERMINISTIC",
+    "B2 promoted semantics and EXACT_MODE_MAP",
+    "A04",
+    "A05",
+    "A07",
+    "P2",
+    "P4",
+    "40+20 budget",
+    "candidate != evidence",
+    "proposal != evidence"
+  ],
+  "next_action": "Run source QA at exact GPT-6 successor head. If conformed execute P3 v1.1; if P3 closes produce A10 v1.1 decision input and STOP for Center.",
+  "revision": "1.1",
+  "supersedes": "PR3-AI-CONTROL-STATE-v1.0",
+  "governance_overlay_ref": "PR3-GPT6-REBINDING-CONTROL-OVERLAY-v1.0",
+  "reason_to_live": {
+    "factory_path": "Cliente → Captura EVE → Runner EVE → Cadenas → ACC → DX",
+    "contribution": "P3 qualifies AI as bounded capture capability so Captura EVE can absorb linguistic variety without transferring semantic authority to the model.",
+    "closure_requires": "SystemicAutonomyTrace/1.1 + real-model evidence + preserved epistemic/authority boundaries; tests alone are insufficient."
+  }
+}
