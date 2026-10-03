@@ -132,11 +132,14 @@
     }
   },
   "current_binding_state_overlay": "A02B-PR3-PRODUCTION-AI-BINDING-STATE-OVERLAY-v1.0",
-  "execution_precondition": "A08/A09 source conformed. Production qualification executes inside Vercel so VERCEL_OIDC_TOKEN supplies AI Gateway auth automatically; no user-managed OpenAI API key is required.",
+  "execution_precondition": "A08/A09 source conformed. Codex uses its already-authenticated Vercel CLI to obtain a project-scoped OIDC token and execute P3 through Vercel AI Gateway. No user-managed OpenAI or AI Gateway API key is required.",
   "execution_path": {
-    "preferred": "TEMPORARY_PROTECTED_VERCEL_QUALIFIER_USING_OIDC",
-    "persistence_boundary": "NO_WRITE_TO_EVE_PR3_PRODUCTION_TABLES",
-    "evidence_return": "JSON qualification evidence returned to control plane and then frozen in repository",
-    "fallback": "AI_GATEWAY_API_KEY may be used only in local/Codex execution if already securely available"
+    "preferred": "CODEX_VERCEL_PROJECT_OIDC_LOCAL_EXECUTOR",
+    "persistence_boundary": "NO_WRITE_TO_EVE_PR3_PRODUCTION_BUSINESS_OR_EVIDENCE_TABLES",
+    "evidence_return": "Freeze P3 and guarded A10 material evidence under pr3/evidence and commit exact bytes",
+    "fallback": "AI_GATEWAY_API_KEY may be used only in local/Codex execution if already securely available",
+    "command": "npm run qualify:pr3-ai:vercel-oidc",
+    "executor_task": "pr3/tasks/P3_A10_CODEX_EXECUTION_TASK_v1_0.md",
+    "auth_acquisition": "vercel project token eve-pr3-pilot; token held only in child-process environment"
   }
 }
