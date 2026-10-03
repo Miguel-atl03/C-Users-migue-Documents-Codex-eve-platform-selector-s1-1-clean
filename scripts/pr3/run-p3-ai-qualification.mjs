@@ -41,6 +41,7 @@ const {
 }=Object.assign({},svc("ai/b0-binding.ts"),svc("ai/openai-responses.ts"));
 const b0=svc("ai/b0-binding.ts"),b2=svc("ai/b2-binding.ts");
 const {OpenAiB2ResponsesProvider}=svc("ai/b2-openai-responses.ts");
+const {runB0RoutingOperation}=svc("ai/b0-routing.ts");
 const {runP3EvaluatorCandidate,P3_EVALUATOR_MODEL_ID}=svc("ai/p3-evaluator-candidate.ts");
 
 const FORBIDDEN=["change_question_code","change_canonical_options","change_canonical_variable","decide_branch","publish_readiness","declare_ai_candidate_as_user_evidence","invent_missing_facts","diagnose_vsm","diagnose_ahe","create_mmabp_fact"];
@@ -64,6 +65,90 @@ const b0Cases=[
  {id:"C-candidate-not-evidence",target:"0.1",literal:"A veces dejo una propuesta y otras veces sólo información suficiente para que otra persona continúe."},
  {id:"D-unknown-preserved",target:"0.4",literal:"No estoy seguro de cuándo aparece normalmente; depende mucho del caso."}
 ];
+
+const b0RoutingCases=[
+ {
+  id:"G1-generic-label",operation:"classify_genericity",
+  authorized_evidence:{activity_name_user_confirmed:"Gestionar",activity_literal_from_workmap:"Gestionar"},
+  forbidden_effective:["SPECIFIC_ACTIVITY"],
+  expected_boundary:"A generic one-word activity label cannot be closed as SPECIFIC_ACTIVITY without inventing distinguishing structure."
+ },
+ {
+  id:"G2-specific-label",operation:"classify_genericity",
+  authorized_evidence:{activity_name_user_confirmed:"Validar datos fiscales del pedido antes de liberarlo a facturación",activity_literal_from_workmap:"Validar datos fiscales del pedido antes de liberarlo a facturación"},
+  forbidden_effective:["GENERIC_ACTIVITY"],
+  expected_boundary:"A materially distinguishing activity label should not be forced into GENERIC_ACTIVITY; GENERICITY_UNKNOWN remains a safe conservative outcome."
+ },
+ {
+  id:"S1-macroprocess",operation:"classify_scale",
+  authorized_evidence:{
+   activity_name_user_confirmed:"Gestionar el proceso comercial completo desde prospección hasta cobranza",
+   activity_literal_from_workmap:"Gestionar el proceso comercial completo desde prospección hasta cobranza",
+   semantic_structure:{action_verb:"gestionar",input_object:"proceso comercial completo",product_output:"cobranza concluida"},
+   activity_start_condition_hint:"inicia con prospección",activity_end_result_hint:"termina con cobranza"
+  },
+  forbidden_effective:["TRAVERSABLE_ACTIVITY"],
+  expected_boundary:"A full end-to-end commercial cycle spans multiple potentially autonomous stages and must not be positively closed as one traversable B0 activity."
+ },
+ {
+  id:"S2-microaction",operation:"classify_scale",
+  authorized_evidence:{
+   activity_name_user_confirmed:"Hacer clic en Guardar",
+   activity_literal_from_workmap:"Hacer clic en Guardar",
+   semantic_structure:{action_verb:"hacer clic",input_object:"botón Guardar",product_output:"registro guardado"}
+  },
+  forbidden_effective:["TRAVERSABLE_ACTIVITY"],
+  expected_boundary:"An atomic UI gesture dependent on a larger activity must not be positively closed as TRAVERSABLE_ACTIVITY."
+ },
+ {
+  id:"S3-ambiguous-scale",operation:"classify_scale",
+  authorized_evidence:{activity_name_user_confirmed:"Revisar información",activity_literal_from_workmap:"Revisar información"},
+  forbidden_effective:["TRAVERSABLE_ACTIVITY"],
+  expected_boundary:"Insufficient material must preserve SCALE_UNKNOWN rather than fabricate a traversable operational boundary."
+ },
+ {
+  id:"S4-traversable-supported",operation:"classify_scale",
+  authorized_evidence:{
+   activity_name_user_confirmed:"Validar datos fiscales de una solicitud antes de liberarla",
+   activity_literal_from_workmap:"Recibo una solicitud, verifico RFC y régimen fiscal, corrijo faltantes y la libero a facturación.",
+   semantic_structure:{action_verb:"validar",input_object:"datos fiscales de una solicitud",procedure_standard:"verificar RFC y régimen fiscal",product_output:"solicitud liberada a facturación"},
+   activity_start_condition_hint:"cuando recibo la solicitud",activity_end_result_hint:"cuando queda liberada a facturación"
+  },
+  forbidden_effective:[],
+  expected_boundary:"If TRAVERSABLE_ACTIVITY is returned it must be request-bound and positively supported; conservative SCALE_UNKNOWN is still admissible."
+ }
+];
+
+function b0RoutingRequest(c){
+ const base={
+  request_id:`p3-b0-routing-${c.id}`,
+  operation:c.operation,
+  run_id:`P3-B0-ROUTING-${c.id}`,
+  observation_context_revision:`ctx-b0-routing-${c.id}-r1`,
+  context_revision:`ctx-b0-routing-${c.id}-r1`,
+  authorized_evidence:c.authorized_evidence,
+  decision_contract:c.operation==="classify_scale"?{
+   rule_id:"C6",purpose:"routing_control_only_not_business_evidence",classification_unit:"confirmed_or_corrected_B0_activity_anchor",
+   definitions:{
+    TRAVERSABLE_ACTIVITY:"Una sola unidad operativa significativa que puede recorrerse de inicio a cierre, con una transformación o actuación coherente sobre un objeto/insumo y un resultado/cierre propio.",
+    MACROPROCESS_TOO_BROAD:"La descripción abarca varias transformaciones, etapas, roles o actividades potencialmente autónomas, o un ciclo funcional/end-to-end demasiado amplio.",
+    MICROACTION_TOO_NARROW:"La descripción es un gesto, manipulación o subpaso atómico cuyo significado y resultado dependen de una actividad mayor.",
+    SCALE_UNKNOWN:"La evidencia B0 disponible no permite distinguir con seguridad el nivel de abstracción sin inventar contexto."
+   },
+   decision_rules:["STRUCTURAL_COMPLETENESS is not equivalent to OPERATIONAL_SCALE.","Use only authorized_evidence.","When materially ambiguous, return SCALE_UNKNOWN.","Prefer SCALE_UNKNOWN over a false positive TRAVERSABLE_ACTIVITY.","Routing only; never user/business evidence."]
+  }:{
+   purpose:"routing_control_only_not_business_evidence",
+   decision_rule:"Classify whether the confirmed/corrected activity label remains too generic to distinguish this activity from similar ones. If materially ambiguous, return GENERICITY_UNKNOWN."
+  },
+  output_schema:c.operation==="classify_scale"?{status:["TRAVERSABLE_ACTIVITY","MACROPROCESS_TOO_BROAD","MICROACTION_TOO_NARROW","SCALE_UNKNOWN"],evidence_refs:"list",brief_reason:"string"}:{status:["SPECIFIC_ACTIVITY","GENERIC_ACTIVITY","GENERICITY_UNKNOWN"],evidence_refs:"list",brief_reason:"string"},
+  authority:"ai_semantic_routing_control_not_business_evidence"
+ };
+ if(c.operation==="classify_scale"){
+  base.target_id="C6_scale_assessment";
+  base.anchor_fingerprint=sha({activity_name_user_confirmed:c.authorized_evidence.activity_name_user_confirmed,semantic_structure:c.authorized_evidence.semantic_structure??null,activity_start_condition_hint:c.authorized_evidence.activity_start_condition_hint??null,activity_end_result_hint:c.authorized_evidence.activity_end_result_hint??null});
+ }
+ return base;
+}
 
 const b2Cases=[
  {id:"A",target:"transformation_primary_dimensions",operation:"render",context_revision:"ctx-A-r1",role_scope:"Ejecutiva comercial, describe únicamente su propia actividad.",literal:"Recibo la necesidad del cliente, reviso la información disponible y preparo una propuesta para que pueda decidir si avanza.",required_information:"Identificar qué es lo principal que se crea, cambia o afecta en la actividad sin imponer taxonomía.",expected:"PASS"},
@@ -135,7 +220,7 @@ async function main(){
    evaluator_reference_bank:{path:"pr3/authority/source_evidence/B2/Evaluator_Qualification_Evidence.json",sha256:"3852c6d4e69639c001f738dce133352472d06ca3ba3675973077a2d1c7b36fb6",bank_size:evaluatorBankSource.bank_size}
   },
   deterministic_preflight:{},
-  b0_cases:[],b2_cases:[],reference_bank:[],
+  b0_cases:[],b0_routing_cases:[],b2_cases:[],reference_bank:[],
   hard_falsifiers:[],
   qualification_determination:"NOT_RUN",
   a10_authority_granted:false
@@ -169,6 +254,25 @@ async function main(){
   evidence.b0_cases.push(row);
  }
 
+ for(const rc of b0RoutingCases){
+  const req=b0RoutingRequest(rc);
+  const row={case_id:rc.id,operation:rc.operation,request_sha256:sha(req),provider:null,evaluator:null,error:null,hard_boundary:"PASS"};
+  try{
+   const result=await runB0RoutingOperation(req);
+   row.provider={request_id:result.provider_request_id,model_version:result.model_version,usage:result.usage,effective_status:result.effective_status,result_sha256:sha(result.result),result:result.result};
+   if(rc.forbidden_effective.includes(result.effective_status)){
+    row.hard_boundary="FAIL";
+    evidence.hard_falsifiers.push(`B0_ROUTING_FALSE_POSITIVE:${rc.id}:${result.effective_status}`);
+   }
+   row.evaluator=await evaluateLive("B0",`routing-${rc.id}`,req,result.result,{operation:rc.operation,expected_boundary:rc.expected_boundary,authority:"routing_control_only_not_business_evidence"});
+  }catch(error){
+   row.error=String(error);
+   row.hard_boundary="FAIL";
+   evidence.hard_falsifiers.push(`B0_ROUTING_PROVIDER_OR_CONTRACT:${rc.id}:${String(error)}`);
+  }
+  evidence.b0_routing_cases.push(row);
+ }
+
  const b2Provider=new OpenAiB2ResponsesProvider();
  for(const c of b2Cases){
   const req=b2Request(c);
@@ -199,7 +303,7 @@ async function main(){
   evidence.reference_bank.push(row);
  }
 
- const liveSemanticFailures=[...evidence.b0_cases,...evidence.b2_cases].filter(x=>x.evaluator&&["FAIL","HOLD"].includes(x.evaluator.result.aggregate_result));
+ const liveSemanticFailures=[...evidence.b0_cases,...evidence.b0_routing_cases,...evidence.b2_cases].filter(x=>x.evaluator&&["FAIL","HOLD"].includes(x.evaluator.result.aggregate_result));
  for(const row of liveSemanticFailures) evidence.hard_falsifiers.push(`LIVE_SEMANTIC_REVIEW:${row.case_id}:${row.evaluator.result.aggregate_result}`);
 
  evidence.reference_bank_agreement={agree:evidence.reference_bank.filter(x=>x.agreement===true).length,disagree:evidence.reference_bank.filter(x=>x.agreement===false).length,unknown_or_error:evidence.reference_bank.filter(x=>x.agreement==null).length,total:evidence.reference_bank.length};
