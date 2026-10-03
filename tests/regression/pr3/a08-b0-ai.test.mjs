@@ -25,7 +25,9 @@ test("A08 keeps provider binding pending P3 qualification",()=>{
  assert.deepEqual(binding.provider_binding.tools,[]);
  assert.equal(binding.provider_binding.qualification_state,"PENDING_P3_GATEWAY_REAL_MODEL_EXECUTION");
  assert.deepEqual(binding.provider_binding.authorized_operations,["render","classify_genericity","classify_scale"]);
- assert.equal(binding.source_implementation.routing_provider_module,"src/services/eve/pr3/ai/b0-routing.ts");\n assert.equal(binding.provider_binding.auth_mode,"VERCEL_OIDC_TOKEN_AUTOMATIC__AI_GATEWAY_API_KEY_LOCAL_FALLBACK");\n assert.equal(binding.provider_binding.prompt_training,"DISALLOWED");
+ assert.equal(binding.source_implementation.routing_provider_module,"src/services/eve/pr3/ai/b0-routing.ts");
+ assert.equal(binding.provider_binding.auth_mode,"VERCEL_OIDC_TOKEN_AUTOMATIC__AI_GATEWAY_API_KEY_LOCAL_FALLBACK");
+ assert.equal(binding.provider_binding.prompt_training,"DISALLOWED");
  assert.deepEqual(binding.source_implementation.routing_operations,["classify_genericity","classify_scale"]);
 });
 
