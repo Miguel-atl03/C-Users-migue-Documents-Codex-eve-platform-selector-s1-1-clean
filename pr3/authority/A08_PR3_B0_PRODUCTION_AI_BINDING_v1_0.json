@@ -1,6 +1,6 @@
 {
   "artifact_id": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.0",
-  "state": "SOURCE_IMPLEMENTATION_IN_PROGRESS__P3_REAL_MODEL_QUALIFICATION_PENDING",
+  "state": "SOURCE_IMPLEMENTED__P3_REAL_MODEL_QUALIFICATION_PENDING",
   "authority": {
     "prompt": "PROMPT PR3 v1.2.1",
     "ai_architecture": "EVE-C1-IA-ARQUITECTURA-TRANSVERSAL-1.2.1",
@@ -84,5 +84,14 @@
     "User evidence promotion",
     "Production runtime activation"
   ],
-  "next_gate": "A09 then P3"
+  "next_gate": "A09 then P3",
+  "source_implementation": {
+    "binding_module": "src/services/eve/pr3/ai/b0-binding.ts",
+    "provider_module": "src/services/eve/pr3/ai/openai-responses.ts",
+    "persistence_module": "src/services/eve/pr3/ai/store.ts",
+    "adapter_module": "src/services/eve/pr3/ai/b0-adapter.ts",
+    "conformance_test": "tests/regression/pr3/a08-b0-ai.test.mjs",
+    "runtime_activation": "NOT_AUTHORIZED_BY_A08",
+    "live_model_calls": "NOT_EXECUTED_IN_A08"
+  }
 }
