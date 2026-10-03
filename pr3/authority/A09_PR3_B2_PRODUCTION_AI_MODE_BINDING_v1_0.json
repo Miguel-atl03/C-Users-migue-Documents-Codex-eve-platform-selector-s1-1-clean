@@ -1,6 +1,6 @@
 {
   "artifact_id": "A09-PR3-B2-PRODUCTION-AI-MODE-BINDING-v1.0",
-  "state": "SOURCE_IMPLEMENTED__P3_REAL_MODEL_QUALIFICATION_PENDING__EXACT_RUNTIME_BINDINGS_MATERIALIZED",
+  "state": "SOURCE_IMPLEMENTED__P3_GATEWAY_REAL_MODEL_QUALIFICATION_PENDING__EXACT_RUNTIME_BINDINGS_MATERIALIZED",
   "authority": {
     "prompt": "PROMPT PR3 v1.2.1",
     "ai_architecture": "EVE-C1-IA-ARQUITECTURA-TRANSVERSAL-1.2.1",
@@ -23,9 +23,9 @@
     "a11": "A11-PR3-AI-PROVENANCE-LEDGER-v1.0"
   },
   "provider_binding": {
-    "provider_ref": "openai.responses.v1",
-    "endpoint": "https://api.openai.com/v1/responses",
-    "model_id": "gpt-6-luna",
+    "provider_ref": "vercel.ai_gateway.openresponses.v1",
+    "endpoint": "https://ai-gateway.vercel.sh/v1/responses",
+    "model_id": "openai/gpt-5.4-mini",
     "reasoning_effort": "none",
     "store": false,
     "tools": [],
@@ -35,7 +35,9 @@
     "timeout_ms": 20000,
     "max_output_tokens": 1800,
     "max_transport_retries": 1,
-    "qualification_state": "PENDING_P3"
+    "qualification_state": "PENDING_P3_GATEWAY_REAL_MODEL_EXECUTION",
+    "auth_mode": "VERCEL_OIDC_TOKEN_AUTOMATIC__AI_GATEWAY_API_KEY_LOCAL_FALLBACK",
+    "prompt_training": "DISALLOWED"
   },
   "mode_map_declared": {
     "AI_DEFAULT_CONTEXTUAL_RENDER": 1,
@@ -452,13 +454,24 @@
   "next_gate": "P3 real-model conformance/qualification after A08+A09 source implementation",
   "source_implementation": {
     "binding_module": "src/services/eve/pr3/ai/b2-binding.ts",
-    "provider_module": "src/services/eve/pr3/ai/b2-openai-responses.ts",
+    "provider_module": "src/services/eve/pr3/ai/vercel-ai-gateway-b2.ts",
     "persistence_module": "src/services/eve/pr3/ai/store.ts",
     "adapter_module": "src/services/eve/pr3/ai/b2-adapter.ts",
     "conformance_test": "tests/regression/pr3/a09-b2-ai.test.mjs",
     "deterministic_provider_call_policy": "ZERO_CALLS",
     "runtime_activation": "NOT_AUTHORIZED_BY_A09",
-    "live_model_calls": "NOT_EXECUTED_IN_A09",
+    "live_model_calls": "NOT_EXECUTED_IN_A09__P3_GATEWAY_EXECUTION_REQUIRED",
     "mixed_mode_filtering": "prepareB2AiRequest filters DETERMINISTIC target_ids before provider/persistence; deterministic-only request returns zero-call safe result."
+  },
+  "technical_binding_basis": {
+    "source_contract_rule": "B2 provider token/model limits are MODEL_PROVIDER_ADAPTER_OWNER implementation bindings and must remain downstream of semantic context policy.",
+    "selected_generator_model": "openai/gpt-5.4-mini",
+    "transport_auth": "Vercel OIDC in deployed environment; no user-managed OpenAI API key required.",
+    "semantic_invariants_preserved": [
+      "EXACT_MODE_MAP",
+      "DETERMINISTIC_ZERO_CALL",
+      "candidate != evidence",
+      "automatic admission disabled"
+    ]
   }
 }
