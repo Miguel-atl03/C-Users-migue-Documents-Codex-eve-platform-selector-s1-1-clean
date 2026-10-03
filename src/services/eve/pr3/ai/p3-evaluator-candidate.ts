@@ -1,8 +1,8 @@
 import "server-only";
 import { canonicalJson } from "../canonical";
 
-export const P3_EVALUATOR_PROVIDER_REF="openai.responses.v1" as const;
-export const P3_EVALUATOR_MODEL_ID="gpt-6.1-sol" as const;
+export const P3_EVALUATOR_PROVIDER_REF="vercel.ai_gateway.openresponses.v1" as const;
+export const P3_EVALUATOR_MODEL_ID="openai/gpt-5.6-sol" as const;
 export const P3_EVALUATOR_PROMPT_PROFILE_REF="EVE-PR3-P3-SEMANTIC-EVALUATOR-CANDIDATE" as const;
 export const P3_EVALUATOR_PROMPT_PROFILE_REVISION="1.0" as const;
 export const P3_EVALUATOR_RESPONSE_SCHEMA_REF="EVE-PR3-P3-EVALUATOR-RESULT-SCHEMA@1.0" as const;
@@ -70,15 +70,16 @@ function outputText(payload:Record<string,unknown>):string{
 }
 
 export async function runP3EvaluatorCandidate(input:P3EvaluatorInput):Promise<{provider_request_id:string|null;model_version:string;usage:unknown;result:P3EvaluatorResult}>{
- const apiKey=process.env.EVE_PR3_OPENAI_API_KEY?.trim();
- if(!apiKey) throw new Error("OPENAI_API_KEY_NOT_CONFIGURED");
+ const apiKey=(process.env.AI_GATEWAY_API_KEY ?? process.env.VERCEL_OIDC_TOKEN)?.trim();
+ if(!apiKey) throw new Error("AI_GATEWAY_AUTH_NOT_CONFIGURED");
  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),30_000);
  try{
-  const response=await fetch("https://api.openai.com/v1/responses",{
+  const response=await fetch("https://ai-gateway.vercel.sh/v1/responses",{
    method:"POST",
    headers:{"Content-Type":"application/json","Authorization":`Bearer ${apiKey}`},
    signal:controller.signal,
    body:JSON.stringify({
+    providerOptions:{gateway:{disallowPromptTraining:true}},
     model:P3_EVALUATOR_MODEL_ID,
     store:false,
     reasoning:{effort:"medium"},
