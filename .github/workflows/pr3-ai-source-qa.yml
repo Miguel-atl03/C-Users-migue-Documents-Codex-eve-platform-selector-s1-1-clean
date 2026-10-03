@@ -51,6 +51,6 @@ jobs:
           test "$code" -eq 3
           grep -q '"determination": "BLOCKED_AI_GATEWAY_AUTH_NOT_AVAILABLE"' /tmp/p3-preflight.log
       - name: Scoped AI lint
-        run: npx eslint src/services/eve/pr3/ai scripts/pr3/run-p3-ai-qualification.mjs tests/regression/pr3/a08-b0-ai.test.mjs tests/regression/pr3/a09-b2-ai.test.mjs tests/regression/pr3/a08-a09-ai-adapters.test.mjs tests/regression/pr3/p3-ai-qualification.test.mjs
+        run: npx eslint src/services/eve/pr3/ai scripts/pr3/run-p3-ai-qualification.mjs scripts/pr3/run-p3-with-vercel-oidc.mjs scripts/pr3/run-a10-evaluator-authority-decision.mjs tests/regression/pr3/a08-b0-ai.test.mjs tests/regression/pr3/a09-b2-ai.test.mjs tests/regression/pr3/a08-a09-ai-adapters.test.mjs tests/regression/pr3/p3-ai-qualification.test.mjs
       - name: Production build
         run: npm run build
