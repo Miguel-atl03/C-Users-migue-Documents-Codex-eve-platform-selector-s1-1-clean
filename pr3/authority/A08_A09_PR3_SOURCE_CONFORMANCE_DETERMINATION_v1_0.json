@@ -1,0 +1,76 @@
+{
+  "artifact_id": "A08-A09-PR3-SOURCE-CONFORMANCE-DETERMINATION-v1.0",
+  "determined_at": "2026-10-03T03:22:00Z",
+  "authority": "PROMPT PR3 v1.2.1 + SETUP_INSTITUCIONAL_RAZONAMIENTO_TRIPILAR PR3 v1.2",
+  "tested_source_sha": "4559491807b70eefa0988c0d06e1064e33f6c30d",
+  "github_actions": {
+    "workflow": "PR3 AI Source QA",
+    "run_id": 37092913532,
+    "conclusion": "success",
+    "checks": {
+      "install_reproducibly": "PASS",
+      "typecheck": "PASS",
+      "pr3_regression_suite": "PASS",
+      "p3_qualification_harness_dry_preflight": "PASS",
+      "scoped_ai_lint": "PASS",
+      "production_build": "PASS"
+    }
+  },
+  "A08": {
+    "binding_ref": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.0",
+    "source_state": "SOURCE_IMPLEMENTED_CONFORMED__P3_REAL_MODEL_QUALIFICATION_PENDING",
+    "covered_operations": [
+      "render",
+      "classify_genericity",
+      "classify_scale"
+    ],
+    "boundaries": [
+      "AI proposal != user evidence",
+      "internal routing assessment != business evidence",
+      "scale positive closure requires valid support",
+      "abstention degrades to SCALE_UNKNOWN",
+      "context/anchor binding fail closed"
+    ]
+  },
+  "A09": {
+    "binding_ref": "A09-PR3-B2-PRODUCTION-AI-MODE-BINDING-v1.0",
+    "source_state": "SOURCE_IMPLEMENTED_CONFORMED__P3_REAL_MODEL_QUALIFICATION_PENDING",
+    "exact_mode_counts": {
+      "AI_DEFAULT_CONTEXTUAL_RENDER": 1,
+      "AI_OPTIONAL_CONTEXTUAL_RENDER": 18,
+      "AI_CONDITIONAL_CLARIFICATION": 3,
+      "DETERMINISTIC": 4
+    },
+    "boundaries": [
+      "DETERMINISTIC targets never reach provider payload",
+      "deterministic-only request creates zero model calls and zero AI records",
+      "mixed interaction filters deterministic targets before model/persistence",
+      "support revision/range/quote must bind to authorized literal",
+      "automatic admission remains disabled"
+    ]
+  },
+  "correction_overlay": "A06-PR3-AI-OPERATION-ENUM-CORRECTION-OVERLAY-v1.0",
+  "unaffected": [
+    "B0 promoted semantics",
+    "B0.5 NO_AI",
+    "B1 NO_GENERATIVE_AI_DETERMINISTIC",
+    "B2 promoted semantics",
+    "A04",
+    "A05",
+    "A07",
+    "P2",
+    "P4",
+    "40+20 budget"
+  ],
+  "p3": {
+    "plan_ref": "P3-PR3-PRODUCTION-AI-QUALIFICATION-PLAN-v1.0",
+    "harness": "scripts/pr3/run-p3-ai-qualification.mjs",
+    "dry_preflight_result": "BLOCKED_REAL_MODEL_SECRET_NOT_AVAILABLE",
+    "dry_preflight_hard_falsifiers": 0,
+    "real_model_execution_state": "NOT_EXECUTED",
+    "material_requirement": "EVE_PR3_OPENAI_API_KEY in secure execution context",
+    "on_demand_workflow": ".github/workflows/pr3-p3-real-model-qualification.yml"
+  },
+  "A10": "NOT_STARTED__REQUIRES_P3_REAL_MODEL_EVIDENCE",
+  "real_user_pilot": "HOLD"
+}
