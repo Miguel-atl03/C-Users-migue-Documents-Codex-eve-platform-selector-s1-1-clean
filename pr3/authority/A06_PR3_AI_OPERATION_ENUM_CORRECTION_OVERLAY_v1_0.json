@@ -1,0 +1,31 @@
+{
+  "artifact_id": "A06-PR3-AI-OPERATION-ENUM-CORRECTION-OVERLAY-v1.0",
+  "state": "ACTIVE_CORRECTION_OVERLAY",
+  "base_mapping_ref": "A06-PR3-AUTHORITATIVE-PERSISTENCE-MAPPING-v1.4",
+  "causal_owner": "Persistence mapping / AI operation source fidelity",
+  "affected_record": "AIOperation",
+  "affected_field": "operation",
+  "previous_source_path": "render|candidate|classify_scale|semantic_review-support as authorized",
+  "corrected_source_path": "render|candidate|clarification|classify_scale|semantic_review-support as authorized",
+  "reason": "The promoted B2 AI exchange contract revision 1.1 explicitly authorizes operation_enum render|candidate|clarification. The physical column is text and requires no migration.",
+  "physical_schema_change": false,
+  "logical_record_count_change": false,
+  "logical_field_count_change": false,
+  "unaffected_determinations": [
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A07",
+    "B0",
+    "B0.5",
+    "B1",
+    "P2 physical schema",
+    "P4"
+  ],
+  "reentry_scope": [
+    "A09",
+    "A11 consistency reading of AIOperation.operation"
+  ],
+  "falsifier": "Any promoted source proving B2 clarification is not an AI operation, or any physical DB constraint forbidding clarification."
+}
