@@ -6,9 +6,15 @@
   "objects": {
     "B0": {
       "base_state": "PROMOTED_CLOSED__PRODUCTION_AI_BINDING_PENDING",
-      "current_implementation_state": "PROMOTED_CLOSED__A08_SOURCE_IMPLEMENTED__P3_REAL_MODEL_QUALIFICATION_PENDING",
+      "current_implementation_state": "PROMOTED_CLOSED__A08_SOURCE_IMPLEMENTED_RENDER_AND_INTERNAL_ROUTING__P3_REAL_MODEL_QUALIFICATION_PENDING",
       "authority_ref": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.0",
-      "ai_policy": "CONTRACT_AUTHORIZED_ONLY"
+      "ai_policy": "CONTRACT_AUTHORIZED_ONLY",
+      "source_modules": [
+        "src/services/eve/pr3/ai/b0-binding.ts",
+        "src/services/eve/pr3/ai/openai-responses.ts",
+        "src/services/eve/pr3/ai/b0-adapter.ts",
+        "src/services/eve/pr3/ai/b0-routing.ts"
+      ]
     },
     "B0.5": {
       "base_state": "PROMOTED_WITH_RESTRICTIONS__PM_OWNER_EVE_INTERNAL",
@@ -22,10 +28,15 @@
     },
     "B2": {
       "base_state": "PROMOTED_WITH_RESTRICTIONS__PRODUCTION_AI_AND_EVALUATOR_BINDING_PENDING",
-      "current_implementation_state": "PROMOTED_WITH_RESTRICTIONS__A09_SOURCE_IMPLEMENTED__P3_AND_A10_PENDING",
+      "current_implementation_state": "PROMOTED_WITH_RESTRICTIONS__A09_SOURCE_IMPLEMENTED_EXACT_MODE_AND_RUNTIME_BINDINGS__P3_AND_A10_PENDING",
       "authority_ref": "A09-PR3-B2-PRODUCTION-AI-MODE-BINDING-v1.0",
       "evaluator_authority_state": "CANDIDATE_ONLY__AUTHORIZED_EVALUATOR_NOT_AVAILABLE",
-      "ai_policy": "EXACT_MODE_MAP"
+      "ai_policy": "EXACT_MODE_MAP",
+      "source_modules": [
+        "src/services/eve/pr3/ai/b2-binding.ts",
+        "src/services/eve/pr3/ai/b2-openai-responses.ts",
+        "src/services/eve/pr3/ai/b2-adapter.ts"
+      ]
     }
   },
   "preserved": [
@@ -38,5 +49,5 @@
     "B2 EXACT_MODE_MAP",
     "40+20 runtime budget"
   ],
-  "next_state_owner": "P3 production AI qualification; then A10 evaluator authority determination"
+  "next_state_owner": "P3 exact real-model qualification across B0 render + B0 internal routing + B2 AI modes; then A10 evaluator authority determination."
 }
