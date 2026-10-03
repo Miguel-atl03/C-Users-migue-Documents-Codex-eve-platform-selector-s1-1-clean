@@ -320,11 +320,14 @@ async function main(){
   evidence.reference_bank.push(row);
  }
 
- const liveSemanticFailures=[...evidence.b0_cases,...evidence.b0_routing_cases,...evidence.b2_cases].filter(x=>x.evaluator&&["FAIL","HOLD"].includes(x.evaluator.result.aggregate_result));
- for(const row of liveSemanticFailures) evidence.hard_falsifiers.push(`LIVE_SEMANTIC_REVIEW:${row.case_id}:${row.evaluator.result.aggregate_result}`);
+ const liveSemanticFindings=[...evidence.b0_cases,...evidence.b0_routing_cases,...evidence.b2_cases]
+  .filter(x=>x.evaluator&&["FAIL","HOLD"].includes(x.evaluator.result.aggregate_result))
+  .map(x=>({case_id:x.case_id,evaluator_aggregate:x.evaluator.result.aggregate_result,material_findings:x.evaluator.result.material_findings??[],authority:"CANDIDATE_ONLY__NOT_A_HARD_FALSIFIER_WITHOUT_REFERENCE_OR_ADJUDICATION"}));
+ evidence.candidate_evaluator_live_findings=liveSemanticFindings;
 
  evidence.reference_bank_agreement={agree:evidence.reference_bank.filter(x=>x.agreement===true).length,disagree:evidence.reference_bank.filter(x=>x.agreement===false).length,unknown_or_error:evidence.reference_bank.filter(x=>x.agreement==null).length,total:evidence.reference_bank.length};
  evidence.qualification_determination=evidence.hard_falsifiers.length===0?"EVIDENCE_READY_FOR_A10_AUTHORITY_DETERMINATION":"P3_CONFORMANCE_NOT_CLOSED";
+ evidence.authority_boundary_note="Candidate evaluator live FAIL/HOLD outputs are findings only. They do not become hard generator falsifiers without a governed reference judgment or A10 adjudication; this prevents circular self-authorization.";
  evidence.completed_at=now();
  evidence.evidence_sha256=sha({...evidence,evidence_sha256:undefined});
  fs.mkdirSync(path.join(root,".tmp"),{recursive:true});
