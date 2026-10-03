@@ -182,7 +182,7 @@ function b2Request(c){
   review_policy_ref:"B2-RP-AI-PROPOSAL-G1.1",
   normative_context_ref:runtimeBinding.intent_refs[0],
   observational_context_ref:runtimeBinding.cluster_refs[0],
-  generator_ref:"P3:gpt-6-luna",
+  generator_ref:`P3:${b2.B2_AI_MODEL_ID}`,
   context_policy_ref:"B2-CONTEXT-POLICY-G1.1"
  };
 }
