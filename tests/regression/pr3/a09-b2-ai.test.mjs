@@ -42,5 +42,8 @@ test("A09 does not authorize automatic admission",()=>{
  assert.equal(binding.evaluator_state.authorized_evaluator,"NOT_AVAILABLE");
  assert.equal(binding.evaluator_state.automatic_admission_enabled,false);
  assert.equal(binding.request_contract.review_policy_ref,"B2-RP-AI-PROPOSAL-G1.1");
- assert.equal(binding.provider_binding.qualification_state,"PENDING_P3_GATEWAY_REAL_MODEL_EXECUTION");\n assert.equal(binding.provider_binding.provider_ref,"vercel.ai_gateway.openresponses.v1");\n assert.equal(binding.provider_binding.model_id,"openai/gpt-5.4-mini");\n assert.equal(binding.provider_binding.auth_mode,"VERCEL_OIDC_TOKEN_AUTOMATIC__AI_GATEWAY_API_KEY_LOCAL_FALLBACK");
+ assert.equal(binding.provider_binding.qualification_state,"PENDING_P3_GATEWAY_REAL_MODEL_EXECUTION");
+ assert.equal(binding.provider_binding.provider_ref,"vercel.ai_gateway.openresponses.v1");
+ assert.equal(binding.provider_binding.model_id,"openai/gpt-5.4-mini");
+ assert.equal(binding.provider_binding.auth_mode,"VERCEL_OIDC_TOKEN_AUTOMATIC__AI_GATEWAY_API_KEY_LOCAL_FALLBACK");
 });
