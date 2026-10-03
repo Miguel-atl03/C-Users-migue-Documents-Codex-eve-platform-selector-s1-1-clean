@@ -39,7 +39,7 @@ const {OpenAiB0ResponsesProvider}=svc("ai/openai-responses.ts");
 const b0=svc("ai/b0-binding.ts"),b2=svc("ai/b2-binding.ts");
 const {OpenAiB2ResponsesProvider}=svc("ai/b2-openai-responses.ts");
 const {runB0RoutingOperation}=svc("ai/b0-routing.ts");
-const {runP3EvaluatorCandidate,P3_EVALUATOR_MODEL_ID}=svc("ai/p3-evaluator-candidate.ts");
+const {runP3EvaluatorCandidate,P3_EVALUATOR_MODEL_ID,P3_EVALUATOR_PROVIDER_REF}=svc("ai/p3-evaluator-candidate.ts");
 
 const FORBIDDEN=["change_question_code","change_canonical_options","change_canonical_variable","decide_branch","publish_readiness","declare_ai_candidate_as_user_evidence","invent_missing_facts","diagnose_vsm","diagnose_ahe","create_mmabp_fact"];
 function b0Request(caseId,target,literal){
@@ -209,8 +209,8 @@ async function main(){
   evidence_id:"P3-PR3-PRODUCTION-AI-QUALIFICATION-EVIDENCE-v1.0",
   classification:"SYNTHETIC_REFERENCE_REAL_MODEL_QUALIFICATION_EVIDENCE",
   started_at:startedAt,
-  generator:{provider:"OpenAI",model_requested:"gpt-6-luna",store:false,tools:[]},
-  evaluator_candidate:{provider:"OpenAI",model_requested:P3_EVALUATOR_MODEL_ID,authority_state:"CANDIDATE_ONLY",automatic_admission:false},
+  generator:{provider:b0.B0_AI_PROVIDER_REF,model_requested:b0.B0_AI_MODEL_ID,transport:"Vercel AI Gateway /v1/responses",auth_mode:"VERCEL_OIDC_TOKEN_OR_AI_GATEWAY_API_KEY",store:false,tools:[]},
+  evaluator_candidate:{provider:P3_EVALUATOR_PROVIDER_REF,model_requested:P3_EVALUATOR_MODEL_ID,transport:"Vercel AI Gateway /v1/responses",auth_mode:"VERCEL_OIDC_TOKEN_OR_AI_GATEWAY_API_KEY",authority_state:"CANDIDATE_ONLY",automatic_admission:false},
   source_evidence:{
    b0_model_test:{path:"pr3/authority/source_evidence/B0/B0_MODEL_TEST_MVP_Evidence.json",sha256:"4a2e9a4404a0962dc09a874441de329f70dc90a722cd035d3dcf2f70fdbcaabf"},
    b2_integrated_model_test:{path:"pr3/authority/source_evidence/B2/MODEL_TEST_MVP_Integrated_Evidence.json",sha256:"f88dd88aa3a02350940862058d718ea4477ea0caef58dc85c8530a4073e70586",baseline_sha256:"9d7df9583b5d0a42ce146dc2546781131efa5a007c2e0bc59c24b42acf887b15"},
@@ -249,7 +249,7 @@ async function main(){
   deterministic_target_ids:mixedPreflight.deterministic_target_ids
  };
  if((mixedPreflight.provider_request?.target_ids??[]).includes("transformation_iterations")) evidence.hard_falsifiers.push("MIXED_INTERACTION_DETERMINISTIC_TARGET_LEAKED_TO_PROVIDER");
- if(!process.env.AI_GATEWAY_API_KEY?.trim()){
+ if(!(process.env.AI_GATEWAY_API_KEY ?? process.env.VERCEL_OIDC_TOKEN)?.trim()){
   evidence.qualification_determination="BLOCKED_AI_GATEWAY_AUTH_NOT_AVAILABLE";
   evidence.completed_at=now();
   fs.mkdirSync(path.join(root,".tmp"),{recursive:true});
