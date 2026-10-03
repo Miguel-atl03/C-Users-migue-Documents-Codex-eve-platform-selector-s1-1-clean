@@ -433,7 +433,8 @@
     "automatic_admission": false,
     "canonical_anchor_rule": "canonical_anchor_ref MUST equal the exact runtime_ref shared by every target_id in the request; multi-target requests cannot span Runtime interactions.",
     "normative_context_rule": "normative_context_ref MUST be one of the exact systemic_intent_ref values for target_ids; EVE composes it, model cannot add/replace it.",
-    "observational_context_rule": "observational_context_ref MUST match the authorized cluster/observation context for the active Runtime interaction."
+    "observational_context_rule": "observational_context_ref MUST match the authorized cluster/observation context for the active Runtime interaction.",
+    "mixed_runtime_interaction_rule": "Runtime target_ids may contain both AI and DETERMINISTIC subfields in the same interaction. Before provider invocation, the adapter filters to AI-authorized targets only; DETERMINISTIC targets are never exposed to the model and never create AIOperation/AIProposal rows. If no AI target remains, provider call count and AI persistence are both zero."
   },
   "evaluator_state": {
     "authorized_evaluator": "NOT_AVAILABLE",
@@ -445,7 +446,8 @@
     "Supports are exact evidence revision/range/quote bindings over authorized immutable literals.",
     "No semantic proposal is automatically admitted while compatible evaluator authority is unavailable.",
     "Questions without supports are allowed only when neutral=true; candidates require non-empty supports.",
-    "Model cannot add targets, canonical anchors, permissions, branching, readiness, diagnosis or business truth."
+    "Model cannot add targets, canonical anchors, permissions, branching, readiness, diagnosis or business truth.",
+    "Mixed Runtime interactions do not leak DETERMINISTIC targets into the provider payload; mode filtering occurs before model invocation and before AI persistence."
   ],
   "next_gate": "P3 real-model conformance/qualification after A08+A09 source implementation",
   "source_implementation": {
@@ -456,6 +458,7 @@
     "conformance_test": "tests/regression/pr3/a09-b2-ai.test.mjs",
     "deterministic_provider_call_policy": "ZERO_CALLS",
     "runtime_activation": "NOT_AUTHORIZED_BY_A09",
-    "live_model_calls": "NOT_EXECUTED_IN_A09"
+    "live_model_calls": "NOT_EXECUTED_IN_A09",
+    "mixed_mode_filtering": "prepareB2AiRequest filters DETERMINISTIC target_ids before provider/persistence; deterministic-only request returns zero-call safe result."
   }
 }
