@@ -40,6 +40,20 @@ export const B2_TARGETS={
  transformation_hidden_changes_description_clarified:{question_code:"2.C",question:"Mencionaste cambios no oficiales, pero todavía no queda claro cuál es el cambio concreto o quién lo hace. ¿Qué cambia fuera del procedimiento normal y desde dónde ocurre?",ai_mode:"AI_CONDITIONAL_CLARIFICATION",ops:["clarification"]}
 } as const;
 export type B2TargetId=keyof typeof B2_TARGETS;
+
+export const B2_RUNTIME_BINDINGS={
+ "B2-Q12":{cluster_refs:["K1"],intent_refs:["B2-SIE-K1-v0.8C::2.1 · normativo; nunca evidence_context.","B2-SIE-K1-v0.8C::2.1a · normativo; nunca evidence_context.","B2-SIE-K1-v0.8C::2.1b · normativo; nunca evidence_context.","B2-SIE-K1-v0.8C::2.1c · normativo; nunca evidence_context."]},
+ "B2-Q13":{cluster_refs:["K3"],intent_refs:["B2-SIE-K3-v0.8C::2.2_obj · normativo; nunca evidence_context.","B2-SIE-K3-v0.8C::2.2_suj · normativo; nunca evidence_context.","B2-SIE-K3-v0.8C::2.2_acc · normativo; nunca evidence_context."]},
+ "B2-Q14":{cluster_refs:["K4"],intent_refs:["B2-SIE-K4-v0.8C::2.4a · normativo; nunca evidence_context.","B2-SIE-K4-v0.8C::2.4b · normativo; nunca evidence_context."]},
+ "B2-Q15":{cluster_refs:["K4"],intent_refs:["B2-SIE-K4-v0.8C::2.5 · normativo; nunca evidence_context.","B2-SIE-K4-v0.8C::2.6 · normativo; nunca evidence_context."]},
+ "B2-Q16":{cluster_refs:["K3","K5"],intent_refs:["B2-SIE-K3-v0.8C::2.3 · normativo; nunca evidence_context.","B2-SIE-K5-v0.8C::2.7 · normativo; nunca evidence_context."]},
+ "B2-Q17":{cluster_refs:["K6","K7"],intent_refs:["B2-SIE-K6-v0.8C::2.9 · normativo; nunca evidence_context.","B2-SIE-K7-v0.8C::2.11 · normativo; nunca evidence_context."]},
+ "C04":{cluster_refs:["K2"],intent_refs:["B2-SIE-K2-v0.8C::2.1_AB_Relacion · normativo; nunca evidence_context.","B2-SIE-K2-v0.8C::2.1_AC_Relacion · normativo; nunca evidence_context.","B2-SIE-K2-v0.8C::2.1_BC_Relacion · normativo; nunca evidence_context.","B2-SIE-K2-v0.8C::2.1_ABC_Relacion · normativo; nunca evidence_context.","B2-SIE-K2-v0.8C::2.1_ABC_Prioridad · normativo; nunca evidence_context.","B2-SIE-K2-v0.8C::2.A · normativo; nunca evidence_context."]},
+ "C05":{cluster_refs:["K6"],intent_refs:["B2-SIE-K6-v0.8C::2.10 · normativo; nunca evidence_context.","B2-SIE-K6-v0.8C::2.B · normativo; nunca evidence_context."]},
+ "C06":{cluster_refs:["K7"],intent_refs:["B2-SIE-K7-v0.8C::2.12 · normativo; nunca evidence_context.","B2-SIE-K7-v0.8C::2.C · normativo; nunca evidence_context."]},
+ "C07":{cluster_refs:["K5"],intent_refs:["B2-SIE-K5-v0.8C::2.8 · normativo; nunca evidence_context."]}
+} as const;
+
 export type B2Operation="render"|"candidate"|"clarification";
 export type B2ContextSource={evidence_id:string;revision:number;literal:string;question_code?:string;variable_id?:string;knowledge_basis?:string;epistemic_class?:string};
 export type B2RuntimeAiRequest={
@@ -64,12 +78,22 @@ export function assertB2Request(input:B2ProductionAiRequest):void{
  if(req.profile_ref!==`${B2_PROFILE_ID}@${B2_PROFILE_REVISION}`) throw new Error("a09_b2_profile_mismatch");
  if(!["render","candidate","clarification"].includes(req.operation)) throw new Error("a09_operation_invalid");
  if(!req.target_ids.length||new Set(req.target_ids).size!==req.target_ids.length) throw new Error("a09_target_set_invalid");
+ const activeBindings=[] as Array<{target:string;runtime_ref:string}>;
  for(const target of req.target_ids){
   const spec=B2_TARGETS[target as B2TargetId];
   if(!spec) throw new Error(`a09_target_unknown:${target}`);
   if(spec.ai_mode==="DETERMINISTIC") throw new Error(`a09_deterministic_target_forbids_model:${target}`);
   if(!(spec.ops as readonly string[]).includes(req.operation)) throw new Error(`a09_operation_not_authorized_for_target:${target}:${req.operation}`);
+  const runtimeRef=Object.entries(B2_RUNTIME_BINDINGS).find(([,binding])=>binding.intent_refs.some((ref)=>ref.includes(`::${spec.question_code} ·`)))?.[0];
+  if(!runtimeRef) throw new Error(`a09_runtime_binding_missing:${target}`);
+  activeBindings.push({target,runtime_ref:runtimeRef});
  }
+ const anchors=new Set(activeBindings.map((binding)=>binding.runtime_ref));
+ if(anchors.size!==1||!anchors.has(req.canonical_anchor_ref)) throw new Error("a09_canonical_anchor_mismatch");
+ const runtimeBinding=B2_RUNTIME_BINDINGS[req.canonical_anchor_ref as keyof typeof B2_RUNTIME_BINDINGS];
+ if(!runtimeBinding) throw new Error("a09_runtime_anchor_unknown");
+ if(!(runtimeBinding.intent_refs as readonly string[]).includes(req.normative_context_ref)) throw new Error("a09_normative_context_mismatch");
+ if(!(runtimeBinding.cluster_refs as readonly string[]).includes(req.observational_context_ref)) throw new Error("a09_observational_context_mismatch");
  if(req.operation_limits.max_questions_per_proposal!==2||req.operation_limits.max_semantic_candidates!==8) throw new Error("a09_operation_limits_mismatch");
  if(req.review_policy_ref!==B2_REVIEW_POLICY_REF) throw new Error("a09_review_policy_mismatch");
  if(!req.context_revision||!req.canonical_anchor_ref||!req.normative_context_ref||!req.observational_context_ref) throw new Error("a09_context_binding_missing");
