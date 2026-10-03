@@ -1,6 +1,6 @@
 {
   "artifact_id": "A08-PR3-B0-PRODUCTION-AI-BINDING-v1.0",
-  "state": "SOURCE_IMPLEMENTED__P3_REAL_MODEL_QUALIFICATION_PENDING__RENDER_AND_INTERNAL_ROUTING",
+  "state": "SOURCE_IMPLEMENTED__P3_GATEWAY_REAL_MODEL_QUALIFICATION_PENDING__RENDER_AND_INTERNAL_ROUTING",
   "authority": {
     "prompt": "PROMPT PR3 v1.2.1",
     "ai_architecture": "EVE-C1-IA-ARQUITECTURA-TRANSVERSAL-1.2.1",
@@ -23,9 +23,9 @@
     "a11": "A11-PR3-AI-PROVENANCE-LEDGER-v1.0"
   },
   "provider_binding": {
-    "provider_ref": "openai.responses.v1",
-    "endpoint": "https://api.openai.com/v1/responses",
-    "model_id": "gpt-6-luna",
+    "provider_ref": "vercel.ai_gateway.openresponses.v1",
+    "endpoint": "https://ai-gateway.vercel.sh/v1/responses",
+    "model_id": "openai/gpt-5.4-mini",
     "reasoning_effort": "none",
     "store": false,
     "tools": [],
@@ -35,12 +35,14 @@
     "timeout_ms": 20000,
     "max_output_tokens": 1400,
     "max_transport_retries": 1,
-    "qualification_state": "PENDING_P3",
+    "qualification_state": "PENDING_P3_GATEWAY_REAL_MODEL_EXECUTION",
     "authorized_operations": [
       "render",
       "classify_genericity",
       "classify_scale"
-    ]
+    ],
+    "auth_mode": "VERCEL_OIDC_TOKEN_AUTOMATIC__AI_GATEWAY_API_KEY_LOCAL_FALLBACK",
+    "prompt_training": "DISALLOWED"
   },
   "b0_contract_projection": {
     "operation": "render",
@@ -95,12 +97,12 @@
   "next_gate": "A09 then P3",
   "source_implementation": {
     "binding_module": "src/services/eve/pr3/ai/b0-binding.ts",
-    "provider_module": "src/services/eve/pr3/ai/openai-responses.ts",
+    "provider_module": "src/services/eve/pr3/ai/vercel-ai-gateway-b0.ts",
     "persistence_module": "src/services/eve/pr3/ai/store.ts",
     "adapter_module": "src/services/eve/pr3/ai/b0-adapter.ts",
     "conformance_test": "tests/regression/pr3/a08-b0-ai.test.mjs",
     "runtime_activation": "NOT_AUTHORIZED_BY_A08",
-    "live_model_calls": "NOT_EXECUTED_IN_A08",
+    "live_model_calls": "NOT_EXECUTED_IN_A08__P3_GATEWAY_EXECUTION_REQUIRED",
     "routing_provider_module": "src/services/eve/pr3/ai/b0-routing.ts",
     "routing_operations": [
       "classify_genericity",
@@ -159,5 +161,11 @@
       "safe_fallback": "MODEL_UNAVAILABLE|invalid schema|binding/support reject|abstain|semantic uncertainty => SCALE_UNKNOWN -> 0.C",
       "user_evidence_authority": false
     }
+  },
+  "technical_binding_basis": {
+    "source_contract_rule": "Provider/model technical limits are implementation-owned and downstream of semantic context selection; promoted B0 canon is provider-agnostic.",
+    "selected_generator_model": "openai/gpt-5.4-mini",
+    "selection_reason": "structured-output capable, lower-latency/cost generator role; no authority expansion; evaluator remains a distinct stronger configuration.",
+    "transport_auth": "Vercel OIDC in deployed environment; no user-managed OpenAI API key required."
   }
 }
