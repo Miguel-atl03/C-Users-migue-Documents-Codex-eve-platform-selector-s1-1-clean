@@ -21,11 +21,12 @@ function outputText(payload:Record<string,unknown>):string{
 async function once(apiKey:string,request:B2RuntimeAiRequest):Promise<B2ProviderResult>{
  const controller=new AbortController(), timeout=setTimeout(()=>controller.abort(),20_000);
  try{
-  const response=await fetch("https://api.openai.com/v1/responses",{
+  const response=await fetch("https://ai-gateway.vercel.sh/v1/responses",{
    method:"POST",
    headers:{"Content-Type":"application/json","Authorization":`Bearer ${apiKey}`},
    signal:controller.signal,
    body:JSON.stringify({
+    providerOptions:{gateway:{disallowPromptTraining:true}},
     model:B2_AI_MODEL_ID,
     store:false,
     reasoning:{effort:"none"},
@@ -36,7 +37,7 @@ async function once(apiKey:string,request:B2RuntimeAiRequest):Promise<B2Provider
    })
   });
   const payload=await response.json().catch(()=>({})) as Record<string,unknown>;
-  if(!response.ok){const retryable=response.status===408||response.status===409||response.status===429||response.status>=500;throw new B2ProviderError(`OPENAI_HTTP_${response.status}`,"OpenAI Responses request failed",retryable);}
+  if(!response.ok){const retryable=response.status===408||response.status===409||response.status===429||response.status>=500;throw new B2ProviderError(`OPENAI_HTTP_${response.status}`,"Vercel AI Gateway Responses request failed",retryable);}
   if(payload.status!=="completed") throw new B2ProviderError(`OPENAI_STATUS_${String(payload.status??"UNKNOWN").toUpperCase()}`);
   let proposal:B2AiProposal;
   try{proposal=JSON.parse(outputText(payload)) as B2AiProposal;}catch(error){if(error instanceof B2ProviderError) throw error;throw new B2ProviderError("OPENAI_STRUCTURED_OUTPUT_PARSE_FAILED");}
@@ -50,8 +51,8 @@ async function once(apiKey:string,request:B2RuntimeAiRequest):Promise<B2Provider
 
 export class OpenAiB2ResponsesProvider implements B2AiProvider{
  async propose(request:B2RuntimeAiRequest):Promise<B2ProviderResult>{
-  const apiKey=process.env.EVE_PR3_OPENAI_API_KEY?.trim();
-  if(!apiKey) throw new B2ProviderError("OPENAI_API_KEY_NOT_CONFIGURED");
+  const apiKey=(process.env.AI_GATEWAY_API_KEY ?? process.env.VERCEL_OIDC_TOKEN)?.trim();
+  if(!apiKey) throw new B2ProviderError("AI_GATEWAY_AUTH_NOT_CONFIGURED");
   try{return await once(apiKey,request);}catch(error){if(!(error instanceof B2ProviderError)||!error.retryable) throw error;return once(apiKey,request);}
  }
 }
