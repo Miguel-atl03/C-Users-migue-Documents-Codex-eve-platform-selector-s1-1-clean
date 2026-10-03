@@ -42,13 +42,14 @@
       "runtime_activation": false
     },
     "P3": {
-      "state": "HARNESS_IMPLEMENTED__VERCEL_OIDC_EXECUTION_PENDING",
+      "state": "HARNESS_IMPLEMENTED__CODEX_VERCEL_OIDC_EXECUTION_PENDING",
       "plan_ref": "P3-PR3-PRODUCTION-AI-QUALIFICATION-PLAN-v1.0",
       "workflow": ".github/workflows/pr3-p3-real-model-qualification.yml",
-      "command": "npm run qualify:pr3-ai",
+      "command": "npm run qualify:pr3-ai:vercel-oidc",
       "only_material_blocker": null,
-      "dry_preflight": "PASS__BLOCKED_AI_GATEWAY_AUTH_NOT_AVAILABLE_OUTSIDE_VERCEL__0_HARD_FALSIFIERS",
-      "execution_path": "Vercel temporary qualifier using automatic VERCEL_OIDC_TOKEN"
+      "dry_preflight": "PASS__OUTSIDE_VERCEL_AUTH_CONTEXT_EXPECTS_BLOCKED_AI_GATEWAY_AUTH_NOT_AVAILABLE__0_HARD_FALSIFIERS",
+      "execution_path": "scripts/pr3/run-p3-with-vercel-oidc.mjs via authenticated Codex Vercel CLI project token",
+      "executor_task": "pr3/tasks/P3_A10_CODEX_EXECUTION_TASK_v1_0.md"
     },
     "A10": {
       "state": "DECISION_PROCEDURE_IMPLEMENTED__NOT_RUN",
@@ -90,5 +91,5 @@
     "candidate != evidence",
     "proposal != evidence"
   ],
-  "next_action": "Deploy temporary P3 qualifier to Vercel, execute exact generator/evaluator qualification through AI Gateway OIDC, freeze evidence, then run A10."
+  "next_action": "Codex executes P3_A10_CODEX_EXECUTION_TASK_v1_0.md: obtain project OIDC without exposing it, run real-model P3, freeze evidence, and run guarded A10 only if P3 closes."
 }
