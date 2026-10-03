@@ -1,0 +1,188 @@
+name: PR3 P3 Auth Resolution Probe
+
+on:
+  push:
+    branches: [pr3-pilot]
+    paths:
+      - "pr3/trigger/P3_AUTH_RESOLUTION_PROBE_v1_0.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  resolve-auth-and-run-p3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
+      VERCEL_TOKEN_A: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_TOKEN_B: ${{ secrets.VERCEL_API_TOKEN }}
+      VERCEL_TOKEN_C: ${{ secrets.VERCEL_ACCESS_TOKEN }}
+      VERCEL_TOKEN_D: ${{ secrets.VERCEL_CLI_TOKEN }}
+      NEXT_PUBLIC_EVE_PR3_PILOT_ENABLED: "false"
+      EVE_PR3_RUNTIME_ADAPTER: "blocked"
+    steps:
+      - name: Checkout exact PR3 source
+        uses: actions/checkout@v4
+        with:
+          ref: pr3-pilot
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install reproducibly
+        run: npm ci --no-audit --no-fund
+
+      - name: Structural gate
+        run: |
+          npm run typecheck
+          npm run test:pr3
+
+      - name: Resolve secure AI Gateway authentication
+        id: auth
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp
+          if [ -n "${AI_GATEWAY_API_KEY:-}" ]; then
+            echo "source=AI_GATEWAY_API_KEY" >> "$GITHUB_OUTPUT"
+            echo "available=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          VTOKEN=""
+          VSOURCE=""
+          for pair in             "VERCEL_TOKEN:${VERCEL_TOKEN_A:-}"             "VERCEL_API_TOKEN:${VERCEL_TOKEN_B:-}"             "VERCEL_ACCESS_TOKEN:${VERCEL_TOKEN_C:-}"             "VERCEL_CLI_TOKEN:${VERCEL_TOKEN_D:-}"; do
+            name="${pair%%:*}"
+            value="${pair#*:}"
+            if [ -n "$value" ]; then
+              VTOKEN="$value"
+              VSOURCE="$name"
+              break
+            fi
+          done
+
+          if [ -z "$VTOKEN" ]; then
+            echo "source=NONE" >> "$GITHUB_OUTPUT"
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          set +e
+          npx --yes vercel@latest project token eve-pr3-pilot             --format=json             --scope miguelatalav-9585             --token "$VTOKEN" > .tmp/vercel-project-token.json 2>.tmp/vercel-project-token.err
+          code=$?
+          set -e
+          if [ "$code" -ne 0 ]; then
+            rm -f .tmp/vercel-project-token.json
+            echo "source=${VSOURCE}_PRESENT_BUT_PROJECT_TOKEN_FAILED" >> "$GITHUB_OUTPUT"
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          node - <<'NODE'
+          const fs=require("fs");
+          const p=JSON.parse(fs.readFileSync(".tmp/vercel-project-token.json","utf8"));
+          const t=p.token ?? p.value ?? p.oidcToken;
+          if(typeof t!=="string" || t.length<80) process.exit(2);
+          fs.writeFileSync(".tmp/vercel-oidc-token",t,{mode:0o600});
+          NODE
+          rm -f .tmp/vercel-project-token.json .tmp/vercel-project-token.err
+          echo "source=${VSOURCE}_TO_PROJECT_OIDC" >> "$GITHUB_OUTPUT"
+          echo "available=true" >> "$GITHUB_OUTPUT"
+
+      - name: Execute P3 GPT-6 with resolved auth
+        id: p3
+        if: steps.auth.outputs.available == 'true'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "${AI_GATEWAY_API_KEY:-}" ]; then
+            npm run qualify:pr3-ai:gpt6
+          else
+            export VERCEL_OIDC_TOKEN="$(cat .tmp/vercel-oidc-token)"
+            npm run qualify:pr3-ai:gpt6
+            unset VERCEL_OIDC_TOKEN
+            rm -f .tmp/vercel-oidc-token
+          fi
+
+      - name: Execute guarded A10 only after closed P3
+        id: a10
+        if: steps.p3.outcome == 'success'
+        continue-on-error: true
+        run: npm run decide:pr3-evaluator:gpt6 -- .tmp/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_1.json
+
+      - name: Freeze material result
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p pr3/evidence
+          if [ -f .tmp/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_1.json ]; then
+            cp .tmp/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_1.json pr3/evidence/
+          fi
+          if [ -f .tmp/A10_PR3_EVALUATOR_AUTHORITY_DECISION_INPUT_v1_1.json ]; then
+            cp .tmp/A10_PR3_EVALUATOR_AUTHORITY_DECISION_INPUT_v1_1.json pr3/evidence/
+          fi
+          node - <<'NODE'
+          const fs=require("fs");
+          const receipt={
+            artifact_id:"P3-AUTH-RESOLUTION-PROBE-RECEIPT-v1.0",
+            executed_at:new Date().toISOString(),
+            source_head:process.env.GITHUB_SHA,
+            auth_source:"${{ steps.auth.outputs.source }}",
+            auth_available:"${{ steps.auth.outputs.available }}"==="true",
+            p3_outcome:"${{ steps.p3.outcome }}",
+            a10_outcome:"${{ steps.a10.outcome }}",
+            token_values_recorded:false,
+            b0_automatic_admission_authority_gap:"OPEN",
+            p5:"HOLD",
+            real_user_pilot:"HOLD"
+          };
+          fs.writeFileSync("pr3/evidence/P3_AUTH_RESOLUTION_PROBE_RECEIPT_v1_0.json",JSON.stringify(receipt,null,2)+"\n");
+          NODE
+
+      - name: Secret-value scan
+        if: always()
+        shell: bash
+        run: |
+          set -e
+          if grep -R -E '(Bearer [A-Za-z0-9._=-]{20,}|sb_(secret|service_role)_[A-Za-z0-9._-]{16,}|eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,})' pr3/evidence/*.json; then
+            echo "Potential secret value detected."
+            exit 1
+          fi
+
+      - name: Commit exact evidence
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "eve-pr3-evidence-bot"
+          git config user.email "eve-pr3-evidence-bot@users.noreply.github.com"
+          git add pr3/evidence
+          if ! git diff --cached --quiet; then
+            git commit -m "Freeze PR3 P3 auth-resolution evidence"
+            git push origin HEAD:pr3-pilot
+          fi
+
+      - name: Enforce institutional stop
+        if: always()
+        shell: bash
+        run: |
+          if [ "${{ steps.auth.outputs.available }}" != "true" ]; then
+            echo "AUTH_RESOLUTION_EXHAUSTED_IN_GITHUB_CONTEXT"
+            exit 3
+          fi
+          if [ "${{ steps.p3.outcome }}" != "success" ]; then
+            echo "P3_NOT_CLOSED"
+            exit 2
+          fi
+          if [ "${{ steps.a10.outcome }}" != "success" ]; then
+            echo "A10_NOT_READY"
+            exit 2
+          fi
+          echo "P3_CLOSED__A10_READY_FOR_CENTER_AUTHORITY_DECISION"
