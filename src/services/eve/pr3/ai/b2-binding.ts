@@ -72,23 +72,33 @@ export type B2AiProposal={
  reflexive_receipt:{evidence_used_refs:readonly string[];assumptions_added:readonly string[];material_alternatives:readonly string[];presupposition_confirmation_risks:readonly string[];observer_scope_control:string;specificity_action:"contextualize"|"neutralize"|"abstain";remaining_gaps:readonly string[]};
 };
 
-export function assertB2Request(input:B2ProductionAiRequest):void{
+export type B2PreparedAiRequest={
+ runtime_request:B2RuntimeAiRequest;
+ provider_request:B2RuntimeAiRequest|null;
+ ai_target_ids:readonly string[];
+ deterministic_target_ids:readonly string[];
+};
+
+export function prepareB2AiRequest(input:B2ProductionAiRequest):B2PreparedAiRequest{
  const req=input.b2_request;
  if(!input.object_run_id||!input.interaction_key||!input.server_command_event_id||!input.requested_at) throw new Error("a09_identity_binding_missing");
  if(req.profile_ref!==`${B2_PROFILE_ID}@${B2_PROFILE_REVISION}`) throw new Error("a09_b2_profile_mismatch");
  if(!["render","candidate","clarification"].includes(req.operation)) throw new Error("a09_operation_invalid");
  if(!req.target_ids.length||new Set(req.target_ids).size!==req.target_ids.length) throw new Error("a09_target_set_invalid");
+
  const activeBindings=[] as Array<{target:string;runtime_ref:string}>;
+ const aiTargetIds:string[]=[];
+ const deterministicTargetIds:string[]=[];
  for(const target of req.target_ids){
   const spec=B2_TARGETS[target as B2TargetId];
   if(!spec) throw new Error(`a09_target_unknown:${target}`);
-  if(spec.ai_mode==="DETERMINISTIC") throw new Error(`a09_deterministic_target_forbids_model:${target}`);
-  if(!(spec.ops as readonly string[]).includes(req.operation)) throw new Error(`a09_operation_not_authorized_for_target:${target}:${req.operation}`);
   const runtimeRef=Object.entries(B2_RUNTIME_BINDINGS).find(([,binding])=>binding.intent_refs.some((ref)=>ref.includes(`::${spec.question_code} ·`)))?.[0];
   if(!runtimeRef) throw new Error(`a09_runtime_binding_missing:${target}`);
   activeBindings.push({target,runtime_ref:runtimeRef});
+  if(spec.ai_mode==="DETERMINISTIC"){deterministicTargetIds.push(target);continue;}
+  if((spec.ops as readonly string[]).includes(req.operation)) aiTargetIds.push(target);
  }
- const anchors=new Set(activeBindings.map((binding)=>binding.runtime_ref));
+ const anchors=new Set(activeBindings.map(binding=>binding.runtime_ref));
  if(anchors.size!==1||!anchors.has(req.canonical_anchor_ref)) throw new Error("a09_canonical_anchor_mismatch");
  const runtimeBinding=B2_RUNTIME_BINDINGS[req.canonical_anchor_ref as keyof typeof B2_RUNTIME_BINDINGS];
  if(!runtimeBinding) throw new Error("a09_runtime_anchor_unknown");
@@ -97,7 +107,14 @@ export function assertB2Request(input:B2ProductionAiRequest):void{
  if(req.operation_limits.max_questions_per_proposal!==2||req.operation_limits.max_semantic_candidates!==8) throw new Error("a09_operation_limits_mismatch");
  if(req.review_policy_ref!==B2_REVIEW_POLICY_REF) throw new Error("a09_review_policy_mismatch");
  if(!req.context_revision||!req.canonical_anchor_ref||!req.normative_context_ref||!req.observational_context_ref) throw new Error("a09_context_binding_missing");
- if(req.context_sources.some(s=>!s.evidence_id||!Number.isInteger(s.revision)||s.revision<1||typeof s.literal!=="string")) throw new Error("a09_context_sources_invalid");
+ if(req.context_sources.some(s=>!s.evidence_id||!Number.isInteger(s.revision)||s.revision<1||typeof s.literal!=="string") ) throw new Error("a09_context_sources_invalid");
+
+ const providerRequest=aiTargetIds.length?{...req,target_ids:aiTargetIds}:null;
+ return {runtime_request:req,provider_request:providerRequest,ai_target_ids:aiTargetIds,deterministic_target_ids:deterministicTargetIds};
+}
+
+export function assertB2Request(input:B2ProductionAiRequest):void{
+ prepareB2AiRequest(input);
 }
 
 function codePoints(value:string){return Array.from(value);}
@@ -143,6 +160,10 @@ export const B2_AI_INSTRUCTIONS=[
  "reflexive_receipt es trazabilidad declarativa, no chain-of-thought.",
  "Si no existe salida admisible, usa action=abstain."
 ].join("\n");
-export function b2AiInputPayload(req:B2RuntimeAiRequest){return {request:req,authorized_targets:req.target_ids.map(id=>({target_id:id,...B2_TARGETS[id as B2TargetId]}))};}
+export function b2AiInputPayload(req:B2RuntimeAiRequest){
+ const deterministic=req.target_ids.filter(id=>B2_TARGETS[id as B2TargetId]?.ai_mode==="DETERMINISTIC");
+ if(deterministic.length) throw new Error(`a09_deterministic_target_leaked_to_provider:${deterministic.join(",")}`);
+ return {request:req,authorized_targets:req.target_ids.map(id=>({target_id:id,...B2_TARGETS[id as B2TargetId]}))};
+}
 export function b2InstructionsSha256(){return sha256Utf8(B2_AI_INSTRUCTIONS);}
 export function b2InputSha256(req:B2RuntimeAiRequest){return sha256Utf8(canonicalJson(b2AiInputPayload(req)));}
