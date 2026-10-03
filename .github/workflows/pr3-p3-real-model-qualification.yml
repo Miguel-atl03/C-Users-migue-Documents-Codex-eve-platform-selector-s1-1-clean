@@ -1,0 +1,53 @@
+name: PR3 P3 Real Model Qualification
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  p3-real-model-qualification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      EVE_PR3_OPENAI_API_KEY: ${{ secrets.EVE_PR3_OPENAI_API_KEY }}
+      NEXT_PUBLIC_EVE_PR3_PILOT_ENABLED: "false"
+      EVE_PR3_RUNTIME_ADAPTER: "blocked"
+    steps:
+      - name: Checkout exact PR3 source
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install reproducibly
+        run: npm ci --no-audit --no-fund
+
+      - name: Structural source gate
+        run: |
+          npm run typecheck
+          npm run test:pr3
+
+      - name: Execute P3 exact real-model qualification
+        id: qualification
+        continue-on-error: true
+        run: npm run qualify:pr3-ai
+
+      - name: Upload P3 qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE
+          path: .tmp/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_0.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce P3 determination
+        if: steps.qualification.outcome != 'success'
+        run: |
+          echo "P3 real-model qualification did not close. Inspect the uploaded evidence artifact."
+          exit 1
