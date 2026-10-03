@@ -8,7 +8,7 @@ const script=fs.readFileSync(path.join(root,"scripts/pr3/run-p3-with-vercel-oidc
 const packageJson=JSON.parse(fs.readFileSync(path.join(root,"package.json"),"utf8"));
 
 test("P3 autonomous executor uses project-scoped Vercel OIDC and no user OpenAI key",()=>{
- assert.match(script,/vercel","\["project","token","eve-pr3-pilot"/);
+ assert.match(script,/\["vercel",\["project","token","eve-pr3-pilot"/);
  assert.match(script,/VERCEL_OIDC_TOKEN/);
  assert.match(script,/AI_GATEWAY_API_KEY/);
  assert.doesNotMatch(script,/EVE_PR3_OPENAI_API_KEY/);
