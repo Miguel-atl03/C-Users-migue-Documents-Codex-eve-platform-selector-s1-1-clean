@@ -1,0 +1,95 @@
+{
+  "artifact_id": "P3-GPT6-AUTH-REENTRY-DETERMINATION-v1.0",
+  "determined_at": "2026-10-03T09:35:00Z",
+  "authority": {
+    "gpt_is_capability_not_authority": true,
+    "evaluator_candidate_only": true,
+    "automatic_admission": false,
+    "a10_max_local_result": "READY_FOR_CENTER_AUTHORITY_DECISION",
+    "a10_scope": "B2_CAPTURE_RENDER_ONLY"
+  },
+  "source_head_attempted": "bf29896017aaed15e7cf056efbd3a2a5411bdad9",
+  "workflow_run_id": 37113467998,
+  "workflow_job_id": 111175676760,
+  "frozen_evidence_commit": "1af3d588c81f76498b034b28124222152de20cc4",
+  "frozen_evidence_path": "pr3/evidence/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_1.json",
+  "frozen_evidence_git_blob_sha": "f964072e5931acb43cac4a34277a095c75175ce7",
+  "observed": {
+    "structural_gate": "PASS",
+    "pr3_regression_suite": "51/51 PASS",
+    "ai_gateway_api_key_present_in_github_action": false,
+    "real_model_calls_executed": 0,
+    "p3_determination": "BLOCKED_AI_GATEWAY_AUTH_NOT_AVAILABLE",
+    "hard_falsifiers": [],
+    "a10_execution": "SKIPPED_BY_GUARD",
+    "b0_automatic_admission_authority_gap": "OPEN",
+    "p5": "HOLD",
+    "real_user_pilot": "HOLD"
+  },
+  "root_cause": {
+    "owner": "Infrastructure / secure AI Gateway authentication binding",
+    "class": "EXTERNAL_EXECUTION_AUTH_BINDING_MISSING",
+    "not_owner": [
+      "B0 promoted semantics",
+      "B0.5",
+      "B1",
+      "B2 promoted semantics",
+      "P2",
+      "P4",
+      "A08 semantic contract",
+      "A09 exact mode map",
+      "GPT Generator behavior",
+      "Evaluator behavior",
+      "Deterministic Validator behavior"
+    ],
+    "rationale": "The real-model harness exited before any provider call because its execution environment had neither a usable Vercel OIDC token nor an AI Gateway API key. Therefore no model behavior was observed and no semantic/model falsifier was produced."
+  },
+  "conformance": {
+    "successor_source": "PASS",
+    "real_model_operational_conformance": "NOT_ESTABLISHED__BLOCKED_BEFORE_PROVIDER_CALL",
+    "overall_p3": "NOT_CLOSED"
+  },
+  "consistency": {
+    "source_internal": "PASS",
+    "provider_runtime": "NOT_EVALUABLE_UNTIL_AUTH_CONFORMANCE"
+  },
+  "reason_to_live": {
+    "eve_factory_path": "Cliente → Captura EVE → Runner EVE → Cadenas → ACC → DX",
+    "p3_contribution": "Qualify GPT-6 only as bounded cognitive capacity that absorbs linguistic variety in Captura EVE while preserving canon, evidence provenance, unknowns, deterministic boundaries and human/institutional authority.",
+    "why_block_is_material": "Without an authenticated real provider call, P3 cannot prove that the executable GPT-6 capability preserves the instrument's governed function; source tests alone are insufficient."
+  },
+  "variety": {
+    "preserved": "No fallback simulation, mock model result or candidate-as-evidence was introduced to hide the auth gap.",
+    "residual": "Provider-execution variety remains unobserved because the external authentication channel is absent."
+  },
+  "reentry": {
+    "scope": "Infrastructure/authentication only",
+    "independent_determinations_preserved": [
+      "B0/B0.5/B1/B2 promoted semantics",
+      "P2 CLOSED",
+      "P4 CLOSED",
+      "A04-A09 independent semantic/source determinations",
+      "A08/A09 GPT-6 successor source conformance"
+    ],
+    "allowed_next_auth_paths": [
+      "Execute P3 inside an authorized Vercel project context where VERCEL_OIDC_TOKEN is issued automatically",
+      "Bind a scoped AI_GATEWAY_API_KEY to the CI execution environment without exposing it to chat/logs"
+    ],
+    "forbidden_next_actions": [
+      "Ask user to paste credentials into chat",
+      "Simulate a real-model response",
+      "Promote P3 from source tests",
+      "Run A10 without real-model evidence",
+      "Open P5"
+    ]
+  },
+  "secondary_finding": {
+    "id": "P3-WF-SECRET-SCAN-FP-01",
+    "owner": "Infrastructure / workflow QA",
+    "status": "CORRECTED_IN_WORKFLOW_SOURCE_PENDING_NEXT_RUN",
+    "description": "The prior scan matched safe literal auth-mode names in evidence, not secret values. The workflow scan is narrowed to secret-looking values."
+  },
+  "falsifier": "This auth-only diagnosis is falsified if the same frozen successor harness obtains valid provider authentication and then exhibits a semantic, binding, provenance, deterministic-boundary or evaluator hard falsifier.",
+  "determination": "P3_BLOCKED_BY_AI_GATEWAY_AUTH_BINDING__NO_SEMANTIC_FALSIFIER",
+  "next_action": "Establish one governed secure authentication path, rerun exact P3 v1.1, and only if it closes produce A10 v1.1 decision input; STOP for Center."
+}
