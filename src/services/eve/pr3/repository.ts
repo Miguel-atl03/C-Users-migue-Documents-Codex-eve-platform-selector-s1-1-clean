@@ -241,7 +241,18 @@ type MemoryState = {
 };
 export class MemoryPr3Repository implements Pr3Repository {
   private state: MemoryState = { receipts:new Map(),projections:new Map(),audits:[],observations:[],aiOperations:new Map(),aiProposals:new Map() };
-  async transaction<T>(fn:(tx:Pr3UnitOfWork)=>Promise<T>) { return fn(new MemoryUow(this.state)); }
+  async transaction<T>(fn:(tx:Pr3UnitOfWork)=>Promise<T>) {
+    const snapshot: MemoryState = {
+      receipts:new Map([...this.state.receipts].map(([k,v])=>[k,structuredClone(v)])),
+      projections:new Map([...this.state.projections].map(([k,v])=>[k,structuredClone(v)])),
+      audits:structuredClone(this.state.audits),
+      observations:structuredClone(this.state.observations),
+      aiOperations:new Map([...this.state.aiOperations].map(([k,v])=>[k,structuredClone(v)])),
+      aiProposals:new Map([...this.state.aiProposals].map(([k,v])=>[k,structuredClone(v)])),
+    };
+    try { return await fn(new MemoryUow(this.state)); }
+    catch (error) { this.state = snapshot; throw error; }
+  }
   async readProjection(id:string) { return this.state.projections.get(id) ?? null; }
   async health() { return { ok:true,target:"memory" as const }; }
   debug() { return this.state; }
