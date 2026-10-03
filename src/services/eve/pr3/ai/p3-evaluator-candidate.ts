@@ -95,7 +95,10 @@ export async function runP3EvaluatorCandidate(input:P3EvaluatorInput):Promise<{p
   const result=JSON.parse(outputText(payload)) as P3EvaluatorResult;
   if(result.case_id!==input.case_id||result.object_key!==input.object_key||result.authority_claimed!==false) throw new Error("P3_EVALUATOR_BINDING_INVALID");
   const expected=new Set(input.criterion_scope);
+  const observed=new Set(result.results.map((row)=>row.criterion_id));
   for(const row of result.results) if(!expected.has(row.criterion_id)) throw new Error(`P3_EVALUATOR_CRITERION_OUT_OF_SCOPE:${row.criterion_id}`);
+  for(const criterion of expected) if(!observed.has(criterion)) throw new Error(`P3_EVALUATOR_CRITERION_MISSING:${criterion}`);
+  if(observed.size!==expected.size||result.results.length!==expected.size) throw new Error("P3_EVALUATOR_CRITERION_DUPLICATE_OR_EXTRA");
   return {provider_request_id:typeof payload.id==="string"?payload.id:null,model_version:typeof payload.model==="string"?payload.model:P3_EVALUATOR_MODEL_ID,usage:payload.usage??null,result};
  }catch(error){
   if(error instanceof Error&&error.name==="AbortError") throw new Error("P3_EVALUATOR_TIMEOUT");
