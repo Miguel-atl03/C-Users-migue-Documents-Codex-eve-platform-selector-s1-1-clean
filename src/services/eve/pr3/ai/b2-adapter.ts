@@ -1,6 +1,6 @@
 import "server-only";
 import { deriveIdentity,sha256CanonicalJson,utcTimestamp } from "../canonical";
-import { B2_AI_MODEL_ID,B2_AI_PROVIDER_REF,B2_PROFILE_ID,B2_PROFILE_REVISION,B2_PROMPT_PROFILE_REF,B2_PROMPT_PROFILE_REVISION,B2_RESPONSE_SCHEMA_REF,assertB2Proposal,assertB2Request,b2InputSha256,b2InstructionsSha256,type B2ProductionAiRequest } from "./b2-binding";
+import { B2_AI_MODEL_ID,B2_AI_PROVIDER_REF,B2_PROFILE_ID,B2_PROFILE_REVISION,B2_PROMPT_PROFILE_REF,B2_PROMPT_PROFILE_REVISION,B2_RESPONSE_SCHEMA_REF,assertB2Proposal,prepareB2AiRequest,b2InputSha256,b2InstructionsSha256,type B2ProductionAiRequest } from "./b2-binding";
 import { B2ProviderError,OpenAiB2ResponsesProvider,type B2AiProvider } from "./b2-openai-responses";
 import { PostgresPr3AiStore,type AioRecord,type Pr3AiStore } from "./store";
 
@@ -21,12 +21,13 @@ function generatorRef(modelVersion:string=B2_AI_MODEL_ID){return `${B2_AI_PROVID
 export class B2ProductionAiAdapter{
  constructor(private store:Pr3AiStore=new PostgresPr3AiStore(),private provider:B2AiProvider=new OpenAiB2ResponsesProvider()){}
  async execute(input:B2ProductionAiRequest):Promise<B2ProductionAiResult>{
-  try{assertB2Request(input);}catch(error){
-   const code=error instanceof Error?error.message:"a09_request_invalid";
-   if(code.startsWith("a09_deterministic_target_forbids_model:")) return {status:"safe_fallback",reason:code,idempotent_replay:false};
-   throw error;
+  const prepared=prepareB2AiRequest(input);
+  if(!prepared.provider_request){
+   return {status:"safe_fallback",reason:`DETERMINISTIC_ONLY_NO_MODEL_CALL:${prepared.deterministic_target_ids.join(",")}`,idempotent_replay:false};
   }
-  const req=input.b2_request,identity=operationIdentity(input);
+  const req=prepared.provider_request;
+  const aiInput:{object_run_id:string;interaction_key:string;server_command_event_id:string;requested_at:string;b2_request:typeof req}={...input,b2_request:req};
+  const identity=operationIdentity(aiInput);
 
   const existingProposal=await this.store.getProposalForOperation(identity.record_id,req.request_id);
   if(existingProposal){
