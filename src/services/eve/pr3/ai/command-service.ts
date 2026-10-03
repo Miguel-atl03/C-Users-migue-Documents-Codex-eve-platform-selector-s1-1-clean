@@ -1,6 +1,7 @@
 import "server-only";
 import { deriveIdentity, sha256CanonicalJson, utcTimestamp } from "../canonical";
 import { executePr3ReceiptBound } from "../execution-service";
+import type { Pr3CommandReceipt } from "../contracts";
 import type { Pr3Repository } from "../repository";
 import {
   B0_PROFILE_ID,
@@ -107,7 +108,7 @@ export async function executeB0InternalAiCommand(args:{
 
 export type B2InternalAiCommandResult=
  |{kind:"DETERMINISTIC_ONLY_NO_AI";deterministic_target_ids:readonly string[]}
- |{kind:"AI_COMMAND";receipt:Awaited<ReturnType<typeof executePr3ReceiptBound<B2ProductionAiResult>>>["receipt"];result:B2ProductionAiResult};
+ |{kind:"AI_COMMAND";receipt:Pr3CommandReceipt;result:B2ProductionAiResult};
 
 export async function executeB2InternalAiCommand(args:{
   repo:Pr3Repository;
