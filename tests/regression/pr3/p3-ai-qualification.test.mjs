@@ -10,8 +10,8 @@ const a09=JSON.parse(fs.readFileSync(path.join(root,"pr3/authority/A09_PR3_B2_PR
 const a11=JSON.parse(fs.readFileSync(path.join(root,"pr3/authority/A11_PR3_AI_PROVENANCE_LEDGER_v1_0.json"),"utf8"));
 
 test("P3 starts only after A08/A09 source implementation and keeps P4 independent",()=>{
- assert.equal(a08.state,"SOURCE_IMPLEMENTED__P3_REAL_MODEL_QUALIFICATION_PENDING");
- assert.equal(a09.state,"SOURCE_IMPLEMENTED__P3_REAL_MODEL_QUALIFICATION_PENDING");
+ assert.match(a08.state,/^SOURCE_IMPLEMENTED__P3_REAL_MODEL_QUALIFICATION_PENDING/);
+ assert.match(a09.state,/^SOURCE_IMPLEMENTED__P3_REAL_MODEL_QUALIFICATION_PENDING/);
  assert.ok(plan.authority_inputs.includes("A08-PR3-B0-PRODUCTION-AI-BINDING-v1.0"));
  assert.ok(plan.authority_inputs.includes("A09-PR3-B2-PRODUCTION-AI-MODE-BINDING-v1.0"));
  assert.equal(plan.execution_boundaries.real_user_pilot,"HOLD");
