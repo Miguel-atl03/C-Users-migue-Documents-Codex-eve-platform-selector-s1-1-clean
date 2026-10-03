@@ -2,7 +2,7 @@ import "server-only";
 import { canonicalJson,deriveIdentity,sha256CanonicalJson,utcTimestamp } from "../canonical";
 import { B0_AI_MODEL_ID,B0_AI_PROVIDER_REF,B0_PROFILE_ID,B0_PROFILE_REVISION,B0_PROMPT_PROFILE_REF,B0_PROMPT_PROFILE_REVISION,B0_RESPONSE_SCHEMA_REF,assertB0AiProposal,assertB0ProductionAiRequest,b0InputSha256,b0InstructionsSha256,type B0ProductionAiRequest } from "./b0-binding";
 import { B0ProviderError,OpenAiB0ResponsesProvider,type B0AiProvider } from "./openai-responses";
-import { PostgresPr3AiStore,type AioRecord,type Pr3AiStore } from "./store";
+import type { AioRecord, Pr3AiStore } from "./store";
 
 export type B0ProductionAiResult=
  |{status:"waiting_review";ai_operation_id:string;proposal_id:string;proposal:unknown;idempotent_replay:boolean}
@@ -23,7 +23,7 @@ function operationIdentity(input:B0ProductionAiRequest){return deriveIdentity("a
 function generatorRef(modelVersion:string=B0_AI_MODEL_ID){return `${B0_AI_PROVIDER_REF}:${B0_AI_MODEL_ID}:${modelVersion}:${B0_PROMPT_PROFILE_REF}@${B0_PROMPT_PROFILE_REVISION}`;}
 
 export class B0ProductionAiAdapter{
- constructor(private store:Pr3AiStore=new PostgresPr3AiStore(),private provider:B0AiProvider=new OpenAiB0ResponsesProvider()){}
+ constructor(private store:Pr3AiStore,private provider:B0AiProvider=new OpenAiB0ResponsesProvider()){}
  async execute(input:B0ProductionAiRequest):Promise<B0ProductionAiResult>{
   assertB0ProductionAiRequest(input);
   const identity=operationIdentity(input),req=input.b0_request;
