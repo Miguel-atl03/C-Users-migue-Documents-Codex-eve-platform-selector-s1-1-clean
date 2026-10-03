@@ -249,8 +249,8 @@ async function main(){
   deterministic_target_ids:mixedPreflight.deterministic_target_ids
  };
  if((mixedPreflight.provider_request?.target_ids??[]).includes("transformation_iterations")) evidence.hard_falsifiers.push("MIXED_INTERACTION_DETERMINISTIC_TARGET_LEAKED_TO_PROVIDER");
- if(!process.env.EVE_PR3_OPENAI_API_KEY?.trim()){
-  evidence.qualification_determination="BLOCKED_REAL_MODEL_SECRET_NOT_AVAILABLE";
+ if(!process.env.AI_GATEWAY_API_KEY?.trim()){
+  evidence.qualification_determination="BLOCKED_AI_GATEWAY_AUTH_NOT_AVAILABLE";
   evidence.completed_at=now();
   fs.mkdirSync(path.join(root,".tmp"),{recursive:true});
   fs.writeFileSync(path.join(root,".tmp/P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_0.json"),JSON.stringify(evidence,null,2));
