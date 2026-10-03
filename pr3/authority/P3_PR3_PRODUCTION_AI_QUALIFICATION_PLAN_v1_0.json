@@ -92,5 +92,30 @@
   ],
   "threshold_note": "Promoted sources define cases and prohibitions but do not define a statistical generalization threshold for evaluator authority. P3 therefore reports exact observations/agreement and hard falsifiers; A10 must make the authority determination from that evidence without treating presence of a score as automatic qualification.",
   "output": "P3_PR3_PRODUCTION_AI_QUALIFICATION_EVIDENCE_v1_0.json",
-  "next_gate": "A10 only after real generator/evaluator-candidate execution evidence exists"
+  "next_gate": "A10 only after real generator/evaluator-candidate execution evidence exists",
+  "source_evidence_bindings": {
+    "b0_model_test": {
+      "path": "pr3/authority/source_evidence/B0/B0_MODEL_TEST_MVP_Evidence.json",
+      "evidence_id": "B0-R8-REORG2-MODEL-TEST-MVP-v1.0"
+    },
+    "b2_integrated_model_test": {
+      "path": "pr3/authority/source_evidence/B2/MODEL_TEST_MVP_Integrated_Evidence.json",
+      "evidence_id": "B2-MODEL-TEST-MVP-INTEGRATED-v0.2.2",
+      "baseline_sha256": "9d7df9583b5d0a42ce146dc2546781131efa5a007c2e0bc59c24b42acf887b15"
+    },
+    "evaluator_reference_bank": {
+      "path": "pr3/authority/source_evidence/B2/Evaluator_Qualification_Evidence.json",
+      "evidence_id": "EVALUATOR-REFERENCE-QUALIFICATION-BANK-v0.2.1",
+      "bank_size": 15,
+      "original_determination": "INSUFFICIENT_EVIDENCE"
+    },
+    "evaluator_candidate": {
+      "path": "pr3/authority/source_evidence/B2/EvaluatorAuthorityRecord_CANDIDATE.json",
+      "authority_id": "EVE-B2-EVALUATOR-AUTHORITY-CANDIDATE-v0.2.1",
+      "state": "CANDIDATE",
+      "authorized_evaluator": "NOT_AVAILABLE"
+    }
+  },
+  "current_binding_state_overlay": "A02B-PR3-PRODUCTION-AI-BINDING-STATE-OVERLAY-v1.0",
+  "execution_precondition": "A08 and A09 source implementation complete; EVE_PR3_OPENAI_API_KEY must be available server-side/local execution context for real-model qualification. Absence of the credential blocks only real-model execution, not structural source conformance."
 }
